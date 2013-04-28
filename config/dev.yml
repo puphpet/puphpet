@@ -1,0 +1,9 @@
+debug: true
+
+db.options:
+    driver: pdo_mysql
+    charset: utf8
+    dbname: foo
+    host: local
+    user: root
+    password: ''

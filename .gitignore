@@ -1,0 +1,7 @@
+cache
+config/prod.yml
+log
+tests/codeCoverage
+phpunit.xml
+twig.cache
+vendor
