@@ -18,7 +18,7 @@ class Front extends Controller
         /** @var $controllers ControllerCollection creates a new controller based on the default route */
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/', array($this, 'indexAction'))
+        $controllers->get('/', [$this, 'indexAction'])
              ->bind('homepage');
 
         return $controllers;

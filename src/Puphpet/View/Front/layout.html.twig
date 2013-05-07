@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block header %}
+    <head>
+        <meta charset="utf-8" />
+        <title>Puphpet</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Vagrant/Puppet GUI Configuration" />
+        <meta name="author" content="Juan Treminio" />
+
+        {% block css %}
+            <link href="/assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+            <style type="text/css">
+                body {
+                    padding-top: 60px;
+                    padding-bottom: 40px;
+                }
+            </style>
+            <link href="/assets/vendor/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
+            <link href="/assets/vendor/bootswatch/cerulean/bootstrap.min.css" rel="stylesheet" />
+        {% endblock %}
+
+        <!--[if lt IE 9]>
+            <script src="/assets/vendor/html5shiv/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+{% endblock %}
+
+<body>
+{% block body %}
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="#">PuPHPet</a>
+
+                <div class="nav-collapse collapse pull-right">
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#github">Fork Me</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        {% block container %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% block footerJs %}
+        <script src="/assets/vendor/jquery/jquery.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-transition.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-alert.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-modal.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-dropdown.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-scrollspy.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-tab.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-tooltip.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-popover.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-button.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-collapse.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-carousel.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-typeahead.js"></script>
+    {% endblock %}
+{% endblock %}
+</body>
+</html>
