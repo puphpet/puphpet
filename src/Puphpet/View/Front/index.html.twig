@@ -39,31 +39,36 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="page-header">
-            <h1>Get Started!</h1>
-        </div>
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="page-header">
+                <h1>Get Started!</h1>
+            </div>
 
-        <form class="form-horizontal">
-            <div class="tabbable tabs-left">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#vagrantBox" data-toggle="tab">Vagrant Box</a></li>
-                    <li><a href="#lB" data-toggle="tab">Section 2</a></li>
-                    <li><a href="#lC" data-toggle="tab">Section 3</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="vagrantBox">
-                        {% include 'Front/Tabs/vagrantBox.html.twig' %}
-                    </div>
-                    <div class="tab-pane" id="lB">
-                        <p>Howdy, I'm in Section B.</p>
-                    </div>
-                    <div class="tab-pane" id="lC">
-                        <p>What up girl, this is Section C.</p>
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#vagrantBox" data-toggle="tab">Vagrant Box</a></li>
+                        <li><a href="#serverBasics" data-toggle="tab">Server Basics</a></li>
+                        <li><a href="#apache" data-toggle="tab">Apache Settings</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="vagrantBox">
+                            {% include 'Front/Tabs/vagrantBox.html.twig' %}
+                        </div>
+                        <div class="tab-pane" id="serverBasics">
+                            {% include 'Front/Tabs/server.html.twig' %}
+                        </div>
+                        <div class="tab-pane" id="apache">
+                            {% include 'Front/Tabs/apache.html.twig' %}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
 
-    </div>
+        </div>
+
+        <div class="row">
+            <div class="span3 offset6"><a class="btn btn-warning btn-large" href="#">Reset</a></div>
+            <div class="span3"><a class="btn btn-primary btn-large" href="#">Primary</a></div>
+        </div>
+    </form>
 {% endblock %}

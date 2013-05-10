@@ -3,12 +3,13 @@
 {% block header %}
     <head>
         <meta charset="utf-8" />
-        <title>Puphpet</title>
+        <title>PuPHPet</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Vagrant/Puppet GUI Configuration" />
         <meta name="author" content="Juan Treminio" />
 
         {% block css %}
+            <link href="/assets/vendor/select2/select2.css" rel="stylesheet"/>
             <link href="/assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
             <style type="text/css">
                 body {
@@ -18,6 +19,8 @@
             </style>
             <link href="/assets/vendor/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
             <link href="/assets/vendor/bootswatch/cerulean/bootstrap.min.css" rel="stylesheet" />
+            <link href="/assets/vendor/select2-bootstrap-css/select2-bootstrap.css" rel="stylesheet" />
+            <link href="/assets/css/style.css" rel="stylesheet" />
         {% endblock %}
 
         <!--[if lt IE 9]>
@@ -41,7 +44,7 @@
                         <li><a href="#github">Fork Me</a></li>
                     </ul>
                 </div>
-                <!--/.nav-collapse -->
+
             </div>
         </div>
     </div>
@@ -67,6 +70,8 @@
         <script src="/assets/vendor/bootstrap/js/bootstrap-collapse.js"></script>
         <script src="/assets/vendor/bootstrap/js/bootstrap-carousel.js"></script>
         <script src="/assets/vendor/bootstrap/js/bootstrap-typeahead.js"></script>
+        <script src="/assets/vendor/select2/select2.js"></script>
+        <script src="/assets/js/custom.js"></script>
     {% endblock %}
 {% endblock %}
 </body>
