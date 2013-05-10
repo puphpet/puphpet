@@ -1,0 +1,72 @@
+<fieldset>
+    <legend>Apache Settings</legend>
+
+    <div class="control-group">
+        <label class="control-label" for="apache-modules">Enabled Modules</label>
+
+        <div class="controls input-prepend">
+            <span class="add-on"><b class="icon-list-alt"></b></span>
+            <select multiple="multiple" id="apache-modules" class="multiselect">
+                <option selected="selected">rewrite</option>
+                <option>actions</option>
+                <option>asis</option>
+                <option>auth_digest</option>
+                <option>authn_alias</option>
+                <option>authn_anon</option>
+                <option>authn_dbd</option>
+                <option>authn_dbm</option>
+                <option>authn_default</option>
+                <option>authnz_ldap</option>
+                <option>authz_dbm</option>
+                <option>authz_owner</option>
+                <option>cache</option>
+                <option>cern_meta</option>
+                <option>cgid</option>
+                <option>charset_lite</option>
+                <option>dav_fs</option>
+                <option>dav</option>
+                <option>dav_lock</option>
+                <option>dbd</option>
+                <option>disk_cache</option>
+                <option>dump_io</option>
+                <option>expires</option>
+                <option>ext_filter</option>
+                <option>file_cache</option>
+                <option>filter</option>
+                <option>headers</option>
+                <option>ident</option>
+                <option>imagemap</option>
+                <option>include</option>
+                <option>info</option>
+                <option>ldap</option>
+                <option>log_forensic</option>
+                <option>mem_cache</option>
+                <option>mime_magic</option>
+                <option>proxy_ajp</option>
+                <option>proxy_balancer</option>
+                <option>proxy_connect</option>
+                <option>proxy_ftp</option>
+                <option>proxy_http</option>
+                <option>proxy</option>
+                <option>proxy_scgi</option>
+                <option>speling</option>
+                <option>ssl</option>
+                <option>substitute</option>
+                <option>suexec</option>
+                <option>unique_id</option>
+                <option>userdir</option>
+                <option>usertrack</option>
+                <option>version</option>
+                <option>vhost_alias</option>
+            </select>
+        </div>
+    </div>
+
+    {% include 'Front/Tabs/apache/vhost.html.twig' %}
+
+    <div class="row">
+        <div class="span3 offset4">
+            <a class="btn btn-info apacheShowMore" rel="apache-group-1" href="#">Add Another Host</a>
+        </div>
+    </div>
+</fieldset>

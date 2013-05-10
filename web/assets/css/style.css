@@ -1,3 +1,22 @@
-.select2-container-multi .select2-choices {
+.left-indent .select2-container-multi .select2-choices {
     margin-left: -20px;
+    margin-bottom: 10px;
+}
+
+.controls.input-prepend {
+    margin-left: 20px;
+}
+
+.input-append .active, .input-prepend .active {
+    background-color: #2fa4e7;
+    border-color: #034482;
+    color: #fff;
+}
+
+.multiselect-container.dropdown-menu .active label {
+    color: #fff;
+}
+
+.tabbable {
+    margin-bottom: 10px;
 }
