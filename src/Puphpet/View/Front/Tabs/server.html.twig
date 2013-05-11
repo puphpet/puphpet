@@ -2,10 +2,10 @@
     <legend>Server Basics</legend>
 
     <div class="control-group">
-        <label class="control-label" for="server-packages">Installed Packages</label>
+        <label class="control-label" for="server[packages]">Installed Packages</label>
 
         <div class="controls left-indent">
-            <textarea class="span7 tags" id="server-packages" name="server-packages">gcc, make, python-software-properties, vim, curl, git, subversion, mercurial</textarea>
+            <textarea class="span7 tags" id="server[packages]" name="server[packages]">gcc, make, python-software-properties, vim, curl, git, subversion, mercurial</textarea>
 
             <div class="clearfix"></div>
 
@@ -14,10 +14,10 @@
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="server-bashaliases">Bash Aliases</label>
+        <label class="control-label" for="server[bashaliases]">Bash Aliases</label>
 
         <div class="controls">
-            <textarea class="span7" id="server-bashaliases" name="server-bashaliases" rows="15">
+            <textarea class="span7" id="server[bashaliases]" name="server[bashaliases]" rows="15">
 if [ -f /etc/bash_completion ]; then
     source /etc/bash_completion
 fi

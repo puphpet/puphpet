@@ -2,10 +2,10 @@
     <legend>Vagrant Box</legend>
 
     <div class="control-group">
-        <label class="control-label" for="box-name">Box Name</label>
+        <label class="control-label" for="box[name]">Box Name</label>
 
         <div class="controls">
-            <input id="box-name" name="box-name" type="text" class="input-xxlarge" required=""
+            <input id="box[name]" name="box[name]" type="text" class="input-xxlarge" required=""
                    placeholder="precise64" value="precise64" />
 
             <p class="help-block">Name when referenced by Vagrant. Should be unique.</p>
@@ -17,30 +17,29 @@
 
         <div class="controls">
             <label class="radio">
-                <input type="radio" name="box-url" value="http://files.vagrantup.com/lucid32.box" />
+                <input type="radio" name="box[url]" value="http://files.vagrantup.com/lucid32.box" />
                 Ubuntu Lucid 32 Bit
             </label>
            <label class="radio">
-                <input type="radio" name="box-url" value="http://files.vagrantup.com/lucid64.box" />
+                <input type="radio" name="box[url]" value="http://files.vagrantup.com/lucid64.box" />
                 Ubuntu Lucid 64 Bit
             </label>
             <label class="radio">
-                <input type="radio" name="box-url" value="http://files.vagrantup.com/precise32.box" />
+                <input type="radio" name="box[url]" value="http://files.vagrantup.com/precise32.box" />
                 Ubuntu Precise 32 Bit
             </label>
             <label class="radio">
-                <input type="radio" name="box-url" value="http://files.vagrantup.com/precise64.box"
-                       checked="checked" />
+                <input type="radio" name="box[url]" value="http://files.vagrantup.com/precise64.box" checked="checked" />
                 Ubuntu Precise 64 Bit
             </label>
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="box-ip">Box IP Address</label>
+        <label class="control-label" for="box[ip]">Box IP Address</label>
 
         <div class="controls">
-            <input id="box-ip" name="box-ip" type="text" class="input-xxlarge" required=""
+            <input id="box[ip]" name="box[ip]" type="text" class="input-xxlarge" required=""
                    placeholder="192.168.56.101" value="192.168.56.101" />
 
             <p class="help-block">URL to use for accessing the VM</p>
@@ -48,10 +47,10 @@
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="box-memory">Box Memory</label>
+        <label class="control-label" for="box[memory]">Box Memory</label>
 
         <div class="controls">
-            <input id="box-memory" name="box-memory" type="text" class="input-xxlarge" required=""
+            <input id="box[memory]" name="box[memory]" type="text" class="input-xxlarge" required=""
                    placeholder="1024" value="1024" />
 
             <p class="help-block">Memory to assign to VM</p>
@@ -63,25 +62,21 @@
 
         <div class="controls">
             <label class="radio">
-                <input type="radio" name="radios" value="default" checked="checked" />
+                <input type="radio" name="box[foldertype]" value="default" checked="checked" />
                 Default
             </label>
             <label class="radio">
-                <input type="radio" name="radios" value="nfs" />
+                <input type="radio" name="box[foldertype]" value="nfs" />
                 NFS
-            </label>
-            <label class="radio">
-                <input type="radio" name="radios" value="samba" />
-                Samba
             </label>
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="box-synced_folder-source">Box Sync Folder Source</label>
+        <label class="control-label" for="box[synced_folder][source]">Box Sync Folder Source</label>
 
         <div class="controls">
-            <input id="box-synced_folder-source" name="box-synced_folder-source" type="text"
+            <input id="box[synced_folder][source]" name="box[synced_folder][source]" type="text"
                    class="input-xxlarge" required="" placeholder="/path/to/your/web/files" value="" />
 
             <p class="help-block">Path your files are stored on host machine</p>
@@ -89,11 +84,11 @@
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="box-synced_folder-target">Box Sync Folder Target</label>
+        <label class="control-label" for="box[synced_folder][target]">Box Sync Folder Target</label>
 
         <div class="controls">
-            <input id="box-synced_folder-target" name="box-synced_folder-target" type="text"
-                   class="input-xxlarge" required="" placeholder="/path/on/vm" value="/var/www" />
+            <input id="box[synced_folder][target]" name="box[synced_folder][target]" type="text"
+                   class="input-xxlarge" required="" placeholder="/path/on/vm" value="" />
 
             <p class="help-block">Path the VM will see your files in</p>
         </div>

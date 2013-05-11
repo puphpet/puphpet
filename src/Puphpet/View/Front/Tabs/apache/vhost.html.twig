@@ -1,30 +1,30 @@
 <legend>Virtual Host #1</legend>
 <section>
     <div class="control-group">
-        <label class="control-label" for="apache-vhosts-servername-1">Server Name</label>
+        <label class="control-label" for="apache[vhosts][1][servername]">Server Name</label>
 
         <div class="controls">
-            <input id="apache-vhosts-servername-1" name="apache-vhosts-servername-1" type="text" class="input-xxlarge"
+            <input id="apache[vhosts][1][servername]" name="apache[vhosts][1][servername]" type="text" class="input-xxlarge"
                    required="" placeholder="awesome.dev" value="" />
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="apache-vhosts-serveraliases-1">Server Aliases</label>
+        <label class="control-label" for="apache[vhosts][1][serveraliases]">Server Aliases</label>
 
         <div class="controls">
-            <input id="apache-vhosts-serveraliases-1" name="apache-vhosts-serveraliases-1" type="text"
-                   class="input-xxlarge tags" required="" placeholder="www.awesome.dev" value="" />
+            <input id="apache[vhosts][1][serveraliases]" name="apache[vhosts][1][serveraliases]" type="text"
+                   class="input-xxlarge tags" placeholder="www.awesome.dev" value="" />
         </div>
     </div>
 
     <div class="row">
         <div class="span4">
             <div class="control-group">
-                <label class="control-label" for="apache-vhosts-docroot-1">Document Root</label>
+                <label class="control-label" for="apache[vhosts][1][docroot]">Document Root</label>
 
                 <div class="controls">
-                    <input id="apache-vhosts-docroot-1" name="apache-vhosts-docroot-1" type="text"
+                    <input id="apache[vhosts][1][docroot]" name="apache[vhosts][1][docroot]" type="text"
                            required="" placeholder="/var/www/awesome" value="" />
                 </div>
             </div>
@@ -32,22 +32,22 @@
 
         <div class="span2">
             <div class="control-group">
-                <label class="control-label" for="apache-vhosts-port-1">Port</label>
+                <label class="control-label" for="apache[vhosts][1][port]">Port</label>
 
                 <div class="controls">
-                    <input id="apache-vhosts-port-1" name="apache-vhosts-port-1" type="text" class="input-mini"
-                           required="" placeholder="80" value="80" />
+                    <input id="apache[vhosts][1][port]" name="apache[vhosts][1][port]" type="text" class="input-mini"
+                           placeholder="80" value="80" />
                 </div>
             </div>
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="apache-vhosts-envvars-1">Environment Variables</label>
+        <label class="control-label" for="apache[vhosts][1][envvars]">Environment Variables</label>
 
         <div class="controls">
-            <input id="apache-vhosts-envvars-1" name="apache-vhosts-envvars-1" type="text"
-                   class="input-xxlarge tags" required="" placeholder="APP_ENV dev, APP_FOO bar" value="" />
+            <input id="apache[vhosts][1][envvars]" name="apache[vhosts][1][envvars]" type="text"
+                   class="input-xxlarge tags" placeholder="APP_ENV dev, APP_FOO bar" value="" />
 
             <p class="help-block">"name value", separated by comma</p>
         </div>

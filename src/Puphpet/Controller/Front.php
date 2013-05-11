@@ -21,11 +21,24 @@ class Front extends Controller
         $controllers->get('/', [$this, 'indexAction'])
              ->bind('homepage');
 
+        $controllers->post('/create', [$this, 'createAction'])
+             ->bind('create');
+
         return $controllers;
     }
 
     public function indexAction()
     {
         return $this->twig()->render('Front/index.html.twig');
+    }
+
+    public function createAction(Request $request)
+    {
+        $box    = $request->get('box');
+        $server = $request->get('server');
+        $apache = $request->get('apache');
+        $php    = $request->get('php');
+
+        $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
     }
 }
