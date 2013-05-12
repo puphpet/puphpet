@@ -51,6 +51,7 @@
                     <li><a href="#serverBasics" data-toggle="tab">Server Basics</a></li>
                     <li><a href="#apache" data-toggle="tab">Apache Settings</a></li>
                     <li><a href="#php" data-toggle="tab">PHP Settings</a></li>
+                    <li><a href="#mysql" data-toggle="tab">MySQL Settings</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="vagrantBox">
@@ -64,6 +65,9 @@
                     </div>
                     <div class="tab-pane" id="php">
                         {% include 'Front/Tabs/php.html.twig' %}
+                    </div>
+                    <div class="tab-pane" id="mysql">
+                        {% include 'Front/Tabs/mysql.html.twig' %}
                     </div>
                 </div>
             </div>
