@@ -67,6 +67,32 @@ class Front extends Controller
                 'mysql'  => $mysql,
             ]
         );
+
+        $zip = new \ZipArchive;
+        $filename = tempnam(sys_get_temp_dir(), uniqid());
+        $opened = $zip->open($filename);
+
+        if ($opened === true) {
+            $this->addDir($zip, __DIR__ . '/../repo');
+            $zip->addFromString('Vagrantfile', $vagrantFile);
+            $zip->addFromString('manifests/default.pp', $manifest);
+            $zip->addFromString('modules/puphpet/files/dot/.bash_aliases', $server['bashaliases']);
+
+            $zip->close();
+
+            header('Pragma: public'); 	// required
+            header('Expires: 0');		// no cache
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($filename)).' GMT');
+            header('Cache-Control: private',false);
+            header('Content-Type: application/zip');
+            header('Content-Disposition: attachment; filename="puphpet.zip"');
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . filesize($filename));	// provide file size
+            header('Connection: close');
+            readfile($filename);		// push it out
+            exit();
+        }
     }
 
     protected function explodeAndQuote($values)
@@ -82,5 +108,18 @@ class Front extends Controller
         );
 
         return $values;
+    }
+
+    public function addDir(\ZipArchive $zip, $path) {
+        $zip->addEmptyDir($path);
+
+        $nodes = glob($path . '/*');
+        foreach ($nodes as $node) {
+            if (is_dir($node)) {
+                $this->addDir($zip, $node);
+            } elseif (is_file($node))  {
+                $zip->addFile($node);
+            }
+        }
     }
 }
