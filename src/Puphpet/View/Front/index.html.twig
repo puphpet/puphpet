@@ -45,39 +45,43 @@
                 <h1>Get Started!</h1>
             </div>
 
-            <div class="tabbable tabs-left">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#vagrantBox" data-toggle="tab">Vagrant Box</a></li>
-                    <li><a href="#serverBasics" data-toggle="tab">Server Basics</a></li>
-                    <li><a href="#apache" data-toggle="tab">Apache Settings</a></li>
-                    <li><a href="#php" data-toggle="tab">PHP Settings</a></li>
-                    <li><a href="#mysql" data-toggle="tab">MySQL Settings</a></li>
+            <div class="well span2">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Setup Your Box</li>
+                    <li class="active"><a href="#vagrantBox">Vagrant Box</a></li>
+                    <li><a href="#serverBasics">Server Basics</a></li>
+                    <li><a href="#apache">Apache Settings</a></li>
+                    <li><a href="#php">PHP Settings</a></li>
+                    <li><a href="#mysql">MySQL Settings</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Help</a></li>
                 </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="vagrantBox">
-                        {% include 'Front/Tabs/vagrantBox.html.twig' %}
-                    </div>
-                    <div class="tab-pane" id="serverBasics">
-                        {% include 'Front/Tabs/server.html.twig' %}
-                    </div>
-                    <div class="tab-pane" id="apache">
-                        {% include 'Front/Tabs/apache.html.twig' %}
-                    </div>
-                    <div class="tab-pane" id="php">
-                        {% include 'Front/Tabs/php.html.twig' %}
-                    </div>
-                    <div class="tab-pane" id="mysql">
-                        {% include 'Front/Tabs/mysql.html.twig' %}
-                    </div>
+            </div>
+            <div class="span9">
+                <div class="tab-pane active" id="vagrantBox">
+                    {% include 'Front/Tabs/vagrantBox.html.twig' %}
+                </div>
+                <div class="tab-pane" id="serverBasics">
+                    {% include 'Front/Tabs/server.html.twig' %}
+                </div>
+                <div class="tab-pane" id="apache">
+                    {% include 'Front/Tabs/apache.html.twig' %}
+                </div>
+                <div class="tab-pane" id="php">
+                    {% include 'Front/Tabs/php.html.twig' %}
+                </div>
+                <div class="tab-pane" id="mysql">
+                    {% include 'Front/Tabs/mysql.html.twig' %}
                 </div>
             </div>
-
         </div>
 
         <div class="clearfix"></div>
 
         <div class="row">
-            <div class="span3 offset4"><button type="submit" class="btn btn-primary btn-large">Create My Manifest!</button></div>
+            <div class="span3 offset4">
+                <button type="submit" class="btn btn-primary btn-large">Create My Manifest!</button>
+            </div>
         </div>
     </form>
 {% endblock %}

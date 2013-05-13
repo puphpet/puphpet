@@ -20,3 +20,9 @@
 .tabbable {
     margin-bottom: 10px;
 }
+
+h2.page-header {
+    padding-bottom: 9px;
+    margin: 20px 0 30px;
+    border-bottom: 1px solid #e5e5e5;
+}
