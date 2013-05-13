@@ -19,41 +19,12 @@ abstract class Controller implements ControllerProviderInterface
     /** @var Application */
     protected $app;
 
-    /** @var $session Session */
-    private $session;
-
     /** @var $twig \Twig_Environment */
     private $twig;
-
-    /** @var UrlGenerator */
-    private $urlGenerator;
 
     public function __construct(Application $app)
     {
         $this->app = $app;
-    }
-
-    /**
-     * Sets flash message
-     *
-     * @param string $type success, error, info, notice
-     * @param string $msg Message
-     */
-    protected function setFlash($type, $msg)
-    {
-        $this->session()->getFlashBag()->add($type, $msg);
-    }
-
-    /**
-     * @return Session
-     */
-    protected function session()
-    {
-        if (is_null($this->session)) {
-            $this->session = $this->app['session'];
-        }
-
-        return $this->session;
     }
 
     /**
@@ -66,17 +37,5 @@ abstract class Controller implements ControllerProviderInterface
         }
 
         return $this->twig;
-    }
-
-    /**
-     * @return UrlGenerator
-     */
-    protected function urlGenerator()
-    {
-        if (is_null($this->urlGenerator)) {
-            $this->urlGenerator = $this->app['url_generator'];
-        }
-
-        return $this->urlGenerator;
     }
 }
