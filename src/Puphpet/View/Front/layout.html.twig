@@ -9,16 +9,14 @@
         <meta name="author" content="Juan Treminio" />
 
         {% block css %}
+            <link href="/assets/vendor/bootswatch/cerulean/bootstrap.min.css" rel="stylesheet" />
             <link href="/assets/vendor/select2/select2.css" rel="stylesheet"/>
-            <link href="/assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
             <style type="text/css">
                 body {
                     padding-top: 60px;
                     padding-bottom: 40px;
                 }
             </style>
-            <link href="/assets/vendor/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
-            <link href="/assets/vendor/bootswatch/cerulean/bootstrap.min.css" rel="stylesheet" />
             <link href="/assets/vendor/select2-bootstrap-css/select2-bootstrap.css" rel="stylesheet" />
             <link href="/assets/css/style.css" rel="stylesheet" />
         {% endblock %}
@@ -39,6 +37,7 @@
                 <div class="nav-collapse collapse pull-right">
                     <ul class="nav">
                         <li class="active"><a href="/">Home</a></li>
+                        <li><a href="#help">Help!</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
                         <li><a href="https://github.com/jtreminio/puphpet" target="_blank">Fork Me</a></li>
@@ -58,18 +57,8 @@
 {% block footer %}
     {% block footerJs %}
         <script src="/assets/vendor/jquery/jquery.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-transition.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-alert.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-modal.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap-affix.js"></script>
         <script src="/assets/vendor/bootstrap/js/bootstrap-dropdown.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-scrollspy.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-tab.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-tooltip.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-popover.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-button.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-collapse.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-carousel.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap-typeahead.js"></script>
         <script src="/assets/vendor/select2/select2.js"></script>
         <script src="/assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>
         <script src="/assets/js/custom.js"></script>

@@ -1,4 +1,18 @@
-<h2 class="page-header">Apache Settings</h2>
+<h2 class="page-header">Apache</h2>
+<div class="span3">
+    <h5>Step 3: Apache Setup</h5>
+    <ul>
+        <li>
+            Choose what packages you would like installed on your virtual machine. Do not add Apache or PHP here, they
+            are automatically installed.
+        </li>
+    </ul>
+
+    <br />
+
+    <p class="text-center"><a id="apacheAddVhost" class="btn btn-primary" href="#">Add Another Host</a></p>
+</div>
+
 <fieldset>
     <div class="control-group">
         <label class="control-label" for="apache[modules][]">Enabled Modules</label>
@@ -61,11 +75,7 @@
         </div>
     </div>
 
-    {% include 'Front/Tabs/apache/vhost.html.twig' %}
-
-    <div class="row">
-        <div class="span3 offset4">
-            <a class="btn btn-info apacheShowMore" rel="apache-group-1" href="#">Add Another Host</a>
-        </div>
+    <div class="span7" id="apache-vhost-count" rel="1">
+        {% include 'Front/Tabs/apache/vhost.html.twig' %}
     </div>
 </fieldset>

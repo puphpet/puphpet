@@ -39,49 +39,23 @@
         </div>
     </div>
 
-    <form class="form-horizontal" action="/create" method="post" enctype="application/x-www-form-urlencoded">
-        <div class="row">
-            <div class="page-header">
-                <h1>Get Started!</h1>
-            </div>
-
-            <div class="well span2">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Setup Your Box</li>
-                    <li class="active"><a href="#vagrantBox">Vagrant Box</a></li>
-                    <li><a href="#serverBasics">Server Basics</a></li>
-                    <li><a href="#apache">Apache Settings</a></li>
-                    <li><a href="#php">PHP Settings</a></li>
-                    <li><a href="#mysql">MySQL Settings</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Help</a></li>
-                </ul>
-            </div>
-            <div class="span9">
-                <div class="tab-pane active" id="vagrantBox">
-                    {% include 'Front/Tabs/vagrantBox.html.twig' %}
-                </div>
-                <div class="tab-pane" id="serverBasics">
-                    {% include 'Front/Tabs/server.html.twig' %}
-                </div>
-                <div class="tab-pane" id="apache">
-                    {% include 'Front/Tabs/apache.html.twig' %}
-                </div>
-                <div class="tab-pane" id="php">
-                    {% include 'Front/Tabs/php.html.twig' %}
-                </div>
-                <div class="tab-pane" id="mysql">
-                    {% include 'Front/Tabs/mysql.html.twig' %}
-                </div>
-            </div>
+    <div class="row">
+        <div class="page-header">
+            <h1>Get Started!</h1>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="row">
-            <div class="span3 offset4">
-                <button type="submit" class="btn btn-primary btn-large">Create My Manifest!</button>
-            </div>
-        </div>
-    </form>
+        <form class="form-horizontal" action="/create" method="post" enctype="application/x-www-form-urlencoded">
+            <div class="row">{% include 'Front/Tabs/vagrantBox.html.twig' %}</div>
+            <div class="clearfix"></div>
+            <div id="serverBasics">{% include 'Front/Tabs/server.html.twig' %}</div>
+            <div class="clearfix"></div>
+            <div id="apache">{% include 'Front/Tabs/apache.html.twig' %}</div>
+            <div class="clearfix"></div>
+            <div id="php">{% include 'Front/Tabs/php.html.twig' %}</div>
+            <div class="clearfix"></div>
+            <div id="mysql">{% include 'Front/Tabs/mysql.html.twig' %}</div>
+            <div class="clearfix"></div>
+            <div id="create">{% include 'Front/Tabs/create.html.twig' %}</div>
+        </form>
+    </div>
 {% endblock %}

@@ -21,6 +21,12 @@ class Front extends Controller
         $controllers->get('/', [$this, 'indexAction'])
              ->bind('homepage');
 
+        $controllers->get('/add/vhost', [$this, 'addVhostAction'])
+             ->bind('add.vhost');
+
+        $controllers->get('/add/dbuser', [$this, 'addDbuserAction'])
+             ->bind('add.dbuser');
+
         $controllers->post('/create', [$this, 'createAction'])
              ->bind('create');
 
@@ -30,6 +36,20 @@ class Front extends Controller
     public function indexAction()
     {
         return $this->twig()->render('Front/index.html.twig');
+    }
+
+    public function addVhostAction(Request $request)
+    {
+        $vhostNum = $request->get('id');
+
+        return $this->twig()->render('Front/Tabs/apache/vhost.html.twig', ['vhostNum' => $vhostNum]);
+    }
+
+    public function addDbuserAction(Request $request)
+    {
+        $dbUserNum = $request->get('id');
+
+        return $this->twig()->render('Front/Tabs/mysql/dbuser.html.twig', ['dbNum' => $dbUserNum]);
     }
 
     public function createAction(Request $request)

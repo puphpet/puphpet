@@ -1,4 +1,16 @@
 <h2 class="page-header">PHP Settings</h2>
+<div class="span3">
+    <h5>Step 4: PHP Setup</h5>
+    <ul>
+        <li>
+            You have the option of installing PHP 5.4 or 5.3.
+        </li>
+        <li>
+            To use XDebug, you must install PEAR, since it uses PECL.
+        </li>
+    </ul>
+</div>
+
 <fieldset>
     <div class="row">
         <div class="span3 ">
@@ -35,12 +47,14 @@
         </div>
     </div>
 
+    <br />
+
     <div class="clearfix"></div>
 
     <div class="control-group">
         <label class="control-label" for="php[modules]">Installed Modules</label>
 
-        <div class="controls left-indent">
+        <div class="controls">
             <textarea class="span7 tags" id="php[modules]" name="php[modules]">cli, curl, intl, mcrypt, mysql</textarea>
 
             <div class="clearfix"></div>
@@ -52,7 +66,7 @@
     <div class="control-group">
         <label class="control-label" for="php[pearmodules]">Installed PEAR Extensions</label>
 
-        <div class="controls left-indent">
+        <div class="controls">
             <textarea class="span7 tags" id="php[pearmodules]" name="php[pearmodules]"></textarea>
 
             <div class="clearfix"></div>
@@ -64,7 +78,7 @@
     <div class="control-group">
         <label class="control-label" for="php[pecl]">Installed PECL Packages</label>
 
-        <div class="controls left-indent">
+        <div class="controls">
             <textarea class="span7 tags" id="php[pecl]" name="php[pecl]">pecl_http</textarea>
 
             <div class="clearfix"></div>

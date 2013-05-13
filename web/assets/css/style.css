@@ -26,3 +26,15 @@ h2.page-header {
     margin: 20px 0 30px;
     border-bottom: 1px solid #e5e5e5;
 }
+
+.sidebar-nav-fixed {
+    padding: 9px 0;
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+}
+
+.row-fluid > .span-fixed-sidebar {
+    margin-left: 290px;
+}
