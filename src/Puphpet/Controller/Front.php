@@ -103,7 +103,6 @@ class Front extends Controller
             $apache['vhosts'][$id]['envvars'] = $this->explodeAndQuote($apache['vhosts'][$id]['envvars']);
         }
 
-        $php['modules'] = $this->explodeAndQuote($php['modules']);
         $php['pearmodules'] = $this->explodeAndQuote($php['pearmodules']);
 
         foreach ($mysql['db'] as $key => $db) {

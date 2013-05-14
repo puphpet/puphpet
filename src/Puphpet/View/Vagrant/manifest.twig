@@ -60,7 +60,7 @@ class { 'php' :
 
 {% if php.modules is not empty %}
 {% for module in php.modules %}
-php::module { {{ module|raw }} : }
+php::module { '{{ module|raw }}' : }
 {% endfor %}
 {% endif %}
 

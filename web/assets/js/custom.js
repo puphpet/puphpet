@@ -9,7 +9,7 @@ $(document).ready(function(){
         tokenSeparators: [","]
     });
 
-    $(".peclTags").select2();
+    $(".selectTags").select2();
 
     $('#apacheAddVhost').click(function(){
         var vhostContainer = $('#apache-vhost-count');

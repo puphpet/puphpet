@@ -52,10 +52,12 @@
     <div class="clearfix"></div>
 
     <div class="control-group">
-        <label class="control-label" for="php[modules]">Installed Modules</label>
+        <label class="control-label" for="php[modules][]">Installed Modules</label>
 
         <div class="controls">
-            <textarea class="span7 tags" id="php[modules]" name="php[modules]">cli, curl, intl, mcrypt, mysql</textarea>
+            <select multiple class="span7 selectTags" id="php[modules][]" name="php[modules][]">
+                {% include 'Front/Tabs/php/php.html.twig' %}
+            </select>
 
             <div class="clearfix"></div>
 
@@ -79,7 +81,7 @@
         <label class="control-label" for="php[pecl][]">Installed PECL Packages</label>
 
         <div class="controls">
-            <select multiple class="span7 peclTags" id="php[pecl][]" name="php[pecl][]">
+            <select multiple class="span7 selectTags" id="php[pecl][]" name="php[pecl][]">
                 {% include 'Front/Tabs/php/pecl.html.twig' %}
             </select>
 
