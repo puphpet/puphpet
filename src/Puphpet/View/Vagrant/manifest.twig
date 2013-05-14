@@ -9,6 +9,11 @@ class { 'apt' :
     always_apt_update => true
 }
 
+package { ['python-software-properties'] :
+    ensure  => 'installed',
+    require => Exec['apt-get update'],
+}
+
 {% if server.packages %}
 package { [{{ server.packages|join(', ')|raw }}] :
     ensure  => 'installed',

@@ -30,12 +30,20 @@ class Front extends Controller
         $controllers->post('/create', [$this, 'createAction'])
              ->bind('create');
 
+        $controllers->get('/about', [$this, 'aboutAction'])
+             ->bind('about');
+
         return $controllers;
     }
 
     public function indexAction()
     {
         return $this->twig()->render('Front/index.html.twig');
+    }
+
+    public function aboutAction()
+    {
+        return $this->twig()->render('Front/about.html.twig');
     }
 
     public function addVhostAction(Request $request)
@@ -61,6 +69,10 @@ class Front extends Controller
         $mysql  = $request->get('mysql');
 
         $server['packages'] = $this->explodeAndQuote($server['packages']);
+
+        if ($key = array_search('python-software-properties', $server['packages']) !== FALSE) {
+            unset($server['packages'][$key]);
+        }
 
         // TODO: Handle user-defined bashaliases correctly. Right now it's ignoring this and using file
         $server['bashaliases'] = trim($server['bashaliases']);
@@ -88,31 +100,28 @@ class Front extends Controller
             ]
         );
 
-        $zip = new \ZipArchive;
-        $filename = tempnam(sys_get_temp_dir(), uniqid());
-        $opened = $zip->open($filename);
+        $tmpFolder = sys_get_temp_dir() . '/' . uniqid();
+        $source = __DIR__ . '/../repo';
+        $filename = tempnam(sys_get_temp_dir(), uniqid()) . '.tar.gz';
 
-        if ($opened === true) {
-            $this->addDir($zip, __DIR__ . '/../repo');
-            $zip->addFromString('Vagrantfile', $vagrantFile);
-            $zip->addFromString('manifests/default.pp', $manifest);
-            $zip->addFromString('modules/puphpet/files/dot/.bash_aliases', $server['bashaliases']);
+        shell_exec("cp -r {$source} {$tmpFolder}");
+        file_put_contents($tmpFolder . '/Vagrantfile', $vagrantFile);
+        file_put_contents($tmpFolder . '/manifests/default.pp', $manifest);
+        file_put_contents($tmpFolder . '/modules/puphpet/files/dot/.bash_aliases', $server['bashaliases']);
+        shell_exec("tar -zcvf {$filename} -C {$tmpFolder} .");
 
-            $zip->close();
-
-            header('Pragma: public'); 	// required
-            header('Expires: 0');		// no cache
-            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-            header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($filename)).' GMT');
-            header('Cache-Control: private',false);
-            header('Content-Type: application/zip');
-            header('Content-Disposition: attachment; filename="puphpet.zip"');
-            header('Content-Transfer-Encoding: binary');
-            header('Content-Length: ' . filesize($filename));	// provide file size
-            header('Connection: close');
-            readfile($filename);		// push it out
-            exit();
-        }
+        header('Pragma: public');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Last-Modified: ' . gmdate ('D, d M Y H:i:s', filemtime($filename)) . ' GMT');
+        header('Cache-Control: private', false);
+        header('Content-Type: application/octet-stream');
+        header('Content-Length: ' . filesize($filename));
+        header('Content-Disposition: attachment; filename="puphpet.gz"');
+        header('Content-Transfer-Encoding: binary');
+        header('Connection: close');
+        readfile($filename);
+        exit();
     }
 
     protected function explodeAndQuote($values)
