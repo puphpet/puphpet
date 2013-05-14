@@ -68,13 +68,13 @@ class Front extends Controller
         $php    = $request->get('php');
         $mysql  = $request->get('mysql');
 
+        $server['bashaliases'] = str_replace("\r\n", "\n", $server['bashaliases']);
         $server['packages'] = $this->explodeAndQuote($server['packages']);
 
         if ($key = array_search('python-software-properties', $server['packages']) !== FALSE) {
             unset($server['packages'][$key]);
         }
 
-        // TODO: Handle user-defined bashaliases correctly. Right now it's ignoring this and using file
         $server['bashaliases'] = trim($server['bashaliases']);
 
         $apache['modules'] = !empty($apache['modules'])
@@ -89,6 +89,13 @@ class Front extends Controller
         $php['modules'] = $this->explodeAndQuote($php['modules']);
         $php['pearmodules'] = $this->explodeAndQuote($php['pearmodules']);
         $php['pecl'] = $this->explodeAndQuote($php['pecl']);
+
+        foreach ($mysql['db'] as $key => $db) {
+            if (empty($db['user']) || empty($db['dbname'])) {
+                unset($mysql['db'][$key]);
+                continue;
+            }
+        }
 
         $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
         $manifest    = $this->twig()->render('Vagrant/manifest.twig',
