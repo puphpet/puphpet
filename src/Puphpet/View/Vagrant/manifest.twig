@@ -14,7 +14,7 @@ package { ['python-software-properties'] :
     require => Exec['apt-get update'],
 }
 
-{% if server.packages %}
+{% if server.packages is not empty %}
 package { [{{ server.packages|join(', ')|raw }}] :
     ensure  => 'installed',
     require => Exec['apt-get update'],
@@ -34,10 +34,13 @@ apache::dotconf { 'custom' :
     content => 'EnableSendfile Off',
 }
 
+{% if apache.modules is not empty %}
 {% for module in apache.modules %}
 apache::module { '{{ module }}' : }
 {% endfor %}
+{% endif %}
 
+{% if apache.vhosts is not empty %}
 {% for host in apache.vhosts %}
 apache::vhost { '{{ host.servername }}' :
     server_name   => '{{ host.servername }}',
@@ -48,13 +51,14 @@ apache::vhost { '{{ host.servername }}' :
     priority      => '1'
 }
 {% endfor %}
+{% endif %}
 
 class { 'php' :
     service => 'apache',
     require => Package['apache'],
 }
 
-{% if php.modules %}
+{% if php.modules is not empty %}
 {% for module in php.modules %}
 php::module { {{ module|raw }} : }
 {% endfor %}
@@ -69,17 +73,21 @@ class { 'php::pear' :
     require => Class['php'],
 }
 
+{% if php.pearmodules is not empty %}
 {% for pear in php.pearmodules %}
 php::pear::module { {{ pear|raw }} :
     use_package => false
 }
 {% endfor %}
+{% endif %}
 
+{% if php.pecl is not empty %}
 {% for pecl in php.pecl %}
 php::pecl::module { {{ pecl|raw }} :
     use_package => false
 }
 {% endfor %}
+{% endif %}
 
 {% if php.xdebug == 1 %}
 class { 'xdebug' : }
@@ -103,6 +111,7 @@ class { 'mysql' :
     root_password => '{{ mysql.root }}',
 }
 
+{% if mysql.db is not empty %}
 {% for database in mysql.db %}
 mysql::grant { '{{ database.dbname }}' :
     mysql_privileges => 'ALL',
@@ -112,4 +121,5 @@ mysql::grant { '{{ database.dbname }}' :
     mysql_host       => '{{ database.host }}',
 }
 {% endfor %}
+{% endif %}
 {% endif %}
