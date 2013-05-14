@@ -36,9 +36,9 @@
 
                 <div class="nav-collapse collapse pull-right">
                     <ul class="nav">
-                        <li class="active"><a href="/">Home</a></li>
-                        <li><a href="#help">Help!</a></li>
-                        <li><a href="/about">About</a></li>
+                        <li {% if currentPage is null or currentPage == 'home' %}class="active"{% endif %}><a href="/">Home</a></li>
+                        <li {% if currentPage == 'help' %}class="active"{% endif %}><a href="/help">Help!</a></li>
+                        <li {% if currentPage == 'about' %}class="active"{% endif %}><a href="/about">About</a></li>
                         <li><a href="https://jtreminio.com/contact/" target="_blank">Contact</a></li>
                         <li><a href="https://github.com/jtreminio/puphpet" target="_blank">Fork Me</a></li>
                     </ul>

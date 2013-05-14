@@ -1,0 +1,42 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block container %}
+    {{ parent() }}
+
+    <div class="row">
+        <h1 class="page-header">¡Ay, caramba!</h1>
+
+        <h2 class="page-header">I downloaded the zip file, now what?</h2>
+
+        <p>
+            Using the terminal, or cmd line, <code>cd</code> into your extracted directory and run
+            <code>$ vagrant up</code>. This will kick-off the initial process.
+        </p>
+
+        <p>
+            Vagrant will download the box file, which can take a few minutes. It will only have to do this once, even
+            if you create separate environments later on.
+        </p>
+
+        <p>
+            Then, it will hand control over to Puppet which will begin setting up your environment by installing
+            required packages and configuring tools as desired.
+        </p>
+
+        <p>
+            You will then be able to ssh into your new box with <code>$ vagrant ssh</code>. You can also access any
+            virtual hosts you created by editing your hosts file and creating entries (ex:
+            <code>192.168.123.101 puphpet.dev www.puphpet.dev</code>). To shut down the VM, simply run
+            <code>$ vagrant halt</code>. To start it back up run <code>$ vagrant up</code> again. Destroy it with
+            <code>$ vagrant destroy</code>.
+        </p>
+
+        <h2 class="page-header">Learn you some Vagrant</h2>
+
+        <p>
+            You may want to learn the basics of Vagrant CLI by
+            <a href="http://docs.vagrantup.com/v2/cli/index.html">going here</a>. You really only need to learn the
+            very basics - that is why I created this app for!
+        </p>
+    </div>
+{% endblock %}

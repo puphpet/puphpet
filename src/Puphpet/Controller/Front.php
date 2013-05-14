@@ -33,17 +33,34 @@ class Front extends Controller
         $controllers->get('/about', [$this, 'aboutAction'])
              ->bind('about');
 
+        $controllers->get('/help', [$this, 'helpAction'])
+             ->bind('help');
+
         return $controllers;
     }
 
     public function indexAction()
     {
-        return $this->twig()->render('Front/index.html.twig');
+        return $this->twig()->render(
+            'Front/index.html.twig',
+            ['currentPage' => 'home']
+        );
     }
 
     public function aboutAction()
     {
-        return $this->twig()->render('Front/about.html.twig');
+        return $this->twig()->render(
+            'Front/about.html.twig',
+            ['currentPage' => 'about']
+        );
+    }
+
+    public function helpAction()
+    {
+        return $this->twig()->render(
+            'Front/help.html.twig',
+            ['currentPage' => 'help']
+        );
     }
 
     public function addVhostAction(Request $request)
