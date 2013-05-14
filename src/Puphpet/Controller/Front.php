@@ -120,24 +120,25 @@ class Front extends Controller
             ]
         );
 
-        $tmpFolder = sys_get_temp_dir() . '/' . uniqid();
+        $tmpDir = sys_get_temp_dir();
+        $tmpFolder = uniqid();
         $source = __DIR__ . '/../repo';
-        $filename = tempnam(sys_get_temp_dir(), uniqid()) . '.tar.gz';
+        $filename = tempnam(sys_get_temp_dir(), uniqid()) . '.zip';
 
-        shell_exec("cp -r {$source} {$tmpFolder}");
-        file_put_contents($tmpFolder . '/Vagrantfile', $vagrantFile);
-        file_put_contents($tmpFolder . '/manifests/default.pp', $manifest);
-        file_put_contents($tmpFolder . '/modules/puphpet/files/dot/.bash_aliases', $server['bashaliases']);
-        shell_exec("tar -zcvf {$filename} -C {$tmpFolder} .");
+        shell_exec("cp -r {$source} {$tmpDir}/{$tmpFolder}");
+        file_put_contents("{$tmpDir}/{$tmpFolder}/Vagrantfile", $vagrantFile);
+        file_put_contents("{$tmpDir}/{$tmpFolder}/manifests/default.pp", $manifest);
+        file_put_contents("{$tmpDir}/{$tmpFolder}/modules/puphpet/files/dot/.bash_aliases", $server['bashaliases']);
+        shell_exec("cd {$tmpDir}/{$tmpFolder} && zip -r {$filename} * -x */.git\*");
 
         header('Pragma: public');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Last-Modified: ' . gmdate ('D, d M Y H:i:s', filemtime($filename)) . ' GMT');
         header('Cache-Control: private', false);
-        header('Content-Type: application/octet-stream');
+        header('Content-Type: application/zip');
         header('Content-Length: ' . filesize($filename));
-        header('Content-Disposition: attachment; filename="puphpet.gz"');
+        header('Content-Disposition: attachment; filename="puphpet.zip"');
         header('Content-Transfer-Encoding: binary');
         header('Connection: close');
         readfile($filename);
