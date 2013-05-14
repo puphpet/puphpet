@@ -75,7 +75,7 @@ class { 'php::pear' :
 
 {% if php.pearmodules is not empty %}
 {% for pear in php.pearmodules %}
-php::pear::module { {{ pear|raw }} :
+php::pear::module { '{{ pear|raw }}' :
     use_package => false
 }
 {% endfor %}

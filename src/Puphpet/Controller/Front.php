@@ -103,8 +103,6 @@ class Front extends Controller
             $apache['vhosts'][$id]['envvars'] = $this->explodeAndQuote($apache['vhosts'][$id]['envvars']);
         }
 
-        $php['pearmodules'] = $this->explodeAndQuote($php['pearmodules']);
-
         foreach ($mysql['db'] as $key => $db) {
             if (empty($db['user']) || empty($db['dbname'])) {
                 unset($mysql['db'][$key]);
