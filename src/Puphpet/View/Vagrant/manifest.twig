@@ -114,11 +114,12 @@ class { 'mysql' :
 {% if mysql.db is not empty %}
 {% for database in mysql.db %}
 mysql::grant { '{{ database.dbname }}' :
-    mysql_privileges => 'ALL',
-    mysql_db         => '{{ database.dbname }}',
-    mysql_user       => '{{ database.user }}',
-    mysql_password   => '{{ database.password }}',
-    mysql_host       => '{{ database.host }}',
+    mysql_privileges     => 'ALL',
+    mysql_db             => '{{ database.dbname }}',
+    mysql_user           => '{{ database.user }}',
+    mysql_password       => '{{ database.password }}',
+    mysql_host           => '{{ database.host }}',
+    mysql_grant_filepath => '/home/vagrant/puppet-mysql',
 }
 {% endfor %}
 {% endif %}
