@@ -4,11 +4,6 @@ $(document).ready(function(){
         tokenSeparators: [","]
     });
 
-    $(".apacheModules").select2({
-        tags: [],
-        tokenSeparators: [","]
-    });
-
     $(".selectTags").select2();
 
     $('#apacheAddVhost').click(function(){
