@@ -105,7 +105,6 @@ class Front extends Controller
 
         $php['modules'] = $this->explodeAndQuote($php['modules']);
         $php['pearmodules'] = $this->explodeAndQuote($php['pearmodules']);
-        $php['pecl'] = $this->explodeAndQuote($php['pecl']);
 
         foreach ($mysql['db'] as $key => $db) {
             if (empty($db['user']) || empty($db['dbname'])) {

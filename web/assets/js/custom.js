@@ -9,6 +9,8 @@ $(document).ready(function(){
         tokenSeparators: [","]
     });
 
+    $(".peclTags").select2();
+
     $('#apacheAddVhost').click(function(){
         var vhostContainer = $('#apache-vhost-count');
         var currentCount = vhostContainer.attr('rel');

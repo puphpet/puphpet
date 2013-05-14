@@ -76,10 +76,12 @@
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="php[pecl]">Installed PECL Packages</label>
+        <label class="control-label" for="php[pecl][]">Installed PECL Packages</label>
 
         <div class="controls">
-            <textarea class="span7 tags" id="php[pecl]" name="php[pecl]">pecl_http</textarea>
+            <select multiple class="span7 peclTags" id="php[pecl][]" name="php[pecl][]">
+                {% include 'Front/Tabs/php/pecl.html.twig' %}
+            </select>
 
             <div class="clearfix"></div>
 

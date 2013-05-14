@@ -83,7 +83,7 @@ php::pear::module { {{ pear|raw }} :
 
 {% if php.pecl is not empty %}
 {% for pecl in php.pecl %}
-php::pecl::module { {{ pecl|raw }} :
+php::pecl::module { '{{ pecl|raw }}' :
     use_package => false
 }
 {% endfor %}
