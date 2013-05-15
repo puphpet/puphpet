@@ -3,7 +3,7 @@
 use Silex\Provider;
 use Puphpet\Controller;
 
-$app = new Silex\Application();
+$app = new Silex\Application;
 
 $env = getenv('APP_ENV') ?: 'prod';
 
