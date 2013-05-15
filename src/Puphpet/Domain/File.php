@@ -11,11 +11,17 @@ class File extends Domain
     private $source;
     private $archiveFile;
 
+    /**
+     * @param string $source Absolute path to archive
+     */
     public function __construct($source)
     {
         $this->source = $source;
     }
 
+    /**
+     * @param array $files Files to replace in our source folder
+     */
     public function createArchive(array $files)
     {
         $this->setPaths();
@@ -33,9 +39,12 @@ class File extends Domain
             $this->copyFile('modules/puphpet/files/dot/.bash_aliases', $files['bash_aliases']);
         }
 
-        shell_exec("cd {$this->sysTempDir}/{$this->tmpFolder} && zip -r {$this->archiveFile} * -x */.git\*");
+        $this->zipFolder();
     }
 
+    /**
+     * Push the created archive to user
+     */
     public function downloadFile()
     {
         header('Pragma: public');
@@ -52,6 +61,9 @@ class File extends Domain
         readfile($this->archiveFile);
     }
 
+    /**
+     * Paths on server
+     */
     private function setPaths()
     {
         $this->sysTempDir  = sys_get_temp_dir();
@@ -59,13 +71,30 @@ class File extends Domain
         $this->archiveFile = tempnam($this->sysTempDir, uniqid()) . '.zip';
     }
 
+    /**
+     * Copy our repo to a temp file
+     */
     private function copyToTempFolder()
     {
         shell_exec("cp -r {$this->source} {$this->sysTempDir}/{$this->tmpFolder}");
     }
 
+    /**
+     * Replace existing file in source folder
+     *
+     * @param string $path Path to file within source folder to replace
+     * @param string $file Content to replace file with
+     */
     private function copyFile($path, $file)
     {
         file_put_contents("{$this->sysTempDir}/{$this->tmpFolder}/{$path}", $file);
+    }
+
+    /**
+     * Create a zip archive
+     */
+    private function zipFolder()
+    {
+        shell_exec("cd {$this->sysTempDir}/{$this->tmpFolder} && zip -r {$this->archiveFile} * -x */.git\*");
     }
 }
