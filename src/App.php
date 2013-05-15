@@ -21,3 +21,5 @@ $app->register(new Provider\DoctrineServiceProvider);
 
 $app->mount('/', new Puphpet\Controller\Front($app));
 $app->mount('/add', new Puphpet\Controller\Add($app));
+
+return $app;
