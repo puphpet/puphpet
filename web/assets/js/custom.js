@@ -19,6 +19,13 @@ $(document).ready(function(){
         return false;
     });
 
+    $("body").delegate(".apacheDelVhost", "click", function() {
+        var vhostNum = $(this).attr('rel');
+        $("#" + vhostNum).slideUp();
+
+        return false;
+    });
+
     $('#mysqlAddDbuser').click(function(){
         var dbContainer = $('#mysql-dbuser-count');
         var currentCount = dbContainer.attr('rel');
