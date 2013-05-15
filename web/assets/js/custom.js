@@ -21,7 +21,13 @@ $(document).ready(function(){
 
     $("body").delegate(".apacheDelVhost", "click", function() {
         var vhostNum = $(this).attr('rel');
-        $("#" + vhostNum).slideUp();
+        $("#" + vhostNum).slideUp(function () {
+            $(this).remove();
+        });
+
+        var vhostContainer = $('#apache-vhost-count');
+        var currentCount = vhostContainer.attr('rel');
+        vhostContainer.attr('rel', --currentCount);
 
         return false;
     });
