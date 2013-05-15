@@ -6,6 +6,10 @@ use Puphpet\Domain;
 
 class Apache extends Domain
 {
+    /**
+     * @param mixed $modules Array of module names
+     * @return array
+     */
     public function formatModules($modules)
     {
         return !empty($modules)
@@ -13,6 +17,10 @@ class Apache extends Domain
             : [];
     }
 
+    /**
+     * @param array $vhosts Vhosts to add
+     * @return array
+     */
     public function formatVhosts($vhosts)
     {
         foreach ($vhosts as $id => $vhost) {
