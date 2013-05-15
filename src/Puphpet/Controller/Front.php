@@ -79,37 +79,31 @@ class Front extends Controller
         $mysql['db'] = $domainMySQL->removeIncomplete($mysql['db']);
 
         $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
-        $manifest    = $this->twig()->render('Vagrant/manifest.twig',
-            [
-                'server' => $server,
-                'apache' => $apache,
-                'php'    => $php,
-                'mysql'  => $mysql,
-            ]
-        );
+        $manifest    = $this->twig()->render('Vagrant/manifest.twig', [
+            'server' => $server,
+            'apache' => $apache,
+            'php'    => $php,
+            'mysql'  => $mysql,
+        ]);
 
-        $tmpDir = sys_get_temp_dir();
-        $tmpFolder = uniqid();
-        $source = __DIR__ . '/../repo';
-        $filename = tempnam(sys_get_temp_dir(), uniqid()) . '.zip';
-
-        shell_exec("cp -r {$source} {$tmpDir}/{$tmpFolder}");
-        file_put_contents("{$tmpDir}/{$tmpFolder}/Vagrantfile", $vagrantFile);
-        file_put_contents("{$tmpDir}/{$tmpFolder}/manifests/default.pp", $manifest);
-        file_put_contents("{$tmpDir}/{$tmpFolder}/modules/puphpet/files/dot/.bash_aliases", $server['bashaliases']);
-        shell_exec("cd {$tmpDir}/{$tmpFolder} && zip -r {$filename} * -x */.git\*");
+        $domainFile = new Domain\File(__DIR__ . '/../repo');
+        $domainFile->createArchive([
+            'vagrantFile'  => $vagrantFile,
+            'manifest'     => $manifest,
+            'bash_aliases' => $server['bashaliases'],
+        ]);
 
         header('Pragma: public');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Last-Modified: ' . gmdate ('D, d M Y H:i:s', filemtime($filename)) . ' GMT');
+        header('Last-Modified: ' . gmdate ('D, d M Y H:i:s', filemtime($domainFile->getFilePath())) . ' GMT');
         header('Cache-Control: private', false);
         header('Content-Type: application/zip');
-        header('Content-Length: ' . filesize($filename));
+        header('Content-Length: ' . filesize($domainFile->getFilePath()));
         header('Content-Disposition: attachment; filename="puphpet.zip"');
         header('Content-Transfer-Encoding: binary');
         header('Connection: close');
-        readfile($filename);
+        readfile($domainFile->getFilePath());
         exit();
     }
 }
