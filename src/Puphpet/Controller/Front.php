@@ -139,17 +139,4 @@ class Front extends Controller
 
         return $values;
     }
-
-    public function addDir(\ZipArchive $zip, $path) {
-        $zip->addEmptyDir($path);
-
-        $nodes = glob($path . '/*');
-        foreach ($nodes as $node) {
-            if (is_dir($node)) {
-                $this->addDir($zip, $node);
-            } elseif (is_file($node))  {
-                $zip->addFile($node);
-            }
-        }
-    }
 }
