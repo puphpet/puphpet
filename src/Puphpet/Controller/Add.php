@@ -29,21 +29,17 @@ class Add extends Controller
 
     public function vhostAction(Request $request)
     {
-        $vhostNum = $request->get('id');
-
         return $this->twig()->render(
             'Front/Tabs/Apache/vhost.html.twig',
-            ['vhostNum' => $vhostNum]
+            ['vhostNum' => $request->get('id')]
         );
     }
 
     public function dbuserAction(Request $request)
     {
-        $dbUserNum = $request->get('id');
-
         return $this->twig()->render(
-            'Front/Tabs/mysql/dbuser.html.twig',
-            ['dbNum' => $dbUserNum]
+            'Front/Tabs/MySQL/dbuser.html.twig',
+            ['dbNum' => $request->get('id')]
         );
     }
 }
