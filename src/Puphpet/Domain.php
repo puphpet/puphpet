@@ -21,11 +21,19 @@ class Domain
      */
     protected function quoteArray($values)
     {
-        return array_map(function($value) {
-                $value = str_replace("'", '', str_replace('"', '', $value));
-                return "'{$value}'";
-            },
-            $values
-        );
+        foreach ($values as $id => $value) {
+            $value = trim($value);
+
+            if ($value == '') {
+                unset($values[$id]);
+                continue;
+            }
+
+            $value = str_replace("'", '', str_replace('"', '', $value));
+
+            $values[$id] = "'{$value}'";
+        }
+
+        return $values;
     }
 }
