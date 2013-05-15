@@ -39,6 +39,13 @@ $(document).ready(function(){
         return false;
     });
 
+    $("body").delegate(".mysqlDelDb", "click", function() {
+        var dbNum = $(this).attr('rel');
+        $("#" + dbNum).slideUp();
+
+        return false;
+    });
+
     $('.apacheShowMore').click(function(){
         var id = $(this).attr('rel');
 

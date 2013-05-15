@@ -2,8 +2,8 @@
 {% set dbNum = 1 %}
 {% endif %}
 
-<legend>Create User &amp; Database #{{ dbNum }}</legend>
-
+<div id="mysqlDb{{ dbNum }}">
+    <legend>Create User &amp; Database #{{ dbNum }}</legend>
     <div class="control-group">
         <label class="control-label" for="mysql[db][{{ dbNum }}][priveleges][]">Priveleges</label>
 
@@ -76,3 +76,8 @@
                    class="input-xxlarge" placeholder="" value="localhost" />
         </div>
     </div>
+
+    {% if dbNum != '1' %}
+        <p class="text-center"><a class="mysqlDelDb btn btn-danger" href="#" rel="mysqlDb{{ dbNum }}">Delete this Database</a></p>
+    {% endif %}
+</div>
