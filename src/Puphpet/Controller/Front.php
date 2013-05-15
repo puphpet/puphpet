@@ -92,18 +92,8 @@ class Front extends Controller
             'manifest'     => $manifest,
             'bash_aliases' => $server['bashaliases'],
         ]);
+        $domainFile->downloadFile();
 
-        header('Pragma: public');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Last-Modified: ' . gmdate ('D, d M Y H:i:s', filemtime($domainFile->getFilePath())) . ' GMT');
-        header('Cache-Control: private', false);
-        header('Content-Type: application/zip');
-        header('Content-Length: ' . filesize($domainFile->getFilePath()));
-        header('Content-Disposition: attachment; filename="puphpet.zip"');
-        header('Content-Transfer-Encoding: binary');
-        header('Connection: close');
-        readfile($domainFile->getFilePath());
-        exit();
+        return;
     }
 }

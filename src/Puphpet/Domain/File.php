@@ -36,9 +36,20 @@ class File extends Domain
         shell_exec("cd {$this->sysTempDir}/{$this->tmpFolder} && zip -r {$this->archiveFile} * -x */.git\*");
     }
 
-    public function getFilePath()
+    public function downloadFile()
     {
-        return $this->archiveFile;
+        header('Pragma: public');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Last-Modified: ' . gmdate ('D, d M Y H:i:s', filemtime($this->archiveFile)) . ' GMT');
+        header('Cache-Control: private', false);
+        header('Content-Type: application/zip');
+        header('Content-Length: ' . filesize($this->archiveFile));
+        header('Content-Disposition: attachment; filename="puphpet.zip"');
+        header('Content-Transfer-Encoding: binary');
+        header('Connection: close');
+
+        readfile($this->archiveFile);
     }
 
     private function setPaths()
