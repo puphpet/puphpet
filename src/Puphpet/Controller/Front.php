@@ -4,6 +4,7 @@ namespace Puphpet\Controller;
 
 use Puphpet\Controller;
 
+use Puphpet\Domain;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -65,30 +66,17 @@ class Front extends Controller
         $php    = $request->get('php');
         $mysql  = $request->get('mysql');
 
-        $server['bashaliases'] = str_replace("\r\n", "\n", $server['bashaliases']);
-        $server['packages'] = $this->explodeAndQuote($server['packages']);
+        $domainServer = new Domain\Server;
+        $domainApache = new Domain\Apache;
+        $domainMySQL  = new Domain\MySQL;
 
-        if ($key = array_search('python-software-properties', $server['packages']) !== FALSE) {
-            unset($server['packages'][$key]);
-        }
+        $server['bashaliases'] = $domainServer->formatBashAliases($server['bashaliases']);
+        $server['packages']    = $domainServer->formatPackages($server['packages']);
 
-        $server['bashaliases'] = trim($server['bashaliases']);
+        $apache['modules'] = $domainApache->formatModules($apache['modules']);
+        $apache['vhosts']  = $domainApache->formatVhosts($apache['vhosts']);
 
-        $apache['modules'] = !empty($apache['modules'])
-            ? $apache['modules']
-            : [];
-
-        foreach ($apache['vhosts'] as $id => $vhost) {
-            $apache['vhosts'][$id]['serveraliases'] = $this->explodeAndQuote($apache['vhosts'][$id]['serveraliases']);
-            $apache['vhosts'][$id]['envvars'] = $this->explodeAndQuote($apache['vhosts'][$id]['envvars']);
-        }
-
-        foreach ($mysql['db'] as $key => $db) {
-            if (empty($db['user']) || empty($db['dbname'])) {
-                unset($mysql['db'][$key]);
-                continue;
-            }
-        }
+        $mysql['db'] = $domainMySQL->removeIncomplete($mysql['db']);
 
         $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
         $manifest    = $this->twig()->render('Vagrant/manifest.twig',
@@ -123,20 +111,5 @@ class Front extends Controller
         header('Connection: close');
         readfile($filename);
         exit();
-    }
-
-    protected function explodeAndQuote($values)
-    {
-        $values = !empty($values) ? explode(',', $values) : [];
-
-        $values = array_map(
-            function($value) {
-                $value = str_replace("'", '', str_replace('"', '', $value));
-                return "'{$value}'";
-            },
-            $values
-        );
-
-        return $values;
     }
 }
