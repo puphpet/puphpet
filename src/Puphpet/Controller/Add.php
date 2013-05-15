@@ -32,7 +32,7 @@ class Add extends Controller
         $vhostNum = $request->get('id');
 
         return $this->twig()->render(
-            'Front/Tabs/apache/vhost.html.twig',
+            'Front/Tabs/Apache/vhost.html.twig',
             ['vhostNum' => $vhostNum]
         );
     }
