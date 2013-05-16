@@ -2,14 +2,14 @@
 {% set dbNum = 1 %}
 {% endif %}
 
-<div id="mysqlDb{{ dbNum }}">
+<div id="mysql-dbuser-{{ dbNum }}">
     <legend>Create User &amp; Database #{{ dbNum }}</legend>
     <div class="control-group">
-        <label class="control-label" for="mysql[db][{{ dbNum }}][privileges][]">Privileges</label>
+        <label class="control-label" for="mysql-dbuser-{{ dbNum }}-privileges">Privileges</label>
 
         <div class="controls input-prepend">
             <span class="add-on"><b class="icon-list-alt"></b></span>
-            <select multiple="multiple" id="mysql[db][{{ dbNum }}][privileges][]" name="mysql[db][{{ dbNum }}][privileges][]" size="6">
+            <select multiple="multiple" id="mysql-dbuser-{{ dbNum }}-privileges" name="mysql[dbuser][{{ dbNum }}][privileges][]" size="6">
                 <optgroup label="Give all">
                     <option value="ALL" selected="selected">ALL</option>
                 </optgroup>
@@ -42,42 +42,42 @@
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="mysql[db][{{ dbNum }}][user]">Username</label>
+        <label class="control-label" for="mysql-dbuser-{{ dbNum }}-user">Username</label>
 
         <div class="controls">
-            <input id="mysql[db][{{ dbNum }}][user]" name="mysql[db][{{ dbNum }}][user]" type="text"
+            <input id="mysql-dbuser-{{ dbNum }}-user" name="mysql[dbuser][{{ dbNum }}][user]" type="text"
                    class="input-xxlarge" placeholder="username" value="" />
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="mysql[db][{{ dbNum }}][password]">Password</label>
+        <label class="control-label" for="mysql-dbuser-{{ dbNum }}-password">Password</label>
 
         <div class="controls">
-            <input id="mysql[db][{{ dbNum }}][password]" name="mysql[db][{{ dbNum }}][password]" type="text"
+            <input id="mysql-dbuser-{{ dbNum }}-password" name="mysql[dbuser][{{ dbNum }}][password]" type="text"
                    class="input-xxlarge" placeholder="password" value="" />
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="mysql[db][{{ dbNum }}][dbname]">Database Name</label>
+        <label class="control-label" for="mysql-dbuser-{{ dbNum }}-dbname">Database Name</label>
 
         <div class="controls">
-            <input id="mysql[db][{{ dbNum }}][dbname]" name="mysql[db][{{ dbNum }}][dbname]" type="text"
+            <input id="mysql-dbuser-{{ dbNum }}-dbname" name="mysql[dbuser][{{ dbNum }}][dbname]" type="text"
                    class="input-xxlarge" placeholder="database_name" value="" />
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="mysql[db][{{ dbNum }}][host]">Host</label>
+        <label class="control-label" for="mysql-dbuser-{{ dbNum }}-host">Host</label>
 
         <div class="controls">
-            <input id="mysql[db][{{ dbNum }}][host]" name="mysql[db][{{ dbNum }}][host]" type="text"
+            <input id="mysql-dbuser-{{ dbNum }}-host" name="mysql[dbuser][{{ dbNum }}][host]" type="text"
                    class="input-xxlarge" placeholder="" value="localhost" />
         </div>
     </div>
 
     {% if dbNum != '1' %}
-        <p class="text-center"><a class="mysqlDelDb btn btn-danger" href="#" rel="mysqlDb{{ dbNum }}">Delete this Database</a></p>
+        <p class="text-center"><a class="mysql-dbuser-del btn btn-danger" href="#" rel="mysql-dbuser-{{ dbNum }}">Delete this Database</a></p>
     {% endif %}
 </div>

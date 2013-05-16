@@ -38,7 +38,7 @@ $(document).ready(function(){
         return false;
     });
 
-    $('#mysqlAddDbuser').click(function(){
+    $('#mysql-dbuser-add').click(function(){
         var dbContainer = $('#mysql-dbuser-count');
         var currentCount = dbContainer.attr('rel');
 
@@ -51,9 +51,15 @@ $(document).ready(function(){
         return false;
     });
 
-    $("body").delegate(".mysqlDelDb", "click", function() {
+    $("body").delegate(".mysql-dbuser-del", "click", function() {
         var dbNum = $(this).attr('rel');
-        $("#" + dbNum).slideUp();
+        $("#" + dbNum).slideUp(function () {
+            $(this).remove();
+        });
+
+        var mysqlDbuserContainer = $('#mysql-dbuser-count');
+        var currentCount = mysqlDbuserContainer.attr('rel');
+        mysqlDbuserContainer.attr('rel', --currentCount);
 
         return false;
     });

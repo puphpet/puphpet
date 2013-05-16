@@ -3,7 +3,7 @@
         root_password => '{{ mysql.root }}',
     }
 
-    {% for database in mysql.db %}
+    {% for database in mysql.dbuser %}
         mysql::grant { '{{ database.dbname }}' :
             mysql_privileges     => '{{ database.privileges|join(', ') }}',
             mysql_db             => '{{ database.dbname }}',
