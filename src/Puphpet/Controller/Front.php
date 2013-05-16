@@ -61,19 +61,17 @@ class Front extends Controller
     public function createAction(Request $request)
     {
         $box    = $request->get('box');
-        $apache = $request->get('apache');
         $php    = $request->get('php');
         $mysql  = $request->get('mysql');
 
         $server = new Domain\Server($request->get('server'));
         $server = $server->getFormatted();
 
-        $domainApache = new Domain\Apache;
+        $apache = new Domain\Apache($request->get('apache'));
+        $apache = $apache->getFormatted();
+
         $domainMySQL  = new Domain\MySQL;
         $domainPHP    = new Domain\PHP;
-
-        $apache['modules'] = $domainApache->formatModules($apache['modules']);
-        $apache['vhosts']  = $domainApache->formatVhosts($apache['vhosts']);
 
         $php['modules']     = $domainPHP->formatModules($php['modules']);
         $php['pearmodules'] = $domainPHP->formatModules($php['pearmodules']);
