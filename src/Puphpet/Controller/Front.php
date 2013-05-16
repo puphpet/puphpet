@@ -62,7 +62,6 @@ class Front extends Controller
     {
         $box    = $request->get('box');
         $php    = $request->get('php');
-        $mysql  = $request->get('mysql');
 
         $server = new Domain\Server($request->get('server'));
         $server = $server->getFormatted();
@@ -70,14 +69,14 @@ class Front extends Controller
         $apache = new Domain\Apache($request->get('apache'));
         $apache = $apache->getFormatted();
 
-        $domainMySQL  = new Domain\MySQL;
+        $mysql  = new Domain\MySQL($request->get('mysql'));
+        $mysql = $mysql->getFormatted();
+
         $domainPHP    = new Domain\PHP;
 
         $php['modules']     = $domainPHP->formatModules($php['modules']);
         $php['pearmodules'] = $domainPHP->formatModules($php['pearmodules']);
         $php['pecl']        = $domainPHP->formatModules($php['pecl']);
-
-        $mysql['db'] = $domainMySQL->removeIncomplete($mysql['db']);
 
         $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
         $manifest    = $this->twig()->render('Vagrant/manifest.twig', [

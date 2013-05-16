@@ -6,19 +6,47 @@ use Puphpet\Domain;
 
 class MySQL extends Domain
 {
-    /**
-     * @param array $dbs
-     * @return mixed
-     */
-    public function removeIncomplete(array $dbs)
+    protected $mysql;
+
+    public function __construct($mysql)
     {
-        foreach ($dbs as $key => $db) {
+        $this->mysql = is_array($mysql) ? $mysql : array();
+    }
+
+    /**
+     * Return ready to use MySQL array
+     *
+     * @return array
+     */
+    public function getFormatted()
+    {
+        if (empty($this->mysql)) {
+            return array();
+        }
+
+        $this->removeIncomplete();
+
+        return $this->mysql;
+    }
+
+    /**
+     * DB arrays must contain both a user and dbname key
+     *
+     * @return self
+     */
+    protected function removeIncomplete()
+    {
+        if (!is_array($this->mysql['dbs'])) {
+            return array();
+        }
+
+        foreach ($this->mysql['dbs'] as $key => $db) {
             if (empty($db['user']) || empty($db['dbname'])) {
-                unset($dbs[$key]);
+                unset($this->mysql['dbs'][$key]);
                 continue;
             }
         }
 
-        return $dbs;
+        return $this;
     }
 }
