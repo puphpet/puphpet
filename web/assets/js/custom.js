@@ -1,4 +1,10 @@
 $(document).ready(function(){
+    $(".box-url").click(function() {
+        var boxName = $(this).attr('rel');
+
+        $("#box-name").val(boxName);
+    });
+
     $(".tags").select2({
         tags: [],
         tokenSeparators: [","]
