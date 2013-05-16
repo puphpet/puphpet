@@ -12,7 +12,7 @@ $(document).ready(function(){
 
     $(".selectTags").select2();
 
-    $('#apacheAddVhost').click(function(){
+    $('#apache-vhost-add').click(function(){
         var vhostContainer = $('#apache-vhost-count');
         var currentCount = vhostContainer.attr('rel');
 
@@ -25,7 +25,7 @@ $(document).ready(function(){
         return false;
     });
 
-    $("body").delegate(".apacheDelVhost", "click", function() {
+    $("body").delegate(".apache-vhost-del", "click", function() {
         var vhostNum = $(this).attr('rel');
         $("#" + vhostNum).slideUp(function () {
             $(this).remove();
@@ -54,14 +54,6 @@ $(document).ready(function(){
     $("body").delegate(".mysqlDelDb", "click", function() {
         var dbNum = $(this).attr('rel');
         $("#" + dbNum).slideUp();
-
-        return false;
-    });
-
-    $('.apacheShowMore').click(function(){
-        var id = $(this).attr('rel');
-
-        $('#' + id).toggle();
 
         return false;
     });

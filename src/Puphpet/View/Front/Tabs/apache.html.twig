@@ -12,15 +12,15 @@
 
     <br />
 
-    <p class="text-center"><a id="apacheAddVhost" class="btn btn-primary" href="#">Add Another Host</a></p>
+    <p class="text-center"><a id="apache-vhost-add" class="btn btn-primary" href="#">Add Another Host</a></p>
 </div>
 
 <fieldset>
     <div class="control-group">
-        <label class="control-label" for="apache[modules][]">Enabled Modules</label>
+        <label class="control-label" for="apache-modules">Enabled Modules</label>
 
         <div class="controls">
-            <select multiple class="span7 selectTags" id="apache[modules][]" name="apache[modules][]">
+            <select multiple class="span7 selectTags" id="apache-modules" name="apache[modules][]">
                 {% include 'Front/Tabs/Apache/modules.html.twig' %}
             </select>
         </div>
