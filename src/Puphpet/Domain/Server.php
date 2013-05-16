@@ -6,30 +6,64 @@ use Puphpet\Domain;
 
 class Server extends Domain
 {
-    /**
-     * @param string $aliases Submitted .bash_aliases contents
-     * @return string
-     */
-    public function formatBashAliases($aliases)
+    protected $server;
+
+    public function __construct($server)
     {
-        return trim(str_replace("\r\n", "\n", $aliases));
+        $this->server = is_array($server) ? $server : array();
     }
 
     /**
-     * @param string $packages A comma-delimited string of package names
+     * Return ready to use server array
+     *
      * @return array
      */
-    public function formatPackages($packages)
+    public function getFormatted()
     {
-        $packages = !empty($packages) ? explode(',', $packages) : [];
+        if (empty($this->server)) {
+            return array();
+        }
 
-        $key = array_search('python-software-properties', $packages);
+        $this->formatBashAliases()
+             ->formatPackages();
+
+        return $this->server;
+    }
+
+    /**
+     * Submitted .bash_aliases contents
+     *
+     * @return self
+     */
+    protected function formatBashAliases()
+    {
+        $this->server['bashaliases'] = !empty($this->server['bashaliases'])
+            ? trim(str_replace("\r\n", "\n", $this->server['bashaliases']))
+            : '';
+
+        return $this;
+    }
+
+    /**
+     * A comma-delimited string of package names
+     *
+     * @return self
+     */
+    protected function formatPackages()
+    {
+        $this->server['packages'] = !empty($this->server['packages'])
+            ? explode(',', $this->server['packages'])
+            : [];
+
+        $key = array_search('python-software-properties', $this->server['packages']);
 
         // python-software-properties is installed by default, remove to prevent duplicate Puppet function
         if ($key !== FALSE) {
-            unset($packages[$key]);
+            unset($this->server['packages'][$key]);
         }
 
-        return $this->quoteArray($packages);
+        $this->server['packages'] = $this->quoteArray($this->server['packages']);
+
+        return $this;
     }
 }
