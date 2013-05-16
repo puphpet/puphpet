@@ -50,7 +50,7 @@ class Apache extends PuppetModuleAbstract implements PuppetModuleInterface
     protected function formatVhosts()
     {
         if (empty($this->apache['vhosts'])) {
-            return array();
+            $this->apache['vhosts'] = array();
         }
 
         $vhosts = $this->apache['vhosts'];

@@ -34,8 +34,8 @@ class MySQL extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     protected function removeIncomplete()
     {
-        if (!is_array($this->mysql['dbs'])) {
-            return array();
+        if (empty($this->mysql['dbs'])) {
+            $this->mysql['dbs'] = array();
         }
 
         foreach ($this->mysql['dbs'] as $key => $db) {
