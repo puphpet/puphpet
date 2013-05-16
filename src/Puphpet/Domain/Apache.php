@@ -21,7 +21,7 @@ class Apache extends Domain
      * @param array $vhosts Vhosts to add
      * @return array
      */
-    public function formatVhosts($vhosts)
+    public function formatVhosts(array $vhosts)
     {
         foreach ($vhosts as $id => $vhost) {
             $vhosts[$id]['serveraliases'] = $this->explodeAndQuote($vhosts[$id]['serveraliases']);
