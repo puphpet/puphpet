@@ -69,12 +69,17 @@ class Front extends Controller
         $domainServer = new Domain\Server;
         $domainApache = new Domain\Apache;
         $domainMySQL  = new Domain\MySQL;
+        $domainPHP    = new Domain\PHP;
 
         $server['bashaliases'] = $domainServer->formatBashAliases($server['bashaliases']);
         $server['packages']    = $domainServer->formatPackages($server['packages']);
 
         $apache['modules'] = $domainApache->formatModules($apache['modules']);
         $apache['vhosts']  = $domainApache->formatVhosts($apache['vhosts']);
+
+        $php['modules']     = $domainPHP->formatModules($php['modules']);
+        $php['pearmodules'] = $domainPHP->formatModules($php['pearmodules']);
+        $php['pecl']        = $domainPHP->formatModules($php['pecl']);
 
         $mysql['db'] = $domainMySQL->removeIncomplete($mysql['db']);
 
