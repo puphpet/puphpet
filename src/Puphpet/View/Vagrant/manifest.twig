@@ -23,7 +23,7 @@ file { '/home/vagrant/.bash_aliases' :
 
 {% include 'Vagrant/Modules/apache.twig' %}
 
-
+{% include 'Vagrant/Modules/php.twig' %}
 
 {% if mysql.root %}
 class { 'mysql' :
