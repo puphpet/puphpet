@@ -14,97 +14,16 @@ package { ['python-software-properties'] :
     require => Exec['apt-get update'],
 }
 
-{% if server.packages is not empty %}
-package { [{{ server.packages|join(', ')|raw }}] :
-    ensure  => 'installed',
-    require => Exec['apt-get update'],
-}
-{% endif %}
-
 file { '/home/vagrant/.bash_aliases' :
     source => 'puppet:///modules/puphpet/dot/.bash_aliases',
     ensure => 'present',
 }
 
-{% if attribute(php, '54') == 1 %}apt::ppa { 'ppa:ondrej/php5' : }{% endif %}
+{% include 'Vagrant/Modules/server.twig' %}
 
-class { 'apache' : {% if attribute(php, '54') == 1 %}require => Apt::Ppa['ppa:ondrej/php5'],{% endif %}}
+{% include 'Vagrant/Modules/apache.twig' %}
 
-apache::dotconf { 'custom' :
-    content => 'EnableSendfile Off',
-}
 
-{% if apache.modules is not empty %}
-{% for module in apache.modules %}
-apache::module { '{{ module }}' : }
-{% endfor %}
-{% endif %}
-
-{% if apache.vhosts is not empty %}
-{% for host in apache.vhosts %}
-apache::vhost { '{{ host.servername }}' :
-    server_name   => '{{ host.servername }}',
-    serveraliases => [{% if host.serveraliases %}{{ host.serveraliases|join(', ')|raw }}{% endif %}],
-    docroot       => '{{ host.docroot }}',
-    port          => '{{ host.port }}',
-    env_variables => [{% if host.envvars %}{{ host.envvars|join(', ')|raw }}{% endif %}],
-    priority      => '1'
-}
-{% endfor %}
-{% endif %}
-
-class { 'php' :
-    service => 'apache',
-    require => Package['apache'],
-}
-
-{% if php.modules is not empty %}
-{% for module in php.modules %}
-php::module { '{{ module|raw }}' : }
-{% endfor %}
-{% endif %}
-
-class { 'php::devel' :
-    require => Class['php'],
-}
-
-{% if php.pear == 1 %}
-class { 'php::pear' :
-    require => Class['php'],
-}
-
-{% if php.pearmodules is not empty %}
-{% for pear in php.pearmodules %}
-php::pear::module { '{{ pear|raw }}' :
-    use_package => false
-}
-{% endfor %}
-{% endif %}
-
-{% if php.pecl is not empty %}
-{% for pecl in php.pecl %}
-php::pecl::module { '{{ pecl|raw }}' :
-    use_package => false
-}
-{% endfor %}
-{% endif %}
-
-{% if php.xdebug == 1 %}
-class { 'xdebug' : }
-
-xdebug::config { 'cgi' : }
-xdebug::config { 'cli' : }
-{% endif %}
-{% endif %}
-
-php::ini { 'default' :
-    value    => [
-        'date.timezone = America/Chicago',
-        'display_errors = On',
-        'error_reporting = -1'
-    ],
-    target   => 'error_reporting.ini'
-}
 
 {% if mysql.root %}
 class { 'mysql' :

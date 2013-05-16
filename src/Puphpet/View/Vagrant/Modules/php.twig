@@ -1,0 +1,50 @@
+{% if attribute(php, '54') == 1 %}
+    apt::ppa { 'ppa:ondrej/php5' : }
+{% endif %}
+
+class { 'php' :
+    service => 'apache',
+    require => Package['apache'],
+}
+
+{% for module in php.modules %}
+    php::module { '{{ module|raw }}' : }
+{% endfor %}
+
+class { 'php::devel' :
+    require => Class['php'],
+}
+
+{% if php.pear == 1 %}
+    class { 'php::pear' :
+        require => Class['php'],
+    }
+
+    {% for pear in php.pearmodules %}
+        php::pear::module { '{{ pear|raw }}' :
+            use_package => false
+        }
+    {% endfor %}
+
+    {% for pecl in php.pecl %}
+        php::pecl::module { '{{ pecl|raw }}' :
+            use_package => false
+        }
+    {% endfor %}
+
+    {% if php.xdebug == 1 %}
+        class { 'xdebug' : }
+
+        xdebug::config { 'cgi' : }
+        xdebug::config { 'cli' : }
+    {% endif %}
+{% endif %}
+
+php::ini { 'default' :
+    value    => [
+        'date.timezone = America/Chicago',
+        'display_errors = On',
+        'error_reporting = -1'
+    ],
+    target   => 'error_reporting.ini'
+}
