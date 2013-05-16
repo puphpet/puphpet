@@ -114,7 +114,7 @@ class { 'mysql' :
 {% if mysql.db is not empty %}
 {% for database in mysql.db %}
 mysql::grant { '{{ database.dbname }}' :
-    mysql_privileges     => 'ALL',
+    mysql_privileges     => '{{ database.privileges|join(', ')|raw }}',
     mysql_db             => '{{ database.dbname }}',
     mysql_user           => '{{ database.user }}',
     mysql_password       => '{{ database.password }}',
