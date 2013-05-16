@@ -4,4 +4,4 @@ log
 tests/codeCoverage
 phpunit.xml
 twig.cache
-vendor
+/vendor
