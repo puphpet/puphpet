@@ -60,19 +60,17 @@ class Front extends Controller
 
     public function createAction(Request $request)
     {
-        $box    = $request->get('box');
+        $box = $request->get('box');
 
-        $server = new Domain\Server($request->get('server'));
+        $server = new Domain\PuppetModule\Server($request->get('server'));
+        $apache = new Domain\PuppetModule\Apache($request->get('apache'));
+        $mysql  = new Domain\PuppetModule\MySQL($request->get('mysql'));
+        $php    = new Domain\PuppetModule\PHP($request->get('php'));
+
         $server = $server->getFormatted();
-
-        $apache = new Domain\Apache($request->get('apache'));
         $apache = $apache->getFormatted();
-
-        $mysql = new Domain\MySQL($request->get('mysql'));
-        $mysql = $mysql->getFormatted();
-
-        $php = new Domain\PHP($request->get('php'));
-        $php = $php->getFormatted();
+        $mysql  = $mysql->getFormatted();
+        $php    = $php->getFormatted();
 
         $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
         $manifest    = $this->twig()->render('Vagrant/manifest.twig', [

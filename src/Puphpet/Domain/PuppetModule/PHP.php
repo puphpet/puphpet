@@ -1,10 +1,8 @@
 <?php
 
-namespace Puphpet\Domain;
+namespace Puphpet\Domain\PuppetModule;
 
-use Puphpet\Domain;
-
-class PHP extends Domain
+class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
 {
     protected $php;
 
@@ -37,7 +35,7 @@ class PHP extends Domain
      * @param string $key Type of module
      * @return self
      */
-    public function formatModules($key)
+    protected function formatModules($key)
     {
         $this->php[$key] = !empty($this->php[$key])
             ? $this->php[$key]

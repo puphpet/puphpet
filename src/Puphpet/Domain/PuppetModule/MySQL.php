@@ -1,10 +1,8 @@
 <?php
 
-namespace Puphpet\Domain;
+namespace Puphpet\Domain\PuppetModule;
 
-use Puphpet\Domain;
-
-class MySQL extends Domain
+class MySQL extends PuppetModuleAbstract implements PuppetModuleInterface
 {
     protected $mysql;
 

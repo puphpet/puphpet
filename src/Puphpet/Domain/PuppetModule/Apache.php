@@ -1,10 +1,8 @@
 <?php
 
-namespace Puphpet\Domain;
+namespace Puphpet\Domain\PuppetModule;
 
-use Puphpet\Domain;
-
-class Apache extends Domain
+class Apache extends PuppetModuleAbstract implements PuppetModuleInterface
 {
     protected $apache;
 

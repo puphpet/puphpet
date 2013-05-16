@@ -1,10 +1,8 @@
 <?php
 
-namespace Puphpet\Domain;
+namespace Puphpet\Domain\PuppetModule;
 
-use Puphpet\Domain;
-
-class Server extends Domain
+class Server extends PuppetModuleAbstract implements PuppetModuleInterface
 {
     protected $server;
 
@@ -53,7 +51,7 @@ class Server extends Domain
     {
         $this->server['packages'] = !empty($this->server['packages'])
             ? explode(',', $this->server['packages'])
-            : [];
+            : array();
 
         $key = array_search('python-software-properties', $this->server['packages']);
 
