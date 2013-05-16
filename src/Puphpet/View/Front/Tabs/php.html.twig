@@ -14,33 +14,33 @@
 <fieldset>
     <div class="row">
         <div class="span3 ">
-            <label class="control-label" for="php[54]">Use PHP 5.4</label>
+            <label class="control-label" for="php-54">Use PHP 5.4</label>
 
             <div class="controls">
                 <label class="checkbox">
-                    <input type="checkbox" id="php[54]" name="php[54]" value="1" checked="checked" />
+                    <input type="checkbox" id="php-54" name="php[54]" value="1" checked="checked" />
                     Yes
                 </label>
             </div>
         </div>
 
         <div class="span3 ">
-            <label class="control-label" for="php[pear]">Use PEAR</label>
+            <label class="control-label" for="php-pear">Use PEAR</label>
 
             <div class="controls">
                 <label class="checkbox">
-                    <input type="checkbox" id="php[pear]" name="php[pear]" value="1" checked="checked" />
+                    <input type="checkbox" id="php-pear" name="php[pear]" value="1" checked="checked" />
                     Yes
                 </label>
             </div>
         </div>
 
         <div class="span3 ">
-            <label class="control-label" for="php[xdebug]">Install XDebug</label>
+            <label class="control-label" for="php-xdebug">Install XDebug</label>
 
             <div class="controls">
                 <label class="checkbox">
-                    <input type="checkbox" id="php[xdebug]" name="php[xdebug]" value="1" checked="checked" />
+                    <input type="checkbox" id="php-xdebug" name="php[xdebug]" value="1" checked="checked" />
                     Yes
                 </label>
             </div>
@@ -52,30 +52,30 @@
     <div class="clearfix"></div>
 
     <div class="control-group">
-        <label class="control-label" for="php[modules][]">Installed PHP Modules</label>
+        <label class="control-label" for="php-modules">Installed PHP Modules</label>
 
         <div class="controls">
-            <select multiple class="span7 selectTags" id="php[modules][]" name="php[modules][]">
+            <select multiple class="span7 selectTags" id="php-modules" name="php[modules][]">
                 {% include 'Front/Tabs/PHP/php.html.twig' %}
             </select>
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="php[pearmodules][]">Installed PEAR Extensions</label>
+        <label class="control-label" for="php-pearmodules">Installed PEAR Extensions</label>
 
         <div class="controls">
-            <select multiple class="span7 selectTags" id="php[pearmodules][]" name="php[pearmodules][]">
+            <select multiple class="span7 selectTags" id="php-pearmodules" name="php[pearmodules][]">
                 {% include 'Front/Tabs/PHP/pear.html.twig' %}
             </select>
         </div>
     </div>
 
     <div class="control-group">
-        <label class="control-label" for="php[pecl][]">Installed PECL Packages</label>
+        <label class="control-label" for="php-pecl">Installed PECL Packages</label>
 
         <div class="controls">
-            <select multiple class="span7 selectTags" id="php[pecl][]" name="php[pecl][]">
+            <select multiple class="span7 selectTags" id="php-pecl" name="php[pecl][]">
                 {% include 'Front/Tabs/PHP/pecl.html.twig' %}
             </select>
         </div>
