@@ -25,21 +25,4 @@ file { '/home/vagrant/.bash_aliases' :
 
 {% include 'Vagrant/Modules/php.twig' %}
 
-{% if mysql.root %}
-class { 'mysql' :
-    root_password => '{{ mysql.root }}',
-}
-
-{% if mysql.db is not empty %}
-{% for database in mysql.db %}
-mysql::grant { '{{ database.dbname }}' :
-    mysql_privileges     => '{{ database.privileges|join(', ')|raw }}',
-    mysql_db             => '{{ database.dbname }}',
-    mysql_user           => '{{ database.user }}',
-    mysql_password       => '{{ database.password }}',
-    mysql_host           => '{{ database.host }}',
-    mysql_grant_filepath => '/home/vagrant/puppet-mysql',
-}
-{% endfor %}
-{% endif %}
-{% endif %}
+{% include 'Vagrant/Modules/mysql.twig' %}
