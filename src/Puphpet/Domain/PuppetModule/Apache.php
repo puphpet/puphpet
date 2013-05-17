@@ -56,8 +56,13 @@ class Apache extends PuppetModuleAbstract implements PuppetModuleInterface
         $vhosts = $this->apache['vhosts'];
 
         foreach ($vhosts as $id => $vhost) {
-            $vhosts[$id]['serveraliases'] = $this->explodeAndQuote($vhosts[$id]['serveraliases']);
-            $vhosts[$id]['envvars']       = $this->explodeAndQuote($vhosts[$id]['envvars']);
+            $vhosts[$id]['serveraliases'] = empty($vhosts[$id]['serveraliases'])
+                ? array()
+                : $this->explodeAndQuote($vhosts[$id]['serveraliases']);
+
+            $vhosts[$id]['envvars']       = empty($vhosts[$id]['envvars'])
+                ? array()
+                : $this->explodeAndQuote($vhosts[$id]['envvars']);
         }
 
         $this->apache['vhosts'] = $vhosts;
