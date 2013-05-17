@@ -1,22 +1,22 @@
-exec { 'apt-get update' :
-    command => 'apt-get update',
-    path    => '/usr/bin/',
-    timeout => 60,
-    tries   => 3
+exec { 'apt-get update':
+  command => 'apt-get update',
+  path    => '/usr/bin/',
+  timeout => 60,
+  tries   => 3,
 }
 
-class { 'apt' :
-    always_apt_update => true
+class { 'apt':
+  always_apt_update => true,
 }
 
-package { ['python-software-properties'] :
-    ensure  => 'installed',
-    require => Exec['apt-get update'],
+package { ['python-software-properties']:
+  ensure  => 'installed',
+  require => Exec['apt-get update'],
 }
 
-file { '/home/vagrant/.bash_aliases' :
-    source => 'puppet:///modules/puphpet/dot/.bash_aliases',
-    ensure => 'present',
+file { '/home/vagrant/.bash_aliases':
+  source => 'puppet:///modules/puphpet/dot/.bash_aliases',
+  ensure => 'present',
 }
 
 {% include 'Vagrant/Modules/server.twig' %}
