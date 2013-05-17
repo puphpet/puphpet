@@ -44,8 +44,10 @@ class File extends Domain
 
     /**
      * Push the created archive to user
+     *
+     * @param string $name Name of file to download
      */
-    public function downloadFile()
+    public function downloadFile($name)
     {
         header('Pragma: public');
         header('Expires: 0');
@@ -54,7 +56,7 @@ class File extends Domain
         header('Cache-Control: private', false);
         header('Content-Type: application/zip');
         header('Content-Length: ' . filesize($this->archiveFile));
-        header('Content-Disposition: attachment; filename="puphpet.zip"');
+        header("Content-Disposition: attachment; filename='{$name}.zip'");
         header('Content-Transfer-Encoding: binary');
         header('Connection: close');
 

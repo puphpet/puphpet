@@ -86,7 +86,7 @@ class Front extends Controller
             'manifest'     => $manifest,
             'bash_aliases' => $server['bashaliases'],
         ]);
-        $domainFile->downloadFile();
+        $domainFile->downloadFile($box['name']);
 
         return;
     }
