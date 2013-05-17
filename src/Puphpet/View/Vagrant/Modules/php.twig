@@ -40,6 +40,10 @@ class { 'php::devel' :
     {% endif %}
 {% endif %}
 
+{% if php.composer == 1 %}
+    class { 'php::composer' : }
+{% endif %}
+
 php::ini { 'default' :
     value    => [
         'date.timezone = America/Chicago',
