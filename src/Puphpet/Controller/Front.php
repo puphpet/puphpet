@@ -80,7 +80,7 @@ class Front extends Controller
             'mysql'  => $mysql,
         ]);
 
-        $domainFile = new Domain\File(__DIR__ . '/../repo');
+        $domainFile = new Domain\File(VENDOR_PATH . '/jtreminio/vagrant-puppet-lamp');
         $domainFile->createArchive([
             'vagrantFile'  => $vagrantFile,
             'manifest'     => $manifest,

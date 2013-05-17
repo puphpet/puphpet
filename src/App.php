@@ -3,6 +3,9 @@
 use Silex\Provider;
 use Puphpet\Controller;
 
+defined('VENDOR_PATH')
+    || define('VENDOR_PATH', __DIR__ . '/../vendor');
+
 $app = new Silex\Application;
 
 $env = getenv('APP_ENV') ?: 'prod';
