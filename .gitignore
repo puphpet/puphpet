@@ -5,3 +5,4 @@ tests/codeCoverage
 phpunit.xml
 twig.cache
 /vendor
+.idea
