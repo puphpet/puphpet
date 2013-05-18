@@ -1,20 +1,20 @@
-class { 'apache' : }
+class { 'apache': }
 
-apache::dotconf { 'custom' :
-    content => 'EnableSendfile Off',
+apache::dotconf { 'custom':
+  content => 'EnableSendfile Off',
 }
 
 {% for module in apache.modules %}
-    apache::module { '{{ module }}' : }
+apache::module { '{{ module }}': }
 {% endfor %}
 
 {% for host in apache.vhosts %}
-    apache::vhost { '{{ host.servername }}' :
-        server_name   => '{{ host.servername }}',
-        serveraliases => [{% if host.serveraliases %}{{ host.serveraliases|join(', ')|raw }}{% endif %}],
-        docroot       => '{{ host.docroot }}',
-        port          => '{{ host.port }}',
-        env_variables => [{% if host.envvars %}{{ host.envvars|join(', ')|raw }}{% endif %}],
-        priority      => '1'
-    }
+apache::vhost { '{{ host.servername }}':
+  server_name   => '{{ host.servername }}',
+  serveraliases => [{% if host.serveraliases %}{{ host.serveraliases|join(', ')|raw }}{% endif %}],
+  docroot       => '{{ host.docroot }}',
+  port          => '{{ host.port }}',
+  env_variables => [{% if host.envvars %}{{ host.envvars|join(', ')|raw }}{% endif %}],
+  priority      => '1',
+}
 {% endfor %}

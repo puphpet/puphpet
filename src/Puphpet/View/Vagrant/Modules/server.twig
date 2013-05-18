@@ -1,6 +1,6 @@
 {% if server.packages is not empty %}
-package { [{{ server.packages|join(', ')|raw }}] :
-    ensure  => 'installed',
-    require => Exec['apt-get update'],
+package { [{{ server.packages|join(', ')|raw }}]:
+  ensure  => 'installed',
+  require => Exec['apt-get update'],
 }
 {% endif %}

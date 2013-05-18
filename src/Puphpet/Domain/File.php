@@ -8,6 +8,7 @@ class File extends Domain
 {
     private $sysTempDir;
     private $tmpFolder;
+    private $tmpPath;
     private $source;
     private $archiveFile;
 
@@ -56,7 +57,7 @@ class File extends Domain
         header('Cache-Control: private', false);
         header('Content-Type: application/zip');
         header('Content-Length: ' . filesize($this->archiveFile));
-        header("Content-Disposition: attachment; filename='{$name}.zip'");
+        header('Content-Disposition: attachment; filename="'.$name.'.zip"');
         header('Content-Transfer-Encoding: binary');
         header('Connection: close');
 
@@ -70,6 +71,7 @@ class File extends Domain
     {
         $this->sysTempDir  = sys_get_temp_dir();
         $this->tmpFolder   = uniqid();
+        $this->tmpPath = $this->sysTempDir . '/' . $this->tmpFolder;
         $this->archiveFile = tempnam($this->sysTempDir, uniqid()) . '.zip';
     }
 
@@ -78,7 +80,7 @@ class File extends Domain
      */
     private function copyToTempFolder()
     {
-        shell_exec("cp -r {$this->source} {$this->sysTempDir}/{$this->tmpFolder}");
+        shell_exec("cp -r {$this->source} {$this->tmpPath}");
     }
 
     /**
@@ -89,7 +91,7 @@ class File extends Domain
      */
     private function copyFile($path, $file)
     {
-        file_put_contents("{$this->sysTempDir}/{$this->tmpFolder}/{$path}", $file);
+        file_put_contents("{$this->tmpPath}/{$path}", $file);
     }
 
     /**
@@ -97,6 +99,6 @@ class File extends Domain
      */
     private function zipFolder()
     {
-        shell_exec("cd {$this->sysTempDir}/{$this->tmpFolder} && zip -r {$this->archiveFile} * -x */.git\*");
+        shell_exec("cd {$this->tmpPath} && zip -r {$this->archiveFile} * -x */.git\*");
     }
 }

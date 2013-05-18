@@ -1,16 +1,16 @@
 {% if mysql.root %}
-    class { 'mysql' :
-        root_password => '{{ mysql.root }}',
-    }
+class { 'mysql':
+  root_password => '{{ mysql.root }}',
+}
 
-    {% for database in mysql.dbuser %}
-        mysql::grant { '{{ database.dbname }}' :
-            mysql_privileges     => '{{ database.privileges|join(', ') }}',
-            mysql_db             => '{{ database.dbname }}',
-            mysql_user           => '{{ database.user }}',
-            mysql_password       => '{{ database.password }}',
-            mysql_host           => '{{ database.host }}',
-            mysql_grant_filepath => '/home/vagrant/puppet-mysql',
-        }
-    {% endfor %}
+{% for database in mysql.dbuser %}
+mysql::grant { '{{ database.dbname }}':
+  mysql_privileges     => '{{ database.privileges|join(', ') }}',
+  mysql_db             => '{{ database.dbname }}',
+  mysql_user           => '{{ database.user }}',
+  mysql_password       => '{{ database.password }}',
+  mysql_host           => '{{ database.host }}',
+  mysql_grant_filepath => '/home/vagrant/puppet-mysql',
+}
+{% endfor %}
 {% endif %}
