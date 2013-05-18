@@ -12,24 +12,26 @@ class PHPTest extends Base
     public function setUp()
     {
         $this->phpArray = [
-            '54'          => 1,
-            'pear'        => 1,
-            'xdebug'      => 1,
-            'composer'    => 1,
-            'modules'     => [
-                'php5-cli',
-                'php5-curl',
-                'php5-intl',
-                'php5-mcrypt',
-            ],
-            'pearmodules' => [
-                'Auth_SASL2',
-                'OpenID',
-            ],
-            'pecl'        => [
-                'courierauth',
-                'krb5',
-                'radius',
+            'php54'    => 1,
+            'pear'     => 1,
+            'xdebug'   => 1,
+            'composer' => 1,
+            'modules'  => [
+                'php'  => [
+                    'php5-cli',
+                    'php5-curl',
+                    'php5-intl',
+                    'php5-mcrypt',
+                ],
+                'pear' => [
+                    'Auth_SASL2',
+                    'OpenID',
+                ],
+                'pecl' => [
+                    'courierauth',
+                    'krb5',
+                    'radius',
+                ],
             ],
         ];
     }
@@ -65,9 +67,9 @@ class PHPTest extends Base
     {
         $expected = $this->phpArray;
 
-        unset($this->phpArray[$moduleType]);
+        unset($this->phpArray['modules'][$moduleType]);
 
-        $expected[$moduleType] = array();
+        $expected['modules'][$moduleType] = array();
 
         $php = new PHP($this->phpArray);
 
@@ -80,8 +82,8 @@ class PHPTest extends Base
     public function providerGetFormattedReturnsEmptyArrayWhenModuleValueFalse()
     {
         return [
-            ['modules'],
-            ['pearmodules'],
+            ['php'],
+            ['pear'],
             ['pecl'],
         ];
     }

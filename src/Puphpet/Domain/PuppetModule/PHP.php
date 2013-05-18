@@ -22,8 +22,8 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
             return array();
         }
 
-        $this->formatModules('modules')
-             ->formatModules('pearmodules')
+        $this->formatModules('php')
+             ->formatModules('pear')
              ->formatModules('pecl');
 
         return $this->php;
@@ -37,8 +37,8 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     protected function formatModules($key)
     {
-        $this->php[$key] = !empty($this->php[$key])
-            ? $this->php[$key]
+        $this->php['modules'][$key] = !empty($this->php['modules'][$key])
+            ? $this->php['modules'][$key]
             : array();
 
         return $this;

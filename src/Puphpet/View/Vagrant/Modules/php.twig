@@ -1,4 +1,4 @@
-{% if attribute(php, '54') == 1 %}
+{% if php.php54 == 1 %}
     apt::ppa { 'ppa:ondrej/php5' : }
 {% endif %}
 
@@ -7,8 +7,8 @@ class { 'php' :
     require => Package['apache'],
 }
 
-{% for module in php.modules %}
-    php::module { '{{ module|raw }}' : }
+{% for phpModule in php.modules.php %}
+    php::module { '{{ phpModule|raw }}' : }
 {% endfor %}
 
 class { 'php::devel' :
@@ -20,13 +20,13 @@ class { 'php::devel' :
         require => Class['php'],
     }
 
-    {% for pear in php.pearmodules %}
+    {% for pear in php.modules.pear %}
         php::pear::module { '{{ pear|raw }}' :
             use_package => false
         }
     {% endfor %}
 
-    {% for pecl in php.pecl %}
+    {% for pecl in php.modules.pecl %}
         php::pecl::module { '{{ pecl|raw }}' :
             use_package => false
         }
