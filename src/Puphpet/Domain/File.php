@@ -67,7 +67,7 @@ class File extends Domain
     /**
      * Paths on server
      */
-    private function setPaths()
+    protected function setPaths()
     {
         $this->sysTempDir  = sys_get_temp_dir();
         $this->tmpFolder   = uniqid();
@@ -78,9 +78,9 @@ class File extends Domain
     /**
      * Copy our repo to a temp file
      */
-    private function copyToTempFolder()
+    protected function copyToTempFolder()
     {
-        shell_exec("cp -r {$this->source} {$this->tmpPath}");
+        $this->exec("cp -r {$this->source} {$this->tmpPath}");
     }
 
     /**
@@ -89,16 +89,26 @@ class File extends Domain
      * @param string $path Path to file within source folder to replace
      * @param string $file Content to replace file with
      */
-    private function copyFile($path, $file)
+    protected function copyFile($path, $file)
     {
-        file_put_contents("{$this->tmpPath}/{$path}", $file);
+        $this->filePutContents("{$this->tmpPath}/{$path}", $file);
     }
 
     /**
      * Create a zip archive
      */
-    private function zipFolder()
+    protected function zipFolder()
     {
-        shell_exec("cd {$this->tmpPath} && zip -r {$this->archiveFile} * -x */.git\*");
+        $this->exec("cd {$this->tmpPath} && zip -r {$this->archiveFile} * -x */.git\*");
+    }
+
+    protected function exec($cmd)
+    {
+        shell_exec($cmd);
+    }
+
+    protected function filePutContents($filename, $data)
+    {
+        file_put_contents($filename, $data);
     }
 }
