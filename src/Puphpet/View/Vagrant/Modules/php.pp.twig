@@ -8,7 +8,7 @@ class { 'php':
 }
 
 {% for phpModule in php.modules.php %}
-php::module { '{{ module|raw }}': }
+php::module { '{{ phpModule|raw }}': }
 {% endfor %}
 
 class { 'php::devel':
