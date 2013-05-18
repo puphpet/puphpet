@@ -18,26 +18,26 @@ class ApacheTest extends Base
                 'expires',
                 'ssl',
             ],
-            'vhosts' => [
+            'vhosts'  => [
                 [
-                    'servername' => 'awesome.dev',
+                    'servername'    => 'awesome.dev',
                     'serveraliases' => 'www.awesome.dev,test.awesome.dev',
-                    'docroot' => '/var/www/awesome',
-                    'port' => 80,
-                    'envvars' => 'IS_AWESOME yes,IS_FINISHED no',
+                    'docroot'       => '/var/www/awesome',
+                    'port'          => 80,
+                    'envvars'       => 'IS_AWESOME yes,IS_FINISHED no',
                 ],
                 [
-                    'servername' => 'puphpet.dev',
+                    'servername'    => 'puphpet.dev',
                     'serveraliases' => 'ssl.puphpet.dev,foo.puphpet.dev',
-                    'docroot' => '/var/www/puphpet.dev',
-                    'port' => 80,
-                    'envvars' => 'OPEN_SOURCED yes,CONTRIBUTE please',
+                    'docroot'       => '/var/www/puphpet.dev',
+                    'port'          => 80,
+                    'envvars'       => 'OPEN_SOURCED yes,CONTRIBUTE please',
                 ],
                 [
-                    'servername' => 'github.dev',
+                    'servername'    => 'github.dev',
                     'serveraliases' => 'bam.github.dev,baz.github.dev',
-                    'docroot' => '/var/www/github',
-                    'port' => 443,
+                    'docroot'       => '/var/www/github',
+                    'port'          => 443,
                 ],
             ],
         ];
@@ -69,7 +69,7 @@ class ApacheTest extends Base
 
     public function testGetFormattedReturnsFormattedProperties()
     {
-        $this->apacheArray['vhosts'][1]['envvars'] = 'OPEN_SOURCED yes, ';
+        $this->apacheArray['vhosts'][1]['envvars']       = 'OPEN_SOURCED yes, ';
         $this->apacheArray['vhosts'][2]['serveraliases'] = array();
 
         $apache = new Apache($this->apacheArray);
@@ -115,7 +115,7 @@ class ApacheTest extends Base
                 'expires',
                 'ssl',
             ],
-            'vhosts' => array()
+            'vhosts'  => array()
         ];
 
         $this->assertEquals(
