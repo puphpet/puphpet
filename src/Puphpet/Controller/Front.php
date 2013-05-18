@@ -73,7 +73,7 @@ class Front extends Controller
         $php    = $php->getFormatted();
 
         $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
-        $manifest    = $this->twig()->render('Vagrant/manifest.twig', [
+        $manifest    = $this->twig()->render('Vagrant/manifest.pp.twig', [
             'server' => $server,
             'apache' => $apache,
             'php'    => $php,
