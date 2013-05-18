@@ -38,11 +38,11 @@ class { 'xdebug': }
 xdebug::config { 'cgi': }
 xdebug::config { 'cli': }
 {% endif %}
-{% endif %}
+{% endif %}{# if php.pear == 1 #}
 
 {% if php.composer == 1 %}
 class { 'php::composer': }
-{% endif %}{# if php.pear == 1 #}
+{% endif %}
 
 php::ini { 'default':
   value  => [
