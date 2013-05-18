@@ -71,7 +71,7 @@ class File extends Domain
     {
         $this->sysTempDir  = sys_get_temp_dir();
         $this->tmpFolder   = uniqid();
-        $this->tmpPath = $this->sysTempDir . '/' . $this->tmpFolder;
+        $this->tmpPath     = $this->sysTempDir . '/' . $this->tmpFolder;
         $this->archiveFile = tempnam($this->sysTempDir, uniqid()) . '.zip';
     }
 

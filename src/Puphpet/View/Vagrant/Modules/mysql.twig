@@ -13,4 +13,4 @@ mysql::grant { '{{ database.dbname }}':
   mysql_grant_filepath => '/home/vagrant/puppet-mysql',
 }
 {% endfor %}
-{% endif %}
+{% endif %}{# if mysql.root #}
