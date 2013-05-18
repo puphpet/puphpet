@@ -61,7 +61,7 @@ class File extends Domain
         header('Content-Transfer-Encoding: binary');
         header('Connection: close');
 
-        readfile($this->archiveFile);
+        $this->readfile($this->archiveFile);
     }
 
     /**
@@ -110,5 +110,10 @@ class File extends Domain
     protected function filePutContents($filename, $data)
     {
         file_put_contents($filename, $data);
+    }
+
+    protected function readfile($file)
+    {
+        readfile($file);
     }
 }

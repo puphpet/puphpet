@@ -6,6 +6,9 @@ use Puphpet\Controller;
 defined('VENDOR_PATH')
     || define('VENDOR_PATH', __DIR__ . '/../vendor');
 
+defined('VAGRANT_PATH')
+    || define('VAGRANT_PATH', VENDOR_PATH . '/jtreminio/vagrant-puppet-lamp');
+
 $app = new Silex\Application;
 
 $env = getenv('APP_ENV') ?: 'prod';
