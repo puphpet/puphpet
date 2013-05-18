@@ -60,12 +60,12 @@ class Front extends Controller
 
     public function createAction(Request $request)
     {
-        $box = $request->get('box');
+        $box = $request->request->get('box');
 
-        $server = new Domain\PuppetModule\Server($request->get('server'));
-        $apache = new Domain\PuppetModule\Apache($request->get('apache'));
-        $mysql  = new Domain\PuppetModule\MySQL($request->get('mysql'));
-        $php    = new Domain\PuppetModule\PHP($request->get('php'));
+        $server = new Domain\PuppetModule\Server($request->request->get('server'));
+        $apache = new Domain\PuppetModule\Apache($request->request->get('apache'));
+        $mysql  = new Domain\PuppetModule\MySQL($request->request->get('mysql'));
+        $php    = new Domain\PuppetModule\PHP($request->request->get('php'));
 
         $server = $server->getFormatted();
         $apache = $apache->getFormatted();
