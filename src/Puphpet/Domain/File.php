@@ -22,6 +22,7 @@ class File extends Domain
 
     /**
      * @param array $replacementFiles Files to replace in our source folder
+     * @return string Path to generated file
      */
     public function createArchive(array $replacementFiles = array())
     {
@@ -32,9 +33,7 @@ class File extends Domain
             $this->copyFile($path, $content);
         }
 
-        $this->zipFolder();
-
-        return $this->archiveFile;
+        return $this->zipFolder();
     }
 
     /**
@@ -72,7 +71,9 @@ class File extends Domain
      */
     protected function zipFolder()
     {
-        $this->exec("cd {$this->tmpPath} && zip -r {$this->archiveFile} * -x */.git\*");
+        $this->exec("cd {$this->tmpPath} && zip -r {$this->archiveFile}.zip * -x */.git\*");
+
+        return "{$this->archiveFile}.zip";
     }
 
     /**
