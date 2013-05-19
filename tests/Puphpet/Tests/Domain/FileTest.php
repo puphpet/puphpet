@@ -58,7 +58,7 @@ class FileTest extends Base
             ->method('exec')
             ->with($this->logicalOr(
                  $this->equalTo("cp -r {$constructorArgs} {$this->tmpPath}"),
-                 $this->equalTo("cd {$this->tmpPath} && zip -r {$this->archiveFile} * -x */.git\*")
+                 $this->equalTo("cd {$this->tmpPath} && zip -r {$this->archiveFile}.zip * -x */.git\*")
              ));
 
         return $file;
@@ -76,7 +76,7 @@ class FileTest extends Base
         $createdFile = $file->createArchive($replacementFiles);
 
         $this->assertEquals(
-            $this->archiveFile,
+            "{$this->archiveFile}.zip",
             $createdFile
         );
     }
@@ -102,7 +102,7 @@ class FileTest extends Base
         $createdFile = $file->createArchive($replacementFiles);
 
         $this->assertEquals(
-            $this->archiveFile,
+            "{$this->archiveFile}.zip",
             $createdFile
         );
     }
