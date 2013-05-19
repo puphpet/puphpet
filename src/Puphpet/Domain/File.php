@@ -33,27 +33,8 @@ class File extends Domain
         }
 
         $this->zipFolder();
-    }
 
-    /**
-     * Push the created archive to user
-     *
-     * @param string $name Name of file to download
-     */
-    public function downloadFile($name)
-    {
-        header('Pragma: public');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Last-Modified: ' . gmdate ('D, d M Y H:i:s', filemtime($this->archiveFile)) . ' GMT');
-        header('Cache-Control: private', false);
-        header('Content-Type: application/zip');
-        header('Content-Length: ' . filesize($this->archiveFile));
-        header('Content-Disposition: attachment; filename="'.$name.'.zip"');
-        header('Content-Transfer-Encoding: binary');
-        header('Connection: close');
-
-        $this->readfile($this->archiveFile);
+        return $this->archiveFile;
     }
 
     /**
@@ -64,7 +45,7 @@ class File extends Domain
         $this->sysTempDir  = $this->getSysTempDir();
         $this->tmpFolder   = $this->getTmpFolder();
         $this->tmpPath     = $this->sysTempDir . '/' . $this->tmpFolder;
-        $this->archiveFile = $this->getTmpFile($this->sysTempDir, $this->tmpFolder, 'zip');
+        $this->archiveFile = $this->getTmpFile($this->sysTempDir, $this->tmpFolder);
     }
 
     /**
@@ -107,9 +88,9 @@ class File extends Domain
         return uniqid();
     }
 
-    protected function getTmpFile($dir, $prefix, $extension)
+    protected function getTmpFile($dir, $prefix)
     {
-        return tempnam($dir, $prefix) . ".{$extension}";
+        return tempnam($dir, $prefix);
     }
 
     protected function exec($cmd)
@@ -120,10 +101,5 @@ class File extends Domain
     protected function filePutContents($filename, $data)
     {
         file_put_contents($filename, $data);
-    }
-
-    protected function readfile($file)
-    {
-        readfile($file);
     }
 }

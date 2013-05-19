@@ -81,13 +81,22 @@ class Front extends Controller
         ]);
 
         $domainFile = new Domain\File(VENDOR_PATH . '/jtreminio/vagrant-puppet-lamp');
-        $domainFile->createArchive([
+        $file = $domainFile->createArchive([
             'vagrantFile'                             => $vagrantFile,
             'manifests/default.pp'                    => $manifest,
             'modules/puphpet/files/dot/.bash_aliases' => $server['bashaliases'],
         ]);
-        $domainFile->downloadFile($box['name']);
 
-        return;
+        $request->headers->set('Pragma', 'public');
+        $request->headers->set('Expires', 0);
+        $request->headers->set('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
+        $request->headers->set('Last-Modified', gmdate ('D, d M Y H:i:s', filemtime($file)) . ' GMT');
+        $request->headers->set('Content-Type', 'application/zip');
+        $request->headers->set('Content-Length', filesize($file));
+        $request->headers->set('Content-Disposition', 'attachment; filename="'.$box['name'].'.zip"');
+        $request->headers->set('Content-Transfer-Encoding', 'binary');
+        $request->headers->set('Connection', 'close');
+
+        readfile($file);
     }
 }
