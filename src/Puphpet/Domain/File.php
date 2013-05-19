@@ -21,23 +21,15 @@ class File extends Domain
     }
 
     /**
-     * @param array $files Files to replace in our source folder
+     * @param array $replacementFiles Files to replace in our source folder
      */
-    public function createArchive(array $files)
+    public function createArchive(array $replacementFiles = array())
     {
         $this->setPaths();
         $this->copyToTempFolder();
 
-        if (!empty($files['vagrantFile'])) {
-            $this->copyFile('Vagrantfile', $files['vagrantFile']);
-        }
-
-        if (!empty($files['manifest'])) {
-            $this->copyFile('manifests/default.pp', $files['manifest']);
-        }
-
-        if (!empty($files['bash_aliases'])) {
-            $this->copyFile('modules/puphpet/files/dot/.bash_aliases', $files['bash_aliases']);
+        foreach ($replacementFiles as $path => $content) {
+            $this->copyFile($path, $content);
         }
 
         $this->zipFolder();

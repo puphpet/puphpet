@@ -82,9 +82,9 @@ class Front extends Controller
 
         $domainFile = new Domain\File(VENDOR_PATH . '/jtreminio/vagrant-puppet-lamp');
         $domainFile->createArchive([
-            'vagrantFile'  => $vagrantFile,
-            'manifest'     => $manifest,
-            'bash_aliases' => $server['bashaliases'],
+            'vagrantFile'                             => $vagrantFile,
+            'manifests/default.pp'                    => $manifest,
+            'modules/puphpet/files/dot/.bash_aliases' => $server['bashaliases'],
         ]);
         $domainFile->downloadFile($box['name']);
 
