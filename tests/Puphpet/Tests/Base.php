@@ -17,7 +17,7 @@ abstract class Base extends WebTestCase
 
         // Tests mode
         $this->app['debug'] = true;
-        unset($this->app['exception_handler']);
+        $this->app['exception_handler']->disable();
 
         return $this->app;
     }
