@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
+use Symfony\Component\HttpFoundation\File\File;
 
 class Front extends Controller
 {
@@ -82,21 +83,25 @@ class Front extends Controller
 
         $domainFile = new Domain\File(VENDOR_PATH . '/jtreminio/vagrant-puppet-lamp');
         $file = $domainFile->createArchive([
-            'vagrantFile'                             => $vagrantFile,
+            'Vagrantfile'                             => $vagrantFile,
             'manifests/default.pp'                    => $manifest,
             'modules/puphpet/files/dot/.bash_aliases' => $server['bashaliases'],
         ]);
 
-        $request->headers->set('Pragma', 'public');
-        $request->headers->set('Expires', 0);
-        $request->headers->set('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
-        $request->headers->set('Last-Modified', gmdate ('D, d M Y H:i:s', filemtime($file)) . ' GMT');
-        $request->headers->set('Content-Type', 'application/zip');
-        $request->headers->set('Content-Length', filesize($file));
-        $request->headers->set('Content-Disposition', 'attachment; filename="'.$box['name'].'.zip"');
-        $request->headers->set('Content-Transfer-Encoding', 'binary');
-        $request->headers->set('Connection', 'close');
+        $stream = function () use ($file) {
+            readfile($file);
+        };
 
-        readfile($file);
+        return $this->app->stream($stream, 200, array(
+            'Pragma' => 'public',
+            'Expires' => 0,
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Last-Modified' => gmdate ('D, d M Y H:i:s', filemtime($file)) . ' GMT',
+            'Content-Type' => 'application/zip',
+            'Content-Length' => filesize($file),
+            'Content-Disposition' => 'attachment; filename="'.$box['name'].'.zip"',
+            'Content-Transfer-Encoding' => 'binary',
+            'Connection' => 'close',
+        ));
     }
 }
