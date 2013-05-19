@@ -61,10 +61,10 @@ class File extends Domain
      */
     protected function setPaths()
     {
-        $this->sysTempDir  = sys_get_temp_dir();
-        $this->tmpFolder   = uniqid();
+        $this->sysTempDir  = $this->getSysTempDir();
+        $this->tmpFolder   = $this->getTmpFolder();
         $this->tmpPath     = $this->sysTempDir . '/' . $this->tmpFolder;
-        $this->archiveFile = tempnam($this->sysTempDir, uniqid()) . '.zip';
+        $this->archiveFile = $this->getTmpFile($this->sysTempDir, $this->tmpFolder, 'zip');
     }
 
     /**
@@ -92,6 +92,24 @@ class File extends Domain
     protected function zipFolder()
     {
         $this->exec("cd {$this->tmpPath} && zip -r {$this->archiveFile} * -x */.git\*");
+    }
+
+    /**
+     * @return string
+     */
+    protected function getSysTempDir()
+    {
+        return sys_get_temp_dir();
+    }
+
+    protected function getTmpFolder()
+    {
+        return uniqid();
+    }
+
+    protected function getTmpFile($dir, $prefix, $extension)
+    {
+        return tempnam($dir, $prefix) . ".{$extension}";
     }
 
     protected function exec($cmd)
