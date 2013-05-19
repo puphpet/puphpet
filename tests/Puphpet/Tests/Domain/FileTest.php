@@ -19,7 +19,7 @@ class FileTest extends Base
         $this->sysTempDir  = '/tmp';
         $this->tmpFolder   = '123abc';
         $this->tmpPath     = "{$this->sysTempDir}/{$this->tmpFolder}";
-        $this->archiveFile = "{$this->sysTempDir}/{$this->tmpFolder}/tmpFile.zip";
+        $this->archiveFile = "{$this->sysTempDir}/{$this->tmpFolder}/tmpFile";
     }
 
     /**
@@ -51,7 +51,7 @@ class FileTest extends Base
 
         $file->expects($this->once())
             ->method('getTmpFile')
-            ->with($this->sysTempDir, $this->tmpFolder, 'zip')
+            ->with($this->sysTempDir, $this->tmpFolder)
             ->will($this->returnValue($this->archiveFile));
 
         $file->expects($this->exactly(2))
@@ -73,7 +73,12 @@ class FileTest extends Base
 
         $replacementFiles = array();
 
-        $file->createArchive($replacementFiles);
+        $createdFile = $file->createArchive($replacementFiles);
+
+        $this->assertEquals(
+            $this->archiveFile,
+            $createdFile
+        );
     }
 
     public function testCreateArchiveCallsCopyFile()
@@ -94,6 +99,11 @@ class FileTest extends Base
                  $this->equalTo("{$this->tmpPath}/replacement3"), 'bambam'
              ));
 
-        $file->createArchive($replacementFiles);
+        $createdFile = $file->createArchive($replacementFiles);
+
+        $this->assertEquals(
+            $this->archiveFile,
+            $createdFile
+        );
     }
 }
