@@ -624,12 +624,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "9215137662a59f0462be7cb72e85bb3b68311642"
+                "reference": "63b3e5f93ebc7a1874c2db2f1ffa5e3ee9b3349d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/9215137662a59f0462be7cb72e85bb3b68311642",
-                "reference": "9215137662a59f0462be7cb72e85bb3b68311642",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/63b3e5f93ebc7a1874c2db2f1ffa5e3ee9b3349d",
+                "reference": "63b3e5f93ebc7a1874c2db2f1ffa5e3ee9b3349d",
                 "shasum": ""
             },
             "require": {
@@ -678,7 +678,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-18 03:41:08"
+            "time": "2013-05-18 07:29:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -864,12 +864,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b99929e05db30f295de4aab8c3ab46bf82084732"
+                "reference": "1248850e1ddda6b694975c9c1f89e6dd87fe8ecc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b99929e05db30f295de4aab8c3ab46bf82084732",
-                "reference": "b99929e05db30f295de4aab8c3ab46bf82084732",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1248850e1ddda6b694975c9c1f89e6dd87fe8ecc",
+                "reference": "1248850e1ddda6b694975c9c1f89e6dd87fe8ecc",
                 "shasum": ""
             },
             "require": {
@@ -933,7 +933,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-17 05:21:39"
+            "time": "2013-05-19 10:11:20"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
