@@ -11,6 +11,7 @@ class File extends Domain
     private $tmpPath;
     private $source;
     private $archiveFile;
+    private $moduleSources = array();
 
     /**
      * @param string $source Absolute path to archive
@@ -33,7 +34,17 @@ class File extends Domain
             $this->copyFile($path, $content);
         }
 
-        return $this->zipFolder();
+        $this->zipFolder();
+    }
+
+    /**
+     * Returns absolute path to created (zip) archive
+     *
+     * @return string
+     */
+    public function getArchivePath()
+    {
+        return "{$this->archiveFile}.zip";
     }
 
     /**
@@ -52,7 +63,37 @@ class File extends Domain
      */
     protected function copyToTempFolder()
     {
-        $this->exec("cp -r {$this->source} {$this->tmpPath}");
+        // copy main source
+        $this->copySource($this->source, $this->tmpPath);
+
+        // copy all optional sources
+        foreach ($this->moduleSources as $moduleName => $moduleSource) {
+            // this copies the module into the clone of the original source
+            // which must contain a "modules" folder
+            $this->copySource($moduleSource, $this->tmpPath . '/modules/' . $moduleName);
+        }
+    }
+
+    /**
+     * Adds a puppet module to the archive
+     *
+     * @param string $moduleName   the module name
+     * @param string $moduleSource absolute path of a puppet module
+     */
+    public function addModuleSource($moduleName, $moduleSource)
+    {
+        $this->moduleSources[$moduleName] = $moduleSource;
+    }
+
+    /**
+     * Copies given source to assigned target
+     *
+     * @param string $sourcePath absolute source path
+     * @param string $targetPath absolute target path
+     */
+    protected function copySource($sourcePath, $targetPath)
+    {
+        shell_exec("cp -r {$sourcePath} {$targetPath}");
     }
 
     /**
@@ -72,8 +113,6 @@ class File extends Domain
     protected function zipFolder()
     {
         $this->exec("cd {$this->tmpPath} && zip -r {$this->archiveFile}.zip * -x */.git\*");
-
-        return "{$this->archiveFile}.zip";
     }
 
     /**

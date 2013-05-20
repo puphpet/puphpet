@@ -3,13 +3,30 @@ apt::ppa { 'ppa:ondrej/php5': }
 {% endif %}
 
 class { 'php':
-  service => 'apache',
-  require => Package['apache'],
+  package             => 'php5',
+  service             => 'php5-fpm',
+  service_autorestart => false,
 }
 
+{% if php.modules.php|length > 0 %}
+php::module {
+  [
+    'php5-fpm',
 {% for phpModule in php.modules.php %}
-php::module { '{{ phpModule|raw }}': }
+    '{{ phpModule|raw }}',
 {% endfor %}
+  ]:
+  service => '{{ php_service }}',
+}
+{% endif %}
+
+service { 'php5-fpm':
+  ensure     => running,
+  enable     => true,
+  hasrestart => true,
+  hasstatus  => true,
+  require    => Package['php5-fpm'],
+}
 
 class { 'php::devel':
   require => Class['php'],
@@ -33,7 +50,9 @@ php::pecl::module { '{{ pecl|raw }}':
 {% endfor %}
 
 {% if php.xdebug == 1 %}
-class { 'xdebug': }
+class { 'xdebug':
+  service => '{{ webserver }}',
+}
 
 xdebug::config { 'cgi': }
 xdebug::config { 'cli': }
@@ -51,4 +70,5 @@ php::ini { 'default':
     'error_reporting = -1'
   ],
   target => 'error_reporting.ini',
+  service => '{{ php_service }}',
 }

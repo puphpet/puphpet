@@ -49,13 +49,32 @@
             <div class="clearfix"></div>
             <div id="serverBasics">{% include 'Front/Tabs/server.html.twig' %}</div>
             <div class="clearfix"></div>
-            <div id="apache">{% include 'Front/Tabs/apache.html.twig' %}</div>
+
+            <h2 class="page-header">Web server</h2>
+            <div class="webserver-configuration tabbable"> <!-- Only required for left/right tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#webserver-apache" data-toggle="tab" rel="apache">Apache</a></li>
+                    <li><a href="#webserver-nginx" data-toggle="tab" rel="nginx">nginx</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="webserver-apache">
+                        <div id="apache">{% include 'Front/Tabs/apache.html.twig' %}</div>
+                    </div>
+                    <div class="tab-pane fade" id="webserver-nginx">
+                        <div id="nginx">{% include 'Front/Tabs/nginx.html.twig' %}</div>
+                    </div>
+                </div>
+            </div>
             <div class="clearfix"></div>
+
+
             <div id="php">{% include 'Front/Tabs/php.html.twig' %}</div>
             <div class="clearfix"></div>
             <div id="mysql">{% include 'Front/Tabs/mysql.html.twig' %}</div>
             <div class="clearfix"></div>
             <div id="create">{% include 'Front/Tabs/create.html.twig' %}</div>
+
+            <input type="hidden" name="webserver" value="apache" />
         </form>
     </div>
 {% endblock %}

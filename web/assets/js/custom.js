@@ -83,4 +83,10 @@ $(document).ready(function(){
             }
         }
     });
+
+    // change selected webserver on "webserver" tab change
+    $('.webserver-configuration a[data-toggle="tab"]').on('shown', function (e) {
+        var selectedWebserver = e.target.getAttribute('rel');
+        $('input[name="webserver"]').attr('value', selectedWebserver);
+    })
 });
