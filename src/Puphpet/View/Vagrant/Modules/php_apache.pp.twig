@@ -1,5 +1,7 @@
 {% if php.php54 == 1 %}
-apt::ppa { 'ppa:ondrej/php5': }
+apt::ppa { 'ppa:ondrej/php5':
+  before  => Class['php']
+}
 {% endif %}
 
 class { 'php':
