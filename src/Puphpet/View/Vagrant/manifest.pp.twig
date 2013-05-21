@@ -1,3 +1,5 @@
+{% import _self as format %}
+
 exec { 'apt-get update':
   command => 'apt-get update',
   path    => '/usr/bin/',
@@ -21,8 +23,17 @@ file { '/home/vagrant/.bash_aliases':
 
 {% include 'Vagrant/Modules/server.pp.twig' %}
 
+{% if nginx is defined %}
+{% include 'Vagrant/Modules/nginx.pp.twig' %}
+{% else %}
 {% include 'Vagrant/Modules/apache.pp.twig' %}
+{% endif %}
 
-{% include 'Vagrant/Modules/php.pp.twig' %}
+{% include 'Vagrant/Modules/php_'~webserver~'.pp.twig' %}
 
 {% include 'Vagrant/Modules/mysql.pp.twig' %}
+
+{# global macros #}
+{% macro explode_and_quote(list) %}
+{% for entry in list %}'{{ entry }}'{% if not loop.last %}, {% endif %}{% endfor %}
+{% endmacro %}

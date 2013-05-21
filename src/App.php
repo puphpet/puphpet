@@ -25,7 +25,16 @@ $app->register(new Provider\UrlGeneratorServiceProvider);
 $app->register(new Provider\ValidatorServiceProvider);
 $app->register(new Provider\DoctrineServiceProvider);
 
+// routing
 $app->mount('/', new Puphpet\Controller\Front($app));
 $app->mount('/add', new Puphpet\Controller\Add($app));
+
+// services
+$app['domain_file'] = function () {
+    return new \Puphpet\Domain\File(
+        VENDOR_PATH . '/jtreminio/vagrant-puppet-lamp',
+        new \Puphpet\Domain\Filesystem()
+    );
+};
 
 return $app;
