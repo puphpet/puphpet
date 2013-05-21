@@ -12,7 +12,7 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
     }
 
     /**
-     * Return ready to use server array
+     * Return ready to use PHP array
      *
      * @return array
      */
@@ -23,8 +23,8 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
         }
 
         $this->formatModules('php')
-             ->formatModules('pear')
-             ->formatModules('pecl');
+            ->formatModules('pear')
+            ->formatModules('pecl');
 
         return $this->php;
     }

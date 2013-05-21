@@ -23,7 +23,7 @@ class Apache extends PuppetModuleAbstract implements PuppetModuleInterface
         }
 
         $this->formatModules()
-             ->formatVhosts();
+            ->formatVhosts();
 
         return $this->apache;
     }

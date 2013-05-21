@@ -105,7 +105,7 @@ class NginxTest extends Base
             'test.awesome.dev',
         ];
         $expected['vhosts'][0]['envvars'] = [
-            'IS_AWESOME' => 'yes',
+            'IS_AWESOME'  => 'yes',
             'IS_FINISHED' => 'no',
         ];
         $expected['vhosts'][0]['index_files'] = [
@@ -129,7 +129,7 @@ class NginxTest extends Base
 
         $expected['vhosts'][2]['serveraliases'] = array();
         $expected['vhosts'][2]['envvars']       = array();
-        $expected['vhosts'][2]['index_files'] = [
+        $expected['vhosts'][2]['index_files']   = [
             'index.html',
         ];
         $this->assertEquals(
@@ -149,8 +149,8 @@ class NginxTest extends Base
         $formatter = new Nginx($this->configuration);
 
         $expected = [
-            'vhosts'  => array(),
-            'foo'     => 'bar',
+            'vhosts' => array(),
+            'foo'    => 'bar',
         ];
 
         $this->assertEquals(

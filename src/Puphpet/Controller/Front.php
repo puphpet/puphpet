@@ -61,48 +61,48 @@ class Front extends Controller
 
     public function createAction(Request $request, Application $app)
     {
-        $box = $request->request->get('box');
-        $domainFile = $app['domain_file'];
-        /**@var $domainFile \Puphpet\Domain\File */
-
+        $box       = $request->request->get('box');
         $webserver = $request->request->get('webserver', 'apache');
 
+        /**@var $domainFile \Puphpet\Domain\File */
+        $domainFile = $app['domain_file'];
+
         // quick validate webserver
-        $webserver = in_array($webserver, ['apache', 'nginx'])? $webserver : 'apache';
+        $webserver = in_array($webserver, ['apache', 'nginx']) ? $webserver : 'apache';
 
         // create array assigned to the template later on
-        $ressources = [
+        $resources = [
             'webserver'   => $webserver,
             'php_service' => $webserver == 'nginx'? 'php5-fpm' : 'apache',
         ];
 
         // start formatting
         $server = new Domain\PuppetModule\Server($request->request->get('server'));
-        $ressources['server'] = $server->getFormatted();
+        $resources['server'] = $server->getFormatted();
 
         if ('nginx' == $webserver) {
-            $nginx = new Domain\PuppetModule\Nginx($request->request->get('nginx'));
-            $ressources['nginx'] = $nginx->getFormatted();
+            $nginx = new Domain\PuppetModule\Nginx($request->request->get($webserver));
+            $resources['nginx'] = $nginx->getFormatted();
             $domainFile->addModuleSource('nginx', VENDOR_PATH . '/jfryman/puppet-nginx');
         } else {
-            $apache = new Domain\PuppetModule\Apache($request->request->get('apache'));
-            $ressources['apache'] = $apache->getFormatted();
+            $apache = new Domain\PuppetModule\Apache($request->request->get($webserver));
+            $resources['apache'] = $apache->getFormatted();
         }
 
-        $mysql  = new Domain\PuppetModule\MySQL($request->request->get('mysql'));
-        $ressources['mysql'] = $mysql->getFormatted();
+        $mysql = new Domain\PuppetModule\MySQL($request->request->get('mysql'));
+        $resources['mysql'] = $mysql->getFormatted();
 
-        $php    = new Domain\PuppetModule\PHP($request->request->get('php'));
-        $ressources['php'] = $php->getFormatted();
+        $php = new Domain\PuppetModule\PHP($request->request->get('php'));
+        $resources['php'] = $php->getFormatted();
 
         $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
-        $manifest    = $this->twig()->render('Vagrant/manifest.pp.twig', $ressources);
+        $manifest    = $this->twig()->render('Vagrant/manifest.pp.twig', $resources);
 
         // creating and building the archive
         $domainFile->createArchive([
             'Vagrantfile'                             => $vagrantFile,
             'manifests/default.pp'                    => $manifest,
-            'modules/puphpet/files/dot/.bash_aliases' => $ressources['server']['bashaliases'],
+            'modules/puphpet/files/dot/.bash_aliases' => $resources['server']['bashaliases'],
         ]);
         $file = $domainFile->getArchivePath();
 

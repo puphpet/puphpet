@@ -19,7 +19,6 @@ abstract class PuppetModuleAbstract
      * Explodes a given list, trims all elements and removes empty entries
      *
      * @param array $values
-     *
      * @return array
      */
     protected function explode($values)
@@ -36,6 +35,7 @@ abstract class PuppetModuleAbstract
                 $result[] = $val;
             }
         }
+
         return $result;
     }
 
@@ -47,7 +47,6 @@ abstract class PuppetModuleAbstract
      *
      * @param string $values
      * @param string $seperator
-     *
      * @return array
      */
     protected function explodeAndMap($values, $seperator = ' ')
@@ -56,7 +55,7 @@ abstract class PuppetModuleAbstract
         foreach ($this->explode($values) as $line) {
             $split = explode($seperator, $line, 2);
             // do we have sth like "Foo Bar"? If not, skip it!
-            if (2 == count($split)) {
+            if (count($split) == 2) {
                 $result[$split[0]] = trim($split[1]);
             }
         }
