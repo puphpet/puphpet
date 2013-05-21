@@ -132,7 +132,7 @@ class FileTest extends Base
         $moduleName2 = 'awesomeModule2';
         $moduleSource2 = 'path/to/source2';
 
-        $replacementFiles = array('foo' => 'bar');
+        $replacementFiles = ['foo' => 'bar'];
 
         $filesystem = $this->getFilesystemMock();
 
@@ -169,7 +169,7 @@ class FileTest extends Base
 
         $moduleSource2 = 'path/to/source2';
 
-        $replacementFiles = array('foo' => 'bar');
+        $replacementFiles = ['foo' => 'bar'];
 
         $filesystem = $this->getFilesystemMock();
 

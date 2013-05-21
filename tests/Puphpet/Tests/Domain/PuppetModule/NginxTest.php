@@ -8,7 +8,7 @@ use Puphpet\Tests\Base;
 class NginxTest extends Base
 {
     protected $configuration = array();
-    protected $formatter = array();
+    protected $formatter     = array();
 
     public function setUp()
     {
@@ -70,13 +70,13 @@ class NginxTest extends Base
      */
     public function testFormatCommonConfiguration($configuration)
     {
-        $formatter = new Nginx(array('servername' => 'foo.bar'));
+        $formatter = new Nginx(['servername' => 'foo.bar']);
         $formatted = $formatter->getFormatted();
 
-        $expected = array(
+        $expected = [
             'servername' => 'foo.bar',
             'vhosts'     => array(),
-        );
+        ];
 
         $this->assertEquals($expected, $formatted);
     }
@@ -84,10 +84,10 @@ class NginxTest extends Base
     public function providerTestFormatCommonFiguration()
     {
         return [
-            array('servername' => 'foo.bar'),
-            array('servername' => 'foo.bar '),
-            array('servername' => ' foo.bar'),
-            array('servername' => ' foo.bar '),
+            ['servername' => 'foo.bar'],
+            ['servername' => 'foo.bar '],
+            ['servername' => ' foo.bar'],
+            ['servername' => ' foo.bar '],
         ];
     }
 

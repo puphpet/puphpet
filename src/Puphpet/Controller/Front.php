@@ -68,7 +68,7 @@ class Front extends Controller
         $webserver = $request->request->get('webserver', 'apache');
 
         // quick validate webserver
-        $webserver = in_array($webserver, array('apache', 'nginx'))? $webserver : 'apache';
+        $webserver = in_array($webserver, ['apache', 'nginx'])? $webserver : 'apache';
 
         // create array assigned to the template later on
         $ressources = [
