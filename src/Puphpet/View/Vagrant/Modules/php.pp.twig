@@ -4,31 +4,7 @@ apt::ppa { 'ppa:ondrej/php5':
 }
 {% endif %}
 
-class { 'php':
-  package             => 'php5',
-  service             => 'php5-fpm',
-  service_autorestart => false,
-}
-
-{% if php.modules.php|length > 0 %}
-php::module {
-  [
-    'php5-fpm',
-{% for phpModule in php.modules.php %}
-    '{{ phpModule|raw }}',
-{% endfor %}
-  ]:
-  service => '{{ php_service }}',
-}
-{% endif %}
-
-service { 'php5-fpm':
-  ensure     => running,
-  enable     => true,
-  hasrestart => true,
-  hasstatus  => true,
-  require    => Package['php5-fpm'],
-}
+{% include 'Vagrant/Modules/PHP/'~webserver~'.pp.twig' %}
 
 class { 'php::devel':
   require => Class['php'],

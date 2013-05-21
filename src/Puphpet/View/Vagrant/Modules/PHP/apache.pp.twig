@@ -1,0 +1,8 @@
+class { 'php':
+  service => '{{ php_service }}',
+  require => Package['apache'],
+}
+
+{% for phpModule in php.modules.php %}
+php::module { '{{ phpModule|raw }}': }
+{% endfor %}
