@@ -90,9 +90,6 @@ class NginxTest extends Base
         ];
     }
 
-    /**
-     * @group debug
-     */
     public function testGetFormattedReturnsFormattedProperties()
     {
         $this->configuration['vhosts'][1]['envvars']       = 'OPEN_SOURCED yes, ';
