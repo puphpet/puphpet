@@ -1,5 +1,5 @@
 {% if server.packages is not empty %}
-package { [{{ server.packages|join(', ')|raw }}]:
+package { [{{ format.explode_and_quote(server.packages)|raw }}]:
   ensure  => 'installed',
   require => Exec['apt-get update'],
 }
