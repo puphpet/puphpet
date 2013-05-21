@@ -5,7 +5,6 @@
         "symfony/http-foundation":       "2.2.*",
         "symfony/http-kernel":           "2.2.*",
         "symfony/twig-bridge":           "2.2.*",
-        "jtreminio/zimple":              "2.0.*@dev",
         "jtreminio/vagrant-puppet-lamp": "1.*@dev",
         "jfryman/puppet-nginx":          "dev-master"
     },

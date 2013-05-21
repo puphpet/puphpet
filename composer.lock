@@ -3,20 +3,53 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d45bd61b86bb7eea1244e3fcaa203e51",
+    "hash": "772ef6ff5d8b05a34360a95ab9a010a8",
     "packages": [
+        {
+            "name": "jfryman/puppet-nginx",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/frastel/puppet-nginx.git",
+                "reference": "264f66faaae086deac8ba330d4781a4217627a1c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/frastel/puppet-nginx/zipball/264f66faaae086deac8ba330d4781a4217627a1c",
+                "reference": "264f66faaae086deac8ba330d4781a4217627a1c",
+                "shasum": ""
+            },
+            "type": "project",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Puppet module for nginx installation",
+            "keywords": [
+                "nginx",
+                "puppet"
+            ],
+            "support": {
+                "source": "https://github.com/frastel/puppet-nginx/tree/master"
+            },
+            "time": "2013-05-18 13:37:27"
+        },
         {
             "name": "jtreminio/vagrant-puppet-lamp",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jtreminio/vagrant-puppet-lamp.git",
-                "reference": "2682e8de74daa4cba440465458619c1199d2b6e5"
+                "reference": "93f1f11f8635e7cce3f86b25eb836adfc8d4add1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jtreminio/vagrant-puppet-lamp/zipball/2682e8de74daa4cba440465458619c1199d2b6e5",
-                "reference": "2682e8de74daa4cba440465458619c1199d2b6e5",
+                "url": "https://api.github.com/repos/jtreminio/vagrant-puppet-lamp/zipball/93f1f11f8635e7cce3f86b25eb836adfc8d4add1",
+                "reference": "93f1f11f8635e7cce3f86b25eb836adfc8d4add1",
                 "shasum": ""
             },
             "type": "project",
@@ -45,64 +78,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2013-05-17 06:56:50"
-        },
-        {
-            "name": "jtreminio/zimple",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jtreminio/Zimple.git",
-                "reference": "7a967d3f99edd73cf7d05680afb9a5d0fb2131e1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jtreminio/Zimple/zipball/7a967d3f99edd73cf7d05680afb9a5d0fb2131e1",
-                "reference": "7a967d3f99edd73cf7d05680afb9a5d0fb2131e1",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "pimple/pimple": "1.0.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "jtreminio\\Zimple": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Juan Treminio",
-                    "email": "jtreminio@gmail.com",
-                    "homepage": "http://jtreminio.com"
-                }
-            ],
-            "description": "A wrapper for Pimple container that adds several useful features to make it easier to manage your code!",
-            "homepage": "https://github.com/jtreminio/Zimple",
-            "keywords": [
-                "container",
-                "dependency injection",
-                "dic",
-                "inversion of control",
-                "ioc",
-                "pimple",
-                "testing",
-                "unit testing"
-            ],
-            "time": "2013-05-06 13:23:05"
+            "time": "2013-05-20 21:28:56"
         },
         {
             "name": "pimple/pimple",
@@ -450,12 +426,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "v2.3.0-RC1"
+                "reference": "255e1163b74a22cd83d3fd51d63c0588afe0bc56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.3.0-RC1",
-                "reference": "v2.3.0-RC1",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/255e1163b74a22cd83d3fd51d63c0588afe0bc56",
+                "reference": "255e1163b74a22cd83d3fd51d63c0588afe0bc56",
                 "shasum": ""
             },
             "require": {
@@ -499,7 +475,7 @@
             ],
             "description": "Symfony Routing Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-13 14:36:40"
+            "time": "2013-05-20 08:57:26"
         },
         {
             "name": "symfony/twig-bridge",
@@ -624,12 +600,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "63b3e5f93ebc7a1874c2db2f1ffa5e3ee9b3349d"
+                "reference": "1b062d820a328077f2632a5a422ac1dcc078dd65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/63b3e5f93ebc7a1874c2db2f1ffa5e3ee9b3349d",
-                "reference": "63b3e5f93ebc7a1874c2db2f1ffa5e3ee9b3349d",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/1b062d820a328077f2632a5a422ac1dcc078dd65",
+                "reference": "1b062d820a328077f2632a5a422ac1dcc078dd65",
                 "shasum": ""
             },
             "require": {
@@ -678,7 +654,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-18 07:29:00"
+            "time": "2013-05-21 08:17:37"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -864,12 +840,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1248850e1ddda6b694975c9c1f89e6dd87fe8ecc"
+                "reference": "820c4ef50c59e49260598037cab45b61620677de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1248850e1ddda6b694975c9c1f89e6dd87fe8ecc",
-                "reference": "1248850e1ddda6b694975c9c1f89e6dd87fe8ecc",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/820c4ef50c59e49260598037cab45b61620677de",
+                "reference": "820c4ef50c59e49260598037cab45b61620677de",
                 "shasum": ""
             },
             "require": {
@@ -933,7 +909,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-19 10:11:20"
+            "time": "2013-05-21 08:17:11"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1298,8 +1274,8 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "jtreminio/zimple": 20,
         "jtreminio/vagrant-puppet-lamp": 20,
+        "jfryman/puppet-nginx": 20,
         "phpunit/phpunit": 20,
         "whatthejeff/nyancat-phpunit-resultprinter": 20
     },
