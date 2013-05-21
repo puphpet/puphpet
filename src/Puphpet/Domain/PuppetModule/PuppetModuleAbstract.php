@@ -25,10 +25,10 @@ abstract class PuppetModuleAbstract
     protected function explode($values)
     {
         if (empty($values)) {
-            return [];
+            return array();
         }
 
-        $result = [];
+        $result = array();
         foreach (explode(',', $values) as $value) {
             $val = trim($value);
             // remove all empty elements
@@ -52,14 +52,14 @@ abstract class PuppetModuleAbstract
      */
     protected function explodeAndMap($values, $seperator = ' ')
     {
-        $result = [];
+        $result = array();
         foreach ($this->explode($values) as $line) {
             $split = explode($seperator, $line, 2);
             // do we have sth like "Foo Bar"? If not, skip it!
             if (2 == count($split)) {
                 $result[$split[0]] = trim($split[1]);
             }
-        };
+        }
 
         return $result;
     }
