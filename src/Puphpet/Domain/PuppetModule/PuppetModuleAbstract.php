@@ -5,17 +5,6 @@ namespace Puphpet\Domain\PuppetModule;
 abstract class PuppetModuleAbstract
 {
     /**
-     * @param mixed $values
-     * @return array
-     */
-    protected function explodeAndQuote($values)
-    {
-        $values = !empty($values) ? explode(',', $values) : array();
-
-        return $this->quoteArray($values);
-    }
-
-    /**
      * Explodes a given list, trims all elements and removes empty entries
      *
      * @param array $values
