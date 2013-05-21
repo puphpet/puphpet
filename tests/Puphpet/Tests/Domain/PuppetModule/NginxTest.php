@@ -7,6 +7,7 @@ use Puphpet\Tests\Base;
 
 class NginxTest extends Base
 {
+    protected $configuration = array();
     protected $formatter = array();
 
     public function setUp()
