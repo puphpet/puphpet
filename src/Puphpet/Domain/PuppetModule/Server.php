@@ -4,7 +4,6 @@ namespace Puphpet\Domain\PuppetModule;
 
 class Server extends PuppetModuleAbstract implements PuppetModuleInterface
 {
-    protected $disallowedPackages = ['python-software-properties'];
     protected $server;
 
     public function __construct($server)
@@ -54,8 +53,11 @@ class Server extends PuppetModuleAbstract implements PuppetModuleInterface
             ? explode(',', $this->server['packages'])
             : array();
 
-        foreach ($this->disallowedPackages as $disallowed) {
-            unset($this->server['packages'][$disallowed]);
+        $key = array_search('python-software-properties', $this->server['packages']);
+
+        // python-software-properties is installed by default, remove to prevent duplicate Puppet function
+        if ($key !== FALSE) {
+            unset($this->server['packages'][$key]);
         }
 
         $this->server['packages'] = $this->quoteArray($this->server['packages']);
