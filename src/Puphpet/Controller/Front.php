@@ -93,6 +93,9 @@ class Front extends Controller
         $resources['mysql'] = $mysql->getFormatted();
 
         $php = new Domain\PuppetModule\PHP($request->request->get('php'));
+        if ('nginx' == $webserver) {
+            $php->addPhpModule('php5-fpm', true);
+        }
         $resources['php'] = $php->getFormatted();
 
         $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);

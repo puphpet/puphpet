@@ -51,7 +51,7 @@ class PHPTest extends Base
         );
     }
 
-    public function providerGetFormattedReturnsEmptyArrayWhenPhpPropertyEmpty()
+    public static function providerGetFormattedReturnsEmptyArrayWhenPhpPropertyEmpty()
     {
         return [
             [array()],
@@ -79,12 +79,113 @@ class PHPTest extends Base
         );
     }
 
-    public function providerGetFormattedReturnsEmptyArrayWhenModuleValueFalse()
+    public static function providerGetFormattedReturnsEmptyArrayWhenModuleValueFalse()
     {
         return [
             ['php'],
             ['pear'],
             ['pecl'],
+        ];
+    }
+
+    public function testGetFormattedReturnsOnlyUniqueModules()
+    {
+        // duplicate 'foo' will be removed
+        $fixtures = [
+            'modules' => [
+                'php' => ['foo', 'bar', 'baz', 'foo']
+            ]
+        ];
+
+        $expected = [
+            'modules' => [
+                'php'  => ['foo', 'bar', 'baz'],
+                'pear' => array(),
+                'pecl' => array()
+            ],
+
+        ];
+
+        $php = new PHP($fixtures);
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testAddPhpModuleMovesModuleAtTheEndOfTheListByDefault()
+    {
+        $fixtures = [
+            'modules' => [
+                'php' => ['bar', 'baz']
+            ]
+        ];
+
+        $expected = [
+            'modules' => [
+                'php'  => ['bar', 'baz', 'foo'],
+                'pear' => array(),
+                'pecl' => array()
+            ],
+
+        ];
+
+        $php = new PHP($fixtures);
+        $php->addPhpModule('foo');
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testAddPhpModuleMovesModuleAtTheBeginningOfTheList()
+    {
+        $fixtures = [
+            'modules' => [
+                'php' => ['bar', 'baz']
+            ]
+        ];
+
+        $expected = [
+            'modules' => [
+                'php'  => ['foo', 'bar', 'baz'],
+                'pear' => array(),
+                'pecl' => array()
+            ],
+
+        ];
+
+        $php = new PHP($fixtures);
+        $php->addPhpModule('foo', true);
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @dataProvider providerForIncompleteModuleConfiguration
+     */
+    public function testAddPhpModuleWorksEvenWhenIncomingConfigurationIsIncomplete($fixtures)
+    {
+        $expected = [
+            'modules' => [
+                'php'  => ['foo'],
+                'pear' => array(),
+                'pecl' => array()
+            ],
+
+        ];
+
+        $php = new PHP($fixtures);
+        $php->addPhpModule('foo', true);
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public static function providerForIncompleteModuleConfiguration()
+    {
+        return [
+            [array()],
+            [['modules' => array()]]
         ];
     }
 }
