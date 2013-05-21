@@ -10,19 +10,40 @@ class File extends Domain
     private $tmpFolder;
     private $tmpPath;
     private $source;
+
+    /**
+     * Absolute filename to tmp archive without extension
+     *
+     * @var string
+     */
     private $archiveFile;
+
+    /**
+     * Absolute file name to tmp archive path including extension
+     *
+     * @var string
+     */
+    private $archivePath;
     private $moduleSources = array();
 
     /**
-     * @param string $source Absolute path to archive
+     * @var Filesystem
      */
-    public function __construct($source)
+    private $filesystem;
+
+    /**
+     * @param string     $source Absolute path to archive
+     * @param Filesystem $filesystem
+     */
+    public function __construct($source, Filesystem $filesystem)
     {
         $this->source = $source;
+        $this->filesystem = $filesystem;
     }
 
     /**
      * @param array $replacementFiles Files to replace in our source folder
+     *
      * @return string Path to generated file
      */
     public function createArchive(array $replacementFiles = array())
@@ -44,7 +65,7 @@ class File extends Domain
      */
     public function getArchivePath()
     {
-        return "{$this->archiveFile}.zip";
+        return $this->archivePath;
     }
 
     /**
@@ -52,10 +73,11 @@ class File extends Domain
      */
     protected function setPaths()
     {
-        $this->sysTempDir  = $this->getSysTempDir();
-        $this->tmpFolder   = $this->getTmpFolder();
-        $this->tmpPath     = $this->sysTempDir . '/' . $this->tmpFolder;
+        $this->sysTempDir = $this->getSysTempDir();
+        $this->tmpFolder = $this->getTmpFolder();
+        $this->tmpPath = $this->sysTempDir . '/' . $this->tmpFolder;
         $this->archiveFile = $this->getTmpFile($this->sysTempDir, $this->tmpFolder);
+        $this->archivePath = $this->archiveFile . '.zip';
     }
 
     /**
@@ -93,7 +115,7 @@ class File extends Domain
      */
     protected function copySource($sourcePath, $targetPath)
     {
-        shell_exec("cp -r {$sourcePath} {$targetPath}");
+        $this->filesystem->mirror($sourcePath, $targetPath);
     }
 
     /**
@@ -104,7 +126,7 @@ class File extends Domain
      */
     protected function copyFile($path, $file)
     {
-        $this->filePutContents("{$this->tmpPath}/{$path}", $file);
+        $this->filesystem->putContents($this->tmpPath . '/' . $path, $file);
     }
 
     /**
@@ -112,7 +134,7 @@ class File extends Domain
      */
     protected function zipFolder()
     {
-        $this->exec("cd {$this->tmpPath} && zip -r {$this->archiveFile}.zip * -x */.git\*");
+        $this->filesystem->createArchive($this->archivePath, $this->tmpPath);
     }
 
     /**
@@ -120,26 +142,16 @@ class File extends Domain
      */
     protected function getSysTempDir()
     {
-        return sys_get_temp_dir();
+        return $this->filesystem->getSysTempDir();
     }
 
     protected function getTmpFolder()
     {
-        return uniqid();
+        return $this->filesystem->getTmpFolder();
     }
 
     protected function getTmpFile($dir, $prefix)
     {
-        return tempnam($dir, $prefix);
-    }
-
-    protected function exec($cmd)
-    {
-        shell_exec($cmd);
-    }
-
-    protected function filePutContents($filename, $data)
-    {
-        file_put_contents($filename, $data);
+        return $this->filesystem->getTmpFile($dir, $prefix);
     }
 }
