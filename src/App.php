@@ -31,9 +31,9 @@ $app->mount('/add', new Puphpet\Controller\Add($app));
 
 // services
 $app['domain_file'] = function () {
-    return new \Puphpet\Domain\File(
-        VENDOR_PATH . '/jtreminio/vagrant-puppet-lamp',
-        new \Puphpet\Domain\Filesystem()
+    return new Puphpet\Domain\File(
+        VAGRANT_PATH,
+        new Puphpet\Domain\Filesystem()
     );
 };
 
