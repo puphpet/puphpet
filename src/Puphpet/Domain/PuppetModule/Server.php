@@ -50,7 +50,7 @@ class Server extends PuppetModuleAbstract implements PuppetModuleInterface
     protected function formatPackages()
     {
         $this->server['packages'] = !empty($this->server['packages'])
-            ? explode(',', $this->server['packages'])
+            ? $this->explode($this->server['packages'])
             : array();
 
         $key = array_search('python-software-properties', $this->server['packages']);
@@ -59,8 +59,6 @@ class Server extends PuppetModuleAbstract implements PuppetModuleInterface
         if ($key !== FALSE) {
             unset($this->server['packages'][$key]);
         }
-
-        $this->server['packages'] = $this->quoteArray($this->server['packages']);
 
         return $this;
     }
