@@ -3,9 +3,8 @@
 namespace Puphpet\Tests\Domain\PuppetModule;
 
 use Puphpet\Domain\PuppetModule\PHP;
-use Puphpet\Tests\Base;
 
-class PHPTest extends Base
+class PHPTest extends \PHPUnit_Framework_TestCase
 {
     protected $phpArray = array();
 
@@ -45,13 +44,10 @@ class PHPTest extends Base
 
         $expected = array();
 
-        $this->assertEquals(
-            $expected,
-            $php->getFormatted()
-        );
+        $this->assertEquals($expected, $php->getFormatted());
     }
 
-    public static function providerGetFormattedReturnsEmptyArrayWhenPhpPropertyEmpty()
+    public function providerGetFormattedReturnsEmptyArrayWhenPhpPropertyEmpty()
     {
         return [
             [array()],

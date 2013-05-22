@@ -5,9 +5,27 @@ namespace Puphpet\Domain\PuppetModule;
 abstract class PuppetModuleAbstract
 {
     /**
+     * @var array
+     */
+    protected $configuration;
+
+    public function __construct($configuration = array())
+    {
+        $this->configuration = is_array($configuration) ? $configuration : array();
+    }
+
+    /**
+     * Sets the raw unformatted configuration
+     */
+    public function setConfiguration(array $configuration)
+    {
+        $this->configuration = $configuration;
+    }
+
+    /**
      * Explodes a given list, trims all elements and removes empty entries
      *
-     * @param array $values
+     * @param  array $values
      * @return array
      */
     protected function explode($values)
@@ -34,8 +52,8 @@ abstract class PuppetModuleAbstract
      * Example:
      * "FOO BAR,Hello World" -> ['FOO' => 'BAR, 'Hello' => 'World']
      *
-     * @param string $values
-     * @param string $seperator
+     * @param  string $values
+     * @param  string $seperator
      * @return array
      */
     protected function explodeAndMap($values, $seperator = ' ')
