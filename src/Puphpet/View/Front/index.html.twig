@@ -3,78 +3,116 @@
 {% block container %}
     {{ parent() }}
 
-    <div class="row">
-        <div class="page-header">
-            <h1>PuPHPet</h1>
+    <section class="block white">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <h2>PuPHPet, a simple GUI to set up virtual machines for PHP development</h2>
+                </div>
+
+                <div class="span6">
+                    <h3>What is this?</h3>
+
+                    <p>
+                        PuPHPet is for rapid generation of Vagrant VMs provisioned by Puppet, specifically made for those that
+                        don't have the time or interest in learning the details.
+                    </p>
+
+                    <p>
+                        The idea came to me when I was struggling to get from no previous Vagrant/Puppet knowledge to simply
+                        having a running VM I could start developing on. Why should I need to learn the ins and outs when
+                        all I want to do is faceroll more code?
+                    </p>
+                </div>
+
+                <div class="span6">
+                    <h3>Who is it for?</h3>
+
+                    <p>
+                        This is aimed at PHP developers that do not have the time or inclination to learn a whole new system.
+                        You want to get started programming on an easily managed VM quickly, with as little fuss as possible.
+                    </p>
+
+                    <p>
+                        This is not meant to be used in production. The choices are limited by design, I will probably only
+                        ever focus on the official Vagrant Ubuntu boxes, and as of right now you cannot choose specific
+                        versions of packages to install, only the latest of each.
+                    </p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="span6">
-            <h3>What is this?</h3>
-
-            <p>
-                PuPHPet is for rapid generation of Vagrant VMs provisioned by Puppet, specifically made for those that
-                don't have the time or interest in learning the details.
-            </p>
-
-            <p>
-                The idea came to me when I was struggling to get from no previous Vagrant/Puppet knowledge to simply
-                having a running VM I could start developing on. Why should I need to learn the ins and outs when
-                all I want to do is faceroll more code?
-            </p>
-        </div>
-
-        <div class="span6">
-            <h3>Who is it for?</h3>
-
-            <p>
-                This is aimed at PHP developers that do not have the time or inclination to learn a whole new system.
-                You want to get started programming on an easily managed VM quickly, with as little fuss as possible.
-            </p>
-
-            <p>
-                This is not meant to be used in production. The choices are limited by design, I will probably only
-                ever focus on the official Vagrant Ubuntu boxes, and as of right now you cannot choose specific
-                versions of packages to install, only the latest of each.
-            </p>
+    <div class="subnav">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <ul class="nav nav-pills">
+                        <li><a href="#vagrant">Vagrant Box</a></li>
+                        <li><a href="#server">Server</a></li>
+                        <li><a href="#webserver">Web Server</a></li>
+                        <li><a href="#php">PHP</a></li>
+                        <li><a href="#mysql">MySQL</a></li>
+                        <li><a href="#create">Create</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="page-header">
-            <h1>Get Started!</h1>
-        </div>
+    <form class="form-horizontal" action="/create" method="post" enctype="application/x-www-form-urlencoded">
 
-        <form class="form-horizontal" action="/create" method="post" enctype="application/x-www-form-urlencoded">
-            <div class="row">{% include 'Front/Tabs/vagrantBox.html.twig' %}</div>
-            <div class="clearfix"></div>
-            <div id="serverBasics">{% include 'Front/Tabs/server.html.twig' %}</div>
-            <div class="clearfix"></div>
+        <section class="block" id="vagrant">
+            <div class="container">
+                {% include 'Front/Tabs/vagrantBox.html.twig' %}
+            </div>
+        </section>
 
-            <h2 class="page-header">Web server</h2>
-            <div class="webserver-configuration tabbable"> <!-- Only required for left/right tabs -->
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#webserver-apache" data-toggle="tab" rel="apache">Apache</a></li>
-                    <li><a href="#webserver-nginx" data-toggle="tab" rel="nginx">nginx</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="webserver-apache">
-                        <div id="apache">{% include 'Front/Tabs/apache.html.twig' %}</div>
-                    </div>
-                    <div class="tab-pane fade" id="webserver-nginx">
-                        <div id="nginx">{% include 'Front/Tabs/nginx.html.twig' %}</div>
+        <section class="block" id="server">
+            <div class="container">
+                {% include 'Front/Tabs/server.html.twig' %}
+            </div>
+        </section>
+
+        <section class="block" id="webserver">
+            <div class="container">
+                <h2 class="page-header">Web server</h2>
+                <div class="webserver-configuration tabbable"> <!-- Only required for left/right tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#webserver-apache" data-toggle="tab" rel="apache">Apache</a></li>
+                        <li><a href="#webserver-nginx" data-toggle="tab" rel="nginx">nginx</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="webserver-apache">
+                            <div id="apache">{% include 'Front/Tabs/apache.html.twig' %}</div>
+                        </div>
+                        <div class="tab-pane fade" id="webserver-nginx">
+                            <div id="nginx">{% include 'Front/Tabs/nginx.html.twig' %}</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="clearfix"></div>
+        </section>
 
+        <section class="block" id="php">
+            <div class="container">
+                {% include 'Front/Tabs/php.html.twig' %}
+            </div>
+        </section>
 
-            <div id="php">{% include 'Front/Tabs/php.html.twig' %}</div>
-            <div class="clearfix"></div>
-            <div id="mysql">{% include 'Front/Tabs/mysql.html.twig' %}</div>
-            <div class="clearfix"></div>
-            <div id="create">{% include 'Front/Tabs/create.html.twig' %}</div>
+        <section class="block" id="mysql">
+            <div class="container">
+                {% include 'Front/Tabs/mysql.html.twig' %}
+            </div>
+        </section>
 
-            <input type="hidden" name="webserver" value="apache" />
-        </form>
-    </div>
+        <section class="block" id="create">
+            <div class="container">
+                {% include 'Front/Tabs/create.html.twig' %}
+            </div>
+        </section>
+
+        <input type="hidden" name="webserver" value="apache" />
+
+    </form>
 {% endblock %}

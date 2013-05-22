@@ -10,13 +10,8 @@
 
         {% block css %}
             <link href="/assets/vendor/bootswatch/cerulean/bootstrap.min.css" rel="stylesheet" />
+            <link href="/assets/vendor/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" />
             <link href="/assets/vendor/select2/select2.css" rel="stylesheet"/>
-            <style type="text/css">
-                body {
-                    padding-top: 60px;
-                    padding-bottom: 40px;
-                }
-            </style>
             <link href="/assets/vendor/select2-bootstrap/select2-bootstrap.css" rel="stylesheet" />
             <link href="/assets/css/style.css" rel="stylesheet" />
         {% endblock %}
@@ -27,36 +22,48 @@
     </head>
 {% endblock %}
 
-<body>
-{% block body %}
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand" href="/">PuPHPet</a>
+<body class="bodyPadded">
 
-                <div class="nav-collapse collapse pull-right">
-                    <ul class="nav">
-                        <li {% if currentPage is null or currentPage == 'home' %}class="active"{% endif %}><a href="/">Home</a></li>
-                        <li {% if currentPage == 'help' %}class="active"{% endif %}><a href="/help">Help!</a></li>
-                        <li {% if currentPage == 'about' %}class="active"{% endif %}><a href="/about">About</a></li>
-                        <li><a href="https://jtreminio.com/contact/" target="_blank">Contact</a></li>
-                        <li><a href="https://github.com/jtreminio/puphpet" target="_blank">Fork Me</a></li>
-                    </ul>
-                </div>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="/">PuPHPet</a>
 
+            <div class="nav-collapse collapse" id="main-menu">
+                <ul class="nav" id="main-menu-left">
+                    <li {% if currentPage is null or currentPage == 'home' %}class="active"{% endif %}><a href="/">Home</a></li>
+                    <li {% if currentPage == 'help' %}class="active"{% endif %}><a href="/help">Help!</a></li>
+                    <li {% if currentPage == 'about' %}class="active"{% endif %}><a href="/about">About</a></li>
+                </ul>
+                <ul class="nav pull-right" id="main-menu-right">
+                    <li><a href="https://jtreminio.com/contact/" target="_blank">Contact</a></li>
+                    <li><a href="https://github.com/jtreminio/puphpet" target="_blank">Fork Me</a></li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="container">
-        {% block container %}
-        {% endblock %}
-    </div>
+{% block body %}
+    {% block container %}
+    {% endblock %}
 {% endblock %}
 
 {% block footer %}
+<footer>
+    <div class="container">
+        PuPHPet
+    </div>
+</footer>
     {% block footerJs %}
         <script src="/assets/vendor/jquery/jquery.js"></script>
+        <script src="/assets/vendor/jquery/jquery.smooth-scroll.min.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
         <script src="/assets/vendor/bootstrap/js/bootstrap-affix.js"></script>
         <script src="/assets/vendor/bootstrap/js/bootstrap-dropdown.js"></script>
         <script src="/assets/vendor/bootstrap/js/bootstrap-tab.js"></script>
