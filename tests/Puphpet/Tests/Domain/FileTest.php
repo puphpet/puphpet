@@ -63,7 +63,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
         // no expectation on "mirror" method here
         // as assertions on this method differ from test to test
-
         return $mock;
     }
 

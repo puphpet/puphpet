@@ -21,7 +21,6 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
     private $nginxConfiguration = ['nginx_foo' => 'nginx_bar'];
     private $nginxFormatted = ['nginx_hello' => 'nginx_world'];
 
-
     public function testFormatWithRequestedApacheConfiguration()
     {
         $webserver = 'apache';

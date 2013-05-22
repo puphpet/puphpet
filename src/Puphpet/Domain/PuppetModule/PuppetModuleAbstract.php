@@ -25,7 +25,7 @@ abstract class PuppetModuleAbstract
     /**
      * Explodes a given list, trims all elements and removes empty entries
      *
-     * @param array $values
+     * @param  array $values
      * @return array
      */
     protected function explode($values)
@@ -52,8 +52,8 @@ abstract class PuppetModuleAbstract
      * Example:
      * "FOO BAR,Hello World" -> ['FOO' => 'BAR, 'Hello' => 'World']
      *
-     * @param string $values
-     * @param string $seperator
+     * @param  string $values
+     * @param  string $seperator
      * @return array
      */
     protected function explodeAndMap($values, $seperator = ' ')

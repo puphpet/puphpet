@@ -133,7 +133,7 @@ class Formatter implements FormatterInterface
      * @param string $moduleName
      *
      * @return \Puphpet\Domain\PuppetModule\PuppetModuleAbstract
-     * @throws \InvalidArgumentException when given module name is not registered
+     * @throws \InvalidArgumentException                         when given module name is not registered
      */
     protected function getPuppetModule($moduleName)
     {
