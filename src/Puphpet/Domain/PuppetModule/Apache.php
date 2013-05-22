@@ -4,13 +4,6 @@ namespace Puphpet\Domain\PuppetModule;
 
 class Apache extends PuppetModuleAbstract implements PuppetModuleInterface
 {
-    protected $apache;
-
-    public function __construct($apache)
-    {
-        $this->apache = is_array($apache) ? $apache : array();
-    }
-
     /**
      * Return ready to use Apache array
      *
@@ -18,14 +11,14 @@ class Apache extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     public function getFormatted()
     {
-        if (empty($this->apache)) {
+        if (empty($this->configuration)) {
             return array();
         }
 
         $this->formatModules()
             ->formatVhosts();
 
-        return $this->apache;
+        return $this->configuration;
     }
 
     /**
@@ -35,8 +28,8 @@ class Apache extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     protected function formatModules()
     {
-        $this->apache['modules'] = !empty($this->apache['modules'])
-            ? $this->apache['modules']
+        $this->configuration['modules'] = !empty($this->configuration['modules'])
+            ? $this->configuration['modules']
             : array();
 
         return $this;
@@ -49,23 +42,23 @@ class Apache extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     protected function formatVhosts()
     {
-        if (empty($this->apache['vhosts'])) {
-            $this->apache['vhosts'] = array();
+        if (empty($this->configuration['vhosts'])) {
+            $this->configuration['vhosts'] = array();
         }
 
-        $vhosts = $this->apache['vhosts'];
+        $vhosts = $this->configuration['vhosts'];
 
         foreach ($vhosts as $id => $vhost) {
             $vhosts[$id]['serveraliases'] = !empty($vhosts[$id]['serveraliases'])
                 ? $this->explode($vhosts[$id]['serveraliases'])
                 : array();
 
-            $vhosts[$id]['envvars']       = !empty($vhosts[$id]['envvars'])
+            $vhosts[$id]['envvars'] = !empty($vhosts[$id]['envvars'])
                 ? $this->explode($vhosts[$id]['envvars'])
                 : array();
         }
 
-        $this->apache['vhosts'] = $vhosts;
+        $this->configuration['vhosts'] = $vhosts;
 
         return $this;
     }

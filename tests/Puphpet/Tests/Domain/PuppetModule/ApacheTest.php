@@ -3,9 +3,8 @@
 namespace Puphpet\Tests\Domain\PuppetModule;
 
 use Puphpet\Domain\PuppetModule\Apache;
-use Puphpet\Tests\Base;
 
-class ApacheTest extends Base
+class ApacheTest extends \PHPUnit_Framework_TestCase
 {
     protected $apacheArray = array();
 

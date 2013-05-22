@@ -3,9 +3,8 @@
 namespace Puphpet\Tests\Domain;
 
 use Puphpet\Domain\File;
-use Puphpet\Tests\Base;
 
-class FileTest extends Base
+class FileTest extends \PHPUnit_Framework_TestCase
 {
     protected $source;
     protected $sysTempDir;

@@ -4,13 +4,6 @@ namespace Puphpet\Domain\PuppetModule;
 
 class MySQL extends PuppetModuleAbstract implements PuppetModuleInterface
 {
-    protected $mysql;
-
-    public function __construct($mysql)
-    {
-        $this->mysql = is_array($mysql) ? $mysql : array();
-    }
-
     /**
      * Return ready to use MySQL array
      *
@@ -18,13 +11,13 @@ class MySQL extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     public function getFormatted()
     {
-        if (empty($this->mysql)) {
+        if (empty($this->configuration)) {
             return array();
         }
 
         $this->removeIncomplete();
 
-        return $this->mysql;
+        return $this->configuration;
     }
 
     /**
@@ -34,13 +27,13 @@ class MySQL extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     protected function removeIncomplete()
     {
-        if (empty($this->mysql['dbuser'])) {
-            $this->mysql['dbuser'] = array();
+        if (empty($this->configuration['dbuser'])) {
+            $this->configuration['dbuser'] = array();
         }
 
-        foreach ($this->mysql['dbuser'] as $key => $db) {
+        foreach ($this->configuration['dbuser'] as $key => $db) {
             if (empty($db['user']) || empty($db['dbname'])) {
-                unset($this->mysql['dbuser'][$key]);
+                unset($this->configuration['dbuser'][$key]);
                 continue;
             }
         }

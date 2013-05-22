@@ -3,17 +3,16 @@
 namespace Puphpet\Tests\Domain\PuppetModule;
 
 use Puphpet\Domain\PuppetModule\Nginx;
-use Puphpet\Tests\Base;
 
-class NginxTest extends Base
+class NginxTest extends \PHPUnit_Framework_TestCase
 {
     protected $configuration = array();
-    protected $formatter     = array();
+    protected $formatter = array();
 
     public function setUp()
     {
         $this->configuration = [
-            'vhosts'  => [
+            'vhosts' => [
                 [
                     'servername'    => 'awesome.dev',
                     'serveraliases' => 'www.awesome.dev,test.awesome.dev',
@@ -70,7 +69,7 @@ class NginxTest extends Base
      */
     public function testFormatCommonConfiguration($configuration)
     {
-        $formatter = new Nginx(['servername' => 'foo.bar']);
+        $formatter = new Nginx($configuration);
         $formatted = $formatter->getFormatted();
 
         $expected = [
@@ -84,16 +83,29 @@ class NginxTest extends Base
     public function providerTestFormatCommonFiguration()
     {
         return [
-            ['servername' => 'foo.bar'],
-            ['servername' => 'foo.bar '],
-            ['servername' => ' foo.bar'],
-            ['servername' => ' foo.bar '],
+            [['servername' => 'foo.bar']],
+            [['servername' => 'foo.bar ']],
+            [['servername' => ' foo.bar']],
+            [['servername' => ' foo.bar ']],
         ];
+    }
+
+    public function testSetConfigurationResultsInEqualFormatting()
+    {
+        $configuration = ['servername' => 'foo.bar'];
+        $formatter = new Nginx($configuration);
+        $formatted = $formatter->getFormatted();
+
+        $formatter2 = new Nginx(array());
+        $formatter2->setConfiguration($configuration);
+        $formatted2 = $formatter2->getFormatted();
+
+        $this->assertEquals($formatted2, $formatted);
     }
 
     public function testGetFormattedReturnsFormattedProperties()
     {
-        $this->configuration['vhosts'][1]['envvars']       = 'OPEN_SOURCED yes, ';
+        $this->configuration['vhosts'][1]['envvars'] = 'OPEN_SOURCED yes, ';
         $this->configuration['vhosts'][2]['serveraliases'] = array();
 
         $formatter = new Nginx($this->configuration);

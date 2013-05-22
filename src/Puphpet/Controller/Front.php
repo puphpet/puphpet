@@ -21,16 +21,16 @@ class Front extends Controller
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', [$this, 'indexAction'])
-             ->bind('homepage');
+          ->bind('homepage');
 
         $controllers->post('/create', [$this, 'createAction'])
-             ->bind('create');
+          ->bind('create');
 
         $controllers->get('/about', [$this, 'aboutAction'])
-             ->bind('about');
+          ->bind('about');
 
         $controllers->get('/help', [$this, 'helpAction'])
-             ->bind('help');
+          ->bind('help');
 
         return $controllers;
     }
@@ -61,68 +61,56 @@ class Front extends Controller
 
     public function createAction(Request $request, Application $app)
     {
-        $box       = $request->request->get('box');
-        $webserver = $request->request->get('webserver', 'apache');
+        // build puppet manifest
+        $formatter = $app['manifest_request_formatter'];
+        $formatter->bindRequest($request);
+        $manifestConfiguration = $formatter->format();
 
+        $manifestCompiler = $app['manifest_compiler'];
+        $manifest = $manifestCompiler->compile($manifestConfiguration);
+
+        $webserver = $manifestConfiguration['webserver'];
+
+        // build Vagrantfile
+        $box = $request->request->get('box');
+        $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
+
+        // build the archive
         /**@var $domainFile \Puphpet\Domain\File */
         $domainFile = $app['domain_file'];
 
-        // quick validate webserver
-        $webserver = in_array($webserver, ['apache', 'nginx']) ? $webserver : 'apache';
-
-        // create array assigned to the template later on
-        $resources = [
-            'webserver'   => $webserver,
-            'php_service' => $webserver == 'nginx'? 'php5-fpm' : 'apache',
-        ];
-
-        // start formatting
-        $server = new Domain\PuppetModule\Server($request->request->get('server'));
-        $resources['server'] = $server->getFormatted();
-
         if ('nginx' == $webserver) {
-            $nginx = new Domain\PuppetModule\Nginx($request->request->get($webserver));
-            $resources['nginx'] = $nginx->getFormatted();
             $domainFile->addModuleSource('nginx', VENDOR_PATH . '/jfryman/puppet-nginx');
-        } else {
-            $apache = new Domain\PuppetModule\Apache($request->request->get($webserver));
-            $resources['apache'] = $apache->getFormatted();
         }
-
-        $mysql = new Domain\PuppetModule\MySQL($request->request->get('mysql'));
-        $resources['mysql'] = $mysql->getFormatted();
-
-        $php = new Domain\PuppetModule\PHP($request->request->get('php'));
-        if ('nginx' == $webserver) {
-            $php->addPhpModule('php5-fpm', true);
-        }
-        $resources['php'] = $php->getFormatted();
-
-        $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
-        $manifest    = $this->twig()->render('Vagrant/manifest.pp.twig', $resources);
 
         // creating and building the archive
-        $domainFile->createArchive([
-            'Vagrantfile'                             => $vagrantFile,
-            'manifests/default.pp'                    => $manifest,
-            'modules/puphpet/files/dot/.bash_aliases' => $resources['server']['bashaliases'],
-        ]);
+        $domainFile->createArchive(
+            [
+                'Vagrantfile'                             => $vagrantFile,
+                'manifests/default.pp'                    => $manifest,
+                'modules/puphpet/files/dot/.bash_aliases' => $manifestConfiguration['server']['bashaliases'],
+            ]
+        );
         $file = $domainFile->getArchivePath();
 
         $stream = function () use ($file) {
             readfile($file);
         };
 
-        return $this->app->stream($stream, 200, array(
-            'Pragma' => 'public',
-            'Expires' => 0,
-            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-            'Last-Modified' => gmdate ('D, d M Y H:i:s', filemtime($file)) . ' GMT',
-            'Content-Type' => 'application/zip',
-            'Content-Length' => filesize($file),
-            'Content-Disposition' => 'attachment; filename="'.$box['name'].'.zip"',
-            'Content-Transfer-Encoding' => 'binary',
-            'Connection' => 'close',
-        ));
+        return $this->app->stream(
+            $stream,
+            200,
+            array(
+                'Pragma'                    => 'public',
+                'Expires'                   => 0,
+                'Cache-Control'             => 'must-revalidate, post-check=0, pre-check=0',
+                'Last-Modified'             => gmdate('D, d M Y H:i:s', filemtime($file)) . ' GMT',
+                'Content-Type'              => 'application/zip',
+                'Content-Length'            => filesize($file),
+                'Content-Disposition'       => 'attachment; filename="' . $box['name'] . '.zip"',
+                'Content-Transfer-Encoding' => 'binary',
+                'Connection'                => 'close',
+            )
+        );
     }
 }
