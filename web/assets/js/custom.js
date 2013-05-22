@@ -17,6 +17,50 @@ $(document).ready(function(){
 
     $(".selectTags").select2();
 
+    $("#php-inilist-add").click(function() {
+        var settingName  = $('#php-inilist-name');
+        var settingValue = $('#php-inilist-value');
+
+        if (!settingName.val() || !settingValue.val()) {
+            return false;
+        }
+
+        $("#php-inilist-custom").val(settingName.val() + " = " + settingValue.val()).trigger("change");
+
+        settingName.select2("val", "");
+        settingValue.val('');
+
+        return false;
+    });
+
+    $("#php-inilist-custom").on("change", function(e) {
+        var settingNameContainer  = '#php-inilist-name';
+        var settingValueContainer = '#php-inilist-value';
+
+        var settingName  = $(settingNameContainer + ' option:selected').val();
+
+        if (e.removed) {
+            var equPos = e.removed.id.search('=');
+
+            if (equPos <= 0) {
+                return false;
+            }
+
+            var name = e.removed.id.substr(0, equPos).trim();
+
+            $(settingNameContainer)
+                .append($('<option></option>')
+                .attr('value', name)
+                .text(name));
+
+            return false;
+        }
+
+        $(settingNameContainer + " option[value=" + settingName + "]").remove();
+
+        return false;
+    });
+
     $('#apache-vhost-add').click(function(){
         var vhostContainer = $('#apache-vhost-count');
         var currentCount = vhostContainer.attr('rel');

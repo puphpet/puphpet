@@ -96,3 +96,57 @@
         </div>
     </div>
 </fieldset>
+
+<div class="clear"><br /></div>
+
+<div class="span3">
+    <h5>Step 4.a: PHP ini Settings</h5>
+    <ul>
+        <li>
+            Choose your php.ini settings.
+        </li>
+        <li>
+            Defaults will be used unless overriden.
+        </li>
+        <li>
+            Choose whether the setting is for CGI, CLI or both.
+        </li>
+    </ul>
+</div>
+
+<fieldset>
+    <div class="row">
+        <div class="span5">
+            <div class="control-group">
+                <label class="control-label" for="php-inilist-name">Select an ini Setting</label>
+
+                <div class="controls">
+                    <select class="span3 selectTags" id="php-inilist-name" name="php-inilist-name">
+                        {% include 'Front/Tabs/PHP/ini.html.twig' %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="span4">
+            <div class="form-inline">
+                <div class="span2">
+                    <label><input id="php-inilist-value" name="php-inilist-value" type="text"
+                                  class="input-small" placeholder="value" value="" /></label>
+                </div>
+                <div class="span1">
+                    <a id="php-inilist-add" class="btn btn-primary" href="#">Add</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="php-modules-php"></label>
+
+        <div class="controls">
+            <label><input id="php-inilist-custom" name="php[inilist][custom][]" type="text" class="input-xxlarge tags"
+                   placeholder="value" value="" /></label>
+        </div>
+    </div>
+</fieldset>
