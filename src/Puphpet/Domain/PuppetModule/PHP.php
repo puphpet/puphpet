@@ -74,6 +74,12 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
 
     protected function formatIni()
     {
+        if (empty($this->configuration['inilist'])) {
+            $this->configuration['inilist'] = array();
+
+            return;
+        }
+
         foreach ($this->configuration['inilist'] as $type => $iniList) {
             $this->configuration['inilist'][$type] = $this->explode($iniList);
         }
