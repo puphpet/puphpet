@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    $(".box-url").click(function() {
+    $('.box-url').click(function() {
         var boxName = $(this).attr('rel');
 
-        $("#box-name").val(boxName);
+        $('#box-name').val(boxName);
     });
 
     $('.subnav a').smoothScroll({offset: -80});
@@ -10,15 +10,15 @@ $(document).ready(function(){
     affixSubnav();
     changeActiveLink();
 
-    $(".tags").select2({
+    $('.tags').select2({
         tags: [],
-        tokenSeparators: [","]
+        tokenSeparators: [',']
     });
 
-    $(".selectTags").select2();
+    $('.selectTags').select2();
 
     // Add new ini setting to list
-    $("#php-inilist-add").click(function() {
+    $('#php-inilist-add').click(function() {
         var settingName  = $('#php-inilist-name');
         var settingValue = $('#php-inilist-value');
         var target       = $('#php-inilist-custom');
@@ -29,7 +29,7 @@ $(document).ready(function(){
 
         var currentValue = target.val() ? target.val() + ',' : '';
 
-        target.val(currentValue + settingName.val() + " = " + settingValue.val()).trigger("change");
+        target.val(currentValue + settingName.val() + ' = ' + settingValue.val()).trigger('change');
 
         settingName.select2('val', '');
         settingValue.val('');
@@ -38,7 +38,7 @@ $(document).ready(function(){
     });
 
     // Something has changed!
-    $("#php-inilist-custom").on("change", function(e) {
+    $('#php-inilist-custom').on('change', function(e) {
         var settingNameContainer  = '#php-inilist-name';
 
         var settingName  = $(settingNameContainer + ' option:selected').val();
@@ -63,7 +63,7 @@ $(document).ready(function(){
         }
 
         // User is adding an ini setting, so remove it from the main list
-        $(settingNameContainer + " option[value=" + settingName + "]").remove();
+        $(settingNameContainer + ' option[value=' + settingName + ']').remove();
 
         return false;
     });
@@ -81,9 +81,9 @@ $(document).ready(function(){
         return false;
     });
 
-    $("body").delegate(".apache-vhost-del", "click", function() {
+    $('body').delegate('.apache-vhost-del', 'click', function() {
         var vhostNum = $(this).attr('rel');
-        $("#" + vhostNum).slideUp(function () {
+        $('#' + vhostNum).slideUp(function () {
             $(this).remove();
         });
 
@@ -107,9 +107,9 @@ $(document).ready(function(){
         return false;
     });
 
-    $("body").delegate(".mysql-dbuser-del", "click", function() {
+    $('body').delegate('.mysql-dbuser-del', 'click', function() {
         var dbNum = $(this).attr('rel');
-        $("#" + dbNum).slideUp(function () {
+        $('#' + dbNum).slideUp(function () {
             $(this).remove();
         });
 
