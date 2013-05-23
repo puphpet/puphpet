@@ -1,6 +1,8 @@
 Installation
 ===================
 
+This is the repo for the [PuPHPet.com](https://puphpet.com) website. A proper README is forthcoming!
+
 Requirements
 ------------
 * PHP 5.4
