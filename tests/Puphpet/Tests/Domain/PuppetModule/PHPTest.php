@@ -188,4 +188,30 @@ class PHPTest extends \PHPUnit_Framework_TestCase
             [['modules' => array()]]
         ];
     }
+
+    public function testFormatIniReturnsProperlyFormattedIniList()
+    {
+        $expected = $this->phpArray;
+
+        $expected['inilist']['custom'] = explode(',', $expected['inilist']['custom']);
+
+        $php = new PHP($this->phpArray);
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testFormatIniReturnsEmptyArrayWhenNoIniDirectives()
+    {
+        $this->phpArray['inilist'] = false;
+
+        $expected = $this->phpArray;
+
+        $expected['inilist'] = array();
+
+        $php = new PHP($this->phpArray);
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
 }
