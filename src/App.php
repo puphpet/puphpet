@@ -12,6 +12,7 @@ defined('VAGRANT_PATH')
 $app = new Silex\Application;
 
 $env = getenv('APP_ENV') ? : 'prod';
+$app['debug'] = $env != 'prod';
 
 $app->register(
     new Provider\TwigServiceProvider,
