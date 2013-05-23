@@ -17,56 +17,7 @@ $(document).ready(function(){
 
     $('.selectTags').select2();
 
-    // Add new ini setting to list
-    $('#php-inilist-add').click(function() {
-        var settingName  = $('#php-inilist-name');
-        var settingValue = $('#php-inilist-value');
-        var target       = $('#php-inilist-custom');
-
-        if (!settingName.val() || !settingValue.val()) {
-            return false;
-        }
-
-        var currentValue = target.val() ? target.val() + ',' : '';
-
-        target.val(currentValue + settingName.val() + ' = ' + settingValue.val()).trigger('change');
-
-        settingName.select2('val', '');
-        settingValue.val('');
-
-        return false;
-    });
-
-    // Something has changed!
-    $('#php-inilist-custom').on('change', function(e) {
-        var settingNameContainer  = '#php-inilist-name';
-
-        var settingName  = $(settingNameContainer + ' option:selected').val();
-
-        // User is removing an ini setting from list
-        if (e.removed) {
-            var equPos = e.removed.id.search('=');
-
-            if (equPos <= 0) {
-                return false;
-            }
-
-            var name = e.removed.id.substr(0, equPos).trim();
-
-            // Add option back into ini options list
-            $(settingNameContainer)
-                .append($('<option></option>')
-                .attr('value', name)
-                .text(name));
-
-            return false;
-        }
-
-        // User is adding an ini setting, so remove it from the main list
-        $(settingNameContainer + ' option[value=' + settingName + ']').remove();
-
-        return false;
-    });
+    updateInputFromSelect('#php-inilist-add', '#php-inilist-name', '#php-inilist-value', '#php-inilist-custom');
 
     $('#apache-vhost-add').click(function(){
         var vhostContainer = $('#apache-vhost-count');
@@ -214,5 +165,58 @@ function changeActiveLink() {
                 .parent().removeClass("active")
                 .end().filter("[href=#" + id + "]").parent().addClass("active");
         }
+    });
+}
+
+function updateInputFromSelect(addButton, sourceFieldName, sourceFieldValue, target) {
+    var settingName  = $(sourceFieldName);
+    var settingValue = $(sourceFieldValue);
+    var targetField  = $(target);
+
+    // Add to target element
+    $(addButton).click(function() {
+        // Both source name and value fields must be filled
+        if (!settingName.val() || !settingValue.val()) {
+            return false;
+        }
+
+        // Select2 overwrites existing values in target instead of appending
+        var currentValue = targetField.val() ? targetField.val() + ',' : '';
+
+        // Take existing values, add new value and paste the whole thing back in
+        targetField.val(currentValue + settingName.val() + ' = ' + settingValue.val()).trigger('change');
+
+        // User is adding a value, so remove it from the main name list to prevent duplicates
+        $(sourceFieldName + ' option[value=' + settingName.val() + ']').remove();
+
+        // Clear select information
+        settingName.select2('val', '');
+        settingValue.val('');
+
+        return false;
+    });
+
+    // Target field is changing
+    targetField.on('change', function(e) {
+        // User is removing value from target field
+        if (e.removed) {
+            var equPos = e.removed.id.search('=');
+
+            if (equPos <= 0) {
+                return false;
+            }
+
+            var name = e.removed.id.substr(0, equPos).trim();
+
+            // Add option back into source name list
+            settingName
+                .append($('<option></option>')
+                .attr('value', name)
+                .text(name));
+
+            return false;
+        }
+
+        return false;
     });
 }
