@@ -3,9 +3,8 @@
 namespace Puphpet\Tests\Domain\PuppetModule;
 
 use Puphpet\Domain\PuppetModule\Server;
-use Puphpet\Tests\Base;
 
-class ServerTest extends Base
+class ServerTest extends \PHPUnit_Framework_TestCase
 {
     protected $serverArray = array();
 

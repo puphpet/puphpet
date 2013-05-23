@@ -3,9 +3,8 @@
 namespace Puphpet\Tests\Domain;
 
 use Puphpet\Domain\File;
-use Puphpet\Tests\Base;
 
-class FileTest extends Base
+class FileTest extends \PHPUnit_Framework_TestCase
 {
     protected $source;
     protected $sysTempDir;
@@ -64,7 +63,6 @@ class FileTest extends Base
 
         // no expectation on "mirror" method here
         // as assertions on this method differ from test to test
-
         return $mock;
     }
 

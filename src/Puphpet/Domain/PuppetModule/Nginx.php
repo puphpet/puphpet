@@ -4,13 +4,6 @@ namespace Puphpet\Domain\PuppetModule;
 
 class Nginx extends PuppetModuleAbstract implements PuppetModuleInterface
 {
-    protected $configuration;
-
-    public function __construct($configuration)
-    {
-        $this->configuration = is_array($configuration) ? $configuration : array();
-    }
-
     /**
      * Return ready to use Nginx array
      *
@@ -23,7 +16,7 @@ class Nginx extends PuppetModuleAbstract implements PuppetModuleInterface
         }
 
         $this->formatCommonConfiguration()
-             ->formatVhosts();
+            ->formatVhosts();
 
         return $this->configuration;
     }
@@ -55,11 +48,11 @@ class Nginx extends PuppetModuleAbstract implements PuppetModuleInterface
                 ? array()
                 : $this->explode($vhosts[$id]['serveraliases']);
 
-            $vhosts[$id]['envvars']       = empty($vhosts[$id]['envvars'])
+            $vhosts[$id]['envvars'] = empty($vhosts[$id]['envvars'])
                 ? array()
                 : $this->explodeAndMap($vhosts[$id]['envvars']);
 
-            $vhosts[$id]['index_files']   = empty($vhosts[$id]['index_files'])
+            $vhosts[$id]['index_files'] = empty($vhosts[$id]['index_files'])
                 ? array()
                 : $this->explode($vhosts[$id]['index_files']);
         }

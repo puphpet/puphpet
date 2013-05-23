@@ -3,9 +3,8 @@
 namespace Puphpet\Tests\Domain\PuppetModule;
 
 use Puphpet\Domain\PuppetModule\MySQL;
-use Puphpet\Tests\Base;
 
-class MySQLTest extends Base
+class MySQLTest extends \PHPUnit_Framework_TestCase
 {
     protected $mysqlArray = array();
 
