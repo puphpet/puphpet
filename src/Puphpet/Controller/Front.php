@@ -57,12 +57,12 @@ class Front extends Controller
 
     public function createAction(Request $request, Application $app)
     {
-        /** @var \Puphpet\Domain\Compiler\Manifest\RequestFormatter $formatter build puppet manifest */
+        /** @var Domain\Compiler\Manifest\RequestFormatter $formatter build puppet manifest */
         $formatter = $app['manifest_request_formatter'];
         $formatter->bindRequest($request);
         $manifestConfiguration = $formatter->format();
 
-        /** @var \Puphpet\Domain\Compiler\Compiler $manifestCompiler */
+        /** @var Domain\Compiler\Compiler $manifestCompiler */
         $manifestCompiler = $app['manifest_compiler'];
         $manifest = $manifestCompiler->compile($manifestConfiguration);
 
@@ -72,7 +72,7 @@ class Front extends Controller
         $box = $request->request->get('box');
         $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
 
-        /**@var $domainFile \Puphpet\Domain\File build the archive */
+        /**@var $domainFile Domain\File build the archive */
         $domainFile = $app['domain_file'];
 
         if ('nginx' == $webserver) {

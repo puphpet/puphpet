@@ -41,12 +41,10 @@ xdebug::config { 'cli': }
 class { 'php::composer': }
 {% endif %}
 
-php::ini { 'default':
-  value  => [
-    'date.timezone = America/Chicago',
-    'display_errors = On',
-    'error_reporting = -1'
-  ],
-  target => 'error_reporting.ini',
+{% if php.inilist.custom is not empty %}
+php::ini { 'custom':
+  value  => [{{ format.explode_and_quote(php.inilist.custom)|raw }}],
+  target => 'custom.ini',
   service => '{{ php_service }}',
 }
+{% endif %}

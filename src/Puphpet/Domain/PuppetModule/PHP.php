@@ -21,7 +21,8 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
 
         $this->formatModules(self::MODULE_TYPE_PHP)
             ->formatModules(self::MODULE_TYPE_PEAR)
-            ->formatModules(self::MODULE_TYPE_PECL);
+            ->formatModules(self::MODULE_TYPE_PECL)
+            ->formatIni();
 
         return $this->configuration;
     }
@@ -68,6 +69,13 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
             );
         } else {
             $this->configuration['modules'][self::MODULE_TYPE_PHP][] = $moduleName;
+        }
+    }
+
+    protected function formatIni()
+    {
+        foreach ($this->configuration['inilist'] as $type => $iniList) {
+            $this->configuration['inilist'][$type] = $this->explode($iniList);
         }
     }
 }
