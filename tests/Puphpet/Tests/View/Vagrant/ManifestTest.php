@@ -42,7 +42,8 @@ class ManifestTest extends Base
                 'php54'    => true,
                 'xdebug'   => true,
                 'composer' => true,
-                'modules'  => ['php' => array('php5-cli'), 'pear' => array(), 'pecl' => array()],
+                'modules'  => ['php' => ['php5-cli'], 'pear' => array(), 'pecl' => array()],
+                'inilist'  => ['custom' => 'date.timezone = America/Chicago,display_errors = On,error_reporting = 1']
             ],
             'mysql'       => [
                 'root'   => 'rootpwd',

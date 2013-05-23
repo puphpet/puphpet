@@ -32,6 +32,9 @@ class PHPTest extends \PHPUnit_Framework_TestCase
                     'radius',
                 ],
             ],
+            'inilist'  => [
+                'custom' => 'date.timezone = America/Chicago,display_errors = On,error_reporting = 1',
+            ],
         ];
     }
 
@@ -66,6 +69,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
         unset($this->phpArray['modules'][$moduleType]);
 
         $expected['modules'][$moduleType] = array();
+        $expected['inilist']['custom']    = explode(',', $expected['inilist']['custom']);
 
         $php = new PHP($this->phpArray);
 
@@ -99,7 +103,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
                 'pear' => array(),
                 'pecl' => array()
             ],
-
+            'inilist' => array(),
         ];
 
         $php = new PHP($fixtures);
@@ -113,7 +117,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
         $fixtures = [
             'modules' => [
                 'php' => ['bar', 'baz']
-            ]
+            ],
         ];
 
         $expected = [
@@ -122,7 +126,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
                 'pear' => array(),
                 'pecl' => array()
             ],
-
+            'inilist' => array(),
         ];
 
         $php = new PHP($fixtures);
@@ -146,7 +150,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
                 'pear' => array(),
                 'pecl' => array()
             ],
-
+            'inilist' => array(),
         ];
 
         $php = new PHP($fixtures);
@@ -167,7 +171,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
                 'pear' => array(),
                 'pecl' => array()
             ],
-
+            'inilist' => array(),
         ];
 
         $php = new PHP($fixtures);
