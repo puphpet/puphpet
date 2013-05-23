@@ -17,28 +17,33 @@ $(document).ready(function(){
 
     $(".selectTags").select2();
 
+    // Add new ini setting to list
     $("#php-inilist-add").click(function() {
         var settingName  = $('#php-inilist-name');
         var settingValue = $('#php-inilist-value');
+        var target       = $('#php-inilist-custom');
 
         if (!settingName.val() || !settingValue.val()) {
             return false;
         }
 
-        $("#php-inilist-custom").val(settingName.val() + " = " + settingValue.val()).trigger("change");
+        var currentValue = target.val() ? target.val() + ',' : '';
 
-        settingName.select2("val", "");
+        target.val(currentValue + settingName.val() + " = " + settingValue.val()).trigger("change");
+
+        settingName.select2('val', '');
         settingValue.val('');
 
         return false;
     });
 
+    // Something has changed!
     $("#php-inilist-custom").on("change", function(e) {
         var settingNameContainer  = '#php-inilist-name';
-        var settingValueContainer = '#php-inilist-value';
 
         var settingName  = $(settingNameContainer + ' option:selected').val();
 
+        // User is removing an ini setting from list
         if (e.removed) {
             var equPos = e.removed.id.search('=');
 
@@ -48,6 +53,7 @@ $(document).ready(function(){
 
             var name = e.removed.id.substr(0, equPos).trim();
 
+            // Add option back into ini options list
             $(settingNameContainer)
                 .append($('<option></option>')
                 .attr('value', name)
@@ -56,6 +62,7 @@ $(document).ready(function(){
             return false;
         }
 
+        // User is adding an ini setting, so remove it from the main list
         $(settingNameContainer + " option[value=" + settingName + "]").remove();
 
         return false;
