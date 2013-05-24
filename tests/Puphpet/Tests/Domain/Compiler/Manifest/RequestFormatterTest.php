@@ -27,28 +27,31 @@ class RequestFormatterTest extends \PHPUnit_Framework_TestCase
           ->getMock();
 
         // order:
-        // server, mysql, php, webserver, nginx|apache
+        // server, mysql|postgresql, mysql, php, webserver, nginx|apache
         $parameterBag->expects($this->at(0))
           ->method('get')
           ->with('server')
           ->will($this->returnValue('serverConfiguration'));
         $parameterBag->expects($this->at(1))
           ->method('get')
+          ->with('database')
+          ->will($this->returnValue('mysql'));
+        $parameterBag->expects($this->at(2))
+          ->method('get')
           ->with('mysql')
           ->will($this->returnValue('mysqlConfiguration'));
-        $parameterBag->expects($this->at(2))
+        $parameterBag->expects($this->at(3))
           ->method('get')
           ->with('php')
           ->will($this->returnValue('phpConfiguration'));
-        $parameterBag->expects($this->at(3))
+        $parameterBag->expects($this->at(4))
           ->method('get')
           ->with('webserver')
           ->will($this->returnValue($requestedWebserver));
-        $parameterBag->expects($this->at(4))
+        $parameterBag->expects($this->at(5))
           ->method('get')
           ->with($validatedWebserver)
           ->will($this->returnValue($webserverConfiguration));
-
         $request = $this->getMockBuilder('\Symfony\Component\HttpFoundation\Request')
           ->disableOriginalConstructor()
           ->setMethods(array())
@@ -63,8 +66,8 @@ class RequestFormatterTest extends \PHPUnit_Framework_TestCase
           ->method('setServerConfiguration')
           ->with('serverConfiguration');
         $manifestFormatter->expects($this->once())
-          ->method('setMysqlConfiguration')
-          ->with('mysqlConfiguration');
+          ->method('setDatabaseConfiguration')
+          ->with('mysql', 'mysqlConfiguration');
         $manifestFormatter->expects($this->once())
           ->method('setPhpConfiguration')
           ->with('phpConfiguration');
@@ -100,7 +103,7 @@ class RequestFormatterTest extends \PHPUnit_Framework_TestCase
           ->setMethods(
               [
                   'setServerConfiguration',
-                  'setMysqlConfiguration',
+                  'setDatabaseConfiguration',
                   'setPhpConfiguration',
                   'setWebserverConfiguration',
                   'format',
