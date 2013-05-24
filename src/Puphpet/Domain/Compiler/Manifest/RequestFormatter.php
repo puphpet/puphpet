@@ -21,6 +21,7 @@ class RequestFormatter implements FormatterInterface
     private $request;
 
     private $webserver = null;
+    private $database = null;
 
     /**
      * @param Formatter $formatter
@@ -71,10 +72,13 @@ class RequestFormatter implements FormatterInterface
 
     /**
      * Fetches something from request
+     *
+     * @param  string $key
+     * @param  string $default
      */
-    private function get($key)
+    private function get($key, $default = null)
     {
-        return $this->request->request->get($key);
+        return $this->request->request->get($key, $default);
     }
 
     protected function getWebserver()

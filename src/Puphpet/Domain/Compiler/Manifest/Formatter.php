@@ -25,10 +25,11 @@ class Formatter implements FormatterInterface
      * @param array  $puppetModules
      * @param string $defaultWebserver
      */
-    public function __construct($puppetModules = array(), $defaultWebserver = 'apache')
+    public function __construct($puppetModules = array(), $defaultWebserver = 'apache', $defaultDatabase = 'mysql')
     {
         $this->puppetModules = $puppetModules;
         $this->webserver = $defaultWebserver;
+        $this->database = $defaultDatabase;
     }
 
     /**
@@ -106,7 +107,6 @@ class Formatter implements FormatterInterface
     protected function formatDatabaseConfiguration()
     {
         $this->addConfiguration('database', $this->database);
-        //$this->addConfiguration('php_service', $this->database == 'nginx' ? 'php5-fpm' : 'apache');
 
         $method = 'format' . ucfirst($this->database) . 'Configuration';
         $this->$method();
