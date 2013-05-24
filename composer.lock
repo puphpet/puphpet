@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "772ef6ff5d8b05a34360a95ab9a010a8",
+    "hash": "cf53e454ab95bf706483fc718ebc99bd",
     "packages": [
         {
             "name": "jfryman/puppet-nginx",
@@ -44,12 +44,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jtreminio/vagrant-puppet-lamp.git",
-                "reference": "93f1f11f8635e7cce3f86b25eb836adfc8d4add1"
+                "reference": "f6af0b5dccfe26178c958c16731a8dde58a60dc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jtreminio/vagrant-puppet-lamp/zipball/93f1f11f8635e7cce3f86b25eb836adfc8d4add1",
-                "reference": "93f1f11f8635e7cce3f86b25eb836adfc8d4add1",
+                "url": "https://api.github.com/repos/jtreminio/vagrant-puppet-lamp/zipball/f6af0b5dccfe26178c958c16731a8dde58a60dc5",
+                "reference": "f6af0b5dccfe26178c958c16731a8dde58a60dc5",
                 "shasum": ""
             },
             "type": "project",
@@ -78,7 +78,40 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2013-05-20 21:28:56"
+            "time": "2013-05-21 16:34:03"
+        },
+        {
+            "name": "michaelperrin/puppetlabs-postgresql",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michaelperrin/puppetlabs-postgresql.git",
+                "reference": "48f345b2ab1757eaf0956df429dd104ce8a6f2d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michaelperrin/puppetlabs-postgresql/zipball/48f345b2ab1757eaf0956df429dd104ce8a6f2d5",
+                "reference": "48f345b2ab1757eaf0956df429dd104ce8a6f2d5",
+                "shasum": ""
+            },
+            "type": "project",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Puppet module for PostgreSQL installation",
+            "keywords": [
+                "postgresql",
+                "puppet"
+            ],
+            "support": {
+                "source": "https://github.com/michaelperrin/puppetlabs-postgresql/tree/master"
+            },
+            "time": "2013-05-24 10:23:20"
         },
         {
             "name": "pimple/pimple",
@@ -549,12 +582,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "ba88c755579c06e7ccb5ee73c6e27e88a1fed114"
+                "reference": "693956586776108847a447e86b4e5e92ee0a20be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/ba88c755579c06e7ccb5ee73c6e27e88a1fed114",
-                "reference": "ba88c755579c06e7ccb5ee73c6e27e88a1fed114",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/693956586776108847a447e86b4e5e92ee0a20be",
+                "reference": "693956586776108847a447e86b4e5e92ee0a20be",
                 "shasum": ""
             },
             "require": {
@@ -590,7 +623,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-05-17 10:06:31"
+            "time": "2013-05-23 16:28:53"
         }
     ],
     "packages-dev": [
@@ -600,12 +633,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "1b062d820a328077f2632a5a422ac1dcc078dd65"
+                "reference": "18c5e9665f0eee152438a1b94198ecc51fb7818a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/1b062d820a328077f2632a5a422ac1dcc078dd65",
-                "reference": "1b062d820a328077f2632a5a422ac1dcc078dd65",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/18c5e9665f0eee152438a1b94198ecc51fb7818a",
+                "reference": "18c5e9665f0eee152438a1b94198ecc51fb7818a",
                 "shasum": ""
             },
             "require": {
@@ -654,7 +687,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-21 08:17:37"
+            "time": "2013-05-23 08:53:55"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -840,12 +873,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "820c4ef50c59e49260598037cab45b61620677de"
+                "reference": "fe892f1bc38fa2e7b33649088f09a7126e826b73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/820c4ef50c59e49260598037cab45b61620677de",
-                "reference": "820c4ef50c59e49260598037cab45b61620677de",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fe892f1bc38fa2e7b33649088f09a7126e826b73",
+                "reference": "fe892f1bc38fa2e7b33649088f09a7126e826b73",
                 "shasum": ""
             },
             "require": {
@@ -909,7 +942,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-21 08:17:11"
+            "time": "2013-05-21 10:01:50"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -974,12 +1007,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "adba31564c004b9bd2261c468aa14806481e80e6"
+                "reference": "222e1939856808fe4d02ec856a08721858d0217b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/adba31564c004b9bd2261c468aa14806481e80e6",
-                "reference": "adba31564c004b9bd2261c468aa14806481e80e6",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/222e1939856808fe4d02ec856a08721858d0217b",
+                "reference": "222e1939856808fe4d02ec856a08721858d0217b",
                 "shasum": ""
             },
             "require": {
@@ -1016,7 +1049,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2013-03-28 11:04:49"
+            "time": "2013-05-23 05:55:40"
         },
         {
             "name": "sebastian/exporter",
@@ -1276,12 +1309,13 @@
     "stability-flags": {
         "jtreminio/vagrant-puppet-lamp": 20,
         "jfryman/puppet-nginx": 20,
+        "michaelperrin/puppetlabs-postgresql": 20,
         "phpunit/phpunit": 20,
         "whatthejeff/nyancat-phpunit-resultprinter": 20
     },
-    "platform": [
-
-    ],
+    "platform": {
+        "php": ">=5.4.0"
+    },
     "platform-dev": [
 
     ]
