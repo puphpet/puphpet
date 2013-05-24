@@ -43,7 +43,12 @@ class ManifestTest extends Base
                 'xdebug'   => true,
                 'composer' => true,
                 'modules'  => ['php' => ['php5-cli'], 'pear' => array(), 'pecl' => array()],
-                'inilist'  => ['custom' => 'date.timezone = America/Chicago,display_errors = On,error_reporting = 1']
+                'inilist'  => ['custom' => [
+                    'date.timezone = America/Chicago',
+                    'display_errors = On',
+                    'error_reporting = 1'
+                    ]
+                ],
             ],
             'mysql'       => [
                 'root'   => 'rootpwd',
@@ -68,5 +73,6 @@ class ManifestTest extends Base
         $this->assertContains("php::module { 'php5-cli'", $rendered);
         $this->assertContains("root_password => 'rootpwd'", $rendered);
         $this->assertContains("mysql::grant { 'test_dbname'", $rendered);
+        $this->assertContains("date.timezone = America/Chicago", $rendered);
     }
 }
