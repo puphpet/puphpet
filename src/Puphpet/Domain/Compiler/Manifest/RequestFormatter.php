@@ -51,8 +51,15 @@ class RequestFormatter implements FormatterInterface
         }
 
         $this->formatter->setServerConfiguration($this->get('server'));
-        $this->formatter->setMysqlConfiguration($this->get('mysql'));
+
+        if ('mysql' == $this->getDatabase()) {
+            $this->formatter->setDatabaseConfiguration('mysql', $this->get('mysql'));
+        } else {
+            $this->formatter->setDatabaseConfiguration('postgresql', $this->get('postgresql'));
+        }
+
         $this->formatter->setPhpConfiguration($this->get('php'));
+
         if ('nginx' == $this->getWebserver()) {
             $this->formatter->setWebserverConfiguration('nginx', $this->get('nginx'));
         } else {
@@ -80,5 +87,22 @@ class RequestFormatter implements FormatterInterface
         }
 
         return $this->webserver;
+    }
+
+    /**
+     * Tells which database server has been chosen
+     *
+     * @return string Database name
+     */
+    protected function getDatabase()
+    {
+        if (null === $this->database) {
+            $database = $this->get('database', 'mysql');
+
+            // quick validate database
+            $this->database = in_array($database, ['mysql', 'postgresql']) ? $database : 'mysql';
+        }
+
+        return $this->database;
     }
 }

@@ -67,6 +67,7 @@ class Front extends Controller
         $manifest = $manifestCompiler->compile($manifestConfiguration);
 
         $webserver = $manifestConfiguration['webserver'];
+        $database = $manifestConfiguration['database'];
 
         // build Vagrantfile
         $box = $request->request->get('box');
@@ -77,6 +78,10 @@ class Front extends Controller
 
         if ('nginx' == $webserver) {
             $domainFile->addModuleSource('nginx', VENDOR_PATH . '/jfryman/puppet-nginx');
+        }
+
+        if ('postgresql' == $database) {
+            $domainFile->addModuleSource('postgresql', VENDOR_PATH . '/michaelperrin/puppetlabs-postgresql');
         }
 
         // creating and building the archive
