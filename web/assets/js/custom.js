@@ -84,6 +84,19 @@ $(document).ready(function(){
         return false;
     });
 
+    $('body').delegate('.postgresql-dbuser-del', 'click', function() {
+        var dbNum = $(this).attr('rel');
+        $('#' + dbNum).slideUp(function () {
+            $(this).remove();
+        });
+
+        var mysqlDbuserContainer = $('#postgresql-dbuser-count');
+        var currentCount = mysqlDbuserContainer.attr('rel');
+        mysqlDbuserContainer.attr('rel', --currentCount);
+
+        return false;
+    });
+
     $('.multiselect').multiselect({
         maxHeight: 300,
         buttonWidth: '400px',
