@@ -5,7 +5,7 @@ class { 'postgresql':
 }->
 class { 'postgresql::server':
   config_hash => {
-    postgres_password' => {{ postgresql.root }},
+    postgres_password => '{{ postgresql.root }}',
   },
 }
 
