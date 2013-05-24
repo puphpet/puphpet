@@ -17,25 +17,44 @@ class Front extends Controller
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', [$this, 'indexAction'])
-          ->bind('homepage');
+            ->bind('homepage');
 
         $controllers->post('/create', [$this, 'createAction'])
-          ->bind('create');
+            ->bind('create');
 
         $controllers->get('/about', [$this, 'aboutAction'])
-          ->bind('about');
+            ->bind('about');
 
         $controllers->get('/help', [$this, 'helpAction'])
-          ->bind('help');
+            ->bind('help');
 
         return $controllers;
     }
 
-    public function indexAction()
+    public function indexAction(Request $request, Application $app)
     {
+        $editionName = $request->query->get('edition', 'default');
+
+        $availableEditions = $app['editions'];
+
+        // validate edition name
+        // use fallback if invalid edition name is requested (better than throwing any error)
+        if (!array_key_exists($editionName, $availableEditions)) {
+            $editionName = $app['edition_default'];
+        }
+
+        // fill the edition entity with requested configuration
+        /**@var $edition \Puphpet\Domain\Edition */
+        $edition = $app['edition'];
+        $edition->setConfiguration($availableEditions[$editionName]);
+
         return $this->twig()->render(
             'Front/index.html.twig',
-            ['currentPage' => 'home']
+            [
+                'currentPage' => 'home',
+                'timezones'   => \DateTimeZone::listIdentifiers(),
+                'edition'     => $edition,
+            ]
         );
     }
 
