@@ -1,0 +1,34 @@
+<div class="span3">
+    <h5>Step 5: PostgreSQL Setup</h5>
+    <ul>
+        <li>
+            Assign a password to the root user
+        </li>
+        <li>
+            Create a database and user assigned to the database. Currently, to assign the same user to multiple databases,
+            you must enter in the same username/password each time.
+        </li>
+    </ul>
+
+    <br />
+
+    <p class="text-center"><a id="postgresql-dbuser-add" class="btn btn-primary" href="#">Add Another DB/User</a></p>
+</div>
+
+<fieldset>
+    <legend class="span7">Root User Password</legend>
+
+    <div class="clearfix"></div>
+
+    <div class="control-group">
+        <label class="control-label" for="postgresql-root">Root Password</label>
+
+        <div class="controls">
+            <input id="postgresql-root" name="postgresql[root]" type="text" placeholder="root_password" value="" />
+        </div>
+    </div>
+
+    <div class="span7" id="postgresql-dbuser-count" rel="1">
+        {% include 'Front/Tabs/PostgreSQL/dbuser.html.twig' %}
+    </div>
+</fieldset>
