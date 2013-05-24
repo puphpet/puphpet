@@ -1,0 +1,19 @@
+# name of default editions
+edition_default: default
+
+# configuration of all available editions
+editions:
+  default:
+    php:
+      modules:
+        - 'php5-cli'
+        - 'php5-curl'
+        - 'php5-intl'
+        - 'php5-mcrypt'
+      initlist:
+        php:
+          date.timezone: 'America/Chicago'
+        custom:
+          display_errors: 'On'
+          error_reporting: '-1'
+#provide more editions here, e.g for Symfony or for PuPHPet itself

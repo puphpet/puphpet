@@ -1,3 +1,5 @@
+{% import _self as format %}
+{% set timezone = edition.get('[php][initlist][php][date.timezone]')%}
 <h2 class="page-header">PHP Settings</h2>
 <div class="span3">
     <h5>Step 4: PHP Setup</h5>
@@ -118,6 +120,21 @@
     <div class="row">
         <div class="span5">
             <div class="control-group">
+                <label class="control-label" for="php-inilist-name">Select timezone</label>
+
+                <div class="controls">
+                    <select class="span3" name="php[inilist][php][date.timezone]">
+                        {% for tz in timezones %}
+                        <option value="{{ tz }}"{% if tz == timezone %} selected="selected"{% endif %}>{{ tz }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span5">
+            <div class="control-group">
                 <label class="control-label" for="php-inilist-name">Select an ini Setting</label>
 
                 <div class="controls">
@@ -147,7 +164,11 @@
         <div class="controls">
             <label><input id="php-inilist-custom" name="php[inilist][custom]" type="text" class="span7 tags"
                    placeholder="value"
-                   value="date.timezone = America/Chicago, display_errors = On, error_reporting = -1" /></label>
+                   value="{{ format.explode_ini_list(edition.get('[php][initlist][custom]')) }}" /></label>
         </div>
     </div>
 </fieldset>
+{# global macros #}
+{% macro explode_ini_list(list) %}
+{% for key,value in list %}{{ key }} = {{ value }}{% if not loop.last %}, {% endif %}{% endfor %}
+{% endmacro %}

@@ -41,10 +41,10 @@ xdebug::config { 'cli': }
 class { 'php::composer': }
 {% endif %}
 
-{% if php.inilist.custom is not empty %}
-php::ini { 'custom':
-  value  => [{{ format.explode_and_quote(php.inilist.custom)|raw }}],
-  target => 'custom.ini',
+{% for name,settings in php.inilist if settings is not empty %}
+php::ini { '{{ name }}':
+  value  => [{{ format.explode_and_quote(settings)|raw }}],
+  target => '{{ name }}.ini',
   service => '{{ php_service }}',
 }
-{% endif %}
+{% endfor %}

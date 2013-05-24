@@ -14,6 +14,9 @@ $app = new Silex\Application;
 $env = getenv('APP_ENV') ? : 'prod';
 $app['debug'] = $env != 'prod';
 
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/config.yml"));
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/editions.yml"));
+
 $app->register(
     new Provider\TwigServiceProvider,
     [
@@ -56,6 +59,12 @@ $app['manifest_request_formatter'] = function () use ($app) {
 };
 $app['manifest_compiler'] = function () use ($app) {
     return new Puphpet\Domain\Compiler\Compiler($app['twig'], 'Vagrant/manifest.pp.twig');
+};
+$app['property_access_provider'] = function () {
+    return new \Puphpet\Domain\Configuration\PropertyAccessProvider();
+};
+$app['edition'] = function () use ($app) {
+    return new \Puphpet\Domain\Configuration\Edition($app['property_access_provider']);
 };
 
 return $app;
