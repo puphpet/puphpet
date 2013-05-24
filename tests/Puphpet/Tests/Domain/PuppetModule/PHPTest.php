@@ -7,6 +7,7 @@ use Puphpet\Domain\PuppetModule\PHP;
 class PHPTest extends \PHPUnit_Framework_TestCase
 {
     protected $phpArray = array();
+    protected $expectedIniListCustom = array();
 
     public function setUp()
     {
@@ -35,6 +36,12 @@ class PHPTest extends \PHPUnit_Framework_TestCase
             'inilist'  => [
                 'custom' => 'date.timezone = America/Chicago,display_errors = On,error_reporting = 1',
             ],
+        ];
+
+        $this->expectedIniListCustom = [
+            'date.timezone = America/Chicago',
+            'display_errors = On',
+            'error_reporting = 1'
         ];
     }
 
@@ -69,7 +76,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
         unset($this->phpArray['modules'][$moduleType]);
 
         $expected['modules'][$moduleType] = array();
-        $expected['inilist']['custom']    = explode(',', $expected['inilist']['custom']);
+        $expected['inilist']['custom']    = $this->expectedIniListCustom;
 
         $php = new PHP($this->phpArray);
 
@@ -193,7 +200,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
     {
         $expected = $this->phpArray;
 
-        $expected['inilist']['custom'] = explode(',', $expected['inilist']['custom']);
+        $expected['inilist']['custom'] = $this->expectedIniListCustom;
 
         $php = new PHP($this->phpArray);
         $result = $php->getFormatted();
