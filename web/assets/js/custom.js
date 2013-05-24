@@ -49,7 +49,20 @@ $(document).ready(function(){
         var dbContainer = $('#mysql-dbuser-count');
         var currentCount = dbContainer.attr('rel');
 
-        $.get('/add/dbuser', { id: ++currentCount }, function(data) {
+        $.get('/add/mysql/dbuser', { id: ++currentCount }, function(data) {
+            dbContainer.attr('rel', currentCount);
+
+            dbContainer.append(data);
+        });
+
+        return false;
+    });
+
+    $('#postgresql-dbuser-add').click(function(){
+        var dbContainer = $('#postgresql-dbuser-count');
+        var currentCount = dbContainer.attr('rel');
+
+        $.get('/add/postgresql/dbuser', { id: ++currentCount }, function(data) {
             dbContainer.attr('rel', currentCount);
 
             dbContainer.append(data);
@@ -95,7 +108,13 @@ $(document).ready(function(){
     $('.webserver-configuration a[data-toggle="tab"]').on('shown', function (e) {
         var selectedWebserver = e.target.getAttribute('rel');
         $('input[name="webserver"]').attr('value', selectedWebserver);
-    })
+    });
+
+    // change selected database on "database" tab change
+    $('.database-configuration a[data-toggle="tab"]').on('shown', function (e) {
+        var selectedWebserver = e.target.getAttribute('rel');
+        $('input[name="database"]').attr('value', selectedWebserver);
+    });
 });
 
 function affixSubnav() {

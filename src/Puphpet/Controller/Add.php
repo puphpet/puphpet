@@ -18,8 +18,11 @@ class Add extends Controller
         $controllers->get('/vhost', [$this, 'vhostAction'])
              ->bind('add.vhost');
 
-        $controllers->get('/dbuser', [$this, 'dbuserAction'])
-             ->bind('add.dbuser');
+        $controllers->get('/mysql/dbuser', [$this, 'mysqldbuserAction'])
+             ->bind('add.mysql.dbuser');
+
+        $controllers->get('/postgresql/dbuser', [$this, 'postgresqldbuserAction'])
+             ->bind('add.postgresql.dbuser');
 
         return $controllers;
     }
@@ -32,10 +35,23 @@ class Add extends Controller
         );
     }
 
-    public function dbuserAction(Request $request)
+    public function mysqldbuserAction(Request $request)
     {
         return $this->twig()->render(
             'Front/Tabs/MySQL/dbuser.html.twig',
+            ['dbNum' => $request->get('id')]
+        );
+    }
+
+    /**
+     * Renders "Add PostgreSQL database" template
+     *
+     * @param  Request $request
+     */
+    public function postgresqldbuserAction(Request $request)
+    {
+        return $this->twig()->render(
+            'Front/Tabs/PostgreSQL/dbuser.html.twig',
             ['dbNum' => $request->get('id')]
         );
     }

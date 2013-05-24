@@ -43,11 +43,12 @@ $app['domain_file'] = function () {
 $app['manifest_formatter'] = function () {
     return new Puphpet\Domain\Compiler\Manifest\Formatter(
         [
-            'server' => new Puphpet\Domain\PuppetModule\Server(array()),
-            'apache' => new Puphpet\Domain\PuppetModule\Apache(array()),
-            'nginx'  => new Puphpet\Domain\PuppetModule\Nginx(array()),
-            'mysql'  => new Puphpet\Domain\PuppetModule\MySQL(array()),
-            'php'    => new Puphpet\Domain\PuppetModule\PHP(array()),
+            'server'     => new Puphpet\Domain\PuppetModule\Server(array()),
+            'apache'     => new Puphpet\Domain\PuppetModule\Apache(array()),
+            'nginx'      => new Puphpet\Domain\PuppetModule\Nginx(array()),
+            'mysql'      => new Puphpet\Domain\PuppetModule\MySQL(array()),
+            'postgresql' => new Puphpet\Domain\PuppetModule\PostgreSQL(array()),
+            'php'        => new Puphpet\Domain\PuppetModule\PHP(array()),
         ]
     );
 };
