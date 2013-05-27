@@ -97,6 +97,22 @@ $(document).ready(function(){
         return false;
     });
 
+    // Toggle automatically installed PHP packages depending on configuration
+    $('.webserver-configuration a[data-toggle="tab"],\
+        .database-configuration a[data-toggle="tab"]'
+    ).on('shown', function (e) {
+        var toShowSelector = $(e.target).attr('rel');
+        $('.visible-' + toShowSelector).show();
+
+        var toHideSelector = $(e.relatedTarget).attr('rel');
+        $('.visible-' + toHideSelector).hide();
+    });
+
+    $('.configuration .nav-tabs li:not(.active) a').each(function() {
+        var toHideSelector = $(this).attr('rel');
+        $('.visible-' + toHideSelector).hide();
+    });
+
     $('.multiselect').multiselect({
         maxHeight: 300,
         buttonWidth: '400px',

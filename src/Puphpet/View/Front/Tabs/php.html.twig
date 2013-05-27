@@ -72,7 +72,13 @@
 
             <div class="clearfix"></div>
 
-            <p class="help-block">By choosing nginx as webserver the package php5-fpm will be automatically installed.</p>
+            <span class="help-block">The following packages will be automatically installed based on the current webserver and database configuration:
+                <ul>
+                    <li class="php-module visible-nginx">php5-fpm</li>
+                    <li class="php-module visible-mysql">php5-mysql</li>
+                    <li class="php-module visible-postgresql">php5-pgsql</li>
+                </ul>
+            </span>
         </div>
     </div>
 
