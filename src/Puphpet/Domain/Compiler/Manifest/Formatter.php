@@ -126,9 +126,21 @@ class Formatter implements FormatterInterface
     {
         $php = $this->getPuppetModule('php');
         $php->setConfiguration($this->phpConfiguration);
+
         if ('nginx' == $this->webserver) {
             $php->addPhpModule('php5-fpm', true);
         }
+
+        var_dump($this->databaseConfiguration); die;
+
+        if (!empty($this->databaseConfiguration['root'])) {
+            if ('mysql' == $this->database) {
+                $php->addPhpModule('php5-mysql', true);
+            } elseif ('postgresql' == $this->database) {
+                $php->addPhpModule('php5-pgsql', true);
+            }
+        }
+
         $this->addConfiguration('php', $php->getFormatted());
     }
 
