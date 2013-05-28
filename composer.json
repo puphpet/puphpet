@@ -1,14 +1,14 @@
 {
     "require": {
-        "php":                                 ">=5.4.0",
-        "silex/silex":                         "1.0.*",
-        "twig/twig":                           "1.*",
-        "symfony/http-foundation":             "2.2.*",
-        "symfony/http-kernel":                 "2.2.*",
-        "symfony/twig-bridge":                 "2.2.*",
-        "jtreminio/vagrant-puppet-lamp":       "1.*@dev",
-        "jfryman/puppet-nginx":                "dev-master",
-        "michaelperrin/puppetlabs-postgresql": "dev-master"
+        "php":                           ">=5.4.0",
+        "silex/silex":                   "1.0.*",
+        "twig/twig":                     "1.*",
+        "symfony/http-foundation":       "2.2.*",
+        "symfony/http-kernel":           "2.2.*",
+        "symfony/twig-bridge":           "2.2.*",
+        "jtreminio/vagrant-puppet-lamp": "1.*@dev",
+        "jfryman/puppet-nginx":          "dev-master",
+        "puppetlabs/postgresql":         "2.2.1"
     },
     "require-dev": {
         "phpunit/phpunit":                           "3.8.*@dev",
@@ -26,8 +26,16 @@
             "url": "https://github.com/frastel/puppet-nginx"
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/michaelperrin/puppetlabs-postgresql"
+            "type": "package",
+            "package": {
+                "name": "puppetlabs/postgresql",
+                "version": "2.2.1",
+                "source": {
+                    "url": "git://github.com/puppetlabs/puppetlabs-postgresql.git",
+                    "type": "git",
+                    "reference": "tags/2.2.1"
+                }
+            }
         }
     ]
 }

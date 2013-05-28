@@ -81,7 +81,7 @@ class Front extends Controller
         }
 
         if ('postgresql' == $database) {
-            $domainFile->addModuleSource('postgresql', VENDOR_PATH . '/michaelperrin/puppetlabs-postgresql');
+            $domainFile->addModuleSource('postgresql', VENDOR_PATH . '/puppetlabs/postgresql');
         }
 
         // creating and building the archive
