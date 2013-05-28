@@ -1,7 +1,7 @@
 {% if postgresql.root %}
 class { 'postgresql':
   charset => 'UTF8',
-  locale  => 'en_US',
+  locale  => 'en_US.UTF-8',
 }->
 class { 'postgresql::server':
   config_hash => {
