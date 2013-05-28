@@ -24,6 +24,7 @@ class Formatter implements FormatterInterface
      *
      * @param array  $puppetModules
      * @param string $defaultWebserver
+     * @param string $defaultDatabase
      */
     public function __construct($puppetModules = array(), $defaultWebserver = 'apache', $defaultDatabase = 'mysql')
     {
@@ -130,8 +131,6 @@ class Formatter implements FormatterInterface
         if ('nginx' == $this->webserver) {
             $php->addPhpModule('php5-fpm', true);
         }
-
-        var_dump($this->databaseConfiguration); die;
 
         if (!empty($this->databaseConfiguration['root'])) {
             if ('mysql' == $this->database) {

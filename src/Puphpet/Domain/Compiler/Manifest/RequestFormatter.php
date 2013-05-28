@@ -74,7 +74,7 @@ class RequestFormatter implements FormatterInterface
      * Fetches something from request
      *
      * @param  string $key
-     * @param  string $default
+     * @param  string|null $default
      */
     private function get($key, $default = null)
     {

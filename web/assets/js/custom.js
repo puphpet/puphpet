@@ -98,9 +98,7 @@ $(document).ready(function(){
     });
 
     // Toggle automatically installed PHP packages depending on configuration
-    $('.webserver-configuration a[data-toggle="tab"],\
-        .database-configuration a[data-toggle="tab"]'
-    ).on('shown', function (e) {
+    $('.configuration a[data-toggle="tab"]').on('shown', function (e) {
         var toShowSelector = $(e.target).attr('rel');
         $('.visible-' + toShowSelector).show();
 
