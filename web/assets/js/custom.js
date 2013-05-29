@@ -70,8 +70,9 @@ $(document).ready(function() {
     deleteDatabaseEntry('postgresql');
 
     // Toggle automatically installed PHP packages depending on configuration
-    $('.configuration-chooser a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
-        var configurationName = $(e.target).parents('.configuration-chooser').data('configuration-name');
+    $('ul[data-configuration-name] a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+        console.log('bla');
+        var configurationName = $(e.target).parents('[data-configuration-name]').data('configuration-name');
         var configurationValue = $(e.target).data('configuration-value');
 
         if (configurationName) {
@@ -86,7 +87,7 @@ $(document).ready(function() {
         $(toHideSelector).hide();
     });
 
-    $('.configuration-chooser li:not(.active) a').each(function() {
+    $('ul[data-configuration-name] li:not(.active) a').each(function() {
         var toHideSelector = $(this).data('configuration-value');
         $('.visible-' + toHideSelector).hide();
     });
