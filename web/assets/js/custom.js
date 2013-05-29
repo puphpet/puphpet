@@ -108,6 +108,12 @@ $(document).ready(function() {
             }
         }
     });
+
+    // change selected webserver on "webserver" tab change
+    $('#webserverTab li a[data-toggle="tab"]').bind('click.puphpet', function () {
+        var selectedWebserver = $(this).attr('rel');
+        $('input[name="webserver"]').val(selectedWebserver);
+    });
 });
 
 function getSidebarResizeLimits(windowWidth) {
