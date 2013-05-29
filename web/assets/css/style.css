@@ -131,11 +131,13 @@
     content: '.ini Settings';
 }
 
-#mysql .bs-example.rootPassword:after {
+#mysql .bs-example.rootPassword:after,
+#postgresql .bs-example.rootPassword:after {
     content: 'Root User Password';
 }
 
-#mysql .bs-example.createUserDb:after {
+#mysql .bs-example.createUserDb:after,
+#postgresql .bs-example.createUserDb:after {
     content: 'Create User & Database';
 }
 

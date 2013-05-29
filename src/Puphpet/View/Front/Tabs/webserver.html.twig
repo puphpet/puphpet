@@ -7,9 +7,9 @@
 
 <input type="hidden" name="webserver" value="apache" />
 
-<ul id="webserverTab" class="nav nav-pills">
-    <li class="active"><a href="#apacheTab" data-toggle="tab">Apache</a></li>
-    <li><a href="#nginxTab" data-toggle="tab">Nginx</a></li>
+<ul id="webserverTab" class="nav nav-pills" data-configuration-name="webserver">
+    <li class="active"><a href="#apacheTab" data-toggle="pill" data-configuration-value="apache">Apache</a></li>
+    <li><a href="#nginxTab" data-toggle="pill" data-configuration-value="nginx">Nginx</a></li>
 </ul>
 <div id="webserverTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="apacheTab">

@@ -31,7 +31,11 @@ file { '/home/vagrant/.bash_aliases':
 
 {% include 'Vagrant/Modules/php.pp.twig' %}
 
+{% if postgresql is defined %}
+{% include 'Vagrant/Modules/postgresql.pp.twig' %}
+{% else %}
 {% include 'Vagrant/Modules/mysql.pp.twig' %}
+{% endif %}
 
 {# global macros #}
 {% macro explode_and_quote(list) %}

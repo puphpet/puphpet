@@ -16,7 +16,7 @@ class Formatter implements FormatterInterface
     private $webserverConfiguration;
     private $serverConfiguration;
     private $phpConfiguration;
-    private $mysqlConfiguration;
+    private $databaseConfiguration;
     private $formattedConfiguration = array();
 
     /**
@@ -24,11 +24,13 @@ class Formatter implements FormatterInterface
      *
      * @param array  $puppetModules
      * @param string $defaultWebserver
+     * @param string $defaultDatabase
      */
-    public function __construct($puppetModules = array(), $defaultWebserver = 'apache')
+    public function __construct($puppetModules = array(), $defaultWebserver = 'apache', $defaultDatabase = 'mysql')
     {
         $this->puppetModules = $puppetModules;
         $this->webserver = $defaultWebserver;
+        $this->database = $defaultDatabase;
     }
 
     /**
@@ -42,9 +44,10 @@ class Formatter implements FormatterInterface
     /**
      * @param null|array $configuration
      */
-    public function setMysqlConfiguration($configuration)
+    public function setDatabaseConfiguration($database, $configuration)
     {
-        $this->mysqlConfiguration = $configuration;
+        $this->database = $database;
+        $this->databaseConfiguration = $configuration;
     }
 
     /**
@@ -72,7 +75,7 @@ class Formatter implements FormatterInterface
     {
         $this->formatServerConfiguration();
         $this->formatWebserverConfiguration();
-        $this->formatMysqlConfiguration();
+        $this->formatDatabaseConfiguration();
         $this->formatPhpConfiguration();
 
         return $this->formattedConfiguration;
@@ -102,18 +105,41 @@ class Formatter implements FormatterInterface
         $this->formatPuppetModule('nginx', $this->webserverConfiguration);
     }
 
+    protected function formatDatabaseConfiguration()
+    {
+        $this->addConfiguration('database', $this->database);
+
+        $method = 'format' . ucfirst($this->database) . 'Configuration';
+        $this->$method();
+    }
+
     protected function formatMysqlConfiguration()
     {
-        $this->formatPuppetModule('mysql', $this->mysqlConfiguration);
+        $this->formatPuppetModule('mysql', $this->databaseConfiguration);
+    }
+
+    protected function formatPostgresqlConfiguration()
+    {
+        $this->formatPuppetModule('postgresql', $this->databaseConfiguration);
     }
 
     protected function formatPhpConfiguration()
     {
         $php = $this->getPuppetModule('php');
         $php->setConfiguration($this->phpConfiguration);
+
         if ('nginx' == $this->webserver) {
             $php->addPhpModule('php5-fpm', true);
         }
+
+        if (!empty($this->databaseConfiguration['root'])) {
+            if ('mysql' == $this->database) {
+                $php->addPhpModule('php5-mysql', true);
+            } elseif ('postgresql' == $this->database) {
+                $php->addPhpModule('php5-pgsql', true);
+            }
+        }
+
         $this->addConfiguration('php', $php->getFormatted());
     }
 

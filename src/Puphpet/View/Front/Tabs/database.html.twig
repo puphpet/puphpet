@@ -1,0 +1,26 @@
+<div class="page-header">
+    <img class="svgIcon" src="./assets/img/noun-project/database.svg" />
+    <h1>Database, <small>select a database solution</small></h1>
+</div>
+
+<p>You have the option of choosing either MySQL or PostgreSQL.</p>
+
+<input type="hidden" name="database" value="mysql" />
+
+<ul id="databaseTab" class="nav nav-pills" data-configuration-name="database">
+    <li class="active"><a href="#database-mysql" data-toggle="pill" data-configuration-value="mysql">MySQL</a></li>
+    <li><a href="#database-postgresql" data-toggle="pill" data-configuration-value="postgresql">PostgreSQL</a></li>
+</ul>
+<div id="databaseTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="database-mysql">
+        <div id="mysql">
+            {% include 'Front/Tabs/Database/mysql.html.twig' %}
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="database-postgresql">
+        <div id="postgresql">
+            {% include 'Front/Tabs/Database/postgresql.html.twig' %}
+        </div>
+    </div>
+</div>

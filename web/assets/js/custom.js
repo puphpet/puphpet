@@ -63,30 +63,32 @@ $(document).ready(function() {
         return false;
     });
 
-    $('#mysql-dbuser-add').click(function(){
-        var dbContainer = $('#mysql-dbuser-count');
-        var currentCount = dbContainer.attr('rel');
+    addDatabaseEntry('mysql');
+    addDatabaseEntry('postgresql');
 
-        $.get('/add/dbuser', { id: ++currentCount }, function(data) {
-            dbContainer.attr('rel', currentCount);
+    deleteDatabaseEntry('mysql');
+    deleteDatabaseEntry('postgresql');
 
-            dbContainer.append(data);
-        });
+    // Toggle automatically installed PHP packages depending on configuration
+    $('ul[data-configuration-name] a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+        var configurationName = $(e.target).parents('[data-configuration-name]').data('configuration-name');
+        var configurationValue = $(e.target).data('configuration-value');
 
-        return false;
+        if (configurationName) {
+            var inputSelector = 'input[name="' + configurationName + '"]'
+            $(inputSelector).attr('value', configurationValue);
+        }
+
+        var toShowSelector = '.visible-' + configurationValue;
+        $(toShowSelector).show();
+
+        var toHideSelector = '.visible-' + $(e.relatedTarget).data('configuration-value');
+        $(toHideSelector).hide();
     });
 
-    $('body').delegate('.mysql-dbuser-del', 'click', function() {
-        var dbNum = $(this).attr('rel');
-        $('#' + dbNum).slideUp(function () {
-            $(this).remove();
-        });
-
-        var mysqlDbuserContainer = $('#mysql-dbuser-count');
-        var currentCount = mysqlDbuserContainer.attr('rel');
-        mysqlDbuserContainer.attr('rel', --currentCount);
-
-        return false;
+    $('ul[data-configuration-name] li:not(.active) a').each(function() {
+        var toHideSelector = $(this).data('configuration-value');
+        $('.visible-' + toHideSelector).hide();
     });
 
     $('.multiselect').multiselect({
@@ -170,6 +172,36 @@ function updateInputFromSelect(addButton, sourceFieldName, sourceFieldValue, tar
 
             return false;
         }
+
+        return false;
+    });
+}
+
+function addDatabaseEntry(type) {
+    $('#' + type + '-dbuser-add').click(function(){
+        var dbContainer = $('#' + type + '-dbuser-count');
+        var currentCount = dbContainer.attr('rel');
+
+        $.get('/add/' + type + '/dbuser', { id: ++currentCount }, function(data) {
+            dbContainer.attr('rel', currentCount);
+
+            dbContainer.append(data);
+        });
+
+        return false;
+    });
+}
+
+function deleteDatabaseEntry(type) {
+    $('body').delegate('.' + type + '-dbuser-del', 'click', function() {
+        var dbNum = $(this).attr('rel');
+        $('#' + dbNum).slideUp(function () {
+            $(this).remove();
+        });
+
+        var dbuserContainer = $('#' + type + '-dbuser-count');
+        var currentCount = dbuserContainer.attr('rel');
+        dbuserContainer.attr('rel', --currentCount);
 
         return false;
     });
