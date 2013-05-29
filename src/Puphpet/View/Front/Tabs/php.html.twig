@@ -1,153 +1,101 @@
-<h2 class="page-header">PHP Settings</h2>
-<div class="span3">
-    <h5>Step 4: PHP Setup</h5>
-    <ul>
-        <li>
-            You have the option of installing PHP 5.4 or 5.3.
-        </li>
-        <li>
-            To use XDebug, you must install PEAR, since it uses PECL.
-        </li>
-    </ul>
+<div class="page-header">
+    <img class="svgIcon" src="./assets/img/noun-project/php.svg" />
+    <h1>PHP, <small>version and modules</small></h1>
 </div>
 
-<fieldset>
+<div class="bs-example quickSettings">
     <div class="row">
-        <div class="span3 ">
-            <label class="control-label" for="php-php54">Use PHP 5.4</label>
-
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" id="php-php54" name="php[php54]" value="1" checked="checked" />
-                    Yes
-                </label>
-            </div>
+        <div class="col col-lg-4 min-span-4">
+            <label class="checkbox-inline min-span-2" for="php-php54">Use PHP 5.4</label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="php-php54" name="php[php54]" value="1" checked />
+                Yes
+            </label>
         </div>
 
-        <div class="span3 ">
-            <label class="control-label" for="php-pear">Use PEAR</label>
+        <div class="col col-lg-4 min-span-4">
+            <label class="checkbox-inline min-span-2" for="php-pear">Use PEAR</label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="php-pear" name="php[pear]" value="1" checked />
+                Yes
+            </label>
+        </div>
+    </div>
 
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" id="php-pear" name="php[pear]" value="1" checked="checked" />
-                    Yes
-                </label>
-            </div>
+    <div class="row">
+        <div class="col col-lg-4 min-span-4">
+            <label class="checkbox-inline min-span-2" for="php-xdebug">Install XDebug</label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="php-xdebug" name="php[xdebug]" value="1" checked />
+                Yes
+            </label>
+            <p class="help-block">To use XDebug, you must install PEAR, since it uses PECL.</p>
         </div>
 
-        <div class="span3 ">
-            <label class="control-label" for="php-xdebug">Install XDebug</label>
-
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" id="php-xdebug" name="php[xdebug]" value="1" checked="checked" />
-                    Yes
-                </label>
-            </div>
+        <div class="col col-lg-4 min-span-4">
+            <label class="checkbox-inline min-span-2" for="php-composer">Install Composer</label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="php-composer" name="php[composer]" value="1" checked />
+                Yes
+            </label>
+            <p class="help-block">Composer will be available as a system service, <code>$ composer</code></p>
         </div>
+    </div>
+</div>
 
-        <div class="span3 ">
-            <label class="control-label" for="php-composer">Install Composer</label>
+<div class="bs-example installedPackages">
+    <div>
+        <label for="php-modules-php">Installed PHP Modules</label>
+        <select multiple class="selectTags" id="php-modules-php" name="php[modules][php][]">
+            {% include 'Front/Tabs/PHP/php.html.twig' %}
+        </select>
+        <p class="help-block">By choosing nginx as webserver the package php5-fpm will be automatically installed</p>
+    </div>
 
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" id="php-composer" name="php[composer]" value="1" checked="checked" />
-                    Yes
-                </label>
-            </div>
-        </div>
+    <div>
+        <label for="php-modules-pear">Installed PEAR Extensions</label>
+        <select multiple class="selectTags" id="php-modules-pear" name="php[modules][pear][]">
+            {% include 'Front/Tabs/PHP/pear.html.twig' %}
+        </select>
     </div>
 
     <br />
 
-    <div class="clearfix"></div>
-
-    <div class="control-group">
-        <label class="control-label" for="php-modules-php">Installed PHP Modules</label>
-
-        <div class="controls">
-            <select multiple class="span7 selectTags" id="php-modules-php" name="php[modules][php][]">
-                {% include 'Front/Tabs/PHP/php.html.twig' %}
-            </select>
-
-            <div class="clearfix"></div>
-
-            <p class="help-block">By choosing nginx as webserver the package php5-fpm will be automatically installed.</p>
-        </div>
+    <div>
+        <label for="php-modules-pecl">Installed PECL Packages</label>
+        <select multiple class="selectTags" id="php-modules-pecl" name="php[modules][pecl][]">
+            {% include 'Front/Tabs/PHP/pecl.html.twig' %}
+        </select>
     </div>
-
-    <div class="control-group">
-        <label class="control-label" for="php-modules-pear">Installed PEAR Extensions</label>
-
-        <div class="controls">
-            <select multiple class="span7 selectTags" id="php-modules-pear" name="php[modules][pear][]">
-                {% include 'Front/Tabs/PHP/pear.html.twig' %}
-            </select>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label" for="php-modules-pecl">Installed PECL Packages</label>
-
-        <div class="controls">
-            <select multiple class="span7 selectTags" id="php-modules-pecl" name="php[modules][pecl][]">
-                {% include 'Front/Tabs/PHP/pecl.html.twig' %}
-            </select>
-        </div>
-    </div>
-</fieldset>
-
-<div class="clear"><br /></div>
-
-<div class="span3">
-    <h5>Step 4.a: PHP ini Settings</h5>
-    <ul>
-        <li>
-            Choose your php.ini settings.
-        </li>
-        <li>
-            Defaults will be used unless overriden.
-        </li>
-        <li>
-            Choose whether the setting is for CGI, CLI or both.
-        </li>
-    </ul>
 </div>
 
-<fieldset>
+<div class="bs-example iniSettings">
     <div class="row">
-        <div class="span5">
-            <div class="control-group">
-                <label class="control-label" for="php-inilist-name">Select an ini Setting</label>
-
-                <div class="controls">
-                    <select class="span3 selectTags" id="php-inilist-name" name="php-inilist-name">
-                        {% include 'Front/Tabs/PHP/ini.html.twig' %}
-                    </select>
-                </div>
-            </div>
+        <div class="col col-lg-5 min-span-4 max-span-6">
+            <label>
+                <select class="selectTags" id="php-inilist-name" name="php-inilist-name">
+                    {% include 'Front/Tabs/PHP/ini.html.twig' %}
+                </select>
+            </label>
         </div>
 
-        <div class="span4">
-            <div class="form-inline">
-                <div class="span2">
-                    <label><input id="php-inilist-value" name="php-inilist-value" type="text"
-                                  class="input-small" placeholder="value" value="" /></label>
-                </div>
-                <div class="span1">
-                    <a id="php-inilist-add" class="btn btn-primary" href="#">Add</a>
-                </div>
-            </div>
+        <div class="col col-lg-3">
+            <label>
+                <input id="php-inilist-value" name="php-inilist-value" type="text" placeholder="value" value="" />
+            </label>
+        </div>
+
+        <div class="col col-lg-3">
+            <a id="php-inilist-add" class="btn btn-primary" href="#">Add</a>
         </div>
     </div>
 
-    <div class="control-group">
-        <label class="control-label" for="php-modules-php"></label>
-
-        <div class="controls">
-            <label><input id="php-inilist-custom" name="php[inilist][custom]" type="text" class="span7 tags"
-                   placeholder="value"
-                   value="date.timezone = America/Chicago, display_errors = On, error_reporting = -1" /></label>
+    <div class="row">
+        <div class="col col-lg-8">
+            <label class="control-label" for="php-inilist-custom"></label>
+            <input id="php-inilist-custom" name="php[inilist][custom]" type="text"
+                   class="tags" placeholder="value"
+                   value="date.timezone = America/Chicago, display_errors = On, error_reporting = -1" />
         </div>
     </div>
-</fieldset>
+</div>

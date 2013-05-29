@@ -1,104 +1,51 @@
 {% extends 'Front/layout.html.twig' %}
 
+{% block bodyClass %}index{% endblock %}
+
 {% block container %}
     {{ parent() }}
 
-    <section class="block white">
-        <div class="container">
-            <div class="row">
-                <div class="span12">
-                    <h2>PuPHPet, a simple GUI to set up virtual machines for PHP development</h2>
+    <div class="container bs-docs-container">
+        <div class="row">
+            {% block sidemenu %}
+                <div class="col col-lg-3 sidebar-container">
+                    <div class="bs-sidebar">
+                        <ul class="nav bs-sidenav">
+                            <li>
+                                <a href="#vagrant"><img class="svgIcon" src="/assets/img/noun-project/box.svg" />Vagrant</a>
+                            </li>
+                            <li>
+                                <a href="#server"><img class="svgIcon" src="/assets/img/noun-project/bash.svg" />Server OS</a>
+                            </li>
+                            <li>
+                                <a href="#webserver"><img class="svgIcon" src="/assets/img/noun-project/network.svg" />HTTP</a>
+                            </li>
+                            <li>
+                                <a href="#php"><img class="svgIcon" src="/assets/img/noun-project/php.svg" />PHP</a>
+                            </li>
+                            <li>
+                                <a href="#mysql"><img class="svgIcon" src="/assets/img/noun-project/database.svg" />Database</a>
+                            </li>
+                            <li>
+                                <a href="#create"><img class="svgIcon" src="/assets/img/noun-project/checkerdflag.svg" />Create</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+            {% endblock %}
 
-                <div class="span6">
-                    <h3>What is this?</h3>
-
-                    <p>
-                        PuPHPet is for rapid generation of Vagrant VMs provisioned by Puppet, specifically made for those that
-                        don't have the time or interest in learning the details.
-                    </p>
-
-                    <p>
-                        The idea came to me when I was struggling to get from no previous Vagrant/Puppet knowledge to simply
-                        having a running VM I could start developing on. Why should I need to learn the ins and outs when
-                        all I want to do is faceroll more code?
-                    </p>
-                </div>
-
-                <div class="span6">
-                    <h3>Who is it for?</h3>
-
-                    <p>
-                        This is aimed at PHP developers that do not have the time or inclination to learn a whole new system.
-                        You want to get started programming on an easily managed VM quickly, with as little fuss as possible.
-                    </p>
-
-                    <p>
-                        This is not meant to be used in production. The choices are limited by design, I will probably only
-                        ever focus on the official Vagrant Ubuntu boxes, and as of right now you cannot choose specific
-                        versions of packages to install, only the latest of each.
-                    </p>
-                </div>
+            <div class="col col-lg-9 content-container">
+                <form class="form-horizontal" action="/create" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="bs-docs-section" id="vagrant">{% include 'Front/Tabs/vagrantBox.html.twig' %}</div>
+                    <div class="bs-docs-section" id="server">{% include 'Front/Tabs/server.html.twig' %}</div>
+                    <div class="bs-docs-section" id="webserver">{% include 'Front/Tabs/webserver.html.twig' %}</div>
+                    <div class="bs-docs-section" id="php">{% include 'Front/Tabs/php.html.twig' %}</div>
+                    <div class="bs-docs-section" id="mysql">{% include 'Front/Tabs/mysql.html.twig' %}</div>
+                    <div class="bs-docs-section" id="create">{% include 'Front/Tabs/create.html.twig' %}</div>
+                </form>
             </div>
         </div>
-    </section>
 
-    <div class="subnav">
-        <div class="container">
-            <div class="row">
-                <div class="span12">
-                    <ul class="nav nav-pills">
-                        <li><a href="#vagrant">Vagrant Box</a></li>
-                        <li><a href="#server">Server</a></li>
-                        <li><a href="#webserver">Web Server</a></li>
-                        <li><a href="#php">PHP</a></li>
-                        <li><a href="#mysql">MySQL</a></li>
-                        <li><a href="#create">Create</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <a href="#" class="bs-top">Back to top</a>
     </div>
-
-    <form class="form-horizontal" action="/create" method="post" enctype="application/x-www-form-urlencoded">
-
-        <section class="block" id="vagrant">
-            <div class="container">
-                {% include 'Front/Tabs/vagrantBox.html.twig' %}
-            </div>
-        </section>
-
-        <section class="block" id="server">
-            <div class="container">
-                {% include 'Front/Tabs/server.html.twig' %}
-            </div>
-        </section>
-
-        <section class="block" id="webserver">
-            <div class="container">
-                {% include 'Front/Tabs/webserver.html.twig' %}
-            </div>
-        </section>
-
-        <section class="block" id="php">
-            <div class="container">
-                {% include 'Front/Tabs/php.html.twig' %}
-            </div>
-        </section>
-
-        <section class="block" id="mysql">
-            <div class="container">
-                {% include 'Front/Tabs/mysql.html.twig' %}
-            </div>
-        </section>
-
-        <section class="block" id="create">
-            <div class="container">
-                {% include 'Front/Tabs/create.html.twig' %}
-            </div>
-        </section>
-
-        <input type="hidden" name="webserver" value="apache" />
-
-    </form>
 {% endblock %}

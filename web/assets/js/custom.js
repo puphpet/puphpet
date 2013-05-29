@@ -1,14 +1,32 @@
-$(document).ready(function(){
+$(document).ready(function() {
+    var $window = $(window);
+
+    // Disable certain links
+    $('section [href^=#]').click(function (e) {
+        e.preventDefault();
+    });
+
+    // Back to top button
+    setTimeout(function () {
+        $('.bs-top').affix();
+    }, 100);
+
+    // Affix sidebar
+    setTimeout(function () {
+        $('.bs-sidebar').affix({
+            offset: {
+                top: function () {
+                    return getSidebarResizeLimits($window.width());
+                }
+            }
+        });
+    }, 100);
+
     $('.box-url').click(function() {
         var boxName = $(this).attr('rel');
 
         $('#box-name').val(boxName);
     });
-
-    $('.subnav a').smoothScroll({offset: -80});
-
-    affixSubnav();
-    changeActiveLink();
 
     $('.tags').select2({
         tags: [],
@@ -90,82 +108,18 @@ $(document).ready(function(){
             }
         }
     });
-
-    // change selected webserver on "webserver" tab change
-    $('.webserver-configuration a[data-toggle="tab"]').on('shown', function (e) {
-        var selectedWebserver = e.target.getAttribute('rel');
-        $('input[name="webserver"]').attr('value', selectedWebserver);
-    })
 });
 
-function affixSubnav() {
-    // fix sub nav on scroll
-    var $win = $(window),
-            $body = $('body'),
-            $nav = $('.subnav'),
-            navHeight = $('.navbar').first().height(),
-            subnavHeight = $nav.first().height(),
-            subnavTop = $nav.length && $nav.offset().top - navHeight,
-            marginTop = parseInt($body.css('margin-top'), 10);
-            isFixed = 0;
+function getSidebarResizeLimits(windowWidth) {
+    // 768, 992, 1200
 
-    processScroll();
-
-    $win.on('scroll', processScroll);
-
-    function processScroll() {
-        var i, scrollTop = $win.scrollTop();
-
-        if (scrollTop >= subnavTop && !isFixed) {
-            isFixed = 1;
-            $nav.addClass('subnav-fixed');
-            $body.css('margin-top', marginTop + subnavHeight + 'px');
-        } else if (scrollTop <= subnavTop && isFixed) {
-            isFixed = 0;
-            $nav.removeClass('subnav-fixed');
-            $body.css('margin-top', marginTop + 'px');
-        }
+    if (windowWidth >= 1200) {
+        return  200;
+    } else if (windowWidth >= 992) {
+        return  230;
     }
-}
 
-function changeActiveLink() {
-    var lastId;
-    var topMenu = $('.subnav');
-    var topMenuHeight = topMenu.outerHeight() + 70;
-    var menuItems = topMenu.find('a');
-
-    // Anchors corresponding to menu items
-    var scrollItems = menuItems.map(function () {
-        var item = $($(this).attr("href"));
-        if (item.length) {
-            return item;
-        }
-
-        return false;
-    });
-
-    // Bind to scroll
-    $(window).scroll(function () {
-        // Get container scroll position
-        var fromTop = $(this).scrollTop() + topMenuHeight;
-
-        // Get id of current scroll item
-        var cur = scrollItems.map(function () {
-            if ($(this).offset().top < fromTop)
-                return this;
-        });
-        // Get the id of the current element
-        cur = cur[cur.length - 1];
-        var id = cur && cur.length ? cur[0].id : "";
-
-        if (lastId !== id) {
-            lastId = id;
-            // Set/remove active class
-            menuItems
-                .parent().removeClass("active")
-                .end().filter("[href=#" + id + "]").parent().addClass("active");
-        }
-    });
+    return 235;
 }
 
 function updateInputFromSelect(addButton, sourceFieldName, sourceFieldValue, target) {

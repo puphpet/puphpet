@@ -1,36 +1,17 @@
-<h2 class="page-header">Server Basics</h2>
-<div class="span3">
-    <h5>Step 2: Server Setup</h5>
-    <ul>
-        <li>
-            Choose what packages you would like installed on your virtual machine. Do not add Apache or PHP here, they
-            are automatically installed.
-        </li>
-    </ul>
+<div class="page-header">
+    <img class="svgIcon" src="./assets/img/noun-project/bash.svg" />
+    <h1>Server Basics, <small>it's the small things...</small></h1>
 </div>
 
-<fieldset>
-    <div class="control-group">
-        <label class="control-label" for="server-packages">Installed Packages</label>
+<div class="bs-example packages">
+    <label for="server-packages">Installed Packages</label>
+    <textarea class="tags" id="server-packages" name="server[packages]">build-essential, vim, curl</textarea>
+    <p class="help-block">Packages to install via apt-get, separated by comma. Do not add
+        Apache/Nginx or PHP here - you will choose those later.</p>
+</div>
 
-        <div class="controls">
-            <textarea class="span7 tags" id="server-packages" name="server[packages]">build-essential, vim, curl</textarea>
-
-            <div class="clearfix"></div>
-
-            <p class="help-block">Packages to install via apt-get, separated by comma</p>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label" for="server-bashaliases">Bash Aliases</label>
-
-        <div class="controls">
-            <textarea class="span7" id="server-bashaliases" name="server[bashaliases]" rows="15">{% include 'Front/Tabs/Server/bash_aliases.html.twig' %}</textarea>
-
-            <div class="clearfix"></div>
-
-            <p class="help-block">~/.bash_aliases file (<a href="/assets/img/bash.png" target="_blank">preview</a>)</p>
-        </div>
-    </div>
-</fieldset>
+<div class="bs-example bash_aliases">
+    <label for="server-bashaliases">Bash Aliases</label>
+    <textarea class="span7" id="server-bashaliases" name="server[bashaliases]" rows="15">{% include 'Front/Tabs/Server/bash_aliases.html.twig' %}</textarea>
+    <p class="help-block">~/.bash_aliases file (<a href="/assets/img/bash.png" target="_blank">preview</a>)</p>
+</div>
