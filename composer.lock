@@ -101,12 +101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/puphpet/vagrant-puppet-lamp.git",
-                "reference": "4bfa41fd47ca266fe96516b6159df6ac41cc32cd"
+                "reference": "12d0c4eef793f5edb9a5f5e134ad9cdb7210a243"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/4bfa41fd47ca266fe96516b6159df6ac41cc32cd",
-                "reference": "4bfa41fd47ca266fe96516b6159df6ac41cc32cd",
+                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/12d0c4eef793f5edb9a5f5e134ad9cdb7210a243",
+                "reference": "12d0c4eef793f5edb9a5f5e134ad9cdb7210a243",
                 "shasum": ""
             },
             "type": "project",
@@ -135,7 +135,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2013-05-29 15:19:59"
+            "time": "2013-05-29 15:44:23"
         },
         {
             "name": "pimple/pimple",
