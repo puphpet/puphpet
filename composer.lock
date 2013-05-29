@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d0dfd981d07624fed7e907179d6111ec",
+    "hash": "165e63fc440ca4af478409359e6c737f",
     "packages": [
         {
             "name": "igorw/config-service-provider",
@@ -220,6 +220,16 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "puppetlabs/postgresql",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puppetlabs/puppetlabs-postgresql.git",
+                "reference": "tags/2.2.1"
+            },
+            "type": "library"
         },
         {
             "name": "silex/silex",
