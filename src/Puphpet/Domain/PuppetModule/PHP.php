@@ -80,8 +80,74 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
             return;
         }
 
+        // @TODO all ini settings should be converted to key/value pairs
+        // and correct formatting should be done in the template
         foreach ($this->configuration['inilist'] as $type => $iniList) {
-            $this->configuration['inilist'][$type] = $this->explode($iniList);
+            if (is_array($iniList)) {
+                $settings = array();
+                foreach ($iniList as $key => $value) {
+                    $settings[] = $this->formatInitLine($key, $value);
+                }
+                $this->configuration['inilist'][$type] = $settings;
+            } else {
+                $this->configuration['inilist'][$type] = $this->formatImplodedInilist($iniList);
+            }
         }
+    }
+
+    /**
+     * Formats all ini values correctly
+     *
+     * Incoming: 'foo = bar, baz = 123, hello = on'
+     * Outgoing: ['foo = "bar"', 'baz = 123', 'hello = on']
+     *
+     * @param array|null $iniList
+     *
+     * @return array
+     */
+    protected function formatImplodedInilist($iniList)
+    {
+        $lines = $this->explode($iniList);
+        foreach ($lines as $i => $line) {
+            list($key, $value) = explode('=', $line, 2);
+            $lines[$i] = $this->formatInitLine($key, $value);
+        }
+
+        return $lines;
+    }
+
+    /**
+     * Formats a php ini line
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return string
+     */
+    protected function formatInitLine($key, $value)
+    {
+        return sprintf('%s = %s', trim($key), $this->quoteIniValue(trim($value)));
+    }
+
+    /**
+     * Ensures that strings are quoted
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function quoteIniValue($value)
+    {
+        // numbers may not be quotes
+        if (is_numeric($value)) {
+            return $value;
+        }
+
+        // ini strings may not be quoted
+        if (in_array(strtolower($value), ['on', 'off'])) {
+            return $value;
+        }
+
+        return '"' . $value . '"';
     }
 }

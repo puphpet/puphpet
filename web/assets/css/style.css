@@ -123,6 +123,10 @@
     content: 'Installed Packages';
 }
 
+#php .bs-example.timezone:after {
+    content: 'Select timezone';
+}
+
 #php .bs-example.iniSettings:after {
     content: '.ini Settings';
 }

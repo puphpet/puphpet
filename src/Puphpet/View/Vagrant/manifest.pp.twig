@@ -35,5 +35,5 @@ file { '/home/vagrant/.bash_aliases':
 
 {# global macros #}
 {% macro explode_and_quote(list) %}
-{% for entry in list %}'{{ entry }}'{% if not loop.last %}, {% endif %}{% endfor %}
+{% for entry in list %}'{{ entry|raw }}'{% if not loop.last %}, {% endif %}{% endfor %}
 {% endmacro %}
