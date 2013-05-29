@@ -61,10 +61,10 @@ $app['manifest_compiler'] = function () use ($app) {
     return new Puphpet\Domain\Compiler\Compiler($app['twig'], 'Vagrant/manifest.pp.twig');
 };
 $app['property_access_provider'] = function () {
-    return new \Puphpet\Domain\Configuration\PropertyAccessProvider();
+    return new Puphpet\Domain\Configuration\PropertyAccessProvider();
 };
 $app['edition'] = function () use ($app) {
-    return new \Puphpet\Domain\Configuration\Edition($app['property_access_provider']);
+    return new Puphpet\Domain\Configuration\Edition($app['property_access_provider']);
 };
 
 return $app;

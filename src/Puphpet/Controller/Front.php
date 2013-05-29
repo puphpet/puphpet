@@ -47,7 +47,7 @@ class Front extends Controller
         }
 
         // fill the edition entity with requested configuration
-        /**@var $edition \Puphpet\Domain\Edition */
+        /**@var $edition Domain\Configuration\Edition */
         $edition = $app['edition'];
         $edition->setConfiguration($availableEditions[$editionName]);
 
