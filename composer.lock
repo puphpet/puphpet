@@ -100,13 +100,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jtreminio/vagrant-puppet-lamp.git",
-                "reference": "f6af0b5dccfe26178c958c16731a8dde58a60dc5"
+                "url": "https://github.com/puphpet/vagrant-puppet-lamp.git",
+                "reference": "4bfa41fd47ca266fe96516b6159df6ac41cc32cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jtreminio/vagrant-puppet-lamp/zipball/f6af0b5dccfe26178c958c16731a8dde58a60dc5",
-                "reference": "f6af0b5dccfe26178c958c16731a8dde58a60dc5",
+                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/4bfa41fd47ca266fe96516b6159df6ac41cc32cd",
+                "reference": "4bfa41fd47ca266fe96516b6159df6ac41cc32cd",
                 "shasum": ""
             },
             "type": "project",
@@ -135,7 +135,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2013-05-21 16:34:03"
+            "time": "2013-05-29 15:19:59"
         },
         {
             "name": "pimple/pimple",
@@ -711,12 +711,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "f6c00587f8b2d6e680d09fd6015fa521f9c72327"
+                "reference": "fca6a9562dc032a7ba3ab8278b731b72efa8bd9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/f6c00587f8b2d6e680d09fd6015fa521f9c72327",
-                "reference": "f6c00587f8b2d6e680d09fd6015fa521f9c72327",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/fca6a9562dc032a7ba3ab8278b731b72efa8bd9c",
+                "reference": "fca6a9562dc032a7ba3ab8278b731b72efa8bd9c",
                 "shasum": ""
             },
             "require": {
@@ -752,7 +752,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-05-27 06:08:37"
+            "time": "2013-05-29 14:58:12"
         }
     ],
     "packages-dev": [
@@ -1249,12 +1249,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/version.git",
-                "reference": "1d2f0e9bc9bc771244550106d4de029948182303"
+                "reference": "1.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/version/zipball/1d2f0e9bc9bc771244550106d4de029948182303",
-                "reference": "1d2f0e9bc9bc771244550106d4de029948182303",
+                "url": "https://api.github.com/repos/sebastianbergmann/version/zipball/1.0.1",
+                "reference": "1.0.1",
                 "shasum": ""
             },
             "type": "library",
@@ -1276,7 +1276,7 @@
             ],
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
-            "time": "2013-04-17 10:55:54"
+            "time": "2013-05-29 10:02:00"
         },
         {
             "name": "symfony/browser-kit",
