@@ -63,30 +63,24 @@ $(document).ready(function() {
         return false;
     });
 
-    $('#mysql-dbuser-add').click(function(){
-        var dbContainer = $('#mysql-dbuser-count');
-        var currentCount = dbContainer.attr('rel');
+    addDatabaseEntry('mysql');
+    addDatabaseEntry('postgresql');
 
-        $.get('/add/dbuser', { id: ++currentCount }, function(data) {
-            dbContainer.attr('rel', currentCount);
+    deleteDatabaseEntry('mysql');
+    deleteDatabaseEntry('postgresql');
 
-            dbContainer.append(data);
-        });
+    // Toggle automatically installed PHP packages depending on configuration
+    $('.configuration a[data-toggle="tab"]').on('shown', function (e) {
+        var toShowSelector = $(e.target).attr('rel');
+        $('.visible-' + toShowSelector).show();
 
-        return false;
+        var toHideSelector = $(e.relatedTarget).attr('rel');
+        $('.visible-' + toHideSelector).hide();
     });
 
-    $('body').delegate('.mysql-dbuser-del', 'click', function() {
-        var dbNum = $(this).attr('rel');
-        $('#' + dbNum).slideUp(function () {
-            $(this).remove();
-        });
-
-        var mysqlDbuserContainer = $('#mysql-dbuser-count');
-        var currentCount = mysqlDbuserContainer.attr('rel');
-        mysqlDbuserContainer.attr('rel', --currentCount);
-
-        return false;
+    $('.configuration .nav-tabs li:not(.active) a').each(function() {
+        var toHideSelector = $(this).attr('rel');
+        $('.visible-' + toHideSelector).hide();
     });
 
     $('.multiselect').multiselect({
@@ -170,6 +164,36 @@ function updateInputFromSelect(addButton, sourceFieldName, sourceFieldValue, tar
 
             return false;
         }
+
+        return false;
+    });
+}
+
+function addDatabaseEntry(type) {
+    $('#' + type + '-dbuser-add').click(function(){
+        var dbContainer = $('#' + type + '-dbuser-count');
+        var currentCount = dbContainer.attr('rel');
+
+        $.get('/add/' + type + '/dbuser', { id: ++currentCount }, function(data) {
+            dbContainer.attr('rel', currentCount);
+
+            dbContainer.append(data);
+        });
+
+        return false;
+    });
+}
+
+function deleteDatabaseEntry(type) {
+    $('body').delegate('.' + type + '-dbuser-del', 'click', function() {
+        var dbNum = $(this).attr('rel');
+        $('#' + dbNum).slideUp(function () {
+            $(this).remove();
+        });
+
+        var dbuserContainer = $('#' + type + '-dbuser-count');
+        var currentCount = dbuserContainer.attr('rel');
+        dbuserContainer.attr('rel', --currentCount);
 
         return false;
     });
