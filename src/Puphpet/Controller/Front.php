@@ -28,6 +28,9 @@ class Front extends Controller
         $controllers->get('/help', [$this, 'helpAction'])
             ->bind('help');
 
+        $controllers->get('/github-btn', [$this, 'githubbtnAction'])
+            ->bind('github-btn');
+
         return $controllers;
     }
 
@@ -72,6 +75,11 @@ class Front extends Controller
             'Front/help.html.twig',
             ['currentPage' => 'help']
         );
+    }
+
+    public function githubbtnAction()
+    {
+        return $this->twig()->render('Front/github-btn.html.twig');
     }
 
     public function createAction(Request $request, Application $app)
