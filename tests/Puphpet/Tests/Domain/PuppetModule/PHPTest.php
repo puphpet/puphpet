@@ -3,11 +3,12 @@
 namespace Puphpet\Tests\Domain\PuppetModule;
 
 use Puphpet\Domain\PuppetModule\PHP;
-use Puphpet\Tests\Base;
 
-class PHPTest extends Base
+class PHPTest extends \PHPUnit_Framework_TestCase
 {
     protected $phpArray = array();
+    protected $expectedIniListMandatory = array();
+    protected $expectedIniListCustom = array();
 
     public function setUp()
     {
@@ -33,6 +34,22 @@ class PHPTest extends Base
                     'radius',
                 ],
             ],
+            'inilist'  => [
+                'php' => [
+                    'date.timezone' => 'America/Chicago',
+                ],
+                'custom' => 'display_errors = On,error_reporting = 1, foo = bar',
+            ],
+        ];
+
+        $this->expectedIniListMandatory = [
+            'date.timezone = "America/Chicago"',
+        ];
+
+        $this->expectedIniListCustom = [
+            'display_errors = On',
+            'error_reporting = 1',
+            'foo = "bar"'
         ];
     }
 
@@ -45,10 +62,7 @@ class PHPTest extends Base
 
         $expected = array();
 
-        $this->assertEquals(
-            $expected,
-            $php->getFormatted()
-        );
+        $this->assertEquals($expected, $php->getFormatted());
     }
 
     public function providerGetFormattedReturnsEmptyArrayWhenPhpPropertyEmpty()
@@ -70,6 +84,8 @@ class PHPTest extends Base
         unset($this->phpArray['modules'][$moduleType]);
 
         $expected['modules'][$moduleType] = array();
+        $expected['inilist']['php']    = $this->expectedIniListMandatory;
+        $expected['inilist']['custom']    = $this->expectedIniListCustom;
 
         $php = new PHP($this->phpArray);
 
@@ -79,12 +95,140 @@ class PHPTest extends Base
         );
     }
 
-    public function providerGetFormattedReturnsEmptyArrayWhenModuleValueFalse()
+    public static function providerGetFormattedReturnsEmptyArrayWhenModuleValueFalse()
     {
         return [
             ['php'],
             ['pear'],
             ['pecl'],
         ];
+    }
+
+    public function testGetFormattedReturnsOnlyUniqueModules()
+    {
+        // duplicate 'foo' will be removed
+        $fixtures = [
+            'modules' => [
+                'php' => ['foo', 'bar', 'baz', 'foo']
+            ]
+        ];
+
+        $expected = [
+            'modules' => [
+                'php'  => ['foo', 'bar', 'baz'],
+                'pear' => array(),
+                'pecl' => array()
+            ],
+            'inilist' => array(),
+        ];
+
+        $php = new PHP($fixtures);
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testAddPhpModuleMovesModuleAtTheEndOfTheListByDefault()
+    {
+        $fixtures = [
+            'modules' => [
+                'php' => ['bar', 'baz']
+            ],
+        ];
+
+        $expected = [
+            'modules' => [
+                'php'  => ['bar', 'baz', 'foo'],
+                'pear' => array(),
+                'pecl' => array()
+            ],
+            'inilist' => array(),
+        ];
+
+        $php = new PHP($fixtures);
+        $php->addPhpModule('foo');
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testAddPhpModuleMovesModuleAtTheBeginningOfTheList()
+    {
+        $fixtures = [
+            'modules' => [
+                'php' => ['bar', 'baz']
+            ]
+        ];
+
+        $expected = [
+            'modules' => [
+                'php'  => ['foo', 'bar', 'baz'],
+                'pear' => array(),
+                'pecl' => array()
+            ],
+            'inilist' => array(),
+        ];
+
+        $php = new PHP($fixtures);
+        $php->addPhpModule('foo', true);
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @dataProvider providerForIncompleteModuleConfiguration
+     */
+    public function testAddPhpModuleWorksEvenWhenIncomingConfigurationIsIncomplete($fixtures)
+    {
+        $expected = [
+            'modules' => [
+                'php'  => ['foo'],
+                'pear' => array(),
+                'pecl' => array()
+            ],
+            'inilist' => array(),
+        ];
+
+        $php = new PHP($fixtures);
+        $php->addPhpModule('foo', true);
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public static function providerForIncompleteModuleConfiguration()
+    {
+        return [
+            [array()],
+            [['modules' => array()]]
+        ];
+    }
+
+    public function testFormatIniReturnsProperlyFormattedIniList()
+    {
+        $expected = $this->phpArray;
+
+        $expected['inilist']['php'] = $this->expectedIniListMandatory;
+        $expected['inilist']['custom'] = $this->expectedIniListCustom;
+
+        $php = new PHP($this->phpArray);
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testFormatIniReturnsEmptyArrayWhenNoIniDirectives()
+    {
+        $this->phpArray['inilist'] = false;
+
+        $expected = $this->phpArray;
+
+        $expected['inilist'] = array();
+
+        $php = new PHP($this->phpArray);
+        $result = $php->getFormatted();
+
+        $this->assertEquals($expected, $result);
     }
 }

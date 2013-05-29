@@ -3,9 +3,8 @@
 namespace Puphpet\Tests\Domain\PuppetModule;
 
 use Puphpet\Domain\PuppetModule\Apache;
-use Puphpet\Tests\Base;
 
-class ApacheTest extends Base
+class ApacheTest extends \PHPUnit_Framework_TestCase
 {
     protected $apacheArray = array();
 
@@ -77,20 +76,20 @@ class ApacheTest extends Base
         $expected = $this->apacheArray;
 
         $expected['vhosts'][0]['serveraliases'] = [
-            "'www.awesome.dev'",
-            "'test.awesome.dev'",
+            'www.awesome.dev',
+            'test.awesome.dev',
         ];
         $expected['vhosts'][0]['envvars'] = [
-            "'IS_AWESOME yes'",
-            "'IS_FINISHED no'",
+            'IS_AWESOME yes',
+            'IS_FINISHED no',
         ];
 
         $expected['vhosts'][1]['serveraliases'] = [
-            "'ssl.puphpet.dev'",
-            "'foo.puphpet.dev'",
+            'ssl.puphpet.dev',
+            'foo.puphpet.dev',
         ];
         $expected['vhosts'][1]['envvars'] = [
-            "'OPEN_SOURCED yes'",
+            'OPEN_SOURCED yes',
         ];
 
         $expected['vhosts'][2]['serveraliases'] = array();

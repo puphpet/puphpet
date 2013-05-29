@@ -4,14 +4,6 @@ namespace Puphpet\Domain\PuppetModule;
 
 class Server extends PuppetModuleAbstract implements PuppetModuleInterface
 {
-    protected $disallowedPackages = ['python-software-properties'];
-    protected $server;
-
-    public function __construct($server)
-    {
-        $this->server = is_array($server) ? $server : array();
-    }
-
     /**
      * Return ready to use server array
      *
@@ -19,14 +11,14 @@ class Server extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     public function getFormatted()
     {
-        if (empty($this->server)) {
+        if (empty($this->configuration)) {
             return array();
         }
 
         $this->formatBashAliases()
              ->formatPackages();
 
-        return $this->server;
+        return $this->configuration;
     }
 
     /**
@@ -36,8 +28,8 @@ class Server extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     protected function formatBashAliases()
     {
-        $this->server['bashaliases'] = !empty($this->server['bashaliases'])
-            ? trim(str_replace("\r\n", "\n", $this->server['bashaliases']))
+        $this->configuration['bashaliases'] = !empty($this->configuration['bashaliases'])
+            ? trim(str_replace("\r\n", "\n", $this->configuration['bashaliases']))
             : '';
 
         return $this;
@@ -50,15 +42,16 @@ class Server extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     protected function formatPackages()
     {
-        $this->server['packages'] = !empty($this->server['packages'])
-            ? explode(',', $this->server['packages'])
+        $this->configuration['packages'] = !empty($this->configuration['packages'])
+            ? $this->explode($this->configuration['packages'])
             : array();
 
-        foreach ($this->disallowedPackages as $disallowed) {
-            unset($this->server['packages'][$disallowed]);
-        }
+        $key = array_search('python-software-properties', $this->configuration['packages']);
 
-        $this->server['packages'] = $this->quoteArray($this->server['packages']);
+        // python-software-properties is installed by default, remove to prevent duplicate Puppet function
+        if ($key !== FALSE) {
+            unset($this->configuration['packages'][$key]);
+        }
 
         return $this;
     }

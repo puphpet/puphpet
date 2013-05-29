@@ -7,11 +7,7 @@ use Puphpet\Controller;
 use Puphpet\Domain;
 use Silex\Application;
 use Silex\ControllerCollection;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session;
-use Symfony\Component\HttpFoundation\File\File;
 
 class Front extends Controller
 {
@@ -21,25 +17,47 @@ class Front extends Controller
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/', [$this, 'indexAction'])
-             ->bind('homepage');
+            ->bind('homepage');
 
         $controllers->post('/create', [$this, 'createAction'])
-             ->bind('create');
+            ->bind('create');
 
         $controllers->get('/about', [$this, 'aboutAction'])
-             ->bind('about');
+            ->bind('about');
 
         $controllers->get('/help', [$this, 'helpAction'])
-             ->bind('help');
+            ->bind('help');
+
+        $controllers->get('/github-btn', [$this, 'githubbtnAction'])
+            ->bind('github-btn');
 
         return $controllers;
     }
 
-    public function indexAction()
+    public function indexAction(Request $request, Application $app)
     {
+        $editionName = $request->query->get('edition', 'default');
+
+        $availableEditions = $app['editions'];
+
+        // validate edition name
+        // use fallback if invalid edition name is requested (better than throwing any error)
+        if (!array_key_exists($editionName, $availableEditions)) {
+            $editionName = $app['edition_default'];
+        }
+
+        // fill the edition entity with requested configuration
+        /**@var $edition Domain\Configuration\Edition */
+        $edition = $app['edition'];
+        $edition->setConfiguration($availableEditions[$editionName]);
+
         return $this->twig()->render(
             'Front/index.html.twig',
-            ['currentPage' => 'home']
+            [
+                'currentPage' => 'home',
+                'timezones'   => \DateTimeZone::listIdentifiers(),
+                'edition'     => $edition,
+            ]
         );
     }
 
@@ -59,67 +77,63 @@ class Front extends Controller
         );
     }
 
+    public function githubbtnAction()
+    {
+        return $this->twig()->render('Front/github-btn.html.twig');
+    }
+
     public function createAction(Request $request, Application $app)
     {
-        $box       = $request->request->get('box');
-        $webserver = $request->request->get('webserver', 'apache');
+        /** @var Domain\Compiler\Manifest\RequestFormatter $formatter build puppet manifest */
+        $formatter = $app['manifest_request_formatter'];
+        $formatter->bindRequest($request);
+        $manifestConfiguration = $formatter->format();
 
-        /**@var $domainFile \Puphpet\Domain\File */
+        /** @var Domain\Compiler\Compiler $manifestCompiler */
+        $manifestCompiler = $app['manifest_compiler'];
+        $manifest = $manifestCompiler->compile($manifestConfiguration);
+
+        $webserver = $manifestConfiguration['webserver'];
+
+        // build Vagrantfile
+        $box = $request->request->get('box');
+        $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
+
+        /**@var $domainFile Domain\File build the archive */
         $domainFile = $app['domain_file'];
 
-        // quick validate webserver
-        $webserver = in_array($webserver, ['apache', 'nginx']) ? $webserver : 'apache';
-
-        // create array assigned to the template later on
-        $resources = [
-            'webserver'   => $webserver,
-            'php_service' => $webserver == 'nginx'? 'php5-fpm' : 'apache',
-        ];
-
-        // start formatting
-        $server = new Domain\PuppetModule\Server($request->request->get('server'));
-        $resources['server'] = $server->getFormatted();
-
         if ('nginx' == $webserver) {
-            $nginx = new Domain\PuppetModule\Nginx($request->request->get($webserver));
-            $resources['nginx'] = $nginx->getFormatted();
             $domainFile->addModuleSource('nginx', VENDOR_PATH . '/jfryman/puppet-nginx');
-        } else {
-            $apache = new Domain\PuppetModule\Apache($request->request->get($webserver));
-            $resources['apache'] = $apache->getFormatted();
         }
 
-        $mysql = new Domain\PuppetModule\MySQL($request->request->get('mysql'));
-        $resources['mysql'] = $mysql->getFormatted();
-
-        $php = new Domain\PuppetModule\PHP($request->request->get('php'));
-        $resources['php'] = $php->getFormatted();
-
-        $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
-        $manifest    = $this->twig()->render('Vagrant/manifest.pp.twig', $resources);
-
         // creating and building the archive
-        $domainFile->createArchive([
-            'Vagrantfile'                             => $vagrantFile,
-            'manifests/default.pp'                    => $manifest,
-            'modules/puphpet/files/dot/.bash_aliases' => $resources['server']['bashaliases'],
-        ]);
+        $domainFile->createArchive(
+            [
+                'Vagrantfile'                             => $vagrantFile,
+                'manifests/default.pp'                    => $manifest,
+                'modules/puphpet/files/dot/.bash_aliases' => $manifestConfiguration['server']['bashaliases'],
+            ]
+        );
         $file = $domainFile->getArchivePath();
 
         $stream = function () use ($file) {
             readfile($file);
         };
 
-        return $this->app->stream($stream, 200, array(
-            'Pragma' => 'public',
-            'Expires' => 0,
-            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-            'Last-Modified' => gmdate ('D, d M Y H:i:s', filemtime($file)) . ' GMT',
-            'Content-Type' => 'application/zip',
-            'Content-Length' => filesize($file),
-            'Content-Disposition' => 'attachment; filename="'.$box['name'].'.zip"',
-            'Content-Transfer-Encoding' => 'binary',
-            'Connection' => 'close',
-        ));
+        return $this->app->stream(
+            $stream,
+            200,
+            [
+                'Pragma'                    => 'public',
+                'Expires'                   => 0,
+                'Cache-Control'             => 'must-revalidate, post-check=0, pre-check=0',
+                'Last-Modified'             => gmdate('D, d M Y H:i:s', filemtime($file)) . ' GMT',
+                'Content-Type'              => 'application/zip',
+                'Content-Length'            => filesize($file),
+                'Content-Disposition'       => 'attachment; filename="' . $box['name'] . '.zip"',
+                'Content-Transfer-Encoding' => 'binary',
+                'Connection'                => 'close',
+            ]
+        );
     }
 }

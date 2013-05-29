@@ -5,20 +5,27 @@ namespace Puphpet\Domain\PuppetModule;
 abstract class PuppetModuleAbstract
 {
     /**
-     * @param mixed $values
-     * @return array
+     * @var array
      */
-    protected function explodeAndQuote($values)
-    {
-        $values = !empty($values) ? explode(',', $values) : array();
+    protected $configuration;
 
-        return $this->quoteArray($values);
+    public function __construct($configuration = array())
+    {
+        $this->configuration = is_array($configuration) ? $configuration : array();
+    }
+
+    /**
+     * Sets the raw unformatted configuration
+     */
+    public function setConfiguration(array $configuration)
+    {
+        $this->configuration = $configuration;
     }
 
     /**
      * Explodes a given list, trims all elements and removes empty entries
      *
-     * @param array $values
+     * @param  array $values
      * @return array
      */
     protected function explode($values)
@@ -45,8 +52,8 @@ abstract class PuppetModuleAbstract
      * Example:
      * "FOO BAR,Hello World" -> ['FOO' => 'BAR, 'Hello' => 'World']
      *
-     * @param string $values
-     * @param string $seperator
+     * @param  string $values
+     * @param  string $seperator
      * @return array
      */
     protected function explodeAndMap($values, $seperator = ' ')
@@ -61,27 +68,5 @@ abstract class PuppetModuleAbstract
         }
 
         return $result;
-    }
-
-    /**
-     * @param $values
-     * @return array
-     */
-    protected function quoteArray($values)
-    {
-        foreach ($values as $id => $value) {
-            $value = trim($value);
-
-            if ($value == '') {
-                unset($values[$id]);
-                continue;
-            }
-
-            $value = str_replace("'", '', str_replace('"', '', $value));
-
-            $values[$id] = "'{$value}'";
-        }
-
-        return $values;
     }
 }

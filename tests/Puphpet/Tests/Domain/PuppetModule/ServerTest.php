@@ -3,9 +3,8 @@
 namespace Puphpet\Tests\Domain\PuppetModule;
 
 use Puphpet\Domain\PuppetModule\Server;
-use Puphpet\Tests\Base;
 
-class ServerTest extends Base
+class ServerTest extends \PHPUnit_Framework_TestCase
 {
     protected $serverArray = array();
 
@@ -45,9 +44,9 @@ class ServerTest extends Base
     {
         $expected = [
             'packages' => [
-                "'build-essential'",
-                "'vim'",
-                "'curl'",
+                'build-essential',
+                'vim',
+                'curl',
             ],
             'bashaliases' => "super duper cool awesome bash alias\nwith pretty shortcuts",
         ];
@@ -66,9 +65,9 @@ class ServerTest extends Base
 
         $expected = [
             'packages' => [
-                "'build-essential'",
-                "'vim'",
-                "'curl'",
+                'build-essential',
+                'vim',
+                'curl',
             ],
             'bashaliases' => "super duper cool awesome bash alias\nwith pretty shortcuts",
         ];
@@ -87,9 +86,9 @@ class ServerTest extends Base
 
         $expected = [
             'packages' => [
-                "'build-essential'",
-                "'vim'",
-                "'curl'",
+                'build-essential',
+                'vim',
+                'curl',
             ],
             'bashaliases' => "super duper cool awesome bash alias\nwith pretty shortcuts",
         ];

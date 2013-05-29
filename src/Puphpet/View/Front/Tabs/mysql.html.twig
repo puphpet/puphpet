@@ -1,35 +1,17 @@
-<h2 class="page-header">MySQL Settings</h2>
-<div class="span3">
-    <h5>Step 5: MySQL Setup</h5>
-    <ul>
-        <li>
-            Assign a password to the root user
-        </li>
-        <li>
-            Create a database and user assigned to the database. Currently, to assign the same user to multiple databases,
-            you must enter in the same username/password each time.
-        </li>
-    </ul>
+<div class="page-header">
+    <img class="svgIcon" src="./assets/img/noun-project/database.svg" />
+    <h1>Database, <small>create DBs and users</small></h1>
+</div>
 
-    <br />
+<div class="bs-example rootPassword">
+    <label for="mysql-root">MySQL Root Password</label>
+    <input id="mysql-root" name="mysql[root]"
+           type="text" class="tags" placeholder="root_password" value="" />
+    <p class="help-block">Assign a password to the root user</p>
+</div>
+
+<div id="mysql-dbuser-count" rel="1">
+    {% include 'Front/Tabs/MySQL/dbuser.html.twig' %}
 
     <p class="text-center"><a id="mysql-dbuser-add" class="btn btn-primary" href="#">Add Another DB/User</a></p>
 </div>
-
-<fieldset>
-    <legend class="span7">Root User Password</legend>
-
-    <div class="clearfix"></div>
-
-    <div class="control-group">
-        <label class="control-label" for="mysql-root">Root Password</label>
-
-        <div class="controls">
-            <input id="mysql-root" name="mysql[root]" type="text" placeholder="root_password" value="" />
-        </div>
-    </div>
-
-    <div class="span7" id="mysql-dbuser-count" rel="1">
-        {% include 'Front/Tabs/MySQL/dbuser.html.twig' %}
-    </div>
-</fieldset>

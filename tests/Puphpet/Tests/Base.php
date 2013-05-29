@@ -43,8 +43,8 @@ abstract class Base extends WebTestCase
     /**
      * Get protected/private attribute of object
      *
-     * @param object &$object       Object containing attribute
-     * @param string $attributeName Attribute name to fetch
+     * @param  object &$object       Object containing attribute
+     * @param  string $attributeName Attribute name to fetch
      * @return mixed
      */
     public function getAttribute(&$object, $attributeName)
@@ -53,6 +53,7 @@ abstract class Base extends WebTestCase
 
         $reflection = new \ReflectionProperty($class, $attributeName);
         $reflection->setAccessible(true);
+
         return $reflection->getValue($object);
     }
 
