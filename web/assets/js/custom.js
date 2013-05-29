@@ -71,7 +71,6 @@ $(document).ready(function() {
 
     // Toggle automatically installed PHP packages depending on configuration
     $('ul[data-configuration-name] a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
-        console.log('bla');
         var configurationName = $(e.target).parents('[data-configuration-name]').data('configuration-name');
         var configurationValue = $(e.target).data('configuration-value');
 
