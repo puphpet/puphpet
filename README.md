@@ -6,6 +6,7 @@ This is the repo for the [PuPHPet.com](https://puphpet.com) website. A proper RE
 Requirements
 ------------
 * PHP 5.4
+* For executing all the tests [puppet-lint](http://packages.ubuntu.com/precise/puppet-lint) has to be installed on your machine
 
 Used Puppet Modules
 ===================
