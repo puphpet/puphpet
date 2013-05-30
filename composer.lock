@@ -101,12 +101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/puphpet/vagrant-puppet-lamp.git",
-                "reference": "12d0c4eef793f5edb9a5f5e134ad9cdb7210a243"
+                "reference": "5cc731920430b0346bc29a3d66755031ae8d0edf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/12d0c4eef793f5edb9a5f5e134ad9cdb7210a243",
-                "reference": "12d0c4eef793f5edb9a5f5e134ad9cdb7210a243",
+                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/5cc731920430b0346bc29a3d66755031ae8d0edf",
+                "reference": "5cc731920430b0346bc29a3d66755031ae8d0edf",
                 "shasum": ""
             },
             "type": "project",
@@ -135,7 +135,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2013-05-29 15:44:23"
+            "time": "2013-05-30 15:54:37"
         },
         {
             "name": "pimple/pimple",
@@ -772,12 +772,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "18c5e9665f0eee152438a1b94198ecc51fb7818a"
+                "reference": "3f016c546ad206ebced25a1d0bfae318104faace"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/18c5e9665f0eee152438a1b94198ecc51fb7818a",
-                "reference": "18c5e9665f0eee152438a1b94198ecc51fb7818a",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/3f016c546ad206ebced25a1d0bfae318104faace",
+                "reference": "3f016c546ad206ebced25a1d0bfae318104faace",
                 "shasum": ""
             },
             "require": {
@@ -826,7 +826,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-23 08:53:55"
+            "time": "2013-05-30 04:26:48"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1012,12 +1012,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "fe892f1bc38fa2e7b33649088f09a7126e826b73"
+                "reference": "12a391c9d824f0eaebe577429ad20ab86e792d44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fe892f1bc38fa2e7b33649088f09a7126e826b73",
-                "reference": "fe892f1bc38fa2e7b33649088f09a7126e826b73",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/12a391c9d824f0eaebe577429ad20ab86e792d44",
+                "reference": "12a391c9d824f0eaebe577429ad20ab86e792d44",
                 "shasum": ""
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-21 10:01:50"
+            "time": "2013-05-30 11:00:50"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
