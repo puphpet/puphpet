@@ -98,7 +98,8 @@ class Front extends Controller
 
         // build Vagrantfile
         $box = $request->request->get('box');
-        $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', ['box' => $box]);
+        $boxConfiguration = ['box' => $box];
+        $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', $boxConfiguration);
 
         /**@var $domainFile Domain\File build the archive */
         $domainFile = $app['domain_file'];
@@ -111,9 +112,13 @@ class Front extends Controller
             $domainFile->addModuleSource('postgresql', VENDOR_PATH . '/puppetlabs/postgresql');
         }
 
+        $readme = $app['readme_compiler']->compile(array_merge($manifestConfiguration, $boxConfiguration));
+
+
         // creating and building the archive
         $domainFile->createArchive(
             [
+                'README'                                  => $readme,
                 'Vagrantfile'                             => $vagrantFile,
                 'manifests/default.pp'                    => $manifest,
                 'modules/puphpet/files/dot/.bash_aliases' => $manifestConfiguration['server']['bashaliases'],

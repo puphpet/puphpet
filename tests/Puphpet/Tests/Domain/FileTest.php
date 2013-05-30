@@ -16,19 +16,20 @@ class FileTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->source      = '/my/source/folder';
-        $this->sysTempDir  = '/tmp';
-        $this->tmpFolder   = '123abc';
-        $this->tmpPath     = "{$this->sysTempDir}/{$this->tmpFolder}";
+        $this->source = '/my/source/folder';
+        $this->sysTempDir = '/tmp';
+        $this->tmpFolder = '123abc';
+        $this->tmpPath = "{$this->sysTempDir}/{$this->tmpFolder}";
         $this->archiveFile = "{$this->sysTempDir}/{$this->tmpFolder}/tmpFile";
     }
 
     /**
+     * @param $int $cleanUpOffset
+     *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getFilesystemMock()
+    protected function getFilesystemMock($cleanUpOffset = 4)
     {
-
         $mock = $this->getMockBuilder('\Puphpet\Domain\Filesystem')
             ->disableOriginalConstructor()
             ->setMethods(
@@ -40,10 +41,12 @@ class FileTest extends \PHPUnit_Framework_TestCase
                     'putContents',
                     'mirror',
                     'createArchive',
+                    'remove'
                 ]
             )
             ->getMock();
 
+        // start: setPaths (3 calls)
         $mock->expects($this->once())
             ->method('getSysTempDir')
             ->will($this->returnValue($this->sysTempDir));
@@ -57,9 +60,19 @@ class FileTest extends \PHPUnit_Framework_TestCase
             ->with($this->sysTempDir, $this->tmpFolder)
             ->will($this->returnValue($this->archiveFile));
 
+        // called at the very end
         $mock->expects($this->once())
             ->method('createArchive')
             ->with($this->archiveFile . '.zip');
+
+        // start: cleanupFiles (2 calls)
+        $mock->expects($this->at($cleanUpOffset))
+            ->method('remove')
+            ->with($this->tmpPath . '/composer.json');
+
+        $mock->expects($this->at($cleanUpOffset + 1))
+            ->method('remove')
+            ->with($this->tmpPath . '/README.md');
 
         // no expectation on "mirror" method here
         // as assertions on this method differ from test to test
@@ -87,7 +100,10 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateArchiveCallsCopyFile()
     {
-        $filesystem = $this->getFilesystemMock();
+        // setPaths: 3 filesystem calls
+        // copyToTempFolder (mirror): 1 filesystem call
+        // cleanUpOffset => 4 (starting by 0)
+        $filesystem = $this->getFilesystemMock(4);
 
         $replacementFiles = [
             'replacement1' => 'foobar',
@@ -95,18 +111,20 @@ class FileTest extends \PHPUnit_Framework_TestCase
             'replacement3' => 'bambam',
         ];
 
-        // setPaths: 3 filesystem calls
-        // copyToTempFolder: 1 filesystem call
-        // => copyFile(putContents) starts at index 4 (starting by 0)
-        $filesystem->expects($this->at(4))
+        $filesystem->expects($this->at(3))
+            ->method('mirror');
+
+        // cleanupFiles: 2 filesystem calls + 4 offset
+        // => copyFile(putContents) starts at index 6 (starting by 0)
+        $filesystem->expects($this->at(6))
             ->method('putContents')
             ->with($this->tmpPath . '/replacement1', 'foobar');
 
-        $filesystem->expects($this->at(5))
+        $filesystem->expects($this->at(7))
             ->method('putContents')
             ->with($this->tmpPath . '/replacement2', 'foobaz');
 
-        $filesystem->expects($this->at(6))
+        $filesystem->expects($this->at(8))
             ->method('putContents')
             ->with($this->tmpPath . '/replacement3', 'bambam');
 
@@ -122,19 +140,20 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateArchiveIncludesOptionalModulesOnRequest()
     {
-        $moduleName1   = 'awesomeModule';
+        $moduleName1 = 'awesomeModule';
         $moduleSource1 = 'path/to/source';
 
-        $moduleName2   = 'awesomeModule2';
+        $moduleName2 = 'awesomeModule2';
         $moduleSource2 = 'path/to/source2';
 
         $replacementFiles = ['foo' => 'bar'];
 
-        $filesystem = $this->getFilesystemMock();
+        $filesystem = $this->getFilesystemMock(6);
 
         // mirroring is done within "copyToTempFolder" method
+        // and before cleanupFiles is called
         $filesystem->expects($this->at(3))
-          ->method('mirror')
+            ->method('mirror')
             ->with($this->source, $this->tmpPath);
 
         $filesystem->expects($this->at(4))
@@ -145,7 +164,8 @@ class FileTest extends \PHPUnit_Framework_TestCase
             ->method('mirror')
             ->with($moduleSource2, $this->tmpPath . '/modules/' . $moduleName2);
 
-        $filesystem->expects($this->at(6))
+        // this is called after mirroring and cleanupFiles
+        $filesystem->expects($this->at(8))
             ->method('putContents')
             ->with($this->tmpPath . '/foo', 'bar');
 
@@ -160,18 +180,18 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateArchiveIncludesOnlyOneModuleByUniqueName()
     {
-        $moduleName   = 'awesomeModule';
+        $moduleName = 'awesomeModule';
         $moduleSource = 'path/to/source';
 
         $moduleSource2 = 'path/to/source2';
 
         $replacementFiles = ['foo' => 'bar'];
 
-        $filesystem = $this->getFilesystemMock();
+        $filesystem = $this->getFilesystemMock(5);
 
         // mirroring is done within "copyToTempFolder" method
         $filesystem->expects($this->at(3))
-          ->method('mirror')
+            ->method('mirror')
             ->with($this->source, $this->tmpPath);
 
         // second call with the same module will overwrite the requestes module source
@@ -179,7 +199,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
             ->method('mirror')
             ->with($moduleSource2, $this->tmpPath . '/modules/' . $moduleName);
 
-        $filesystem->expects($this->at(5))
+        $filesystem->expects($this->at(7))
             ->method('putContents')
             ->with($this->tmpPath . '/foo', 'bar');
 
