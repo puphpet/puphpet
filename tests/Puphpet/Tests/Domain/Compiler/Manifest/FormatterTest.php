@@ -24,9 +24,11 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
     public function testFormatWithRequestedApacheConfiguration()
     {
         $webserver = 'apache';
+        $database = 'mysql';
 
         $expected = [
             'webserver'   => $webserver,
+            'database'    => $database,
             'php_service' => $webserver,
             'server'      => $this->serverFormatted,
             'php'         => $this->phpFormatted,
@@ -89,7 +91,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
         ]);
         $formatter->setServerConfiguration($this->serverConfiguration);
         $formatter->setPhpConfiguration($this->phpConfiguration);
-        $formatter->setMysqlConfiguration($this->mysqlConfiguration);
+        $formatter->setDatabaseConfiguration('mysql', $this->mysqlConfiguration);
         $formatter->setWebserverConfiguration($webserver, $this->apacheConfiguration);
         $result = $formatter->format();
 
@@ -103,9 +105,11 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
     public function testFormatWithRequestedNginxConfiguration()
     {
         $webserver = 'nginx';
+        $database = 'mysql';
 
         $expected = [
             'webserver'   => $webserver,
+            'database'    => $database,
             'php_service' => 'php5-fpm',
             'server'      => $this->serverFormatted,
             'php'         => $this->phpFormatted,
@@ -172,7 +176,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
         ]);
         $formatter->setServerConfiguration($this->serverConfiguration);
         $formatter->setPhpConfiguration($this->phpConfiguration);
-        $formatter->setMysqlConfiguration($this->mysqlConfiguration);
+        $formatter->setDatabaseConfiguration('mysql', $this->mysqlConfiguration);
         $formatter->setWebserverConfiguration($webserver, $this->nginxConfiguration);
         $result = $formatter->format();
 
