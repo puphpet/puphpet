@@ -16,15 +16,15 @@ class FileTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->source = '/my/source/folder';
-        $this->sysTempDir = '/tmp';
-        $this->tmpFolder = '123abc';
-        $this->tmpPath = "{$this->sysTempDir}/{$this->tmpFolder}";
+        $this->source      = '/my/source/folder';
+        $this->sysTempDir  = '/tmp';
+        $this->tmpFolder   = '123abc';
+        $this->tmpPath     = "{$this->sysTempDir}/{$this->tmpFolder}";
         $this->archiveFile = "{$this->sysTempDir}/{$this->tmpFolder}/tmpFile";
     }
 
     /**
-     * @param $int $cleanUpOffset
+     * @param int $cleanUpOffset
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
@@ -140,10 +140,10 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateArchiveIncludesOptionalModulesOnRequest()
     {
-        $moduleName1 = 'awesomeModule';
+        $moduleName1   = 'awesomeModule';
         $moduleSource1 = 'path/to/source';
 
-        $moduleName2 = 'awesomeModule2';
+        $moduleName2   = 'awesomeModule2';
         $moduleSource2 = 'path/to/source2';
 
         $replacementFiles = ['foo' => 'bar'];
@@ -180,7 +180,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateArchiveIncludesOnlyOneModuleByUniqueName()
     {
-        $moduleName = 'awesomeModule';
+        $moduleName   = 'awesomeModule';
         $moduleSource = 'path/to/source';
 
         $moduleSource2 = 'path/to/source2';
