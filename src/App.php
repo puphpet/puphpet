@@ -61,6 +61,9 @@ $app['manifest_request_formatter'] = function () use ($app) {
 $app['manifest_compiler'] = function () use ($app) {
     return new Puphpet\Domain\Compiler\Compiler($app['twig'], 'Vagrant/manifest.pp.twig');
 };
+$app['readme_compiler'] = function () use ($app) {
+    return new Puphpet\Domain\Compiler\Compiler($app['twig'], 'Vagrant/README.twig');
+};
 $app['property_access_provider'] = function () {
     return new Puphpet\Domain\Configuration\PropertyAccessProvider();
 };

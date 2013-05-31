@@ -84,6 +84,16 @@ class Filesystem
     }
 
     /**
+     * Removes a file
+     *
+     * @param string $filePath an absolute file path
+     */
+    public function remove($filePath)
+    {
+        unlink($filePath);
+    }
+
+    /**
      * Creates a zip archive
      *
      * @param string $archivePath an absolute path where archive should be created

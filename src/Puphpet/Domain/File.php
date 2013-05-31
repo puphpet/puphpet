@@ -50,6 +50,7 @@ class File extends Domain
     {
         $this->setPaths();
         $this->copyToTempFolder();
+        $this->cleanupFiles();
 
         foreach ($replacementFiles as $path => $content) {
             $this->copyFile($path, $content);
@@ -94,6 +95,17 @@ class File extends Domain
             // which must contain a "modules" folder
             $this->copySource($moduleSource, $this->tmpPath . '/modules/' . $moduleName);
         }
+    }
+
+    /**
+     * Removes and replaces all files from vagrant-puppet-lamp which may confuse the user
+     * and does not belong directly to the custom vagrant/puppet environment
+     */
+    protected function cleanupFiles()
+    {
+        // remove unneeded files
+        $this->filesystem->remove($this->tmpPath.'/composer.json');
+        $this->filesystem->remove($this->tmpPath.'/README.md');
     }
 
     /**
