@@ -11,16 +11,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/igorw/ConfigServiceProvider.git",
-                "reference": "v1.2.0"
+                "reference": "v1.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/igorw/ConfigServiceProvider/zipball/v1.2.0",
-                "reference": "v1.2.0",
+                "url": "https://api.github.com/repos/igorw/ConfigServiceProvider/zipball/v1.2.1",
+                "reference": "v1.2.1",
                 "shasum": ""
             },
             "require": {
-                "silex/silex": "1.0.*@dev"
+                "silex/silex": ">=1.0,<2.0"
             },
             "require-dev": {
                 "jamesmoss/toml": ">=0.1,<1.0",
@@ -60,7 +60,7 @@
             "keywords": [
                 "silex"
             ],
-            "time": "2013-04-23 12:27:51"
+            "time": "2013-05-31 14:23:34"
         },
         {
             "name": "jfryman/puppet-nginx",
@@ -101,12 +101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/puphpet/vagrant-puppet-lamp.git",
-                "reference": "c25a568d40b96324ffbc24741a10891f62e88b18"
+                "reference": "aae7d4aad14d7a26bea4610de8e012890fc35aa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/c25a568d40b96324ffbc24741a10891f62e88b18",
-                "reference": "c25a568d40b96324ffbc24741a10891f62e88b18",
+                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/aae7d4aad14d7a26bea4610de8e012890fc35aa4",
+                "reference": "aae7d4aad14d7a26bea4610de8e012890fc35aa4",
                 "shasum": ""
             },
             "type": "project",
@@ -135,7 +135,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2013-05-31 07:20:57"
+            "time": "2013-05-31 15:52:31"
         },
         {
             "name": "pimple/pimple",
