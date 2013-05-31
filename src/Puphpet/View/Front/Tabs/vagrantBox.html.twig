@@ -57,6 +57,19 @@
             <p class="help-block">Memory to assign to VM in megabytes (only integers)</p>
         </div>
     </div>
+
+	<div class="row">
+		<div class="col col-lg-5">
+			<label for="box-host-port">Host Port</label>
+			<input id="box-host-port" name="box[port_forward][host]" type="number" placeholder="e.g. 8080" />
+			<p class="help-block">Port on the host OS to forward to the VM.</p>
+		</div>
+		<div class="col col-lg-5">
+			<label for="box-guest-port">Box Port</label>
+			<input id="box-guest-port" name="box[port_forward][guest]" type="number" placeholder="e.g. 80" />
+			<p class="help-block">Port on the VM to forward to.</p>
+		</div>
+	</div>
 </div>
 
 <div class="bs-example sharedFolders">
