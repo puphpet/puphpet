@@ -4,14 +4,18 @@
 </div>
 
 <div class="bs-example packages">
-    <label for="server-packages">Installed Packages</label>
-    <textarea class="tags" id="server-packages" name="server[packages]">build-essential, vim, curl</textarea>
-    <p class="help-block">Packages to install via apt-get, separated by comma. Do not add
-        Apache/Nginx or PHP here - you will choose those later.</p>
+    <div class="row">
+        <div class="col col-lg-10">
+            <label for="server-packages">Installed Packages</label>
+            <textarea class="tags" id="server-packages" name="server[packages]">build-essential, vim, curl</textarea>
+            <p class="help-block">Packages to install via apt-get, separated by comma. Do not add
+                Apache/Nginx or PHP here - you will choose those later.</p>
+        </div>
+    </div>
 </div>
 
 <div class="bs-example bash_aliases">
     <label for="server-bashaliases">Bash Aliases</label>
-    <textarea class="span7" id="server-bashaliases" name="server[bashaliases]" rows="15">{% include 'Front/Tabs/Server/bash_aliases.html.twig' %}</textarea>
+    <textarea id="server-bashaliases" name="server[bashaliases]" rows="15">{% include 'Front/Tabs/Server/bash_aliases.html.twig' %}</textarea>
     <p class="help-block">~/.bash_aliases file (<a href="/assets/img/bash.png" target="_blank">preview</a>)</p>
 </div>

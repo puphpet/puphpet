@@ -1,3 +1,7 @@
+.full-width {
+    width: 100%;
+}
+
 .bs-header {
     background: #fff;
 }
@@ -154,6 +158,11 @@
 
 .bs-top {
     z-index: 999 !important;
+}
+
+.tags,
+.selectTags {
+    width: 100% !important;
 }
 
 /* Phones */

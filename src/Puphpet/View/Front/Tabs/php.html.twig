@@ -47,41 +47,47 @@
 </div>
 
 <div class="bs-example installedPackages">
-    <div>
-        <label for="php-modules-php">Installed PHP Modules</label>
-        <select multiple class="selectTags" id="php-modules-php" name="php[modules][php][]">
-            {% include 'Front/Tabs/PHP/php.html.twig' %}
-        </select>
-        <p class="help-block">
-            The following packages will be automatically installed based on the current webserver and database configuration:
-            <ul>
-                <li class="php-module visible-nginx">php5-fpm</li>
-                <li class="php-module visible-mysql">php5-mysql</li>
-                <li class="php-module visible-postgresql">php5-pgsql</li>
-            </ul>
-        </p>
+    <div class="row">
+        <div class="col col-lg-10">
+            <label for="php-modules-php">Installed PHP Modules</label>
+            <select multiple class="selectTags" id="php-modules-php" name="php[modules][php][]">
+                {% include 'Front/Tabs/PHP/php.html.twig' %}
+            </select>
+            <p class="help-block">
+                The following packages will be automatically installed based on the current webserver and database configuration:
+                <ul>
+                    <li class="php-module visible-nginx">php5-fpm</li>
+                    <li class="php-module visible-mysql">php5-mysql</li>
+                    <li class="php-module visible-postgresql">php5-pgsql</li>
+                </ul>
+            </p>
+        </div>
     </div>
 
-    <div>
-        <label for="php-modules-pear">Installed PEAR Extensions</label>
-        <select multiple class="selectTags" id="php-modules-pear" name="php[modules][pear][]">
-            {% include 'Front/Tabs/PHP/pear.html.twig' %}
-        </select>
+    <div class="row">
+        <div class="col col-lg-10">
+            <label for="php-modules-pear">Installed PEAR Extensions</label>
+            <select multiple class="selectTags" id="php-modules-pear" name="php[modules][pear][]">
+                {% include 'Front/Tabs/PHP/pear.html.twig' %}
+            </select>
+        </div>
     </div>
 
     <br />
 
-    <div>
-        <label for="php-modules-pecl">Installed PECL Packages</label>
-        <select multiple class="selectTags" id="php-modules-pecl" name="php[modules][pecl][]">
-            {% include 'Front/Tabs/PHP/pecl.html.twig' %}
-        </select>
+    <div class="row">
+        <div class="col col-lg-10">
+            <label for="php-modules-pecl">Installed PECL Packages</label>
+            <select multiple class="selectTags" id="php-modules-pecl" name="php[modules][pecl][]">
+                {% include 'Front/Tabs/PHP/pecl.html.twig' %}
+            </select>
+        </div>
     </div>
 </div>
 
 <div class="bs-example timezone">
     <div class="row">
-        <div class="col col-lg-5 min-span-4 max-span-6">
+        <div class="col col-lg-10">
             <label>
                 <select class="span3" name="php[inilist][php][date.timezone]">
                     {% for tz in timezones %}
@@ -95,8 +101,8 @@
 
 <div class="bs-example iniSettings">
     <div class="row">
-        <div class="col col-lg-5 min-span-4 max-span-6">
-            <label>
+        <div class="col col-lg-5">
+            <label class="full-width min-span-3">
                 <select class="selectTags" id="php-inilist-name" name="php-inilist-name">
                     {% include 'Front/Tabs/PHP/ini.html.twig' %}
                 </select>
