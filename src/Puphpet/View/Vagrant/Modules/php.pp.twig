@@ -56,15 +56,17 @@ nginx::resource::vhost { 'xhprof':
   server_name => ['xhprof'],
   listen_port => 80,
   index_files => ['index.php'],
-  www_root    => '/var/www/xhprof',
+  www_root    => '/var/www/xhprof/xhprof_html',
   try_files   => ['$uri', '$uri/', '/index.php?$args'],
+  require     => Php::Pecl::Module['xhprof']
 }
 {% else %}
 apache::vhost { 'xhprof':
   server_name => 'xhprof',
-  docroot     => '/var/www/xhprof',
+  docroot     => '/var/www/xhprof/xhprof_html',
   port        => 80,
   priority    => '1',
+  require     => Php::Pecl::Module['xhprof']
 }
 {% endif %}
 {% endif %}{# if php.modules.xhprof.installed == 1 #}
