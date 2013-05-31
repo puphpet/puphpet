@@ -22,6 +22,8 @@ $(document).ready(function() {
         });
     }, 100);
 
+    togglePearThings();
+
     $('.box-url').click(function() {
         var boxName = $(this).attr('rel');
 
@@ -204,5 +206,22 @@ function deleteDatabaseEntry(type) {
         dbuserContainer.attr('rel', --currentCount);
 
         return false;
+    });
+}
+
+function togglePearThings()
+{
+    var checkboxElement = '#php-modules-pear-installed';
+
+    $(checkboxElement + '[type="checkbox"]').change(function() {
+        if ($(checkboxElement).is(':checked')) {
+            $('.dependsOnPear').each(function() {
+                 $(this).show();
+            });
+        } else {
+            $('.dependsOnPear').each(function() {
+                 $(this).hide();
+            });
+        }
     });
 }

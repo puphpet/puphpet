@@ -38,12 +38,16 @@ class ManifestTest extends Base
                 'modules' => ['foo', 'bar'],
             ],
             'php'         => [
-                'pear'     => true,
-                'php54'    => true,
-                'xdebug'   => true,
-                'composer' => true,
-                'modules'  => ['php' => ['php5-cli'], 'pear' => array(), 'pecl' => array()],
-                'inilist'  => [
+                'version' => ['php54' => true],
+                'modules' => [
+                    'php'      => ['php5-cli'],
+                    'pear'     => ['installed' => true],
+                    'pecl'     => array(),
+                    'composer' => ['installed' => true],
+                    'xdebug'   => ['installed' => true],
+                    'xhprof'   => ['installed' => true],
+                ],
+                'inilist' => [
                     'php'    => [
                         'date.timezone = "America/Chicago"',
                     ],

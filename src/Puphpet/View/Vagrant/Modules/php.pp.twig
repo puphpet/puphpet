@@ -1,4 +1,4 @@
-{% if php.php54 == 1 %}
+{% if php.version.php54 == 1 %}
 apt::ppa { 'ppa:ondrej/php5':
   before  => Class['php'],
 }
@@ -10,15 +10,18 @@ class { 'php::devel':
   require => Class['php'],
 }
 
-{% if php.pear == 1 %}
+{% if php.modules.pear.installed == 1 %}
 class { 'php::pear':
   require => Class['php'],
 }
 
-{% for pear in php.modules.pear %}
+{% for key,pear in php.modules.pear %}
+{# don't try to install the "installed" key #}
+{% if key != 'installed' %}
 php::pear::module { '{{ pear|raw }}':
   use_package => false,
 }
+{% endif %}
 {% endfor %}
 
 {% for pecl in php.modules.pecl %}
@@ -27,17 +30,48 @@ php::pecl::module { '{{ pecl|raw }}':
 }
 {% endfor %}
 
-{% if php.xdebug == 1 %}
+{% if php.modules.xdebug.installed == 1 %}
 class { 'xdebug':
   service => '{{ webserver }}',
 }
 
-xdebug::config { 'cgi': }
-xdebug::config { 'cli': }
-{% endif %}
-{% endif %}{# if php.pear == 1 #}
+xdebug::config { 'cgi':
+  remote_autostart => '{{ php.modules.xdebug.remote_autostart|default('1') }}',
+  remote_port      => '{{ php.modules.xdebug.remote_port|default('9000') }}',
+}
+xdebug::config { 'cli':
+  remote_autostart => '{{ php.modules.xdebug.remote_autostart|default('1') }}',
+  remote_port      => '{{ php.modules.xdebug.remote_port|default('9000') }}',
+}
+{% endif %}{# if php.modules.xdebug.installed == 1 #}
 
-{% if php.composer == 1 %}
+{% if php.modules.xhprof.installed == 1 %}
+php::pecl::module { 'xhprof':
+  use_package => false,
+}
+
+{% if nginx is defined %}
+nginx::resource::vhost { 'xhprof':
+  ensure      => present,
+  server_name => ['xhprof'],
+  listen_port => 80,
+  index_files => ['index.php'],
+  www_root    => '/var/www/xhprof',
+  try_files   => ['$uri', '$uri/', '/index.php?$args'],
+}
+{% else %}
+apache::vhost { 'xhprof':
+  server_name => 'xhprof',
+  docroot     => '/var/www/xhprof',
+  port        => 80,
+  priority    => '1',
+}
+{% endif %}
+{% endif %}{# if php.modules.xhprof.installed == 1 #}
+
+{% endif %}{# if php.modules.pear.installed == 1 #}
+
+{% if php.modules.composer.installed == 1 %}
 class { 'php::composer': }
 {% endif %}
 

@@ -4,9 +4,12 @@ namespace Puphpet\Domain\PuppetModule;
 
 class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
 {
-    const MODULE_TYPE_PHP = 'php';
-    const MODULE_TYPE_PEAR = 'pear';
-    const MODULE_TYPE_PECL = 'pecl';
+    const MODULE_TYPE_PHP      = 'php';
+    const MODULE_TYPE_PEAR     = 'pear';
+    const MODULE_TYPE_PECL     = 'pecl';
+    const MODULE_TYPE_XDEBUG   = 'xdebug';
+    const MODULE_TYPE_COMPOSER = 'composer';
+    const MODULE_TYPE_XHPROF   = 'xhprof';
 
     /**
      * Return ready to use PHP array
@@ -19,12 +22,46 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
             return array();
         }
 
-        $this->formatModules(self::MODULE_TYPE_PHP)
+        $this
+            ->formatVersion()
+            ->ensureInstalledKey(self::MODULE_TYPE_XDEBUG)
+            ->ensureInstalledKey(self::MODULE_TYPE_COMPOSER)
+            ->ensureInstalledKey(self::MODULE_TYPE_XHPROF)
+            ->formatModules(self::MODULE_TYPE_PHP)
             ->formatModules(self::MODULE_TYPE_PEAR)
             ->formatModules(self::MODULE_TYPE_PECL)
             ->formatIni();
 
         return $this->configuration;
+    }
+
+    /**
+     * Make sure configuration.version is an array
+     *
+     * @return self
+     */
+    protected function formatVersion()
+    {
+        if (empty($this->configuration['version'])) {
+            $this->configuration['version'] = array();
+        }
+
+        return $this;
+    }
+
+    /**
+     * For specific modules like xdebug, xhprof or composer that require an "installed" key to be present
+     *
+     * @param string $key Type of module
+     * @return self
+     */
+    protected function ensureInstalledKey($key)
+    {
+        if (!isset($this->configuration['modules'][$key]['installed'])) {
+            $this->configuration['modules'][$key]['installed'] = 0;
+        }
+
+        return $this;
     }
 
     /**

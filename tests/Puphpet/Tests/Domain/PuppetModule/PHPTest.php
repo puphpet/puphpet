@@ -13,26 +13,27 @@ class PHPTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->phpArray = [
-            'php54'    => 1,
-            'pear'     => 1,
-            'xdebug'   => 1,
-            'composer' => 1,
+            'version'  => ['php54' => 1],
             'modules'  => [
-                'php'  => [
+                'php'      => [
                     'php5-cli',
                     'php5-curl',
                     'php5-intl',
                     'php5-mcrypt',
                 ],
-                'pear' => [
+                'pear'     => [
+                    'installed' => 1,
                     'Auth_SASL2',
                     'OpenID',
                 ],
-                'pecl' => [
+                'pecl'     => [
                     'courierauth',
                     'krb5',
                     'radius',
                 ],
+                'composer' => ['installed' => 1],
+                'xdebug'   => ['installed' => 1],
+                'xhprof'   => ['installed' => 1],
             ],
             'inilist'  => [
                 'php' => [
@@ -114,10 +115,14 @@ class PHPTest extends \PHPUnit_Framework_TestCase
         ];
 
         $expected = [
+            'version' => array(),
             'modules' => [
-                'php'  => ['foo', 'bar', 'baz'],
-                'pear' => array(),
-                'pecl' => array()
+                'php'      => ['foo', 'bar', 'baz'],
+                'pear'     => array(),
+                'pecl'     => array(),
+                'composer' => ['installed' => 0],
+                'xhprof'   => ['installed' => 0],
+                'xdebug'   => ['installed' => 0],
             ],
             'inilist' => array(),
         ];
@@ -137,10 +142,14 @@ class PHPTest extends \PHPUnit_Framework_TestCase
         ];
 
         $expected = [
+            'version' => array(),
             'modules' => [
-                'php'  => ['bar', 'baz', 'foo'],
-                'pear' => array(),
-                'pecl' => array()
+                'php'      => ['bar', 'baz', 'foo'],
+                'pear'     => array(),
+                'pecl'     => array(),
+                'composer' => ['installed' => 0],
+                'xhprof'   => ['installed' => 0],
+                'xdebug'   => ['installed' => 0],
             ],
             'inilist' => array(),
         ];
@@ -161,10 +170,14 @@ class PHPTest extends \PHPUnit_Framework_TestCase
         ];
 
         $expected = [
+            'version' => array(),
             'modules' => [
-                'php'  => ['foo', 'bar', 'baz'],
-                'pear' => array(),
-                'pecl' => array()
+                'php'      => ['foo', 'bar', 'baz'],
+                'pear'     => array(),
+                'pecl'     => array(),
+                'composer' => ['installed' => 0],
+                'xhprof'   => ['installed' => 0],
+                'xdebug'   => ['installed' => 0],
             ],
             'inilist' => array(),
         ];
@@ -182,10 +195,14 @@ class PHPTest extends \PHPUnit_Framework_TestCase
     public function testAddPhpModuleWorksEvenWhenIncomingConfigurationIsIncomplete($fixtures)
     {
         $expected = [
+            'version' => array(),
             'modules' => [
-                'php'  => ['foo'],
-                'pear' => array(),
-                'pecl' => array()
+                'php'      => ['foo'],
+                'pear'     => array(),
+                'pecl'     => array(),
+                'composer' => ['installed' => 0],
+                'xhprof'   => ['installed' => 0],
+                'xdebug'   => ['installed' => 0],
             ],
             'inilist' => array(),
         ];

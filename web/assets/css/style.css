@@ -123,6 +123,18 @@
     content: 'Quick Settings';
 }
 
+#php .bs-example.pear:after {
+    content: 'PEAR & PEAR Extensions'
+}
+
+#php .bs-example.xdebug:after {
+    content: 'Setup XDebug'
+}
+
+#php .bs-example.xhprof:after {
+    content: 'Setup XHProf'
+}
+
 #php .bs-example.installedPackages:after {
     content: 'Installed Packages';
 }
