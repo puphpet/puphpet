@@ -75,7 +75,7 @@ $(document).ready(function() {
         var configurationValue = $(e.target).data('configuration-value');
 
         if (configurationName) {
-            var inputSelector = 'input[name="' + configurationName + '"]'
+            var inputSelector = 'input[name="' + configurationName + '"]';
             $(inputSelector).attr('value', configurationValue);
         }
 
@@ -96,18 +96,18 @@ $(document).ready(function() {
         buttonWidth: '400px',
         buttonText: function(options, select) {
             if (options.length == 0) {
-              return 'None selected <b class="caret"></b>';
+                return 'None selected <b class="caret"></b>';
             }
             else if (options.length > 5) {
-              return options.length + ' selected  <b class="caret"></b>';
+                return options.length + ' selected  <b class="caret"></b>';
             }
-            else {
-              var selected = '';
-              options.each(function() {
+
+            var selected = '';
+            options.each(function() {
                 selected += $(this).text() + ', ';
-              });
-              return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
-            }
+            });
+
+            return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
         }
     });
 });
