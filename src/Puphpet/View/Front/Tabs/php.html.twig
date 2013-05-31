@@ -87,9 +87,9 @@
 
 <div class="bs-example timezone">
     <div class="row">
-        <div class="col col-lg-10">
-            <label>
-                <select class="span3" name="php[inilist][php][date.timezone]">
+        <div class="col col-lg-7">
+            <label class="full-width min-span-3">
+                <select class="selectTags" name="php[inilist][php][date.timezone]">
                     {% for tz in timezones %}
                         <option value="{{ tz }}"{% if tz == timezone %} selected="selected"{% endif %}>{{ tz }}</option>
                     {% endfor %}
