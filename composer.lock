@@ -101,12 +101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/puphpet/vagrant-puppet-lamp.git",
-                "reference": "5cc731920430b0346bc29a3d66755031ae8d0edf"
+                "reference": "c25a568d40b96324ffbc24741a10891f62e88b18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/5cc731920430b0346bc29a3d66755031ae8d0edf",
-                "reference": "5cc731920430b0346bc29a3d66755031ae8d0edf",
+                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/c25a568d40b96324ffbc24741a10891f62e88b18",
+                "reference": "c25a568d40b96324ffbc24741a10891f62e88b18",
                 "shasum": ""
             },
             "type": "project",
@@ -135,7 +135,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2013-05-30 15:54:37"
+            "time": "2013-05-31 07:20:57"
         },
         {
             "name": "pimple/pimple",
@@ -1012,12 +1012,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "12a391c9d824f0eaebe577429ad20ab86e792d44"
+                "reference": "a192c684a25376c44754ea65206c7cad9dfe9a95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/12a391c9d824f0eaebe577429ad20ab86e792d44",
-                "reference": "12a391c9d824f0eaebe577429ad20ab86e792d44",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a192c684a25376c44754ea65206c7cad9dfe9a95",
+                "reference": "a192c684a25376c44754ea65206c7cad9dfe9a95",
                 "shasum": ""
             },
             "require": {
@@ -1081,7 +1081,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-30 11:00:50"
+            "time": "2013-05-30 20:23:01"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
