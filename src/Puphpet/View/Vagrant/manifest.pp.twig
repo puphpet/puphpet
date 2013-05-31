@@ -17,8 +17,8 @@ package { ['python-software-properties']:
 }
 
 file { '/home/vagrant/.bash_aliases':
-  source => 'puppet:///modules/puphpet/dot/.bash_aliases',
   ensure => 'present',
+  source => 'puppet:///modules/puphpet/dot/.bash_aliases',
 }
 
 {% include 'Vagrant/Modules/server.pp.twig' %}

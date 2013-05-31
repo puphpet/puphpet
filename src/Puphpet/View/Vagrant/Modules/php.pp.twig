@@ -43,8 +43,8 @@ class { 'php::composer': }
 
 {% for name,settings in php.inilist if settings is not empty %}
 php::ini { '{{ name }}':
-  value  => [{{ format.explode_and_quote(settings)|raw }}],
-  target => '{{ name }}.ini',
+  value   => [{{ format.explode_and_quote(settings)|raw }}],
+  target  => '{{ name }}.ini',
   service => '{{ php_service }}',
 }
 {% endfor %}

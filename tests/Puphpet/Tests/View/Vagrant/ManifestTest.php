@@ -44,7 +44,7 @@ class ManifestTest extends Base
                 'composer' => true,
                 'modules'  => ['php' => ['php5-cli'], 'pear' => array(), 'pecl' => array()],
                 'inilist'  => [
-                    'php' => [
+                    'php'    => [
                         'date.timezone = "America/Chicago"',
                     ],
                     'custom' => [
@@ -77,5 +77,27 @@ class ManifestTest extends Base
         $this->assertContains("root_password => 'rootpwd'", $rendered);
         $this->assertContains("mysql::grant { 'test_dbname'", $rendered);
         $this->assertContains('date.timezone = "America/Chicago"', $rendered);
+
+        $this->doLinting($rendered);
+    }
+
+    private function doLinting($rendered)
+    {
+        // check first if puppet-lint is installed
+        $output = shell_exec('which puppet-lint');
+        if (empty($output)) {
+            $msg = '"puppet-lint" is not installed on your machine, linting of manifest is aborted!';
+            $this->markTestSkipped($msg);
+        }
+
+        // dump generated dump file to cache dir
+        $filename = realpath(__DIR__ . '/../../../../../cache').'/manifest_lint.pp';
+        file_put_contents($filename, $rendered);
+
+        $output = shell_exec("puppet-lint $filename");
+
+        // if linting is OK the response has to be empty
+        $msg = sprintf('Result of puppet-lint is not empty: "%s". Manifest dumped to "%s"', $output, $filename);
+        $this->assertEmpty($output, $msg);
     }
 }
