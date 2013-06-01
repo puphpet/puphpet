@@ -1,0 +1,68 @@
+{% if dbNum is not defined %}
+{% set dbNum = 1 %}
+{% endif %}
+
+<div id="postgresql-dbuser-{{ dbNum }}">
+    <div class="bs-example createUserDb">
+        <fieldset>
+            <legend>Create User &amp; Database #{{ dbNum }}</legend>
+
+            <div class="row">
+                <div class="col col-lg-8">
+                    <label for="postgresql-dbuser-{{ dbNum }}-privileges">Privileges</label>
+                    <select multiple="multiple" id="postgresql-dbuser-{{ dbNum }}-privileges"
+                            name="postgresql[dbuser][{{ dbNum }}][privileges][]" size="6">
+                        <optgroup label="Give all">
+                            <option value="ALL" selected="selected">ALL</option>
+                        </optgroup>
+                        <optgroup label="or, Give some">
+                            <option value="SELECT">SELECT</option>
+                            <option value="INSERT">INSERT</option>
+                            <option value="UPDATE">UPDATE</option>
+                            <option value="DELETE">DELETE</option>
+                            <option value="TRUNCATE">TRUNCATE</option>
+                            <option value="REFERENCE">REFERENCES</option>
+                            <option value="TRIGGER">TRIGGER</option>
+                            <option value="CREATE">CREATE</option>
+                            <option value="CONNECT">CONNECT</option>
+                            <option value="TEMPORARY">TEMPORARY</option>
+                            <option value="EXECUTE">EXECUTE</option>
+                            <option value="USAGE">USAGE</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col col-lg-5">
+                    <label for="postgresql-dbuser-{{ dbNum }}-user">Username</label>
+                    <input id="postgresql-dbuser-{{ dbNum }}-user" name="postgresql[dbuser][{{ dbNum }}][user]" type="text"
+                           placeholder="username" value="" />
+                </div>
+                <div class="col col-lg-5">
+                    <label for="postgresql-dbuser-{{ dbNum }}-password">Password</label>
+                    <input id="postgresql-dbuser-{{ dbNum }}-password" name="postgresql[dbuser][{{ dbNum }}][password]"
+                           type="text" placeholder="password" value="" />
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col col-lg-5">
+                    <label class="control-label" for="postgresql-dbuser-{{ dbNum }}-dbname">Database Name</label>
+                    <input id="postgresql-dbuser-{{ dbNum }}-dbname" name="postgresql[dbuser][{{ dbNum }}][dbname]"
+                           type="text" placeholder="database_name" value="" />
+                </div>
+            </div>
+        </fieldset>
+
+        <br />
+
+        {% if dbNum != '1' %}
+            <p class="text-center"><a class="postgresql-dbuser-del btn btn-danger" href="#" rel="postgresql-dbuser-{{ dbNum }}">Delete this Database</a></p>
+        {% endif %}
+    </div>
+</div>
