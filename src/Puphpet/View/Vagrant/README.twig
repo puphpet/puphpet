@@ -6,7 +6,7 @@ The setup includes:
 * box:       {{ box.name }} ({{ box.url }})
 * webserver: {{ webserver }}
 * database:  {{ database }}
-* PHP:       {{ php.php54 == 1 ? 'PHP 5.4' : 'PHP 5.3' }}
+* PHP:       {{ php.version.php54 == 1 ? 'PHP 5.4' : 'PHP 5.3' }}
 
 Next steps:
 -----------
