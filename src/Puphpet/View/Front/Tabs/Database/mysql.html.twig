@@ -9,6 +9,19 @@
     </div>
 </div>
 
+<div class="bs-example quickSettings">
+    <div class="row">
+        <div class="col col-lg-4 min-span-4">
+            <label class="checkbox-inline min-span-2" for="mysql-phpmyadmin">Install phpMyAdmin</label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="mysql-phpmyadmin" name="mysql[phpmyadmin]" value="1" checked="checked" />
+                Yes
+            </label>
+            <p class="help-block">If installed it will be reachable under /phpmyadmin</p>
+        </div>
+    </div>
+</div>
+
 <div id="mysql-dbuser-count" rel="1">
     {% include 'Front/Tabs/Database/MySQL/dbuser.html.twig' %}
 

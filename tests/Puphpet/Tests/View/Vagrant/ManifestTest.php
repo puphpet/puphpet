@@ -9,19 +9,16 @@ use Puphpet\Tests\Base;
  */
 class ManifestTest extends Base
 {
+    /**
+     * @var array
+     */
+    private $parameters;
+
     public function setUp()
     {
         $this->createApplication();
-    }
 
-    /**
-     * This test is a simple functional test on rendering the manifest template.
-     * It does not analyze its content but it checks if there is rendered something
-     * useful or if any error occurs during rendering.
-     */
-    public function testRender()
-    {
-        $parameters = [
+        $this->parameters = [
             'webserver'   => 'apache',
             'php_service' => 'apache',
             'server'      => ['packages' => ['foo', 'bar']],
@@ -58,8 +55,9 @@ class ManifestTest extends Base
                 ],
             ],
             'mysql'       => [
-                'root'   => 'rootpwd',
-                'dbuser' => [
+                'root'       => 'rootpwd',
+                'phpmyadmin' => false,
+                'dbuser'     => [
                     [
                         'dbname'     => 'test_dbname',
                         'privileges' => [],
@@ -71,7 +69,17 @@ class ManifestTest extends Base
             ]
         ];
 
-        $rendered = $this->app['twig']->render('Vagrant/manifest.pp.twig', $parameters);
+    }
+
+
+    /**
+     * This test is a simple functional test on rendering the manifest template.
+     * It does not analyze its content but it checks if there is rendered something
+     * useful or if any error occurs during rendering.
+     */
+    public function testRender()
+    {
+        $rendered = $this->app['twig']->render('Vagrant/manifest.pp.twig', $this->parameters);
 
         $this->assertContains('apt-get update', $rendered);
         $this->assertContains("class { 'apache'", $rendered);
@@ -82,8 +90,22 @@ class ManifestTest extends Base
         $this->assertContains("mysql::grant { 'test_dbname'", $rendered);
         $this->assertContains('date.timezone = "America/Chicago"', $rendered);
 
+        $this->assertNotContains('phpmyadmin', $rendered);
+
         $this->doLinting($rendered);
     }
+
+    public function testRenderWithPhpMyAdmin()
+    {
+        $this->parameters['mysql']['phpmyadmin'] = true;
+
+        $rendered = $this->app['twig']->render('Vagrant/manifest.pp.twig', $this->parameters);
+
+        $this->assertContains("class { 'phpmyadmin':", $rendered);
+
+        $this->doLinting($rendered);
+    }
+
 
     private function doLinting($rendered)
     {
@@ -95,7 +117,7 @@ class ManifestTest extends Base
         }
 
         // dump generated dump file to cache dir
-        $filename = realpath(__DIR__ . '/../../../../../cache').'/manifest_lint.pp';
+        $filename = realpath(__DIR__ . '/../../../../../cache') . '/manifest_lint.pp';
         file_put_contents($filename, $rendered);
 
         $output = shell_exec("puppet-lint $filename");

@@ -1,6 +1,7 @@
 {% if mysql.root %}
 class { 'mysql':
   root_password => '{{ mysql.root }}',
+  require       => Exec['apt-get update'],
 }
 
 {% for database in mysql.dbuser %}
@@ -13,4 +14,34 @@ mysql::grant { '{{ database.dbname }}':
   mysql_grant_filepath => '/home/vagrant/puppet-mysql',
 }
 {% endfor %}
+
+{% if mysql.phpmyadmin %}
+class { 'phpmyadmin':
+  require => Class['mysql'],
+}
+
+{% if nginx is defined %}
+    {#
+nginx::resource::vhost { 'phpmyadmin':
+  ensure      => present,
+  server_name => ['phpmyadmin'],
+  listen_port => 80,
+  index_files => ['index.php'],
+  www_root    => '/usr/share/phpmyadmin',
+  try_files   => ['$uri', '$uri/', '/index.php?$args'],
+  require     => Class['phpmyadmin'],
+}
+#}
+{% else %}
+{# no need for creating an own vhost for phpmyadmin as
+it already provides a well defined one => just copy it and trigger apache restart #}
+file { 'phpmyadmin.conf':
+    ensure  => link,
+    path    => '/etc/apache2/sites-enabled/50-phpmyadmin.conf',
+    target  => '/etc/phpmyadmin/apache.conf',
+    require => Class['phpmyadmin'],
+    notify  => Service['apache2'],
+}
+{% endif %}{# if nginx/apache #}
+{% endif %}{# if mysql.phpmyadmin #}
 {% endif %}{# if mysql.root #}

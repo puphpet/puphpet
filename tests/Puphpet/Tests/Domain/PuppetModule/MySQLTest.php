@@ -11,16 +11,17 @@ class MySQLTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->mysqlArray = [
-            'root'   => 'rootPassword',
-            'dbuser' => [
+            'root'       => 'rootPassword',
+            'phpmyadmin' => true,
+            'dbuser'     => [
                 [
                     'privileges' => [
                         'ALL',
                     ],
-                    'user'     => 'user1',
-                    'password' => 'password1',
-                    'dbname'   => 'dbname1',
-                    'host'     => 'localhost',
+                    'user'       => 'user1',
+                    'password'   => 'password1',
+                    'dbname'     => 'dbname1',
+                    'host'       => 'localhost',
                 ],
                 [
                     'privileges' => [
@@ -28,19 +29,19 @@ class MySQLTest extends \PHPUnit_Framework_TestCase
                         'CREATE',
                         'CREATE TEMPORARY TABLES',
                     ],
-                    'user'     => 'user2',
-                    'password' => 'password2',
-                    'dbname'   => 'dbname2',
-                    'host'     => 'remotehost',
+                    'user'       => 'user2',
+                    'password'   => 'password2',
+                    'dbname'     => 'dbname2',
+                    'host'       => 'remotehost',
                 ],
                 [
                     'privileges' => [
                         'CREATE',
                     ],
-                    'user'     => 'user3',
-                    'password' => 'password3',
-                    'dbname'   => 'dbname3',
-                    'host'     => 'amazon',
+                    'user'       => 'user3',
+                    'password'   => 'password3',
+                    'dbname'     => 'dbname3',
+                    'host'       => 'amazon',
                 ],
             ],
         ];
@@ -93,8 +94,9 @@ class MySQLTest extends \PHPUnit_Framework_TestCase
         $this->mysqlArray['dbuser'] = false;
 
         $expected = [
-            'root'   => 'rootPassword',
-            'dbuser' => array()
+            'root'       => 'rootPassword',
+            'phpmyadmin' => true,
+            'dbuser'     => array()
         ];
 
         $mysql = new MySQL($this->mysqlArray);
@@ -103,5 +105,18 @@ class MySQLTest extends \PHPUnit_Framework_TestCase
             $expected,
             $mysql->getFormatted()
         );
+    }
+
+    public function testGetFormattedReturnsAlwaysPhpMyAdminFlag()
+    {
+        $mysql = new MySQL(['foo' => 'bar']);
+
+        $expected = [
+            'foo'        => 'bar',
+            'phpmyadmin' => false,
+            'dbuser'     => array(),
+        ];
+
+        $this->assertEquals($expected, $mysql->getFormatted());
     }
 }
