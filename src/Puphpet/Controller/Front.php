@@ -93,9 +93,6 @@ class Front extends Controller
         $manifestCompiler = $app['manifest_compiler'];
         $manifest = $manifestCompiler->compile($manifestConfiguration);
 
-        $webserver = $manifestConfiguration['webserver'];
-        $database = $manifestConfiguration['database'];
-
         // build Vagrantfile
         $box = $request->request->get('box');
         $boxConfiguration = ['box' => $box];
@@ -104,17 +101,13 @@ class Front extends Controller
         /**@var $domainFile Domain\File build the archive */
         $domainFile = $app['domain_file'];
 
-        if ('nginx' == $webserver) {
-            $domainFile->addModuleSource('nginx', VENDOR_PATH . '/jfryman/puppet-nginx');
-        }
-
-        if ('postgresql' == $database) {
-            $domainFile->addModuleSource('postgresql', VENDOR_PATH . '/puppetlabs/postgresql');
-        }
+        // configure the domain file
+        $app['domain_file_configurator']->configure($domainFile, $manifestConfiguration);
 
         $readme = $app['readme_compiler']->compile(array_merge($manifestConfiguration, $boxConfiguration));
 
-
+        //@TODO adding/replacing files to the archive could be done in configurators
+        //@TODO as soon as the domain file supports adding single files
         // creating and building the archive
         $domainFile->createArchive(
             [

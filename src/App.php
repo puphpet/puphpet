@@ -43,6 +43,14 @@ $app['domain_file'] = function () {
         new Puphpet\Domain\Filesystem()
     );
 };
+$app['domain_file_configurator'] = function () {
+    return new Puphpet\Domain\Configurator\File\ConfiguratorHandler(
+        [
+            new \Puphpet\Domain\Configurator\Module\File\NginxConfigurator(VENDOR_PATH),
+            new \Puphpet\Domain\Configurator\Module\File\PostgreSQLConfigurator(VENDOR_PATH),
+        ]
+    );
+};
 $app['manifest_formatter'] = function () {
     return new Puphpet\Domain\Compiler\Manifest\Formatter(
         [
