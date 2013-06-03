@@ -30,7 +30,7 @@ class Add extends Controller
     public function vhostAction(Request $request)
     {
         return $this->twig()->render(
-            'Front/Tabs/Apache/vhost.html.twig',
+            'Front/Tabs/Webserver/Apache/vhost.html.twig',
             ['vhostNum' => $request->get('id')]
         );
     }
@@ -38,7 +38,7 @@ class Add extends Controller
     public function mysqldbuserAction(Request $request)
     {
         return $this->twig()->render(
-            'Front/Tabs/MySQL/dbuser.html.twig',
+            'Front/Tabs/Database/MySQL/dbuser.html.twig',
             ['dbNum' => $request->get('id')]
         );
     }
@@ -51,7 +51,7 @@ class Add extends Controller
     public function postgresqldbuserAction(Request $request)
     {
         return $this->twig()->render(
-            'Front/Tabs/PostgreSQL/dbuser.html.twig',
+            'Front/Tabs/Database/PostgreSQL/dbuser.html.twig',
             ['dbNum' => $request->get('id')]
         );
     }
