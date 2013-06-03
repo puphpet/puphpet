@@ -47,6 +47,11 @@ $(document).ready(function() {
             vhostContainer.attr('rel', currentCount);
 
             vhostContainer.append(data);
+
+            $('.tags').select2({
+                tags: [],
+                tokenSeparators: [',']
+            });
         });
 
         return false;
