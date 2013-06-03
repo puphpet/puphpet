@@ -46,8 +46,8 @@ $app['domain_file'] = function () {
 $app['domain_file_configurator'] = function () {
     return new Puphpet\Domain\Configurator\File\ConfiguratorHandler(
         [
-            new \Puphpet\Domain\Configurator\Module\File\NginxConfigurator(VENDOR_PATH),
-            new \Puphpet\Domain\Configurator\Module\File\PostgreSQLConfigurator(VENDOR_PATH),
+            new Puphpet\Domain\Configurator\File\Module\NginxConfigurator(VENDOR_PATH),
+            new Puphpet\Domain\Configurator\File\Module\PostgreSQLConfigurator(VENDOR_PATH),
         ]
     );
 };
