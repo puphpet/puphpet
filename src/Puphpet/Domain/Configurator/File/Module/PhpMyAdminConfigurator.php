@@ -34,8 +34,6 @@ class PhpMyAdminConfigurator implements ConfiguratorInterface
             'phpmyadmin',
             $this->vendorPath . '/frastel/puppet-phpmyadmin'
         );
-
-        //@TODO more to come within the phpmyadmin integration here
     }
 
     /**

@@ -31,8 +31,6 @@ class NginxConfigurator implements ConfiguratorInterface
     public function configure(File $domainFile, array &$configuration)
     {
         $domainFile->addModuleSource('nginx', $this->vendorPath . '/jfryman/puppet-nginx');
-
-        //@TODO more to come within the phpmyadmin integration here
     }
 
     /**
