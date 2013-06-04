@@ -3,8 +3,19 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "165e63fc440ca4af478409359e6c737f",
+    "hash": "20fc2d73c91f59e73dd339f3c11a451e",
     "packages": [
+        {
+            "name": "frastel/puppet-phpmyadmin",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/frastel/puppet-phpmyadmin.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-05-31 22:08:10"
+        },
         {
             "name": "igorw/config-service-provider",
             "version": "dev-master",
@@ -1556,6 +1567,7 @@
     "stability-flags": {
         "jtreminio/vagrant-puppet-lamp": 20,
         "jfryman/puppet-nginx": 20,
+        "frastel/puppet-phpmyadmin": 20,
         "phpunit/phpunit": 20,
         "whatthejeff/nyancat-phpunit-resultprinter": 20
     },

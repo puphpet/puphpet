@@ -15,6 +15,10 @@ class MySQL extends PuppetModuleAbstract implements PuppetModuleInterface
             return array();
         }
 
+        if (!array_key_exists('phpmyadmin', $this->configuration)) {
+            $this->configuration['phpmyadmin'] = false;
+        }
+
         $this->removeIncomplete();
 
         return $this->configuration;
