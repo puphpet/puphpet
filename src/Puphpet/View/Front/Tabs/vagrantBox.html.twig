@@ -35,11 +35,22 @@
 <div class="bs-example access">
     <div class="row">
         <div class="col col-lg-5">
-            <label for="box-name">Box Name</label>
+            <label for="box-name">Vagrant Box Name</label>
             <input id="box-name" name="box[name]" type="text" required placeholder="awesomeBox"
                    value="precise64" />
-            <p class="help-block">Name when referenced by Vagrant. Should be unique to your system</p>
+            <p class="help-block">
+                The internal name of the Vagrant base box.
+                Using supported base boxes you do not have to modify this value.
+            </p>
         </div>
+
+        <div class="col col-lg-5">
+            <label for="box-custom-name">Name Your Box</label>
+            <input id="box-custom-name" name="box[personal_name]" type="text" required placeholder="my-first-box"
+                   value="my-first-box" />
+            <p class="help-block">Your personal name for the box. Should be unique to your system</p>
+        </div>
+
     </div>
 
     <div class="row">
