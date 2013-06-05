@@ -96,7 +96,8 @@ class Front extends Controller
         // build Vagrantfile
         $box = $request->request->get('box');
         $boxConfiguration = ['box' => $box];
-        $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', $boxConfiguration);
+        $vagrantConfiguration = array_merge($boxConfiguration, ['mysql' => $manifestConfiguration['mysql']]);
+        $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', $vagrantConfiguration);
 
         /**@var $domainFile Domain\File build the archive */
         $domainFile = $app['domain_file'];

@@ -48,6 +48,7 @@ $app['domain_file_configurator'] = function () {
         [
             new Puphpet\Domain\Configurator\File\Module\NginxConfigurator(VENDOR_PATH),
             new Puphpet\Domain\Configurator\File\Module\PostgreSQLConfigurator(VENDOR_PATH),
+            new Puphpet\Domain\Configurator\File\Module\PhpMyAdminConfigurator(VENDOR_PATH),
         ]
     );
 };

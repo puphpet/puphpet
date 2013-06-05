@@ -152,6 +152,10 @@
     content: 'Root User Password';
 }
 
+#mysql .bs-example.quickSettings:after {
+    content: 'Quick Settings';
+}
+
 #mysql .bs-example.createUserDb:after,
 #postgresql .bs-example.createUserDb:after {
     content: 'Create User & Database';

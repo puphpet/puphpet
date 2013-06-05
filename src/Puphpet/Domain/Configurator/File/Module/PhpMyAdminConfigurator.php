@@ -5,7 +5,7 @@ namespace Puphpet\Domain\Configurator\File\Module;
 use Puphpet\Domain\Configurator\File\ConfiguratorInterface;
 use Puphpet\Domain\File;
 
-class NginxConfigurator implements ConfiguratorInterface
+class PhpMyAdminConfigurator implements ConfiguratorInterface
 {
     /**
      * @var string
@@ -30,7 +30,10 @@ class NginxConfigurator implements ConfiguratorInterface
      */
     public function configure(File $domainFile, array &$configuration)
     {
-        $domainFile->addModuleSource('nginx', $this->vendorPath . '/jfryman/puppet-nginx');
+        $domainFile->addModuleSource(
+            'phpmyadmin',
+            $this->vendorPath . '/frastel/puppet-phpmyadmin'
+        );
     }
 
     /**
@@ -43,10 +46,10 @@ class NginxConfigurator implements ConfiguratorInterface
      */
     public function supports(array &$configuration)
     {
-        if (array_key_exists('webserver', $configuration) && 'nginx' == $configuration['webserver']) {
-            if (array_key_exists('nginx', $configuration) && is_array($configuration['nginx'])) {
-                return true;
-            }
+        if (array_key_exists('mysql', $configuration)
+            && array_key_exists('phpmyadmin', $configuration['mysql'])
+        ) {
+            return (bool) $configuration['mysql']['phpmyadmin'];
         }
 
         return false;
