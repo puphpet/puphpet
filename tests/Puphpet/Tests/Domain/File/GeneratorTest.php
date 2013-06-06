@@ -30,7 +30,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
 
         $domainFile = $this->getMockBuilder('Puphpet\Domain\File')
             ->disableOriginalConstructor()
-            ->setMethods(array('setName', 'createArchive'))
+            ->setMethods(['setName', 'createArchive'])
             ->getMock();
 
         $domainFile->expects($this->once())
@@ -75,7 +75,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $mock = $this->getMockBuilder('Puphpet\Domain\Compiler\Compiler')
             ->disableOriginalConstructor()
-            ->setMethods(array('compile'))
+            ->setMethods(['compile'])
             ->getMock();
 
         $mock->expects($this->once())

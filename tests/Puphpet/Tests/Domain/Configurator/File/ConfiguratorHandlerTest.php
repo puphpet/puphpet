@@ -19,7 +19,7 @@ class ConfiguratorHandlerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $unsupportedModule = $this->getMockBuilder('Puphpet\Domain\Configurator\File\ConfiguratorInterface')
-            ->setMethods(array('supports', 'configure'))
+            ->setMethods(['supports', 'configure'])
             ->getMock();
 
         $unsupportedModule->expects($this->once())
@@ -31,7 +31,7 @@ class ConfiguratorHandlerTest extends \PHPUnit_Framework_TestCase
             ->method('configure');
 
         $supportedModule = $this->getMockBuilder('Puphpet\Domain\Configurator\File\ConfiguratorInterface')
-            ->setMethods(array('supports', 'configure'))
+            ->setMethods(['supports', 'configure'])
             ->getMock();
 
         $supportedModule->expects($this->once())

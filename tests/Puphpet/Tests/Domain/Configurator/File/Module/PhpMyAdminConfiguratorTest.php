@@ -53,7 +53,7 @@ class PhpMyAdminConfiguratorTest extends \PHPUnit_Framework_TestCase
 
         $domainFile = $this->getMockBuilder('Puphpet\Domain\File')
             ->disableOriginalConstructor()
-            ->setMethods(array('addModuleSource'))
+            ->setMethods(['addModuleSource'])
             ->getMock();
 
         $domainFile->expects($this->once())

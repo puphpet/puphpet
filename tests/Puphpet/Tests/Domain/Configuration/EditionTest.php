@@ -16,7 +16,7 @@ class EditionTest extends \PHPUnit_Framework_TestCase
 
         $accessor = $this->getMockBuilder('Symfony\Component\PropertyAccess\PropertyAccessor')
             ->disableOriginalConstructor()
-            ->setMethods(array('getValue'))
+            ->setMethods(['getValue'])
             ->getMock();
 
         $accessor->expects($this->once())
@@ -41,7 +41,7 @@ class EditionTest extends \PHPUnit_Framework_TestCase
 
         $accessor = $this->getMockBuilder('Symfony\Component\PropertyAccess\PropertyAccessor')
             ->disableOriginalConstructor()
-            ->setMethods(array('setValue'))
+            ->setMethods(['setValue'])
             ->getMock();
 
         $accessor->expects($this->once())
@@ -60,7 +60,7 @@ class EditionTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array())
             ->getMock();
 
-        $configuration = array('foo' => 'bar');
+        $configuration = ['foo' => 'bar'];
 
         $edition = new Edition($this->buildPropertyAccessProvider($accessor));
         $edition->setConfiguration($configuration);
@@ -76,7 +76,7 @@ class EditionTest extends \PHPUnit_Framework_TestCase
     {
         $provider = $this->getMockBuilder('Puphpet\Domain\Configuration\PropertyAccessProvider')
             ->disableOriginalConstructor()
-            ->setMethods(array('provide'))
+            ->setMethods(['provide'])
             ->getMock();
 
         $provider->expects($this->once())
