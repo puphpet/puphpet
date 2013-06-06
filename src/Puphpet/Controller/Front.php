@@ -84,48 +84,15 @@ class Front extends Controller
 
     public function createAction(Request $request, Application $app)
     {
-        /** @var Domain\Compiler\Manifest\RequestFormatter $formatter build puppet manifest */
-        $formatter = $app['manifest_request_formatter'];
-        $formatter->bindRequest($request);
-        $manifestConfiguration = $formatter->format();
+        /** @var $domainFile \Puphpet\Domain\File */
+        $domainFile = $app['request_file_generator']->generateArchive($request);
 
-        /** @var Domain\Compiler\Compiler $manifestCompiler */
-        $manifestCompiler = $app['manifest_compiler'];
-        $manifest = $manifestCompiler->compile($manifestConfiguration);
-
-        // build Vagrantfile
-        $box = $request->request->get('box');
-        $boxConfiguration = ['box' => $box];
-        $vagrantConfiguration = array_merge($boxConfiguration, ['mysql' => $manifestConfiguration['mysql']]);
-        $vagrantFile = $this->twig()->render('Vagrant/Vagrantfile.twig', $vagrantConfiguration);
-
-        /**@var $domainFile Domain\File build the archive */
-        $domainFile = $app['domain_file'];
-
-        // configure the domain file
-        $app['domain_file_configurator']->configure($domainFile, $manifestConfiguration);
-
-        $readme = $app['readme_compiler']->compile(array_merge($manifestConfiguration, $boxConfiguration));
-
-        //@TODO adding/replacing files to the archive could be done in configurators
-        //@TODO as soon as the domain file supports adding single files
-        // creating and building the archive
-        $domainFile->createArchive(
-            [
-                'README'                                  => $readme,
-                'Vagrantfile'                             => $vagrantFile,
-                'manifests/default.pp'                    => $manifest,
-                'modules/puphpet/files/dot/.bash_aliases' => $manifestConfiguration['server']['bashaliases'],
-            ]
-        );
         $file = $domainFile->getArchivePath();
 
-        $stream = function () use ($file) {
-            readfile($file);
-        };
-
         return $this->app->stream(
-            $stream,
+            function () use ($file) {
+                readfile($file);
+            },
             200,
             [
                 'Pragma'                    => 'public',
@@ -134,7 +101,8 @@ class Front extends Controller
                 'Last-Modified'             => gmdate('D, d M Y H:i:s', filemtime($file)) . ' GMT',
                 'Content-Type'              => 'application/zip',
                 'Content-Length'            => filesize($file),
-                'Content-Disposition'       => 'attachment; filename="' . $box['name'] . '.zip"',
+                'Content-Disposition'       => 'attachment; filename="' . $domainFile->getName(
+                ) . '"',
                 'Content-Transfer-Encoding' => 'binary',
                 'Connection'                => 'close',
             ]

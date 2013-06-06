@@ -32,6 +32,11 @@ class File extends Domain
     private $filesystem;
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
      * @param string     $source Absolute path to archive
      * @param Filesystem $filesystem
      */
@@ -39,6 +44,24 @@ class File extends Domain
     {
         $this->source = $source;
         $this->filesystem = $filesystem;
+    }
+
+    /**
+     * Assigns target file name
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**

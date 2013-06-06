@@ -73,11 +73,29 @@ $app['manifest_compiler'] = function () use ($app) {
 $app['readme_compiler'] = function () use ($app) {
     return new Puphpet\Domain\Compiler\Compiler($app['twig'], 'Vagrant/README.twig');
 };
+$app['vagrant_compiler'] = function () use ($app) {
+    return new Puphpet\Domain\Compiler\Compiler($app['twig'], 'Vagrant/Vagrantfile.twig');
+};
 $app['property_access_provider'] = function () {
     return new Puphpet\Domain\Configuration\PropertyAccessProvider();
 };
 $app['edition'] = function () use ($app) {
     return new Puphpet\Domain\Configuration\Edition($app['property_access_provider']);
+};
+$app['file_generator'] = function () use ($app) {
+    return new Puphpet\Domain\File\Generator(
+        $app['vagrant_compiler'],
+        $app['manifest_compiler'],
+        $app['readme_compiler'],
+        $app['domain_file'],
+        $app['domain_file_configurator']
+    );
+};
+$app['request_file_generator'] = function () use ($app) {
+    return new Puphpet\Domain\File\RequestGenerator(
+        $app['file_generator'],
+        $app['manifest_request_formatter']
+    );
 };
 
 return $app;
