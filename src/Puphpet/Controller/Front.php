@@ -101,8 +101,7 @@ class Front extends Controller
                 'Last-Modified'             => gmdate('D, d M Y H:i:s', filemtime($file)) . ' GMT',
                 'Content-Type'              => 'application/zip',
                 'Content-Length'            => filesize($file),
-                'Content-Disposition'       => 'attachment; filename="' . $domainFile->getName(
-                ) . '"',
+                'Content-Disposition'       => 'attachment; filename="' . $domainFile->getName() . '"',
                 'Content-Transfer-Encoding' => 'binary',
                 'Connection'                => 'close',
             ]
