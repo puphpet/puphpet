@@ -3,8 +3,67 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "20fc2d73c91f59e73dd339f3c11a451e",
+    "hash": "939335066f7ba585d9186a18e3dba1a1",
     "packages": [
+        {
+            "name": "dflydev/markdown",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dflydev/dflydev-markdown.git",
+                "reference": "11f8faa2d17f717a038b4d372abd22a6ac4a15dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dflydev/dflydev-markdown/zipball/11f8faa2d17f717a038b4d372abd22a6ac4a15dc",
+                "reference": "11f8faa2d17f717a038b4d372abd22a6ac4a15dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "dflydev\\markdown": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Dragonfly Development Inc.",
+                    "email": "info@dflydev.com",
+                    "homepage": "http://dflydev.com"
+                },
+                {
+                    "name": "Beau Simensen",
+                    "email": "beau@dflydev.com",
+                    "homepage": "http://beausimensen.com"
+                },
+                {
+                    "name": "Michel Fortin",
+                    "homepage": "http://michelf.com"
+                },
+                {
+                    "name": "John Gruber",
+                    "homepage": "http://daringfireball.net"
+                }
+            ],
+            "description": "PHP Markdown & Extra",
+            "homepage": "http://github.com/dflydev/dflydev-markdown",
+            "keywords": [
+                "markdown"
+            ],
+            "time": "2012-07-15 16:31:27"
+        },
         {
             "name": "frastel/puppet-phpmyadmin",
             "version": "master",
@@ -149,6 +208,50 @@
             "time": "2013-06-01 04:08:25"
         },
         {
+            "name": "nicl/silex-markdown",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nicl/Silex-Markdown",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/nicl/Silex-Markdown/archive/1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": ""
+            },
+            "require": {
+                "dflydev/markdown": "1.0.*",
+                "silex/silex": "1.0.*",
+                "twig/twig": ">=1.8,<2.0-dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": [
+
+                ]
+            },
+            "autoload": {
+                "psr-0": {
+                    "Nicl": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Nicolas Long",
+                    "email": "nicolaslong@gmail.com"
+                }
+            ],
+            "description": "Simple Silex wrapper for the Dragonfly markdown library",
+            "homepage": "http://github.com/nicl/silex-markdown",
+            "keywords": [
+                "markdown"
+            ],
+            "time": "2012-10-16 07:36:00"
+        },
+        {
             "name": "pimple/pimple",
             "version": "dev-master",
             "source": {
@@ -248,12 +351,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Silex.git",
-                "reference": "7ae0fd8b871eaebf95b856940c47679da40666c6"
+                "reference": "a6dde11a6494e2c116326ca91b0066475e825a52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Silex/zipball/7ae0fd8b871eaebf95b856940c47679da40666c6",
-                "reference": "7ae0fd8b871eaebf95b856940c47679da40666c6",
+                "url": "https://api.github.com/repos/fabpot/Silex/zipball/a6dde11a6494e2c116326ca91b0066475e825a52",
+                "reference": "a6dde11a6494e2c116326ca91b0066475e825a52",
                 "shasum": ""
             },
             "require": {
@@ -322,7 +425,7 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2013-05-08 12:49:14"
+            "time": "2013-06-06 07:02:30"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -385,12 +488,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "0875a8c8a1757b508a9895bb2c454af77a67b1c7"
+                "reference": "v2.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/0875a8c8a1757b508a9895bb2c454af77a67b1c7",
-                "reference": "0875a8c8a1757b508a9895bb2c454af77a67b1c7",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.2.2",
+                "reference": "v2.2.2",
                 "shasum": ""
             },
             "require": {
@@ -435,12 +538,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "81e7d3b9e156bd273ebd974df2a4a7df7eae9437"
+                "reference": "c3d4d3dad0e7b5e5894588a254f06e68b678a3e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/81e7d3b9e156bd273ebd974df2a4a7df7eae9437",
-                "reference": "81e7d3b9e156bd273ebd974df2a4a7df7eae9437",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/c3d4d3dad0e7b5e5894588a254f06e68b678a3e3",
+                "reference": "c3d4d3dad0e7b5e5894588a254f06e68b678a3e3",
                 "shasum": ""
             },
             "require": {
@@ -495,7 +598,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-27 14:47:40"
+            "time": "2013-06-04 10:08:18"
         },
         {
             "name": "symfony/property-access",
@@ -504,12 +607,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/PropertyAccess.git",
-                "reference": "3ae1bf3b696dd828df21282458dc2f969a71eab9"
+                "reference": "v2.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/PropertyAccess/zipball/3ae1bf3b696dd828df21282458dc2f969a71eab9",
-                "reference": "3ae1bf3b696dd828df21282458dc2f969a71eab9",
+                "url": "https://api.github.com/repos/symfony/PropertyAccess/zipball/v2.2.2",
+                "reference": "v2.2.2",
                 "shasum": ""
             },
             "require": {
@@ -562,12 +665,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "255e1163b74a22cd83d3fd51d63c0588afe0bc56"
+                "reference": "v2.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/255e1163b74a22cd83d3fd51d63c0588afe0bc56",
-                "reference": "255e1163b74a22cd83d3fd51d63c0588afe0bc56",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.3.0",
+                "reference": "v2.3.0",
                 "shasum": ""
             },
             "require": {
@@ -620,12 +723,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/TwigBridge.git",
-                "reference": "6cc23d22d663409c831cfa9fee753803e51a5789"
+                "reference": "v2.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/TwigBridge/zipball/6cc23d22d663409c831cfa9fee753803e51a5789",
-                "reference": "6cc23d22d663409c831cfa9fee753803e51a5789",
+                "url": "https://api.github.com/repos/symfony/TwigBridge/zipball/v2.2.2",
+                "reference": "v2.2.2",
                 "shasum": ""
             },
             "require": {
@@ -686,12 +789,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "2412f9950036ade5e89581e648edbe04e8fe2681"
+                "reference": "v2.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/2412f9950036ade5e89581e648edbe04e8fe2681",
-                "reference": "2412f9950036ade5e89581e648edbe04e8fe2681",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.2.2",
+                "reference": "v2.2.2",
                 "shasum": ""
             },
             "require": {
@@ -732,12 +835,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "fca6a9562dc032a7ba3ab8278b731b72efa8bd9c"
+                "reference": "1a6507043782f18e3765b52712cf78d16f3117e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/fca6a9562dc032a7ba3ab8278b731b72efa8bd9c",
-                "reference": "fca6a9562dc032a7ba3ab8278b731b72efa8bd9c",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/1a6507043782f18e3765b52712cf78d16f3117e7",
+                "reference": "1a6507043782f18e3765b52712cf78d16f3117e7",
                 "shasum": ""
             },
             "require": {
@@ -773,7 +876,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-05-29 14:58:12"
+            "time": "2013-06-07 06:24:46"
         }
     ],
     "packages-dev": [
@@ -783,12 +886,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "3f016c546ad206ebced25a1d0bfae318104faace"
+                "reference": "7e8cca3a581b91f7d99c517ed70798fefc986c0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/3f016c546ad206ebced25a1d0bfae318104faace",
-                "reference": "3f016c546ad206ebced25a1d0bfae318104faace",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/7e8cca3a581b91f7d99c517ed70798fefc986c0d",
+                "reference": "7e8cca3a581b91f7d99c517ed70798fefc986c0d",
                 "shasum": ""
             },
             "require": {
@@ -837,7 +940,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-30 04:26:48"
+            "time": "2013-06-07 08:16:16"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1023,12 +1126,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a192c684a25376c44754ea65206c7cad9dfe9a95"
+                "reference": "892f497047822ccd3c3341a4f130080fd97ac7dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a192c684a25376c44754ea65206c7cad9dfe9a95",
-                "reference": "a192c684a25376c44754ea65206c7cad9dfe9a95",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/892f497047822ccd3c3341a4f130080fd97ac7dc",
+                "reference": "892f497047822ccd3c3341a4f130080fd97ac7dc",
                 "shasum": ""
             },
             "require": {
@@ -1092,7 +1195,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-05-30 20:23:01"
+            "time": "2013-06-07 08:07:41"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1306,12 +1409,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/BrowserKit.git",
-                "reference": "925c734a11eb3af79689e0edc0f16e90327243f8"
+                "reference": "v2.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/925c734a11eb3af79689e0edc0f16e90327243f8",
-                "reference": "925c734a11eb3af79689e0edc0f16e90327243f8",
+                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/v2.2.2",
+                "reference": "v2.2.2",
                 "shasum": ""
             },
             "require": {
@@ -1361,12 +1464,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "8b4d745ffad13dbbfb99fcaccd97ae2632048260"
+                "reference": "v2.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/8b4d745ffad13dbbfb99fcaccd97ae2632048260",
-                "reference": "8b4d745ffad13dbbfb99fcaccd97ae2632048260",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/v2.2.2",
+                "reference": "v2.2.2",
                 "shasum": ""
             },
             "require": {
@@ -1511,26 +1614,34 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/whatthejeff/nyancat-phpunit-resultprinter.git",
-                "reference": "v1.0.1"
+                "reference": "13035b606a04143be9500405b2a2120c31669713"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/whatthejeff/nyancat-phpunit-resultprinter/zipball/v1.0.1",
-                "reference": "v1.0.1",
+                "url": "https://api.github.com/repos/whatthejeff/nyancat-phpunit-resultprinter/zipball/13035b606a04143be9500405b2a2120c31669713",
+                "reference": "13035b606a04143be9500405b2a2120c31669713",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "whatthejeff/fab": ">=1.0.0"
+                "whatthejeff/nyancat-scoreboard": ">=1.1,<2.0"
             },
             "require-dev": {
                 "pear-pear/pear": "1.9.4",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/php-code-coverage": "1.3.*@dev",
+                "phpunit/php-file-iterator": ">=1.3.1@dev",
+                "phpunit/php-text-template": ">=1.1.1@dev",
+                "phpunit/php-timer": ">=1.1.0@dev",
+                "phpunit/phpunit": "3.8.*@dev",
+                "phpunit/phpunit-mock-objects": "1.3.*@dev",
+                "sebastian/diff": ">=1.0.0@dev",
+                "sebastian/exporter": ">=1.0.0@dev",
+                "sebastian/version": ">=1.0.0@dev"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -1557,7 +1668,61 @@
                 "rainbow",
                 "tests"
             ],
-            "time": "2013-02-16 23:19:40"
+            "time": "2013-06-06 09:27:33"
+        },
+        {
+            "name": "whatthejeff/nyancat-scoreboard",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whatthejeff/nyancat-scoreboard.git",
+                "reference": "0bc5dffa9c0ce3b8c0fc58825da42506e69404e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whatthejeff/nyancat-scoreboard/zipball/0bc5dffa9c0ce3b8c0fc58825da42506e69404e7",
+                "reference": "0bc5dffa9c0ce3b8c0fc58825da42506e69404e7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "whatthejeff/fab": ">=1.0,<2.0"
+            },
+            "require-dev": {
+                "pear-pear/pear": "1.9.4",
+                "phpunit/phpunit": ">=3.7,<4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "NyanCat": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeff Welch",
+                    "email": "whatthejeff@gmail.com"
+                }
+            ],
+            "description": "Nyan Cat Scoreboard",
+            "homepage": "http://github.com/whatthejeff/nyancat-scoreboard",
+            "keywords": [
+                "cat",
+                "nyan",
+                "rainbow",
+                "scoreboard",
+                "tests"
+            ],
+            "time": "2013-06-06 09:30:44"
         }
     ],
     "aliases": [

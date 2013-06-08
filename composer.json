@@ -9,6 +9,7 @@
         "symfony/property-access":       "2.2.*",
         "symfony/yaml":                  "2.2.*",
         "igorw/config-service-provider": "1.2.*",
+        "nicl/silex-markdown":           "1.0.*",
         "jtreminio/vagrant-puppet-lamp": "1.*@dev",
         "jfryman/puppet-nginx":          "dev-master",
         "puppetlabs/postgresql":         "2.2.1",
