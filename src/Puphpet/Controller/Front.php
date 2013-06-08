@@ -64,8 +64,11 @@ class Front extends Controller
     public function aboutAction()
     {
         return $this->twig()->render(
-            'Front/about.html.twig',
-            ['currentPage' => 'about']
+            'Front/one-column.html.twig',
+            [
+                'currentPage' => 'about',
+                'markdown'    => $this->parseMarkdown('Front/Markdown/about.md')
+            ]
         );
     }
 
@@ -73,7 +76,10 @@ class Front extends Controller
     {
         return $this->twig()->render(
             'Front/help.html.twig',
-            ['currentPage' => 'help']
+            [
+                'currentPage' => 'help',
+                'markdown'    => $this->parseMarkdown('Front/Markdown/help.md')
+            ]
         );
     }
 

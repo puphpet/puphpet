@@ -1,0 +1,11 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block container %}
+    {{ parent() }}
+
+    <div class="bs-header">
+        <div class="container">
+            {{ markdown|raw }}
+        </div>
+    </div>
+{% endblock %}

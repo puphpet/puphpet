@@ -31,6 +31,7 @@ $app->register(
 $app->register(new Provider\UrlGeneratorServiceProvider);
 $app->register(new Provider\ValidatorServiceProvider);
 $app->register(new Provider\DoctrineServiceProvider);
+$app->register(new Nicl\Silex\MarkdownServiceProvider, ['markdown.parser' => 'extra']);
 
 // routing
 $app->mount('/', new Puphpet\Controller\Front($app));
@@ -96,6 +97,9 @@ $app['request_file_generator'] = function () use ($app) {
         $app['file_generator'],
         $app['manifest_request_formatter']
     );
+};
+$app['markdown'] = function() use ($app) {
+    return new dflydev\markdown\MarkdownParser;
 };
 
 return $app;

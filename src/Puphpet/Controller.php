@@ -19,7 +19,7 @@ abstract class Controller implements ControllerProviderInterface
     /** @var Application */
     protected $app;
 
-    /** @var $twig \Twig_Environment */
+    private $markdown;
     private $twig;
 
     public function __construct(Application $app)
@@ -37,5 +37,33 @@ abstract class Controller implements ControllerProviderInterface
         }
 
         return $this->twig;
+    }
+
+    /**
+     * @return \dflydev\markdown\MarkdownParser
+     */
+    protected function markdown()
+    {
+        if (is_null($this->markdown)) {
+            $this->markdown = $this->app['markdown'];
+        }
+
+        return $this->markdown;
+    }
+
+    /**
+     * Returns raw, unparsed source of a file in View folder
+     *
+     * @param string $path Path to template file
+     * @return string
+     */
+    protected function rawTemplate($path)
+    {
+        return $this->twig()->getLoader()->getSource($path);
+    }
+
+    protected function parseMarkdown($path)
+    {
+        return $this->markdown()->transformMarkdown($this->rawTemplate($path));
     }
 }
