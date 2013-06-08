@@ -75,7 +75,7 @@ class Front extends Controller
     public function helpAction()
     {
         return $this->twig()->render(
-            'Front/help.html.twig',
+            'Front/one-column.html.twig',
             [
                 'currentPage' => 'help',
                 'markdown'    => $this->parseMarkdown('Front/Markdown/help.md')
