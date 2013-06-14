@@ -3,12 +3,12 @@
 namespace Puphpet\Domain\Compiler\Manifest;
 
 use Puphpet\Domain\Compiler\FormatterInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Puphpet\Domain\Configuration\Configuration;
 
 /**
  * Proxy for the real formatter
  */
-class RequestFormatter implements FormatterInterface
+class ConfigurationFormatter implements FormatterInterface
 {
     /**
      * @var Formatter
@@ -16,9 +16,9 @@ class RequestFormatter implements FormatterInterface
     private $formatter;
 
     /**
-     * @var Request
+     * @var Configuration
      */
-    private $request;
+    private $configuration;
 
     private $webserver = null;
     private $database = null;
@@ -31,12 +31,9 @@ class RequestFormatter implements FormatterInterface
         $this->formatter = $formatter;
     }
 
-    /**
-     * @param Request $request
-     */
-    public function bindRequest(Request $request)
+    public function bindConfiguration(Configuration $configuration)
     {
-        $this->request = $request;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -47,7 +44,7 @@ class RequestFormatter implements FormatterInterface
      */
     public function format()
     {
-        if (!$this->request) {
+        if (!$this->configuration) {
             throw new \InvalidArgumentException('You have to bind an request instance before formatting');
         }
 
@@ -78,7 +75,7 @@ class RequestFormatter implements FormatterInterface
      */
     private function get($key, $default = null)
     {
-        return $this->request->request->get($key, $default);
+        return $this->configuration->get($key, $default);
     }
 
     protected function getWebserver()

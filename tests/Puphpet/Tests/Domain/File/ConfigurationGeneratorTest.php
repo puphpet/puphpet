@@ -2,9 +2,10 @@
 
 namespace Puphpet\Tests\Domain\File;
 
+use Puphpet\Domain\File\ConfigurationGenerator;
 use Puphpet\Domain\File\RequestGenerator;
 
-class RequestGeneratorTest extends \PHPUnit_Framework_TestCase
+class ConfigurationGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateArchive()
     {
@@ -13,33 +14,27 @@ class RequestGeneratorTest extends \PHPUnit_Framework_TestCase
         $vagrantConfiguration = ['box' => ['name' => 'baz'], 'mysql' => 'here'];
 
         // mocking the request
-        $parameterBag = $this->getMockBuilder('\Symfony\Component\HttpFoundation\ParameterBag')
+        $configuration = $this->getMockBuilder('\Puphpet\Domain\Configuration\Configuration')
             ->disableOriginalConstructor()
             ->setMethods(['get'])
             ->getMock();
 
-        $parameterBag->expects($this->at(0))
+        $configuration->expects($this->at(0))
             ->method('get')
             ->with('box')
             ->will($this->returnValue(['name' => 'baz']));
 
-        $request = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')
-            ->disableOriginalConstructor()
-            ->setMethods(array())
-            ->getMock();
-
-        $request->request = $parameterBag;
 
         $requestFormatter = $this->getMockBuilder(
-            'Puphpet\Domain\Compiler\Manifest\RequestFormatter'
+            'Puphpet\Domain\Compiler\Manifest\ConfigurationFormatter'
         )
             ->disableOriginalConstructor()
-            ->setMethods(['bindRequest', 'format'])
+            ->setMethods(['bindConfiguration', 'format'])
             ->getMock();
 
         $requestFormatter->expects($this->once())
-            ->method('bindRequest')
-            ->with($request);
+            ->method('bindConfiguration')
+            ->with($configuration);
 
         $requestFormatter->expects($this->once())
             ->method('format')
@@ -54,7 +49,7 @@ class RequestGeneratorTest extends \PHPUnit_Framework_TestCase
             ->method('generateArchive')
             ->with($boxConfiguration, $manifestConfiguration, $vagrantConfiguration);
 
-        $requestGenerator = new RequestGenerator($generator, $requestFormatter);
-        $requestGenerator->generateArchive($request);
+        $requestGenerator = new ConfigurationGenerator($generator, $requestFormatter);
+        $requestGenerator->generateArchive($configuration);
     }
 }

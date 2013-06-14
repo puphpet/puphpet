@@ -5,6 +5,7 @@ namespace Puphpet\Controller;
 use Puphpet\Controller;
 
 use Puphpet\Domain;
+use Puphpet\Domain\Configuration\Configuration;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,7 +92,8 @@ class Front extends Controller
     public function createAction(Request $request, Application $app)
     {
         /** @var $domainFile \Puphpet\Domain\File */
-        $domainFile = $app['request_file_generator']->generateArchive($request);
+        $configuration = new Configuration($request->request->all());
+        $domainFile = $app['configuration_file_generator']->generateArchive($configuration);
 
         $file = $domainFile->getArchivePath();
 

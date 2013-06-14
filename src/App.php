@@ -65,8 +65,8 @@ $app['manifest_formatter'] = function () {
         ]
     );
 };
-$app['manifest_request_formatter'] = function () use ($app) {
-    return new Puphpet\Domain\Compiler\Manifest\RequestFormatter($app['manifest_formatter']);
+$app['manifest_configuration_formatter'] = function () use ($app) {
+    return new Puphpet\Domain\Compiler\Manifest\ConfigurationFormatter($app['manifest_formatter']);
 };
 $app['manifest_compiler'] = function () use ($app) {
     return new Puphpet\Domain\Compiler\Compiler($app['twig'], 'Vagrant/manifest.pp.twig');
@@ -92,10 +92,10 @@ $app['file_generator'] = function () use ($app) {
         $app['domain_file_configurator']
     );
 };
-$app['request_file_generator'] = function () use ($app) {
-    return new Puphpet\Domain\File\RequestGenerator(
+$app['configuration_file_generator'] = function () use ($app) {
+    return new Puphpet\Domain\File\ConfigurationGenerator(
         $app['file_generator'],
-        $app['manifest_request_formatter']
+        $app['manifest_configuration_formatter']
     );
 };
 $app['markdown'] = function() use ($app) {

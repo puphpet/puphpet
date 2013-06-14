@@ -2,16 +2,16 @@
 
 namespace Puphpet\Tests\Domain\PuppetModule;
 
-use Puphpet\Domain\Compiler\Manifest\RequestFormatter;
+use Puphpet\Domain\Compiler\Manifest\ConfigurationFormatter;
 
-class RequestFormatterTest extends \PHPUnit_Framework_TestCase
+class ConfigurationFormatterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testFormatThrowsExceptionWhenRequestNotBound()
+    public function testFormatThrowsExceptionWhenConfigurationNotBound()
     {
-        $formatter = new RequestFormatter($this->getManifestFormatterMock());
+        $formatter = new ConfigurationFormatter($this->getManifestFormatterMock());
         $formatter->format();
     }
 
@@ -21,34 +21,34 @@ class RequestFormatterTest extends \PHPUnit_Framework_TestCase
     public function testFormat($requestedWebserver, $validatedWebserver, $webserverConfiguration)
     {
         // mocking the request
-        $parameterBag = $this->getMockBuilder('\Symfony\Component\HttpFoundation\ParameterBag')
+        $configuration = $this->getMockBuilder('\Puphpet\Domain\Configuration\Configuration')
           ->disableOriginalConstructor()
           ->setMethods(['get'])
           ->getMock();
 
         // order:
         // server, mysql|postgresql, mysql, php, webserver, nginx|apache
-        $parameterBag->expects($this->at(0))
+        $configuration->expects($this->at(0))
           ->method('get')
           ->with('server')
           ->will($this->returnValue('serverConfiguration'));
-        $parameterBag->expects($this->at(1))
+        $configuration->expects($this->at(1))
           ->method('get')
           ->with('database')
           ->will($this->returnValue('mysql'));
-        $parameterBag->expects($this->at(2))
+        $configuration->expects($this->at(2))
           ->method('get')
           ->with('mysql')
           ->will($this->returnValue('mysqlConfiguration'));
-        $parameterBag->expects($this->at(3))
+        $configuration->expects($this->at(3))
           ->method('get')
           ->with('php')
           ->will($this->returnValue('phpConfiguration'));
-        $parameterBag->expects($this->at(4))
+        $configuration->expects($this->at(4))
           ->method('get')
           ->with('webserver')
           ->will($this->returnValue($requestedWebserver));
-        $parameterBag->expects($this->at(5))
+        $configuration->expects($this->at(5))
           ->method('get')
           ->with($validatedWebserver)
           ->will($this->returnValue($webserverConfiguration));
@@ -56,8 +56,6 @@ class RequestFormatterTest extends \PHPUnit_Framework_TestCase
           ->disableOriginalConstructor()
           ->setMethods(array())
           ->getMock();
-
-        $request->request = $parameterBag;
 
         // mocking the manifest formatter
         $manifestFormatter = $this->getManifestFormatterMock();
@@ -80,8 +78,8 @@ class RequestFormatterTest extends \PHPUnit_Framework_TestCase
           ->will($this->returnValue('something formatted'));
 
         // let's go
-        $formatter = new RequestFormatter($manifestFormatter);
-        $formatter->bindRequest($request);
+        $formatter = new ConfigurationFormatter($manifestFormatter);
+        $formatter->bindConfiguration($configuration);
         $result = $formatter->format();
 
         $this->assertEquals('something formatted', $result);
