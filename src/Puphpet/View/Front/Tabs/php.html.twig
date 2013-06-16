@@ -1,5 +1,5 @@
 {% import _self as format %}
-{% set timezone = edition.get('[php][initlist][php][date.timezone]')%}
+{% set timezone = edition.get('[php][inilist][php][date.timezone]')%}
 
 <div class="page-header">
     <img class="svgIcon" src="./assets/img/noun-project/php.svg" />
@@ -173,7 +173,7 @@
             <label class="control-label" for="php-inilist-custom"></label>
             <input id="php-inilist-custom" name="php[inilist][custom]" type="text"
                    class="tags" placeholder="value"
-                   value="{{ format.explode_ini_list(edition.get('[php][initlist][custom]')) }}" /></label>
+                   value="{{ format.explode_ini_list(edition.get('[php][inilist][custom]')) }}" /></label>
         </div>
     </div>
 </div>

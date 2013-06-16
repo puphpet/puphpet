@@ -10,7 +10,7 @@ editions:
         - 'php5-curl'
         - 'php5-intl'
         - 'php5-mcrypt'
-      initlist:
+      inilist:
         php:
           date.timezone: 'America/Chicago'
         custom:
