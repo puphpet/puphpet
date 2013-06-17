@@ -19,6 +19,11 @@ class Edition
     private $configuration;
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
      * Constructor
      *
      * @param PropertyAccessProvider $propertyAccessProvider
@@ -26,6 +31,22 @@ class Edition
     public function __construct(PropertyAccessProvider $propertyAccessProvider)
     {
         $this->accessor = $propertyAccessProvider->provide();
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -49,12 +70,19 @@ class Edition
     /**
      * Returns value of a given property
      *
-     * @param string $property property in PropertyAccess format ('[foo]', not 'foo)
+     * @param string $property property in PropertyAccess format e.g '[foo][bar]'
+     *                         properties on the first level can also be accessed without this format
+     *                         $this->get('[foo]'), $this->get('foo')
      *
      * @return mixed the property value
      */
     public function get($property)
     {
+        // property without PropertyAccesFormat given?
+        if (strpos($property, '[') === false) {
+            return array_key_exists($property, $this->configuration)? $this->configuration[$property] : null;
+        }
+
         return $this->accessor->getValue($this->configuration, $property);
     }
 

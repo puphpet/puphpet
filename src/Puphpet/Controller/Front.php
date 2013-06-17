@@ -37,20 +37,7 @@ class Front extends Controller
 
     public function indexAction(Request $request, Application $app)
     {
-        $editionName = $request->query->get('edition', 'default');
-
-        $availableEditions = $app['editions'];
-
-        // validate edition name
-        // use fallback if invalid edition name is requested (better than throwing any error)
-        if (!array_key_exists($editionName, $availableEditions)) {
-            $editionName = $app['edition_default'];
-        }
-
-        // fill the edition entity with requested configuration
-        /**@var $edition Domain\Configuration\Edition */
-        $edition = $app['edition'];
-        $edition->setConfiguration($availableEditions[$editionName]);
+        $edition = $app['edition_provider']->provide($request->query->get('edition', 'default'));
 
         return $this->twig()->render(
             'Front/index.html.twig',

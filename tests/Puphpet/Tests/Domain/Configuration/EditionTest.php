@@ -31,6 +31,28 @@ class EditionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $result);
     }
 
+    public function testGetterWithoutAccessor()
+    {
+        $property = 'foo';
+        $value = 'bar';
+
+        $configuration = [$property => $value];
+
+        $accessor = $this->getMockBuilder('Symfony\Component\PropertyAccess\PropertyAccessor')
+            ->disableOriginalConstructor()
+            ->setMethods(['getValue'])
+            ->getMock();
+
+        $accessor->expects($this->never())
+            ->method('getValue');
+
+        $edition = new Edition($this->buildPropertyAccessProvider($accessor));
+        $edition->setConfiguration($configuration);
+        $result = $edition->get($property);
+
+        $this->assertEquals($value, $result);
+    }
+
     public function testSetCallsPropertyAccessor()
     {
         $property = 'foo';

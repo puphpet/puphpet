@@ -69,19 +69,41 @@ $app['manifest_configuration_formatter'] = function () use ($app) {
     return new Puphpet\Domain\Compiler\Manifest\ConfigurationFormatter($app['manifest_formatter']);
 };
 $app['manifest_compiler'] = function () use ($app) {
-    return new Puphpet\Domain\Compiler\Compiler($app['twig'], 'Vagrant/manifest.pp.twig');
+    return new Puphpet\Domain\Compiler\Compiler(
+        $app['dispatcher'],
+        $app['twig'],
+        'Vagrant/manifest.pp.twig',
+        'manifest'
+    );
 };
 $app['readme_compiler'] = function () use ($app) {
-    return new Puphpet\Domain\Compiler\Compiler($app['twig'], 'Vagrant/README.twig');
+    return new Puphpet\Domain\Compiler\Compiler(
+        $app['dispatcher'],
+        $app['twig'],
+        'Vagrant/README.twig',
+        'readme'
+    );
 };
 $app['vagrant_compiler'] = function () use ($app) {
-    return new Puphpet\Domain\Compiler\Compiler($app['twig'], 'Vagrant/Vagrantfile.twig');
+    return new Puphpet\Domain\Compiler\Compiler(
+        $app['dispatcher'],
+        $app['twig'],
+        'Vagrant/Vagrantfile.twig',
+        'vagrant'
+    );
 };
 $app['property_access_provider'] = function () {
     return new Puphpet\Domain\Configuration\PropertyAccessProvider();
 };
 $app['edition'] = function () use ($app) {
     return new Puphpet\Domain\Configuration\Edition($app['property_access_provider']);
+};
+$app['edition_provider'] = function() use ($app) {
+    return new Puphpet\Domain\Configuration\EditionProvider(
+        $app['edition'],
+        $app['editions'],
+        $app['edition_default']
+    );
 };
 $app['file_generator'] = function () use ($app) {
     return new Puphpet\Domain\File\Generator(

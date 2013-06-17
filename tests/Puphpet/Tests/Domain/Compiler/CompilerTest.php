@@ -11,20 +11,51 @@ class CompilerTest extends \PHPUnit_Framework_TestCase
         $template = '/foo/bar.twig';
         $configuration = ['foo' => 'bar'];
         $rendered = 'hello world';
+        $additionalContent = 'foo bar';
+        $compilationContent = "hello world\nfoo bar";
 
         $twig = $this->getMockBuilder('\Twig_Environment')
-          ->disableOriginalConstructor()
-          ->setMethods(['render'])
-          ->getMock();
+            ->disableOriginalConstructor()
+            ->setMethods(['render'])
+            ->getMock();
 
         $twig->expects($this->once())
             ->method('render')
             ->with($template, $configuration)
             ->will($this->returnValue($rendered));
 
-        $compiler = new Compiler($twig, $template);
+        $dispatcher = $this->buildEventDispatcher();
+        $dispatcher->expects($this->atLeastOnce())
+            ->method('dispatch')
+            ->with('compile.foo.finish')
+            ->will(
+                $this->returnCallback(
+                    function ($eventName, $event) use ($additionalContent) {
+                        $event->getCompilation()->addContent($additionalContent);
+                    }
+                )
+            );
+
+        $compiler = new Compiler($dispatcher, $twig, $template, 'foo');
         $result = $compiler->compile($configuration);
 
-        $this->assertEquals($rendered, $result);
+        $this->assertEquals($compilationContent, $result);
+    }
+
+    private function buildEventDispatcher()
+    {
+        return $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')
+            ->setMethods(
+                [
+                    'dispatch',
+                    'addListener',
+                    'addSubscriber',
+                    'removeListener',
+                    'removeSubscriber',
+                    'getListeners',
+                    'hasListeners'
+                ]
+            )
+            ->getMock();
     }
 }
