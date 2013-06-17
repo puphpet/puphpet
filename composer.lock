@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "939335066f7ba585d9186a18e3dba1a1",
+    "hash": "4deec6d60cba86a3ac2ea7e6a017aa6f",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -74,6 +74,17 @@
             },
             "type": "library",
             "time": "2013-05-31 22:08:10"
+        },
+        {
+            "name": "frastel/puppet-symfony",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/frastel/puppet-symfony.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-06-17 08:10:27"
         },
         {
             "name": "igorw/config-service-provider",
@@ -886,12 +897,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "7e8cca3a581b91f7d99c517ed70798fefc986c0d"
+                "reference": "5a1159ce6cad7e55bb5625cb27997c07455999f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/7e8cca3a581b91f7d99c517ed70798fefc986c0d",
-                "reference": "7e8cca3a581b91f7d99c517ed70798fefc986c0d",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/5a1159ce6cad7e55bb5625cb27997c07455999f2",
+                "reference": "5a1159ce6cad7e55bb5625cb27997c07455999f2",
                 "shasum": ""
             },
             "require": {
@@ -940,7 +951,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-06-07 08:16:16"
+            "time": "2013-06-12 07:23:51"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1203,12 +1214,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "a35e63460d2b4524e026b9f1bd288e592ec1620c"
+                "reference": "c26f73a0e6a2a9236033323fe1ad61077350cded"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/a35e63460d2b4524e026b9f1bd288e592ec1620c",
-                "reference": "a35e63460d2b4524e026b9f1bd288e592ec1620c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/c26f73a0e6a2a9236033323fe1ad61077350cded",
+                "reference": "c26f73a0e6a2a9236033323fe1ad61077350cded",
                 "shasum": ""
             },
             "require": {
@@ -1252,7 +1263,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2013-05-07 12:03:33"
+            "time": "2013-06-08 06:28:39"
         },
         {
             "name": "sebastian/diff",
@@ -1733,6 +1744,7 @@
         "jtreminio/vagrant-puppet-lamp": 20,
         "jfryman/puppet-nginx": 20,
         "frastel/puppet-phpmyadmin": 20,
+        "frastel/puppet-symfony": 20,
         "phpunit/phpunit": 20,
         "whatthejeff/nyancat-phpunit-resultprinter": 20
     },
