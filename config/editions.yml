@@ -16,4 +16,40 @@ editions:
         custom:
           display_errors: 'On'
           error_reporting: '-1'
-#provide more editions here, e.g for Symfony or for PuPHPet itself
+  symfony:
+    builder: configuration_builder_symfony
+    template: '@Symfony/start.html.twig'
+    vagrant:
+      boxes:
+        lucid32:   {url: "http://files.vagrantup.com/lucid32.box", name: "Ubuntu Lucid 32 Bit (10.04.4 LTS)"}
+        lucid64:   {url: "http://files.vagrantup.com/lucid64.box", name: "Ubuntu Lucid 64 Bit (10.04.4 LTS)"}
+        precise32: {url: "http://files.vagrantup.com/precise32.box", name: "Ubuntu Precise 32 Bit (12.04.2 LTS)"}
+        precise64: {url: "http://files.vagrantup.com/precise64.box", name: "Ubuntu Precise 64 Bit (12.04.2 LTS)"}
+      default_box: precise64
+    php:
+      version: php54
+      modules:
+        composer:
+          installed: true
+        pear:
+          installed: false
+        php:
+          - 'php5-cli'
+          - 'php5-curl'
+          - 'php5-intl'
+          - 'php5-mcrypt'
+          - 'php-apc'
+          - 'php5-gd'
+          - 'php5-intl'
+          - 'php5-sqlite'
+        xdebug:
+          installed: true
+          remote_autostart: false
+          remote_port: 9000
+      inilist:
+        php:
+          date.timezone: 'America/Chicago'
+        symfony:
+          display_errors:            'On'
+          error_reporting:           '-1'
+          'xdebug.max_nesting_level': 250
