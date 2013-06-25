@@ -36,14 +36,14 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
     }
 
     /**
-     * Make sure configuration.version is an array
+     * Make sure configuration.version is a string
      *
      * @return self
      */
     protected function formatVersion()
     {
         if (empty($this->configuration['version'])) {
-            $this->configuration['version'] = array();
+            $this->configuration['version'] = 'php55';
         }
 
         return $this;

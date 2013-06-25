@@ -115,7 +115,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
         ];
 
         $expected = [
-            'version' => array(),
+            'version' => 'php55',
             'modules' => [
                 'php'      => ['foo', 'bar', 'baz'],
                 'pear'     => array(),
@@ -142,7 +142,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
         ];
 
         $expected = [
-            'version' => array(),
+            'version' => 'php55',
             'modules' => [
                 'php'      => ['bar', 'baz', 'foo'],
                 'pear'     => array(),
@@ -170,7 +170,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
         ];
 
         $expected = [
-            'version' => array(),
+            'version' => 'php55',
             'modules' => [
                 'php'      => ['foo', 'bar', 'baz'],
                 'pear'     => array(),
@@ -195,7 +195,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
     public function testAddPhpModuleWorksEvenWhenIncomingConfigurationIsIncomplete($fixtures)
     {
         $expected = [
-            'version' => array(),
+            'version' => 'php55',
             'modules' => [
                 'php'      => ['foo'],
                 'pear'     => array(),
