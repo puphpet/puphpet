@@ -9,12 +9,21 @@
 <div class="bs-example quickSettings">
     <div class="row">
         <div class="col col-lg-4 min-span-4">
-            <label class="checkbox-inline min-span-2" for="php-version-php54">Use PHP 5.4</label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="php-version-php54" name="php[version][php54]" value="1" checked />
-                Yes
-            </label>
-            <p class="help-block">Otherwise PHP 5.3 will be installed</p>
+            <label>PHP Version</label>
+
+            <div>
+                <label class="radio-inline min-span-1">
+                    <input type="radio" name="php[version]" value="php55" checked /> 5.5
+                </label>
+
+                <label class="radio-inline min-span-1">
+                    <input type="radio" name="php[version]" value="php54" /> 5.4
+                </label>
+
+                <label class="radio-inline">
+                    <input type="radio" name="php[version]" value="php53" /> 5.3
+                </label>
+            </div>
         </div>
 
         <div class="col col-lg-4 min-span-4">

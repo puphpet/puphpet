@@ -1,4 +1,8 @@
-{% if php.version.php54 == 1 %}
+{% if php.version == 'php55' %}
+apt::ppa { 'ppa:ondrej/php5-experimental':
+  before  => Class['php'],
+}
+{% elseif php.version == 'php54' %}
 apt::ppa { 'ppa:ondrej/php5':
   before  => Class['php'],
 }
