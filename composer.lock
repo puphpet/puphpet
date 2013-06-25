@@ -182,12 +182,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/puphpet/vagrant-puppet-lamp.git",
-                "reference": "2c7e7d95e8341033505fa81b1bdb359877caa7ea"
+                "reference": "693cded244c56fb12c9956e39354f1b5d7825706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/2c7e7d95e8341033505fa81b1bdb359877caa7ea",
-                "reference": "2c7e7d95e8341033505fa81b1bdb359877caa7ea",
+                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/693cded244c56fb12c9956e39354f1b5d7825706",
+                "reference": "693cded244c56fb12c9956e39354f1b5d7825706",
                 "shasum": ""
             },
             "type": "project",
@@ -216,7 +216,7 @@
                 "virtual machine",
                 "vm"
             ],
-            "time": "2013-06-25 03:48:58"
+            "time": "2013-06-25 04:14:12"
         },
         {
             "name": "nicl/silex-markdown",
