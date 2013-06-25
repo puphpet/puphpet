@@ -13,7 +13,7 @@ class PHPTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->phpArray = [
-            'version'  => ['php54' => 1],
+            'version'  => 'php55',
             'modules'  => [
                 'php'      => [
                     'php5-cli',

@@ -26,7 +26,7 @@ class ReadmeTest extends Base
             'webserver'   => 'apache',
             'php_service' => 'apache',
             'php'         => [
-                'version' => ['php54' => true],
+                'version' => 'php55',
                 'modules' => [
                     'php'      => ['php5-cli'],
                     'pear'     => ['installed' => true],
@@ -51,7 +51,7 @@ class ReadmeTest extends Base
         $rendered = $this->app['readme_compiler']->compile($parameters);
 
         $this->assertContains('precise64 (http://files.vagrantup.com/precise64.box)', $rendered);
-        $this->assertContains('PHP 5.4', $rendered);
+        $this->assertContains('PHP 5.5', $rendered);
         $this->assertContains('apache', $rendered);
         $this->assertContains('mysql', $rendered);
     }

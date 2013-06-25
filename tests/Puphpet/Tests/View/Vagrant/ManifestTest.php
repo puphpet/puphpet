@@ -35,7 +35,7 @@ class ManifestTest extends Base
                 'modules' => ['foo', 'bar'],
             ],
             'php'         => [
-                'version' => ['php54' => true],
+                'version' => 'php55',
                 'modules' => [
                     'php'      => ['php5-cli'],
                     'pear'     => ['installed' => true],
@@ -84,7 +84,7 @@ class ManifestTest extends Base
         $this->assertContains('apt-get update', $rendered);
         $this->assertContains("class { 'apache'", $rendered);
         $this->assertContains("apache::module { 'foo'", $rendered);
-        $this->assertContains("apt::ppa { 'ppa:ondrej/php5'", $rendered);
+        $this->assertContains("apt::ppa { 'ppa:ondrej/php5-experimental'", $rendered);
         $this->assertContains("php::module { 'php5-cli'", $rendered);
         $this->assertContains("root_password => 'rootpwd'", $rendered);
         $this->assertContains("mysql::grant { 'test_dbname'", $rendered);
