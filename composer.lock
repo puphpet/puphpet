@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4deec6d60cba86a3ac2ea7e6a017aa6f",
+    "hash": "5983a6087e5c6393d532406c118d5fc6",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -63,6 +63,85 @@
                 "markdown"
             ],
             "time": "2012-07-15 16:31:27"
+        },
+        {
+            "name": "example42/puppet-apache",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/example42/puppet-apache.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-06-24 16:10:54"
+        },
+        {
+            "name": "example42/puppi",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/example42/puppi.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-06-18 13:52:35"
+        },
+        {
+            "name": "frastel/puphpeteer-installer",
+            "version": "dev-master",
+            "target-dir": "Frastel/Puphpeteer",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/frastel/puphpeteer-installer.git",
+                "reference": "a157e5286afc144c930bb0789667fc98469d4abf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/frastel/puphpeteer-installer/zipball/a157e5286afc144c930bb0789667fc98469d4abf",
+                "reference": "a157e5286afc144c930bb0789667fc98469d4abf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "composer/composer": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Frastel\\Puphpeteer\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank Stelzer",
+                    "email": "dev@frankstelzer.de"
+                }
+            ],
+            "description": "Installs versioned Puppet modules with PHP and Composer",
+            "keywords": [
+                "composer",
+                "php",
+                "puphpet",
+                "puppet"
+            ],
+            "time": "2013-06-24 14:23:15"
+        },
+        {
+            "name": "frastel/puppet-nginx",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/frastel/puppet-nginx.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-05-18 13:37:27"
         },
         {
             "name": "frastel/puppet-phpmyadmin",
@@ -142,39 +221,6 @@
                 "silex"
             ],
             "time": "2013-05-31 14:23:34"
-        },
-        {
-            "name": "jfryman/puppet-nginx",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/frastel/puppet-nginx.git",
-                "reference": "264f66faaae086deac8ba330d4781a4217627a1c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/frastel/puppet-nginx/zipball/264f66faaae086deac8ba330d4781a4217627a1c",
-                "reference": "264f66faaae086deac8ba330d4781a4217627a1c",
-                "shasum": ""
-            },
-            "type": "project",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "Puppet module for nginx installation",
-            "keywords": [
-                "nginx",
-                "puppet"
-            ],
-            "support": {
-                "source": "https://github.com/frastel/puppet-nginx/tree/master"
-            },
-            "time": "2013-05-18 13:37:27"
         },
         {
             "name": "jtreminio/vagrant-puppet-lamp",
@@ -347,12 +393,76 @@
             "time": "2012-12-21 11:40:51"
         },
         {
-            "name": "puppetlabs/postgresql",
+            "name": "puphpet/puppet-git",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puphpet/puppet-git.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-06-21 03:15:02"
+        },
+        {
+            "name": "puphpet/puppet-mysql",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puphpet/puppet-mysql.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-06-21 03:39:35"
+        },
+        {
+            "name": "puphpet/puppet-php",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puphpet/puppet-php.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-06-21 03:47:20"
+        },
+        {
+            "name": "puphpet/puppet-xdebug",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puphpet/puppet-xdebug.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-06-21 03:54:24"
+        },
+        {
+            "name": "puppetlabs/puppetlabs-apt",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puppetlabs/puppetlabs-apt.git",
+                "reference": "tags/1.1.0"
+            },
+            "type": "library"
+        },
+        {
+            "name": "puppetlabs/puppetlabs-postgresql",
             "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "git://github.com/puppetlabs/puppetlabs-postgresql.git",
                 "reference": "tags/2.2.1"
+            },
+            "type": "library"
+        },
+        {
+            "name": "puppetlabs/puppetlabs-stdlib",
+            "version": "v2.2.1",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puppetlabs/puppetlabs-stdlib.git",
+                "reference": "tags/v2.2.1"
             },
             "type": "library"
         },
@@ -1743,9 +1853,16 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "jtreminio/vagrant-puppet-lamp": 20,
-        "jfryman/puppet-nginx": 20,
+        "frastel/puphpeteer-installer": 20,
+        "example42/puppet-apache": 20,
+        "example42/puppi": 20,
+        "frastel/puppet-nginx": 20,
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
+        "puphpet/puppet-git": 20,
+        "puphpet/puppet-mysql": 20,
+        "puphpet/puppet-php": 20,
+        "puphpet/puppet-xdebug": 20,
         "phpunit/phpunit": 20,
         "whatthejeff/nyancat-phpunit-resultprinter": 20
     },
