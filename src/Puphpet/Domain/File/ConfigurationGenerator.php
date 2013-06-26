@@ -33,7 +33,9 @@ class ConfigurationGenerator
     }
 
     /**
-     * Extracts and formats request params and converts a domain file from it
+     * Extracts and formats request params and converts a domain file from it.
+     * Receives the complete configuration and splits it into box, manifest and vagrant
+     * configuration so that the file generator may handle it.
      *
      * @param Configuration $configuration
      *
@@ -50,9 +52,13 @@ class ConfigurationGenerator
         $manifestConfiguration = $this->configurationFormatter->format();
 
         // building vagrant configuration
+        $dbConfiguration = array();
+        if (array_key_exists('mysql', $manifestConfiguration)) {
+            $dbConfiguration['mysql'] = $manifestConfiguration['mysql'];
+        }
         $vagrantConfiguration = array_merge(
             $boxConfiguration,
-            ['mysql' => $manifestConfiguration['mysql']]
+            $dbConfiguration
         );
 
         return $this->generator->generateArchive(
