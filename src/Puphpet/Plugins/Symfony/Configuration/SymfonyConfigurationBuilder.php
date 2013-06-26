@@ -24,11 +24,14 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
         // project settings
         $conf['project'] = array();
         $conf['project']['edition'] = $edition->getName();
+        /*
+         * tmp deactivated
         $conf['project']['generate'] = array_key_exists(
             'generate_project',
             $customConfiguration['project']
         ) ? $customConfiguration['project']['generate_project'] : false;
         $conf['project']['version'] = $customConfiguration['project']['symfony_version'];
+        */
         $conf['project']['document_root'] = $documentRoot;
 
         // box stuff
