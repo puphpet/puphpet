@@ -62,6 +62,8 @@ $app['manifest_formatter'] = function () {
             'mysql'      => new Puphpet\Domain\PuppetModule\MySQL(array()),
             'postgresql' => new Puphpet\Domain\PuppetModule\PostgreSQL(array()),
             'php'        => new Puphpet\Domain\PuppetModule\PHP(array()),
+             // container to pass custom configurations to the edition module
+            'project'    => new Puphpet\Domain\PuppetModule\Passthru(array()),
         ]
     );
 };
