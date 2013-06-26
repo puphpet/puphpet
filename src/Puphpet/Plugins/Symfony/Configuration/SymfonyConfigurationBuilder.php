@@ -44,7 +44,7 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
         $conf['server']['packages'] = 'build-essential,vim,curl';
 
         $conf['php'] = $edition->get('[php]');
-        $conf['php']['version'] = $customConfiguration['php']['version'] == 'php54' ? ['php54' => true] : false;
+        $conf['php']['version'] = $customConfiguration['php']['version'];
 
         $webserver = $customConfiguration['webserver'];
         $database = $customConfiguration['database'];
