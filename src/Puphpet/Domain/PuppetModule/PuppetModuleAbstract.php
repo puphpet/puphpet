@@ -34,6 +34,11 @@ abstract class PuppetModuleAbstract
             return array();
         }
 
+        // already exploded array given!?
+        if (is_array($values)) {
+            return $values;
+        }
+
         $result = array();
         foreach (explode(',', $values) as $value) {
             $val = trim($value);
