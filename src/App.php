@@ -14,8 +14,8 @@ $app = new Silex\Application;
 $env = getenv('APP_ENV') ? : 'prod';
 $app['debug'] = $env != 'prod';
 
-$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/config.yml"));
-$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../config/editions.yml"));
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . "/../config/config.yml"));
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . "/../config/editions.yml"));
 
 $app->register(
     new Provider\TwigServiceProvider,
@@ -36,6 +36,7 @@ $app->register(new Nicl\Silex\MarkdownServiceProvider, ['markdown.parser' => 'ex
 // routing
 $app->mount('/', new Puphpet\Controller\Front($app));
 $app->mount('/add', new Puphpet\Controller\Add($app));
+$app->mount('/quickstart', new Puphpet\Controller\Quickstart($app));
 
 // services
 $app['domain_file'] = function () {
@@ -44,8 +45,9 @@ $app['domain_file'] = function () {
         new Puphpet\Domain\Filesystem()
     );
 };
-$app['domain_file_configurator'] = function () {
+$app['domain_file_configurator'] = function () use ($app) {
     return new Puphpet\Domain\Configurator\File\ConfiguratorHandler(
+        $app['dispatcher'],
         [
             new Puphpet\Domain\Configurator\File\Module\NginxConfigurator(VENDOR_PATH),
             new Puphpet\Domain\Configurator\File\Module\PostgreSQLConfigurator(VENDOR_PATH),
@@ -62,7 +64,7 @@ $app['manifest_formatter'] = function () {
             'mysql'      => new Puphpet\Domain\PuppetModule\MySQL(array()),
             'postgresql' => new Puphpet\Domain\PuppetModule\PostgreSQL(array()),
             'php'        => new Puphpet\Domain\PuppetModule\PHP(array()),
-             // container to pass custom configurations to the edition module
+            // container to pass custom configurations to the edition module
             'project'    => new Puphpet\Domain\PuppetModule\Passthru(array()),
         ]
     );
@@ -100,7 +102,7 @@ $app['property_access_provider'] = function () {
 $app['edition'] = function () use ($app) {
     return new Puphpet\Domain\Configuration\Edition($app['property_access_provider']);
 };
-$app['edition_provider'] = function() use ($app) {
+$app['edition_provider'] = function () use ($app) {
     return new Puphpet\Domain\Configuration\EditionProvider(
         $app['edition'],
         $app['editions'],
@@ -122,8 +124,55 @@ $app['configuration_file_generator'] = function () use ($app) {
         $app['manifest_configuration_formatter']
     );
 };
-$app['markdown'] = function() use ($app) {
+$app['markdown'] = function () use ($app) {
     return new dflydev\markdown\MarkdownParser;
 };
+$app['configuration_builder_symfony'] = function () use ($app) {
+    return new Puphpet\Plugins\Symfony\Configuration\SymfonyConfigurationBuilder();
+};
+// overwriting the native filesystem loader, we need support of several view folders
+// every (quickstart) edition has to define its view folder and according namespace here
+$app['twig.loader.filesystem'] = $app->share(
+    function ($app) {
+        $fs = new \Twig_Loader_Filesystem($app['twig.path']);
+        $fs->addPath(__DIR__ . '/Puphpet/Plugins/Symfony/View', 'Symfony');
+
+        return $fs;
+    }
+);
+
+// Start Plugins
+// Plugin: Symfony
+$app['plugin.symfony.create_project_decider'] = function () use ($app) {
+    return new \Puphpet\Plugins\Symfony\Compiler\SymfonyCreateProjectDecider($app['property_access_provider']);
+};
+$app['plugin.symfony.manipulator.project'] = function () use ($app) {
+    return new \Puphpet\Domain\Compiler\AdditionalContentManipulator(
+        $app['plugin.symfony.create_project_decider'],
+        $app['twig'],
+        '@Symfony/Vagrant/symfony_project.pp.twig'
+    );
+};
+$app['plugin.symfony.listener.source_configurator'] = function () use ($app) {
+    $configurator = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
+        $app['plugin.symfony.create_project_decider'],
+        'symfony',
+        VENDOR_PATH . '/frastel/puppet-symfony'
+    );
+    return new \Puphpet\Domain\Configurator\File\Event\Listener\ConfiguratorListener($configurator);
+};
+// End Plugins
+
+$app['manifest.compilation_listener'] = function () use ($app) {
+    return new \Puphpet\Domain\Compiler\Event\Listener\CompilationListener([
+        $app['plugin.symfony.manipulator.project']
+    ]);
+};
+
+// @TODO this mechanism is without lazy loading :/
+// maybe sth like ContainerAwareEventDispatcher as to be added here?
+// registering on the event which is fired after the manifest is compiled
+$app['dispatcher']->addListener('compile.manifest.finish', [$app['manifest.compilation_listener'], 'onCompile']);
+$app['dispatcher']->addListener('file.configuration', [$app['plugin.symfony.listener.source_configurator'], 'onConfigure']);
 
 return $app;

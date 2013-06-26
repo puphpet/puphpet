@@ -55,12 +55,12 @@ class Compiler
      */
     public function compile(array $configuration)
     {
-        // @TODO fire a "start" event so that each system could hook into
+        // @TODO fire a "start" event so that each system could hook in
         // and populate the compilation on their own
         $rendered = $this->twig->render($this->template, $configuration);
 
         // fire the finish event so someone could add sth to the compilation
-        $compilation = new Compilation($rendered);
+        $compilation = new Compilation($rendered, $configuration);
         $event = new CompilationEvent($compilation);
         $eventName = 'compile.' . $this->identifier . '.finish';
         $this->eventDispatcher->dispatch($eventName, $event);
