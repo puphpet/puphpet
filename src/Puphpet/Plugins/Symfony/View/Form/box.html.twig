@@ -1,0 +1,24 @@
+<div class="bs-example box">
+    <div class="row">
+        <div class="col col-lg-12">
+            <p class="help-block">
+                Choose the operating system you wish to run. The defaults will be downloaded on your first
+                run from the official vagrantup.com website.
+                <a href="http://docs.vagrantup.com/v2/getting-started/boxes.html">More information may be found
+                    here.</a>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-6 box-select">
+            <select name="box[url]">
+                {% for shortname,box in edition.get('[vagrant][boxes]') %}
+                    <option class="box-url" rel="{{ shortname }}" value="{{ box.url }}"
+                            {% if default_box == shortname %}selected="selected"{% endif %}>{{ box.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="hidden" id="box-name" name="box[name]" value="{{ default_box }}"/>
+        </div>
+    </div>
+
+</div>

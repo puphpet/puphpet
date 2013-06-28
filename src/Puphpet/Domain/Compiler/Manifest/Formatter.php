@@ -15,6 +15,7 @@ class Formatter implements FormatterInterface
     private $webserver;
     private $webserverConfiguration;
     private $serverConfiguration;
+    private $projectConfiguration;
     private $phpConfiguration;
     private $databaseConfiguration;
     private $formattedConfiguration = array();
@@ -39,6 +40,14 @@ class Formatter implements FormatterInterface
     public function setServerConfiguration($configuration)
     {
         $this->serverConfiguration = $configuration;
+    }
+
+    /**
+     * @param null|array $configuration
+     */
+    public function setProjectConfiguration($configuration)
+    {
+        $this->projectConfiguration = $configuration;
     }
 
     /**
@@ -73,17 +82,13 @@ class Formatter implements FormatterInterface
      */
     public function format()
     {
-        $this->formatServerConfiguration();
+        $this->formatPuppetModule('project', $this->projectConfiguration);
+        $this->formatPuppetModule('server', $this->serverConfiguration);
         $this->formatWebserverConfiguration();
         $this->formatDatabaseConfiguration();
         $this->formatPhpConfiguration();
 
         return $this->formattedConfiguration;
-    }
-
-    protected function formatServerConfiguration()
-    {
-        $this->formatPuppetModule('server', $this->serverConfiguration);
     }
 
     protected function formatWebserverConfiguration()

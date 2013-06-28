@@ -14,11 +14,7 @@ class EditionTest extends \PHPUnit_Framework_TestCase
 
         $configuration = [$property => $value];
 
-        $accessor = $this->getMockBuilder('Symfony\Component\PropertyAccess\PropertyAccessor')
-            ->disableOriginalConstructor()
-            ->setMethods(['getValue'])
-            ->getMock();
-
+        $accessor = $this->buildAccessor();
         $accessor->expects($this->once())
             ->method('getValue')
             ->with($configuration, $propertyAccess)
@@ -38,11 +34,7 @@ class EditionTest extends \PHPUnit_Framework_TestCase
 
         $configuration = [$property => $value];
 
-        $accessor = $this->getMockBuilder('Symfony\Component\PropertyAccess\PropertyAccessor')
-            ->disableOriginalConstructor()
-            ->setMethods(['getValue'])
-            ->getMock();
-
+        $accessor = $this->buildAccessor();
         $accessor->expects($this->never())
             ->method('getValue');
 
@@ -61,11 +53,7 @@ class EditionTest extends \PHPUnit_Framework_TestCase
 
         $configuration = [$property => $value];
 
-        $accessor = $this->getMockBuilder('Symfony\Component\PropertyAccess\PropertyAccessor')
-            ->disableOriginalConstructor()
-            ->setMethods(['setValue'])
-            ->getMock();
-
+        $accessor = $this->buildAccessor();
         $accessor->expects($this->once())
             ->method('setValue')
             ->with($configuration, $propertyAccess, $value);
@@ -89,6 +77,19 @@ class EditionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($configuration, $edition->getConfiguration());
     }
 
+    public function testSetGet()
+    {
+        $accessor = $this->getMockBuilder('Symfony\Component\PropertyAccess\PropertyAccessor')
+            ->disableOriginalConstructor()
+            ->setMethods(array())
+            ->getMock();
+        $name = 'foo';
+
+        $edition = new Edition($this->buildPropertyAccessProvider($accessor));
+        $edition->setName($name);
+        $this->assertEquals($name, $edition->getName());
+    }
+
     /**
      * @param PHPUnit_Framework_MockObject_MockObject $accessor
      *
@@ -106,5 +107,13 @@ class EditionTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($accessor));
 
         return $provider;
+    }
+
+    private function buildAccessor()
+    {
+        return $this->getMockBuilder('Symfony\Component\PropertyAccess\PropertyAccessor')
+            ->disableOriginalConstructor()
+            ->setMethods(['setValue', 'getValue'])
+            ->getMock();
     }
 }

@@ -27,35 +27,35 @@ class ConfigurationFormatterTest extends \PHPUnit_Framework_TestCase
           ->getMock();
 
         // order:
-        // server, mysql|postgresql, mysql, php, webserver, nginx|apache
+        // server, project, mysql|postgresql, mysql, php, webserver, nginx|apache
         $configuration->expects($this->at(0))
           ->method('get')
           ->with('server')
           ->will($this->returnValue('serverConfiguration'));
         $configuration->expects($this->at(1))
           ->method('get')
+          ->with('project')
+          ->will($this->returnValue('projectConfiguration'));
+        $configuration->expects($this->at(2))
+          ->method('get')
           ->with('database')
           ->will($this->returnValue('mysql'));
-        $configuration->expects($this->at(2))
+        $configuration->expects($this->at(3))
           ->method('get')
           ->with('mysql')
           ->will($this->returnValue('mysqlConfiguration'));
-        $configuration->expects($this->at(3))
+        $configuration->expects($this->at(4))
           ->method('get')
           ->with('php')
           ->will($this->returnValue('phpConfiguration'));
-        $configuration->expects($this->at(4))
+        $configuration->expects($this->at(5))
           ->method('get')
           ->with('webserver')
           ->will($this->returnValue($requestedWebserver));
-        $configuration->expects($this->at(5))
+        $configuration->expects($this->at(6))
           ->method('get')
           ->with($validatedWebserver)
           ->will($this->returnValue($webserverConfiguration));
-        $request = $this->getMockBuilder('\Symfony\Component\HttpFoundation\Request')
-          ->disableOriginalConstructor()
-          ->setMethods(array())
-          ->getMock();
 
         // mocking the manifest formatter
         $manifestFormatter = $this->getManifestFormatterMock();
@@ -63,6 +63,9 @@ class ConfigurationFormatterTest extends \PHPUnit_Framework_TestCase
         $manifestFormatter->expects($this->once())
           ->method('setServerConfiguration')
           ->with('serverConfiguration');
+        $manifestFormatter->expects($this->once())
+          ->method('setProjectConfiguration')
+          ->with('projectConfiguration');
         $manifestFormatter->expects($this->once())
           ->method('setDatabaseConfiguration')
           ->with('mysql', 'mysqlConfiguration');
@@ -101,6 +104,7 @@ class ConfigurationFormatterTest extends \PHPUnit_Framework_TestCase
           ->setMethods(
               [
                   'setServerConfiguration',
+                  'setProjectConfiguration',
                   'setDatabaseConfiguration',
                   'setPhpConfiguration',
                   'setWebserverConfiguration',

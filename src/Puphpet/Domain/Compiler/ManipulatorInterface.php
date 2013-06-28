@@ -12,4 +12,14 @@ interface ManipulatorInterface
      * @return void
      */
     public function manipulate(Compilation $compilation);
+
+    /**
+     * Returns wether the Manipulator has to
+     * manipulate the given Compilation
+     *
+     * @param Compilation $compilation
+     *
+     * @return bool
+     */
+    public function supports(Compilation $compilation);
 }
