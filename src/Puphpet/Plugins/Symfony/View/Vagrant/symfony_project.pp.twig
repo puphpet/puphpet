@@ -1,0 +1,7 @@
+symfony::project::create { '{{ project.document_root }}':
+  user    => 'vagrant',
+{% if project.version %}
+  version => '{{ project.version }}',
+{% endif %}
+  require => Class['php::composer'],
+}

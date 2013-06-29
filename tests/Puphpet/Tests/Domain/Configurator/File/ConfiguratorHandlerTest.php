@@ -9,7 +9,7 @@ class ConfiguratorHandlerTest extends \PHPUnit_Framework_TestCase
     public function testConfigureCallsSupportedConfigurators()
     {
         $configuration = [
-            'foo' => 'bar',
+            'foo'   => 'bar',
             'hello' => 'world'
         ];
 
@@ -45,7 +45,29 @@ class ConfiguratorHandlerTest extends \PHPUnit_Framework_TestCase
 
         $configurationModules = [$unsupportedModule, $supportedModule];
 
-        $configurationHandler = new ConfiguratorHandler($configurationModules);
+        $eventDispatcher = $this->buildEventDispatcher();
+        $eventDispatcher->expects($this->once())
+            ->method('dispatch')
+            ->with('file.configuration');
+
+        $configurationHandler = new ConfiguratorHandler($eventDispatcher, $configurationModules);
         $configurationHandler->configure($domainFile, $configuration);
+    }
+
+    private function buildEventDispatcher()
+    {
+        return $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')
+            ->setMethods(
+                [
+                    'dispatch',
+                    'addListener',
+                    'addSubscriber',
+                    'removeListener',
+                    'removeSubscriber',
+                    'getListeners',
+                    'hasListeners'
+                ]
+            )
+            ->getMock();
     }
 }
