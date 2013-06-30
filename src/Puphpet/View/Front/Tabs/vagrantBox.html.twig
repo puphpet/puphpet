@@ -10,51 +10,26 @@
         <a href="http://docs.vagrantup.com/v2/getting-started/boxes.html">More information may be found here.</a>
     </p>
 
-    <ul id="vagrantOsTab" class="nav nav-pills" data-configuration-name="vagrantOs">
-        <li class="active"><a href="#ubuntuTab" data-toggle="pill" data-configuration-value="ubuntu">Ubuntu</a></li>
-        <li><a href="#debianTab" data-toggle="pill" data-configuration-value="debian">Debian</a></li>
-    </ul>
-    <div id="vagrantOsTabContent" class="tab-content">
-        <div class="tab-pane fade in active" id="ubuntuTab">
-            <div id="ubuntu">
-                <label class="radio min-span-4">
-                    <input type="radio" class="box-url" rel="lucid32" name="box[url]"
-                           value="http://files.vagrantup.com/lucid32.box" />
-                    Ubuntu Lucid 32 Bit (10.04.4 LTS)
-                </label>
-                <label class="radio min-span-4">
-                    <input type="radio" class="box-url" rel="lucid64" name="box[url]"
-                           value="http://files.vagrantup.com/lucid64.box" />
-                    Ubuntu Lucid 64 Bit (10.04.4 LTS)
-                </label>
-                <label class="radio min-span-4">
-                    <input type="radio" class="box-url" rel="precise32" name="box[url]"
-                           value="http://files.vagrantup.com/precise32.box" />
-                    Ubuntu Precise 32 Bit (12.04.2 LTS)
-                </label>
-                <label class="radio min-span-4">
-                    <input type="radio" class="box-url" rel="precise64" name="box[url]"
-                           value="http://files.vagrantup.com/precise64.box" checked />
-                    Ubuntu Precise 64 Bit (12.04.2 LTS)
-                </label>
-            </div>
-        </div>
-
-        <div class="tab-pane fade" id="debianTab">
-            <div id="debian">
-                <label class="radio min-span-4">
-                    <input type="radio" class="box-url" rel="squeeze64" name="box[url]"
-                           value="http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210.box" />
-                    Debian Squeeze (6.0.7) 64bit
-                </label>
-                <label class="radio min-span-4">
-                    <input type="radio" class="box-url" rel="wheezy64" name="box[url]"
-                           value="http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box" />
-                    Debian Wheezy (7.0rc1) 64bit
-                </label>
-            </div>
-        </div>
-    </div>
+    <label class="radio min-span-4">
+        <input type="radio" class="box-url" rel="lucid32" name="box[url]"
+               value="http://files.vagrantup.com/lucid32.box" />
+        Ubuntu Lucid 32 Bit (10.04.4 LTS)
+    </label>
+    <label class="radio min-span-4">
+        <input type="radio" class="box-url" rel="lucid64" name="box[url]"
+               value="http://files.vagrantup.com/lucid64.box" />
+        Ubuntu Lucid 64 Bit (10.04.4 LTS)
+    </label>
+    <label class="radio min-span-4">
+        <input type="radio" class="box-url" rel="precise32" name="box[url]"
+               value="http://files.vagrantup.com/precise32.box" />
+        Ubuntu Precise 32 Bit (12.04.2 LTS)
+    </label>
+    <label class="radio min-span-4">
+        <input type="radio" class="box-url" rel="precise64" name="box[url]"
+               value="http://files.vagrantup.com/precise64.box" checked />
+        Ubuntu Precise 64 Bit (12.04.2 LTS)
+    </label>
 </div>
 
 <div class="bs-example access">
