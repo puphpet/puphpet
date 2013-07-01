@@ -143,10 +143,6 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
             ->method('getFormatted')
             ->will($this->returnValue($this->phpFormatted));
 
-        $phpMock->expects($this->once())
-            ->method('addPhpModule')
-            ->with('php5-fpm', true);
-
         // mysql
         $mysqlMock = $this->getMysqlMock();
 

@@ -78,7 +78,9 @@ apache::vhost { 'xhprof':
 {% endif %}{# if php.modules.pear.installed == 1 #}
 
 {% if php.modules.composer.installed == 1 %}
-class { 'php::composer': }
+class { 'php::composer':
+  require => Package['{{ nginx is defined? 'php5-fpm' : 'php5' }}', 'curl'],
+}
 {% endif %}
 
 {% for name,settings in php.inilist if settings is not empty %}
