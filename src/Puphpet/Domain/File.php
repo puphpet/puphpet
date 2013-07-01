@@ -7,8 +7,6 @@ use Puphpet\Domain;
 class File extends Domain
 {
     private $sysTempDir;
-    private $tmpFolder;
-    private $tmpPath;
     private $source;
 
     /**
@@ -17,6 +15,15 @@ class File extends Domain
      * @var string
      */
     private $archivePath;
+
+    /**
+     * Path that will contain our path to be zipped.
+     *
+     * Helps prevent zipbombs (all folders/files extracted to current directory instead of in container directory)
+     *
+     * @var string
+     */
+    private $archivePathParent;
 
     /**
      * Absolute file name to tmp archive path including extension
@@ -98,10 +105,12 @@ class File extends Domain
     protected function setPaths()
     {
         $this->sysTempDir = $this->filesystem->getSysTempDir();
-        $this->tmpFolder = $this->filesystem->getTmpFolder();
-        $this->tmpPath = $this->sysTempDir . '/' . $this->tmpFolder;
-        $this->archivePath = $this->getTmpFile($this->sysTempDir, $this->tmpFolder);
-        $this->archiveFile = $this->archivePath . '.zip';
+
+        $this->archivePathParent = $this->filesystem->getTmpFolder($this->sysTempDir, uniqid());
+        $this->filesystem->createFolder($this->archivePathParent . '/' . $this->archiveNameNoExtension());
+
+        $this->archivePath = $this->archivePathParent . '/' . $this->archiveNameNoExtension();
+        $this->archiveFile = $this->archivePathParent . '.zip';
     }
 
     /**
@@ -110,13 +119,13 @@ class File extends Domain
     protected function copyToTempFolder()
     {
         // copy main source
-        $this->copySource($this->source, $this->tmpPath);
+        $this->copySource($this->source, $this->archivePath);
 
         // copy all optional sources
         foreach ($this->moduleSources as $moduleName => $moduleSource) {
             // this copies the module into the clone of the original source
             // which must contain a "modules" folder
-            $this->copySource($moduleSource, $this->tmpPath . '/modules/' . $moduleName);
+            $this->copySource($moduleSource, $this->archivePath . '/modules/' . $moduleName);
         }
     }
 
@@ -127,8 +136,8 @@ class File extends Domain
     protected function cleanupFiles()
     {
         // remove unneeded files
-        $this->filesystem->remove($this->tmpPath.'/composer.json');
-        $this->filesystem->remove($this->tmpPath.'/README.md');
+        $this->filesystem->remove($this->archivePath . '/composer.json');
+        $this->filesystem->remove($this->archivePath . '/README.md');
     }
 
     /**
@@ -161,7 +170,7 @@ class File extends Domain
      */
     protected function copyFile($path, $file)
     {
-        $this->filesystem->putContents($this->tmpPath . '/' . $path, $file);
+        $this->filesystem->putContents($this->archivePath . '/' . $path, $file);
     }
 
     /**
@@ -169,11 +178,11 @@ class File extends Domain
      */
     protected function zipFolder()
     {
-        $this->filesystem->createArchive($this->archiveFile, $this->tmpPath);
+        $this->filesystem->createArchive($this->archiveFile, $this->archivePathParent);
     }
 
-    protected function getTmpFile($dir, $prefix)
+    protected function archiveNameNoExtension()
     {
-        return $this->filesystem->getTmpFile($dir, $prefix);
+        return pathinfo($this->name, PATHINFO_FILENAME);
     }
 }

@@ -12,7 +12,6 @@ namespace Puphpet\Domain;
  */
 class Filesystem
 {
-
     /**
      * @return string
      */
@@ -26,22 +25,18 @@ class Filesystem
      *
      * @return string
      */
-    public function getTmpFolder()
+    public function getTmpFolder($dir, $prefix)
     {
-        return uniqid();
+        $tmpFile = tempnam($dir, $prefix);
+
+        unlink($tmpFile);
+
+        return mkdir($tmpFile, 0755) ? $tmpFile : false;
     }
 
-    /**
-     * Create file with unique file name
-     *
-     * @param $dir
-     * @param $prefix
-     *
-     * @return string the new temporary filename, or false on failure.
-     */
-    public function getTmpFile($dir, $prefix)
+    public function createFolder($dir)
     {
-        return tempnam($dir, $prefix);
+        return mkdir($dir, 0755) ? true : false;
     }
 
     /**
@@ -80,7 +75,7 @@ class Filesystem
      */
     public function mirror($sourcePath, $targetPath)
     {
-        shell_exec("cp -r {$sourcePath} {$targetPath}");
+        shell_exec("cp -r {$sourcePath}/* {$targetPath}");
     }
 
     /**
