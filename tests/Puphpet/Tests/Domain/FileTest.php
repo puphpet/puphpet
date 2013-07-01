@@ -194,6 +194,20 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
         $filesystem = $this->getFilesystemMock(4);
 
+        // mirroring is done within "copyToTempFolder" method
+        $filesystem->expects($this->at(2))
+            ->method('mirror')
+            ->with($this->source, $this->archivePath);
+
+        // second call with the same module will overwrite the requestes module source
+        $filesystem->expects($this->at(3))
+            ->method('mirror')
+            ->with($moduleSource2, $this->archivePath . '/modules/' . $moduleName);
+
+        $filesystem->expects($this->at(6))
+            ->method('putContents')
+            ->with($this->archivePath . '/foo', 'bar');
+
         $file = new File($this->source, $filesystem);
         $file->setName($this->filename);
         $file->addModuleSource($moduleName, $moduleSource);
