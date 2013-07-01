@@ -54,9 +54,10 @@ class Quickstart extends Controller
         // which builds the huge array needed for archive generation
         $configuration = $configurationBuilder->build($edition, $request->request->all());
 
+        /** @var $domainFile \Puphpet\Domain\File */
         $domainFile = $app['configuration_file_generator']->generateArchive($configuration);
 
-        $file = $domainFile->getArchivePath();
+        $file = $domainFile->getArchiveFile();
 
         return $this->app->sendFile(
             $file,

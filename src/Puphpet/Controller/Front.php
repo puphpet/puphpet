@@ -82,7 +82,7 @@ class Front extends Controller
         $configuration = new Configuration($request->request->all());
         $domainFile = $app['configuration_file_generator']->generateArchive($configuration);
 
-        $file = $domainFile->getArchivePath();
+        $file = $domainFile->getArchiveFile();
 
         return $this->app->sendFile(
             $file,
