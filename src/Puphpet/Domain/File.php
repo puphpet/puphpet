@@ -6,7 +6,6 @@ use Puphpet\Domain;
 
 class File extends Domain
 {
-    private $sysTempDir;
     private $source;
 
     /**
@@ -104,9 +103,7 @@ class File extends Domain
      */
     protected function setPaths()
     {
-        $this->sysTempDir = $this->filesystem->getSysTempDir();
-
-        $this->archivePathParent = $this->filesystem->getTmpFolder($this->sysTempDir, uniqid());
+        $this->archivePathParent = $this->filesystem->getTmpFolder();
         $this->filesystem->createFolder($this->archivePathParent . '/' . $this->archiveNameNoExtension());
 
         $this->archivePath = $this->archivePathParent . '/' . $this->archiveNameNoExtension();

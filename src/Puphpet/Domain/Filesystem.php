@@ -23,10 +23,13 @@ class Filesystem
     /**
      * Returns unique folder name
      *
-     * @return string
+     * @return string|bool
      */
-    public function getTmpFolder($dir, $prefix)
+    public function getTmpFolder()
     {
+        $dir = $this->getSysTempDir();
+        $prefix = uniqid();
+
         $tmpFile = tempnam($dir, $prefix);
 
         unlink($tmpFile);
@@ -34,6 +37,13 @@ class Filesystem
         return mkdir($tmpFile, 0755) ? $tmpFile : false;
     }
 
+    /**
+     * Creates a folder
+     *
+     * @param string $dir Absolute path to folder
+     *
+     * @return bool
+     */
     public function createFolder($dir)
     {
         return mkdir($dir, 0755) ? true : false;
@@ -60,7 +70,7 @@ class Filesystem
      * @param string $data     file content
      *
      * @return int The function returns the number of bytes that were written
-     * to the file, or false on failure.
+     *             to the file, or false on failure.
      */
     public function putContents($filename, $data)
     {
