@@ -20,7 +20,7 @@ file { '/home/vagrant/.bash_aliases':
   source => 'puppet:///modules/puphpet/dot/.bash_aliases',
 }
 
-package { ['build-essential', 'vim', 'curl', 'nano']:
+package { ['build-essential', 'vim', 'curl', 'nano', 'zip']:
   ensure  => 'installed',
   require => Exec['apt-get update'],
 }
