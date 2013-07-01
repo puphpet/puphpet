@@ -37,14 +37,7 @@ nginx::resource::location { "{{ host.servername }}-php":
 {% for key,value in host.envvars %}
     'fastcgi_param{{ ("%-"~(loop.index0+3)~"s")|format(' ') }}'           => '{{ key }} {{ value }}',
 {% endfor %}
-{#
- Actually it does not work with the socket pass.
- Don't now why.It should work when php5-fpm is running.
- 'fastcgi_pass'            => 'unix:/var/run/php5-fpm.sock',
-#}
-    '#1#if you encounter problems connecting to the socket try the cgi way' => '',
-    '#2#fastcgi_pass'           => '127.0.0.1:9000',
-    'fastcgi_pass'            => 'unix:/var/run/php5-fpm.sock',
+    'fastcgi_pass'            => '{{ php.version == 'php53'? '127.0.0.1:9000' :'unix:/var/run/php5-fpm.sock' }}',
     'fastcgi_index'           => 'index.php',
     'include'                 => 'fastcgi_params'
   },
