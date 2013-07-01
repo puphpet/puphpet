@@ -90,7 +90,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
         $file = new File($this->source, $filesystem);
         $file->createArchive($replacementFiles);
-        $createdFile = $file->getArchivePath();
+        $createdFile = $file->getArchiveFile();
 
         $this->assertEquals(
             "{$this->archiveFile}.zip",
@@ -130,7 +130,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
         $file = new File($this->source, $filesystem);
         $file->createArchive($replacementFiles);
-        $createdFile = $file->getArchivePath();
+        $createdFile = $file->getArchiveFile();
 
         $this->assertEquals(
             "{$this->archiveFile}.zip",
@@ -173,7 +173,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $file->addModuleSource($moduleName1, $moduleSource1);
         $file->addModuleSource($moduleName2, $moduleSource2);
         $file->createArchive($replacementFiles);
-        $createdFile = $file->getArchivePath();
+        $createdFile = $file->getArchiveFile();
 
         $this->assertEquals($this->archiveFile . '.zip', $createdFile);
     }
@@ -207,7 +207,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $file->addModuleSource($moduleName, $moduleSource);
         $file->addModuleSource($moduleName, $moduleSource2);
         $file->createArchive($replacementFiles);
-        $createdFile = $file->getArchivePath();
+        $createdFile = $file->getArchiveFile();
 
         $this->assertEquals($this->archiveFile . '.zip', $createdFile);
     }

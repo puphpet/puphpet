@@ -16,14 +16,14 @@ class File extends Domain
      *
      * @var string
      */
-    private $archiveFile;
+    private $archivePath;
 
     /**
      * Absolute file name to tmp archive path including extension
      *
      * @var string
      */
-    private $archivePath;
+    private $archiveFile;
     private $moduleSources = array();
 
     /**
@@ -87,9 +87,9 @@ class File extends Domain
      *
      * @return string
      */
-    public function getArchivePath()
+    public function getArchiveFile()
     {
-        return $this->archivePath;
+        return $this->archiveFile;
     }
 
     /**
@@ -97,11 +97,11 @@ class File extends Domain
      */
     protected function setPaths()
     {
-        $this->sysTempDir = $this->getSysTempDir();
-        $this->tmpFolder = $this->getTmpFolder();
+        $this->sysTempDir = $this->filesystem->getSysTempDir();
+        $this->tmpFolder = $this->filesystem->getTmpFolder();
         $this->tmpPath = $this->sysTempDir . '/' . $this->tmpFolder;
-        $this->archiveFile = $this->getTmpFile($this->sysTempDir, $this->tmpFolder);
-        $this->archivePath = $this->archiveFile . '.zip';
+        $this->archivePath = $this->getTmpFile($this->sysTempDir, $this->tmpFolder);
+        $this->archiveFile = $this->archivePath . '.zip';
     }
 
     /**
@@ -169,20 +169,7 @@ class File extends Domain
      */
     protected function zipFolder()
     {
-        $this->filesystem->createArchive($this->archivePath, $this->tmpPath);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getSysTempDir()
-    {
-        return $this->filesystem->getSysTempDir();
-    }
-
-    protected function getTmpFolder()
-    {
-        return $this->filesystem->getTmpFolder();
+        $this->filesystem->createArchive($this->archiveFile, $this->tmpPath);
     }
 
     protected function getTmpFile($dir, $prefix)
