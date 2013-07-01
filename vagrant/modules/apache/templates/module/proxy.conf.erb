@@ -1,0 +1,17 @@
+# File Managed by Puppet
+
+<IfModule mod_proxy.c>
+
+        # This is not a forwared proxy
+        ProxyRequests Off
+
+        <Proxy *>
+                AddDefaultCharset off
+                Order deny,allow
+                Deny from all
+                Allow from all
+        </Proxy>
+
+        ProxyVia On
+
+</IfModule>

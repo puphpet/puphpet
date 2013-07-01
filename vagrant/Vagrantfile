@@ -1,0 +1,48 @@
+require 'pathname'
+
+HOST_WP_FOLDER     = (Pathname.new Dir.getwd + "/../").realpath.to_s
+GUEST_WP_FOLDER    = "/usr/share/puphpet"
+
+Vagrant.configure("2") do |config|
+
+    # Set the base box we will be configuring
+    config.vm.box = "precise64"
+    config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+
+    # Set the proper IP address
+    config.vm.network :private_network, ip: "192.168.1.12"
+
+    # Setup the box for VB being the provider
+    config.vm.provider :virtualbox do |v|
+        v.customize [
+            "modifyvm",                 :id,
+            "--natdnshostresolver1",    "on",
+            "--cpus",                   2,
+            "--memory",                 1024,
+            "--name",                   "puphpet-web",
+            "--hwvirtex",               "on",
+            "--hwvirtexexcl",           "on",
+            "--vtxvpid",                "on",
+            "--ioapic",                 "on",
+            "--accelerate3d",           "off",
+            "--natdnsproxy1",           "off",
+            "--largepages",             "on",
+        ]
+    end
+
+    # Attach this folder for testing sake
+    config.vm.synced_folder "./", "/var/www", id: "vagrant-root"
+
+    # Attach the wordpress folder
+    config.vm.synced_folder HOST_WP_FOLDER, GUEST_WP_FOLDER, :create => true, :extra => 'dmode=777,fmode=777'
+
+    # Providion the box for MySQL
+    config.vm.provision :shell, :inline => 'echo -e "mysql_root_password=root controluser_password=awesome" > /etc/phpmyadmin.facts;'
+
+    # Provision the rest of the server through puppet scripts
+    config.vm.provision :puppet do |puppet|
+        puppet.manifests_path = "manifests"
+        puppet.module_path = "modules"
+        puppet.options = ['--verbose']
+    end
+end
