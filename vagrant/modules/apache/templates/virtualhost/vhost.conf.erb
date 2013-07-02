@@ -1,0 +1,25 @@
+# File Managed by Puppet
+
+<VirtualHost *:<%= port %>>
+    ServerAdmin <%= server_admin_email %>
+    DocumentRoot <%= real_docroot %>
+<% if server_name_value != false -%>
+    ServerName <%= server_name_value %>
+<% end -%>
+<% if serveraliases != "" -%>
+<% if serveraliases.is_a? Array -%>
+    ServerAlias <% serveraliases.each do |name| -%> <%= name %><% end %>
+<% else -%>
+    ServerAlias <%= serveraliases %> 
+<% end -%>
+<% end -%>
+<% if env_variables != "" -%>
+<% if env_variables.is_a? Array -%>
+<% env_variables.each do |envvars| -%>
+    SetEnv <%= envvars %>
+<% end -%>
+<% end -%>
+<% end -%>
+    ErrorLog  <%= scope.lookupvar('apache::log_dir') %>/<%= name %>-error_log
+    CustomLog <%= scope.lookupvar('apache::log_dir') %>/<%= name %>-access_log common
+</VirtualHost>

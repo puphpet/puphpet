@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+  - 1.8.7
+script:
+  - "rake lint"
+  - "rake spec"
+branches:
+  only:
+    - master
+env:
+  - PUPPET_VERSION=2.7.11
+gemfile: .gemfile

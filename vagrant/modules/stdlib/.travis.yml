@@ -1,0 +1,25 @@
+language: ruby
+bundler_args: --without development
+script: "bundle exec rake spec SPEC_OPTS='--color --format documentation'"
+rvm:
+  - 1.8.7
+  - 1.9.3
+  - 2.0.0
+  - ruby-head
+env:
+  - PUPPET_GEM_VERSION=">= 3.0.0"
+matrix:
+  allow_failures:
+    - rvm: 2.0.0
+    - rvm: ruby-head
+  include:
+    - rvm: 1.8.7
+      env: PUPPET_GEM_VERSION="~> 2.7"
+notifications:
+  email: false
+  webhooks:
+    urls:
+      - https://puppet-dev-community.herokuapp.com/event/travis-ci/
+    on_success: always
+    on_failure: always
+    on_start: yes

@@ -3,6 +3,16 @@ Installation
 
 This is the repo for the [PuPHPet.com](https://puphpet.com) website. A proper README is forthcoming!
 
+Using Vagrant for Development?
+------------------------------
+**Steps to get up and running**
+
+1. Download and install [Vagrant 1.1+](http://www.vagrantup.com) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
+1. Navigate to the \[Project_Root\]/vagrant folder
+1. Run the command ```vagrant up --provider virtualbox```
+1. Navigate to 192.168.1.12 in your browser
+1. Eureka, you can start developing!!
+
 Requirements
 ------------
 * PHP 5.4
