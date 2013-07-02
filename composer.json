@@ -19,7 +19,7 @@
         "puphpet/puppet-git":               "dev-master",
         "puphpet/puppet-mysql":             "dev-master",
         "puphpet/puppet-php":               "dev-master",
-        "puphpet/puppet-xdebug":            "dev-master",
+        "puphpet/puphpet-xdebug":           "dev-master",
         "puppetlabs/puppetlabs-apt":        "1.1.0",
         "puppetlabs/puppetlabs-postgresql": "2.2.1",
         "puppetlabs/puppetlabs-stdlib":     "v2.2.1"
@@ -51,7 +51,7 @@
             "puphpet/puppet-git":               "git",
             "puphpet/puppet-mysql":             "mysql",
             "puphpet/puppet-php":               "php",
-            "puphpet/puppet-xdebug":            "xdebug",
+            "puphpet/puphpet-xdebug":           "xdebug",
             "puppetlabs/puppetlabs-apt":        "apt",
             "puppetlabs/puppetlabs-postgresql": "postgresql",
             "puppetlabs/puppetlabs-stdlib":     "stdlib"
@@ -157,10 +157,10 @@
         {
             "type": "package",
             "package": {
-                "name": "puphpet/puppet-xdebug",
+                "name": "puphpet/puphpet-xdebug",
                 "version": "master",
                 "source": {
-                    "url": "git://github.com/puphpet/puppet-xdebug.git",
+                    "url": "git://github.com/puphpet/puphpet-xdebug.git",
                     "type": "git",
                     "reference": "master"
                 }
