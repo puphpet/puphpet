@@ -74,6 +74,10 @@ class Filesystem
      */
     public function putContents($filename, $data)
     {
+        $path = pathinfo($filename, PATHINFO_DIRNAME);
+
+        $this->exec("mkdir -p {$path}");
+
         return file_put_contents($filename, $data);
     }
 
