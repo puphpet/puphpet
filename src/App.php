@@ -7,15 +7,15 @@ defined('VENDOR_PATH')
     || define('VENDOR_PATH', __DIR__ . '/../vendor');
 
 defined('VAGRANT_PATH')
-    || define('VAGRANT_PATH', VENDOR_PATH . '/jtreminio/vagrant-puppet-lamp');
+    || define('VAGRANT_PATH', __DIR__ . '/puppet/modules');
 
 $app = new Silex\Application;
 
 $env = getenv('APP_ENV') ? : 'prod';
 $app['debug'] = $env != 'prod';
 
-$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . "/../config/config.yml"));
-$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . "/../config/editions.yml"));
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . '/../config/config.yml'));
+$app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__ . '/../config/editions.yml'));
 
 $app->register(
     new Provider\TwigServiceProvider,
@@ -23,7 +23,7 @@ $app->register(
         'twig.path'     => __DIR__ . '/Puphpet/View',
         'url_generator' => true,
         'twig.options'  => [
-            //'cache' => __DIR__ . '/../twig.cache',
+            'cache' => ($app['debug'] ? false : __DIR__ . '/../twig.cache'),
         ],
     ]
 );
