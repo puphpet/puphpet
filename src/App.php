@@ -23,7 +23,7 @@ $app->register(
         'twig.path'     => __DIR__ . '/Puphpet/View',
         'url_generator' => true,
         'twig.options'  => [
-            'cache' => ($app['debug'] ? false : __DIR__ . '/../twig.cache'),
+            // 'cache' => ($app['debug'] ? false : __DIR__ . '/../twig.cache'),
         ],
     ]
 );
