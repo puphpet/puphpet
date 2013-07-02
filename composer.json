@@ -15,7 +15,7 @@
         "frastel/puppet-nginx":             "dev-master#264f66faaa",
         "frastel/puppet-phpmyadmin":        "dev-master#dbfcbf6755",
         "frastel/puppet-symfony":           "dev-master#5558c0b0cf",
-        "puphpet/puppet-apache":            "dev-master",
+        "puphpet/puphpet-apache":           "dev-master",
         "puphpet/puphpet-git":              "dev-master",
         "puphpet/puphpet-mysql":            "dev-master",
         "puphpet/puppet-php":               "dev-master",
@@ -47,7 +47,7 @@
             "frastel/puppet-nginx":             "nginx",
             "frastel/puppet-phpmyadmin":        "phpmyadmin",
             "frastel/puppet-symfony":           "symfony",
-            "puphpet/puppet-apache":            "apache",
+            "puphpet/puphpet-apache":           "apache",
             "puphpet/puphpet-git":              "git",
             "puphpet/puphpet-mysql":            "mysql",
             "puphpet/puppet-php":               "php",
@@ -109,10 +109,10 @@
         {
             "type": "package",
             "package": {
-                "name": "puphpet/puppet-apache",
+                "name": "puphpet/puphpet-apache",
                 "version": "master",
                 "source": {
-                    "url": "git://github.com/puphpet/puppet-apache.git",
+                    "url": "git://github.com/puphpet/puphpet-apache.git",
                     "type": "git",
                     "reference": "master"
                 }
