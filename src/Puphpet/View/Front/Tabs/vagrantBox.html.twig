@@ -69,24 +69,36 @@
         </div>
     </div>
 
-	<div class="row">
-		<div class="col col-lg-5">
-			<label for="box-host-port">Host Port</label>
-			<input id="box-host-port" name="box[port_forward][host]" type="number" placeholder="8080" />
-			<p class="help-block">
+    <div class="row">
+        <div class="col col-lg-5">
+            <label for="box-host-port">Host Port</label>
+            <input id="box-host-port"
+                   name="box[port_forward][host]"
+                   type="number"
+                   placeholder="Port on the host OS to forward to the VM (e.g. 8080)"
+                   pattern="^[1-9][0-9]*$"
+                   title="Port on the host OS to forward to the VM (e.g. 8080)"
+                    />
+            <p class="help-block">
                 Port on the host OS to forward to the VM. Optional,
                 <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html" target="_blank">more information</a>
             </p>
-		</div>
-		<div class="col col-lg-5">
-			<label for="box-guest-port">Box Port</label>
-			<input id="box-guest-port" name="box[port_forward][guest]" type="number" placeholder="80" />
-			<p class="help-block">
+        </div>
+        <div class="col col-lg-5">
+            <label for="box-guest-port">Box Port</label>
+            <input id="box-guest-port"
+                   name="box[port_forward][guest]"
+                   type="number"
+                   placeholder="Port on the host OS to forward to the VM (e.g. 80)"
+                   pattern="^[1-9][0-9]*$"
+                   title="Port on the host OS to forward to the VM (e.g. 80)"
+                    />
+            <p class="help-block">
                 Port on the host OS to forward to the VM. Optional,
                 <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html" target="_blank">more information</a>
             </p>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 
 <div class="bs-example sharedFolders">

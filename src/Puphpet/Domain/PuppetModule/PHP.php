@@ -11,6 +11,10 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
     const MODULE_TYPE_COMPOSER = 'composer';
     const MODULE_TYPE_XHPROF   = 'xhprof';
 
+    protected $modulePhpDisallowed  = ['phpmyadmin'];
+    protected $modulePearDisallowed = [];
+    protected $modulePeclDisallowed = [];
+
     /**
      * Return ready to use PHP array
      *
@@ -68,13 +72,12 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
      * Array of module names
      *
      * @param string $key Type of module
-     *
      * @return self
      */
     protected function formatModules($key)
     {
         $this->configuration['modules'][$key] = !empty($this->configuration['modules'][$key])
-            ? array_unique($this->configuration['modules'][$key])
+            ? array_unique($this->removeDisallowedModuleEntries($key))
             : array();
 
         return $this;
@@ -186,5 +189,32 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
         }
 
         return '"' . $value . '"';
+    }
+
+    /**
+     * Removes modules that we do not want to allow a user to choose
+     *
+     * ex: phpmyadmin since we have a specific section to choose this
+     *
+     * @param string $type Type of module
+     * @return array
+     */
+    protected function removeDisallowedModuleEntries($type)
+    {
+        $disallowedName = 'module' . ucfirst($type) . 'Disallowed';
+
+        if (empty($this->$disallowedName)) {
+            return $this->configuration['modules'][$type];
+        }
+
+        foreach ($this->$disallowedName as $name) {
+            $key = array_search($name, $this->configuration['modules'][$type]);
+
+            if ($key !== false) {
+                unset($this->configuration['modules'][$type][$key]);
+            }
+        }
+
+        return $this->configuration['modules'][$type];
     }
 }

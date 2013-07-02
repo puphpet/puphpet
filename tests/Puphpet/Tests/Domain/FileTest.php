@@ -7,20 +7,23 @@ use Puphpet\Domain\File;
 class FileTest extends \PHPUnit_Framework_TestCase
 {
     protected $source;
-    protected $sysTempDir;
-    protected $tmpFolder;
-    protected $tmpPath;
+
+    protected $archivePathParent;
+    protected $archivePath;
     protected $archiveFile;
+    protected $filename;
+    protected $filenameNoExtension;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->source      = '/my/source/folder';
-        $this->sysTempDir  = '/tmp';
-        $this->tmpFolder   = '123abc';
-        $this->tmpPath     = "{$this->sysTempDir}/{$this->tmpFolder}";
-        $this->archiveFile = "{$this->sysTempDir}/{$this->tmpFolder}/tmpFile";
+        $this->source              = '/my/source/folder';
+        $this->filename            = 'precise64.zip';
+        $this->archivePathParent   = '/tmp/51d1b3e0cd6adzgxi1K';
+        $this->filenameNoExtension = 'precise64';
+        $this->archivePath         = $this->archivePathParent . '/' . $this->filenameNoExtension;
+        $this->archiveFile         = $this->archivePathParent . '.zip';
     }
 
     /**
@@ -28,7 +31,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getFilesystemMock($cleanUpOffset = 4)
+    protected function getFilesystemMock($cleanUpOffset = 3)
     {
         $mock = $this->getMockBuilder('\Puphpet\Domain\Filesystem')
             ->disableOriginalConstructor()
@@ -36,43 +39,39 @@ class FileTest extends \PHPUnit_Framework_TestCase
                 [
                     'getSysTempDir',
                     'getTmpFolder',
-                    'getTmpFile',
                     'exec',
                     'putContents',
                     'mirror',
                     'createArchive',
-                    'remove'
+                    'remove',
+                    'createFolder',
                 ]
             )
             ->getMock();
 
         // start: setPaths (3 calls)
-        $mock->expects($this->once())
-            ->method('getSysTempDir')
-            ->will($this->returnValue($this->sysTempDir));
-
-        $mock->expects($this->once())
-            ->method('getTmpFolder')
-            ->will($this->returnValue($this->tmpFolder));
-
-        $mock->expects($this->once())
-            ->method('getTmpFile')
-            ->with($this->sysTempDir, $this->tmpFolder)
-            ->will($this->returnValue($this->archiveFile));
-
         // called at the very end
         $mock->expects($this->once())
             ->method('createArchive')
-            ->with($this->archiveFile . '.zip');
+            ->with($this->archiveFile);
+
+        $mock->expects($this->once())
+            ->method('getTmpFolder')
+            ->will($this->returnValue($this->archivePathParent));
+
+        $mock->expects($this->once())
+            ->method('createFolder')
+            ->with($this->archivePath)
+            ->will($this->returnValue(true));
 
         // start: cleanupFiles (2 calls)
         $mock->expects($this->at($cleanUpOffset))
             ->method('remove')
-            ->with($this->tmpPath . '/composer.json');
+            ->with($this->archivePath . '/composer.json');
 
         $mock->expects($this->at($cleanUpOffset + 1))
             ->method('remove')
-            ->with($this->tmpPath . '/README.md');
+            ->with($this->archivePath . '/README.md');
 
         // no expectation on "mirror" method here
         // as assertions on this method differ from test to test
@@ -89,11 +88,12 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $replacementFiles = array();
 
         $file = new File($this->source, $filesystem);
+        $file->setName($this->filename);
         $file->createArchive($replacementFiles);
-        $createdFile = $file->getArchivePath();
+        $createdFile = $file->getArchiveFile();
 
         $this->assertEquals(
-            "{$this->archiveFile}.zip",
+            $this->archiveFile,
             $createdFile
         );
     }
@@ -103,7 +103,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         // setPaths: 3 filesystem calls
         // copyToTempFolder (mirror): 1 filesystem call
         // cleanUpOffset => 4 (starting by 0)
-        $filesystem = $this->getFilesystemMock(4);
+        $filesystem = $this->getFilesystemMock();
 
         $replacementFiles = [
             'replacement1' => 'foobar',
@@ -115,25 +115,26 @@ class FileTest extends \PHPUnit_Framework_TestCase
             ->method('mirror');
 
         // cleanupFiles: 2 filesystem calls + 4 offset
-        // => copyFile(putContents) starts at index 6 (starting by 0)
+        // => copyFile(putContents) starts at index 5 (starting by 0)
+        $filesystem->expects($this->at(5))
+            ->method('putContents')
+            ->with($this->archivePath . '/replacement1', 'foobar');
+
         $filesystem->expects($this->at(6))
             ->method('putContents')
-            ->with($this->tmpPath . '/replacement1', 'foobar');
+            ->with($this->archivePath . '/replacement2', 'foobaz');
 
         $filesystem->expects($this->at(7))
             ->method('putContents')
-            ->with($this->tmpPath . '/replacement2', 'foobaz');
-
-        $filesystem->expects($this->at(8))
-            ->method('putContents')
-            ->with($this->tmpPath . '/replacement3', 'bambam');
+            ->with($this->archivePath . '/replacement3', 'bambam');
 
         $file = new File($this->source, $filesystem);
+        $file->setName($this->filename);
         $file->createArchive($replacementFiles);
-        $createdFile = $file->getArchivePath();
+        $createdFile = $file->getArchiveFile();
 
         $this->assertEquals(
-            "{$this->archiveFile}.zip",
+            $this->archiveFile,
             $createdFile
         );
     }
@@ -148,34 +149,38 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
         $replacementFiles = ['foo' => 'bar'];
 
-        $filesystem = $this->getFilesystemMock(6);
+        $filesystem = $this->getFilesystemMock(5);
 
         // mirroring is done within "copyToTempFolder" method
         // and before cleanupFiles is called
+        $filesystem->expects($this->at(2))
+            ->method('mirror')
+            ->with($this->source, $this->archivePath);
+
         $filesystem->expects($this->at(3))
             ->method('mirror')
-            ->with($this->source, $this->tmpPath);
+            ->with($moduleSource1, $this->archivePath . '/modules/' . $moduleName1);
 
         $filesystem->expects($this->at(4))
             ->method('mirror')
-            ->with($moduleSource1, $this->tmpPath . '/modules/' . $moduleName1);
-
-        $filesystem->expects($this->at(5))
-            ->method('mirror')
-            ->with($moduleSource2, $this->tmpPath . '/modules/' . $moduleName2);
+            ->with($moduleSource2, $this->archivePath . '/modules/' . $moduleName2);
 
         // this is called after mirroring and cleanupFiles
-        $filesystem->expects($this->at(8))
+        $filesystem->expects($this->at(7))
             ->method('putContents')
-            ->with($this->tmpPath . '/foo', 'bar');
+            ->with($this->archivePath . '/foo', 'bar');
 
         $file = new File($this->source, $filesystem);
+        $file->setName($this->filename);
         $file->addModuleSource($moduleName1, $moduleSource1);
         $file->addModuleSource($moduleName2, $moduleSource2);
         $file->createArchive($replacementFiles);
-        $createdFile = $file->getArchivePath();
+        $createdFile = $file->getArchiveFile();
 
-        $this->assertEquals($this->archiveFile . '.zip', $createdFile);
+        $this->assertEquals(
+            $this->archiveFile,
+            $createdFile
+        );
     }
 
     public function testCreateArchiveIncludesOnlyOneModuleByUniqueName()
@@ -187,28 +192,29 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
         $replacementFiles = ['foo' => 'bar'];
 
-        $filesystem = $this->getFilesystemMock(5);
+        $filesystem = $this->getFilesystemMock(4);
 
         // mirroring is done within "copyToTempFolder" method
-        $filesystem->expects($this->at(3))
+        $filesystem->expects($this->at(2))
             ->method('mirror')
-            ->with($this->source, $this->tmpPath);
+            ->with($this->source, $this->archivePath);
 
         // second call with the same module will overwrite the requestes module source
-        $filesystem->expects($this->at(4))
+        $filesystem->expects($this->at(3))
             ->method('mirror')
-            ->with($moduleSource2, $this->tmpPath . '/modules/' . $moduleName);
+            ->with($moduleSource2, $this->archivePath . '/modules/' . $moduleName);
 
-        $filesystem->expects($this->at(7))
+        $filesystem->expects($this->at(6))
             ->method('putContents')
-            ->with($this->tmpPath . '/foo', 'bar');
+            ->with($this->archivePath . '/foo', 'bar');
 
         $file = new File($this->source, $filesystem);
+        $file->setName($this->filename);
         $file->addModuleSource($moduleName, $moduleSource);
         $file->addModuleSource($moduleName, $moduleSource2);
         $file->createArchive($replacementFiles);
-        $createdFile = $file->getArchivePath();
+        $createdFile = $file->getArchiveFile();
 
-        $this->assertEquals($this->archiveFile . '.zip', $createdFile);
+        $this->assertEquals($this->archiveFile, $createdFile);
     }
 }

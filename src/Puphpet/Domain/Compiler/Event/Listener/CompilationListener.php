@@ -5,23 +5,35 @@ namespace Puphpet\Domain\Compiler\Event\Listener;
 use Puphpet\Domain\Compiler\Event\CompilationEvent;
 use Puphpet\Domain\Compiler\ManipulatorInterface;
 
+/**
+ * Forwards the Compilation fired via event
+ * to assigned manipulators.
+ */
 class CompilationListener
 {
     /**
-     * @var ManipulatorInterface
+     * @var array[] ManipulatorInterface
      */
-    private $manipulator;
+    private $manipulators;
 
     /**
-     * @param ManipulatorInterface $manipulator
+     * @param array $manipulator
      */
-    public function __construct(ManipulatorInterface $manipulator)
+    public function __construct(array $manipulators = array())
     {
-        $this->manipulator = $manipulator;
+        $this->manipulators = $manipulators;
     }
 
+    // ManipulatorInterface
     public function onCompile(CompilationEvent $event)
     {
-        $this->manipulator->manipulate($event->getCompilation());
+        $compilation = $event->getCompilation();
+
+        foreach ($this->manipulators as $manipulator) {
+            /**@var $manipulator \Puphpet\Domain\Compiler\ManipulatorInterface*/
+            if ($manipulator->supports($compilation)) {
+                $manipulator->manipulate($compilation);
+            }
+        }
     }
 }

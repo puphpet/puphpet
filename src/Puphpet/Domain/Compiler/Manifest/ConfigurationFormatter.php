@@ -6,7 +6,9 @@ use Puphpet\Domain\Compiler\FormatterInterface;
 use Puphpet\Domain\Configuration\Configuration;
 
 /**
- * Proxy for the real formatter
+ * Proxy for the real formatter.
+ * Receives complete configuration and triggers formatting
+ * of according modules.
  */
 class ConfigurationFormatter implements FormatterInterface
 {
@@ -40,7 +42,7 @@ class ConfigurationFormatter implements FormatterInterface
      * Builds and returns formatted configuration
      * which could be used within templates
      *
-     * @return string
+     * @return array
      */
     public function format()
     {
@@ -49,6 +51,7 @@ class ConfigurationFormatter implements FormatterInterface
         }
 
         $this->formatter->setServerConfiguration($this->get('server'));
+        $this->formatter->setProjectConfiguration($this->get('project', array()));
 
         if ('mysql' == $this->getDatabase()) {
             $this->formatter->setDatabaseConfiguration('mysql', $this->get('mysql'));
@@ -100,7 +103,7 @@ class ConfigurationFormatter implements FormatterInterface
         if (null === $this->database) {
             $database = $this->get('database', 'mysql');
 
-            // quick validate database
+            // quick validation of database value
             $this->database = in_array($database, ['mysql', 'postgresql']) ? $database : 'mysql';
         }
 

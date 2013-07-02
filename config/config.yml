@@ -100,7 +100,6 @@ config.php_modules:
   - php-mdb2-driver-pgsql
   - php-mdb2-driver-sqlite
   - php-mime-type
-  - phpmyadmin
   - php-mythtv
   - php-net-checkip
   - php-net-dime

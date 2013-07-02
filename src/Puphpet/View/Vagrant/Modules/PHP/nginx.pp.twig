@@ -1,6 +1,6 @@
 {# php5-fpm is always used when nginx is chosen#}
 class { 'php':
-  package             => 'php5',
+  package             => 'php5-fpm',
   service             => 'php5-fpm',
   service_autorestart => false,
 }

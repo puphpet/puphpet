@@ -12,7 +12,6 @@ namespace Puphpet\Domain;
  */
 class Filesystem
 {
-
     /**
      * @return string
      */
@@ -24,24 +23,30 @@ class Filesystem
     /**
      * Returns unique folder name
      *
-     * @return string
+     * @return string|bool
      */
     public function getTmpFolder()
     {
-        return uniqid();
+        $dir = $this->getSysTempDir();
+        $prefix = uniqid();
+
+        $tmpFile = tempnam($dir, $prefix);
+
+        unlink($tmpFile);
+
+        return mkdir($tmpFile, 0755) ? $tmpFile : false;
     }
 
     /**
-     * Create file with unique file name
+     * Creates a folder
      *
-     * @param $dir
-     * @param $prefix
+     * @param string $dir Absolute path to folder
      *
-     * @return string the new temporary filename, or false on failure.
+     * @return bool
      */
-    public function getTmpFile($dir, $prefix)
+    public function createFolder($dir)
     {
-        return tempnam($dir, $prefix);
+        return mkdir($dir, 0755) ? true : false;
     }
 
     /**
@@ -65,7 +70,7 @@ class Filesystem
      * @param string $data     file content
      *
      * @return int The function returns the number of bytes that were written
-     * to the file, or false on failure.
+     *             to the file, or false on failure.
      */
     public function putContents($filename, $data)
     {
@@ -80,7 +85,7 @@ class Filesystem
      */
     public function mirror($sourcePath, $targetPath)
     {
-        shell_exec("cp -r {$sourcePath} {$targetPath}");
+        shell_exec("cp -r {$sourcePath}/* {$targetPath}");
     }
 
     /**

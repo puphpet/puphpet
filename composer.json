@@ -116,7 +116,7 @@
                 "source": {
                     "url": "git://github.com/frastel/puppet-symfony.git",
                     "type": "git",
-                    "reference": "master"
+                    "reference": "5558c0b"
                 }
             }
         },

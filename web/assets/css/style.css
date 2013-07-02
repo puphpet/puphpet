@@ -124,7 +124,7 @@
 }
 
 #php .bs-example.pear:after {
-    content: 'PEAR & PEAR Extensions'
+    content: 'PEAR & PECL Extensions'
 }
 
 #php .bs-example.xdebug:after {
