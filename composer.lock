@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5983a6087e5c6393d532406c118d5fc6",
+    "hash": "7c231ea28b8cd17bcb1d28df8320ccf5",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -70,7 +70,7 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/example42/puppet-apache.git",
-                "reference": "master"
+                "reference": "63dbdb0b76"
             },
             "type": "library",
             "time": "2013-06-24 16:10:54"
@@ -81,7 +81,7 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/example42/puppi.git",
-                "reference": "master"
+                "reference": "f65b71b7c2"
             },
             "type": "library",
             "time": "2013-06-18 13:52:35"
@@ -138,7 +138,7 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/frastel/puppet-nginx.git",
-                "reference": "master"
+                "reference": "264f66faaa"
             },
             "type": "library",
             "time": "2013-05-18 13:37:27"
@@ -149,7 +149,7 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/frastel/puppet-phpmyadmin.git",
-                "reference": "master"
+                "reference": "dbfcbf6755"
             },
             "type": "library",
             "time": "2013-05-31 22:08:10"
@@ -160,7 +160,7 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/frastel/puppet-symfony.git",
-                "reference": "master"
+                "reference": "5558c0b0cf"
             },
             "type": "library",
             "time": "2013-06-24 08:12:29"
@@ -221,48 +221,6 @@
                 "silex"
             ],
             "time": "2013-05-31 14:23:34"
-        },
-        {
-            "name": "jtreminio/vagrant-puppet-lamp",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/puphpet/vagrant-puppet-lamp.git",
-                "reference": "693cded244c56fb12c9956e39354f1b5d7825706"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/puphpet/vagrant-puppet-lamp/zipball/693cded244c56fb12c9956e39354f1b5d7825706",
-                "reference": "693cded244c56fb12c9956e39354f1b5d7825706",
-                "shasum": ""
-            },
-            "type": "project",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Juan Treminio",
-                    "email": "jtreminio@gmail.com",
-                    "homepage": "https://jtreminio.com"
-                }
-            ],
-            "description": "Non-PHP! Everything you need to get a LAMP-based Puppet/Vagrant VM up and running in seconds!",
-            "homepage": "https://github.com/jtreminio/vagrant-puppet-lamp",
-            "keywords": [
-                "lamp",
-                "puppet",
-                "vagrant",
-                "virtual machine",
-                "vm"
-            ],
-            "time": "2013-06-25 04:14:12"
         },
         {
             "name": "nicl/silex-markdown",
@@ -472,12 +430,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Silex.git",
-                "reference": "d877687625a51b1a1ed311b95e158148aa2d68ca"
+                "reference": "2ba7d326eef5a40c7b6ef557f8adf152775c90df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Silex/zipball/d877687625a51b1a1ed311b95e158148aa2d68ca",
-                "reference": "d877687625a51b1a1ed311b95e158148aa2d68ca",
+                "url": "https://api.github.com/repos/fabpot/Silex/zipball/2ba7d326eef5a40c7b6ef557f8adf152775c90df",
+                "reference": "2ba7d326eef5a40c7b6ef557f8adf152775c90df",
                 "shasum": ""
             },
             "require": {
@@ -546,7 +504,7 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2013-06-19 14:39:26"
+            "time": "2013-06-30 18:39:52"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -798,10 +756,10 @@
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "doctrine/common": ">=2.2,<3.0",
-                "psr/log": ">=1.0,<2.0",
-                "symfony/config": ">=2.2,<3.0",
-                "symfony/yaml": ">=2.0,<3.0"
+                "doctrine/common": "~2.2",
+                "psr/log": "~1.0",
+                "symfony/config": "~2.2",
+                "symfony/yaml": "~2.0"
             },
             "suggest": {
                 "doctrine/common": "",
@@ -956,12 +914,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "6f753205834b511269a97fe35108bbd5c8d245f5"
+                "reference": "6f0753f0ff4047a870f57e7567446242b38b37ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6f753205834b511269a97fe35108bbd5c8d245f5",
-                "reference": "6f753205834b511269a97fe35108bbd5c8d245f5",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6f0753f0ff4047a870f57e7567446242b38b37ac",
+                "reference": "6f0753f0ff4047a870f57e7567446242b38b37ac",
                 "shasum": ""
             },
             "require": {
@@ -980,7 +938,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -997,7 +955,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-06-09 06:03:21"
+            "time": "2013-06-27 06:24:36"
         }
     ],
     "packages-dev": [
@@ -1007,12 +965,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "351fdf4e9b7e63fc5a76d2b809f3d58865096af3"
+                "reference": "38f4e1fbba67fc6e8afc3230043a0846f08bd226"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/351fdf4e9b7e63fc5a76d2b809f3d58865096af3",
-                "reference": "351fdf4e9b7e63fc5a76d2b809f3d58865096af3",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/38f4e1fbba67fc6e8afc3230043a0846f08bd226",
+                "reference": "38f4e1fbba67fc6e8afc3230043a0846f08bd226",
                 "shasum": ""
             },
             "require": {
@@ -1061,7 +1019,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-06-24 11:57:58"
+            "time": "2013-06-27 08:21:23"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1247,12 +1205,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c80a5245646c8f55c66d882e1fc68fa952981e2f"
+                "reference": "c7db815236e0a10207d6ec85c601ecb411bdb7b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c80a5245646c8f55c66d882e1fc68fa952981e2f",
-                "reference": "c80a5245646c8f55c66d882e1fc68fa952981e2f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c7db815236e0a10207d6ec85c601ecb411bdb7b5",
+                "reference": "c7db815236e0a10207d6ec85c601ecb411bdb7b5",
                 "shasum": ""
             },
             "require": {
@@ -1316,7 +1274,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-06-18 15:50:46"
+            "time": "2013-06-29 20:53:05"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1586,12 +1544,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "v2.2.3"
+                "reference": "a5deeae9ed56895cff84fd9b9844727eec45a373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/v2.2.3",
-                "reference": "v2.2.3",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/a5deeae9ed56895cff84fd9b9844727eec45a373",
+                "reference": "a5deeae9ed56895cff84fd9b9844727eec45a373",
                 "shasum": ""
             },
             "require": {
@@ -1624,7 +1582,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-19 19:00:13"
+            "time": "2013-07-01 12:15:46"
         },
         {
             "name": "symfony/dom-crawler",
@@ -1645,7 +1603,7 @@
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/css-selector": ">=2.0,<3.0"
+                "symfony/css-selector": "~2.0"
             },
             "suggest": {
                 "symfony/css-selector": ""
@@ -1852,7 +1810,6 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "jtreminio/vagrant-puppet-lamp": 20,
         "frastel/puphpeteer-installer": 20,
         "example42/puppet-apache": 20,
         "example42/puppi": 20,
@@ -1866,9 +1823,9 @@
         "phpunit/phpunit": 20,
         "whatthejeff/nyancat-phpunit-resultprinter": 20
     },
-    "platform": {
-        "php": ">=5.4.0"
-    },
+    "platform": [
+
+    ],
     "platform-dev": [
 
     ]
