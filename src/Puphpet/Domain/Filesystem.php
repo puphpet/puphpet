@@ -89,7 +89,7 @@ class Filesystem
      */
     public function mirror($sourcePath, $targetPath)
     {
-        shell_exec("cp -r {$sourcePath}/* {$targetPath}");
+        shell_exec("cp -r {$sourcePath} {$targetPath}");
     }
 
     /**
