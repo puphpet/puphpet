@@ -64,15 +64,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
             ->with($this->archivePath)
             ->will($this->returnValue(true));
 
-        // start: cleanupFiles (2 calls)
-        $mock->expects($this->at($cleanUpOffset))
-            ->method('remove')
-            ->with($this->archivePath . '/composer.json');
-
-        $mock->expects($this->at($cleanUpOffset + 1))
-            ->method('remove')
-            ->with($this->archivePath . '/README.md');
-
         // no expectation on "mirror" method here
         // as assertions on this method differ from test to test
         return $mock;
@@ -115,16 +106,16 @@ class FileTest extends \PHPUnit_Framework_TestCase
             ->method('mirror');
 
         // cleanupFiles: 2 filesystem calls + 4 offset
-        // => copyFile(putContents) starts at index 5 (starting by 0)
-        $filesystem->expects($this->at(5))
+        // => copyFile(putContents) starts at index 3 (starting by 0)
+        $filesystem->expects($this->at(3))
             ->method('putContents')
             ->with($this->archivePath . '/replacement1', 'foobar');
 
-        $filesystem->expects($this->at(6))
+        $filesystem->expects($this->at(4))
             ->method('putContents')
             ->with($this->archivePath . '/replacement2', 'foobaz');
 
-        $filesystem->expects($this->at(7))
+        $filesystem->expects($this->at(5))
             ->method('putContents')
             ->with($this->archivePath . '/replacement3', 'bambam');
 
@@ -166,7 +157,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
             ->with($moduleSource2, $this->archivePath . '/modules/' . $moduleName2);
 
         // this is called after mirroring and cleanupFiles
-        $filesystem->expects($this->at(7))
+        $filesystem->expects($this->at(5))
             ->method('putContents')
             ->with($this->archivePath . '/foo', 'bar');
 
@@ -204,7 +195,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
             ->method('mirror')
             ->with($moduleSource2, $this->archivePath . '/modules/' . $moduleName);
 
-        $filesystem->expects($this->at(6))
+        $filesystem->expects($this->at(4))
             ->method('putContents')
             ->with($this->archivePath . '/foo', 'bar');
 
