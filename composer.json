@@ -18,7 +18,7 @@
         "puphpet/puphpet-apache":           "dev-master",
         "puphpet/puphpet-git":              "dev-master",
         "puphpet/puphpet-mysql":            "dev-master",
-        "puphpet/puppet-php":               "dev-master",
+        "puphpet/puphpet-php":              "dev-master",
         "puphpet/puphpet-xdebug":           "dev-master",
         "puppetlabs/puppetlabs-apt":        "1.1.0",
         "puppetlabs/puppetlabs-postgresql": "2.2.1",
@@ -50,7 +50,7 @@
             "puphpet/puphpet-apache":           "apache",
             "puphpet/puphpet-git":              "git",
             "puphpet/puphpet-mysql":            "mysql",
-            "puphpet/puppet-php":               "php",
+            "puphpet/puphpet-php":              "php",
             "puphpet/puphpet-xdebug":           "xdebug",
             "puppetlabs/puppetlabs-apt":        "apt",
             "puppetlabs/puppetlabs-postgresql": "postgresql",
@@ -145,10 +145,10 @@
         {
             "type": "package",
             "package": {
-                "name": "puphpet/puppet-php",
+                "name": "puphpet/puphpet-php",
                 "version": "master",
                 "source": {
-                    "url": "git://github.com/puphpet/puppet-php.git",
+                    "url": "git://github.com/puphpet/puphpet-php.git",
                     "type": "git",
                     "reference": "master"
                 }
