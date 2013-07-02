@@ -11,11 +11,11 @@
         "nicl/silex-markdown":           "1.0.*",
         "frastel/puphpeteer-installer":  "dev-master",
 
-        "example42/puppet-apache":          "dev-master#63dbdb0b76",
         "example42/puppi":                  "dev-master#f65b71b7c2",
         "frastel/puppet-nginx":             "dev-master#264f66faaa",
         "frastel/puppet-phpmyadmin":        "dev-master#dbfcbf6755",
         "frastel/puppet-symfony":           "dev-master#5558c0b0cf",
+        "puphpet/puppet-apache":            "dev-master",
         "puphpet/puppet-git":               "dev-master",
         "puphpet/puppet-mysql":             "dev-master",
         "puphpet/puppet-php":               "dev-master",
@@ -43,11 +43,11 @@
     "extra": {
         "puppet-modules-dir": "puppet/modules",
         "puppet-modules": {
-            "example42/puppet-apache":          "apache",
             "example42/puppi":                  "puppi",
             "frastel/puppet-nginx":             "nginx",
             "frastel/puppet-phpmyadmin":        "phpmyadmin",
             "frastel/puppet-symfony":           "symfony",
+            "puphpet/puppet-apache":            "apache",
             "puphpet/puppet-git":               "git",
             "puphpet/puppet-mysql":             "mysql",
             "puphpet/puppet-php":               "php",
@@ -58,18 +58,6 @@
         }
     },
     "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "example42/puppet-apache",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/example42/puppet-apache.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        },
         {
             "type": "package",
             "package": {
@@ -115,6 +103,18 @@
                     "url": "git://github.com/frastel/puppet-symfony.git",
                     "type": "git",
                     "reference": "5558c0b"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "puphpet/puppet-apache",
+                "version": "master",
+                "source": {
+                    "url": "git://github.com/puphpet/puppet-apache.git",
+                    "type": "git",
+                    "reference": "master"
                 }
             }
         },

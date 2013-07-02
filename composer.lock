@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8624ccf419724e80e643f9cc9f93611d",
+    "hash": "692ab6c30075301703759e2003bc5b27",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -63,17 +63,6 @@
                 "markdown"
             ],
             "time": "2012-07-15 16:31:27"
-        },
-        {
-            "name": "example42/puppet-apache",
-            "version": "master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/example42/puppet-apache.git",
-                "reference": "63dbdb0b76"
-            },
-            "type": "library",
-            "time": "2013-06-24 16:10:54"
         },
         {
             "name": "example42/puppi",
@@ -349,6 +338,17 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "puphpet/puppet-apache",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puphpet/puppet-apache.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-07-02 03:19:57"
         },
         {
             "name": "puphpet/puppet-git",
@@ -1811,11 +1811,11 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "frastel/puphpeteer-installer": 20,
-        "example42/puppet-apache": 20,
         "example42/puppi": 20,
         "frastel/puppet-nginx": 20,
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
+        "puphpet/puppet-apache": 20,
         "puphpet/puppet-git": 20,
         "puphpet/puppet-mysql": 20,
         "puphpet/puppet-php": 20,
