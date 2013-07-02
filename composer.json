@@ -17,7 +17,7 @@
         "frastel/puppet-symfony":           "dev-master#5558c0b0cf",
         "puphpet/puppet-apache":            "dev-master",
         "puphpet/puppet-git":               "dev-master",
-        "puphpet/puppet-mysql":             "dev-master",
+        "puphpet/puphpet-mysql":            "dev-master",
         "puphpet/puppet-php":               "dev-master",
         "puphpet/puphpet-xdebug":           "dev-master",
         "puppetlabs/puppetlabs-apt":        "1.1.0",
@@ -49,7 +49,7 @@
             "frastel/puppet-symfony":           "symfony",
             "puphpet/puppet-apache":            "apache",
             "puphpet/puppet-git":               "git",
-            "puphpet/puppet-mysql":             "mysql",
+            "puphpet/puphpet-mysql":            "mysql",
             "puphpet/puppet-php":               "php",
             "puphpet/puphpet-xdebug":           "xdebug",
             "puppetlabs/puppetlabs-apt":        "apt",
@@ -133,10 +133,10 @@
         {
             "type": "package",
             "package": {
-                "name": "puphpet/puppet-mysql",
+                "name": "puphpet/puphpet-mysql",
                 "version": "master",
                 "source": {
-                    "url": "git://github.com/puphpet/puppet-mysql.git",
+                    "url": "git://github.com/puphpet/puphpet-mysql.git",
                     "type": "git",
                     "reference": "master"
                 }
