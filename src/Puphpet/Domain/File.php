@@ -132,9 +132,6 @@ class File extends Domain
      */
     protected function cleanupFiles()
     {
-        // remove unneeded files
-        $this->filesystem->remove($this->archivePath . '/composer.json');
-        $this->filesystem->remove($this->archivePath . '/README.md');
     }
 
     /**
