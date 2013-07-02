@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2a483221109d2ec4628e96191dc520d6",
+    "hash": "58d7998cda45db0f1dd1ae88ded34000",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -349,6 +349,17 @@
             },
             "type": "library",
             "time": "2013-07-02 03:39:19"
+        },
+        {
+            "name": "puphpet/puphpet-composer",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puphpet/puphpet-composer.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-07-02 05:28:12"
         },
         {
             "name": "puphpet/puphpet-git",
@@ -1816,6 +1827,7 @@
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
         "puphpet/puphpet-apache": 20,
+        "puphpet/puphpet-composer": 20,
         "puphpet/puphpet-git": 20,
         "puphpet/puphpet-mysql": 20,
         "puphpet/puphpet-php": 20,
