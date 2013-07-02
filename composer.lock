@@ -392,7 +392,7 @@
                 "reference": "master"
             },
             "type": "library",
-            "time": "2013-07-02 05:10:57"
+            "time": "2013-07-02 14:34:59"
         },
         {
             "name": "puphpet/puphpet-xdebug",
@@ -1216,12 +1216,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c7db815236e0a10207d6ec85c601ecb411bdb7b5"
+                "reference": "6a45d5297359d982f6929a7cae123abff6d3706d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c7db815236e0a10207d6ec85c601ecb411bdb7b5",
-                "reference": "c7db815236e0a10207d6ec85c601ecb411bdb7b5",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6a45d5297359d982f6929a7cae123abff6d3706d",
+                "reference": "6a45d5297359d982f6929a7cae123abff6d3706d",
                 "shasum": ""
             },
             "require": {
@@ -1238,7 +1238,7 @@
                 "sebastian/diff": ">=1.0.0",
                 "sebastian/exporter": ">=1.0.0",
                 "sebastian/version": ">=1.0.0",
-                "symfony/yaml": ">=2.0,<3.0"
+                "symfony/yaml": "~2.0"
             },
             "require-dev": {
                 "pear-pear/pear": "1.9.4"
@@ -1285,7 +1285,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-06-29 20:53:05"
+            "time": "2013-07-02 08:35:13"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
