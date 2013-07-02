@@ -7,7 +7,7 @@ defined('VENDOR_PATH')
     || define('VENDOR_PATH', __DIR__ . '/../vendor');
 
 defined('VAGRANT_PATH')
-    || define('VAGRANT_PATH', __DIR__ . '/puppet/modules');
+    || define('VAGRANT_PATH', __DIR__ . '/../puppet/modules');
 
 $app = new Silex\Application;
 
