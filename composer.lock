@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "64af9bd7146056a2e127e7678b5889a9",
+    "hash": "1979aa15f32e24b74b5553096a48e881",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -340,6 +340,17 @@
             "time": "2012-12-21 11:40:51"
         },
         {
+            "name": "puphpet/puphpet-git",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puphpet/puphpet-git.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-07-02 04:48:34"
+        },
+        {
             "name": "puphpet/puphpet-mysql",
             "version": "master",
             "source": {
@@ -371,17 +382,6 @@
             },
             "type": "library",
             "time": "2013-07-02 03:19:57"
-        },
-        {
-            "name": "puphpet/puppet-git",
-            "version": "master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/puphpet/puppet-git.git",
-                "reference": "master"
-            },
-            "type": "library",
-            "time": "2013-06-21 03:15:02"
         },
         {
             "name": "puphpet/puppet-php",
@@ -1816,7 +1816,7 @@
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
         "puphpet/puppet-apache": 20,
-        "puphpet/puppet-git": 20,
+        "puphpet/puphpet-git": 20,
         "puphpet/puphpet-mysql": 20,
         "puphpet/puppet-php": 20,
         "puphpet/puphpet-xdebug": 20,
