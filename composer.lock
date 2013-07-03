@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "58d7998cda45db0f1dd1ae88ded34000",
+    "hash": "140204206e5100fffd4ee6a191eaed1b",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -381,7 +381,7 @@
                 "reference": "master"
             },
             "type": "library",
-            "time": "2013-07-02 04:37:55"
+            "time": "2013-07-02 17:39:03"
         },
         {
             "name": "puphpet/puphpet-php",
@@ -392,7 +392,7 @@
                 "reference": "master"
             },
             "type": "library",
-            "time": "2013-07-02 14:34:59"
+            "time": "2013-07-03 01:55:42"
         },
         {
             "name": "puphpet/puphpet-xdebug",
@@ -400,7 +400,7 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/puphpet/puphpet-xdebug.git",
-                "reference": "master"
+                "reference": "ae8dc503"
             },
             "type": "library",
             "time": "2013-07-02 04:27:19"

@@ -176,7 +176,7 @@
                 "source": {
                     "url": "git://github.com/puphpet/puphpet-xdebug.git",
                     "type": "git",
-                    "reference": "master"
+                    "reference": "ae8dc503"
                 }
             }
         },
