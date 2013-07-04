@@ -1,6 +1,32 @@
 <div class="bs-example project">
     <div class="row">
-        <div class="col col-lg-6">
+
+        <div class="col col-lg-5">
+            <div>
+                <label class="checkbox-inline" for="php-version-php54">Create New Symfony Project</label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="symfony-generate-project" name="project[generate_project]" value="1"
+                           checked/>
+                    Yes
+                </label>
+
+                <p class="help-block">Otherwise you have to generate or clone the project on your own</p>
+            </div>
+            <div>
+                <label for="symfony-version">Symfony Version</label>
+
+                <input type="text" name="project[symfony_version]" placeholder="2.3.1"/>
+
+                <p class="help-block">
+                    Ignored if the option <i>Create New Symfony Project</i> is not checked.
+                    Leave it blank to use the latest version.
+                    Check <a href="https://packagist.org/packages/symfony/framework-standard-edition">packagist</a>
+                    for every available version.
+                </p>
+            </div>
+        </div>
+
+        <div class="col col-lg-5">
             <label for="project-name">Project name</label>
             <input id="project-name" name="project[name]" type="text" required
                    placeholder="symfony-box"
@@ -26,36 +52,6 @@
                 here.</p>
         </div>
     </div>
-
-    {#
-    # @TODO tmp deactivated
-    # it is currently not possible to install the symfony project with puppet
-    <div class="row">
-        <div class="col col-lg-6">
-            <label class="checkbox-inline" for="php-version-php54">Create New Symfony Project</label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="symfony-generate-project" name="project[generate_project]" value="1" checked />
-                Yes
-            </label>
-            <p class="help-block">Otherwise you have to generate or clone the project on your own</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col col-lg-6">
-            <label for="symfony-version">Symfony Version</label>
-
-            <input type="text" name="project[symfony_version]" />
-
-            <p class="help-block">
-                Ignored if the option <i>Create New Symfony Project</i> is not checked.
-                Leave it blank to use the latest version.
-                Check <a href="https://packagist.org/packages/symfony/framework-standard-edition">packagist</a>
-                for every available version.
-            </p>
-        </div>
-    </div>
-    #}
 
     <div class="row">
         <div class="col col-lg-4">

@@ -3,5 +3,5 @@ symfony::project::create { '{{ project.document_root }}':
 {% if project.version %}
   version => '{{ project.version }}',
 {% endif %}
-  require => Class['php::composer'],
+  require => Class['composer'],
 }

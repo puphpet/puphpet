@@ -143,7 +143,9 @@ $app['twig.loader.filesystem'] = $app->share(
 // Start Plugins
 // Plugin: Symfony
 $app['plugin.symfony.configuration_builder'] = function () use ($app) {
-    return new Puphpet\Plugins\Symfony\Configuration\SymfonyConfigurationBuilder();
+    return new Puphpet\Plugins\Symfony\Configuration\SymfonyConfigurationBuilder(
+        VENDOR_PATH . '/puphpet/puppet-puphpet/files/dot/.bash_aliases'
+    );
 };
 $app['plugin.symfony.create_project_decider'] = function () use ($app) {
     return new \Puphpet\Plugins\Symfony\Compiler\SymfonyCreateProjectDecider($app['property_access_provider']);

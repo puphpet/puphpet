@@ -13,7 +13,25 @@ use Puphpet\Domain\Configuration\Edition;
  */
 class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
 {
+    /**
+     * @var string
+     */
+    private $bashAliasFile;
 
+    /**
+     * @param string $bashAliasFile absolute path to bashalias file
+     */
+    public function __construct($bashAliasFile)
+    {
+        $this->bashAliasFile = $bashAliasFile;
+    }
+
+    /**
+     * @param Edition $edition
+     * @param array   $customConfiguration
+     *
+     * @return Configuration
+     */
     public function build(Edition $edition, array $customConfiguration)
     {
         $projectName = $customConfiguration['project']['name'];
@@ -24,27 +42,21 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
         // project settings
         $conf['project'] = array();
         $conf['project']['edition'] = $edition->getName();
-        /*
-         * tmp deactivated
+
         $conf['project']['generate'] = array_key_exists(
             'generate_project',
             $customConfiguration['project']
         ) ? $customConfiguration['project']['generate_project'] : false;
         $conf['project']['version'] = $customConfiguration['project']['symfony_version'];
-        */
         $conf['project']['document_root'] = $documentRoot;
 
         // box stuff
-        $conf['box'] = $customConfiguration['box'];
-        $conf['box']['personal_name'] = $projectName;
-        $conf['box']['ip'] = '192.168.56.101';
-        $conf['box']['memory'] = '1024';
-        $conf['box']['foldertype'] = 'default';
-        $conf['box']['synced_folder'] = ['source' => './', 'target' => '/var/www'];
-        $conf['box']['port_forward'] = ['host' => false, 'guest' => false];
+        $box = $edition->get('box');
+        $box['personal_name'] = $projectName;
+        $conf['box'] = array_merge($box, $customConfiguration['box']);
 
-        $conf['server'] = array();
-        $conf['server']['packages'] = 'build-essential,vim,curl';
+        $conf['server'] = $edition->get('server');
+        $conf['server']['bashaliases'] = file_get_contents($this->bashAliasFile);
 
         $conf['php'] = $edition->get('[php]');
         $conf['php']['version'] = $customConfiguration['php']['version'];
