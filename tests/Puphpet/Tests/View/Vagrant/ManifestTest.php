@@ -20,6 +20,7 @@ class ManifestTest extends Base
 
         $this->parameters = [
             'webserver'   => 'apache',
+            'database'    => 'mysql',
             'php_service' => 'apache',
             'server'      => ['packages' => ['foo', 'bar']],
             'apache'      => [
