@@ -127,15 +127,14 @@ $app['configuration_file_generator'] = function () use ($app) {
 $app['markdown'] = function () use ($app) {
     return new dflydev\markdown\MarkdownParser;
 };
-$app['configuration_builder_symfony'] = function () use ($app) {
-    return new Puphpet\Plugins\Symfony\Configuration\SymfonyConfigurationBuilder();
-};
+
 // overwriting the native filesystem loader, we need support of several view folders
 // every (quickstart) edition has to define its view folder and according namespace here
 $app['twig.loader.filesystem'] = $app->share(
     function ($app) {
         $fs = new \Twig_Loader_Filesystem($app['twig.path']);
         $fs->addPath(__DIR__ . '/Puphpet/Plugins/Symfony/View', 'Symfony');
+        $fs->addPath(__DIR__ . '/Puphpet/Plugins/Puphpet/View', 'Puphpet');
 
         return $fs;
     }
@@ -143,6 +142,9 @@ $app['twig.loader.filesystem'] = $app->share(
 
 // Start Plugins
 // Plugin: Symfony
+$app['plugin.symfony.configuration_builder'] = function () use ($app) {
+    return new Puphpet\Plugins\Symfony\Configuration\SymfonyConfigurationBuilder();
+};
 $app['plugin.symfony.create_project_decider'] = function () use ($app) {
     return new \Puphpet\Plugins\Symfony\Compiler\SymfonyCreateProjectDecider($app['property_access_provider']);
 };
@@ -161,11 +163,28 @@ $app['plugin.symfony.listener.source_configurator'] = function () use ($app) {
     );
     return new \Puphpet\Domain\Configurator\File\Event\Listener\ConfiguratorListener($configurator);
 };
+// Plugin: PuPHPet
+$app['plugin.puphpet.configuration_builder'] = function () use ($app) {
+    return new Puphpet\Plugins\Puphpet\Configuration\PuphpetConfigurationBuilder(
+        VENDOR_PATH . '/puphpet/puppet-puphpet/files/dot/.bash_aliases'
+    );
+};
+$app['plugin.puphpet.clone_project_decider'] = function () use ($app) {
+    return new \Puphpet\Plugins\Puphpet\Compiler\PuphpetCreateProjectDecider($app['property_access_provider']);
+};
+$app['plugin.puphpet.manipulator.project'] = function () use ($app) {
+    return new \Puphpet\Domain\Compiler\AdditionalContentManipulator(
+        $app['plugin.puphpet.clone_project_decider'],
+        $app['twig'],
+        '@Puphpet/Vagrant/clone.pp.twig'
+    );
+};
 // End Plugins
 
 $app['manifest.compilation_listener'] = function () use ($app) {
     return new \Puphpet\Domain\Compiler\Event\Listener\CompilationListener([
-        $app['plugin.symfony.manipulator.project']
+        $app['plugin.symfony.manipulator.project'],
+        $app['plugin.puphpet.manipulator.project']
     ]);
 };
 

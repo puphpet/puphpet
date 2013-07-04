@@ -1,0 +1,45 @@
+{% extends 'Front/layout.html.twig' %}
+{% set default_box = edition.get('[vagrant][default_box]') %}
+
+{% block css %}
+    {{ parent() }}
+    <link href="/assets/css/quickstart.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block footerJs %}
+    {{ parent() }}
+    <script src="/assets/js/quickstart.js"></script>
+{% endblock %}
+{% block bodyClass %}index{% endblock %}
+
+{% block container %}
+    {{ parent() }}
+    <div class="container bs-docs-container">
+        <div class="row">
+
+            {% block sidemenu %}
+                {% include 'Quickstart/sidemenu.html.twig' %}
+            {% endblock %}
+            <div class="col col-lg-9 content-container">
+                <form class="form-horizontal" action="/quickstart/puphpet" method="post"
+                      enctype="application/x-www-form-urlencoded">
+
+                    <div class="page-header">
+                        <img class="svgIcon" src="/assets/img/noun-project/box.svg"/>
+
+                        <h1>
+                            <small>Create your</small>
+                            PuPHPet environment
+                            <small>box</small>
+                        </h1>
+                    </div>
+
+                    {% include '@Puphpet/Form/box.html.twig' %}
+                    {% include '@Puphpet/Form/create.html.twig' %}
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
