@@ -8,6 +8,19 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuild()
     {
+        $bashAliasFilePath = '/absolute/path';
+        $bashAliasFileContent = 'content';
+
+        $filesystem = $this->getMockBuilder('Puphpet\Domain\Filesystem')
+            ->disableOriginalConstructor()
+            ->setMethods(['getContents'])
+            ->getMock();
+
+        $filesystem->expects($this->once())
+            ->method('getContents')
+            ->with($bashAliasFilePath)
+            ->will($this->returnValue($bashAliasFileContent));
+
         $edition = $this->getMockBuilder('Puphpet\Domain\Configuration\Edition')
             ->disableOriginalConstructor()
             ->setMethods(['getName', 'get', 'set'])
@@ -36,7 +49,7 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $builder = new SymfonyConfigurationBuilder();
+        $builder = new SymfonyConfigurationBuilder($bashAliasFilePath, $filesystem);
         $configuration = $builder->build($edition, $customConfiguration);
 
         $this->assertInstanceOf('\Puphpet\Domain\Configuration\Configuration', $configuration);
@@ -49,5 +62,7 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('php', $config);
         $this->assertArrayHasKey('webserver', $config);
         $this->assertArrayHasKey('database', $config);
+
+        $this->assertEquals($bashAliasFileContent, $config['server']['bashaliases']);
     }
 }

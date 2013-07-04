@@ -5,6 +5,7 @@ namespace Puphpet\Plugins\Symfony\Configuration;
 use Puphpet\Domain\Configuration\Configuration;
 use Puphpet\Domain\Configuration\ConfigurationBuilderInterface;
 use Puphpet\Domain\Configuration\Edition;
+use Puphpet\Domain\Filesystem;
 
 /**
  * Builds configuration for an optimized Symfony box.
@@ -19,11 +20,18 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
     private $bashAliasFile;
 
     /**
-     * @param string $bashAliasFile absolute path to bashalias file
+     * @var Filesystem
      */
-    public function __construct($bashAliasFile)
+    private $filesystem;
+
+    /**
+     * @param string     $bashAliasFile absolute path to bashalias file
+     * @param Filesystem $filesystem
+     */
+    public function __construct($bashAliasFile, Filesystem $filesystem)
     {
         $this->bashAliasFile = $bashAliasFile;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -56,7 +64,7 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
         $conf['box'] = array_merge($box, $customConfiguration['box']);
 
         $conf['server'] = $edition->get('server');
-        $conf['server']['bashaliases'] = file_get_contents($this->bashAliasFile);
+        $conf['server']['bashaliases'] = $this->filesystem->getContents($this->bashAliasFile);
 
         $conf['php'] = $edition->get('[php]');
         $conf['php']['version'] = $customConfiguration['php']['version'];

@@ -144,7 +144,8 @@ $app['twig.loader.filesystem'] = $app->share(
 // Plugin: Symfony
 $app['plugin.symfony.configuration_builder'] = function () use ($app) {
     return new Puphpet\Plugins\Symfony\Configuration\SymfonyConfigurationBuilder(
-        VENDOR_PATH . '/puphpet/puppet-puphpet/files/dot/.bash_aliases'
+        VENDOR_PATH . '/puphpet/puppet-puphpet/files/dot/.bash_aliases',
+        new Puphpet\Domain\Filesystem()
     );
 };
 $app['plugin.symfony.create_project_decider'] = function () use ($app) {

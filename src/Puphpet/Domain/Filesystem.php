@@ -112,4 +112,16 @@ class Filesystem
     {
         return $this->exec(sprintf("zip -r %s * -x */.git\*", $archivePath), $inDir);
     }
+
+    /**
+     * Fetches the contents of a file
+     *
+     * @param string $filePath an absolute file path
+     *
+     * @return string the raw data of the file
+     */
+    public function getContents($filePath)
+    {
+        return file_get_contents($filePath);
+    }
 }
