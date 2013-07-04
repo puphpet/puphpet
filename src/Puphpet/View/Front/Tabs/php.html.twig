@@ -24,15 +24,21 @@
                     <input type="radio" name="php[version]" value="php53" /> 5.3
                 </label>
             </div>
+
+            <p class="help-block">Nginx integration with PHP 5.4 and 5.5 is currently experimental and might not work properly.</p>
         </div>
 
         <div class="col col-lg-4 min-span-4">
-            <label class="checkbox-inline min-span-2" for="php-modules-composer-installed">Install Composer</label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="php-modules-composer-installed" name="php[modules][composer][installed]"
-                       value="1" checked />
-                Yes
-            </label>
+            <label>Composer</label>
+
+            <div>
+                <label class="checkbox-inline min-span-2" for="php-modules-composer-installed">Install Composer</label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="php-modules-composer-installed" name="php[modules][composer][installed]"
+                           value="1" checked />
+                    Yes
+                </label>
+            </div>
             <p class="help-block">Composer will be available as a system service, <code>$ composer</code></p>
         </div>
     </div>
