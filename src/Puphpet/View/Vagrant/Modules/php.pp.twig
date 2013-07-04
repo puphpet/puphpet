@@ -52,6 +52,7 @@ xdebug::config { 'cli':
 {% if php.modules.xhprof.installed == 1 %}
 php::pecl::module { 'xhprof':
   use_package     => false,
+  preferred_state => 'beta',
 }
 
 {% if nginx is defined %}
