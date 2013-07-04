@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "140204206e5100fffd4ee6a191eaed1b",
+    "hash": "cd43eff65b82678828b0fb54a635c6f6",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -76,18 +76,29 @@
             "time": "2013-06-18 13:52:35"
         },
         {
+            "name": "frastel/puphpet-composer",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/frastel/puphpet-composer.git",
+                "reference": "8235d3e"
+            },
+            "type": "library",
+            "time": "2013-07-03 22:19:13"
+        },
+        {
             "name": "frastel/puphpeteer-installer",
             "version": "dev-master",
             "target-dir": "Frastel/Puphpeteer",
             "source": {
                 "type": "git",
                 "url": "https://github.com/frastel/puphpeteer-installer.git",
-                "reference": "a157e5286afc144c930bb0789667fc98469d4abf"
+                "reference": "93acaf78c69839f25b6ea947cbab884d8fac0940"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/frastel/puphpeteer-installer/zipball/a157e5286afc144c930bb0789667fc98469d4abf",
-                "reference": "a157e5286afc144c930bb0789667fc98469d4abf",
+                "url": "https://api.github.com/repos/frastel/puphpeteer-installer/zipball/93acaf78c69839f25b6ea947cbab884d8fac0940",
+                "reference": "93acaf78c69839f25b6ea947cbab884d8fac0940",
                 "shasum": ""
             },
             "require": {
@@ -119,7 +130,7 @@
                 "puphpet",
                 "puppet"
             ],
-            "time": "2013-06-24 14:23:15"
+            "time": "2013-07-04 00:48:47"
         },
         {
             "name": "frastel/puppet-nginx",
@@ -351,17 +362,6 @@
             "time": "2013-07-02 03:39:19"
         },
         {
-            "name": "puphpet/puphpet-composer",
-            "version": "master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/puphpet/puphpet-composer.git",
-                "reference": "master"
-            },
-            "type": "library",
-            "time": "2013-07-02 05:28:12"
-        },
-        {
             "name": "puphpet/puphpet-git",
             "version": "master",
             "source": {
@@ -404,6 +404,17 @@
             },
             "type": "library",
             "time": "2013-07-02 04:27:19"
+        },
+        {
+            "name": "puphpet/puppet-puphpet",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puphpet/puppet-puphpet.git",
+                "reference": "b312d20"
+            },
+            "type": "library",
+            "time": "2013-07-03 23:33:44"
         },
         {
             "name": "puppetlabs/puppetlabs-apt",
@@ -1346,6 +1357,17 @@
             "time": "2013-06-23 04:38:26"
         },
         {
+            "name": "puphpet/puphpet-composer",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puphpet/puphpet-composer.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-07-02 05:28:12"
+        },
+        {
             "name": "sebastian/diff",
             "version": "dev-master",
             "source": {
@@ -1827,10 +1849,11 @@
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
         "puphpet/puphpet-apache": 20,
-        "puphpet/puphpet-composer": 20,
+        "frastel/puphpet-composer": 20,
         "puphpet/puphpet-git": 20,
         "puphpet/puphpet-mysql": 20,
         "puphpet/puphpet-php": 20,
+        "puphpet/puppet-puphpet": 20,
         "puphpet/puphpet-xdebug": 20,
         "phpunit/phpunit": 20,
         "whatthejeff/nyancat-phpunit-resultprinter": 20
