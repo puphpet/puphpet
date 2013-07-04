@@ -1,6 +1,6 @@
 {% import _self as format %}
 
-exec { 'apt-get update':
+exec { 'apt-get-update':
   command => 'apt-get update',
   path    => '/usr/bin/',
   timeout => 60,
@@ -8,12 +8,12 @@ exec { 'apt-get update':
 }
 
 class { 'apt':
-  always_apt_update => true,
+  always_apt_update => false,
 }
 
 package { ['python-software-properties']:
   ensure  => 'installed',
-  require => Exec['apt-get update'],
+  require => Exec['apt-get-update'],
 }
 
 file { '/home/vagrant/.bash_aliases':
@@ -31,10 +31,12 @@ file { '/home/vagrant/.bash_aliases':
 
 {% include 'Vagrant/Modules/php.pp.twig' %}
 
+{% if database %}
 {% if postgresql is defined %}
 {% include 'Vagrant/Modules/postgresql.pp.twig' %}
 {% else %}
 {% include 'Vagrant/Modules/mysql.pp.twig' %}
+{% endif %}
 {% endif %}
 
 {# global macros #}

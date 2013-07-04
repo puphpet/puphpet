@@ -53,10 +53,12 @@ class ConfigurationFormatter implements FormatterInterface
         $this->formatter->setServerConfiguration($this->get('server'));
         $this->formatter->setProjectConfiguration($this->get('project', array()));
 
-        if ('mysql' == $this->getDatabase()) {
-            $this->formatter->setDatabaseConfiguration('mysql', $this->get('mysql'));
-        } else {
-            $this->formatter->setDatabaseConfiguration('postgresql', $this->get('postgresql'));
+        if ($this->getDatabase()) {
+            if ('mysql' == $this->getDatabase()) {
+                $this->formatter->setDatabaseConfiguration('mysql', $this->get('mysql'));
+            } else {
+                $this->formatter->setDatabaseConfiguration('postgresql', $this->get('postgresql'));
+            }
         }
 
         $this->formatter->setPhpConfiguration($this->get('php'));
@@ -73,7 +75,7 @@ class ConfigurationFormatter implements FormatterInterface
     /**
      * Fetches something from request
      *
-     * @param  string $key
+     * @param  string      $key
      * @param  string|null $default
      */
     private function get($key, $default = null)
@@ -101,10 +103,12 @@ class ConfigurationFormatter implements FormatterInterface
     protected function getDatabase()
     {
         if (null === $this->database) {
-            $database = $this->get('database', 'mysql');
+            $this->database = $this->get('database', false);
 
-            // quick validation of database value
-            $this->database = in_array($database, ['mysql', 'postgresql']) ? $database : 'mysql';
+            if ($this->database) {
+                // quick validation of database value
+                $this->database = in_array($this->database, ['mysql', 'postgresql']) ? $this->database : 'mysql';
+            }
         }
 
         return $this->database;

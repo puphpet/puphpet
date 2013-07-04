@@ -12,6 +12,7 @@ use Puphpet\Domain\Compiler\FormatterInterface;
 class Formatter implements FormatterInterface
 {
     private $puppetModules = array();
+    private $database;
     private $webserver;
     private $webserverConfiguration;
     private $serverConfiguration;
@@ -25,13 +26,11 @@ class Formatter implements FormatterInterface
      *
      * @param array  $puppetModules
      * @param string $defaultWebserver
-     * @param string $defaultDatabase
      */
-    public function __construct($puppetModules = array(), $defaultWebserver = 'apache', $defaultDatabase = 'mysql')
+    public function __construct($puppetModules = array(), $defaultWebserver = 'apache')
     {
         $this->puppetModules = $puppetModules;
         $this->webserver = $defaultWebserver;
-        $this->database = $defaultDatabase;
     }
 
     /**
@@ -113,6 +112,11 @@ class Formatter implements FormatterInterface
     protected function formatDatabaseConfiguration()
     {
         $this->addConfiguration('database', $this->database);
+
+        // database is optional
+        if (!$this->database) {
+            return;
+        }
 
         $method = 'format' . ucfirst($this->database) . 'Configuration';
         $this->$method();
