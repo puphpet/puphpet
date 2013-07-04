@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "1c5c3cfebd1da9bd2379a4028456dc83",
+    "hash": "03d71b9038f337ea798319c1d9063ed4",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -74,17 +74,6 @@
             },
             "type": "library",
             "time": "2013-06-18 13:52:35"
-        },
-        {
-            "name": "frastel/puphpet-composer",
-            "version": "master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/frastel/puphpet-composer.git",
-                "reference": "8235d3e"
-            },
-            "type": "library",
-            "time": "2013-07-03 22:19:13"
         },
         {
             "name": "frastel/puphpeteer-installer",
@@ -360,6 +349,17 @@
             },
             "type": "library",
             "time": "2013-07-02 03:39:19"
+        },
+        {
+            "name": "puphpet/puphpet-composer",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puphpet/puphpet-composer.git",
+                "reference": "bf3f0a9"
+            },
+            "type": "library",
+            "time": "2013-07-04 10:39:35"
         },
         {
             "name": "puphpet/puphpet-git",
@@ -1357,17 +1357,6 @@
             "time": "2013-06-23 04:38:26"
         },
         {
-            "name": "puphpet/puphpet-composer",
-            "version": "master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/puphpet/puphpet-composer.git",
-                "reference": "master"
-            },
-            "type": "library",
-            "time": "2013-07-02 05:28:12"
-        },
-        {
             "name": "sebastian/diff",
             "version": "dev-master",
             "source": {
@@ -1849,7 +1838,7 @@
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
         "puphpet/puphpet-apache": 20,
-        "frastel/puphpet-composer": 20,
+        "puphpet/puphpet-composer": 20,
         "puphpet/puphpet-git": 20,
         "puphpet/puphpet-mysql": 20,
         "puphpet/puphpet-php": 20,

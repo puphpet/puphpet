@@ -16,7 +16,7 @@
         "frastel/puppet-phpmyadmin":        "dev-master#dbfcbf6755",
         "frastel/puppet-symfony":           "dev-master#5558c0b0cf",
         "puphpet/puphpet-apache":           "dev-master",
-        "frastel/puphpet-composer":         "dev-master",
+        "puphpet/puphpet-composer":         "dev-master",
         "puphpet/puphpet-git":              "dev-master",
         "puphpet/puphpet-mysql":            "dev-master",
         "puphpet/puphpet-php":              "dev-master",
@@ -50,7 +50,7 @@
             "frastel/puppet-phpmyadmin":        "phpmyadmin",
             "frastel/puppet-symfony":           "symfony",
             "puphpet/puphpet-apache":           "apache",
-            "frastel/puphpet-composer":         "composer",
+            "puphpet/puphpet-composer":         "composer",
             "puphpet/puphpet-git":              "git",
             "puphpet/puphpet-mysql":            "mysql",
             "puphpet/puphpet-php":              "php",
@@ -125,12 +125,12 @@
         {
             "type": "package",
             "package": {
-                "name": "frastel/puphpet-composer",
+                "name": "puphpet/puphpet-composer",
                 "version": "master",
                 "source": {
-                    "url": "git://github.com/frastel/puphpet-composer.git",
+                    "url": "git://github.com/puphpet/puphpet-composer.git",
                     "type": "git",
-                    "reference": "8235d3e"
+                    "reference": "bf3f0a9"
                 }
             }
         },
