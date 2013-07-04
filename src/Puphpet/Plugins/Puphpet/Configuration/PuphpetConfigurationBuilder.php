@@ -12,16 +12,25 @@ use Puphpet\Domain\Configuration\Edition;
 class PuphpetConfigurationBuilder implements ConfigurationBuilderInterface
 {
 
+    /**
+     * @var string
+     */
     private $bashAliasFile;
 
     /**
-     * @param string $bashaliasFile absolute path to bashalias file
+     * @param string $bashAliasFile absolute path to bashalias file
      */
     public function __construct($bashAliasFile)
     {
         $this->bashAliasFile = $bashAliasFile;
     }
 
+    /**
+     * @param Edition $edition
+     * @param array   $customConfiguration
+     *
+     * @return Configuration
+     */
     public function build(Edition $edition, array $customConfiguration)
     {
         $projectName = 'puphpet.dev';
