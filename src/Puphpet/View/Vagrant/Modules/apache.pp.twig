@@ -1,4 +1,6 @@
-class { 'apache': }
+class { 'apache':
+  require => Exec['apt-get-update'],
+}
 
 apache::dotconf { 'custom':
   content => 'EnableSendfile Off',

@@ -1,4 +1,6 @@
-include nginx
+class { 'nginx':
+  require => Exec['apt-get-update'],
+}
 
 {% for host in nginx.vhosts %}
 {% if host.index_files %}

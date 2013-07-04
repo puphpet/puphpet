@@ -3,6 +3,9 @@ class { 'php':
   package             => 'php5-fpm',
   service             => 'php5-fpm',
   service_autorestart => false,
+  config_file         => '/etc/php5/fpm/php.ini',
+  module_prefix       => '',
+  require             => Exec['apt-get-update'],
 }
 
 {% if php.modules.php|length > 0 %}

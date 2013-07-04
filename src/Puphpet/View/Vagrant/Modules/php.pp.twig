@@ -51,7 +51,7 @@ xdebug::config { 'cli':
 
 {% if php.modules.xhprof.installed == 1 %}
 php::pecl::module { 'xhprof':
-  use_package => false,
+  use_package     => false,
 }
 
 {% if nginx is defined %}
@@ -79,14 +79,15 @@ apache::vhost { 'xhprof':
 
 {% if php.modules.composer.installed == 1 %}
 class { 'composer':
-  require => Package['{{ nginx is defined? 'php5-fpm' : 'php5' }}'],
+  require => Package['{{ nginx is defined? 'php5-fpm' : 'php5' }}', 'curl'],
 }
 {% endif %}
 
 {% for name,settings in php.inilist if settings is not empty %}
-php::ini { '{{ name }}':
+puphpet::ini { '{{ name }}':
   value   => [{{ format.explode_and_quote(settings)|raw }}],
-  target  => '{{ name }}.ini',
-  service => '{{ php_service }}',
+  ini     => '/etc/php5/conf.d/99-{{ name }}.ini',
+  notify  => Service['{{ php_service }}'],
+  require => Class['php'],
 }
 {% endfor %}
