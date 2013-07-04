@@ -12,7 +12,7 @@
         "frastel/puphpeteer-installer":  "dev-master",
 
         "example42/puppi":                  "dev-master#f65b71b7c2",
-        "frastel/puppet-nginx":             "dev-master#264f66faaa",
+        "jfryman/puppet-nginx":             "dev-master#4419300",
         "frastel/puppet-phpmyadmin":        "dev-master#dbfcbf6755",
         "frastel/puppet-symfony":           "dev-master#5558c0b0cf",
         "puphpet/puphpet-apache":           "dev-master",
@@ -46,7 +46,7 @@
         "puppet-modules-dir": "puppet/modules",
         "puppet-modules": {
             "example42/puppi":                  "puppi",
-            "frastel/puppet-nginx":             "nginx",
+            "jfryman/puppet-nginx":             "nginx",
             "frastel/puppet-phpmyadmin":        "phpmyadmin",
             "frastel/puppet-symfony":           "symfony",
             "puphpet/puphpet-apache":           "apache",
@@ -77,12 +77,12 @@
         {
             "type": "package",
             "package": {
-                "name": "frastel/puppet-nginx",
+                "name": "jfryman/puppet-nginx",
                 "version": "master",
                 "source": {
-                    "url": "git://github.com/frastel/puppet-nginx.git",
+                    "url": "git://github.com/jfryman/puppet-nginx.git",
                     "type": "git",
-                    "reference": "master"
+                    "reference": "4419300"
                 }
             }
         },

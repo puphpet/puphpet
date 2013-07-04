@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "03d71b9038f337ea798319c1d9063ed4",
+    "hash": "4fbe4a4dfbeea6b267f4f4d53499790f",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -122,17 +122,6 @@
             "time": "2013-07-04 00:48:47"
         },
         {
-            "name": "frastel/puppet-nginx",
-            "version": "master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/frastel/puppet-nginx.git",
-                "reference": "264f66faaa"
-            },
-            "type": "library",
-            "time": "2013-05-18 13:37:27"
-        },
-        {
             "name": "frastel/puppet-phpmyadmin",
             "version": "master",
             "source": {
@@ -210,6 +199,17 @@
                 "silex"
             ],
             "time": "2013-05-31 14:23:34"
+        },
+        {
+            "name": "jfryman/puppet-nginx",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/jfryman/puppet-nginx.git",
+                "reference": "4419300"
+            },
+            "type": "library",
+            "time": "2013-07-02 20:58:58"
         },
         {
             "name": "nicl/silex-markdown",
@@ -1834,7 +1834,7 @@
     "stability-flags": {
         "frastel/puphpeteer-installer": 20,
         "example42/puppi": 20,
-        "frastel/puppet-nginx": 20,
+        "jfryman/puppet-nginx": 20,
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
         "puphpet/puphpet-apache": 20,
