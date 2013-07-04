@@ -43,7 +43,7 @@ xdebug::config { '{% if nginx is defined %}fpm{% else %}apache2{% endif %}':
   remote_autostart => '{{ php.modules.xdebug.remote_autostart|default('1') }}',
   remote_port      => '{{ php.modules.xdebug.remote_port|default('9000') }}',
   ini_file         => '/etc/php5/conf.d/999-xdebug.ini',
-  require => Class['php'],
+  require          => Class['php'],
 }
 {% endif %}{# if php.modules.xdebug.installed == 1 #}
 
