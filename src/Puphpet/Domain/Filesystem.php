@@ -110,7 +110,27 @@ class Filesystem
      */
     public function createArchive($archivePath, $inDir)
     {
-        return $this->exec(sprintf("zip -r %s * -x */.git\*", $archivePath), $inDir);
+        $this->exec(sprintf("zip -r %s * -x */.git\*", $archivePath), $inDir);
+    }
+
+    /**
+     * Clears given sys tmp directory
+     *
+     * @param string $directory
+     *
+     * @return bool
+     */
+    public function clearTmpDirectory($directory)
+    {
+        // avoiding directory traversal vulnerability
+        $directory = realpath($directory);
+
+        // sth useful given?
+        if (strpos($directory, $this->getSysTempDir() !== 0)) {
+            return false;
+        }
+
+        $this->exec(sprintf('rm -rf %s', $directory));
     }
 
     /**

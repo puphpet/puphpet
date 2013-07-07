@@ -18,12 +18,12 @@ class FileTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->source              = '/my/source/folder';
-        $this->filename            = 'precise64.zip';
-        $this->archivePathParent   = '/tmp/51d1b3e0cd6adzgxi1K';
+        $this->source = '/my/source/folder';
+        $this->filename = 'precise64.zip';
+        $this->archivePathParent = '/tmp/51d1b3e0cd6adzgxi1K';
         $this->filenameNoExtension = 'precise64';
-        $this->archivePath         = $this->archivePathParent . '/' . $this->filenameNoExtension;
-        $this->archiveFile         = $this->archivePathParent . '.zip';
+        $this->archivePath = $this->archivePathParent . '/' . $this->filenameNoExtension;
+        $this->archiveFile = $this->archivePathParent . '.zip';
     }
 
     /**
@@ -45,6 +45,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
                     'createArchive',
                     'remove',
                     'createFolder',
+                    'clearTmpDirectory'
                 ]
             )
             ->getMock();
@@ -161,6 +162,10 @@ class FileTest extends \PHPUnit_Framework_TestCase
             ->method('putContents')
             ->with($this->archivePath . '/foo', 'bar');
 
+        $filesystem->expects($this->once())
+            ->method('clearTmpDirectory')
+            ->with($this->archivePathParent);
+
         $file = new File($this->source, $filesystem);
         $file->setName($this->filename);
         $file->addModuleSource($moduleName1, $moduleSource1);
@@ -198,6 +203,10 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $filesystem->expects($this->at(4))
             ->method('putContents')
             ->with($this->archivePath . '/foo', 'bar');
+
+        $filesystem->expects($this->once())
+            ->method('clearTmpDirectory')
+            ->with($this->archivePathParent);
 
         $file = new File($this->source, $filesystem);
         $file->setName($this->filename);

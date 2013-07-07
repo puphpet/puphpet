@@ -173,6 +173,9 @@ class File extends Domain
     protected function zipFolder()
     {
         $this->filesystem->createArchive($this->archiveFile, $this->archivePathParent);
+        // we only need the archive, not the contents of the tmp folder
+        // the folder could be deleted now
+        $this->filesystem->clearTmpDirectory($this->archivePathParent);
     }
 
     protected function archiveNameNoExtension()
