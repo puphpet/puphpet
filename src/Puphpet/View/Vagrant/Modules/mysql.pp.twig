@@ -1,7 +1,7 @@
 {% if mysql.root %}
 class { 'mysql':
   root_password => '{{ mysql.root }}',
-  require       => Exec['apt-get update'],
+  require       => Exec['apt-get-update'],
 }
 
 {% for database in mysql.dbuser %}
