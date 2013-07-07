@@ -52,6 +52,11 @@ class ManifestTest extends Base
                     'custom' => [
                         'display_errors = On',
                         'error_reporting = 1'
+                    ],
+                    'xdebug' => [
+                        'xdebug.default_enable = 1',
+                        'xdebug.remote_autostart = 0',
+                        'xdebug.remote_connect_back = 1',
                     ]
                 ],
             ],

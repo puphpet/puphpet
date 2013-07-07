@@ -37,7 +37,9 @@ $(document).ready(function() {
 
     $('.selectTags').select2();
 
+    //@TODO we should implement a more generic approach here
     updateInputFromSelect('#php-inilist-add', '#php-inilist-name', '#php-inilist-value', '#php-inilist-custom');
+    updateInputFromSelect('#php-inilist-add-xdebug', '#php-inilist-name-xdebug', '#php-inilist-value-xdebug', '#php-inilist-xdebug');
 
     $('#apache-vhost-add').click(function(){
         var vhostContainer = $('#apache-vhost-count');

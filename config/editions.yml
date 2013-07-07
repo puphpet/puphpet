@@ -16,6 +16,13 @@ editions:
         custom:
           display_errors: 'On'
           error_reporting: '-1'
+        xdebug:
+          xdebug.default_enable:      1
+          xdebug.remote_autostart:    0
+          xdebug.remote_connect_back: 1
+          xdebug.remote_enable:       1
+          xdebug.remote_handler:      dbgp
+          xdebug.remote_port:         9000
   symfony:
     builder: plugin.symfony.configuration_builder
     template: '@Symfony/start.html.twig'
@@ -56,8 +63,6 @@ editions:
           - 'php5-sqlite'
         xdebug:
           installed: true
-          remote_autostart: false
-          remote_port: 9000
       inilist:
         php:
           date.timezone: 'America/Chicago'
@@ -65,6 +70,13 @@ editions:
           display_errors:            'On'
           error_reporting:           '-1'
           'xdebug.max_nesting_level': 250
+        xdebug:
+          xdebug.default_enable:      1
+          xdebug.remote_autostart:    0
+          xdebug.remote_connect_back: 1
+          xdebug.remote_enable:       1
+          xdebug.remote_handler:      dbgp
+          xdebug.remote_port:         9000
 
   puphpet:
     builder: plugin.puphpet.configuration_builder
@@ -98,10 +110,15 @@ editions:
           - 'php5-mcrypt'
         xdebug:
           installed: true
-          remote_autostart: false
-          remote_port: 9000
       inilist:
         puphpet:
           date.timezone: 'America/Chicago'
           display_errors:            'On'
           error_reporting:           '-1'
+        xdebug:
+          xdebug.default_enable:      1
+          xdebug.remote_autostart:    0
+          xdebug.remote_connect_back: 1
+          xdebug.remote_enable:       1
+          xdebug.remote_handler:      dbgp
+          xdebug.remote_port:         9000

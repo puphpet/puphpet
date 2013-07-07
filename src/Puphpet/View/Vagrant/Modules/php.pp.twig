@@ -38,14 +38,7 @@ php::pecl::module { '{{ pecl|raw }}':
 class { 'xdebug':
   service => '{{ webserver }}',
 }
-
-xdebug::config { '{% if nginx is defined %}fpm{% else %}apache2{% endif %}':
-  remote_autostart => '{{ php.modules.xdebug.remote_autostart|default('1') }}',
-  remote_port      => '{{ php.modules.xdebug.remote_port|default('9000') }}',
-  ini_file         => '/etc/php5/conf.d/999-xdebug.ini',
-  require          => Class['php'],
-}
-{% endif %}{# if php.modules.xdebug.installed == 1 #}
+{% endif %}
 
 {% if php.modules.xhprof.installed == 1 %}
 php::pecl::module { 'xhprof':
@@ -84,7 +77,9 @@ class { 'composer':
 
 {% for name,settings in php.inilist if settings is not empty %}
 puphpet::ini { '{{ name }}':
-  value   => [{{ format.explode_and_quote(settings)|raw }}],
+  value   => [
+{{ format.explode_and_quote(settings)|raw }}
+  ],
   ini     => '/etc/php5/conf.d/99-{{ name }}.ini',
   notify  => Service['{{ php_service }}'],
   require => Class['php'],

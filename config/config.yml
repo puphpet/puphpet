@@ -145,3 +145,50 @@ config.php_modules:
   - php-xml-rss
   - php-xml-serializer
   - php-zeroc-ice
+
+config.ini_settings.xdebug:
+  - xdebug.auto_trace
+  - xdebug.collect_includes
+  - xdebug.collect_params
+  - xdebug.collect_return
+  - xdebug.collect_vars
+  - xdebug.default_enable
+  - xdebug.dump.COOKIE
+  - xdebug.dump.ENV
+  - xdebug.dump.FILES
+  - xdebug.dump.GET
+  - xdebug.dump.POST
+  - xdebug.dump.REQUEST
+  - xdebug.dump.SERVER
+  - xdebug.dump.SESSION
+  - xdebug.dump_globals
+  - xdebug.dump_once
+  - xdebug.dump_undefined
+  - xdebug.extended_info
+  - xdebug.idekey
+  - xdebug.manual_url
+  - xdebug.max_nesting_level
+  - xdebug.profiler_aggregate
+  - xdebug.profiler_append
+  - xdebug.profiler_enable
+  - xdebug.profiler_enable_trigger
+  - xdebug.profiler_output_dir
+  - xdebug.profiler_output_name
+  - xdebug.remote_autostart
+  - xdebug.remote_enable
+  - xdebug.remote_connect_back
+  - xdebug.remote_handler
+  - xdebug.remote_host
+  - xdebug.remote_log
+  - xdebug.remote_mode
+  - xdebug.remote_port
+  - xdebug.show_exception_trace
+  - xdebug.show_local_vars
+  - xdebug.show_mem_delta
+  - xdebug.trace_format
+  - xdebug.trace_options
+  - xdebug.trace_output_dir
+  - xdebug.trace_output_name
+  - xdebug.var_display_max_children
+  - xdebug.var_display_max_data
+  - xdebug.var_display_max_depth

@@ -1,0 +1,6 @@
+{% set edition_settings = edition.get('[php][inilist][xdebug]') %}
+{% for setting in app['config.ini_settings.xdebug'] %}
+    {% if edition_settings[setting] is not defined %}
+        <option value="{{ setting }}">{{ setting }}</option>
+    {% endif %}
+{% endfor %}
