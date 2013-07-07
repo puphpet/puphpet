@@ -87,7 +87,11 @@ class ManifestTest extends Base
     {
         $rendered = $this->app['twig']->render('Vagrant/manifest.pp.twig', $this->parameters);
 
-        $this->assertContains('apt-get update', $rendered);
+        // apt-get-update definition and requirement check
+        $this->assertContains("exec { 'apt-get-update':", $rendered);
+        $this->assertContains("Exec['apt-get-update']", $rendered);
+        $this->assertNotContains("Exec['apt-get update']", $rendered);
+
         $this->assertContains("class { 'apache'", $rendered);
         $this->assertContains("apache::module { 'foo'", $rendered);
         $this->assertContains("apt::ppa { 'ppa:ondrej/php5-experimental'", $rendered);
