@@ -150,7 +150,7 @@ function updateInputFromSelect(addButton, sourceFieldName, sourceFieldValue, tar
         targetField.val(currentValue + settingName.val() + ' = ' + settingValue.val()).trigger('change');
 
         // User is adding a value, so remove it from the main name list to prevent duplicates
-        $(sourceFieldName + ' option[value=' + settingName.val() + ']').remove();
+        $(sourceFieldName + ' option[value="' + settingName.val() + '"]').remove();
 
         // Clear select information
         settingName.select2('val', '');
