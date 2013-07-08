@@ -25,5 +25,4 @@ class PhpMyAdminDecider implements DeciderInterface
 
         return false;
     }
-
 }

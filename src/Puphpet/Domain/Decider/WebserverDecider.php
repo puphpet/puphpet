@@ -36,5 +36,4 @@ class WebserverDecider implements DeciderInterface
 
         return false;
     }
-
 }

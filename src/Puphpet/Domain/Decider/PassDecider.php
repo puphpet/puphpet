@@ -18,5 +18,4 @@ class PassDecider implements DeciderInterface
     {
         return true;
     }
-
 }

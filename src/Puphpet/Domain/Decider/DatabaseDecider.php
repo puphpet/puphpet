@@ -37,5 +37,4 @@ class DatabaseDecider implements DeciderInterface
 
         return false;
     }
-
 }
