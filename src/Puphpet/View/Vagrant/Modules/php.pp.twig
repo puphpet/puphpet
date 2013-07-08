@@ -84,4 +84,5 @@ puphpet::ini { '{{ name }}':
   notify  => Service['{{ php_service }}'],
   require => Class['php'],
 }
+
 {% endfor %}

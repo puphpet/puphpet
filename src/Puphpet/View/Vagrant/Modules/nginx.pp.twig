@@ -4,9 +4,9 @@ class { 'nginx':
 
 {% for host in nginx.vhosts %}
 {% if host.index_files %}
-    {% set index_file = host.index_files[host.index_files|length - 1] %}
+{% set index_file = host.index_files[host.index_files|length - 1] %}
 {% else %}
-    {% set index_file = 'test.php' %}
+{% set index_file = 'test.php' %}
 {% endif %}
 
 nginx::resource::vhost { '{{- host.servername -}}':
@@ -24,7 +24,10 @@ Therefore all values with the same keys are lost.
 The workaround is to use the same key but string padding it with spaces.
 It looks quite strange here but the resulting nginx vhost is syntactically still correct.
 #}
-nginx::resource::location { "{{ host.servername }}-php":
+$path_translated = 'PATH_TRANSLATED $document_root$fastcgi_path_info'
+$script_filename = 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
+
+nginx::resource::location { '{{ host.servername }}-php':
   ensure              => 'present',
   vhost               => '{{ host.servername }}',
   location            => '~ \.php$',
@@ -34,8 +37,8 @@ nginx::resource::location { "{{ host.servername }}-php":
   location_cfg_append => {
     'fastcgi_split_path_info' => '^(.+\.php)(/.+)$',
     'fastcgi_param'           => 'PATH_INFO $fastcgi_path_info',
-    'fastcgi_param '          => 'PATH_TRANSLATED $document_root$fastcgi_path_info',
-    'fastcgi_param  '         => 'SCRIPT_FILENAME $document_root$fastcgi_script_name',
+    'fastcgi_param '          => $path_translated,
+    'fastcgi_param  '         => $script_filename,
 {% for key,value in host.envvars %}
     'fastcgi_param{{ ("%-"~(loop.index0+3)~"s")|format(' ') }}'           => '{{ key }} {{ value }}',
 {% endfor %}
