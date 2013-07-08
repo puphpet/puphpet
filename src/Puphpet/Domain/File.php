@@ -6,7 +6,6 @@ use Puphpet\Domain;
 
 class File extends Domain
 {
-    private $source;
 
     /**
      * Absolute filename to tmp archive without extension
@@ -46,9 +45,8 @@ class File extends Domain
      * @param string     $source Absolute path to archive
      * @param Filesystem $filesystem
      */
-    public function __construct($source, Filesystem $filesystem)
+    public function __construct(Filesystem $filesystem)
     {
-        $this->source = $source;
         $this->filesystem = $filesystem;
     }
 
@@ -104,9 +102,10 @@ class File extends Domain
     protected function setPaths()
     {
         $this->archivePathParent = $this->filesystem->getTmpFolder();
-        $this->filesystem->createFolder($this->archivePathParent . '/' . $this->archiveNameNoExtension());
-
         $this->archivePath = $this->archivePathParent . '/' . $this->archiveNameNoExtension();
+
+        $this->filesystem->createFolder($this->archivePath);
+
         $this->archiveFile = $this->archivePathParent . '.zip';
     }
 
@@ -115,8 +114,10 @@ class File extends Domain
      */
     protected function copyToTempFolder()
     {
-        // copy main source
-        $this->copySource($this->source, $this->archivePath);
+        // no initial mirroring is needed
+        // all puppet modules are copy via $moduleSource adding mechanism
+        // only the puppet modules folder itself has to be created here
+        $this->filesystem->createFolder($this->archivePath . '/modules');
 
         // copy all optional sources
         foreach ($this->moduleSources as $moduleName => $moduleSource) {

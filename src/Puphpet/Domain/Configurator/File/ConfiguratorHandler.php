@@ -17,39 +17,24 @@ class ConfiguratorHandler
      */
     private $eventDispatcher;
 
-    private $configurationModules = array();
-
     /**
      * Constructor
      *
      * @param EventDispatcherInterface $eventDispatcher
-     * @param array                    $configurationModules all the modules which need custom modifications
-     *                                                       to the domain file
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, $configurationModules = array())
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
-        $this->configurationModules = $configurationModules;
     }
 
     /**
-     * Runs through all registered configurators, asks them if they want
-     * to modify the given domain file dependant on each configuration key
-     * and if so let them do it.
+     * Delegates file configuration to listeners.
      *
      * @param File  $domainFile
      * @param array $configuration
      */
     public function configure(File $domainFile, array &$configuration)
     {
-        // @TODO these configuration modules should be added as listeners too
-        foreach ($this->configurationModules as $configurator) {
-            /** @var $configurator \Puphpet\Domain\Configurator\File\ConfiguratorInterface */
-            if ($configurator->supports($configuration)) {
-                $configurator->configure($domainFile, $configuration);
-            }
-        }
-
         // delegate configuration to listeners
         $event = new ConfiguratorEvent($domainFile, $configuration);
 

@@ -2,6 +2,8 @@
 
 namespace Puphpet\Domain\Compiler;
 
+use Puphpet\Domain\Decider\DeciderInterface;
+
 /**
  * Adds some content at the end of given Compilation
  */

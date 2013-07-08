@@ -1,14 +1,14 @@
 <?php
 
-namespace Puphpet\Plugins\Symfony\Compiler;
+namespace Puphpet\Plugins\Puphpet\Decider;
 
 use Puphpet\Domain\Decider\DeciderInterface;
 use Puphpet\Domain\Configuration\PropertyAccessProvider;
 
 /**
- * Decides if Symfony project should be generated (not as easy without a solid domain model)
+ * Decides if Puphpet project should be generated
  */
-class SymfonyCreateProjectDecider implements DeciderInterface
+class PuphpetProjectDecider implements DeciderInterface
 {
     /**
      * @var PropertyAccessProvider
@@ -24,7 +24,7 @@ class SymfonyCreateProjectDecider implements DeciderInterface
      * @param PropertyAccessProvider $provider
      * @param string                 $editionIdentifier
      */
-    public function __construct(PropertyAccessProvider $provider, $editionIdentifier = 'symfony')
+    public function __construct(PropertyAccessProvider $provider, $editionIdentifier = 'puphpet')
     {
         $this->provider = $provider;
         $this->editionIdentifier = $editionIdentifier;
@@ -40,7 +40,7 @@ class SymfonyCreateProjectDecider implements DeciderInterface
         $propertyAccess = $this->provider->provide();
         if ($this->editionIdentifier == $propertyAccess->getValue($configuration, '[project][edition]')) {
 
-            return (bool)$propertyAccess->getValue($configuration, '[project][generate]');
+            return true;
         }
 
         return false;

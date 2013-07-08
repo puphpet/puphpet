@@ -2,7 +2,7 @@
 
 namespace Puphpet\Plugins\Puphpet\Compiler;
 
-use Puphpet\Domain\Compiler\DeciderInterface;
+use Puphpet\Domain\Decider\DeciderInterface;
 use Puphpet\Domain\Configuration\PropertyAccessProvider;
 
 /**

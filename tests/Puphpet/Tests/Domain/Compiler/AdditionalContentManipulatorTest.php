@@ -13,7 +13,7 @@ class AdditionalContentManipulatorTest extends \PHPUnit_Framework_TestCase
         $twig = $this->buildTwig();
         $template = 'foo';
 
-        $decider = $this->getMockForAbstractClass('Puphpet\Domain\Compiler\DeciderInterface');
+        $decider = $this->buildDecider();
         $decider->expects($this->once())
             ->method('supports')
             ->with($configuration)
@@ -30,7 +30,7 @@ class AdditionalContentManipulatorTest extends \PHPUnit_Framework_TestCase
         $twig = $this->buildTwig();
         $template = 'foo';
 
-        $decider = $this->getMockForAbstractClass('Puphpet\Domain\Compiler\DeciderInterface');
+        $decider = $this->buildDecider();
         $decider->expects($this->once())
             ->method('supports')
             ->with($configuration)
@@ -56,10 +56,15 @@ class AdditionalContentManipulatorTest extends \PHPUnit_Framework_TestCase
             ->with($template, $configuration)
             ->will($this->returnValue($rendered));
 
-        $decider = $this->getMockForAbstractClass('Puphpet\Domain\Compiler\DeciderInterface');
+        $decider = $this->buildDecider();
 
         $manipulator = new AdditionalContentManipulator($decider, $twig, $template);
         $manipulator->manipulate($compilation);
+    }
+
+    private function buildDecider()
+    {
+        return $this->getMockForAbstractClass('Puphpet\Domain\Decider\DeciderInterface');
     }
 
     private function buildCompilation($configuration)

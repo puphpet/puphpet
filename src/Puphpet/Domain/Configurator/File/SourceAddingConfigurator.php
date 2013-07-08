@@ -2,7 +2,7 @@
 
 namespace Puphpet\Domain\Configurator\File;
 
-use Puphpet\Domain\Compiler\DeciderInterface;
+use Puphpet\Domain\Decider\DeciderInterface;
 use Puphpet\Domain\File;
 
 /**
@@ -16,25 +16,18 @@ class SourceAddingConfigurator implements ConfiguratorInterface
     private $decider;
 
     /**
-     * @var string
+     * @var array
      */
-    private $targetModuleName;
-
-    /**
-     * @var string
-     */
-    private $vendorModulePath;
+    private $moduleMapping;
 
     /**
      * @param DeciderInterface $decider
-     * @param string           $targetModuleName
-     * @param string           $vendorModulePath
+     * @param array            $moduleMapping target module as key and vendor module path as value
      */
-    public function __construct(DeciderInterface $decider, $targetModuleName, $vendorModulePath)
+    public function __construct(DeciderInterface $decider, $moduleMapping)
     {
         $this->decider = $decider;
-        $this->targetModuleName = $targetModuleName;
-        $this->vendorModulePath = $vendorModulePath;
+        $this->moduleMapping = $moduleMapping;
     }
 
     /**
@@ -47,7 +40,9 @@ class SourceAddingConfigurator implements ConfiguratorInterface
      */
     public function configure(File $domainFile, array &$configuration)
     {
-        $domainFile->addModuleSource($this->targetModuleName, $this->vendorModulePath);
+        foreach ($this->moduleMapping as $targetModuleName => $vendorModulePath) {
+            $domainFile->addModuleSource($targetModuleName, $vendorModulePath);
+        }
     }
 
     /**

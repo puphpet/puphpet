@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Domain\Compiler;
+namespace Puphpet\Domain\Decider;
 
 interface DeciderInterface
 {

@@ -11,14 +11,14 @@ class ConfiguratorListener
     /**
      * @var ConfiguratorInterface
      */
-    private $configurator;
+    private $configurators;
 
     /**
-     * @param ConfiguratorInterface $configurator
+     * @param mixed $configurator one ConfiguratorInterface or a list of them
      */
-    public function __construct(ConfiguratorInterface $configurator)
+    public function __construct($configurators)
     {
-        $this->configurator = $configurator;
+        $this->configurators = is_array($configurators) ? $configurators : [$configurators];
     }
 
     /**
@@ -28,8 +28,18 @@ class ConfiguratorListener
     {
         $configuration = $event->getConfiguration();
 
-        if ($this->configurator->supports($configuration)) {
-            $this->configurator->configure($event->getDomainFile(), $configuration);
+        foreach ($this->configurators as $configurator) {
+            if (!$configurator instanceof ConfiguratorInterface) {
+                $msg = sprintf(
+                    'ConfiguratorListener supports instances of ConfiguratorInterface only'
+                    . ', given "%s"',
+                    get_class($configurator)
+                );
+                throw new \InvalidArgumentException($msg);
+            }
+            if ($configurator->supports($configuration)) {
+                $configurator->configure($event->getDomainFile(), $configuration);
+            }
         }
     }
 }

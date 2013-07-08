@@ -41,19 +41,64 @@ $app->mount('/quickstart', new Puphpet\Controller\Quickstart($app));
 // services
 $app['domain_file'] = function () {
     return new Puphpet\Domain\File(
-        VAGRANT_PATH,
         new Puphpet\Domain\Filesystem()
     );
 };
 $app['domain_file_configurator'] = function () use ($app) {
-    return new Puphpet\Domain\Configurator\File\ConfiguratorHandler(
-        $app['dispatcher'],
+    return new Puphpet\Domain\Configurator\File\ConfiguratorHandler($app['dispatcher']);
+};
+$app['domain.listener.main_source_configurator'] = function() {
+    $configurator = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
+        new \Puphpet\Domain\Decider\PassDecider(),
         [
-            new Puphpet\Domain\Configurator\File\Module\NginxConfigurator(VENDOR_PATH),
-            new Puphpet\Domain\Configurator\File\Module\PostgreSQLConfigurator(VENDOR_PATH),
-            new Puphpet\Domain\Configurator\File\Module\PhpMyAdminConfigurator(VENDOR_PATH),
+            'apt'     => VENDOR_PATH . '/puppetlabs/puppetlabs-apt',
+            'stdlib'  => VENDOR_PATH . '/puppetlabs/puppetlabs-stdlib',
+            'puppi'   => VENDOR_PATH . '/example42/puppi',
+            'php'     => VENDOR_PATH . '/puphpet/puphpet-php',
+            'puphpet' => VENDOR_PATH . '/puphpet/puppet-puphpet',
+            'xdebug'  => VENDOR_PATH . '/puphpet/puphpet-xdebug',
         ]
     );
+    return new \Puphpet\Domain\Configurator\File\Event\Listener\ConfiguratorListener($configurator);
+};
+$app['domain.listener.optional_source_configurator'] = function() {
+    $configuratorApache = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
+        new \Puphpet\Domain\Decider\WebserverDecider('apache'),
+        [
+            'apache' => VENDOR_PATH . '/puphpet/puphpet-apache',
+        ]
+    );
+    $configuratorNginx = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
+        new \Puphpet\Domain\Decider\WebserverDecider('nginx'),
+        [
+            'nginx' => VENDOR_PATH . '/jfryman/puppet-nginx',
+        ]
+    );
+    $configuratorMysql = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
+        new \Puphpet\Domain\Decider\DatabaseDecider('mysql'),
+        [
+            'mysql' => VENDOR_PATH . '/puphpet/puphpet-mysql',
+        ]
+    );
+    $configuratorPostgresql = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
+        new \Puphpet\Domain\Decider\DatabaseDecider('postgresql'),
+        [
+            'postgresql' => VENDOR_PATH . '/puppetlabs/puppetlabs-postgresql'
+        ]
+    );
+    $configuratorPhpMyAdmin = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
+        new \Puphpet\Domain\Decider\PhpMyAdminDecider('postgresql'),
+        [
+            'phpmyadmin' => VENDOR_PATH . '/frastel/puppet-phpmyadmin'
+        ]
+    );
+    return new \Puphpet\Domain\Configurator\File\Event\Listener\ConfiguratorListener([
+        $configuratorApache,
+        $configuratorNginx,
+        $configuratorMysql,
+        $configuratorPostgresql,
+        $configuratorPhpMyAdmin
+    ]);
 };
 $app['manifest_formatter'] = function () {
     return new Puphpet\Domain\Compiler\Manifest\Formatter(
@@ -161,8 +206,7 @@ $app['plugin.symfony.manipulator.project'] = function () use ($app) {
 $app['plugin.symfony.listener.source_configurator'] = function () use ($app) {
     $configurator = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
         $app['plugin.symfony.create_project_decider'],
-        'symfony',
-        VENDOR_PATH . '/frastel/puppet-symfony'
+        ['symfony' => VENDOR_PATH . '/frastel/puppet-symfony']
     );
     return new \Puphpet\Domain\Configurator\File\Event\Listener\ConfiguratorListener($configurator);
 };
@@ -182,6 +226,13 @@ $app['plugin.puphpet.manipulator.project'] = function () use ($app) {
         '@Puphpet/Vagrant/clone.pp.twig'
     );
 };
+$app['plugin.puphpet.listener.source_configurator'] = function () use ($app) {
+    $configurator = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
+        new \Puphpet\Plugins\Puphpet\Decider\PuphpetProjectDecider($app['property_access_provider']),
+        ['git' => VENDOR_PATH . '/puphpet/puphpet-git']
+    );
+    return new \Puphpet\Domain\Configurator\File\Event\Listener\ConfiguratorListener($configurator);
+};
 // End Plugins
 
 $app['manifest.compilation_listener'] = function () use ($app) {
@@ -195,6 +246,9 @@ $app['manifest.compilation_listener'] = function () use ($app) {
 // maybe sth like ContainerAwareEventDispatcher as to be added here?
 // registering on the event which is fired after the manifest is compiled
 $app['dispatcher']->addListener('compile.manifest.finish', [$app['manifest.compilation_listener'], 'onCompile']);
+$app['dispatcher']->addListener('file.configuration', [$app['domain.listener.main_source_configurator'], 'onConfigure'], 200);
+$app['dispatcher']->addListener('file.configuration', [$app['domain.listener.optional_source_configurator'], 'onConfigure'], 100);
 $app['dispatcher']->addListener('file.configuration', [$app['plugin.symfony.listener.source_configurator'], 'onConfigure']);
+$app['dispatcher']->addListener('file.configuration', [$app['plugin.puphpet.listener.source_configurator'], 'onConfigure']);
 
 return $app;
