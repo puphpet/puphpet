@@ -80,7 +80,7 @@ puphpet::ini { '{{ name }}':
   value   => [
 {{ format.explode_and_quote(settings)|raw }}
   ],
-  ini     => '/etc/php5/conf.d/99-{{ name }}.ini',
+  ini     => '/etc/php5/conf.d/zzz_{{ name }}.ini',
   notify  => Service['{{ php_service }}'],
   require => Class['php'],
 }
