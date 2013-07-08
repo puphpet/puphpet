@@ -9,16 +9,14 @@ use Puphpet\Tests\Base;
  */
 class ManifestTest extends Base
 {
-    /**
-     * @var array
-     */
-    private $parameters;
-
     public function setUp()
     {
         $this->createApplication();
+    }
 
-        $this->parameters = [
+    protected function getParametersForApacheAndMysql()
+    {
+        return [
             'webserver'   => 'apache',
             'database'    => 'mysql',
             'php_service' => 'apache',
@@ -74,9 +72,67 @@ class ManifestTest extends Base
                 ]
             ]
         ];
-
     }
 
+    protected function getParametersForNginxAndPostgresql()
+    {
+        return [
+            'webserver'   => 'nginx',
+            'database'    => 'postgresql',
+            'php_service' => 'php5-fpm',
+            'server'      => ['packages' => ['foo', 'bar']],
+            'nginx'      => [
+                'vhosts'  => [
+                    [
+                        'servername'    => 'myserver',
+                        'serveraliases' => array(),
+                        'envvars'       => array(),
+                        'docroot'       => '/var/www',
+                        'port'          => 80,
+                        'index_files'   => ['index.html', 'index.htm', 'index.php'],
+                    ]
+                ],
+                'modules' => ['foo', 'bar'],
+            ],
+            'php'         => [
+                'version' => 'php55',
+                'modules' => [
+                    'php'      => ['php5-cli'],
+                    'pear'     => ['installed' => true],
+                    'pecl'     => array(),
+                    'composer' => ['installed' => true],
+                    'xdebug'   => ['installed' => true],
+                    'xhprof'   => ['installed' => true],
+                ],
+                'inilist' => [
+                    'php'    => [
+                        'date.timezone = "Europe/Berlin"',
+                    ],
+                    'custom' => [
+                        'display_errors = On',
+                        'error_reporting = 1'
+                    ],
+                    'xdebug' => [
+                        'xdebug.default_enable = 1',
+                        'xdebug.remote_autostart = 0',
+                        'xdebug.remote_connect_back = 1',
+                    ]
+                ],
+            ],
+            'postgresql'       => [
+                'root'       => 'rootpwd',
+                'dbuser'     => [
+                    [
+                        'dbname'     => 'test_dbname',
+                        'privileges' => ['ALL'],
+                        'user'       => 'test_user',
+                        'password'   => 'test_password',
+                        'host'       => 'test_host',
+                    ]
+                ]
+            ]
+        ];
+    }
 
     /**
      * This test is a simple functional test on rendering the manifest template.
@@ -85,7 +141,7 @@ class ManifestTest extends Base
      */
     public function testRender()
     {
-        $rendered = $this->app['twig']->render('Vagrant/manifest.pp.twig', $this->parameters);
+        $rendered = $this->render($this->getParametersForApacheAndMysql());
 
         // apt-get-update definition and requirement check
         $this->assertContains("exec { 'apt-get-update':", $rendered);
@@ -107,17 +163,38 @@ class ManifestTest extends Base
 
     public function testRenderWithPhpMyAdmin()
     {
-        $this->parameters['mysql']['phpmyadmin'] = true;
+        $parameters = $this->getParametersForApacheAndMysql();
+        $parameters['mysql']['phpmyadmin'] = true;
 
-        $rendered = $this->app['twig']->render('Vagrant/manifest.pp.twig', $this->parameters);
+        $rendered = $this->render($parameters);
 
         $this->assertContains("class { 'phpmyadmin':", $rendered);
 
         $this->doLinting($rendered);
     }
 
+    public function testRenderNginxAndPostgresql()
+    {
+        $rendered = $this->render($this->getParametersForNginxAndPostgresql());
 
-    private function doLinting($rendered)
+        // apt-get-update definition and requirement check
+        $this->assertContains("exec { 'apt-get-update':", $rendered);
+        $this->assertContains("Exec['apt-get-update']", $rendered);
+        $this->assertNotContains("Exec['apt-get update']", $rendered);
+
+        $this->assertContains("nginx::resource::vhost { 'myserver':", $rendered);
+        $this->assertContains("class { 'postgresql':", $rendered);
+        $this->assertContains("postgresql::db { 'test_dbname':", $rendered);
+
+        $this->doLinting($rendered);
+    }
+
+    protected function render($parameters)
+    {
+        return $this->app['twig']->render('Vagrant/manifest.pp.twig', $parameters);
+    }
+
+    protected function doLinting($rendered)
     {
         // check first if puppet-lint is installed
         $output = shell_exec('which puppet-lint');

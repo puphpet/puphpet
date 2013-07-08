@@ -11,9 +11,15 @@ class { 'nginx':
 
 nginx::resource::vhost { '{{- host.servername -}}':
   ensure       => present,
-  server_name  => ['{{ host.servername }}'{% if host.serveraliases %}, {{ format.explode_and_quote(host.serveraliases) }}{% endif %}],
+  server_name  => [
+    '{{ host.servername }}'{% if host.serveraliases %},
+{{ format.explode_and_quote(host.serveraliases) }}
+{% endif %}
+  ],
   listen_port  => {{ host.port }},
-  index_files  => [{{ format.explode_and_quote(host.index_files) }}],
+  index_files  => [
+{{ format.explode_and_quote(host.index_files) }}
+  ],
   www_root     => '{{ host.docroot }}',
   try_files    => ['$uri', '$uri/', '/{{ index_file }}?$args'],
 }
