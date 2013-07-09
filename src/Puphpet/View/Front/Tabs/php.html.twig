@@ -13,11 +13,11 @@
 
             <div>
                 <label class="radio-inline min-span-1">
-                    <input type="radio" name="php[version]" value="php55" checked /> 5.5
+                    <input type="radio" name="php[version]" value="php55"  /> 5.5
                 </label>
 
                 <label class="radio-inline min-span-1">
-                    <input type="radio" name="php[version]" value="php54" /> 5.4
+                    <input type="radio" name="php[version]" value="php54" checked /> 5.4
                 </label>
 
                 <label class="radio-inline">
@@ -25,7 +25,13 @@
                 </label>
             </div>
 
-            <p class="help-block">Nginx integration with PHP 5.4 and 5.5 is currently experimental and might not work properly.</p>
+            <p class="help-block">
+                Integration of PHP 5.4 and 5.5 is currently not supported natively by
+                given vagrant boxes and thus a <a href="https://launchpad.net/~ondrej/+archive/php5">PPA</a> has to be used.
+                Things might not work properly in this case.
+                <br />
+                If you encounter any problems please skip back to PHP 5.3.
+            </p>
         </div>
 
         <div class="col col-lg-4 min-span-4">
