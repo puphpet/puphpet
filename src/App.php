@@ -51,12 +51,13 @@ $app['domain.listener.main_source_configurator'] = function() {
     $configurator = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
         new \Puphpet\Domain\Decider\PassDecider(),
         [
-            'apt'     => VENDOR_PATH . '/puppetlabs/puppetlabs-apt',
-            'stdlib'  => VENDOR_PATH . '/puppetlabs/puppetlabs-stdlib',
-            'puppi'   => VENDOR_PATH . '/example42/puppi',
-            'php'     => VENDOR_PATH . '/puphpet/puphpet-php',
-            'puphpet' => VENDOR_PATH . '/puphpet/puppet-puphpet',
-            'xdebug'  => VENDOR_PATH . '/puphpet/puphpet-xdebug',
+            'apt'      => VENDOR_PATH . '/puppetlabs/puppetlabs-apt',
+            'stdlib'   => VENDOR_PATH . '/puppetlabs/puppetlabs-stdlib',
+            'puppi'    => VENDOR_PATH . '/example42/puppi',
+            'php'      => VENDOR_PATH . '/puphpet/puphpet-php',
+            'puphpet'  => VENDOR_PATH . '/puphpet/puppet-puphpet',
+            'xdebug'   => VENDOR_PATH . '/puphpet/puphpet-xdebug',
+            'composer' => VENDOR_PATH . '/puphpet/puphpet-composer',
         ]
     );
     return new \Puphpet\Domain\Configurator\File\Event\Listener\ConfiguratorListener($configurator);
