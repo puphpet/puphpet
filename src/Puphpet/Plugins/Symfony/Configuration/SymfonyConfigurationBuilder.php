@@ -42,8 +42,9 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
      */
     public function build(Edition $edition, array $customConfiguration)
     {
+        $documentRootParent =  '/var/www';
         $projectName = $customConfiguration['project']['name'];
-        $documentRoot = '/var/www/' . $projectName;
+        $documentRoot = $documentRootParent . '/' . $projectName;
 
         $conf = array();
 
@@ -57,6 +58,8 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
         ) ? $customConfiguration['project']['generate_project'] : false;
         $conf['project']['version'] = $customConfiguration['project']['symfony_version'];
         $conf['project']['document_root'] = $documentRoot;
+        $conf['project']['document_root_parent'] = $documentRootParent;
+        $conf['project']['name'] = $projectName;
 
         // box stuff
         $box = $edition->get('box');

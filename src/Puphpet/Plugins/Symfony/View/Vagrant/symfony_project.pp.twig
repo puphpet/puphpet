@@ -1,7 +1,8 @@
-symfony::project::create { '{{ project.document_root }}':
-  user    => 'vagrant',
+symfony::project::create { '{{ project.name }}':
+  user        => 'vagrant',
+  working_dir => '{{ project.document_root_parent }}',
 {% if project.version %}
-  version => '{{ project.version }}',
+  version     => '{{ project.version }}',
 {% endif %}
   require => Class['composer'],
 }

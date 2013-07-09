@@ -14,7 +14,7 @@
         "example42/puppi":                  "dev-master#f65b71b7c2",
         "jfryman/puppet-nginx":             "dev-master#4419300",
         "frastel/puppet-phpmyadmin":        "dev-master#dbfcbf6755",
-        "frastel/puppet-symfony":           "dev-master#5558c0b0cf",
+        "frastel/puppet-symfony":           "dev-master#d52d729",
         "puphpet/puphpet-apache":           "dev-master",
         "puphpet/puphpet-composer":         "dev-master",
         "puphpet/puphpet-git":              "dev-master",
@@ -24,7 +24,7 @@
         "puphpet/puphpet-xdebug":           "dev-master",
         "puppetlabs/puppetlabs-apt":        "1.1.0",
         "puppetlabs/puppetlabs-postgresql": "2.2.1",
-        "puppetlabs/puppetlabs-stdlib":     "v2.2.1"
+        "puppetlabs/puppetlabs-stdlib":     "2.6.0"
     },
     "require-dev": {
         "phpunit/phpunit":                           "3.8.*@dev",
@@ -106,7 +106,7 @@
                 "source": {
                     "url": "git://github.com/frastel/puppet-symfony.git",
                     "type": "git",
-                    "reference": "5558c0b"
+                    "reference": "d52d729"
                 }
             }
         },
@@ -222,11 +222,11 @@
             "type": "package",
             "package": {
                 "name": "puppetlabs/puppetlabs-stdlib",
-                "version": "v2.2.1",
+                "version": "2.6.0",
                 "source": {
                     "url": "git://github.com/puppetlabs/puppetlabs-stdlib.git",
                     "type": "git",
-                    "reference": "tags/v2.2.1"
+                    "reference": "tags/2.6.0"
                 }
             }
         }

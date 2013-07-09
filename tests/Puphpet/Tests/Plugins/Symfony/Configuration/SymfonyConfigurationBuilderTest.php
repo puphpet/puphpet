@@ -56,12 +56,15 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
 
         $config = $configuration->toArray();
         $this->assertInternalType('array', $config);
-        $this->assertArrayHasKey('project', $config);
         $this->assertArrayHasKey('box', $config);
         $this->assertArrayHasKey('server', $config);
         $this->assertArrayHasKey('php', $config);
         $this->assertArrayHasKey('webserver', $config);
         $this->assertArrayHasKey('database', $config);
+
+        $this->assertArrayHasKey('project', $config);
+        $this->assertEquals('/var/www', $config['project']['document_root_parent']);
+        $this->assertEquals('foo.bar.dev', $config['project']['name']);
 
         $this->assertEquals($bashAliasFileContent, $config['server']['bashaliases']);
     }

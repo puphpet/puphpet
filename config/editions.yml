@@ -70,6 +70,7 @@ editions:
           display_errors:            'On'
           error_reporting:           '-1'
           'xdebug.max_nesting_level': 250
+          short_open_tag:            0
         xdebug:
           xdebug.default_enable:      1
           xdebug.remote_autostart:    0
