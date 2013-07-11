@@ -7,6 +7,18 @@ namespace Puphpet\Domain\Decider;
  */
 class PhpMyAdminDecider implements DeciderInterface
 {
+    /**
+    * @var string
+    */
+    private $phpmyadmin;
+
+    /**
+    * @param string $phpmyadmin
+    */
+    public function __construct($phpmyadmin)
+    {
+        $this->phpmyadmin = $phpmyadmin;
+    }
 
     /**
      * Wether the configuration matches for optional PhpMyAdmin.
@@ -18,7 +30,7 @@ class PhpMyAdminDecider implements DeciderInterface
     public function supports(array &$configuration)
     {
         if (array_key_exists('mysql', $configuration)
-            && array_key_exists('phpmyadmin', $configuration['mysql'])
+            && array_key_exists($this->phpmyadmin, $configuration['mysql'])
         ) {
             return (bool) $configuration['mysql']['phpmyadmin'];
         }
