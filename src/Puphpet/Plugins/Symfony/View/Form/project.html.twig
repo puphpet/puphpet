@@ -31,13 +31,13 @@
             <input id="project-name" name="project[name]" type="text" required
                    placeholder="symfony-box"
                    value="symfony.{{ default_box }}.local"
-                   title="Please use a FQDN-like name like myproject.dev"
-                   pattern="^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$"
+                   title="Please use a FQDN-like name like myproject.dev or myproject.localhost"
+                   pattern="^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,63}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$"
                     />
 
             <p class="help-block">
                 Reflects your unique box and host name.
-                Please use a FQDN-like name like myproject.dev.
+                Please use a FQDN-like name like myproject.dev or myproject.localhost.
             </p>
 
             <label for="document-root">Document Root</label>
@@ -45,11 +45,11 @@
                    placeholder="/var/www/symfony/web"
                    value="/var/www/symfony.{{ default_box }}.local/web"
                    title="Please enter a valid unix path like /var/www/myproject.dev"
-                   pattern="^\/([a-zA-Z0-9][a-zA-Z0-9\-\.\_\/]{0,61})+[a-zA-Z]+$"
+                   pattern="^\/([a-zA-Z0-9][a-zA-Z0-9\-\.\_\/]{0,63})+[a-zA-Z]+$"
                     />
 
-            <p class="help-block">Reflects your unique box and host name. Please use a FQDN-like name (myproject.dev)
-                here.</p>
+            <p class="help-block">Reflects your unique box and host name. Please use a FQDN-like name (as myproject.dev
+                or myproject.localhost) here.</p>
         </div>
     </div>
 
