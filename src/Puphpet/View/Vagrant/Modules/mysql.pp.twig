@@ -17,7 +17,7 @@ mysql::grant { '{{ database.dbname }}':
 
 {% if mysql.phpmyadmin %}
 class { 'phpmyadmin':
-  require => Class['mysql'],
+  require => [Class['mysql'], Class['php']],
 }
 
 {% if nginx is defined %}
