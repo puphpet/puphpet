@@ -3,6 +3,7 @@
 namespace Puphpet\Domain\File;
 
 use Puphpet\Domain\Compiler\Compiler;
+use Puphpet\Domain\Serializer\Serializer;
 use Puphpet\Domain\Configurator\File\ConfiguratorHandler;
 use Puphpet\Domain\File;
 
@@ -37,24 +38,32 @@ class Generator
     private $fileConfigurator;
 
     /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    /**
      * @param Compiler            $vagrantCompiler
      * @param Compiler            $manifestCompiler
      * @param Compiler            $readmeCompiler
      * @param File                $domainFile
      * @param ConfiguratorHandler $fileConfigurator
+     * @param Serializer          $serializer
      */
     public function __construct(
         Compiler $vagrantCompiler,
         Compiler $manifestCompiler,
         Compiler $readmeCompiler,
         File $domainFile,
-        ConfiguratorHandler $fileConfigurator
+        ConfiguratorHandler $fileConfigurator,
+        Serializer $serializer
     ) {
         $this->vagrantCompiler = $vagrantCompiler;
         $this->manifestCompiler = $manifestCompiler;
         $this->readmeCompiler = $readmeCompiler;
         $this->domainFile = $domainFile;
         $this->fileConfigurator = $fileConfigurator;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -69,9 +78,11 @@ class Generator
     public function generateArchive(
         array $boxConfiguration,
         array $manifestConfiguration,
-        array $vagrantConfiguration
+        array $vagrantConfiguration,
+        array $userConfiguration
     ) {
         $this->domainFile->setName($boxConfiguration['box']['name'].'.zip');
+
         $manifest = $this->manifestCompiler->compile($manifestConfiguration);
 
         // build Vagrantfile
@@ -84,12 +95,15 @@ class Generator
             array_merge($manifestConfiguration, $boxConfiguration)
         );
 
+        $completeConfiguration = array_merge($manifestConfiguration, $boxConfiguration);
+
         //@TODO adding/replacing files to the archive could be done in configurators
         //@TODO as soon as the domain file supports adding single files
         // creating and building the archive
         $this->domainFile->createArchive(
             [
                 'README'                                  => $readme,
+                'puphpet.json'                            => $this->serializer->serialize($userConfiguration),
                 'Vagrantfile'                             => $vagrantFile,
                 'manifests/default.pp'                    => $manifest,
                 'modules/puphpet/files/dot/.bash_aliases' => $manifestConfiguration['server']['bashaliases'],

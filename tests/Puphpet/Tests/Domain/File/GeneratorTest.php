@@ -17,6 +17,9 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $manifestConfiguration = ['manifest' => 'foo', 'server' => ['bashaliases' => $bashaliases]];
         $manifest = 'manifest';
 
+        $userConfiguration = ['foo' => 'bar'];
+        $serializedUserConfiguration = json_encode($userConfiguration, JSON_PRETTY_PRINT);
+
         $readmeConfiguration = [
             'manifest' => 'foo',
             'server'   => ['bashaliases' => $bashaliases],
@@ -27,6 +30,16 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $vagrantCompiler = $this->buildCompiler($vagrantConfiguration, $vagrantFile);
         $manifestCompiler = $this->buildCompiler($manifestConfiguration, $manifest);
         $readmeCompiler = $this->buildCompiler($readmeConfiguration, $readme);
+
+        $serializer = $this->getMockBuilder('Puphpet\Domain\Serializer\Serializer')
+            ->disableOriginalConstructor()
+            ->setMethods(['serialize'])
+            ->getMock();
+
+        $serializer->expects($this->once())
+            ->method('serialize')
+            ->with($userConfiguration)
+            ->will($this->returnValue($serializedUserConfiguration));
 
         $domainFile = $this->getMockBuilder('Puphpet\Domain\File')
             ->disableOriginalConstructor()
@@ -45,6 +58,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
                     'Vagrantfile'                             => $vagrantFile,
                     'manifests/default.pp'                    => $manifest,
                     'modules/puphpet/files/dot/.bash_aliases' => $bashaliases,
+                    'puphpet.json'                            => $serializedUserConfiguration
                 ]
             );
 
@@ -55,11 +69,19 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array())
             ->getMock();
 
-        $generator = new Generator($vagrantCompiler, $manifestCompiler, $readmeCompiler, $domainFile, $configurator);
+        $generator = new Generator(
+            $vagrantCompiler,
+            $manifestCompiler,
+            $readmeCompiler,
+            $domainFile,
+            $configurator,
+            $serializer
+        );
         $file = $generator->generateArchive(
             $boxConfiguration,
             $manifestConfiguration,
-            $vagrantConfiguration
+            $vagrantConfiguration,
+            $userConfiguration
         );
 
         $this->assertInstanceOf('Puphpet\Domain\File', $file);

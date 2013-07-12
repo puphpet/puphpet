@@ -64,7 +64,8 @@ class ConfigurationGenerator
         return $this->generator->generateArchive(
             $boxConfiguration,
             $manifestConfiguration,
-            $vagrantConfiguration
+            $vagrantConfiguration,
+            $configuration->toArray()
         );
     }
 }

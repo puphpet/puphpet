@@ -161,7 +161,8 @@ $app['file_generator'] = function () use ($app) {
         $app['manifest_compiler'],
         $app['readme_compiler'],
         $app['domain_file'],
-        $app['domain_file_configurator']
+        $app['domain_file_configurator'],
+        new \Puphpet\Domain\Serializer\Serializer(new \Puphpet\Domain\Serializer\Cleaner())
     );
 };
 $app['configuration_file_generator'] = function () use ($app) {

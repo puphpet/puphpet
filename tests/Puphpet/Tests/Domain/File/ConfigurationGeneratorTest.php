@@ -12,11 +12,12 @@ class ConfigurationGeneratorTest extends \PHPUnit_Framework_TestCase
         $manifestConfiguration = ['foo' => 'bar', 'mysql' => 'here'];
         $boxConfiguration = ['box' => ['name' => 'baz']];
         $vagrantConfiguration = ['box' => ['name' => 'baz'], 'mysql' => 'here'];
+        $expectedUserConfiguration = ['foo' => 'bar', 'mysql' => 'here','box' => ['name' => 'baz']];
 
         // mocking the request
         $configuration = $this->getMockBuilder('\Puphpet\Domain\Configuration\Configuration')
             ->disableOriginalConstructor()
-            ->setMethods(['get'])
+            ->setMethods(['get', 'toArray'])
             ->getMock();
 
         $configuration->expects($this->at(0))
@@ -24,6 +25,9 @@ class ConfigurationGeneratorTest extends \PHPUnit_Framework_TestCase
             ->with('box')
             ->will($this->returnValue(['name' => 'baz']));
 
+        $configuration->expects($this->atLeastOnce())
+            ->method('toArray')
+            ->will($this->returnValue($expectedUserConfiguration));
 
         $requestFormatter = $this->getMockBuilder(
             'Puphpet\Domain\Compiler\Manifest\ConfigurationFormatter'
@@ -47,7 +51,7 @@ class ConfigurationGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $generator->expects($this->once())
             ->method('generateArchive')
-            ->with($boxConfiguration, $manifestConfiguration, $vagrantConfiguration);
+            ->with($boxConfiguration, $manifestConfiguration, $vagrantConfiguration, $expectedUserConfiguration);
 
         $requestGenerator = new ConfigurationGenerator($generator, $requestFormatter);
         $requestGenerator->generateArchive($configuration);
