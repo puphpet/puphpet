@@ -152,8 +152,9 @@ class ManifestTest extends Base
         $this->assertContains("apache::module { 'foo'", $rendered);
         $this->assertContains("apt::ppa { 'ppa:ondrej/php5-experimental'", $rendered);
         $this->assertContains("php::module { 'php5-cli'", $rendered);
-        $this->assertContains("root_password => 'rootpwd'", $rendered);
-        $this->assertContains("mysql::grant { 'test_dbname'", $rendered);
+        $this->assertContains("mysql::server", $rendered);
+        $this->assertContains("'root_password' => 'rootpwd'", $rendered);
+        $this->assertContains("mysql::db { 'test_dbname'", $rendered);
         $this->assertContains('date.timezone = "America/Chicago"', $rendered);
 
         $this->assertNotContains('phpmyadmin', $rendered);

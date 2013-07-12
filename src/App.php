@@ -78,7 +78,7 @@ $app['domain.listener.optional_source_configurator'] = function() {
     $configuratorMysql = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
         new \Puphpet\Domain\Decider\DatabaseDecider('mysql'),
         [
-            'mysql' => VENDOR_PATH . '/puphpet/puphpet-mysql',
+            'mysql' => VENDOR_PATH . '/puppetlabs/puppetlabs-mysql',
         ]
     );
     $configuratorPostgresql = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
