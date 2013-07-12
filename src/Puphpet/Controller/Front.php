@@ -24,9 +24,6 @@ class Front extends Controller
         $controllers->post('/create', [$this, 'createAction'])
             ->bind('create');
 
-        $controllers->get('/manifest', [$this, 'manifestAction'])
-            ->bind('manifest');
-
         $controllers->get('/about', [$this, 'aboutAction'])
             ->bind('about');
 
@@ -103,85 +100,5 @@ class Front extends Controller
                 'Connection'                => 'close',
             ]
         );
-    }
-
-    /**
-     * Dumps out only the compiled manifest.
-     * Needed in preparation for RSpec testing
-     *
-     * @param Request     $request
-     * @param Application $app
-     */
-    public function manifestAction(Request $request, Application $app)
-    {
-        $compiler = $app['manifest_compiler'];
-
-        $manifestConfiguration = $this->getConfiguration();
-
-        $manifest = $compiler->compile($manifestConfiguration);
-
-        return new Response($manifest, 200, [
-           'Content-Type' => 'text/plain'
-        ]);
-    }
-
-    private function getConfiguration()
-    {
-        return [
-            'webserver'   => 'apache',
-            'database'    => 'mysql',
-            'php_service' => 'apache',
-            'server'      => ['packages' => ['foo', 'bar']],
-            'apache'      => [
-                'vhosts'  => [
-                    [
-                        'servername'    => 'myserver',
-                        'serveraliases' => array(),
-                        'envvars'       => array(),
-                        'docroot'       => '/var/www',
-                        'port'          => 80,
-                    ]
-                ],
-                'modules' => ['foo', 'bar'],
-            ],
-            'php'         => [
-                'version' => 'php55',
-                'modules' => [
-                    'php'      => ['php5-cli'],
-                    'pear'     => ['installed' => true],
-                    'pecl'     => array(),
-                    'composer' => ['installed' => true],
-                    'xdebug'   => ['installed' => true],
-                    'xhprof'   => ['installed' => true],
-                ],
-                'inilist' => [
-                    'php'    => [
-                        'date.timezone = "America/Chicago"',
-                    ],
-                    'custom' => [
-                        'display_errors = On',
-                        'error_reporting = 1'
-                    ],
-                    'xdebug' => [
-                        'xdebug.default_enable = 1',
-                        'xdebug.remote_autostart = 0',
-                        'xdebug.remote_connect_back = 1',
-                    ]
-                ],
-            ],
-            'mysql'       => [
-                'root'       => 'rootpwd',
-                'phpmyadmin' => false,
-                'dbuser'     => [
-                    [
-                        'dbname'     => 'test_dbname',
-                        'privileges' => [],
-                        'user'       => 'test_user',
-                        'password'   => 'test_password',
-                        'host'       => 'test_host',
-                    ]
-                ]
-            ]
-        ];
     }
 }
