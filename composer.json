@@ -52,29 +52,6 @@
             "Puphpet": "src/"
         }
     },
-    "scripts": {
-        "post-install-cmd": "Frastel\\Puphpeteer\\Installer::build",
-        "post-update-cmd": "Frastel\\Puphpeteer\\Installer::build"
-    },
-    "extra": {
-        "puppet-modules-dir": "puppet/modules",
-        "puppet-modules": {
-            "example42/puppi":                  "puppi",
-            "jfryman/puppet-nginx":             "nginx",
-            "frastel/puppet-phpmyadmin":        "phpmyadmin",
-            "frastel/puppet-symfony":           "symfony",
-            "puphpet/puphpet-apache":           "apache",
-            "puphpet/puphpet-composer":         "composer",
-            "puphpet/puphpet-git":              "git",
-            "puppetlabs/puppetlabs-mysql":      "mysql",
-            "puphpet/puphpet-php":              "php",
-            "puphpet/puppet-puphpet":           "puphpet",
-            "puphpet/puphpet-xdebug":           "xdebug",
-            "puppetlabs/puppetlabs-apt":        "apt",
-            "puppetlabs/puppetlabs-postgresql": "postgresql",
-            "puppetlabs/puppetlabs-stdlib":     "stdlib"
-        }
-    },
     "repositories": [
         {
             "type": "package",

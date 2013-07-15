@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "36c5fd607e8c12cfdc840c52b0183a6f",
+    "hash": "f16ae9eacbe6b06975259682d3b9d326",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -74,52 +74,6 @@
             },
             "type": "library",
             "time": "2013-06-18 13:52:35"
-        },
-        {
-            "name": "frastel/puphpeteer-installer",
-            "version": "dev-master",
-            "target-dir": "Frastel/Puphpeteer",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/frastel/puphpeteer-installer.git",
-                "reference": "93acaf78c69839f25b6ea947cbab884d8fac0940"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/frastel/puphpeteer-installer/zipball/93acaf78c69839f25b6ea947cbab884d8fac0940",
-                "reference": "93acaf78c69839f25b6ea947cbab884d8fac0940",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "composer/composer": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Frastel\\Puphpeteer\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Frank Stelzer",
-                    "email": "dev@frankstelzer.de"
-                }
-            ],
-            "description": "Installs versioned Puppet modules with PHP and Composer",
-            "keywords": [
-                "composer",
-                "php",
-                "puphpet",
-                "puppet"
-            ],
-            "time": "2013-07-04 00:48:47"
         },
         {
             "name": "frastel/puppet-phpmyadmin",
@@ -589,12 +543,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "f9e754e503e3c72b1afb9d2610417cf32ce43832"
+                "reference": "db8a0f6ba5b953435bb2b3ac5564c67191dea462"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/f9e754e503e3c72b1afb9d2610417cf32ce43832",
-                "reference": "f9e754e503e3c72b1afb9d2610417cf32ce43832",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/db8a0f6ba5b953435bb2b3ac5564c67191dea462",
+                "reference": "db8a0f6ba5b953435bb2b3ac5564c67191dea462",
                 "shasum": ""
             },
             "require": {
@@ -630,7 +584,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-11 19:34:16"
+            "time": "2013-07-13 19:08:31"
         },
         {
             "name": "symfony/http-kernel",
@@ -936,12 +890,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "89007e5cc13011dbc063bd35aa6eb4d62754f727"
+                "reference": "545403be11f5373dd775901b15f04a4f16c535ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/89007e5cc13011dbc063bd35aa6eb4d62754f727",
-                "reference": "89007e5cc13011dbc063bd35aa6eb4d62754f727",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/545403be11f5373dd775901b15f04a4f16c535ff",
+                "reference": "545403be11f5373dd775901b15f04a4f16c535ff",
                 "shasum": ""
             },
             "require": {
@@ -977,7 +931,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-07-05 17:16:02"
+            "time": "2013-07-13 19:24:37"
         }
     ],
     "packages-dev": [
@@ -987,12 +941,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "e3027e2af9d9e02476396331dcbe79646f1af009"
+                "reference": "23e214c664b7886e37a272f6bd2d73a54eca4941"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/e3027e2af9d9e02476396331dcbe79646f1af009",
-                "reference": "e3027e2af9d9e02476396331dcbe79646f1af009",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/23e214c664b7886e37a272f6bd2d73a54eca4941",
+                "reference": "23e214c664b7886e37a272f6bd2d73a54eca4941",
                 "shasum": ""
             },
             "require": {
@@ -1041,7 +995,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-07-10 13:46:06"
+            "time": "2013-07-14 09:47:24"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1227,12 +1181,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "24f06c739d9c9d1eb1aacc0d865dd7ac2ed7d662"
+                "reference": "4153bc21d822f7462f240c642952e314f5f86bb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/24f06c739d9c9d1eb1aacc0d865dd7ac2ed7d662",
-                "reference": "24f06c739d9c9d1eb1aacc0d865dd7ac2ed7d662",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4153bc21d822f7462f240c642952e314f5f86bb0",
+                "reference": "4153bc21d822f7462f240c642952e314f5f86bb0",
                 "shasum": ""
             },
             "require": {
@@ -1296,7 +1250,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-07-12 15:59:17"
+            "time": "2013-07-13 13:12:33"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1832,7 +1786,6 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "frastel/puphpeteer-installer": 20,
         "puphpet/puphpet-apache": 20,
         "puphpet/puphpet-composer": 20,
         "puphpet/puphpet-git": 20,
