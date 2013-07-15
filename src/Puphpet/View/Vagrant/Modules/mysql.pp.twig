@@ -1,23 +1,25 @@
 {% if mysql.root %}
-class { 'mysql':
-  root_password => '{{ mysql.root }}',
+class { 'mysql::server':
+  config_hash   => { 'root_password' => '{{ mysql.root }}' },
   require       => Exec['apt-get-update'],
 }
 
 {% for database in mysql.dbuser %}
-mysql::grant { '{{ database.dbname }}':
-  mysql_privileges     => '{{ database.privileges|join(', ') }}',
-  mysql_db             => '{{ database.dbname }}',
-  mysql_user           => '{{ database.user }}',
-  mysql_password       => '{{ database.password }}',
-  mysql_host           => '{{ database.host }}',
-  mysql_grant_filepath => '/home/vagrant/puppet-mysql',
+mysql::db { '{{ database.dbname }}':
+  grant    => [
+{{ format.explode_and_quote(database.privileges)|raw }}
+  ],
+  user     => '{{ database.user }}',
+  password => '{{ database.password }}',
+  host     => '{{ database.host }}',
+  charset  => 'utf8',
+  require  => Class['mysql::server'],
 }
 {% endfor %}
 
 {% if mysql.phpmyadmin %}
 class { 'phpmyadmin':
-  require => [Class['mysql'], Class['php']],
+  require => [Class['mysql::server'], Class['mysql::config'], Class['php']],
 }
 
 {% if nginx is defined %}

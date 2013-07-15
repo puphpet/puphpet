@@ -11,17 +11,18 @@
         "nicl/silex-markdown":           "1.0.*",
         "frastel/puphpeteer-installer":  "dev-master",
 
-        "example42/puppi":                  "dev-master#f65b71b7c2",
-        "jfryman/puppet-nginx":             "dev-master#4419300",
-        "frastel/puppet-phpmyadmin":        "dev-master#dbfcbf6755",
-        "frastel/puppet-symfony":           "dev-master#d52d729",
         "puphpet/puphpet-apache":           "dev-master",
         "puphpet/puphpet-composer":         "dev-master",
         "puphpet/puphpet-git":              "dev-master",
-        "puphpet/puphpet-mysql":            "dev-master",
         "puphpet/puphpet-php":              "dev-master",
         "puphpet/puppet-puphpet":           "dev-master",
         "puphpet/puphpet-xdebug":           "dev-master",
+
+        "example42/puppi":                  "dev-master#f65b71b7c2",
+        "jfryman/puppet-nginx":             "dev-master#4419300",
+        "frastel/puppet-phpmyadmin":        "dev-master#b66963c",
+        "frastel/puppet-symfony":           "dev-master#d52d729",
+        "puppetlabs/puppetlabs-mysql":      "dev-master#3205b83ac8",
         "puppetlabs/puppetlabs-apt":        "1.1.0",
         "puppetlabs/puppetlabs-postgresql": "2.2.1",
         "puppetlabs/puppetlabs-stdlib":     "2.6.0"
@@ -52,7 +53,7 @@
             "puphpet/puphpet-apache":           "apache",
             "puphpet/puphpet-composer":         "composer",
             "puphpet/puphpet-git":              "git",
-            "puphpet/puphpet-mysql":            "mysql",
+            "puppetlabs/puppetlabs-mysql":      "mysql",
             "puphpet/puphpet-php":              "php",
             "puphpet/puppet-puphpet":           "puphpet",
             "puphpet/puphpet-xdebug":           "xdebug",
@@ -94,7 +95,7 @@
                 "source": {
                     "url": "git://github.com/frastel/puppet-phpmyadmin.git",
                     "type": "git",
-                    "reference": "master"
+                    "reference": "b66963c"
                 }
             }
         },
@@ -149,12 +150,12 @@
         {
             "type": "package",
             "package": {
-                "name": "puphpet/puphpet-mysql",
+                "name": "puppetlabs/puppetlabs-mysql",
                 "version": "master",
                 "source": {
-                    "url": "git://github.com/puphpet/puphpet-mysql.git",
+                    "url": "git://github.com/puppetlabs/puppetlabs-mysql.git",
                     "type": "git",
-                    "reference": "master"
+                    "reference": "3205b83ac8"
                 }
             }
         },
