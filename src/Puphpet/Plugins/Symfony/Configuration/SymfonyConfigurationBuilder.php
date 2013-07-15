@@ -42,9 +42,12 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
      */
     public function build(Edition $edition, array $customConfiguration)
     {
-        $documentRootParent =  '/var/www';
+        $documentRootParent = '/var/www';
         $projectName = $customConfiguration['project']['name'];
         $documentRoot = $documentRootParent . '/' . $projectName;
+        $dbuser = 'guest';
+        $dbpassword = 'guest';
+        $dbname = 'symfony';
 
         $conf = array();
 
@@ -83,9 +86,9 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
                 'phpmyadmin' => $customConfiguration['mysql']['phpmyadmin'],
                 'dbuser'     => [
                     'privileges' => ['ALL'],
-                    'user'       => 'guest',
-                    'password'   => 'guest',
-                    'dbname'     => 'symfony',
+                    'user'       => $dbuser,
+                    'password'   => $dbpassword,
+                    'dbname'     => $dbname,
                     'host'       => 'localhost'
                 ]
             ];
@@ -94,9 +97,9 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
                 'root'   => 'root',
                 'dbuser' => [
                     'privileges' => ['ALL'],
-                    'user'       => 'guest',
-                    'password'   => 'guest',
-                    'dbname'     => 'symfony',
+                    'user'       => $dbuser,
+                    'password'   => $dbpassword,
+                    'dbname'     => $dbname,
                 ]
             ];
         }
@@ -110,7 +113,11 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
                         'docroot'       => $documentRoot,
                         'port'          => 80,
                         'index_files'   => ['index.html', 'index.htm', 'index.php'],
-                        'envvars'       => 'SYMFONY__DATABASE__USER guest,SYMFONY__DATABASE__PASSWORD guest'
+                        'envvars'       => sprintf(
+                            'SYMFONY__DATABASE__USER %s,SYMFONY__DATABASE__PASSWORD %s',
+                            $dbuser,
+                            $dbpassword
+                        )
                     ]
                 ]
             ];
