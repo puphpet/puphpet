@@ -96,7 +96,6 @@ editions:
         - 'vim'
         - 'curl'
         - 'zip'
-        - 'rsync'
     php:
       version: php54
       modules:
