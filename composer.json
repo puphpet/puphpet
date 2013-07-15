@@ -24,7 +24,6 @@
         "igorw/config-service-provider": "1.2.*",
         "nicl/silex-markdown":           "1.0.*",
 
-        "puphpet/puphpet-apache":           "dev-master",
         "puphpet/puphpet-composer":         "dev-master",
         "puphpet/puphpet-git":              "dev-master",
         "puphpet/puphpet-php":              "dev-master",
@@ -32,6 +31,7 @@
         "puphpet/puphpet-xdebug":           "dev-master",
 
         "example42/puppi":                  "dev-master#f65b71b7c2",
+        "example42/puppet-apache":          "dev-master#9eb4496",
         "jfryman/puppet-nginx":             "dev-master#4419300",
         "frastel/puppet-phpmyadmin":        "dev-master#b66963c",
         "frastel/puppet-symfony":           "dev-master#d52d729",
@@ -104,12 +104,12 @@
         {
             "type": "package",
             "package": {
-                "name": "puphpet/puphpet-apache",
+                "name": "example42/puppet-apache",
                 "version": "master",
                 "source": {
-                    "url": "git://github.com/puphpet/puphpet-apache.git",
+                    "url": "git://github.com/example42/puppet-apache.git",
                     "type": "git",
-                    "reference": "master"
+                    "reference": "9eb4496"
                 }
             }
         },
