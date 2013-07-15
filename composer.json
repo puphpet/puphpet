@@ -1,5 +1,18 @@
 {
+    "name": "puphpet/puphpet",
     "license": "MIT",
+    "type": "project",
+    "description": "A simple GUI to set up virtual machines for PHP development",
+    "authors": [
+        {
+            "name": "Juan Treminio",
+            "email": "jtreminio@gmail.com"
+        },
+        {
+            "name": "Frank Stelzer",
+            "email": "dev@frankstelzer.de"
+        }
+    ],
     "require": {
         "silex/silex":                   "1.0.*",
         "twig/twig":                     "1.*",
@@ -10,7 +23,6 @@
         "symfony/yaml":                  "2.2.*",
         "igorw/config-service-provider": "1.2.*",
         "nicl/silex-markdown":           "1.0.*",
-        "frastel/puphpeteer-installer":  "dev-master",
 
         "puphpet/puphpet-apache":           "dev-master",
         "puphpet/puphpet-composer":         "dev-master",
