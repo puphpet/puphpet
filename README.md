@@ -3,6 +3,7 @@
 This is the repo for the [PuPHPet.com](https://puphpet.com) website. A proper README is forthcoming!
 
 ## Used Puppet Modules ##
+* PHP: [https://github.com/example42/puppet-php](https://github.com/example42/puppet-php "example42/puppet-php")
 * Apache: [https://github.com/example42/puppet-apache](https://github.com/example42/puppet-apache "example42/puppet-apache")
 * nginx: [https://github.com/jfryman/puppet-nginx](https://github.com/jfryman/puppet-nginx "jfryman/puppet-nginx")
 * MySQL: [https://github.com/puppetlabs/puppetlabs-mysql](https://github.com/puppetlabs/puppetlabs-mysql "puppetlabs/puppetlabs-mysql")

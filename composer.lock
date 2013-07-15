@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b00db0739cf29cde481aa4e6cad1cacf",
+    "hash": "81c5681d1f8830e6cc8533ebde9283db",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -74,6 +74,17 @@
             },
             "type": "library",
             "time": "2013-07-04 16:41:36"
+        },
+        {
+            "name": "example42/puppet-php",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/example42/puppet-php.git",
+                "reference": "3465b6d"
+            },
+            "type": "library",
+            "time": "2013-07-03 06:25:54"
         },
         {
             "name": "example42/puppi",
@@ -325,17 +336,6 @@
             },
             "type": "library",
             "time": "2013-07-02 04:48:34"
-        },
-        {
-            "name": "puphpet/puphpet-php",
-            "version": "master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/puphpet/puphpet-php.git",
-                "reference": "master"
-            },
-            "type": "library",
-            "time": "2013-07-03 01:55:42"
         },
         {
             "name": "puphpet/puphpet-xdebug",
@@ -1788,11 +1788,11 @@
     "stability-flags": {
         "puphpet/puphpet-composer": 20,
         "puphpet/puphpet-git": 20,
-        "puphpet/puphpet-php": 20,
         "puphpet/puppet-puphpet": 20,
         "puphpet/puphpet-xdebug": 20,
         "example42/puppi": 20,
         "example42/puppet-apache": 20,
+        "example42/puppet-php": 20,
         "jfryman/puppet-nginx": 20,
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
