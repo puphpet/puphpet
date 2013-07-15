@@ -34,12 +34,6 @@ php::pecl::module { '{{ pecl|raw }}':
 }
 {% endfor %}
 
-{% if php.modules.xdebug.installed == 1 %}
-class { 'xdebug':
-  service => '{{ webserver }}',
-}
-{% endif %}
-
 {% if php.modules.xhprof.installed == 1 %}
 php::pecl::module { 'xhprof':
   use_package     => false,
@@ -68,6 +62,12 @@ apache::vhost { 'xhprof':
 {% endif %}{# if php.modules.xhprof.installed == 1 #}
 
 {% endif %}{# if php.modules.pear.installed == 1 #}
+
+{% if php.modules.xdebug.installed == 1 %}
+class { 'xdebug':
+  service => '{{ webserver }}',
+}
+{% endif %}
 
 {% if php.modules.composer.installed == 1 %}
 class { 'composer':
