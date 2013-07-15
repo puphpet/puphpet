@@ -34,7 +34,7 @@ class Cleaner
                 $data[$key] = $this->cleanPasswordFields($value);
             } else {
 
-                if (strpos($key, 'password') !== false || strpos($key, 'root') !== false) {
+                if (strpos($key, 'password') !== false || $key === 'root') {
                     // we have to know lateron if a password field was set by the user
                     // or if it really was empty
                     $data[$key] = empty($value) ? $value : '<REMOVED>';

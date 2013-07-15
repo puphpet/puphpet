@@ -34,6 +34,10 @@ class CleanerTest extends \PHPUnit_Framework_TestCase
                 ['password' => '', 'foo' => 'bar']
             ],
             [
+                ['document_root' => 'baz', 'foo' => 'bar'],
+                ['document_root' => 'baz', 'foo' => 'bar']
+            ],
+            [
                 ['foo' => 'bar', 'sub1' => ['sub2' => ['_password' => 'sth', 'root' => 'bar']]],
                 ['foo' => 'bar', 'sub1' => ['sub2' => ['_password' => '<REMOVED>', 'root' => '<REMOVED>']]],
             ],
