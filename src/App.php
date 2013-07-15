@@ -84,7 +84,8 @@ $app['domain.listener.optional_source_configurator'] = function() {
     $configuratorPostgresql = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
         new \Puphpet\Domain\Decider\DatabaseDecider('postgresql'),
         [
-            'postgresql' => VENDOR_PATH . '/puppetlabs/puppetlabs-postgresql'
+            'concat'     => VENDOR_PATH . '/ripienaar/puppet-concat',
+            'postgresql' => VENDOR_PATH . '/puppetlabs/puppetlabs-postgresql',
         ]
     );
     $configuratorPhpMyAdmin = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(

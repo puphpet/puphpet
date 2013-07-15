@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "81c5681d1f8830e6cc8533ebde9283db",
+    "hash": "b63323388bf34d4496e58fb0d0e1b02d",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -399,6 +399,17 @@
                 "reference": "tags/2.6.0"
             },
             "type": "library"
+        },
+        {
+            "name": "ripienaar/puppet-concat",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/ripienaar/puppet-concat.git",
+                "reference": "fe537c0f4f"
+            },
+            "type": "library",
+            "time": "2013-05-22 20:20:20"
         },
         {
             "name": "silex/silex",
@@ -1797,6 +1808,7 @@
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
         "puppetlabs/puppetlabs-mysql": 20,
+        "ripienaar/puppet-concat": 20,
         "phpunit/phpunit": 20,
         "whatthejeff/nyancat-phpunit-resultprinter": 20
     },
