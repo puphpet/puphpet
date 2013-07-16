@@ -346,7 +346,7 @@
                 "reference": "master"
             },
             "type": "library",
-            "time": "2013-07-16 07:45:10"
+            "time": "2013-07-16 08:47:52"
         },
         {
             "name": "puphpet/puppet-puphpet",
@@ -604,12 +604,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "b2f647f7cdb3219ac23bf8ed3d2c11602a7e11e0"
+                "reference": "ab3e2524c73a0391a576fe540777d5f9c7da66ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/b2f647f7cdb3219ac23bf8ed3d2c11602a7e11e0",
-                "reference": "b2f647f7cdb3219ac23bf8ed3d2c11602a7e11e0",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/ab3e2524c73a0391a576fe540777d5f9c7da66ce",
+                "reference": "ab3e2524c73a0391a576fe540777d5f9c7da66ce",
                 "shasum": ""
             },
             "require": {
@@ -664,7 +664,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-07-15 20:44:57"
+            "time": "2013-07-16 08:48:55"
         },
         {
             "name": "symfony/property-access",
