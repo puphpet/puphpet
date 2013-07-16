@@ -1,7 +1,6 @@
 {% if mysql.root %}
 class { 'mysql::server':
-  config_hash   => { 'root_password' => '{{ mysql.root }}' },
-  require       => Exec['apt-get-update'],
+  config_hash   => { 'root_password' => '{{ mysql.root }}' }
 }
 
 {% for database in mysql.dbuser %}

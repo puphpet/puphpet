@@ -1,19 +1,110 @@
 {% import _self as format %}
 
-exec { 'apt-get-update':
-  command => 'apt-get update',
-  path    => '/usr/bin/',
-  timeout => 60,
-  tries   => 3,
+{% if php.version == 'php55' %}
+    {% set php_ppa = 'ppa:ondrej/php5-experimental' %}
+{% elseif php.version == 'php54' %}
+    {% set php_ppa = 'ppa:ondrej/php5' %}
+{% else %}
+    {% set php_ppa = false %}
+{% endif %}
+
+# thanks to http://mindreframer.github.io/posts/2013/01-25-the-perfect-puppet-setup-for-vagrant.html
+
+# puppet group
+group { "puppet":
+  ensure => "present",
 }
 
-class { 'apt':
-  always_apt_update => false,
+# the default path for puppet to look for executables
+Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ] }
+
+# the default file attributes
+File { owner => 0, group => 0, mode => 0644 }
+
+# we define run-stages, so we can prepare the system
+# to have basic requirements installed
+# http://docs.puppetlabs.com/puppet/2.7/reference/lang_run_stages.html
+
+# first stage should do general OS updating/upgrading
+stage { 'first': }
+
+# last stage should cleanup/ do something unusual
+stage { 'last': }
+
+# declare dependancies
+Stage['first'] -> Stage['main'] -> Stage['last']
+
+class apt_get_update{
+  exec{'apt-get update': }
 }
 
-package { ['python-software-properties']:
-  ensure  => 'installed',
-  require => Exec['apt-get-update'],
+class apt_get_update_cyclic{
+  exec{'apt-get  update': }
+}
+
+class apt_ppa(
+  $ppa
+) {
+  $release = $::lsbdistcodename
+
+  include apt::params
+
+  $sources_list_d = $apt::params::sources_list_d
+
+  if ! $release {
+    fail('lsbdistcodename fact not available: release parameter required')
+  }
+
+  $filename_without_slashes = regsubst($name, '/', '-', G)
+  $filename_without_dots    = regsubst($filename_without_slashes, '\.', '_', G)
+  $filename_without_ppa     = regsubst($filename_without_dots, '^ppa:', '', G)
+  $sources_list_d_filename  = "${filename_without_ppa}-${release}.list"
+
+  $package = $::lsbdistrelease ? {
+    /^[1-9]\..*|1[01]\..*|12.04$/ => 'python-software-properties',
+    default  => 'software-properties-common',
+  }
+
+  if ! defined(Package[$package]) {
+    package { $package:
+      require => Class['apt_get_update']
+    }
+  }
+
+  exec { "add-apt-repository-${ppa}":
+    command   => "/usr/bin/add-apt-repository ${ppa}",
+    creates   => "${sources_list_d}/${sources_list_d_filename}",
+    logoutput => 'on_failure',
+    require   => [
+      Package["${package}"],
+    ],
+    notify    => Class['apt_get_update_cyclic']
+  }
+
+  file { "${sources_list_d}/${sources_list_d_filename}":
+    ensure  => file,
+    require => Exec["add-apt-repository-${ppa}"],
+  }
+}
+
+# run apt-get update before anything else runs
+class {'apt_get_update':
+  stage => first
+}
+
+class {'apt_get_update_cyclic': }
+
+{% if php_ppa %}
+class {'apt_ppa':
+  stage  => first,
+  ppa    => '{{ php_ppa|raw }}'
+}
+{% endif %}
+
+if ! defined(Package['python-software-properties']) {
+  package { ['python-software-properties']:
+    ensure  => 'installed'
+  }
 }
 
 file { '/home/vagrant/.bash_aliases':

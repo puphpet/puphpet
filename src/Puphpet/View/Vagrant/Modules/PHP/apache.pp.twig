@@ -1,7 +1,7 @@
 class { 'php':
   service       => '{{ php_service }}',
   module_prefix => '',
-  require       => [Exec['apt-get-update'], Package['apache']],
+  require       => Package['apache'],
 }
 
 {% for phpModule in php.modules.php %}
