@@ -1,8 +1,14 @@
+file { '{{ project.document_root_parent }}':
+  ensure  => directory,
+  owner   => 'vagrant',
+  group   => 'vagrant',
+}
+
 symfony::project::create { '{{ project.name }}':
   user        => 'vagrant',
   working_dir => '{{ project.document_root_parent }}',
 {% if project.version %}
   version     => '{{ project.version }}',
 {% endif %}
-  require => Class['composer'],
+  require => [Class['composer'], File['{{ project.document_root_parent }}']]
 }
