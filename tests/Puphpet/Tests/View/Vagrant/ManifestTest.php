@@ -143,11 +143,6 @@ class ManifestTest extends Base
     {
         $rendered = $this->render($this->getParametersForApacheAndMysql());
 
-        // apt-get-update definition and requirement check
-        $this->assertContains("exec { 'apt-get-update':", $rendered);
-        $this->assertContains("Exec['apt-get-update']", $rendered);
-        $this->assertNotContains("Exec['apt-get update']", $rendered);
-
         $this->assertContains("class { 'apache'", $rendered);
         $this->assertContains("apache::module { 'foo'", $rendered);
         $this->assertContains("apt::ppa { 'ppa:ondrej/php5-experimental'", $rendered);
@@ -177,11 +172,6 @@ class ManifestTest extends Base
     public function testRenderNginxAndPostgresql()
     {
         $rendered = $this->render($this->getParametersForNginxAndPostgresql());
-
-        // apt-get-update definition and requirement check
-        $this->assertContains("exec { 'apt-get-update':", $rendered);
-        $this->assertContains("Exec['apt-get-update']", $rendered);
-        $this->assertNotContains("Exec['apt-get update']", $rendered);
 
         $this->assertContains("nginx::resource::vhost { 'myserver':", $rendered);
         $this->assertContains("class { 'postgresql':", $rendered);
