@@ -58,6 +58,15 @@ greater. Vagrant will run on Windows, OS X and Linux.
 * call puphpet.dev and you should see the project's startpage
 * **the quickstart approach is still in beta, feedback is highly appreciated!**
 
+For creating a patch you have to fork the project and within the box you have to do:
+
+    cd /var/www/puphpet.dev
+    git remote add fork git@github.com:<your username here>/puphpet.git
+    git checkout -b my-patch
+    # git add ...
+    # git commit -m "some patch"
+    git push fork my-patch
+
 ### For existing environments ###
 * PuPHPet will work on any default LAMP or LNMP environment
 * go to our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive
