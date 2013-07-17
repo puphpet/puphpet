@@ -65,6 +65,10 @@ class { 'composer':
 }
 {% endif %}
 
+{% if php.modules.phpunit.installed == 1 %}
+class { 'phpunit': }
+{% endif %}
+
 {% for name,settings in php.inilist if settings is not empty %}
 puphpet::ini { '{{ name }}':
   value   => [

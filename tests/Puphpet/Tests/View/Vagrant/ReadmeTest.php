@@ -32,6 +32,7 @@ class ReadmeTest extends Base
                     'pear'     => ['installed' => true],
                     'pecl'     => array(),
                     'composer' => ['installed' => true],
+                    'phpunit' => ['installed' => true],
                     'xdebug'   => ['installed' => true],
                     'xhprof'   => ['installed' => true],
                 ],

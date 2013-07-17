@@ -9,6 +9,7 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
     const MODULE_TYPE_PECL     = 'pecl';
     const MODULE_TYPE_XDEBUG   = 'xdebug';
     const MODULE_TYPE_COMPOSER = 'composer';
+    const MODULE_TYPE_PHPUNIT  = 'phpunit';
     const MODULE_TYPE_XHPROF   = 'xhprof';
 
     protected $modulePhpDisallowed  = ['phpmyadmin'];
@@ -30,6 +31,7 @@ class PHP extends PuppetModuleAbstract implements PuppetModuleInterface
             ->formatVersion()
             ->ensureInstalledKey(self::MODULE_TYPE_XDEBUG)
             ->ensureInstalledKey(self::MODULE_TYPE_COMPOSER)
+            ->ensureInstalledKey(self::MODULE_TYPE_PHPUNIT)
             ->ensureInstalledKey(self::MODULE_TYPE_XHPROF)
             ->formatModules(self::MODULE_TYPE_PHP)
             ->formatModules(self::MODULE_TYPE_PEAR)
