@@ -56,9 +56,18 @@
     <div class="row">
         <div class="col col-lg-5">
             <label for="box-ip">Box IP Address</label>
-            <input id="box-ip" name="box[ip]" type="text" required placeholder="192.168.56.101"
-                   value="192.168.56.101" />
-            <p class="help-block">IP address to use for accessing the VM</p>
+            <input id="box-ip" name="box[ip]" type="text" required placeholder="192.0.2.101"
+                   value="192.0.2.101" />
+            <p class="help-block">IP address to use for accessing the VM. Should use an address in one of these ranges: 
+                <ul>
+            	    <li>192.0.2.0-192.0.2.254 (<a href="http://tools.ietf.org/html/rfc5737">TEST-NET1</a>)</li>
+            	    <li>198.51.100.0-198.51.100.254 (<a href="http://tools.ietf.org/html/rfc5737">TEST-NET2</a>)</li>
+            	    <li>203.0.113.0-203.0.113.254 (<a href="http://tools.ietf.org/html/rfc5737">TEST-NET3</a>)</li>
+            	    <li>10.0.0.0-10.255.255.254 (<a href="http://tools.ietf.org/html/rfc1918">Private</a>)</li>
+            	    <li>172.16.0.0-172.31.255.254 (<a href="http://tools.ietf.org/html/rfc1918">Private</a>)</li>
+            	    <li>192.168.0.0-192.168.255.254 (<a href="http://tools.ietf.org/html/rfc1918">Private</a>)</li>
+    	        </ul>
+    	    </p>
         </div>
 
         <div class="col col-lg-5">
