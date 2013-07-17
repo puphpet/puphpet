@@ -1,13 +1,44 @@
 # PuPHPet #
 
-This is the repo for the [PuPHPet.com](https://puphpet.com) website. A proper README is forthcoming!
+[PuPHPet](https://puphpet.com) - A simple GUI to set up virtual machines for PHP development
 
-## Used Puppet Modules ##
-* PHP: [https://github.com/example42/puppet-php](https://github.com/example42/puppet-php "example42/puppet-php")
-* Apache: [https://github.com/example42/puppet-apache](https://github.com/example42/puppet-apache "example42/puppet-apache")
-* nginx: [https://github.com/jfryman/puppet-nginx](https://github.com/jfryman/puppet-nginx "jfryman/puppet-nginx")
-* MySQL: [https://github.com/puppetlabs/puppetlabs-mysql](https://github.com/puppetlabs/puppetlabs-mysql "puppetlabs/puppetlabs-mysql")
-* PostgreSQL: [https://github.com/puppetlabs/puppetlabs-postgresql](https://github.com/puppetlabs/puppetlabs-postgresql "puppetlabs/puppetlabs-postgresql")
+## What? ##
+
+[PuPHPet](https://puphpet.com) is a web application that allows you to easily and quickly generate custom
+[Vagrant](http://vagrantup.com) and [Puppet](https://puppetlabs.com) controlled virtual machines.
+
+If you're unfamiliar with either Vagrant or Puppet, I wrote a blog titled
+["Make $ vagrant up yours"](https://jtreminio.com/2013/06/make_vagrant_up_yours/).
+
+## How? ##
+
+Built on top of the great [Silex](http://silex.sensiolabs.org) framework, we use PHP to generate a custom Vagrantfile
+and Puppet manifest with your custom choices.
+
+## Why? ##
+
+I started using Vagrant and Puppet when I wanted a simple PHP 5.4 VM to do my development on. I could find nothing
+pre-made that didn't come with a bunch of cruft I did not want so I decided to create a tool that would ease this
+task for other developers who may not want to learn Puppet's DSL to get a VM up and running so they can develop
+in their language of choice.
+
+## Who? ##
+
+Originally developed by [Juan Treminio](https://jtreminio.com), PuPHPet has now had 15 contributors with the talented
+[Frank Stelzer](https://twitter.com/frastel) heavily contributing. Also making significant contributions is
+[Michaël Perrin](http://www.michaelperrin.fr/).
+
+## Goals ##
+
+The main goal of PuPHPet is to eventually replace tools such as XAMPP, WAMPP, MAMPP and other all-in-one servers that
+create development environments on your main operating system.
+
+Eventually PuPHPet will be good enough to help create production-ready servers!
+
+## Requirements ##
+
+To run PuPHPet-generated manifests, you'll need to install [Vagrant](http://downloads.vagrantup.com/) version 1.2.0 or
+greater. Vagrant will run on Windows, OS X and Linux.
 
 ## Contribute ##
 
@@ -18,11 +49,11 @@ This is the repo for the [PuPHPet.com](https://puphpet.com) website. A proper RE
 
 ### The all-in-one solution ###
 * go to our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive
-* create a new vagrant box and start it with `vagrant up`
+* create a new vagrant box and start it with `$ vagrant up`
 * the provisioning will need some time as the PuPHPet project is directly cloned and installed to `/var/www/puphpet.dev`
 * map puphpet.dev to localhost in your hosts file
 
-    127.0.0.1           puphpet.dev
+    `127.0.0.1           puphpet.dev`
 
 * call puphpet.dev and you should see the project's startpage
 * **the quickstart approach is still in beta, feedback is highly appreciated!**
@@ -46,7 +77,15 @@ Setup:
 Before you create a PR you should go sure that everything works well and you didn't break anything.
 Running the tests is quite simple as PHPUnit is already installed by Composer and you only have to call its runner.
 
-    ln -s vendor/phpunit/phpunit/phpunit.php phpunit
-    ./phpunit
+    $ ./vendor/bin/phpunit
 
+## Used Puppet Modules ##
+* PHP: [https://github.com/example42/puppet-php](https://github.com/example42/puppet-php "example42/puppet-php")
+* Apache: [https://github.com/example42/puppet-apache](https://github.com/example42/puppet-apache "example42/puppet-apache")
+* nginx: [https://github.com/jfryman/puppet-nginx](https://github.com/jfryman/puppet-nginx "jfryman/puppet-nginx")
+* MySQL: [https://github.com/puppetlabs/puppetlabs-mysql](https://github.com/puppetlabs/puppetlabs-mysql "puppetlabs/puppetlabs-mysql")
+* PostgreSQL: [https://github.com/puppetlabs/puppetlabs-postgresql](https://github.com/puppetlabs/puppetlabs-postgresql "puppetlabs/puppetlabs-postgresql")
 
+## License ##
+
+PuPHPet is licensed under the [MIT license](http://opensource.org/licenses/mit-license.php).
