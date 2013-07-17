@@ -18,6 +18,13 @@
     color: #317eac;
 }
 
+#logo {
+    width: 150px;
+    height: 161px;
+    margin: 10px 10px 0 0;
+    float: left;
+}
+
 /* Top nav and header
 -------------------------------------------------- */
 .bs-docs-nav {
