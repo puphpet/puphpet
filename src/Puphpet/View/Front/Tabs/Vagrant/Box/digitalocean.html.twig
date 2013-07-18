@@ -36,19 +36,35 @@
 
 <div class="bs-example os">
     <label class="radio min-span-4">
-        <input type="radio" class="provider-digitalocean-image" name="provider[digitalocean][image]"
-               value="Ubuntu 13.04 x64" checked />
-        Ubuntu Raring Ringtail 64 Bit 13.04 (Minimum PHP 5.4)
+        <input type="radio" class="provider-remote-osname provider-digitalocean-image" name="provider[digitalocean][image]"
+               value="Debian 7.0 x64" rel="debian" />
+        Debian Squeeze 7.0 x64
+        (PHP <span class="label label-success">5.5</span> <span class="label label-info">5.4</span>)
     </label>
     <label class="radio min-span-4">
-        <input type="radio" class="provider-digitalocean-image" name="provider[digitalocean][image]"
-               value="Ubuntu 12.10 x64" />
-        Ubuntu Quantal Quetzal 64 Bit 12.10 (Minimum PHP 5.4)
+        <input type="radio" class="provider-remote-osname provider-digitalocean-image" name="provider[digitalocean][image]"
+               value="Debian 6.0 x64" rel="debian" />
+        Debian Wheezy 6.0 x64
+        (PHP <span class="label label-info">5.4</span> <span class="label label-warning">5.3</span>)
+    </label>
+
+    <label class="radio min-span-4">
+        <input type="radio" class="provider-remote-osname provider-digitalocean-image" name="provider[digitalocean][image]"
+               value="Ubuntu 13.04 x64" rel="ubuntu" />
+        Ubuntu Raring 13.04 x64
+        (PHP <span class="label label-success">5.5</span> <span class="label label-info">5.4</span>)
     </label>
     <label class="radio min-span-4">
-        <input type="radio" class="provider-digitalocean-image" name="provider[digitalocean][image]"
-               value="Ubuntu 12.04 x64" />
-        Ubuntu Precise Pangolin 64 Bit 12.04
+        <input type="radio" class="provider-remote-osname provider-digitalocean-image" name="provider[digitalocean][image]"
+               value="Ubuntu 12.10 x64" rel="ubuntu" />
+        Ubuntu Quantal 12.10 x64
+        (PHP <span class="label label-success">5.5</span> <span class="label label-info">5.4</span>)
+    </label>
+    <label class="radio min-span-4">
+        <input type="radio" class="provider-remote-osname provider-digitalocean-image" name="provider[digitalocean][image]"
+               value="Ubuntu 12.04 x64" rel="ubuntu" />
+        Ubuntu Precise 12.04 x64
+        (PHP <span class="label label-success">5.5</span> <span class="label label-info">5.4</span> <span class="label label-warning">5.3</span>)
     </label>
 </div>
 

@@ -54,6 +54,8 @@ class ConfigurationGenerator
         $this->configurationFormatter->bindConfiguration($configuration);
         $manifestConfiguration = $this->configurationFormatter->format();
 
+        $manifestConfiguration['os'] = strtolower($boxProvider['os']);
+
         // building vagrant configuration
         $dbConfiguration = array();
         if (array_key_exists('mysql', $manifestConfiguration)) {

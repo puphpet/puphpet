@@ -6,14 +6,29 @@
     </p>
 
     <label class="radio min-span-4">
-        <input type="radio" class="provider-local-url" rel="precise64" name="provider[local][url]"
-               value="http://files.vagrantup.com/precise64.box" checked />
-        Ubuntu Precise Pangolin 64 Bit 12.04
+        <input type="radio" class="provider-local-url" rel="debian|wheezy64" name="provider[local][url]"
+               value="http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box" checked />
+        Debian Wheezy 7.0rc1 x64
+        (PHP <span class="label label-success">5.5</span> <span class="label label-info">5.4</span>)
     </label>
     <label class="radio min-span-4">
-        <input type="radio" class="provider-local-url" rel="lucid64" name="provider[local][url]"
+        <input type="radio" class="provider-local-url" rel="debian|squeeze64" name="provider[local][url]"
+               value="http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210.box" />
+        Debian Squeeze 6.0.7 x64
+        (PHP <span class="label label-info">5.4</span> <span class="label label-warning">5.3</span>)
+    </label>
+
+    <label class="radio min-span-4">
+        <input type="radio" class="provider-local-url" rel="ubuntu|precise64" name="provider[local][url]"
+               value="http://files.vagrantup.com/precise64.box" />
+        Ubuntu Precise 12.04 x64
+        (PHP <span class="label label-success">5.5</span> <span class="label label-info">5.4</span> <span class="label label-warning">5.3</span>)
+    </label>
+    <label class="radio min-span-4">
+        <input type="radio" class="provider-local-url" rel="ubuntu|lucid64" name="provider[local][url]"
                value="http://files.vagrantup.com/lucid64.box" />
-        Ubuntu Lucid Lynx 64 Bit 10.04
+        Ubuntu Lucid 10.04 x64
+        (PHP <span class="label label-success">5.5</span> <span class="label label-info">5.4</span> <span class="label label-warning">5.3</span>)
     </label>
 </div>
 
@@ -22,7 +37,7 @@
         <div class="col col-lg-5">
             <label for="provider-local-name">Vagrant Box Name</label>
             <input id="provider-local-name" name="provider[local][name]" type="text" required placeholder="awesomeBox"
-                   value="precise64" />
+                   value="wheezy64" />
             <p class="help-block">
                 The internal name of the Vagrant base box.
                 Using supported base boxes you do not have to modify this value.
@@ -35,7 +50,6 @@
                    value="my-first-box" />
             <p class="help-block">Your personal name for the box. Should be unique to your system</p>
         </div>
-
     </div>
 
     <div class="row">

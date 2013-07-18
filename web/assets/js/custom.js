@@ -25,9 +25,17 @@ $(document).ready(function() {
     togglePearThings();
 
     $('.provider-local-url').click(function() {
-        var boxName = $(this).attr('rel');
+        var osInfo = $(this).attr('rel').split('|');
 
+        var os = osInfo[0];
+        var boxName = osInfo[1];
+
+        $('#provider-os').val(os);
         $('#provider-local-name').val(boxName);
+    });
+
+    $('.provider-remote-osname').click(function() {
+        $('#provider-os').val($(this).attr('rel'));
     });
 
     $('.providerTab').click(function() {

@@ -48,6 +48,7 @@ class PuphpetConfigurationBuilder implements ConfigurationBuilderInterface
         $box['personal_name'] = $projectName;
         $conf['provider']['local'] = array_merge($box, $customConfiguration['provider']['local']);
         $conf['provider']['type'] = 'local';
+        $conf['provider']['os'] = 'ubuntu';
 
         $conf['server'] = $edition->get('server');
         $conf['server']['bashaliases'] = file_get_contents($this->bashAliasFile);
