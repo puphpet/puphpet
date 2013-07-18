@@ -180,6 +180,15 @@ $app['configuration_file_generator'] = function () use ($app) {
 $app['markdown'] = function () use ($app) {
     return new dflydev\markdown\MarkdownParser;
 };
+// main configuration converter enabled for every form
+$app['listener.configuration_converter_listener'] = function () use ($app) {
+    return new \Puphpet\Domain\Configuration\Event\Listener\ConfigurationConverterListener(
+        true, // do it always
+        [
+       'foldertype' => '[provider][local][foldertype]',
+        ]
+    );
+};
 
 // overwriting the native filesystem loader, we need support of several view folders
 // every (quickstart) edition has to define its view folder and according namespace here
@@ -267,6 +276,10 @@ $app['dispatcher']->addListener('file.configuration', [$app['domain.listener.mai
 $app['dispatcher']->addListener('file.configuration', [$app['domain.listener.optional_source_configurator'], 'onConfigure'], 100);
 $app['dispatcher']->addListener('file.configuration', [$app['plugin.symfony.listener.source_configurator'], 'onConfigure']);
 $app['dispatcher']->addListener('file.configuration', [$app['plugin.puphpet.listener.source_configurator'], 'onConfigure']);
+$app['dispatcher']->addListener(
+    'configuration.filter',
+    [$app['listener.configuration_converter_listener'], 'onFilter']
+);
 $app['dispatcher']->addListener(
     'configuration.filter',
     [$app['plugin.symfony.listener.configuration_converter_listener'], 'onFilter']

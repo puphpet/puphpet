@@ -22,7 +22,8 @@ class ConfigurationConverterListener
     private $enabledForEdition;
 
     /**
-     * @param string $enabledForEdition
+     * @param string $enabledForEdition the edition's name if it should be only run for one edition
+     *                                  if set to true if will always be executed
      * @param array  $mapping
      */
     public function __construct($enabledForEdition, array $mapping)
@@ -36,7 +37,7 @@ class ConfigurationConverterListener
      */
     public function onFilter(ConfigurationEvent $event)
     {
-        if ($event->getEditionName() == $this->enabledForEdition) {
+        if ($this->enabledForEdition === true || $event->getEditionName() == $this->enabledForEdition) {
             foreach ($this->mapping as $oldKey => $newKey) {
                 $event->replace($oldKey, $newKey);
             }

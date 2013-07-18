@@ -4,6 +4,9 @@ edition_default: default
 # configuration of all available editions
 editions:
   default:
+    provider:
+      local:
+        foldertype: default
     php:
       modules:
         - 'php5-cli'
@@ -42,6 +45,9 @@ editions:
       ip:   '192.168.56.101'
       memory: 1024
       port_forward: {host: false, guest: false}
+    provider:
+      local:
+        foldertype: default
     server:
       packages:
         - 'python-software-properties'
@@ -94,7 +100,9 @@ editions:
       ip:   '192.168.56.101'
       memory: 1024
       port_forward: {host: false, guest: false}
-
+    provider:
+      local:
+        foldertype: default
     server:
       packages:
         - 'python-software-properties'
