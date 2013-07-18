@@ -24,10 +24,17 @@ class Quickstart extends Controller
         return $controllers;
     }
 
-    public function startAction(Application $app, $edition)
+    public function startAction(Request $request, Application $app, $edition)
     {
         $edition = $app['edition_provider']->provide($edition);
         /**@var $edition \Puphpet\Domain\Configuration\Edition*/
+
+        // EditionMerger provides possibility to force pre-selected configuration
+        // options by request.
+        // example:
+        // /quickstart/symfony?database=mysql&webserver=apache&create_project=1&symfony_version=2.3.1
+        $merger = $app['edition_merger'];
+        $merger->merge($edition, $request->query->all());
 
         return $this->twig()->render(
             $edition->get('template'),

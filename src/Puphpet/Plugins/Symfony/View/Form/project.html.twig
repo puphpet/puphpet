@@ -5,8 +5,8 @@
             <div>
                 <label class="checkbox-inline" for="php-version-php54">Create New Symfony Project</label>
                 <label class="checkbox-inline">
-                    <input type="checkbox" id="symfony-generate-project" name="project[generate_project]" value="1"
-                           checked/>
+                    <input type="checkbox" id="symfony-generate-project" name="project[generate_project]"
+                           value="1" {% if edition.get('[project][generate_project]') %} checked{% endif %}/>
                     Yes
                 </label>
 
@@ -15,7 +15,7 @@
             <div>
                 <label for="symfony-version">Symfony Version</label>
 
-                <input type="text" name="project[symfony_version]" placeholder="2.3.1"/>
+                <input type="text" name="project[symfony_version]" placeholder="2.3.1" value="{{ edition.get('[project][version]') }}"/>
 
                 <p class="help-block">
                     Ignored if the option <i>Create New Symfony Project</i> is not checked.

@@ -156,6 +156,11 @@ $app['edition_provider'] = function () use ($app) {
         $app['edition_default']
     );
 };
+$app['edition_merger'] = function () use ($app) {
+    return new Puphpet\Domain\Configuration\EditionMerger(
+        $app['dispatcher']
+    );
+};
 $app['file_generator'] = function () use ($app) {
     return new Puphpet\Domain\File\Generator(
         $app['vagrant_compiler'],
@@ -213,6 +218,15 @@ $app['plugin.symfony.listener.source_configurator'] = function () use ($app) {
     );
     return new \Puphpet\Domain\Configurator\File\Event\Listener\ConfiguratorListener($configurator);
 };
+$app['plugin.symfony.listener.configuration_converter_listener'] = function () use ($app) {
+    return new \Puphpet\Domain\Configuration\Event\Listener\ConfigurationConverterListener(
+        'symfony',
+        [
+       'create_project' => '[project][generate_project]',
+       'symfony_version' => '[project][version]',
+        ]
+    );
+};
 // Plugin: PuPHPet
 $app['plugin.puphpet.configuration_builder'] = function () use ($app) {
     return new Puphpet\Plugins\Puphpet\Configuration\PuphpetConfigurationBuilder(
@@ -253,5 +267,9 @@ $app['dispatcher']->addListener('file.configuration', [$app['domain.listener.mai
 $app['dispatcher']->addListener('file.configuration', [$app['domain.listener.optional_source_configurator'], 'onConfigure'], 100);
 $app['dispatcher']->addListener('file.configuration', [$app['plugin.symfony.listener.source_configurator'], 'onConfigure']);
 $app['dispatcher']->addListener('file.configuration', [$app['plugin.puphpet.listener.source_configurator'], 'onConfigure']);
+$app['dispatcher']->addListener(
+    'configuration.filter',
+    [$app['plugin.symfony.listener.configuration_converter_listener'], 'onFilter']
+);
 
 return $app;

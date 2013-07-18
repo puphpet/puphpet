@@ -26,6 +26,9 @@ editions:
   symfony:
     builder: plugin.symfony.configuration_builder
     template: '@Symfony/start.html.twig'
+    project:
+      generate_project: 1
+      version: ""
     vagrant:
       boxes:
         lucid32:   {url: "http://files.vagrantup.com/lucid32.box", name: "Ubuntu Lucid 32 Bit (10.04.4 LTS)"}
@@ -46,6 +49,8 @@ editions:
         - 'vim'
         - 'curl'
         - 'git-core'
+    database: mysql
+    webserver: apache
     php:
       version: php54
       modules:

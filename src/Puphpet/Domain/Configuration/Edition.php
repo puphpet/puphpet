@@ -94,6 +94,11 @@ class Edition
      */
     public function set($property, $value)
     {
+        if (strpos($property, '[') === false) {
+            $this->configuration[$property] = $value;
+            return;
+        }
+
         $this->accessor->setValue($this->configuration, $property, $value);
     }
 }
