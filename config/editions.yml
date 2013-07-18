@@ -45,6 +45,7 @@ editions:
         - 'build-essential'
         - 'vim'
         - 'curl'
+        - 'git-core'
     php:
       version: php54
       modules:
