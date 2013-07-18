@@ -79,7 +79,6 @@ class Front extends Controller
 
     public function createAction(Request $request, Application $app)
     {
-        $foo = $request->request->all();
         /** @var $domainFile \Puphpet\Domain\File */
         $configuration = new Configuration($request->request->all());
         $domainFile = $app['configuration_file_generator']->generateArchive($configuration);
