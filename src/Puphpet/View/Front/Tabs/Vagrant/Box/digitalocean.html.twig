@@ -1,0 +1,125 @@
+<h3>Digital Ocean Droplet</h3>
+
+<p>Don't have a Digital Ocean account?
+    <a href="https://www.digitalocean.com/?refcode=475274cc0939">Click here to create one</a>
+    (affiliate link - help support this free service)!
+</p>
+
+<p>
+    Login to Digital Ocean and <a href="https://www.digitalocean.com/api_access">go to the API page</a>.
+    You will need a Client ID and API Key.
+</p>
+
+<h3>Installation Requirements</h3>
+
+<p>Run the following commands from your terminal (not within the VM):</p>
+<p>
+    <code>
+        $ vagrant plugin install vagrant-digitalocean<br />
+        $ vagrant box add digital_ocean https://puphpet.com/assets/box/digital_ocean.box
+    </code>
+</p>
+
+<p>If you are on a Mac, you also need to run:</p>
+<p>
+    <code>
+        $ brew install curl-ca-bundle<br />
+        $ echo export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt >> ~/.bash_profile
+    </code>
+</p>
+
+<h3>Running Vagrant</h3>
+
+<p>Instead of running <code>$ vagrant up</code>, you will need to run <code>$ vagrant up --provider=digital_ocean</code></p>
+
+<input type="hidden" name="provider[digitalocean][name]" value="puphpet_digitalocean" />
+
+<div class="bs-example os">
+    <label class="radio min-span-4">
+        <input type="radio" class="provider-digitalocean-image" name="provider[digitalocean][image]"
+               value="Ubuntu 13.04 x64" checked />
+        Ubuntu Raring Ringtail 64 Bit 13.04 (Minimum PHP 5.4)
+    </label>
+    <label class="radio min-span-4">
+        <input type="radio" class="provider-digitalocean-image" name="provider[digitalocean][image]"
+               value="Ubuntu 12.10 x64" />
+        Ubuntu Quantal Quetzal 64 Bit 12.10 (Minimum PHP 5.4)
+    </label>
+    <label class="radio min-span-4">
+        <input type="radio" class="provider-digitalocean-image" name="provider[digitalocean][image]"
+               value="Ubuntu 12.04 x64" />
+        Ubuntu Precise Pangolin 64 Bit 12.04
+    </label>
+</div>
+
+<div class="bs-example digitalOceanProvider">
+    <div class="row">
+        <div class="col col-lg-5">
+            <label for="provider-digitalocean-size">Box Memory</label>
+            <select id="provider-digitalocean-size" name="provider[digitalocean][size]">
+                <option value="512MB" selected>512MB</option>
+                <option value="1GB">1GB</option>
+                <option value="2GB">2GB</option>
+            </select>
+        </div>
+
+        <div class="col col-lg-5">
+            <label for="provider-digitalocean-region">Box Region</label>
+            <select id="provider-digitalocean-region" name="provider[digitalocean][region]">
+                <option value="New York 1" selected>New York</option>
+                <option value="Amsterdam 1">Amsterdam</option>
+                <option value="San Francisco 1">San Francisco</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col col-lg-5">
+            <label for="provider-digitalocean-client_id">Client ID</label>
+             <input id="provider-digitalocean-client_id" name="provider[digitalocean][client_id]"
+                    type="text" required value="DIGITAL_OCEAN_CLIENT_ID" />
+            <p class="help-block"><a href="https://www.digitalocean.com/api_access">Get it here</a></p>
+        </div>
+
+        <div class="col col-lg-5">
+            <label for="provider-digitalocean-api_key">API Key</label>
+             <input id="provider-digitalocean-api_key" name="provider[digitalocean][api_key]"
+                    type="text" required value="DIGITAL_OCEAN_API_KEY" />
+            <p class="help-block"><a href="https://www.digitalocean.com/api_access">Get it here</a></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col col-lg-5">
+            <label for="provider-digitalocean-private_key">Client ID</label>
+             <input id="provider-digitalocean-private_key" name="provider[digitalocean][private_key]"
+                    type="text" required value="~/.ssh/id_rsa" />
+            <p class="help-block">
+                The Digital Ocean VM will not be accessible without your public key. Leave off the <code>.pub</code>
+                extension
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="bs-example sharedFolders">
+    <div class="row">
+        <div class="col col-lg-5">
+            <label for="provider-digitalocean-synced_folder-source">Box Sync Folder Source</label>
+             <input id="provider-digitalocean-synced_folder-source" name="provider[digitalocean][synced_folder][source]" type="text"
+                    required placeholder="/path/to/your/web/files" value="./" />
+        </div>
+
+        <div class="col col-lg-5">
+            <label for="provider-digitalocean-synced_folder-target">Box Sync Folder Target</label>
+            <input id="provider-digitalocean-synced_folder-target" name="provider[digitalocean][synced_folder][target]" type="text"
+                   required placeholder="/path/on/vm" value="/var/www" />
+        </div>
+    </div>
+
+    <p class="help-block">
+        Will use <code>rsync</code> to copy files to remote server on <code>$ vagrant up</code>.
+        Once server is running, to push new file changes remotely you will need to run
+        <code>$ vagrant provision</code>. Now may be a good time to work out your deployment strategy.
+    </p>
+</div>

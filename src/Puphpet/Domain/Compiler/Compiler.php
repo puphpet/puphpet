@@ -49,6 +49,19 @@ class Compiler
     }
 
     /**
+     * Override template location
+     *
+     * @param string $template
+     * @return self
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+
+        return $this;
+    }
+
+    /**
      * @param array $configuration formatted configuration
      *
      * @return string

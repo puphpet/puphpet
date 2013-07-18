@@ -43,8 +43,11 @@ class ConfigurationGenerator
      */
     public function generateArchive(Configuration $configuration)
     {
+        $boxProvider = $configuration->get('provider');
+
         // extracting box configuration
-        $box = $configuration->get('box');
+        $box = $boxProvider[$boxProvider['type']];
+        $box['provider'] = $boxProvider['type'];
         $boxConfiguration = ['box' => $box];
 
         // extracting manifest configuration

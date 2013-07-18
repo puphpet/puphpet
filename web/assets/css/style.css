@@ -25,6 +25,10 @@
     float: left;
 }
 
+code {
+    white-space: normal;
+}
+
 /* Top nav and header
 -------------------------------------------------- */
 .bs-docs-nav {
@@ -98,10 +102,6 @@
     content: 'Operating System';
 }
 
-#vagrant .bs-example.access:after {
-    content: 'Accessing the VM';
-}
-
 #vagrant .bs-example.sharedFolders:after {
     content: 'Sharing Your Folders';
 }
@@ -166,6 +166,14 @@
 #mysql .bs-example.createUserDb:after,
 #postgresql .bs-example.createUserDb:after {
     content: 'Create User & Database';
+}
+
+#vagrant .bs-example.localProvider:after {
+    content: 'Set Up VM Locally';
+}
+
+#vagrant .bs-example.digitalOceanProvider:after {
+    content: 'Digital Ocean';
 }
 
 .tab-content {

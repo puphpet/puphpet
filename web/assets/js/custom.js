@@ -24,10 +24,14 @@ $(document).ready(function() {
 
     togglePearThings();
 
-    $('.box-url').click(function() {
+    $('.provider-local-url').click(function() {
         var boxName = $(this).attr('rel');
 
-        $('#box-name').val(boxName);
+        $('#provider-local-name').val(boxName);
+    });
+
+    $('.providerTab').click(function() {
+        $('#provider-type').val($(this).attr('data-configuration-value'));
     });
 
     $('.tags').select2({

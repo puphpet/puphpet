@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: "{{ box.ip }}"
   {% if box.port_forward.guest is not empty and box.port_forward.host is not empty %}
-  config.vm.network :forwarded_port, guest: {{ box.port_forward.guest }}, host: {{ box.port_forward.host }} 
+  config.vm.network :forwarded_port, guest: {{ box.port_forward.guest }}, host: {{ box.port_forward.host }}
   {% endif %}
   config.ssh.forward_agent = true
 

@@ -86,7 +86,9 @@ class Generator
         $manifest = $this->manifestCompiler->compile($manifestConfiguration);
 
         // build Vagrantfile
-        $vagrantFile = $this->vagrantCompiler->compile($vagrantConfiguration);
+        $vagrantFile = $this->vagrantCompiler
+            ->setTemplate('Vagrant/Vagrantfile/'. strtolower($boxConfiguration['box']['provider']) .'.twig')
+            ->compile($vagrantConfiguration);
 
         // build and configure the domain file
         $this->fileConfigurator->configure($this->domainFile, $manifestConfiguration);
