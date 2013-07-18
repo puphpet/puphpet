@@ -10,9 +10,30 @@ class ConfigurationGeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGenerateArchive()
     {
         $manifestConfiguration = ['foo' => 'bar', 'mysql' => 'here'];
-        $boxConfiguration = ['box' => ['name' => 'baz']];
-        $vagrantConfiguration = ['box' => ['name' => 'baz'], 'mysql' => 'here'];
-        $expectedUserConfiguration = ['foo' => 'bar', 'mysql' => 'here','box' => ['name' => 'baz']];
+        $vagrantConfiguration = [
+            'box' => [
+                'name'     => 'baz',
+                'provider' => 'local',
+            ],
+            'mysql' => 'here'
+        ];
+        $boxConfiguration = [
+            'box' => [
+                'name'     => 'baz',
+                'provider' => 'local',
+            ],
+        ];
+
+        $expectedUserConfiguration = [
+            'foo'      => 'bar',
+            'mysql'    => 'here',
+            'box' => [
+                'type'  => 'local',
+                'local' => [
+                    'name' => 'baz'
+                ],
+            ],
+        ];
 
         // mocking the request
         $configuration = $this->getMockBuilder('\Puphpet\Domain\Configuration\Configuration')
@@ -20,10 +41,16 @@ class ConfigurationGeneratorTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['get', 'toArray'])
             ->getMock();
 
+        $getReturn = [
+            'type'  => 'local',
+            'local' => [
+                'name' => 'baz'
+            ],
+        ];
         $configuration->expects($this->at(0))
             ->method('get')
-            ->with('box')
-            ->will($this->returnValue(['name' => 'baz']));
+            ->with('provider')
+            ->will($this->returnValue($getReturn));
 
         $configuration->expects($this->atLeastOnce())
             ->method('toArray')

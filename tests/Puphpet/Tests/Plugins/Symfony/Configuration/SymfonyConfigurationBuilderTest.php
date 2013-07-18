@@ -36,8 +36,8 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
                 'generate_project' => true,
                 'symfony_version'  => '2.3.1'
             ],
-            'box'       => [
-
+            'provider'  => [
+                'local' => array(),
             ],
             'php'       => [
                 'version' => 'php54'
@@ -56,7 +56,7 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
 
         $config = $configuration->toArray();
         $this->assertInternalType('array', $config);
-        $this->assertArrayHasKey('box', $config);
+        $this->assertArrayHasKey('provider', $config);
         $this->assertArrayHasKey('server', $config);
         $this->assertArrayHasKey('php', $config);
         $this->assertArrayHasKey('webserver', $config);

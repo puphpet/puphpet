@@ -8,7 +8,12 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateArchive()
     {
-        $boxConfiguration = ['box' => ['name' => 'baz']];
+        $boxConfiguration = [
+            'box' => [
+                'name'     => 'baz',
+                'provider' => 'local',
+            ],
+        ];
         $bashaliases = 'bash...';
 
         $vagrantConfiguration = ['vagrant' => 'foo'];
@@ -23,7 +28,10 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $readmeConfiguration = [
             'manifest' => 'foo',
             'server'   => ['bashaliases' => $bashaliases],
-            'box'      => ['name' => 'baz']
+            'box' => [
+                'name'     => 'baz',
+                'provider' => 'local',
+            ],
         ];
         $readme = 'readme';
 
