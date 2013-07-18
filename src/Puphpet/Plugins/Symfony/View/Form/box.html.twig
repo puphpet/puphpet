@@ -1,3 +1,4 @@
+{% set foldertype = edition.get('[provider][local][foldertype]')|default('default') %}
 <input type="hidden" id="provider-type" name="provider[type]" value="local" />
 <input type="hidden" name="provider[local][name]" value="symfony2" />
 
@@ -29,10 +30,12 @@
 
             <div>
                 <label class="radio-inline">
-                    <input type="radio" name="provider[local][foldertype]" value="default" checked/> Default
+                    <input type="radio" name="provider[local][foldertype]"
+                           value="default"{% if foldertype == 'default' %} checked{% endif %}/> Default
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="provider[local][foldertype]" value="nfs"/> NFS
+                    <input type="radio" name="provider[local][foldertype]"
+                           value="nfs"{% if foldertype == 'nfs' %} checked{% endif %}/> NFS
                 </label>
 
                 <p class="help-block">Windows users should choose the Default option</p>
