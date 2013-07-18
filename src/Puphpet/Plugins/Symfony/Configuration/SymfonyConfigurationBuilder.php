@@ -67,7 +67,8 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
         // box stuff
         $box = $edition->get('box');
         $box['personal_name'] = $projectName;
-        $conf['box'] = array_merge($box, $customConfiguration['box']);
+        $conf['provider']['local'] = array_merge($box, $customConfiguration['provider']['local']);
+        $conf['provider']['type'] = 'local';
 
         $conf['server'] = $edition->get('server');
         $conf['server']['bashaliases'] = $this->filesystem->getContents($this->bashAliasFile);

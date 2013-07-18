@@ -1,3 +1,6 @@
+<input type="hidden" id="provider-type" name="provider[type]" value="local" />
+<input type="hidden" name="provider[local][name]" value="puphpet" />
+
 <div class="bs-example box">
     <div class="row">
         <div class="col col-lg-6">
@@ -5,10 +8,10 @@
 
             <div>
                 <label class="radio-inline">
-                    <input type="radio" name="box[foldertype]" value="default" checked/> Default
+                    <input type="radio" name="provider[local][foldertype]" value="default" checked/> Default
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="box[foldertype]" value="nfs"/> NFS
+                    <input type="radio" name="provider[local][foldertype]" value="nfs"/> NFS
                 </label>
 
                 <p class="help-block">Windows users should choose the Default option</p>
@@ -18,16 +21,16 @@
 
     <div class="row">
         <div class="col col-lg-5">
-            <label for="box-synced_folder-source">Box Sync Folder Source</label>
-            <input id="box-synced_folder-source" name="box[synced_folder][source]" type="text"
+            <label for="provider-local-synced_folder-source">Box Sync Folder Source</label>
+            <input id="provider-local-synced_folder-source" name="provider[local][synced_folder][source]" type="text"
                    required placeholder="/path/to/your/web/files" value="./"/>
 
             <p class="help-block">Path your files are stored on host machine</p>
         </div>
 
         <div class="col col-lg-5">
-            <label for="box-synced_folder-target">Box Sync Folder Target</label>
-            <input id="box-synced_folder-target" name="box[synced_folder][target]" type="text"
+            <label for="provider-local-synced_folder-target">Box Sync Folder Target</label>
+            <input id="provider-local-synced_folder-target" name="provider[local][synced_folder][target]" type="text"
                    required placeholder="/path/on/vm" value="/var/www"/>
 
             <p class="help-block">Path the VM will see your files in</p>
