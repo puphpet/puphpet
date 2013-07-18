@@ -14,7 +14,7 @@ Vagrant.configure('2') do |config|
   config.vm.synced_folder "{{ box.synced_folder.source }}", "{{ box.synced_folder.target }}"
 
   config.vm.provision :shell,
-    :inline => "sudo apt-get update && sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C && sudo apt-get install -y puppet"
+    :inline => "sudo apt-get update && sudo apt-get install -y puppet"
 
 {% if mysql is defined %}
 {% if mysql.phpmyadmin %}
