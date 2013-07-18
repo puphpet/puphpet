@@ -9,7 +9,11 @@ class ConfigurationGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateArchive()
     {
-        $manifestConfiguration = ['foo' => 'bar', 'mysql' => 'here'];
+        $manifestConfiguration = [
+            'os'    => 'windows',
+            'foo'   => 'bar',
+            'mysql' => 'here'
+        ];
         $vagrantConfiguration = [
             'box' => [
                 'name'     => 'baz',
@@ -25,9 +29,10 @@ class ConfigurationGeneratorTest extends \PHPUnit_Framework_TestCase
         ];
 
         $expectedUserConfiguration = [
-            'foo'      => 'bar',
-            'mysql'    => 'here',
-            'box' => [
+            'foo'   => 'bar',
+            'mysql' => 'here',
+            'os'    => 'windows',
+            'box'   => [
                 'type'  => 'local',
                 'local' => [
                     'name' => 'baz'
@@ -42,6 +47,7 @@ class ConfigurationGeneratorTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $getReturn = [
+            'os'    => 'windows',
             'type'  => 'local',
             'local' => [
                 'name' => 'baz'

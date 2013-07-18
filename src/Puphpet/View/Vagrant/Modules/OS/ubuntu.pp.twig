@@ -5,7 +5,6 @@
 {% else %}
     {% set php_ppa = false %}
 {% endif %}
-
 {% if php_ppa %}
 apt::key { '4F4EA0AAE5267A6C': }
 

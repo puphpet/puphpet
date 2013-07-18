@@ -17,6 +17,7 @@ class ManifestTest extends Base
     protected function getParametersForApacheAndMysql()
     {
         return [
+            'os'          => 'ubuntu',
             'webserver'   => 'apache',
             'database'    => 'mysql',
             'php_service' => 'apache',
@@ -77,6 +78,7 @@ class ManifestTest extends Base
     protected function getParametersForNginxAndPostgresql()
     {
         return [
+            'os'          => 'ubuntu',
             'webserver'   => 'nginx',
             'database'    => 'postgresql',
             'php_service' => 'php5-fpm',
