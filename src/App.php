@@ -185,7 +185,8 @@ $app['listener.configuration_converter_listener'] = function () use ($app) {
     return new \Puphpet\Domain\Configuration\Event\Listener\ConfigurationConverterListener(
         true, // do it always
         [
-       'foldertype' => '[provider][local][foldertype]',
+            'php'        => '[php][version]',
+            'foldertype' => '[provider][local][foldertype]',
         ]
     );
 };

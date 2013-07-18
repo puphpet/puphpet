@@ -1,3 +1,4 @@
+{% set php_version= edition.get('[php][version]')|default('php54') %}
 <div class="bs-example project">
     <div class="row">
 
@@ -57,9 +58,9 @@
         <div class="col col-lg-4">
             <label for="php-version">PHP Version</label>
             <select name="php[version]" id="php-version">
-                <option value="php53">PHP 5.3</option>
-                <option value="php54" selected="selected">PHP 5.4</option>
-                <option value="php55">PHP 5.5</option>
+                <option value="php53"{% if php_version == 'php53' %} selected="selected"{% endif %}>PHP 5.3</option>
+                <option value="php54"{% if php_version == 'php54' %} selected="selected"{% endif %}>PHP 5.4</option>
+                <option value="php55"{% if php_version == 'php55' %} selected="selected"{% endif %}>PHP 5.5</option>
             </select>
         </div>
     </div>
