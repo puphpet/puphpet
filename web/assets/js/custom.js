@@ -22,8 +22,6 @@ $(document).ready(function() {
         });
     }, 100);
 
-    $('[rel="tooltip"]').tooltip()
-
     togglePearThings();
 
     $('.provider-local-url').click(function() {
