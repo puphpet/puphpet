@@ -196,6 +196,10 @@ code {
     width: 100% !important;
 }
 
+#contributors .img-thumbnail {
+    margin: 5px;
+}
+
 /* Phones */
 @media screen and (max-width: 767px) {
     .bs-sidebar .nav > li > a {

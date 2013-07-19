@@ -22,6 +22,8 @@ $(document).ready(function() {
         });
     }, 100);
 
+    $('[rel="tooltip"]').tooltip()
+
     togglePearThings();
 
     $('.provider-local-url').click(function() {
@@ -131,6 +133,8 @@ $(document).ready(function() {
             return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
         }
     });
+
+    githubContributors();
 });
 
 function getSidebarResizeLimits(windowWidth) {
@@ -242,5 +246,13 @@ function togglePearThings()
                  $(this).hide();
             });
         }
+    });
+}
+
+function githubContributors() {
+    $.get('https://api.github.com/repos/puphpet/puphpet/contributors', function(githubResponse) {
+        $.post('/githubContributors', { contributors: githubResponse }, function(response) {
+            $('#contributors').html(response);
+        });
     });
 }

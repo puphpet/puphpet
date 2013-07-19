@@ -33,6 +33,9 @@ class Front extends Controller
         $controllers->get('/github-btn', [$this, 'githubbtnAction'])
             ->bind('github-btn');
 
+        $controllers->post('/githubContributors', [$this, 'githubContributorsAction'])
+            ->bind('github-contributors');
+
         return $controllers;
     }
 
@@ -75,6 +78,14 @@ class Front extends Controller
     public function githubbtnAction()
     {
         return $this->twig()->render('Front/github-btn.html.twig');
+    }
+
+    public function githubContributorsAction(Request $request, Application $app)
+    {
+        return $this->twig()->render(
+            'Front/githubContributors.html.twig',
+            ['contributors' => $request->get('contributors')]
+        );
     }
 
     public function createAction(Request $request, Application $app)
