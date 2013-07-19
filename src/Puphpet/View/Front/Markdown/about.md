@@ -31,7 +31,7 @@ to upload this multi-GB file? That's a big pain in the butt!
 
 Vagrant and Puppet takes care of all these issues, and more, for you!
 
-The Debian tutorial can be written once, and run multiple times. I no longer hae to worry about damaging my
+The Debian tutorial can be written once, and run multiple times. I no longer have to worry about damaging my
 VM environment - if I screw something up, destroy it, re-run Vagrant, and within 3 minutes I have a fully
 working environment once again! To share, I simply point developers to my Github repo where they download
 appx. 50KB of text files and run Vagrant on their own machines! Awesome!
