@@ -47,5 +47,4 @@ going on behind the scenes.
 I have been using Puppet/Vagrant for a little under two weeks as of Monday, May 13. If you are a Vagrant
 or Puppet maestro, I would love it if you could contribute some of your knowledge by submitting pull
 requests! If you don't know either Vagrant or Puppet you can still be kick-ass and submit requests for other
-things! I have no idea what's going on with responsive code, for example... although I don't know the
-usefulness of an ipad or other mobile device in using this app!
+things!
