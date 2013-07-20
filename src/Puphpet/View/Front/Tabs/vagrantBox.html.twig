@@ -11,6 +11,7 @@
 <ul id="providerTab" class="nav nav-pills" data-configuration-name="accessTab">
     <li class="active"><a href="#providerLocalTab" class="providerTab" data-toggle="pill" data-configuration-value="local">Create Locally</a></li>
     <li><a href="#providerDigitalOceanTab" class="providerTab" data-toggle="pill" data-configuration-value="digitalocean">Digital Ocean <span class="label label-danger">New!</span></a></li>
+    <li><a href="#providerRackspaceTab" class="providerTab" data-toggle="pill" data-configuration-value="rackspace">Rackspace <span class="label label-danger">New!</span></a></li>
 </ul>
 <div id="accessTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="providerLocalTab">
@@ -19,6 +20,10 @@
 
     <div class="tab-pane fade" id="providerDigitalOceanTab">
         {% include 'Front/Tabs/Vagrant/Box/digitalocean.html.twig' %}
+    </div>
+
+    <div class="tab-pane fade" id="providerRackspaceTab">
+        {% include 'Front/Tabs/Vagrant/Box/rackspace.html.twig' %}
     </div>
 </div>
 
