@@ -2,6 +2,7 @@ Vagrant.configure('2') do |config|
   config.ssh.private_key_path = '{{ box.private_key }}'
   config.ssh.username = 'vagrant'
   config.vm.box = 'digital_ocean'
+
   config.vm.provider :digital_ocean do |provider|
     provider.client_id = '{{ box.client_id }}'
     provider.api_key = '{{ box.api_key }}'
