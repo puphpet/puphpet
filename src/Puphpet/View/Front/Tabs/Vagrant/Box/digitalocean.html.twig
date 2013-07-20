@@ -6,7 +6,7 @@
 </p>
 
 <p>
-    Login to Digital Ocean and <a href="https://www.digitalocean.com/api_access">go to the API page</a>.
+    Login to Digital Ocean and <a href="https://www.digitalocean.com/api_access" target="_blank">go to the API page</a>.
     You will need a Client ID and API Key.
 </p>
 
@@ -94,25 +94,24 @@
             <label for="provider-digitalocean-client_id">Client ID</label>
              <input id="provider-digitalocean-client_id" name="provider[digitalocean][client_id]"
                     type="text" required value="DIGITAL_OCEAN_CLIENT_ID" />
-            <p class="help-block"><a href="https://www.digitalocean.com/api_access">Get it here</a></p>
+            <p class="help-block"><a href="https://www.digitalocean.com/api_access" target="_blank">Get it here</a></p>
         </div>
 
         <div class="col col-lg-5">
             <label for="provider-digitalocean-api_key">API Key</label>
              <input id="provider-digitalocean-api_key" name="provider[digitalocean][api_key]"
                     type="text" required value="DIGITAL_OCEAN_API_KEY" />
-            <p class="help-block"><a href="https://www.digitalocean.com/api_access">Get it here</a></p>
+            <p class="help-block"><a href="https://www.digitalocean.com/api_access" target="_blank">Get it here</a></p>
         </div>
     </div>
 
     <div class="row">
         <div class="col col-lg-5">
-            <label for="provider-digitalocean-private_key">Client ID</label>
+            <label for="provider-digitalocean-private_key">Private Key</label>
              <input id="provider-digitalocean-private_key" name="provider[digitalocean][private_key]"
                     type="text" required value="~/.ssh/id_rsa" />
             <p class="help-block">
-                The Digital Ocean VM will not be accessible without your public key. Leave off the <code>.pub</code>
-                extension
+                The Digital Ocean VM will not be accessible without your private/public key.
             </p>
         </div>
     </div>
