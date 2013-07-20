@@ -12,8 +12,9 @@ Then, it will hand control over to Puppet which will begin setting up your envir
 required packages and configuring tools as desired.
 
 You will then be able to ssh into your new box with `$ vagrant ssh`. You can also access any virtual hosts
-you created by editing your hosts file and creating entries (ex:
-`192.168.123.101 puphpet.dev www.puphpet.dev`). To shut down the VM, simply run `$ vagrant halt`. To start
+you created by editing your hosts file and creating entries for the Box IP Address and Server Name you
+provided during configuration (ex:
+`192.168.56.101 puphpet.dev www.puphpet.dev`). To shut down the VM, simply run `$ vagrant halt`. To start
 it back up run `$ vagrant up` again. Destroy it with `$ vagrant destroy`.
 
 ### Learn you some Vagrant
