@@ -88,7 +88,7 @@ Running the tests is quite simple as PHPUnit is already installed by Composer an
 
     $ ./vendor/bin/phpunit
 
-## Used Puppet Modules ##
+## Used third-party Puppet Modules ##
 * PHP: [https://github.com/example42/puppet-php](https://github.com/example42/puppet-php "example42/puppet-php")
 * Apache: [https://github.com/example42/puppet-apache](https://github.com/example42/puppet-apache "example42/puppet-apache")
 * nginx: [https://github.com/jfryman/puppet-nginx](https://github.com/jfryman/puppet-nginx "jfryman/puppet-nginx")
@@ -97,4 +97,4 @@ Running the tests is quite simple as PHPUnit is already installed by Composer an
 
 ## License ##
 
-PuPHPet is licensed under the [MIT license](http://opensource.org/licenses/mit-license.php).
+PuPHPet is licensed under the [MIT license](http://opensource.org/licenses/mit-license.php) all third-party Puppet Modules are licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0).
