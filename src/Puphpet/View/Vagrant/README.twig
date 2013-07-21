@@ -4,9 +4,11 @@ Welcome to your custom Vagrant/Puppet setup powered by puPHPet
 The setup includes:
 -------------------
 * box:       {{ box.name }} {% if box.url is defined %}({{ box.url }}){% endif %}
+
 * webserver: {{ webserver }}
 * database:  {{ database }}
 * PHP:       PHP 5.{% if php.version == 'php55' %}5{% elseif php.version == 'php54' %}4{% else %}3{% endif %}
+
 
 Next steps:
 -----------
