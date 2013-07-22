@@ -2,6 +2,8 @@
 
 [PuPHPet](https://puphpet.com) - A simple GUI to set up virtual machines for PHP development
 
+[![Build Status](https://travis-ci.org/puphpet/puphpet.png)](https://travis-ci.org/puphpet/puphpet)
+
 ## What? ##
 
 [PuPHPet](https://puphpet.com) is a web application that allows you to easily and quickly generate custom
