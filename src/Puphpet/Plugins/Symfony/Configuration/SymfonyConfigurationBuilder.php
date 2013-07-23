@@ -42,9 +42,16 @@ class SymfonyConfigurationBuilder implements ConfigurationBuilderInterface
      */
     public function build(Edition $edition, array $customConfiguration)
     {
-        $documentRootParent = '/var/www';
+
         $projectName = $customConfiguration['project']['name'];
-        $documentRoot = $documentRootParent . '/' . $projectName;
+        $documentRoot = $customConfiguration['project']['document_root'];
+
+        // calculate document root parent
+        // example: /var/www/project/web -> parent is /var/www
+        $parts = explode('/', str_replace('/web', '', $documentRoot));
+        array_pop($parts);
+        $documentRootParent = implode('/', $parts);
+
         $dbuser = 'guest';
         $dbpassword = 'guest';
         $dbname = 'symfony';
