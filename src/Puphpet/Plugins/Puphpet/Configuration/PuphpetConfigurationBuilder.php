@@ -5,6 +5,7 @@ namespace Puphpet\Plugins\Puphpet\Configuration;
 use Puphpet\Domain\Configuration\Configuration;
 use Puphpet\Domain\Configuration\ConfigurationBuilderInterface;
 use Puphpet\Domain\Configuration\Edition;
+use Puphpet\Domain\Filesystem;
 
 /**
  * Builds configuration for an optimized Puphpet development box.
@@ -18,11 +19,18 @@ class PuphpetConfigurationBuilder implements ConfigurationBuilderInterface
     private $bashAliasFile;
 
     /**
-     * @param string $bashAliasFile absolute path to bashalias file
+     * @var Filesystem
      */
-    public function __construct($bashAliasFile)
+    private $filesystem;
+
+    /**
+     * @param string $bashAliasFile absolute path to bashalias file
+     * @param Filesystem $filesystem
+     */
+    public function __construct($bashAliasFile, Filesystem $filesystem)
     {
         $this->bashAliasFile = $bashAliasFile;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -40,18 +48,25 @@ class PuphpetConfigurationBuilder implements ConfigurationBuilderInterface
 
         // project settings
         $conf['project'] = array();
+        $conf['project']['name'] = $projectName;
         $conf['project']['edition'] = $edition->getName();
         $conf['project']['document_root'] = $documentRoot;
 
         // box stuff
+        // BC
+        $providerType = $edition->get('[provider][type]');
         $box = $edition->get('box');
         $box['personal_name'] = $projectName;
-        $conf['provider']['local'] = array_merge($box, $customConfiguration['provider']['local']);
-        $conf['provider']['type'] = 'local';
-        $conf['provider']['os'] = 'ubuntu';
+        $conf['provider'] = $edition->get('provider');
+
+        $conf['provider'][$providerType] = array_merge(
+            $conf['provider'][$providerType],
+            $box,
+            $customConfiguration['provider'][$providerType]
+        );
 
         $conf['server'] = $edition->get('server');
-        $conf['server']['bashaliases'] = file_get_contents($this->bashAliasFile);
+        $conf['server']['bashaliases'] = $this->filesystem->getContents($this->bashAliasFile);
 
         $conf['php'] = $edition->get('php');
         $conf['webserver'] = 'apache';
