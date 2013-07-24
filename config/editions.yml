@@ -34,10 +34,10 @@ editions:
       version: ""
     vagrant:
       boxes:
-        lucid32:   {url: "http://files.vagrantup.com/lucid32.box", name: "Ubuntu Lucid 32 Bit (10.04.4 LTS)"}
-        lucid64:   {url: "http://files.vagrantup.com/lucid64.box", name: "Ubuntu Lucid 64 Bit (10.04.4 LTS)"}
-        precise32: {url: "http://files.vagrantup.com/precise32.box", name: "Ubuntu Precise 32 Bit (12.04.2 LTS)"}
-        precise64: {url: "http://files.vagrantup.com/precise64.box", name: "Ubuntu Precise 64 Bit (12.04.2 LTS)"}
+        lucid32:   {os: "ubuntu", url: "http://files.vagrantup.com/lucid32.box", name: "Ubuntu Lucid 32 Bit (10.04.4 LTS)"}
+        lucid64:   {os: "ubuntu", url: "http://files.vagrantup.com/lucid64.box", name: "Ubuntu Lucid 64 Bit (10.04.4 LTS)"}
+        precise32: {os: "ubuntu", url: "http://files.vagrantup.com/precise32.box", name: "Ubuntu Precise 32 Bit (12.04.2 LTS)"}
+        precise64: {os: "ubuntu", url: "http://files.vagrantup.com/precise64.box", name: "Ubuntu Precise 64 Bit (12.04.2 LTS)"}
       default_box: precise64
     box:
       name: precise64
