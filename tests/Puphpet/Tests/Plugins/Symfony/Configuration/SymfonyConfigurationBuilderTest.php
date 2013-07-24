@@ -10,6 +10,8 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $bashAliasFilePath = '/absolute/path';
         $bashAliasFileContent = 'content';
+        $boxUrl = 'http://files.vagrantup.com/precise64.box';
+        $boxName = 'precise64';
 
         $filesystem = $this->getMockBuilder('Puphpet\Domain\Filesystem')
             ->disableOriginalConstructor()
@@ -26,9 +28,47 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['getName', 'get', 'set'])
             ->getMock();
 
-        $edition->expects($this->atLeastOnce())
+        $edition->expects($this->at(0))
             ->method('getName')
             ->will($this->returnValue('symfony'));
+
+        $edition->expects($this->at(1))
+            ->method('get')
+            ->with('[provider][type]')
+            ->will($this->returnValue('local'));
+
+        $edition->expects($this->at(2))
+            ->method('get')
+            ->with('box')
+            ->will(
+                $this->returnValue(
+                    [
+                        'url' => $boxUrl,
+                    ]
+                )
+            );
+
+        $edition->expects($this->at(3))
+            ->method('get')
+            ->with('provider')
+            ->will(
+                $this->returnValue(
+                    [
+                        'type'  => 'local',
+                        'os'    => 'ubuntu',
+                        'local' => [
+                            'foldertype' => 'default',
+                            'name'       => $boxName,
+                        ],
+                    ]
+                )
+            );
+
+        $edition->expects($this->at(4))
+            ->method('get')
+            ->with('server')
+            ->will($this->returnValue([]));
+
 
         $customConfiguration = [
             'project'   => [
@@ -38,7 +78,9 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
                 'symfony_version'  => '2.3.1'
             ],
             'provider'  => [
-                'local' => array(),
+                'local' => [
+                    'foldertype' => 'nfs',
+                ],
             ],
             'php'       => [
                 'version' => 'php54'
@@ -57,7 +99,10 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
 
         $config = $configuration->toArray();
         $this->assertInternalType('array', $config);
+
         $this->assertArrayHasKey('provider', $config);
+        $this->assertEquals('nfs', $config['provider']['local']['foldertype']);
+
         $this->assertArrayHasKey('server', $config);
         $this->assertArrayHasKey('php', $config);
         $this->assertArrayHasKey('webserver', $config);

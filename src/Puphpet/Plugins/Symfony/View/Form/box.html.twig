@@ -1,6 +1,7 @@
 {% set foldertype = edition.get('[provider][local][foldertype]')|default('default') %}
 <input type="hidden" id="provider-type" name="provider[type]" value="local" />
-<input type="hidden" name="provider[local][name]" value="symfony2" />
+<input type="hidden" id="provider-os" name="provider[os]" value="{{ default_os }}" />
+<input type="hidden" id="provider-local-name" name="provider[local][name]" value="{{ default_box }}"/>
 
 <div class="bs-example box">
     <div class="row">
@@ -17,11 +18,10 @@
         <div class="col col-lg-6 box-select">
             <select name="provider[local][url]">
                 {% for shortname,box in edition.get('[vagrant][boxes]') %}
-                    <option class="provider-local-url" rel="{{ shortname }}" value="{{ box.url }}"
+                    <option class="provider-local-url" rel="{{ box.os }}|{{ shortname }}" value="{{ box.url }}"
                             {% if default_box == shortname %}selected="selected"{% endif %}>{{ box.name }}</option>
                 {% endfor %}
             </select>
-            <input type="hidden" id="provider-local-name" name="provider[local][name]" value="{{ default_box }}"/>
         </div>
     </div>
     <div class="row">
