@@ -1,5 +1,7 @@
 {% extends 'Front/layout.html.twig' %}
-{% set default_box = edition.get('[vagrant][default_box]') %}
+{% set provider_type = edition.get('[provider][type]') %}
+{% set default_box = edition.get('[provider]['~provider_type~'][name]') %}
+{% set default_os = edition.get('[provider][os]') %}
 
 {% block css %}
     {{ parent() }}

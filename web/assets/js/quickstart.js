@@ -3,7 +3,8 @@ $(document).ready(function () {
 
         //$(this).closest('option:selected').each(function () {
         $('.box-select select option:selected').each(function () {
-            var boxName = $(this).attr('rel');
+            var parts = $(this).attr('rel').split('|',2);
+            var boxName = parts[1];
 
             $('#project-name').val('symfony.'+boxName+'.local');
             $('#box-name').val(boxName);

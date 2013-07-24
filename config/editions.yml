@@ -34,20 +34,20 @@ editions:
       version: ""
     vagrant:
       boxes:
-        lucid32:   {os: "ubuntu", url: "http://files.vagrantup.com/lucid32.box", name: "Ubuntu Lucid 32 Bit (10.04.4 LTS)"}
         lucid64:   {os: "ubuntu", url: "http://files.vagrantup.com/lucid64.box", name: "Ubuntu Lucid 64 Bit (10.04.4 LTS)"}
-        precise32: {os: "ubuntu", url: "http://files.vagrantup.com/precise32.box", name: "Ubuntu Precise 32 Bit (12.04.2 LTS)"}
         precise64: {os: "ubuntu", url: "http://files.vagrantup.com/precise64.box", name: "Ubuntu Precise 64 Bit (12.04.2 LTS)"}
-      default_box: precise64
+        squeeze64: {os: "debian", url: "http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210.box", name: "Debian Squeeze 6.0.7 x64"}
+        wheezy64:  {os: "debian", url: "http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box", name: "Debian Wheezy 7.0rc1 x64"}
     box:
-      name: precise64
-      url:  'http://files.vagrantup.com/precise64.box'
       ip:   '192.168.56.101'
       memory: 1024
       port_forward: {host: false, guest: false}
     provider:
+      type: local
+      os:   ubuntu
       local:
         foldertype: default
+        name: precise64
     server:
       packages:
         - 'python-software-properties'
