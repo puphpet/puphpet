@@ -10,5 +10,9 @@ symfony::project::create { '{{ project.name }}':
 {% if project.version %}
   version     => '{{ project.version }}',
 {% endif %}
-  require => [Class['composer'], File['{{ project.document_root_parent }}']]
+  require => [
+    Class['composer'],
+    File['{{ project.document_root_parent }}'],
+  ],
+  before => {% if nginx is defined %}Class['nginx']{% else %}Class['apache']{% endif %},
 }

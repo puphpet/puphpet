@@ -95,14 +95,16 @@ editions:
     builder: plugin.puphpet.configuration_builder
     template: '@Puphpet/start.html.twig'
     box:
-      name: precise64
       url:  'http://files.vagrantup.com/precise64.box'
       ip:   '192.168.56.101'
       memory: 1024
       port_forward: {host: false, guest: false}
     provider:
+      type: local
+      os:   ubuntu
       local:
         foldertype: default
+        name: precise64
     server:
       packages:
         - 'python-software-properties'

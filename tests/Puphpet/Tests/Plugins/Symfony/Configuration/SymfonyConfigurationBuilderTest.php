@@ -33,6 +33,7 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
         $customConfiguration = [
             'project'   => [
                 'name'             => 'foo.bar.dev',
+                'document_root'    => '/var/www/foo.bar.dev',
                 'generate_project' => true,
                 'symfony_version'  => '2.3.1'
             ],
