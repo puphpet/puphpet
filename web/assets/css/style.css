@@ -176,6 +176,10 @@ code {
     content: 'Digital Ocean';
 }
 
+#vagrant .bs-example.rackspaceProvider:after {
+    content: 'Rackspace';
+}
+
 .tab-content {
     padding-top: 15px;
 }
