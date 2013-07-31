@@ -1,7 +1,7 @@
 {% if php.version == 'php55' %}
     {% set php_ppa = 'ppa:ondrej/php5-experimental' %}
 {% elseif php.version == 'php54' %}
-    {% set php_ppa = 'ppa:ondrej/php5' %}
+    {% set php_ppa = 'ppa:ondrej/php5-oldstable' %}
 {% else %}
     {% set php_ppa = false %}
 {% endif %}
