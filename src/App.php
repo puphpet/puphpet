@@ -58,6 +58,7 @@ $app['domain.listener.main_source_configurator'] = function() {
             'puphpet'  => VENDOR_PATH . '/puphpet/puppet-puphpet',
             'xdebug'   => VENDOR_PATH . '/puphpet/puphpet-xdebug',
             'composer' => VENDOR_PATH . '/puphpet/puphpet-composer',
+            'phpunit' => VENDOR_PATH . '/takeno/puppet-phpunit',
         ]
     );
     return new \Puphpet\Domain\Configurator\File\Event\Listener\ConfiguratorListener($configurator);

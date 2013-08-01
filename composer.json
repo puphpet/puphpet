@@ -39,7 +39,9 @@
         "puppetlabs/puppetlabs-apt":        "1.1.0",
         "puppetlabs/puppetlabs-postgresql": "2.2.1",
         "puppetlabs/puppetlabs-stdlib":     "2.6.0",
-        "ripienaar/puppet-concat":          "dev-master#fe537c0f4f"
+        "ripienaar/puppet-concat":          "dev-master#fe537c0f4f",
+
+        "Takeno/puppet-phpunit": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit":                           "3.8.*@dev",
@@ -121,6 +123,18 @@
                 "version": "master",
                 "source": {
                     "url": "git://github.com/puphpet/puphpet-composer.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "Takeno/puppet-phpunit",
+                "version": "master",
+                "source": {
+                    "url": "git@github.com:Takeno/puppet-phpunit.git",
                     "type": "git",
                     "reference": "master"
                 }
