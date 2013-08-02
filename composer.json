@@ -182,7 +182,7 @@
                 "source": {
                     "url": "git://github.com/puphpet/puphpet-xdebug.git",
                     "type": "git",
-                    "reference": "0c3e7ec"
+                    "reference": "master"
                 }
             }
         },
