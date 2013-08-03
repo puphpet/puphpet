@@ -9,16 +9,16 @@
     <meta name="author" content="Juan Treminio @ https://jtreminio.com" />
 
     {% block css %}
-        <link href="/assets/css/bootstrap.css" rel="stylesheet">
-        <link href="/assets/css/docs.css" rel="stylesheet">
-        <link href="/assets/css/pygments-manni.css" rel="stylesheet">
-        <link href="/assets/js/select2/select2.css" rel="stylesheet"/>
-        <link href="/assets/js/select2-bootstrap.css" rel="stylesheet" />
-        <link href="/assets/css/style.css" rel="stylesheet" />
+        <link href="{{ assets('css/bootstrap.css') }}" rel="stylesheet">
+        <link href="{{ assets('css/docs.css') }}" rel="stylesheet">
+        <link href="{{ assets('css/pygments-manni.css') }}" rel="stylesheet">
+        <link href="{{ assets('js/select2/select2.css') }}" rel="stylesheet"/>
+        <link href="{{ assets('js/select2-bootstrap.css') }}" rel="stylesheet" />
+        <link href="{{ assets('css/style.css') }}" rel="stylesheet" />
     {% endblock %}
 
     <!--[if lt IE 9]>
-        <script src="/assets/js/html5shiv.js"></script>
+        <script src="{{ assets('js/html5shiv.js') }}"></script>
     <![endif]-->
     </head>
 {% endblock %}
