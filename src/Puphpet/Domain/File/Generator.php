@@ -72,6 +72,7 @@ class Generator
      * @param array $boxConfiguration
      * @param array $manifestConfiguration
      * @param array $vagrantConfiguration
+     * @param array $userConfiguration
      *
      * @return File
      */
@@ -107,6 +108,7 @@ class Generator
                 'README'                                  => $readme,
                 'puphpet.json'                            => $this->serializer->serialize($userConfiguration),
                 'Vagrantfile'                             => $vagrantFile,
+                'files/dot/empty'                         => ':)',
                 'manifests/default.pp'                    => $manifest,
                 'modules/puphpet/files/dot/.bash_aliases' => $manifestConfiguration['server']['bashaliases'],
             ]

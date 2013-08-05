@@ -1,3 +1,10 @@
+file { '/home/vagrant/.bash_aliases':
+  ensure => 'present',
+  source => 'puppet:///modules/puphpet/dot/.bash_aliases',
+}
+
+class { 'puphpet::dotfiles': }
+
 {% if server.packages is not empty %}
 package { [
 {{ format.explode_and_quote(server.packages)|raw }}
