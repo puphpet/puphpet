@@ -208,7 +208,6 @@ $app['twig.loader.filesystem'] = $app->share(
 // Plugin: Symfony
 $app['plugin.symfony.configuration_builder'] = function () use ($app) {
     return new Puphpet\Plugins\Symfony\Configuration\SymfonyConfigurationBuilder(
-        VENDOR_PATH . '/puphpet/puppet-puphpet/files/dot/.bash_aliases',
         new Puphpet\Domain\Filesystem()
     );
 };
@@ -241,7 +240,6 @@ $app['plugin.symfony.listener.configuration_converter_listener'] = function () u
 // Plugin: PuPHPet
 $app['plugin.puphpet.configuration_builder'] = function () use ($app) {
     return new Puphpet\Plugins\Puphpet\Configuration\PuphpetConfigurationBuilder(
-        VENDOR_PATH . '/puphpet/puppet-puphpet/files/dot/.bash_aliases',
         new Puphpet\Domain\Filesystem()
     );
 };

@@ -12,24 +12,16 @@ use Puphpet\Domain\Filesystem;
  */
 class PuphpetConfigurationBuilder implements ConfigurationBuilderInterface
 {
-
-    /**
-     * @var string
-     */
-    private $bashAliasFile;
-
     /**
      * @var Filesystem
      */
     private $filesystem;
 
     /**
-     * @param string $bashAliasFile absolute path to bashalias file
      * @param Filesystem $filesystem
      */
-    public function __construct($bashAliasFile, Filesystem $filesystem)
+    public function __construct(Filesystem $filesystem)
     {
-        $this->bashAliasFile = $bashAliasFile;
         $this->filesystem = $filesystem;
     }
 
@@ -66,7 +58,6 @@ class PuphpetConfigurationBuilder implements ConfigurationBuilderInterface
         );
 
         $conf['server'] = $edition->get('server');
-        $conf['server']['bashaliases'] = $this->filesystem->getContents($this->bashAliasFile);
 
         $conf['php'] = $edition->get('php');
         $conf['webserver'] = 'apache';
