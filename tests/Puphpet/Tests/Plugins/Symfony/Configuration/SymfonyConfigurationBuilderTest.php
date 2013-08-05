@@ -8,8 +8,6 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuild()
     {
-        $bashAliasFilePath = '/absolute/path';
-        $bashAliasFileContent = 'content';
         $boxUrl = 'http://files.vagrantup.com/precise64.box';
         $boxName = 'precise64';
 
@@ -17,11 +15,6 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(['getContents'])
             ->getMock();
-
-        $filesystem->expects($this->once())
-            ->method('getContents')
-            ->with($bashAliasFilePath)
-            ->will($this->returnValue($bashAliasFileContent));
 
         $edition = $this->getMockBuilder('Puphpet\Domain\Configuration\Edition')
             ->disableOriginalConstructor()
@@ -92,7 +85,7 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $builder = new SymfonyConfigurationBuilder($bashAliasFilePath, $filesystem);
+        $builder = new SymfonyConfigurationBuilder($filesystem);
         $configuration = $builder->build($edition, $customConfiguration);
 
         $this->assertInstanceOf('\Puphpet\Domain\Configuration\Configuration', $configuration);
@@ -111,7 +104,5 @@ class SymfonyConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('project', $config);
         $this->assertEquals('/var/www', $config['project']['document_root_parent']);
         $this->assertEquals('foo.bar.dev', $config['project']['name']);
-
-        $this->assertEquals($bashAliasFileContent, $config['server']['bashaliases']);
     }
 }
