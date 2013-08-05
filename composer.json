@@ -26,15 +26,15 @@
 
         "puphpet/puppet-apache":            "dev-master",
         "puphpet/puphpet-composer":         "dev-master",
-        "puphpet/puphpet-git":              "dev-master",
         "puphpet/puppet-puphpet":           "dev-master",
         "puphpet/puphpet-xdebug":           "dev-master",
 
-        "example42/puppi":                  "dev-master#f65b71b7c2",
+        "example42/puppi":                  "dev-master#f65b71b",
         "example42/puppet-php":             "dev-master#3465b6d",
-        "jfryman/puppet-nginx":             "dev-master#4419300",
         "frastel/puppet-phpmyadmin":        "dev-master#b66963c",
         "frastel/puppet-symfony":           "dev-master#6b83915",
+        "jfryman/puppet-nginx":             "dev-master#4419300",
+        "nesi/puppet-git":                  "dev-master#9d7b47b",
         "puppetlabs/puppetlabs-mysql":      "dev-master#3205b83ac8",
         "puppetlabs/puppetlabs-apt":        "1.1.0",
         "puppetlabs/puppetlabs-postgresql": "2.2.1",
@@ -62,7 +62,7 @@
                 "source": {
                     "url": "git://github.com/example42/puppi.git",
                     "type": "git",
-                    "reference": "master"
+                    "reference": "f65b71b"
                 }
             }
         },
@@ -129,12 +129,12 @@
         {
             "type": "package",
             "package": {
-                "name": "puphpet/puphpet-git",
+                "name": "nesi/puppet-git",
                 "version": "master",
                 "source": {
-                    "url": "git://github.com/puphpet/puphpet-git.git",
+                    "url": "git://github.com/nesi/puppet-git.git",
                     "type": "git",
-                    "reference": "master"
+                    "reference": "9d7b47b"
                 }
             }
         },
