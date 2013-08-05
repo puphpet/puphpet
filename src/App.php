@@ -53,7 +53,7 @@ $app['domain.listener.main_source_configurator'] = function() {
         [
             'apt'      => VENDOR_PATH . '/puppetlabs/puppetlabs-apt',
             'stdlib'   => VENDOR_PATH . '/puppetlabs/puppetlabs-stdlib',
-            'git'      => VENDOR_PATH . '/nesi/puppet-git',
+            'vcsrepo'  => VENDOR_PATH . '/puppetlabs/puppetlabs-vcsrepo',
             'puppi'    => VENDOR_PATH . '/example42/puppi',
             'php'      => VENDOR_PATH . '/example42/puppet-php',
             'puphpet'  => VENDOR_PATH . '/puphpet/puppet-puphpet',

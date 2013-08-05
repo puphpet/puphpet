@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2febb2b4d245b675b3d3db659bc82d08",
+    "hash": "e6c686176a10f557bac9020db016edcf",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -177,40 +177,31 @@
             "time": "2013-07-02 20:58:58"
         },
         {
-            "name": "nesi/puppet-git",
-            "version": "master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/nesi/puppet-git.git",
-                "reference": "9d7b47b"
-            },
-            "type": "library",
-            "time": "2013-07-23 00:20:13"
-        },
-        {
             "name": "nicl/silex-markdown",
-            "version": "1.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nicl/Silex-Markdown",
-                "reference": "1.0.0"
+                "url": "https://github.com/nicl/Silex-Markdown.git",
+                "reference": "1.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/nicl/Silex-Markdown/archive/1.0.0.zip",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/nicl/Silex-Markdown/zipball/1.1.0",
+                "reference": "1.1.0",
                 "shasum": ""
             },
             "require": {
                 "dflydev/markdown": "1.0.*",
-                "silex/silex": "1.0.*",
-                "twig/twig": ">=1.8,<2.0-dev"
+                "silex/silex": "1.*"
+            },
+            "suggest": {
+                "twig/twig": "enables parsing markdown right from the template using simple filter"
             },
             "type": "library",
             "extra": {
-                "branch-alias": [
-
-                ]
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
             },
             "autoload": {
                 "psr-0": {
@@ -218,6 +209,9 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Nicolas Long",
@@ -229,7 +223,7 @@
             "keywords": [
                 "markdown"
             ],
-            "time": "2012-10-16 07:36:00"
+            "time": "2013-08-05 20:33:16"
         },
         {
             "name": "pimple/pimple",
@@ -397,6 +391,16 @@
                 "type": "git",
                 "url": "git://github.com/puppetlabs/puppetlabs-stdlib.git",
                 "reference": "tags/2.6.0"
+            },
+            "type": "library"
+        },
+        {
+            "name": "puppetlabs/puppetlabs-vcsrepo",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puppetlabs/puppetlabs-vcsrepo.git",
+                "reference": "tags/0.1.2"
             },
             "type": "library"
         },
@@ -902,12 +906,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "7c1ce36f87ab1dd1dea007749325b8e120208be6"
+                "reference": "3bcf32208ac0e55f3cf66a628e1dfbd2afc03dfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/7c1ce36f87ab1dd1dea007749325b8e120208be6",
-                "reference": "7c1ce36f87ab1dd1dea007749325b8e120208be6",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/3bcf32208ac0e55f3cf66a628e1dfbd2afc03dfb",
+                "reference": "3bcf32208ac0e55f3cf66a628e1dfbd2afc03dfb",
                 "shasum": ""
             },
             "require": {
@@ -943,7 +947,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-08-05 08:15:36"
+            "time": "2013-08-05 16:50:34"
         }
     ],
     "packages-dev": [
@@ -1812,7 +1816,6 @@
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
         "jfryman/puppet-nginx": 20,
-        "nesi/puppet-git": 20,
         "puppetlabs/puppetlabs-mysql": 20,
         "ripienaar/puppet-concat": 20,
         "phpunit/phpunit": 20,

@@ -34,11 +34,11 @@
         "frastel/puppet-phpmyadmin":        "dev-master#b66963c",
         "frastel/puppet-symfony":           "dev-master#6b83915",
         "jfryman/puppet-nginx":             "dev-master#4419300",
-        "nesi/puppet-git":                  "dev-master#9d7b47b",
         "puppetlabs/puppetlabs-mysql":      "dev-master#3205b83ac8",
         "puppetlabs/puppetlabs-apt":        "1.1.0",
         "puppetlabs/puppetlabs-postgresql": "2.2.1",
         "puppetlabs/puppetlabs-stdlib":     "2.6.0",
+        "puppetlabs/puppetlabs-vcsrepo":    "0.1.2",
         "ripienaar/puppet-concat":          "dev-master#fe537c0f4f"
     },
     "require-dev": {
@@ -129,18 +129,6 @@
         {
             "type": "package",
             "package": {
-                "name": "nesi/puppet-git",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/nesi/puppet-git.git",
-                    "type": "git",
-                    "reference": "9d7b47b"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
                 "name": "puppetlabs/puppetlabs-mysql",
                 "version": "master",
                 "source": {
@@ -219,6 +207,18 @@
                     "url": "git://github.com/puppetlabs/puppetlabs-stdlib.git",
                     "type": "git",
                     "reference": "tags/2.6.0"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "puppetlabs/puppetlabs-vcsrepo",
+                "version": "0.1.2",
+                "source": {
+                    "url": "git://github.com/puppetlabs/puppetlabs-vcsrepo.git",
+                    "type": "git",
+                    "reference": "tags/0.1.2"
                 }
             }
         },

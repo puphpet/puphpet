@@ -5,11 +5,15 @@ php::pecl::module { 'xhprof':
   preferred_state => 'beta',
 }
 
-git::repo { 'xhprof-git':
-  path   => $xhprofPath,
-  source => 'https://github.com/facebook/xhprof.git',
-  update => false,
-  bare   => false
+if !defined(Package['git-core']) {
+  package { 'git-core' : }
+}
+
+vcsrepo { $xhprofPath:
+  ensure   => present,
+  provider => git,
+  source   => 'https://github.com/facebook/xhprof.git',
+  require  => Package['git-core']
 }
 
 file { "${xhprofPath}/xhprof_html":
@@ -17,13 +21,16 @@ file { "${xhprofPath}/xhprof_html":
   owner   => 'vagrant',
   group   => 'vagrant',
   mode    => 0775,
-  require => Git::Repo['xhprof-git']
+  require => Vcsrepo[$xhprofPath]
 }
 
 {% if php.modules.composer.installed == 1 %}
 composer::run { 'xhprof-composer-run':
   path    => $xhprofPath,
-  require => Class['composer']
+  require => [
+    Class['composer'],
+    File["${xhprofPath}/xhprof_html"]
+  ]
 }
 {% endif %}
 
