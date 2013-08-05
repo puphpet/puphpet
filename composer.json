@@ -158,7 +158,7 @@
                 "source": {
                     "url": "git://github.com/puphpet/puppet-puphpet.git",
                     "type": "git",
-                    "reference": "b312d20"
+                    "reference": "master"
                 }
             }
         },

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e6c686176a10f557bac9020db016edcf",
+    "hash": "cd7c197868dd749b4fc300a773ef6445",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -348,7 +348,7 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/puphpet/puppet-puphpet.git",
-                "reference": "b312d20"
+                "reference": "master"
             },
             "type": "library",
             "time": "2013-07-03 23:33:44"
