@@ -1,9 +1,11 @@
-git::repo { 'puphpet':
-  path   => '/var/www/puphpet.dev/',
-  source => 'https://github.com/puphpet/puphpet.git'
+vcsrepo { '/var/www/puphpet.dev/':
+  ensure   => present,
+  provider => git,
+  source   => 'https://github.com/puphpet/puphpet.git',
+  require  => Package['git-core']
 }
 
 composer::run { 'puphpet':
   path    => '/var/www/puphpet.dev/',
-  require => Git::Repo['puphpet']
+  require => VcsRepo['/var/www/puphpet.dev/']
 }
