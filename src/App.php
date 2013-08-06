@@ -172,6 +172,12 @@ $app['file_generator'] = function () use ($app) {
         new \Puphpet\Domain\Serializer\Serializer(new \Puphpet\Domain\Serializer\Cleaner())
     );
 };
+$app['configuration_builder'] = function () use ($app) {
+    return new Puphpet\Domain\Configuration\ConfigurationBuilder(
+        VENDOR_PATH . '/puphpet/puppet-puphpet/files/dot/.bash_aliases',
+        new Puphpet\Domain\Filesystem()
+    );
+};
 $app['configuration_file_generator'] = function () use ($app) {
     return new Puphpet\Domain\File\ConfigurationGenerator(
         $app['file_generator'],

@@ -72,6 +72,7 @@ class Generator
      * @param array $boxConfiguration
      * @param array $manifestConfiguration
      * @param array $vagrantConfiguration
+     * @param array $userConfiguration
      *
      * @return File
      */
@@ -104,11 +105,11 @@ class Generator
         // creating and building the archive
         $this->domainFile->createArchive(
             [
-                'README'                                  => $readme,
-                'puphpet.json'                            => $this->serializer->serialize($userConfiguration),
-                'Vagrantfile'                             => $vagrantFile,
-                'manifests/default.pp'                    => $manifest,
-                'modules/puphpet/files/dot/.bash_aliases' => $manifestConfiguration['server']['bashaliases'],
+                'README'                  => $readme,
+                'puphpet.json'            => $this->serializer->serialize($userConfiguration),
+                'Vagrantfile'             => $vagrantFile,
+                'manifests/default.pp'    => $manifest,
+                'files/dot/.bash_aliases' => $manifestConfiguration['server']['bashaliases'],
             ]
         );
 
