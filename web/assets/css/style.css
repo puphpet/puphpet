@@ -110,8 +110,8 @@ code {
     content: 'Choose Your Packages';
 }
 
-#server .bs-example.bash_aliases:after {
-    content: '~/.bash_aliases';
+#server .bs-example.dot_files:after {
+    content: '~/.dot_files';
 }
 
 #apache .bs-example.modules:after {

@@ -53,6 +53,7 @@ $app['domain.listener.main_source_configurator'] = function() {
         [
             'apt'      => VENDOR_PATH . '/puppetlabs/puppetlabs-apt',
             'stdlib'   => VENDOR_PATH . '/puppetlabs/puppetlabs-stdlib',
+            'vcsrepo'  => VENDOR_PATH . '/puppetlabs/puppetlabs-vcsrepo',
             'puppi'    => VENDOR_PATH . '/example42/puppi',
             'php'      => VENDOR_PATH . '/example42/puppet-php',
             'puphpet'  => VENDOR_PATH . '/puphpet/puppet-puphpet',
@@ -169,6 +170,12 @@ $app['file_generator'] = function () use ($app) {
         $app['domain_file'],
         $app['domain_file_configurator'],
         new \Puphpet\Domain\Serializer\Serializer(new \Puphpet\Domain\Serializer\Cleaner())
+    );
+};
+$app['configuration_builder'] = function () use ($app) {
+    return new Puphpet\Domain\Configuration\ConfigurationBuilder(
+        VENDOR_PATH . '/puphpet/puppet-puphpet/files/dot/.bash_aliases',
+        new Puphpet\Domain\Filesystem()
     );
 };
 $app['configuration_file_generator'] = function () use ($app) {

@@ -1,0 +1,61 @@
+$xhprofPath = '/var/www/xhprof'
+
+php::pecl::module { 'xhprof':
+  use_package     => false,
+  preferred_state => 'beta',
+}
+
+if !defined(Package['git-core']) {
+  package { 'git-core' : }
+}
+
+vcsrepo { $xhprofPath:
+  ensure   => present,
+  provider => git,
+  source   => 'https://github.com/facebook/xhprof.git',
+  require  => Package['git-core']
+}
+
+file { "${xhprofPath}/xhprof_html":
+  ensure  => 'directory',
+  owner   => 'vagrant',
+  group   => 'vagrant',
+  mode    => '0775',
+  require => Vcsrepo[$xhprofPath]
+}
+
+{% if php.modules.composer.installed == 1 %}
+composer::run { 'xhprof-composer-run':
+  path    => $xhprofPath,
+  require => [
+    Class['composer'],
+    File["${xhprofPath}/xhprof_html"]
+  ]
+}
+{% endif %}
+
+{% if nginx is defined %}
+nginx::resource::vhost { 'xhprof':
+  ensure      => present,
+  server_name => ['xhprof'],
+  listen_port => 80,
+  index_files => ['index.php'],
+  www_root    => "${xhprofPath}/xhprof_html",
+  try_files   => ['$uri', '$uri/', '/index.php?$args'],
+  require     => [
+    Php::Pecl::Module['xhprof'],
+    File["${xhprofPath}/xhprof_html"]
+  ]
+}
+{% else %}
+apache::vhost { 'xhprof':
+  server_name => 'xhprof',
+  docroot     => "${xhprofPath}/xhprof_html",
+  port        => 80,
+  priority    => '1',
+  require     => [
+    Php::Pecl::Module['xhprof'],
+    File["${xhprofPath}/xhprof_html"]
+  ]
+}
+{% endif %}

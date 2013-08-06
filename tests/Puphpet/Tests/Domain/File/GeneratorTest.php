@@ -62,11 +62,11 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
             ->method('createArchive')
             ->with(
                 [
-                    'README'                                  => $readme,
-                    'Vagrantfile'                             => $vagrantFile,
-                    'manifests/default.pp'                    => $manifest,
-                    'modules/puphpet/files/dot/.bash_aliases' => $bashaliases,
-                    'puphpet.json'                            => $serializedUserConfiguration
+                    'README'                  => $readme,
+                    'Vagrantfile'             => $vagrantFile,
+                    'manifests/default.pp'    => $manifest,
+                    'files/dot/.bash_aliases' => $bashaliases,
+                    'puphpet.json'            => $serializedUserConfiguration
                 ]
             );
 

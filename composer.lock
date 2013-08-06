@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3ae55fbacc8bbc3c233a39e621d218ac",
+    "hash": "cd7c197868dd749b4fc300a773ef6445",
     "packages": [
         {
             "name": "dflydev/markdown",
@@ -81,7 +81,7 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/example42/puppi.git",
-                "reference": "f65b71b7c2"
+                "reference": "f65b71b"
             },
             "type": "library",
             "time": "2013-06-18 13:52:35"
@@ -178,28 +178,30 @@
         },
         {
             "name": "nicl/silex-markdown",
-            "version": "1.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nicl/Silex-Markdown",
-                "reference": "1.0.0"
+                "url": "https://github.com/nicl/Silex-Markdown.git",
+                "reference": "1.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/nicl/Silex-Markdown/archive/1.0.0.zip",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/nicl/Silex-Markdown/zipball/1.1.0",
+                "reference": "1.1.0",
                 "shasum": ""
             },
             "require": {
                 "dflydev/markdown": "1.0.*",
-                "silex/silex": "1.0.*",
-                "twig/twig": ">=1.8,<2.0-dev"
+                "silex/silex": "1.*"
+            },
+            "suggest": {
+                "twig/twig": "enables parsing markdown right from the template using simple filter"
             },
             "type": "library",
             "extra": {
-                "branch-alias": [
-
-                ]
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
             },
             "autoload": {
                 "psr-0": {
@@ -207,6 +209,9 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Nicolas Long",
@@ -218,7 +223,7 @@
             "keywords": [
                 "markdown"
             ],
-            "time": "2012-10-16 07:36:00"
+            "time": "2013-08-05 20:33:16"
         },
         {
             "name": "pimple/pimple",
@@ -316,17 +321,6 @@
             "time": "2013-07-31 08:01:14"
         },
         {
-            "name": "puphpet/puphpet-git",
-            "version": "master",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/puphpet/puphpet-git.git",
-                "reference": "master"
-            },
-            "type": "library",
-            "time": "2013-07-02 04:48:34"
-        },
-        {
             "name": "puphpet/puphpet-xdebug",
             "version": "master",
             "source": {
@@ -354,7 +348,7 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/puphpet/puppet-puphpet.git",
-                "reference": "b312d20"
+                "reference": "master"
             },
             "type": "library",
             "time": "2013-07-03 23:33:44"
@@ -397,6 +391,16 @@
                 "type": "git",
                 "url": "git://github.com/puppetlabs/puppetlabs-stdlib.git",
                 "reference": "tags/2.6.0"
+            },
+            "type": "library"
+        },
+        {
+            "name": "puppetlabs/puppetlabs-vcsrepo",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/puppetlabs/puppetlabs-vcsrepo.git",
+                "reference": "tags/0.1.2"
             },
             "type": "library"
         },
@@ -902,12 +906,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "0e63ef04a00fb238ee457708f8b4e8918aa51d7e"
+                "reference": "3bcf32208ac0e55f3cf66a628e1dfbd2afc03dfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/0e63ef04a00fb238ee457708f8b4e8918aa51d7e",
-                "reference": "0e63ef04a00fb238ee457708f8b4e8918aa51d7e",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/3bcf32208ac0e55f3cf66a628e1dfbd2afc03dfb",
+                "reference": "3bcf32208ac0e55f3cf66a628e1dfbd2afc03dfb",
                 "shasum": ""
             },
             "require": {
@@ -916,7 +920,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.14-dev"
                 }
             },
             "autoload": {
@@ -943,7 +947,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-07-24 03:16:45"
+            "time": "2013-08-05 16:50:34"
         }
     ],
     "packages-dev": [
@@ -1148,12 +1152,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "1.1.8"
+                "reference": "1.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/1.1.8",
-                "reference": "1.1.8",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/1.2.0",
+                "reference": "1.2.0",
                 "shasum": ""
             },
             "require": {
@@ -1161,6 +1165,11 @@
                 "php": ">=5.3.3"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "PHP/"
@@ -1185,7 +1194,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2013-08-02 19:10:55"
+            "time": "2013-08-04 05:57:48"
         },
         {
             "name": "phpunit/phpunit",
@@ -1193,12 +1202,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "173c01b870e2e0ce86183b72f15b1fabf7b3a94e"
+                "reference": "3533f54a04f5f735b899e1c51bb1dbd292f352bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/173c01b870e2e0ce86183b72f15b1fabf7b3a94e",
-                "reference": "173c01b870e2e0ce86183b72f15b1fabf7b3a94e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3533f54a04f5f735b899e1c51bb1dbd292f352bd",
+                "reference": "3533f54a04f5f735b899e1c51bb1dbd292f352bd",
                 "shasum": ""
             },
             "require": {
@@ -1212,7 +1221,7 @@
                 "phpunit/php-text-template": ">=1.1.1",
                 "phpunit/php-timer": ">=1.0.2",
                 "phpunit/phpunit-mock-objects": "1.3.*@dev",
-                "sebastian/diff": ">=1.0.0",
+                "sebastian/diff": ">=1.1.0",
                 "sebastian/exporter": ">=1.0.0",
                 "sebastian/version": ">=1.0.0",
                 "symfony/yaml": "~2.0"
@@ -1262,7 +1271,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-08-02 07:24:50"
+            "time": "2013-08-03 20:55:25"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1328,12 +1337,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "1.0.0"
+                "reference": "1.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/1.0.0",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/1.1.0",
+                "reference": "1.1.0",
                 "shasum": ""
             },
             "require": {
@@ -1342,7 +1351,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -1370,7 +1379,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2013-07-09 05:45:26"
+            "time": "2013-08-03 16:46:33"
         },
         {
             "name": "sebastian/exporter",
@@ -1800,14 +1809,13 @@
     "stability-flags": {
         "puphpet/puppet-apache": 20,
         "puphpet/puphpet-composer": 20,
-        "puphpet/puphpet-git": 20,
         "puphpet/puppet-puphpet": 20,
         "puphpet/puphpet-xdebug": 20,
         "example42/puppi": 20,
         "example42/puppet-php": 20,
-        "jfryman/puppet-nginx": 20,
         "frastel/puppet-phpmyadmin": 20,
         "frastel/puppet-symfony": 20,
+        "jfryman/puppet-nginx": 20,
         "puppetlabs/puppetlabs-mysql": 20,
         "ripienaar/puppet-concat": 20,
         "phpunit/phpunit": 20,

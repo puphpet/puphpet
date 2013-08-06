@@ -147,7 +147,7 @@ class ManifestTest extends Base
 
         $this->assertContains("class { 'apache'", $rendered);
         $this->assertContains("apache::module { 'foo'", $rendered);
-        $this->assertContains("apt::ppa { 'ppa:ondrej/php5-experimental'", $rendered);
+        $this->assertContains("apt::ppa { 'ppa:ondrej/php5'", $rendered);
         $this->assertContains("php::module { 'php5-cli'", $rendered);
         $this->assertContains("mysql::server", $rendered);
         $this->assertContains("'root_password' => 'rootpwd'", $rendered);

@@ -15,24 +15,9 @@ class Server extends PuppetModuleAbstract implements PuppetModuleInterface
             return array();
         }
 
-        $this->formatBashAliases()
-             ->formatPackages();
+        $this->formatPackages();
 
         return $this->configuration;
-    }
-
-    /**
-     * Submitted .bash_aliases contents
-     *
-     * @return self
-     */
-    protected function formatBashAliases()
-    {
-        $this->configuration['bashaliases'] = !empty($this->configuration['bashaliases'])
-            ? trim(str_replace("\r\n", "\n", $this->configuration['bashaliases']))
-            : '';
-
-        return $this;
     }
 
     /**
