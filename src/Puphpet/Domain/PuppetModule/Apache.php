@@ -42,6 +42,8 @@ class Apache extends PuppetModuleAbstract implements PuppetModuleInterface
      */
     protected function formatVhosts()
     {
+    	$rewrite = in_array('rewrite', $this->configuration['modules']);
+
         if (empty($this->configuration['vhosts'])) {
             $this->configuration['vhosts'] = array();
         }
@@ -56,6 +58,10 @@ class Apache extends PuppetModuleAbstract implements PuppetModuleInterface
             $vhosts[$id]['envvars'] = !empty($vhosts[$id]['envvars'])
                 ? $this->explode($vhosts[$id]['envvars'])
                 : array();
+
+            if ($rewrite) { 
+                $vhosts[$id]['override'] = 'All';
+            }
         }
 
         $this->configuration['vhosts'] = $vhosts;
