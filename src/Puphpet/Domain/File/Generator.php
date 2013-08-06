@@ -110,6 +110,7 @@ class Generator
                 'Vagrantfile'                             => $vagrantFile,
                 'files/dot/empty'                         => ':)',
                 'manifests/default.pp'                    => $manifest,
+                'modules/puphpet/files/dot/.bash_aliases' => $manifestConfiguration['server']['bashaliases'],
             ]
         );
 

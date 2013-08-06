@@ -14,16 +14,8 @@
     </div>
 </div>
 
-<div class="bs-example dot_files">
-    <p><strong>Dot Files</strong></p>
-
-    <p>
-        You can add all your dot files (<code>.bash_aliases</code>, <code>.vimrc</code>, <code>.gitconfig</code>, etc),
-        to the <code>./files/dot/</code> folder that will appear after you extract your generated zip file.
-    </p>
-
-    <p>
-        During initial startup, they will automatically be copied into the VM. There is a sample
-        <code>.bash_aliases</code> file there for you to start with - overwrite at will!
-    </p>
+<div class="bs-example bash_aliases">
+    <label for="server-bashaliases">Bash Aliases</label>
+    <textarea id="server-bashaliases" name="server[bashaliases]" rows="15">{% include 'Front/Tabs/Server/bash_aliases.html.twig' %}</textarea>
+    <p class="help-block">~/.bash_aliases file (<a href="/assets/img/bash.png" target="_blank">preview</a>)</p>
 </div>
