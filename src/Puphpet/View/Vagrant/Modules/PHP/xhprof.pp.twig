@@ -20,7 +20,7 @@ file { "${xhprofPath}/xhprof_html":
   ensure  => 'directory',
   owner   => 'vagrant',
   group   => 'vagrant',
-  mode    => '0775',
+  mode    => 0775,
   require => Vcsrepo[$xhprofPath]
 }
 

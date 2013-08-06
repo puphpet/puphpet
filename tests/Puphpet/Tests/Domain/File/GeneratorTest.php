@@ -14,11 +14,12 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
                 'provider' => 'local',
             ],
         ];
+        $bashaliases = 'bash...';
 
         $vagrantConfiguration = ['vagrant' => 'foo'];
         $vagrantFile = 'vagrantfile';
 
-        $manifestConfiguration = ['manifest' => 'foo', 'server' => []];
+        $manifestConfiguration = ['manifest' => 'foo', 'server' => ['bashaliases' => $bashaliases]];
         $manifest = 'manifest';
 
         $userConfiguration = ['foo' => 'bar'];
@@ -26,7 +27,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
 
         $readmeConfiguration = [
             'manifest' => 'foo',
-            'server'   => [],
+            'server'   => ['bashaliases' => $bashaliases],
             'box' => [
                 'name'     => 'baz',
                 'provider' => 'local',
@@ -61,11 +62,11 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
             ->method('createArchive')
             ->with(
                 [
-                    'README'               => $readme,
-                    'Vagrantfile'          => $vagrantFile,
-                    'manifests/default.pp' => $manifest,
-                    'puphpet.json'         => $serializedUserConfiguration,
-                    'files/dot/empty'      => ':)',
+                    'README'                                  => $readme,
+                    'Vagrantfile'                             => $vagrantFile,
+                    'manifests/default.pp'                    => $manifest,
+                    'modules/puphpet/files/dot/.bash_aliases' => $bashaliases,
+                    'puphpet.json'                            => $serializedUserConfiguration
                 ]
             );
 

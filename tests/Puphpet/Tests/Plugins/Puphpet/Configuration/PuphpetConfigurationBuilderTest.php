@@ -8,6 +8,8 @@ class PuphpetConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuild()
     {
+        $bashAliasFilePath = '/absolute/path';
+        $bashAliasFileContent = 'content';
         $boxUrl = 'http://files.vagrantup.com/precise64.box';
         $boxName = 'precise64';
 
@@ -15,6 +17,11 @@ class PuphpetConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(['getContents'])
             ->getMock();
+
+        $filesystem->expects($this->once())
+            ->method('getContents')
+            ->with($bashAliasFilePath)
+            ->will($this->returnValue($bashAliasFileContent));
 
         $edition = $this->getMockBuilder('Puphpet\Domain\Configuration\Edition')
             ->disableOriginalConstructor()
@@ -76,7 +83,7 @@ class PuphpetConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
             'webserver' => 'apache',
         ];
 
-        $builder = new PuphpetConfigurationBuilder($filesystem);
+        $builder = new PuphpetConfigurationBuilder($bashAliasFilePath, $filesystem);
         $configuration = $builder->build($edition, $customConfiguration);
 
         $this->assertInstanceOf('\Puphpet\Domain\Configuration\Configuration', $configuration);
@@ -102,5 +109,7 @@ class PuphpetConfigurationBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/var/www/puphpet.dev/web', $config['project']['document_root']);
         $this->assertEquals('puphpet.dev', $config['project']['name']);
         $this->assertEquals('puphpet', $config['project']['edition']);
+
+        $this->assertEquals($bashAliasFileContent, $config['server']['bashaliases']);
     }
 }

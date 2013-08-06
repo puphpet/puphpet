@@ -12,6 +12,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $this->serverArray = [
             'packages'    => 'build-essential,vim,curl',
+            'bashaliases' => " super duper cool awesome bash alias\r\nwith pretty shortcuts ",
         ];
     }
 
@@ -47,6 +48,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'vim',
                 'curl',
             ],
+            'bashaliases' => "super duper cool awesome bash alias\nwith pretty shortcuts",
         ];
 
         $server = new Server($this->serverArray);
@@ -67,6 +69,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'vim',
                 'curl',
             ],
+            'bashaliases' => "super duper cool awesome bash alias\nwith pretty shortcuts",
         ];
 
         $server = new Server($this->serverArray);
@@ -87,6 +90,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
                 'vim',
                 'curl',
             ],
+            'bashaliases' => "super duper cool awesome bash alias\nwith pretty shortcuts",
         ];
 
         $server = new Server($this->serverArray);
