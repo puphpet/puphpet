@@ -80,6 +80,7 @@
                     <label class="control-label" for="mysql-dbuser-{{ dbNum }}-sql">Import Database From File</label>
                     <input id="mysql-dbuser-{{ dbNum }}-sql" name="mysql[dbuser][{{ dbNum }}][sql]"
                             type="text" placeholder="/var/www/sql/database_name.sql" value="" />
+                    <p class="help-block">Optional. Make sure this file is inside the VM before running <code>$ vagrant up</code></p>
                 </div>
             </div>
         </fieldset>
