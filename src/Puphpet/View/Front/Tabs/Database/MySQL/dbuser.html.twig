@@ -72,6 +72,16 @@
                            placeholder="" value="localhost" />
                 </div>
             </div>
+
+            <br />
+
+            <div class="row">
+                <div class="col col-lg-5">
+                    <label class="control-label" for="mysql-dbuser-{{ dbNum }}-sql">Import Database From File</label>
+                    <input id="mysql-dbuser-{{ dbNum }}-sql" name="mysql[dbuser][{{ dbNum }}][sql]"
+                            type="text" placeholder="/var/www/sql/database_name.sql" value="" />
+                </div>
+            </div>
         </fieldset>
 
         <br />
