@@ -11,6 +11,9 @@ mysql::db { '{{ database.dbname }}':
   user     => '{{ database.user }}',
   password => '{{ database.password }}',
   host     => '{{ database.host }}',
+{% if database.sql %}
+  sql      => '{{  database.sql }}',
+{% endif %}
   charset  => 'utf8',
   require  => Class['mysql::server'],
 }
