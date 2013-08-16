@@ -204,15 +204,20 @@ code {
     margin: 5px;
 }
 
+.bs-header .carbon-container {
+    margin-top: 10px;
+}
+
 /* Phones */
 @media screen and (max-width: 767px) {
-    .bs-sidebar .nav > li > a {
-        font-size: 1.5em;
+    .sidebar-container,
+    .bs-header .text-slogan {
+        display: none;
     }
 
-    .sidebar-container .svgIcon {
-        width: 20px;
-        height: 20px;
+    .bs-header .logo-container,
+    .bs-header .carbon-container {
+        width: 50%;
     }
 }
 

@@ -49,10 +49,19 @@
 {% block headerText %}
 <div class="bs-header">
     <div class="container">
-        <img src="/assets/img/logo.png" id="logo" />
-        <h1>PuPHPet</h1>
+        <div class="row">
+            <div class="col col-lg-8 logo-container">
+                <img src="/assets/img/logo.png" id="logo" />
+                <div class="text-slogan">
+                    <h1>PuPHPet</h1>
+                    <p>A simple GUI to set up virtual machines for PHP development</p>
+                </div>
+            </div>
 
-        <p>A simple GUI to set up virtual machines for PHP development</p>
+            <div class="col col-lg-2 carbon-container">
+                <div id="carbonads-container"><div class="carbonad"><div id="azcarbon"></div><script type="text/javascript">var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = "//engine.carbonads.com/z/50016/azcarbon_2_1_0_VERT"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script></div></div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
