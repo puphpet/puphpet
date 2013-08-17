@@ -9,5 +9,5 @@ $app['bucket'] = $app->share(function() {
 });
 
 $app['pluginHandler'] = $app->share(function($app) {
-    return new Domain\PluginHandler(new Domain\PluginRegister($app['bucket']));
+    return new Domain\PluginHandler(new Domain\PluginRegister($app['bucket']), $app['twig']);
 });

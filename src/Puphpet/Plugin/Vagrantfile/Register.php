@@ -9,17 +9,34 @@ class Register implements Domain\PluginInterface
     /** @var array */
     private $data = [];
 
+    /**
+     * Data for plugin's use
+     *
+     * @param array $data
+     */
     public function __construct(array $data)
     {
         $this->data = $data;
     }
 
     /**
+     * Get name of plugin
+     *
      * @return string
      */
     public function getName()
     {
         return 'vagrantfile';
+    }
+
+    /**
+     * Return data available to plugin
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 
     /**
@@ -32,6 +49,16 @@ class Register implements Domain\PluginInterface
         array_change_key_case($this->data, CASE_LOWER);
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTemplateOrder()
+    {
+        return [
+            'Vagrantfile.pp'
+        ];
     }
 
     public function process()

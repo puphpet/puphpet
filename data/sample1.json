@@ -18,17 +18,24 @@
                 ]
             },
             "provision": {
+                "shell": ":inline => 'if [[ ! -f /apt-get-run ]]; then sudo apt-get update && touch /apt-get-run; fi'",
                 "puppet": {
                     "manifests_path": "manifests",
                     "module_path": "modules",
                     "options": [
-                        "['--verbose']",
+                        "--verbose",
                         "--hiera_config /vagrant/hiera.yaml"
                     ]
-                },
-                ":shell": ":inline => 'if [[ ! -f /apt-get-run ]]; then sudo apt-get update && touch /apt-get-run; fi'"
+                }
             },
-            "synced_folder": "'~/www/', '/var/www', id: 'vagrant-root' , :nfs => true",
+            "synced_folder": [
+                {
+                    "source": "~/www/",
+                    "target": "/var/www",
+                    "id": "vagrant-root",
+                    "nfs": "true"
+                }
+            ],
             "usable_port_range": "2200..2250"
         },
         "ssh": {

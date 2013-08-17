@@ -1,0 +1,53 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "{{ vm.box }}"
+  config.vm.box_url = "{{ vm.box_url|raw }}"
+  config.vm.graceful_halt_retry_count = "{{ vm.graceful_halt_retry_count }}"
+  config.vm.graceful_halt_retry_interval = "{{ vm.graceful_halt_retry_interval }}"
+  config.vm.guest = "{{ vm.guest }}"
+{% if vm.hostname %}  config.vm.hostname = {{ vm.hostname|raw }}{% endif %}
+
+{% for value in vm.network %}  config.vm.network {{ value|raw }}
+{% endfor %}
+
+{% for folder in vm.synced_folder %}
+  config.vm.synced_folder "{{ folder.source|raw }}", "{{ folder.target|raw }}"{% if folder.id %}, id: "{{ folder.id|raw }}"{% endif %}{% if folder.nfs %}, :nfs => {{ folder.nfs }}{% endif %}
+{% endfor %}
+
+{% for name, provider in vm.provider %}
+  config.vm.provider :{{ name|raw }} do |{{ name|raw }}|
+{% for values in provider %}
+    {{ name|raw }}.{{ values|raw }}
+{% endfor %}
+  end
+{% endfor %}
+
+{% if ssh.host %}  config.ssh.host = "{{ ssh.host }}"{% endif %}
+{% if ssh.port %}  config.ssh.port = "{{ ssh.port }}"{% endif %}
+{% if ssh.private_key_path %}  config.ssh.private_key_path = "{{ ssh.private_key_path|raw }}"{% endif %}
+  config.ssh.username = "{{ ssh.username }}"
+{% if ssh.guest_port %}  config.ssh.guest_port = "{{ ssh.guest_port }}"{% endif %}
+  config.ssh.keep_alive = {{ ssh.keep_alive }}
+  config.ssh.max_tries = "{{ ssh.max_tries }}"
+  config.ssh.timeout = "{{ ssh.timeout }}"
+  config.ssh.forward_agent = {{ ssh.forward_agent }}
+  config.ssh.forward_x11 = {{ ssh.forward_x11 }}
+  config.ssh.shell = "{{ ssh.shell|raw }}"
+
+{% for name, data in vm.provision %}
+{% if data is not iterable %}
+  config.vm.provision :{{ name }}, {{ data|raw }}
+{% else %}
+  config.vm.provision :{{ name }} do |{{ name }}|
+{% for key, value in data %}
+{% if value is iterable %}
+{% for subvalue in value %}
+    {{ name }}.{{ key }} = "{{ subvalue|raw }}"
+{% endfor %}
+{% else %}
+    {{ name }}.{{ key }} = "{{ value|raw }}"
+{% endif %}
+{% endfor %}
+  end
+{% endif %}
+{% endfor %}
+end

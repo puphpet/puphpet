@@ -18,6 +18,8 @@ class PluginRegister
     }
 
     /**
+     * Save plugin in bucket
+     *
      * @param PluginInterface $plugin Plugin object
      * @return self
      */
@@ -28,5 +30,15 @@ class PluginRegister
         });
 
         return $this;
+    }
+
+    /**
+     * Return plugin bucket
+     *
+     * @return Pimple
+     */
+    public function getPlugins()
+    {
+        return $this->bucket;
     }
 }

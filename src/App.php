@@ -10,7 +10,10 @@ $app['debug'] = $env != 'prod';
 
 $app->register(
     new Provider\TwigServiceProvider, [
-        'twig.path'     => __DIR__ . '/Puphpet/View',
+        'twig.path'     => [
+            __DIR__ . '/Puphpet/View',
+            __DIR__ . '/Puphpet/Plugin',
+        ],
         'url_generator' => true,
     ]
 );
