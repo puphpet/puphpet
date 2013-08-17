@@ -1,4 +1,0 @@
-{% set edition_modules = edition.get('[php][modules]')%}
-{% for module in app['config.php_modules'] %}
-<option value="{{ module }}"{% if module in edition_modules %} selected="selected"{% endif %}>{{ module }}</option>
-{% endfor %}

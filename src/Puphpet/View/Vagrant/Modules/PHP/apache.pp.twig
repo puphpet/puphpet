@@ -1,9 +1,0 @@
-class { 'php':
-  service             => '{{ php_service }}',
-  service_autorestart => false,
-  module_prefix       => '',
-}
-
-{% for phpModule in php.modules.php %}
-php::module { '{{ phpModule|raw }}': }
-{% endfor %}
