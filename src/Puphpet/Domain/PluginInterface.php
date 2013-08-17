@@ -2,9 +2,9 @@
 
 namespace Puphpet\Domain;
 
-interface RegisterInterface
+interface PluginInterface
 {
-    public function register();
+    public function getName();
     public function sanitize();
     public function process();
 }

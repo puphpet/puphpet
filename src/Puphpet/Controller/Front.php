@@ -25,6 +25,16 @@ class Front extends Controller
 
     public function indexAction(Request $request, App $app)
     {
+        // todo: replace this with get/post request data
+        /** @var \Igorw\Silex\JsonConfigDriver $jsonConfigDriver */
+        $jsonConfigDriver = $app['jsonConfigDriver'];
+        $data = $jsonConfigDriver->load(__DIR__ . '/../../../data/sample1.json');
+
+        /** @var Domain\PluginHandler $pluginHandler */
+        $pluginHandler = $app['pluginHandler'];
+        $pluginHandler->setData($data)
+            ->process();
+
         return '';
     }
 }

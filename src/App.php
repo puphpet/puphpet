@@ -18,6 +18,10 @@ $app->register(
 $app->register(new Provider\UrlGeneratorServiceProvider);
 $app->register(new Provider\ValidatorServiceProvider);
 
+$app['jsonConfigDriver'] = function() {
+    return new Igorw\Silex\JsonConfigDriver();
+};
+
 // routing
 $app->mount('/', new Puphpet\Controller\Front($app));
 
