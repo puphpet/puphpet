@@ -13,7 +13,7 @@ class PluginHandler
     /**
      * @var PluginRegister
      */
-    private $pluginRegister;
+    private $bucket;
 
     /** @var Twig_Environment */
     private $twig;
@@ -24,7 +24,7 @@ class PluginHandler
      */
     public function __construct(PluginRegister $pluginRegister, Twig_Environment $twig)
     {
-        $this->pluginRegister = $pluginRegister;
+        $this->bucket = $pluginRegister;
         $this->twig = $twig;
     }
 
@@ -45,18 +45,21 @@ class PluginHandler
     public function process()
     {
         foreach ($this->data as $pluginName => $pluginData) {
-            $pluginName = ucfirst($pluginName);
-
-            $pluginClass = "\\Puphpet\\Plugin\\{$pluginName}\\Register";
-
-            $this->checkPluginExists($pluginClass);
-
-            $plugin = new $pluginClass($pluginData);
-
-            $this->pluginRegister->register($plugin);
+            $this->registerPlugin($pluginName, $pluginData);
         }
 
-        return $this;
+        return $this->parse();
+    }
+
+    public function registerPlugin($name, $data)
+    {
+        $name = ucfirst($name);
+
+        $class = "\\Puphpet\\Plugin\\{$name}\\Register";
+
+        $this->checkPluginExists($class);
+
+        $this->bucket->register(new $class($data));
     }
 
     /**
@@ -67,7 +70,7 @@ class PluginHandler
     public function getPlugins()
     {
         $plugins = [];
-        $bucket = $this->pluginRegister->getPlugins();
+        $bucket = $this->bucket->getPlugins();
 
         foreach ($bucket->keys() as $plugin) {
             $plugins[$plugin] = $bucket[$plugin];
@@ -76,15 +79,17 @@ class PluginHandler
         return $plugins;
     }
 
-    public function parse()
+    /**
+     * @return self
+     */
+    protected function parse()
     {
-        $rendered = '';
-
+        /** @var PluginInterface $plugin */
         foreach ($this->getPlugins() as $plugin) {
-            $rendered.= $this->parseTemplatesInOrder($plugin);
+            $plugin->setParsedTemplate($this->parseTemplatesInOrder($plugin));
         }
 
-        return $rendered;
+        return $this;
     }
 
     /**
@@ -105,6 +110,7 @@ class PluginHandler
 
     /**
      * @param PluginInterface $plugin
+     * @return string
      */
     private function parseTemplatesInOrder(PluginInterface $plugin)
     {
