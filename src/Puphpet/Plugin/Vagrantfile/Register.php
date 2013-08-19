@@ -9,6 +9,9 @@ class Register implements Domain\PluginInterface
     /** @var array */
     private $data = [];
 
+    /** @var string */
+    private $parsedTemplate;
+
     /**
      * Data for plugin's use
      *
@@ -30,6 +33,16 @@ class Register implements Domain\PluginInterface
     }
 
     /**
+     * Destination file
+     *
+     * @return string
+     */
+    public function getFileDestination()
+    {
+        return 'Vagrantfile';
+    }
+
+    /**
      * Return data available to plugin
      *
      * @return array
@@ -37,6 +50,29 @@ class Register implements Domain\PluginInterface
     public function getData()
     {
         return $this->data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTemplateOrder()
+    {
+        return [
+            'Vagrantfile.pp'
+        ];
+    }
+
+    /**
+     * Save the plugin's parsed template
+     *
+     * @param string $string Parsed template
+     * @return self
+     */
+    public function setParsedTemplate($string)
+    {
+        $this->parsedTemplate = $string;
+
+        return $this;
     }
 
     /**
@@ -49,16 +85,6 @@ class Register implements Domain\PluginInterface
         array_change_key_case($this->data, CASE_LOWER);
 
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getTemplateOrder()
-    {
-        return [
-            'Vagrantfile.pp'
-        ];
     }
 
     public function process()
