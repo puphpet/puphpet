@@ -54,5 +54,17 @@
         "vagrant": {
             "host": ":detect"
         }
+    },
+    "server": {
+        "packages": [
+            "build-essential",
+            "vim",
+            "curl",
+            "git-core"
+        ],
+        "dot_files": {
+            ".bash_aliases": "alias puphpet='echo IS AWESOME'",
+            ".vimrc": "AWESOME .vimrc FILE"
+        }
     }
 }
