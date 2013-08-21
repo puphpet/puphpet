@@ -90,7 +90,7 @@ $app['domain.listener.optional_source_configurator'] = function() {
         ]
     );
     $configuratorPhpMyAdmin = new \Puphpet\Domain\Configurator\File\SourceAddingConfigurator(
-        new \Puphpet\Domain\Decider\PhpMyAdminDecider('postgresql'),
+        new \Puphpet\Domain\Decider\PhpMyAdminDecider('phpmyadmin'),
         [
             'phpmyadmin' => VENDOR_PATH . '/frastel/puppet-phpmyadmin'
         ]
