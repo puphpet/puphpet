@@ -54,7 +54,9 @@ greater. Vagrant will run on Windows, OS X and Linux.
 * Create a new vagrant box and start it with `$ vagrant up` on your terminal.
 * Provisioning progress will need some time as the PuPHPet project is directly cloned and installed to `/var/www/puphpet.dev`
 * Edit your `hosts file` and map puphpet.dev to localhost.
+
     `127.0.0.1           puphpet.dev`
+    
 > If you're using Windows based operating systems, hosts file can be found under `system32/drivers/etc/hosts`.
 
 * Browse `puphpet.dev` in your browser's address bar and you hould see the project's index page.
