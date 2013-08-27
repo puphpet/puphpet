@@ -50,14 +50,14 @@ greater. Vagrant will run on Windows, OS X and Linux.
 * some [Silex](http://silex.sensiolabs.org/ "Silex") knowledge
 
 ### The all-in-one solution ###
-* go to our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive
-* create a new vagrant box and start it with `$ vagrant up`
-* the provisioning will need some time as the PuPHPet project is directly cloned and installed to `/var/www/puphpet.dev`
-* map puphpet.dev to localhost in your hosts file
-
+* Enter our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive.
+* Create a new vagrant box and start it with `$ vagrant up` on your terminal.
+* Provisioning progress will need some time as the PuPHPet project is directly cloned and installed to `/var/www/puphpet.dev`
+* Edit your `hosts file` and map puphpet.dev to localhost.
     `127.0.0.1           puphpet.dev`
+> If you're using Windows based operating systems, hosts file can be found under `system32/drivers/etc/hosts`.
 
-* call puphpet.dev and you should see the project's startpage
+* Browse `puphpet.dev` in your browser's address bar and you hould see the project's index page.
 * **the quickstart approach is still in beta, feedback is highly appreciated!**
 
 For creating a patch you have to fork the project and within the box you have to do:
