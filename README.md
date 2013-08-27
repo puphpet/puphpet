@@ -26,7 +26,7 @@ in their language of choice.
 
 ## Who? ##
 
-Originally developed by [Juan Treminio](https://jtreminio.com), PuPHPet has now had 15 contributors with the talented
+Originally developed by [Juan Treminio](https://jtreminio.com), PuPHPet has now had 22 contributors with the talented
 [Frank Stelzer](https://twitter.com/frastel) heavily contributing. Also making significant contributions is
 [Michaël Perrin](http://www.michaelperrin.fr/).
 
@@ -46,19 +46,22 @@ greater. Vagrant will run on Windows, OS X and Linux.
 
 ### Requirements ###
 * PHP 5.4
-* For executing all the tests [puppet-lint](http://packages.ubuntu.com/precise/puppet-lint) has to be installed on your machine
-* some [Silex](http://silex.sensiolabs.org/ "Silex") knowledge
+* For executing all the tests [puppet-lint](http://packages.ubuntu.com/precise/puppet-lint) has to be installed on your machine.
+* Some [Silex](http://silex.sensiolabs.org/ "Silex") knowledge is required.
 
 ### The all-in-one solution ###
-* go to our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive
-* create a new vagrant box and start it with `$ vagrant up`
-* the provisioning will need some time as the PuPHPet project is directly cloned and installed to `/var/www/puphpet.dev`
-* map puphpet.dev to localhost in your hosts file
+* Enter our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive.
+* Create a new vagrant box and start it with `$ vagrant up` on your terminal.
+* Provisioning progress will need some time as the PuPHPet project is directly cloned and installed to `/var/www/puphpet.dev`
+* Edit your `hosts file` and map puphpet.dev to localhost.
 
     `127.0.0.1           puphpet.dev`
 
-* call puphpet.dev and you should see the project's startpage
-* **the quickstart approach is still in beta, feedback is highly appreciated!**
+> If you're using Windows based operating systems, hosts file can be found under `system32/drivers/etc/hosts`.
+
+* Browse `puphpet.dev` in your browser's address bar and you hould see the project's index page.
+
+> **Note: The quickstart approach is still in beta. Any feedback is highly appreciated!**
 
 For creating a patch you have to fork the project and within the box you have to do:
 
@@ -70,12 +73,11 @@ For creating a patch you have to fork the project and within the box you have to
     git push fork my-patch
 
 ### For existing environments ###
-* PuPHPet will work on any default LAMP or LNMP environment
-* go to our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive
-* when you have already a running environment please have a look at the generated `manifest/default.pp` file and especially to the package list
-* ensure that the required packages are installed on your system
-* clone the project from github
-* and install it with composer
+* PuPHPet will work on any default LAMP or LNMP environment.
+* Enter our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive.
+* When you already have a running environment, please have a look at the generated `manifest/default.pp` file and especially to the package list.
+* Ensure that the required packages are installed on your system.
+* Clone the project from github and install it via `composer`.
 
 Setup:
 
