@@ -26,7 +26,7 @@ in their language of choice.
 
 ## Who? ##
 
-Originally developed by [Juan Treminio](https://jtreminio.com), PuPHPet has now had 15 contributors with the talented
+Originally developed by [Juan Treminio](https://jtreminio.com), PuPHPet has now had 22 contributors with the talented
 [Frank Stelzer](https://twitter.com/frastel) heavily contributing. Also making significant contributions is
 [Michaël Perrin](http://www.michaelperrin.fr/).
 
@@ -46,8 +46,8 @@ greater. Vagrant will run on Windows, OS X and Linux.
 
 ### Requirements ###
 * PHP 5.4
-* For executing all the tests [puppet-lint](http://packages.ubuntu.com/precise/puppet-lint) has to be installed on your machine
-* some [Silex](http://silex.sensiolabs.org/ "Silex") knowledge
+* For executing all the tests [puppet-lint](http://packages.ubuntu.com/precise/puppet-lint) has to be installed on your machine.
+* Some [Silex](http://silex.sensiolabs.org/ "Silex") knowledge is required.
 
 ### The all-in-one solution ###
 * Enter our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive.
@@ -56,7 +56,7 @@ greater. Vagrant will run on Windows, OS X and Linux.
 * Edit your `hosts file` and map puphpet.dev to localhost.
 
     `127.0.0.1           puphpet.dev`
-    
+
 > If you're using Windows based operating systems, hosts file can be found under `system32/drivers/etc/hosts`.
 
 * Browse `puphpet.dev` in your browser's address bar and you hould see the project's index page.
