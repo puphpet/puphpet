@@ -61,7 +61,7 @@ greater. Vagrant will run on Windows, OS X and Linux.
 
 * Browse `puphpet.dev` in your browser's address bar and you hould see the project's index page.
 
-> **the quickstart approach is still in beta, feedback is highly appreciated!**
+> **Note: The quickstart approach is still in beta. Any feedback is highly appreciated!**
 
 For creating a patch you have to fork the project and within the box you have to do:
 
