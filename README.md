@@ -73,12 +73,11 @@ For creating a patch you have to fork the project and within the box you have to
     git push fork my-patch
 
 ### For existing environments ###
-* PuPHPet will work on any default LAMP or LNMP environment
-* go to our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive
-* when you have already a running environment please have a look at the generated `manifest/default.pp` file and especially to the package list
-* ensure that the required packages are installed on your system
-* clone the project from github
-* and install it with composer
+* PuPHPet will work on any default LAMP or LNMP environment.
+* Enter our [quickstart page](https://puphpet.com/quickstart/puphpet "quickstart") and download the vagrant archive.
+* When you already have a running environment, please have a look at the generated `manifest/default.pp` file and especially to the package list.
+* Ensure that the required packages are installed on your system.
+* Clone the project from github and install it via `composer`.
 
 Setup:
 
