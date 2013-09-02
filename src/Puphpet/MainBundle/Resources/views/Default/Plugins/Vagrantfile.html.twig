@@ -1,0 +1,230 @@
+<section>
+
+    <input type="hidden" id="vm-location" name="vm-location"
+           value="local" />
+    <input type="hidden" id="operating-system"
+           name="operating-system" value="debian" />
+    <input type="hidden" id="vagrantfile-vm-box"
+           name="vagrantfile[vm][box]" value="wheezy64" />
+
+    <div class="page-header">
+      <h1 id="base-configuration">Base Configuration</h1>
+    </div>
+
+    <!-- Vagrantfile / Operating System -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Operating System</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="radio">
+                            <input type="radio" name="vagrantfile[vm][box_url]" checked
+                                   value="http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box"
+                                   data-operating-system="debian" data-vagrantfile-vm-box="wheezy64" />
+                            Debian Wheezy 7.0rc1 x64
+                            (PHP <span class="label label-success">5.5</span>
+                                 <span class="label label-info">5.4</span>)
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="vagrantfile[vm][box_url]"
+                                   value="http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210.box"
+                                   data-operating-system="debian" data-vagrantfile-vm-box="squeeze64" />
+                            Debian Squeeze 6.0.7 x64
+                            (PHP <span class="label label-info">5.4</span>
+                                 <span class="label label-warning">5.3</span>)
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="vagrantfile[vm][box_url]"
+                                   value="http://files.vagrantup.com/precise64.box"
+                                   data-operating-system="ubuntu" data-vagrantfile-vm-box="precise64" />
+                            Ubuntu Precise 12.04 x64
+                            (PHP <span class="label label-success">5.5</span>
+                                 <span class="label label-info">5.4</span>
+                                 <span class="label label-warning">5.3</span>)
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="vagrantfile[vm][box_url]"
+                                   value="http://files.vagrantup.com/lucid64.box"
+                                   data-operating-system="ubuntu" data-vagrantfile-vm-box="lucid64" />
+                            Ubuntu Lucid 10.04 x64
+                            (PHP <span class="label label-success">5.5</span>
+                                 <span class="label label-info">5.4</span>
+                                 <span class="label label-warning">5.3</span>)
+                        </label>
+                    </div>
+
+                    <p class="help-block">
+                        Choose the operating system for your VM. It will be downloaded
+                        the first time you run Vagrant.
+                        <a href="http://docs.vagrantup.com/v2/getting-started/boxes.html">More
+                            information may be found here</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end Vagrantfile / Operating System -->
+
+    <!-- Vagrantfile / Details -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Set Up Local VM</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="vagrantfile-vm-provider-virtualbox-name">Name Your Box</label>
+                            <input type="text" id="vagrantfile-vm-provider-virtualbox-name"
+                                   name="vagrantfile[vm][provider][virtualbox][name]"
+                                   required placeholder="my-vm-box"
+                                   value="my-vm-box" class="form-control" />
+
+                            <p class="help-block">
+                                Your personal name for the box. Should be unique to your system.
+                                If you have multiple boxes running, name each one differently.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="vagrantfile-vm-network-private_network">Box IP Address</label>
+                            <input type="text" id="vagrantfile-vm-network-private_network"
+                                   name="vagrantfile[vm][network][private_network]"
+                                   required placeholder="192.168.56.101"
+                                   value="192.168.56.101" class="form-control" />
+
+                            <p class="help-block">IP address to use for accessing the VM</p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="vagrantfile-vm-provider-virtualbox-memory">Box Memory</label>
+                            <input type="text" id="vagrantfile-vm-provider-virtualbox-memory"
+                                   name="vagrantfile[vm][provider][virtualbox][memory]"
+                                   required placeholder="1024" pattern="^[1-9][0-9]*$" min="64"
+                                   value="1024" class="form-control" />
+
+                            <p class="help-block">Memory to assign to VM in megabytes (only
+                                integers)</p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="vagrantfile-vm-network-forwarded_port-host">Host Port</label>
+                            <input type="number" id="vagrantfile-vm-network-forwarded_port-host"
+                                   name="vagrantfile[vm][network][forwarded_port][host]"
+                                   placeholder="Host to VM port (e.g. 8080)" pattern="^[1-9][0-9]*$"
+                                   required min="1" max="65535"
+                                   title="Port on Host to forward to VM (e.g. 8080)"
+                                   class="form-control" />
+
+                            <p class="help-block">
+                                Port on Host to forward to VM. Optional,
+                                <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
+                                   target="_blank">more information</a>
+                            </p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="vagrantfile-vm-network-forwarded_port-guest">Box Port</label>
+                            <input type="number" id="vagrantfile-vm-network-forwarded_port-guest"
+                                   name="vagrantfile[vm][network][forwarded_port][guest]"
+                                   placeholder="VM from Host port (e.g. 80)" pattern="^[1-9][0-9]*$"
+                                   required min="1" max="65535"
+                                   title="Port on VM to accept from Host (e.g. 80)"
+                                   class="form-control" />
+
+                            <p class="help-block">
+                                Port on VM to accept from Host. Optional,
+                                <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
+                                   target="_blank">more information</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end Vagrantfile / Details -->
+
+    <!-- Vagrantfile / Shared Folders -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Sharing Your Folders</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label>Shared Folder Type</label><br />
+                            <label class="radio-inline">
+                                <input type="radio" name="vagrantfile-vm-synced_folder-nfs"
+                                       checked value="false" /> Default
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="vagrantfile-vm-synced_folder-nfs"
+                                       checked value="true" /> NFS
+                            </label>
+
+                            <p class="help-block">
+                                Windows users should choose the Default option,
+                                <a href="http://docs.vagrantup.com/v2/synced-folders/nfs.html">more information</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="vagrantfile-vm-synced_folder-source">Box Sync Folder
+                                Source</label>
+                            <input type="text" id="vagrantfile-vm-synced_folder-source"
+                                   name="vagrantfile[vm][synced_folder][source]"
+                                   required placeholder="/path/to/your/web/files"
+                                   value="./" class="form-control" />
+
+                            <p class="help-block">
+                                Path your files are stored on host machine,
+                                <a href="http://docs.vagrantup.com/v2/synced-folders/index.html">more information</a>
+                            </p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="vagrantfile-vm-synced_folder-target">Box Sync Folder
+                                Target</label>
+                            <input type="text" id="vagrantfile-vm-synced_folder-target"
+                                   name="vagrantfile[vm][synced_folder][source]"
+                                   required placeholder="/path/on/vm"
+                                   value="/var/www" class="form-control" />
+
+                            <p class="help-block">
+                                Path your files are stored on host machine,
+                                <a href="http://docs.vagrantup.com/v2/synced-folders/index.html">more information</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end Vagrantfile / Shared Folders -->
+
+</section>

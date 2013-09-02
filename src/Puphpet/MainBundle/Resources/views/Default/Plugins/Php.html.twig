@@ -1,0 +1,251 @@
+<section>
+
+    <div class="page-header">
+      <h1 id="php">PHP</h1>
+    </div>
+
+    <!-- PHP / Quick Settings -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Quick Settings</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label>PHP Version</label><br />
+                            <label class="radio-inline">
+                                <input type="radio" name="php[version]" checked value="55" /> 5.5
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="php[version]" value="54" /> 5.4
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="php[version]" value="53" /> 5.3
+                            </label>
+
+                            <p class="help-block">
+                                Ubuntu appears to have occasional problems using a non-default
+                                PHP repo version. If using Ubuntu, proceed with caution and
+                                <a href="#vagrantfile">please reference the default PHP versions
+                                    outline here.</a>
+                            </p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Composer</label><br />
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="php[composer]" checked value="1"  /> Install Composer
+                            </label>
+
+                            <p class="help-block">
+                                <a href="https://getcomposer.org">Composer</a> will be available as a
+                                system service:<br />
+                                <code>$ composer</code>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="php-ini">INI Settings</label>
+                            <select id="php-ini" name="php[ini][]" multiple
+                                    class="form-control select-tags-user-input">
+                                <option value="allow_url_fopen">allow_url_fopen</option>
+                                <option value="allow_url_include">allow_url_include</option>
+                                <option value="always_populate_raw_post_data">always_populate_raw_post_data</option>
+                                <option value="asp_tags">asp_tags</option>
+                                <option value="auto_append_file">auto_append_file</option>
+                                <option value="auto_detect_line_endings">auto_detect_line_endings</option>
+                                <option value="auto_globals_jit">auto_globals_jit</option>
+                                <option value="auto_prepend_file">auto_prepend_file</option>
+                                <option value="browscap">browscap</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="php-timezone">PHP Timezone</label>
+                            <select id="php-timezone" name="php[timezone]"
+                                    class="form-control select-tags">
+                                <option value="Africa/Abidjan">Africa/Abidjan</option>
+                                <option value="Africa/Accra">Africa/Accra</option>
+                                <option value="Africa/Addis_Ababa">Africa/Addis_Ababa</option>
+                                <option value="Africa/Algiers">Africa/Algiers</option>
+                                <option value="Africa/Asmara">Africa/Asmara</option>
+                                <option value="UTC">UTC</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end PHP / Quick Settings -->
+
+    <!-- PHP / Modules -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Modules</h3>
+                </div>
+
+                <div class="panel-body">
+
+                    <!-- PHP / PHP Modules -->
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="php-modules-php">PHP Modules</label>
+                            <select id="php-modules-php" name="php[modules][php][]"
+                                    multiple class="form-control select-tags">
+                                <optgroup label="Authentication">
+                                    <option value="Auth_SASL2">Auth_SASL2</option>
+                                    <option value="OpenID">OpenID</option>
+                                </optgroup>
+                                <optgroup label="Configuration">
+                                    <option value="Config_Lite">Config_Lite</option>
+                                </optgroup>
+                                <optgroup label="Console">
+                                    <option value="Console_Color2">Console_Color2</option>
+                                    <option value="Console_CommandLine">Console_CommandLine</option>
+                                </optgroup>
+                                <optgroup label="Database">
+                                    <option value="DB_DataObject">DB_DataObject</option>
+                                    <option value="DB_Sqlite_Tools">DB_Sqlite_Tools</option>
+                                    <option value="MDB2">MDB2</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- end PHP / PHP Modules -->
+
+                    <!-- PHP / PEAR Modules -->
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="php-modules-pear">PEAR Modules</label>
+                            <select id="php-modules-pear" name="php[modules][pear][]"
+                                    multiple class="form-control select-tags">
+                                <optgroup label="Authentication">
+                                    <option value="Auth_SASL2">Auth_SASL2</option>
+                                    <option value="OpenID">OpenID</option>
+                                </optgroup>
+                                <optgroup label="Configuration">
+                                    <option value="Config_Lite">Config_Lite</option>
+                                </optgroup>
+                                <optgroup label="Console">
+                                    <option value="Console_Color2">Console_Color2</option>
+                                    <option value="Console_CommandLine">Console_CommandLine</option>
+                                </optgroup>
+                                <optgroup label="Database">
+                                    <option value="DB_DataObject">DB_DataObject</option>
+                                    <option value="DB_Sqlite_Tools">DB_Sqlite_Tools</option>
+                                    <option value="MDB2">MDB2</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- end PHP / PEAR Modules -->
+
+                    <!-- PHP / PECL Modules -->
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="php-modules-pecl">PECL Modules</label>
+                            <select id="php-modules-pecl" name="php[modules][pecl][]"
+                                    multiple class="form-control select-tags">
+                                <optgroup label="Authentication">
+                                    <option value="Auth_SASL2">Auth_SASL2</option>
+                                    <option value="OpenID">OpenID</option>
+                                </optgroup>
+                                <optgroup label="Configuration">
+                                    <option value="Config_Lite">Config_Lite</option>
+                                </optgroup>
+                                <optgroup label="Console">
+                                    <option value="Console_Color2">Console_Color2</option>
+                                    <option value="Console_CommandLine">Console_CommandLine</option>
+                                </optgroup>
+                                <optgroup label="Database">
+                                    <option value="DB_DataObject">DB_DataObject</option>
+                                    <option value="DB_Sqlite_Tools">DB_Sqlite_Tools</option>
+                                    <option value="MDB2">MDB2</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- end PHP / PECL Modules -->
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end PHP / Modules -->
+
+    <!-- PHP / XDebug -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">XDebug</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="php[xdebug][install]" checked value="1" /> Install XDebug
+                            </label>
+
+                            <p class="help-block">
+                                CLI debugging will be automatically available. Simply run
+                                <code>$ xdebug foo.php</code>!
+                                <a href="http://devincharge.com/debug-cli-remote-server/">Follow
+                                    instructions here to setup PHPStorm to listen for a CLI connection</a>.
+                                Other IDEs should be similar.
+                            </p>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <label for="php-xdebug-settings">Settings</label>
+                            <select id="php-xdebug-settings" name="php[xdebug][settings][]"
+                                    multiple class="form-control select-tags-user-input">
+                                <optgroup label="Authentication">
+                                    <option value="Auth_SASL2">Auth_SASL2</option>
+                                    <option value="OpenID">OpenID</option>
+                                </optgroup>
+                                <optgroup label="Configuration">
+                                    <option value="Config_Lite">Config_Lite</option>
+                                </optgroup>
+                                <optgroup label="Console">
+                                    <option value="Console_Color2">Console_Color2</option>
+                                    <option value="Console_CommandLine">Console_CommandLine</option>
+                                </optgroup>
+                                <optgroup label="Database">
+                                    <option value="DB_DataObject">DB_DataObject</option>
+                                    <option value="DB_Sqlite_Tools">DB_Sqlite_Tools</option>
+                                    <option value="MDB2">MDB2</option>
+                                </optgroup>
+                            </select>
+
+                            <p class="help-block">
+                                Not using Xdebug? Still pounding out <code>var_dump()</code> and
+                                <code>print_r()</code> and <code>echo</code>?<br />
+                                <a href="https://jtreminio.com/2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger">Xdebug and You: Why You Should be Using a Real Debugger</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end PHP / XDebug -->
+
+</section>

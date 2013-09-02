@@ -1,0 +1,70 @@
+<section>
+
+    <div class="page-header">
+      <h1 id="server-basics">Server Basics</h1>
+    </div>
+
+    <!-- Server Basics / Packages -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Server Packages</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="server-packages">Installed Packages</label>
+                            <select id="server-packages" name="server[packages]"
+                                    multiple class="form-control select-tags-editable">
+                                <option selected value="build-essential">build-essential</option>
+                                <option selected value="vim">vim</option>
+                                <option selected value="curl">curl</option>
+                                <option selected value="git-core">git-core</option>
+                            </select>
+
+                            <p class="help-block">
+                                Packages to install via apt-get, separated by comma. Do not add
+                                Apache/Nginx or PHP here - you will choose those later.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end Server Basics / Packages -->
+
+    <!-- Server Basics / dotfiles -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">dotfiles</h3>
+                </div>
+
+                <div class="panel-body">
+                    <p>
+                        You can add all your dot files (<code>.bash_aliases</code>, <code>.vimrc</code>,
+                        <code>.gitconfig</code>, etc),
+                        to the <code>./files/dot/</code> folder that will appear after you extract your
+                        generated zip file.
+                    </p>
+
+                    <p>
+                        During initial startup, they will automatically be copied into the VM. There is
+                        a sample
+                        <code>.bash_aliases</code> file there for you to start with - overwrite at will!
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end Server Basics / dotfiles -->
+
+</section>

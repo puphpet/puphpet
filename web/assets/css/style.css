@@ -1,0 +1,155 @@
+
+h1,
+.jumbotron h1 {
+    color: #2C3E50;
+}
+
+.right-panel {
+    margin-top: 40px;
+}
+
+.btn-primary {
+    background-color: #4c9bd8;
+    border-color: #64a9dc;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+    color: #4c9bd8;
+    background-color: #fff;
+    border-color: #64a9dc;
+}
+
+.panel-info {
+    border-color: #64a9dc;
+}
+
+.panel-info > .panel-heading {
+    color: #fff;
+    background-color: #4c9bd8;
+}
+
+/*
+ * Top nav bar
+ */
+div.navbar {
+    color: #fff;
+    background-color: #4c9bd8;
+    border-color: #fff;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #4c9bd8;
+    background-color: #fff;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > .dropdown > a .caret,
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #fff;
+    border-bottom-color: #fff;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #4c9bd8;
+    background-color: #fff;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #4c9bd8;
+    background-color: #fff;
+}
+
+.dropdown-menu > li > a {
+    color: #4c9bd8;
+}
+
+.nav > li > ul.nav > li > a {
+    padding: 5px 15px;
+}
+
+.nav .nav > li > ul {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    font-size: 90%;
+}
+
+@media (max-width: 991px) {
+    .nav.well {
+        width: 200px;
+    }
+}
+
+/*
+ * Callouts
+ */
+.callout {
+    margin: 20px 0;
+    padding: 15px 30px 15px 15px;
+    border-left: 5px solid #eee;
+}
+
+.callout h4 {
+    margin-top: 0;
+}
+
+.callout p:last-child {
+    margin-bottom: 0;
+}
+
+.callout code,
+.callout .highlight {
+    background-color: #fff;
+}
+
+.callout-danger {
+    background-color: #fcf2f2;
+    border-color: #dFb5b4;
+}
+
+.callout-warning {
+    background-color: #fefbed;
+    border-color: #f1e7bc;
+}
+
+.callout-info {
+    background-color: #f0f7fd;
+    border-color: #d0e3f0;
+}
+
+/*
+ * Footer
+ */
+footer {
+    background: #fff;
+}
+
+footer .img-thumbnail img {
+    width: 50px;
+    height: 50px;
+}
+
+/*
+ * Selectize
+ */
+.selectize-control.multi .selectize-input > div {
+    color: #fff;
+    background: #5bb69a;
+    border: #a7d7c6;
+}
+
+.selectize-control.multi .selectize-input > div.active {
+    background: #4c977b;
+}

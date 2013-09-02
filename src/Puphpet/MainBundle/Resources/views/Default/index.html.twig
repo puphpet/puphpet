@@ -1,1 +1,54 @@
-Hello {{ name }}!
+{% extends 'PuphpetMainBundle:Default:template.html.twig' %}
+
+{% block main %}
+<div class="jumbotron well-sm" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>PuPHPet</h1>
+
+                <p>A simple GUI to set up virtual machines for PHP development.</p>
+
+                <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% include 'PuphpetMainBundle:Default:sideMenu.html.twig' %}
+
+        <form role="form">
+
+            <div class="col-sm-9">
+                <div class="container">
+
+            <!-- Vagrantfile -->
+                    {% include 'PuphpetMainBundle:Default/Plugins:Vagrantfile.html.twig' %}
+            <!-- end Vagrantfile -->
+
+            <!-- Server Basics -->
+                    {% include 'PuphpetMainBundle:Default/Plugins:ServerBasics.html.twig' %}
+            <!-- end Server Basics -->
+
+            <!-- HTTP Server -->
+                    {% include 'PuphpetMainBundle:Default/Plugins:HttpServer.html.twig' %}
+            <!-- end HTTP Server -->
+
+            <!-- PHP -->
+                    {% include 'PuphpetMainBundle:Default/Plugins:Php.html.twig' %}
+            <!-- end PHP -->
+
+            <!-- Database -->
+                    {% include 'PuphpetMainBundle:Default/Plugins:Database.html.twig' %}
+            <!-- end Server Basics -->
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+{% endblock %}
