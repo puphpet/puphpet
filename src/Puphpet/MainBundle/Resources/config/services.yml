@@ -1,0 +1,7 @@
+parameters:
+#    puphpet_main.example.class: Puphpet\MainBundle\Example
+
+services:
+#    puphpet_main.example:
+#        class: %puphpet_main.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

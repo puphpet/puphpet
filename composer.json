@@ -1,236 +1,53 @@
 {
-    "name": "puphpet/puphpet",
+    "name": "symfony/framework-standard-edition",
     "license": "MIT",
     "type": "project",
-    "description": "A simple GUI to set up virtual machines for PHP development",
-    "authors": [
-        {
-            "name": "Juan Treminio",
-            "email": "jtreminio@gmail.com"
-        },
-        {
-            "name": "Frank Stelzer",
-            "email": "dev@frankstelzer.de"
-        }
-    ],
-    "require": {
-        "silex/silex":                   "1.0.*",
-        "twig/twig":                     "1.*",
-        "symfony/http-foundation":       "2.2.*",
-        "symfony/http-kernel":           "2.2.*",
-        "symfony/twig-bridge":           "2.2.*",
-        "symfony/property-access":       "2.2.*",
-        "symfony/yaml":                  "2.2.*",
-        "igorw/config-service-provider": "1.2.*",
-        "nicl/silex-markdown":           "1.0.*",
-
-        "puphpet/puppet-apache":            "dev-master",
-        "puphpet/puphpet-composer":         "dev-master",
-        "puphpet/puppet-puphpet":           "dev-master",
-        "puphpet/puphpet-xdebug":           "dev-master",
-
-        "example42/puppi":                  "dev-master#f65b71b",
-        "example42/puppet-php":             "dev-master#3465b6d",
-        "frastel/puppet-phpmyadmin":        "dev-master#b66963c",
-        "frastel/puppet-symfony":           "dev-master#6b83915",
-        "jfryman/puppet-nginx":             "dev-master#4419300",
-        "puppetlabs/puppetlabs-mysql":      "dev-master#3205b83ac8",
-        "puppetlabs/puppetlabs-apt":        "1.1.0",
-        "puppetlabs/puppetlabs-postgresql": "2.2.1",
-        "puppetlabs/puppetlabs-stdlib":     "2.6.0",
-        "puppetlabs/puppetlabs-vcsrepo":    "0.1.2",
-        "ripienaar/puppet-concat":          "dev-master#fe537c0f4f"
-    },
-    "require-dev": {
-        "phpunit/phpunit":                           "3.8.*@dev",
-        "whatthejeff/nyancat-phpunit-resultprinter": "1.1.x-dev"
-    },
-    "minimum-stability": "dev",
+    "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-0": {
-            "Puphpet": "src/"
-        }
+        "psr-0": { "": "src/" }
     },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "example42/puppi",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/example42/puppi.git",
-                    "type": "git",
-                    "reference": "f65b71b"
-                }
-            }
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "2.3.*",
+        "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "doctrine/doctrine-bundle": "1.2.*",
+        "twig/extensions": "1.0.*",
+        "symfony/assetic-bundle": "2.3.*",
+        "symfony/swiftmailer-bundle": "2.3.*",
+        "symfony/monolog-bundle": "2.3.*",
+        "sensio/distribution-bundle": "2.3.*",
+        "sensio/framework-extra-bundle": "2.3.*",
+        "sensio/generator-bundle": "2.3.*",
+        "incenteev/composer-parameter-handler": "~2.0"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
         },
-        {
-            "type": "package",
-            "package": {
-                "name": "jfryman/puppet-nginx",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/jfryman/puppet-nginx.git",
-                    "type": "git",
-                    "reference": "4419300"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "frastel/puppet-phpmyadmin",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/frastel/puppet-phpmyadmin.git",
-                    "type": "git",
-                    "reference": "b66963c"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "frastel/puppet-symfony",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/frastel/puppet-symfony.git",
-                    "type": "git",
-                    "reference": "6b83915"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "puphpet/puppet-apache",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/puphpet/puppet-apache.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "puphpet/puphpet-composer",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/puphpet/puphpet-composer.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "puppetlabs/puppetlabs-mysql",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/puppetlabs/puppetlabs-mysql.git",
-                    "type": "git",
-                    "reference": "3205b83ac8"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "example42/puppet-php",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/example42/puppet-php.git",
-                    "type": "git",
-                    "reference": "3465b6d"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "puphpet/puppet-puphpet",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/puphpet/puppet-puphpet.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "puphpet/puphpet-xdebug",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/puphpet/puphpet-xdebug.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "puppetlabs/puppetlabs-apt",
-                "version": "1.1.0",
-                "source": {
-                    "url": "git://github.com/puppetlabs/puppetlabs-apt.git",
-                    "type": "git",
-                    "reference": "tags/1.1.0"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "puppetlabs/puppetlabs-postgresql",
-                "version": "2.2.1",
-                "source": {
-                    "url": "git://github.com/puppetlabs/puppetlabs-postgresql.git",
-                    "type": "git",
-                    "reference": "tags/2.2.1"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "puppetlabs/puppetlabs-stdlib",
-                "version": "2.6.0",
-                "source": {
-                    "url": "git://github.com/puppetlabs/puppetlabs-stdlib.git",
-                    "type": "git",
-                    "reference": "tags/2.6.0"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "puppetlabs/puppetlabs-vcsrepo",
-                "version": "0.1.2",
-                "source": {
-                    "url": "git://github.com/puppetlabs/puppetlabs-vcsrepo.git",
-                    "type": "git",
-                    "reference": "tags/0.1.2"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "ripienaar/puppet-concat",
-                "version": "master",
-                "source": {
-                    "url": "git://github.com/ripienaar/puppet-concat.git",
-                    "type": "git",
-                    "reference": "fe537c0f4f"
-                }
-            }
+        "branch-alias": {
+            "dev-master": "2.3-dev"
         }
-    ]
+    }
 }
