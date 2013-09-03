@@ -1,0 +1,46 @@
+vm:
+    box: wheezy64
+    box_url: http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box
+    graceful_halt_retry_count: 3
+    graceful_halt_retry_interval: 1
+    guest: :linux
+    hostname: ~
+    network:
+        private_network: 192.168.56.101
+        forwarded_port:
+            -
+                guest: ~
+                host: ~
+    provider:
+        virtualbox:
+            name: my-vm-box
+            natdnshostresolver1: on
+            memory: 512
+    provision:
+        shell: :inline => 'if [[ ! -f /apt-get-run ]]; then sudo apt-get update && touch /apt-get-run; fi'
+        puppet:
+            manifests_path: manifests
+            module_path: modules
+            options:
+                - --verbose
+    synced_folder:
+        -
+            source: ~/www/
+            target: /var/www
+            id: vagrant-root
+            nfs: true
+    usable_port_range: 2200..2250
+ssh:
+    host: ~
+    port: ~
+    private_key_path: ~
+    username: vagrant
+    guest_port: ~
+    keep_alive: true
+    max_tries: 100
+    timeout: 30
+    forward_agent: false
+    forward_x11: false
+    shell: bash -l
+vagrant:
+    host: :detect

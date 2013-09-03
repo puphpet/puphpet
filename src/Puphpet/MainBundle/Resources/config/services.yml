@@ -2,6 +2,12 @@ parameters:
 #    puphpet_main.example.class: Puphpet\MainBundle\Example
 
 services:
-#    puphpet_main.example:
-#        class: %puphpet_main.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    randomlib:
+        class: RandomLib\Factory
+
+    puphpet.twig.base_extension:
+        class: Puphpet\MainBundle\Twig\BaseExtension
+        arguments:
+            - "@randomlib"
+        tags:
+            - { name: twig.extension }

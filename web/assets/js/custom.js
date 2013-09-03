@@ -44,4 +44,27 @@ $(document).ready(function() {
         persist: false,
         create: false
     });
+
+    // add repeatable containers based on button data source-url
+    $(document).on('click', 'button.addParentContainer', function(e){
+        var sourceUrl = this.getAttribute('data-source-url');
+        var buttonEle = $(this);
+
+        $.ajax({
+            url: sourceUrl,
+            cache: false
+        }).done(function(response) {
+            $(response).insertBefore(buttonEle.closest('.row'));
+        });
+
+    });
+
+    // delete repeatable containers based on button data id
+    $(document).on('click', 'button.deleteParentContainer', function(e){
+        var parentId = this.getAttribute('data-parent-id');
+        var $parentContainer = $('#' + parentId);
+
+        $parentContainer.remove();
+
+    });
 });

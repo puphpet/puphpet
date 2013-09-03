@@ -1,4 +1,3 @@
-
 h1,
 .jumbotron h1 {
     color: #2C3E50;
@@ -30,6 +29,10 @@ h1,
 .panel-info > .panel-heading {
     color: #fff;
     background-color: #4c9bd8;
+}
+
+button.addParentContainer {
+    margin-bottom: 20px;
 }
 
 /*
