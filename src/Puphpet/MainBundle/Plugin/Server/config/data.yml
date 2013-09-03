@@ -1,0 +1,7 @@
+packages:
+    - build-essential
+    - vim
+    - curl
+    - git-core
+dot_files:
+    - bash_aliases: ~
