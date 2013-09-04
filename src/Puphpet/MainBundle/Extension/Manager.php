@@ -11,7 +11,11 @@ class Manager
     /** @var Container */
     private $container;
 
+    /** @var array */
     private $extensions = [];
+
+    /** @var array */
+    private $groups = [];
 
     public function __construct(Container $container)
     {
@@ -27,6 +31,20 @@ class Manager
         $this->extensions[$extension->getName()] = $extension;
 
         return $this;
+    }
+
+    /**
+     * Track extension and add to group
+     *
+     * @param string             $group
+     * @param ExtensionInterface $extension
+     * @return $this
+     */
+    public function addExtensionToGroup($group, Extension\ExtensionInterface $extension)
+    {
+        $this->groups[$group] = $extension->getName();
+
+        return $this->addExtension($extension);
     }
 
     /**
@@ -46,7 +64,7 @@ class Manager
 
         /** @var Extension\ExtensionInterface $extension */
         foreach ($this->extensions as $extension) {
-            $parsed[$extension->getName()] = $extension->getMainRender();
+            $parsed[$extension->getName()] = $extension;
         }
 
         return $parsed;

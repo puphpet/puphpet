@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\VagrantfileBundle;
+namespace Puphpet\Extension\ApacheBundle;
 
 use Puphpet\MainBundle\Extension;
 
@@ -8,11 +8,11 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 {
     public function getName()
     {
-        return 'Vagrantfile';
+        return 'Apache';
     }
 
     public function getController()
     {
-        return $this->container->get('puphpet.extension.vagrantfile.main_controller');
+        return $this->container->get('puphpet.extension.apache.main_controller');
     }
 }

@@ -9,3 +9,7 @@ puphpet.extension.vagrantfile:
 puphpet.extension.server_basics:
     resource: "@PuphpetExtensionServerBasicsBundle/Resources/config/routing.yml"
     prefix:   /extension/server-basics
+
+puphpet_extension_apache:
+    resource: "@PuphpetExtensionApacheBundle/Resources/config/routing.yml"
+    prefix:   /extensions/apache

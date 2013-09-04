@@ -1,0 +1,46 @@
+<section>
+
+    <div class="page-header">
+      <h1 id="http-server">HTTP Server</h1>
+    </div>
+
+    <!-- HTTP Server / Apache / Modules -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Apache Modules</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="apache-modules">Apache Modules</label>
+                            <select id="apache-modules" name="apache[modules][]" multiple class="form-control select-tags">
+                                {% for module in apache.modules %}
+                                    <option value="{{ module }}"
+                                        {% if module in apache.selected_modules %}selected{% endif %}>{{ module }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end HTTP Server / Apache / Modules -->
+
+    {% for vhost in apache.vhosts %}
+        {% include 'PuphpetExtensionApacheBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-xs-9">
+            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                    data-source-url="{{ path('puphpet.extension.apache.vhost') }}">Add another vhost</button>
+        </div>
+    </div>
+
+</section>

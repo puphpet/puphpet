@@ -24,15 +24,15 @@ abstract class ExtensionAbstract
     /**
      * @return ControllerInterface
      */
-    abstract public function getMainController();
+    abstract public function getController();
 
     /**
      * @param array $data
      * @return string
      */
-    public function getMainRender(array $data = [])
+    public function render(array $data = [])
     {
-        return $this->getMainController()
+        return $this->getController()
             ->indexAction($data)
             ->getContent();
     }

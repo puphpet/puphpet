@@ -1,0 +1,13 @@
+parameters:
+#    puphpet_extension_server_basics.example.class: Puphpet\Extension\ServerBasicsBundle\Example
+
+services:
+    puphpet.extension.apache.configure:
+        class: Puphpet\Extension\ApacheBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.apache.main_controller:
+        class: Puphpet\Extension\ApacheBundle\Controller\DefaultController
+        calls:
+            - [ setContainer, [@service_container] ]

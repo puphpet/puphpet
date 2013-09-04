@@ -25,12 +25,8 @@
                 <div class="container">
 
                     {% for extension in extensions %}
-                        {{ extension|raw }}
+                        {{ extension.render|raw }}
                     {% endfor %}
-
-            <!-- HTTP Server -->
-                    {% include 'PuphpetMainBundle:Default/Plugins:HttpServer.html.twig' %}
-            <!-- end HTTP Server -->
 
             <!-- PHP -->
                     {% include 'PuphpetMainBundle:Default/Plugins:Php.html.twig' %}

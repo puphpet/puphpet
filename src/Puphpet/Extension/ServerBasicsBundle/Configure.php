@@ -11,7 +11,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
         return 'Server Basics';
     }
 
-    public function getMainController()
+    public function getController()
     {
         return $this->container->get('puphpet.extension.server_basics.main_controller');
     }

@@ -1,0 +1,63 @@
+modules:
+    - rewrite
+    - actions
+    - asis
+    - auth_digest
+    - authn_alias
+    - authn_anon
+    - authn_dbd
+    - authn_dbm
+    - authn_default
+    - authnz_ldap
+    - authz_dbm
+    - authz_owner
+    - cache
+    - cern_meta
+    - cgid
+    - charset_lite
+    - dav_fs
+    - dav
+    - dav_lock
+    - dbd
+    - disk_cache
+    - dump_io
+    - expires
+    - ext_filter
+    - file_cache
+    - filter
+    - headers
+    - ident
+    - imagemap
+    - include
+    - info
+    - ldap
+    - log_forensic
+    - mem_cache
+    - mime_magic
+    - proxy_ajp
+    - proxy_balancer
+    - proxy_connect
+    - proxy_ftp
+    - proxy_http
+    - proxy
+    - proxy_scgi
+    - speling
+    - ssl
+    - substitute
+    - suexec
+    - unique_id
+    - userdir
+    - usertrack
+    - version
+    - vhost_alias
+selected_modules:
+    - rewrite
+vhosts:
+    -
+        servername: awesome.dev
+        serveraliases:
+            - www.awesome.dev
+        docroot: /var/www/awesome
+        port: 80
+        envvars:
+            - APP_ENV dev

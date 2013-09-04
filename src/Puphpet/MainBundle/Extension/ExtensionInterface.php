@@ -6,7 +6,7 @@ interface ExtensionInterface
 {
     public function getName();
 
-    public function getMainController();
+    public function getController();
 
-    public function getMainRender(array $data = []);
+    public function render(array $data = []);
 }
