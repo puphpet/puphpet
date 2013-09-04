@@ -2,12 +2,12 @@ parameters:
 #    puphpet_extension_server_basics.example.class: Puphpet\Extension\ServerBasicsBundle\Example
 
 services:
-    puphpet_extension_serverbasics_configure:
+    puphpet.extension.server_basics.configure:
         class: Puphpet\Extension\ServerBasicsBundle\Configure
         arguments:
             - "@service_container"
 
-    puphpet_extension_serverbasics_main_controller:
+    puphpet.extension.server_basics.main_controller:
         class: Puphpet\Extension\ServerBasicsBundle\Controller\DefaultController
         calls:
             - [ setContainer, [@service_container] ]

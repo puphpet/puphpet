@@ -13,6 +13,6 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getMainController()
     {
-        return $this->container->get('puphpet_extension_vagrantfile_main_controller');
+        return $this->container->get('puphpet.extension.vagrantfile.main_controller');
     }
 }
