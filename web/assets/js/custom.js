@@ -40,6 +40,7 @@ $(document).ready(function() {
 
     // select elements; does not allow creating new tags
     $('.select-tags').selectize({
+        plugins: ['remove_button'],
         delimiter: ',',
         persist: false,
         create: false
