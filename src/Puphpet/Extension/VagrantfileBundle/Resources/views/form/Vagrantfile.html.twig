@@ -129,24 +129,24 @@
     <!-- end Vagrantfile / Details -->
 
     {% for forwarded_port in vagrantfile.vm.network.forwarded_port %}
-        {% include 'PuphpetMainBundle:Default/Plugins/Vagrantfile:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
+        {% include 'PuphpetExtensionVagrantfileBundle:form/sections:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
     {% endfor %}
 
     <div class="row">
         <div class="col-xs-9">
             <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet_main_plugin_vagrantfile_forwarded_port') }}">Add another port pair</button>
+                    data-source-url="{{ path('puphpet_extension_vagrantfile_forwarded_port') }}">Add another port pair</button>
         </div>
     </div>
 
     {% for synced_folder in vagrantfile.vm.synced_folder %}
-        {% include 'PuphpetMainBundle:Default/Plugins/Vagrantfile:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
+        {% include 'PuphpetExtensionVagrantfileBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
     {% endfor %}
 
     <div class="row">
         <div class="col-xs-9">
             <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet_main_plugin_vagrantfile_synced_folder') }}">Add another shared folder</button>
+                    data-source-url="{{ path('puphpet_extension_vagrantfile_synced_folder') }}">Add another shared folder</button>
         </div>
     </div>
 
