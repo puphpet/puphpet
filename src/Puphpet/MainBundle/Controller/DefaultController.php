@@ -10,8 +10,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         return $this->render('PuphpetMainBundle:Default:index.html.twig', [
-            'vagrantfile' => Yaml::parse(__DIR__ . '/../Plugin/Vagrantfile/config/data.yml'),
-            'server'      => Yaml::parse(__DIR__ . '/../Plugin/Server/config/data.yml'),
+            'extensions' => $this->get('puphpet.extension.manager')->getParsed(),
         ]);
     }
 }
