@@ -5,3 +5,7 @@ puphpet_main:
 puphpet_extension_vagrantfile:
     resource: "@PuphpetExtensionVagrantfileBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile
+
+puphpet_extension_server_basics:
+    resource: "@PuphpetExtensionServerBasicsBundle/Resources/config/routing.yml"
+    prefix:   /extension/server-basics

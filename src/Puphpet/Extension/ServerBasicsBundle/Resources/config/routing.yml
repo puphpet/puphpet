@@ -1,0 +1,3 @@
+puphpet_extension_server_basics_homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionServerBasicsBundle:Default:index }

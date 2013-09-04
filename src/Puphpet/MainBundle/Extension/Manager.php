@@ -36,4 +36,19 @@ class Manager
     {
         return $this->extensions;
     }
+
+    /**
+     * @return array
+     */
+    public function getParsed()
+    {
+        $parsed = [];
+
+        /** @var Extension\ExtensionInterface $extension */
+        foreach ($this->extensions as $extension) {
+            $parsed[$extension->getName()] = $extension->getMainRender();
+        }
+
+        return $parsed;
+    }
 }

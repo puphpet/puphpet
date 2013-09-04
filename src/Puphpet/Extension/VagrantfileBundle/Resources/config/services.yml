@@ -1,0 +1,13 @@
+parameters:
+#    puphpet_extension_vagrantfile.example.class: Puphpet\Extension\VagrantfileBundle\Example
+
+services:
+    puphpet_extension_vagrantfile_configure:
+        class: Puphpet\Extension\VagrantfileBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet_extension_vagrantfile_main_controller:
+        class: Puphpet\Extension\VagrantfileBundle\Controller\DefaultController
+        calls:
+            - [ setContainer, [@service_container] ]
