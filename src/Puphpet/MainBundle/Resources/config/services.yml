@@ -5,6 +5,13 @@ services:
     randomlib:
         class: RandomLib\Factory
 
+    puphpet.extension.manager:
+        class: Puphpet\MainBundle\Extension\Manager
+        arguments:
+            - "@service_container"
+        calls:
+            - [ addExtension, [ @puphpet_extension_vagrantfile_configure ] ]
+
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
         arguments:

@@ -24,9 +24,9 @@
             <div class="col-sm-9">
                 <div class="container">
 
-            <!-- Vagrantfile -->
-                    {% include 'PuphpetMainBundle:Default/Plugins:Vagrantfile.html.twig' %}
-            <!-- end Vagrantfile -->
+                    {% for extension in extensions %}
+                        {{ extension|raw }}
+                    {% endfor %}
 
             <!-- Server Basics -->
                     {% include 'PuphpetMainBundle:Default/Plugins:ServerBasics.html.twig' %}
