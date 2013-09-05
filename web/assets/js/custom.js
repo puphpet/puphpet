@@ -57,7 +57,25 @@ $(document).ready(function() {
         var vhostContainer = $('#apache-vhost-count');
         var currentCount = vhostContainer.attr('rel');
 
-        $.get('/add/vhost', { id: ++currentCount }, function(data) {
+        $.get('/add/vhost', { server: 'apache', id: ++currentCount }, function(data) {
+            vhostContainer.attr('rel', currentCount);
+
+            vhostContainer.append(data);
+
+            $('.tags').select2({
+                tags: [],
+                tokenSeparators: [',']
+            });
+        });
+
+        return false;
+    });
+
+    $('#nginx-vhost-add').click(function(){
+        var vhostContainer = $('#nginx-vhost-count');
+        var currentCount = vhostContainer.attr('rel');
+
+        $.get('/add/vhost', { server: 'nginx', id: ++currentCount }, function(data) {
             vhostContainer.attr('rel', currentCount);
 
             vhostContainer.append(data);
