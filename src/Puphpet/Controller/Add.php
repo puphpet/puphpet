@@ -18,6 +18,9 @@ class Add extends Controller
         $controllers->get('/vhost', [$this, 'vhostAction'])
              ->bind('add.vhost');
 
+        $controllers->get('/sharedfolder', [$this, 'sharedfolderAction'])
+            ->bind('add.sharedfolder');
+
         $controllers->get('/mysql/dbuser', [$this, 'mysqldbuserAction'])
              ->bind('add.mysql.dbuser');
 
@@ -32,6 +35,16 @@ class Add extends Controller
         return $this->twig()->render(
             'Front/Tabs/Webserver/Apache/vhost.html.twig',
             ['vhostNum' => $request->get('id')]
+        );
+    }
+
+    public function sharedfolderAction(Request $request)
+    {
+        $provider = $request->get('provider');
+
+        return $this->twig()->render(
+            "Front/Tabs/Vagrant/Box/SharedFolder/{$provider}.html.twig",
+            ['sharedFolderNum' => $request->get('id'), 'provider' => $provider]
         );
     }
 

@@ -2,6 +2,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "{{ box.name }}"
   config.vm.box_url = "{{ box.url }}"
 
+
   config.vm.network :private_network, ip: "{{ box.ip }}"
   {% if box.port_forward.guest is not empty and box.port_forward.host is not empty %}
   config.vm.network :forwarded_port, guest: {{ box.port_forward.guest }}, host: {{ box.port_forward.host }}
@@ -14,9 +15,12 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--name", "{{ box.personal_name }}"]
   end
 
-  {% if box.foldertype == 'nfs' %}nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/{% endif %}
+  nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/
 
-  config.vm.synced_folder "{{ box.synced_folder.source }}", "{{ box.synced_folder.target }}", id: "vagrant-root" {% if box.foldertype == 'nfs' %}, :nfs => nfs_setting{% endif %}
+  {% for sharedfolder in box.sharedfolder %}
+config.vm.synced_folder "{{ sharedfolder.synced_folder.source }}", "{{ sharedfolder.synced_folder.target }}", id: "vagrant-root" {% if sharedfolder.foldertype == 'nfs' %}, :nfs => nfs_setting{% endif %}
+
+  {% endfor %}
 
   config.vm.provision :shell, :inline =>
     "if [[ ! -f /apt-get-run ]]; then sudo apt-get update && sudo touch /apt-get-run; fi"
