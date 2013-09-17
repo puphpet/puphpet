@@ -126,18 +126,8 @@
 </div>
 
 <div class="bs-example sharedFolders">
-    <div class="row">
-        <div class="col col-lg-5">
-            <label for="provider-digitalocean-synced_folder-source">Box Sync Folder Source</label>
-             <input id="provider-digitalocean-synced_folder-source" name="provider[digitalocean][synced_folder][source]" type="text"
-                    required placeholder="/path/to/your/web/files" value="./" />
-        </div>
-
-        <div class="col col-lg-5">
-            <label for="provider-digitalocean-synced_folder-target">Box Sync Folder Target</label>
-            <input id="provider-digitalocean-synced_folder-target" name="provider[digitalocean][synced_folder][target]" type="text"
-                   required placeholder="/path/on/vm" value="/var/www" />
-        </div>
+    <div id="vagrant-digitalocean-sharedfolder-count" rel="1">
+        {% include 'Front/Tabs/Vagrant/Box/SharedFolder/digitalocean.html.twig' %}
     </div>
 
     <p class="help-block">
@@ -146,3 +136,4 @@
         <code>$ vagrant provision</code>. Now may be a good time to work out your deployment strategy.
     </p>
 </div>
+<p class="text-center"><a id="vagrant-digitalocean-sharedfolder-add" class="btn btn-primary" href="#">Add Another Shared Folder</a></p>

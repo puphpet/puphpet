@@ -84,33 +84,14 @@ $(document).ready(function() {
         return false;
     });
 
-    //Vagrant Shared Folder Functions
-    $('#vagrant-sharedfolder-add').click(function(){
-        var sharedFolderContainer = $('#vagrant-sharedfolder-count');
-        var currentCount = sharedFolderContainer.attr('rel');
-        var providerType = $("input#provider-type").val();
+    //Vagrant Shared Folder Add/Delete Click Events
+    addSharedFolder('local');
+    addSharedFolder('digitalocean');
+    addSharedFolder('rackspace');
 
-        $.get('/add/sharedfolder', { id: ++currentCount, provider: providerType }, function(data) {
-            sharedFolderContainer.attr('rel', currentCount);
-
-            sharedFolderContainer.append(data);
-        });
-
-        return false;
-    });
-
-    $('body').delegate('.vagrant-sharedfolder-del', 'click', function() {
-        var sharedFolderNum = $(this).attr('rel');
-        $('#' + sharedFolderNum).slideUp(function () {
-            $(this).remove();
-        });
-
-        var sharedFolderContainer = $('#vagrant-sharedfolder-count');
-        var currentCount = sharedFolderContainer.attr('rel');
-        sharedFolderContainer.attr('rel', --currentCount);
-
-        return false;
-    });
+    deleteSharedFolder('local');
+    deleteSharedFolder('digitalocean');
+    deleteSharedFolder('rackspace');
 
     addDatabaseEntry('mysql');
     addDatabaseEntry('postgresql');
@@ -253,6 +234,38 @@ function deleteDatabaseEntry(type) {
         var dbuserContainer = $('#' + type + '-dbuser-count');
         var currentCount = dbuserContainer.attr('rel');
         dbuserContainer.attr('rel', --currentCount);
+
+        return false;
+    });
+}
+
+function addSharedFolder(provider)
+{
+    $('#vagrant-'+ provider +'-sharedfolder-add').click(function(){
+        var sharedFolderContainer = $('#vagrant-'+ provider +'-sharedfolder-count');
+        var currentCount = sharedFolderContainer.attr('rel');
+
+        $.get('/add/'+ provider +'/sharedfolder', { id: ++currentCount, provider: provider }, function(data) {
+            sharedFolderContainer.attr('rel', currentCount);
+
+            sharedFolderContainer.append(data);
+        });
+
+        return false;
+    });
+}
+
+function deleteSharedFolder(provider)
+{
+    $('body').delegate('.vagrant-'+ provider +'-sharedfolder-del', 'click', function() {
+        var sharedFolderNum = $(this).attr('rel');
+        $('#' + sharedFolderNum).slideUp(function () {
+            $(this).remove();
+        });
+
+        var sharedFolderContainer = $('#vagrant-'+ provider +'-sharedfolder-count');
+        var currentCount = sharedFolderContainer.attr('rel');
+        sharedFolderContainer.attr('rel', --currentCount);
 
         return false;
     });

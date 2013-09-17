@@ -1,0 +1,25 @@
+{% if sharedFolderNum is not defined %}
+    {% set sharedFolderNum = 1 %}
+{% endif %}
+
+<fieldset id="vagrant-digitalocean-sharedfolder-{{ sharedFolderNum }}">
+    <legend>Shared Folder #{{ sharedFolderNum }}</legend>
+
+    <div class="row">
+        <div class="col col-lg-5">
+            <label for="provider-digitalocean-synced_folder-source">Box Sync Folder Source</label>
+            <input id="provider-digitalocean-synced_folder-source" name="provider[digitalocean][sharedfolder][{{ sharedFolderNum }}][synced_folder][source]" type="text"
+                   required placeholder="/path/to/your/web/files" value="./" />
+        </div>
+
+        <div class="col col-lg-5">
+            <label for="provider-digitalocean-synced_folder-target">Box Sync Folder Target</label>
+            <input id="provider-digitalocean-synced_folder-target" name="provider[digitalocean][sharedfolder][{{ sharedFolderNum }}][synced_folder][target]" type="text"
+                   required placeholder="/path/on/vm" value="/var/www" />
+        </div>
+    </div>
+
+    {% if sharedFolderNum != '1' %}
+        <p class="text-center"><a class="vagrant-digitalocean-sharedfolder-del btn btn-danger" href="#" rel="vagrant-digitalocean-sharedfolder-{{ sharedFolderNum }}">Delete this Shared Folder</a></p>
+    {% endif %}
+</fieldset>

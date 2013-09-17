@@ -18,8 +18,17 @@ class Add extends Controller
         $controllers->get('/vhost', [$this, 'vhostAction'])
              ->bind('add.vhost');
 
-        $controllers->get('/sharedfolder', [$this, 'sharedfolderAction'])
-            ->bind('add.sharedfolder');
+        $controllers->get('/local/sharedfolder', [$this, 'localSharedfolderAction'])
+            ->bind('add.local.sharedfolder');
+
+        $controllers->get('/digitalocean/sharedfolder', [$this, 'digitaloceanSharedFolderAction'])
+            ->bind('add.digitalocean.sharedfolder');
+
+        $controllers->get('/rackspace/sharedfolder', [$this, 'rackspaceSharedFolderAction'])
+            ->bind('add.rackspace.sharedfolder');
+
+        $controllers->get('/local/sharedfolder', [$this, 'localSharedFolderAction'])
+            ->bind('add.local.sharedfolder');
 
         $controllers->get('/mysql/dbuser', [$this, 'mysqldbuserAction'])
              ->bind('add.mysql.dbuser');
@@ -38,13 +47,27 @@ class Add extends Controller
         );
     }
 
-    public function sharedfolderAction(Request $request)
+    public function localSharedFolderAction(Request $request)
     {
-        $provider = $request->get('provider');
-
         return $this->twig()->render(
-            "Front/Tabs/Vagrant/Box/SharedFolder/{$provider}.html.twig",
-            ['sharedFolderNum' => $request->get('id'), 'provider' => $provider]
+            "Front/Tabs/Vagrant/Box/SharedFolder/local.html.twig",
+            ['sharedFolderNum' => $request->get('id')]
+        );
+    }
+
+    public function digitaloceanSharedFolderAction(Request $request)
+    {
+        return $this->twig()->render(
+            "Front/Tabs/Vagrant/Box/SharedFolder/digitalocean.html.twig",
+            ['sharedFolderNum' => $request->get('id')]
+        );
+    }
+
+    public function rackspaceSharedFolderAction(Request $request)
+    {
+        return $this->twig()->render(
+            "Front/Tabs/Vagrant/Box/SharedFolder/rackspace.html.twig",
+            ['sharedFolderNum' => $request->get('id')]
         );
     }
 
