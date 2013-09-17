@@ -84,6 +84,34 @@ $(document).ready(function() {
         return false;
     });
 
+    //Vagrant Shared Folder Functions
+    $('#vagrant-sharedfolder-add').click(function(){
+        var sharedFolderContainer = $('#vagrant-sharedfolder-count');
+        var currentCount = sharedFolderContainer.attr('rel');
+        var providerType = $("input#provider-type").val();
+
+        $.get('/add/sharedfolder', { id: ++currentCount, provider: providerType }, function(data) {
+            sharedFolderContainer.attr('rel', currentCount);
+
+            sharedFolderContainer.append(data);
+        });
+
+        return false;
+    });
+
+    $('body').delegate('.vagrant-sharedfolder-del', 'click', function() {
+        var sharedFolderNum = $(this).attr('rel');
+        $('#' + sharedFolderNum).slideUp(function () {
+            $(this).remove();
+        });
+
+        var sharedFolderContainer = $('#vagrant-sharedfolder-count');
+        var currentCount = sharedFolderContainer.attr('rel');
+        sharedFolderContainer.attr('rel', --currentCount);
+
+        return false;
+    });
+
     addDatabaseEntry('mysql');
     addDatabaseEntry('postgresql');
 
