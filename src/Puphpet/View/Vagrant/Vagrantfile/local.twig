@@ -17,8 +17,8 @@ Vagrant.configure("2") do |config|
 
   nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/
 
-  {% for sharedfolder in box.sharedfolder %}
-config.vm.synced_folder "{{ sharedfolder.synced_folder.source }}", "{{ sharedfolder.synced_folder.target }}", id: "vagrant-root" {% if sharedfolder.foldertype == 'nfs' %}, :nfs => nfs_setting{% endif %}
+  {% for key, sharedfolder in box.sharedfolder %}
+config.vm.synced_folder "{{ sharedfolder.synced_folder.source }}", "{{ sharedfolder.synced_folder.target }}", id: "vagrant-root-{{ key }}" {% if sharedfolder.foldertype == 'nfs' %}, :nfs => nfs_setting{% endif %}
 
   {% endfor %}
 
