@@ -27,9 +27,6 @@ class Add extends Controller
         $controllers->get('/rackspace/sharedfolder', [$this, 'rackspaceSharedFolderAction'])
             ->bind('add.rackspace.sharedfolder');
 
-        $controllers->get('/local/sharedfolder', [$this, 'localSharedFolderAction'])
-            ->bind('add.local.sharedfolder');
-
         $controllers->get('/mysql/dbuser', [$this, 'mysqldbuserAction'])
              ->bind('add.mysql.dbuser');
 
