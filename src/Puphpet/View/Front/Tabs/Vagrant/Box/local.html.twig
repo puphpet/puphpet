@@ -88,12 +88,12 @@
             <input id="provider-local-guest-port"
                    name="provider[local][port_forward][guest]"
                    type="number"
-                   placeholder="Port on the host OS to forward to the VM (e.g. 80)"
+                   placeholder="Target port on the guest VM (e.g. 80) to receive the forwarded port from the host OS"
                    pattern="^[1-9][0-9]*$"
-                   title="Port on the host OS to forward to the VM (e.g. 80)"
+                   title="Target port on the guest VM (e.g. 80) to receive the forwarded port from the OS"
                     />
             <p class="help-block">
-                Port on the host OS to forward to the VM. Optional,
+                Recipient port on the guest OS from the forwarded host port. Optional,
                 <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html" target="_blank">more information</a>
             </p>
         </div>
