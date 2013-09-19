@@ -20,4 +20,4 @@ it back up run `$ vagrant up` again. Destroy it with `$ vagrant destroy`.
 ### Learn you some Vagrant
 
 You may want to learn the basics of Vagrant CLI by [going here](http://docs.vagrantup.com/v2/cli/index.html).
-You really only need to learn the very basics - that is why I created this app for!
+You really only need to learn the very basics - that is what I created this app for!
