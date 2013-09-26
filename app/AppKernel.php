@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Puphpet\Extension\VagrantfileBundle\PuphpetExtensionVagrantfileBundle(),
             new Puphpet\Extension\ServerBasicsBundle\PuphpetExtensionServerBasicsBundle(),
             new Puphpet\Extension\ApacheBundle\PuphpetExtensionApacheBundle(),
+            new Puphpet\Extension\PhpBundle\PuphpetExtensionPhpBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

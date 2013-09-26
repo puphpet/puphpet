@@ -17,13 +17,16 @@
                         <div class="col-md-6">
                             <label>PHP Version</label><br />
                             <label class="radio-inline">
-                                <input type="radio" name="php[version]" checked value="55" /> 5.5
+                                <input type="radio" name="php[version]" value="55"
+                                    {% if php.version == '55' %}checked{% endif %} /> 5.5
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="php[version]" value="54" /> 5.4
+                                <input type="radio" name="php[version]" value="54"
+                                    {% if php.version == '54' %}checked{% endif %} /> 5.4
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="php[version]" value="53" /> 5.3
+                                <input type="radio" name="php[version]" value="53"
+                                    {% if php.version == '53' %}checked{% endif %} /> 5.3
                             </label>
 
                             <p class="help-block">
@@ -37,7 +40,8 @@
                         <div class="col-md-6">
                             <label>Composer</label><br />
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="php[composer]" checked value="1"  /> Install Composer
+                                <input type="checkbox" name="php[composer]" value="1"
+                                    {% if php.composer.install == '1' %}checked{% endif %} /> Install Composer
                             </label>
 
                             <p class="help-block">
@@ -52,17 +56,29 @@
                         <div class="col-xs-12">
                             <label for="php-ini">INI Settings</label>
                             <select id="php-ini" name="php[ini][]" multiple
-                                    class="form-control select-tags-user-input">
-                                <option value="allow_url_fopen">allow_url_fopen</option>
-                                <option value="allow_url_include">allow_url_include</option>
-                                <option value="always_populate_raw_post_data">always_populate_raw_post_data</option>
-                                <option value="asp_tags">asp_tags</option>
-                                <option value="auto_append_file">auto_append_file</option>
-                                <option value="auto_detect_line_endings">auto_detect_line_endings</option>
-                                <option value="auto_globals_jit">auto_globals_jit</option>
-                                <option value="auto_prepend_file">auto_prepend_file</option>
-                                <option value="browscap">browscap</option>
+                                    class="form-control select-tags-user-input" data-value-seperator=" = ">
+                                {% for ini, values in php.ini %}
+                                    {% if values is not empty %}
+                                        <optgroup label="{{ ini }}">
+                                            {% for value in values %}
+                                                <option value="{{ value }}">{{ value }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    {% else %}
+                                        <option value="{{ ini }}"
+                                            {% if ini in php.selected_ini|keys %}selected{% endif %}>{{ ini }}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
+
+                            <div id="php-ini-selected" style="display: none;">
+                                {% if php.selected_ini is defined and php.selected_ini is not empty %}
+                                    {% for option, value in php.selected_ini %}
+                                        <div data-option-name="{{ option }}" data-option-value="{{ value }}"></div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
                         </div>
                     </div>
 
@@ -70,13 +86,15 @@
                         <div class="col-xs-12">
                             <label for="php-timezone">PHP Timezone</label>
                             <select id="php-timezone" name="php[timezone]"
-                                    class="form-control select-tags">
-                                <option value="Africa/Abidjan">Africa/Abidjan</option>
-                                <option value="Africa/Accra">Africa/Accra</option>
-                                <option value="Africa/Addis_Ababa">Africa/Addis_Ababa</option>
-                                <option value="Africa/Algiers">Africa/Algiers</option>
-                                <option value="Africa/Asmara">Africa/Asmara</option>
-                                <option value="UTC">UTC</option>
+                                    class="form-control select-tag">
+                                {% for namespace, timezones in php.timezones %}
+                                    <optgroup label="{{ namespace }}">
+                                        {% for timezone in timezones %}
+                                            <option value="{{ timezone }}"
+                                                {% if timezone == php.selected_timezone %}selected{% endif %}>{{ timezone }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -104,22 +122,10 @@
                             <label for="php-modules-php">PHP Modules</label>
                             <select id="php-modules-php" name="php[modules][php][]"
                                     multiple class="form-control select-tags">
-                                <optgroup label="Authentication">
-                                    <option value="Auth_SASL2">Auth_SASL2</option>
-                                    <option value="OpenID">OpenID</option>
-                                </optgroup>
-                                <optgroup label="Configuration">
-                                    <option value="Config_Lite">Config_Lite</option>
-                                </optgroup>
-                                <optgroup label="Console">
-                                    <option value="Console_Color2">Console_Color2</option>
-                                    <option value="Console_CommandLine">Console_CommandLine</option>
-                                </optgroup>
-                                <optgroup label="Database">
-                                    <option value="DB_DataObject">DB_DataObject</option>
-                                    <option value="DB_Sqlite_Tools">DB_Sqlite_Tools</option>
-                                    <option value="MDB2">MDB2</option>
-                                </optgroup>
+                                {% for module in php.modules.php %}
+                                    <option value="{{ module }}"
+                                        {% if module in php.selected_modules.php %}selected{% endif %}>{{ module }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -131,22 +137,14 @@
                             <label for="php-modules-pear">PEAR Modules</label>
                             <select id="php-modules-pear" name="php[modules][pear][]"
                                     multiple class="form-control select-tags">
-                                <optgroup label="Authentication">
-                                    <option value="Auth_SASL2">Auth_SASL2</option>
-                                    <option value="OpenID">OpenID</option>
-                                </optgroup>
-                                <optgroup label="Configuration">
-                                    <option value="Config_Lite">Config_Lite</option>
-                                </optgroup>
-                                <optgroup label="Console">
-                                    <option value="Console_Color2">Console_Color2</option>
-                                    <option value="Console_CommandLine">Console_CommandLine</option>
-                                </optgroup>
-                                <optgroup label="Database">
-                                    <option value="DB_DataObject">DB_DataObject</option>
-                                    <option value="DB_Sqlite_Tools">DB_Sqlite_Tools</option>
-                                    <option value="MDB2">MDB2</option>
-                                </optgroup>
+                                {% for namespace, modules in php.modules.pear %}
+                                    <optgroup label="{{ namespace }}">
+                                        {% for module in modules %}
+                                            <option value="{{ module }}"
+                                                {% if module in php.selected_modules.pear %}selected{% endif %}>{{ module }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -158,22 +156,14 @@
                             <label for="php-modules-pecl">PECL Modules</label>
                             <select id="php-modules-pecl" name="php[modules][pecl][]"
                                     multiple class="form-control select-tags">
-                                <optgroup label="Authentication">
-                                    <option value="Auth_SASL2">Auth_SASL2</option>
-                                    <option value="OpenID">OpenID</option>
-                                </optgroup>
-                                <optgroup label="Configuration">
-                                    <option value="Config_Lite">Config_Lite</option>
-                                </optgroup>
-                                <optgroup label="Console">
-                                    <option value="Console_Color2">Console_Color2</option>
-                                    <option value="Console_CommandLine">Console_CommandLine</option>
-                                </optgroup>
-                                <optgroup label="Database">
-                                    <option value="DB_DataObject">DB_DataObject</option>
-                                    <option value="DB_Sqlite_Tools">DB_Sqlite_Tools</option>
-                                    <option value="MDB2">MDB2</option>
-                                </optgroup>
+                                {% for namespace, modules in php.modules.pecl %}
+                                    <optgroup label="{{ namespace }}">
+                                        {% for module in modules %}
+                                            <option value="{{ module }}"
+                                                {% if module in php.selected_modules.pecl %}selected{% endif %}>{{ module }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>

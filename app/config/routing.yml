@@ -10,6 +10,10 @@ puphpet.extension.server_basics:
     resource: "@PuphpetExtensionServerBasicsBundle/Resources/config/routing.yml"
     prefix:   /extension/server-basics
 
-puphpet_extension_apache:
+puphpet.extension.apache:
     resource: "@PuphpetExtensionApacheBundle/Resources/config/routing.yml"
     prefix:   /extensions/apache
+
+puphpet.extension.php:
+    resource: "@PuphpetExtensionPhpBundle/Resources/config/routing.yml"
+    prefix:   /extensions/php

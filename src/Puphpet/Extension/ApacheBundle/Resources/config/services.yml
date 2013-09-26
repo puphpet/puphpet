@@ -1,5 +1,4 @@
 parameters:
-#    puphpet_extension_server_basics.example.class: Puphpet\Extension\ServerBasicsBundle\Example
 
 services:
     puphpet.extension.apache.configure:
