@@ -1,13 +1,13 @@
 <?php
 
-namespace Puphpet\Extension\ServerBasicsBundle\Controller;
+namespace Puphpet\Extension\PhpBundle\Controller;
 
 use Puphpet\MainBundle\Extension;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Yaml\Yaml;
 
-class DefaultController extends Controller implements Extension\ControllerInterface
+class PhpController extends Controller implements Extension\ControllerInterface
 {
     public function indexAction(array $data = [])
     {
@@ -15,8 +15,8 @@ class DefaultController extends Controller implements Extension\ControllerInterf
             $data = $this->getData();
         }
 
-        return $this->render('PuphpetExtensionServerBasicsBundle:form:ServerBasics.html.twig', [
-            'server' => $data,
+        return $this->render('PuphpetExtensionPhpBundle:form:Php.html.twig', [
+            'php' => $data,
         ]);
     }
 

@@ -8,6 +8,6 @@ services:
             - "@service_container"
 
     puphpet.extension.vagrantfile.main_controller:
-        class: Puphpet\Extension\VagrantfileBundle\Controller\DefaultController
+        class: Puphpet\Extension\VagrantfileBundle\Controller\VagrantfileController
         calls:
             - [ setContainer, [@service_container] ]

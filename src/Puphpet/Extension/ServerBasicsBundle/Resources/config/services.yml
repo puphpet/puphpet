@@ -8,6 +8,6 @@ services:
             - "@service_container"
 
     puphpet.extension.server_basics.main_controller:
-        class: Puphpet\Extension\ServerBasicsBundle\Controller\DefaultController
+        class: Puphpet\Extension\ServerBasicsBundle\Controller\ServerBasicsController
         calls:
             - [ setContainer, [@service_container] ]

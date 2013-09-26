@@ -7,6 +7,6 @@ services:
             - "@service_container"
 
     puphpet.extension.php.main_controller:
-        class: Puphpet\Extension\PhpBundle\Controller\DefaultController
+        class: Puphpet\Extension\PhpBundle\Controller\PhpController
         calls:
             - [ setContainer, [@service_container] ]
