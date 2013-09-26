@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 function runSelectize($element) {
     // input or select elements; allows user to create their own tags
-    $('.tags, .select-tags-editable', $element).selectize({
+    var $selectTagsEditable = $('.tags, .select-tags-editable', $element).selectize({
         plugins: ['remove_button'],
         delimiter: ',',
         persist: false,
@@ -49,28 +49,69 @@ function runSelectize($element) {
         }
     });
 
+    selectizeTagsUserInput($element);
+
+    // select single element; does not allow creating new tag
+    var $selectTag = $('.select-tag', $element).selectize({
+        persist: false,
+        create: false
+    });
+
+    // select elements; does not allow creating new tags
+    var $selectTags = $('.select-tags', $element).selectize({
+        plugins: ['remove_button'],
+        delimiter: ',',
+        persist: false,
+        create: false
+    });
+}
+
+function selectizeTagsUserInput($element) {
     // select elements; asks user for value of selected tags; cannot create own tags
-    $('.select-tags-user-input', $element).selectize({
+    var $selectTagsUserInput = $('.select-tags-user-input', $element).selectize({
         plugins: ['remove_button'],
         delimiter: ',',
         persist: false,
         create: false,
         onItemAdd: function(value, $item) {
-            var suffix = prompt('Enter Value:') || '0';
-            var label  = this.options[value].text + ' = ' + suffix;
-            var data   = $.extend({}, this.options[value], {
+            var suffix    = prompt('Enter Value:') || '0';
+            var seperator = this.$input[0].getAttribute('data-value-seperator');
+            var label     = this.options[value].text + seperator + suffix;
+            var data      = $.extend({}, this.options[value], {
                 text: label
+            });
+
+            this.updateOption(value, data);
+        },
+        onItemRemove: function(value, $item) {
+            var data = $.extend({}, this.options[value], {
+                text: value
             });
 
             this.updateOption(value, data);
         }
     });
 
-    // select elements; does not allow creating new tags
-    $('.select-tags', $element).selectize({
-        plugins: ['remove_button'],
-        delimiter: ',',
-        persist: false,
-        create: false
-    });
+    // Adds pre-selected option values to selectize field
+    for (var i = 0; i < $selectTagsUserInput.length; i++) {
+        var $selectElement = $selectTagsUserInput[i].selectize;
+        var $selectedItems = $('#' + $selectTagsUserInput[i]['id'] + '-selected');
+
+        if (!$selectedItems.length) {
+            continue;
+        }
+
+        $selectedItems.children().each(function() {
+            var optionName  = this.getAttribute('data-option-name');
+            var optionValue = this.getAttribute('data-option-value');
+            var seperator   = $selectElement.$input[0].getAttribute('data-value-seperator');
+
+            var label = $selectElement.options[optionName].text + seperator + optionValue;
+            var data  = $.extend({}, $selectElement.options[optionName], {
+                text: label
+            });
+
+            $selectElement.updateOption(optionName, data);
+        });
+    }
 }

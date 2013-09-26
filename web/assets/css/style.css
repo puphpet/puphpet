@@ -156,3 +156,17 @@ footer .img-thumbnail img {
 .selectize-control.multi .selectize-input > div.active {
     background: #4c977b;
 }
+
+.selectize-dropdown .optgroup:before {
+    background-color: #000;
+}
+
+.selectize-dropdown .optgroup-header {
+    margin: 10px 0;
+    color: #000;
+    font-weight: bold;
+}
+
+.selectize-dropdown .optgroup .option {
+    margin-left: 10px;
+}
