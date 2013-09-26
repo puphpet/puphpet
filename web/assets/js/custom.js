@@ -36,7 +36,7 @@ $(document).ready(function() {
 });
 
 function runSelectize($element) {
-        // input or select elements; allows user to create their own tags
+    // input or select elements; allows user to create their own tags
     $('.tags, .select-tags-editable', $element).selectize({
         plugins: ['remove_button'],
         delimiter: ',',
