@@ -36,4 +36,14 @@ abstract class ExtensionAbstract
             ->indexAction($data)
             ->getContent();
     }
+
+    /**
+     * Whether any data came from outside sources
+     *
+     * @return bool
+     */
+    public function hasCustomData()
+    {
+        return empty($this->customData) ? false : true;
+    }
 }

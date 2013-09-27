@@ -13,4 +13,6 @@ interface ExtensionInterface
     public function getData();
 
     public function setCustomData(array $data = []);
+
+    public function hasCustomData();
 }
