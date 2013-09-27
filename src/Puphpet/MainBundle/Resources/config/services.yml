@@ -12,7 +12,8 @@ services:
         calls:
             - [ addExtension, [ @puphpet.extension.vagrantfile.configure ] ]
             - [ addExtension, [ @puphpet.extension.server_basics.configure ] ]
-            - [ addExtension, [ @puphpet.extension.apache.configure ] ]
+        # webserver group
+            - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.apache.configure ] ]
             - [ addExtension, [ @puphpet.extension.php.configure ] ]
             - [ addExtension, [ @puphpet.extension.xdebug.configure ] ]
         # database group
