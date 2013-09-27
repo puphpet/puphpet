@@ -18,47 +18,22 @@
 
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="radio">
-                            <input type="radio" name="vagrantfile[vm][box_url]"
-                                {% if vagrantfile.vm.box_url == 'http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box' %}checked{% endif %}
-                                   value="http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box"
-                                   data-operating-system="debian" data-vagrantfile-vm-box="wheezy64" />
-                            Debian Wheezy 7.0rc1 x64
-                            (PHP <span class="label label-success">5.5</span>
-                                 <span class="label label-info">5.4</span>)
-                        </label>
+                        {% for box in vagrantfile.available_boxes %}
+                            <label class="radio">
+                                <input type="radio" name="vagrantfile[vm][box_url]"
+                                       value="{{ box.url }}"
+                                       data-operating-system="{{ box.os }}" data-vagrantfile-vm-box="{{ box.short_name }}" />
+                                {{ box.long_name }}
+                                {% if box.php_versions is defined %}
+                                    (PHP
+                                    {% for php in box.php_versions %}
+                                        <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
+                                    {% endfor %}
+                                    )
+                                {% endif %}
 
-                        <label class="radio">
-                            <input type="radio" name="vagrantfile[vm][box_url]"
-                                {% if vagrantfile.vm.box_url == 'http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210.box' %}checked{% endif %}
-                                   value="http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210.box"
-                                   data-operating-system="debian" data-vagrantfile-vm-box="squeeze64" />
-                            Debian Squeeze 6.0.7 x64
-                            (PHP <span class="label label-info">5.4</span>
-                                 <span class="label label-warning">5.3</span>)
-                        </label>
-
-                        <label class="radio">
-                            <input type="radio" name="vagrantfile[vm][box_url]"
-                                {% if vagrantfile.vm.box_url == 'http://files.vagrantup.com/precise64.box' %}checked{% endif %}
-                                   value="http://files.vagrantup.com/precise64.box"
-                                   data-operating-system="ubuntu" data-vagrantfile-vm-box="precise64" />
-                            Ubuntu Precise 12.04 x64
-                            (PHP <span class="label label-success">5.5</span>
-                                 <span class="label label-info">5.4</span>
-                                 <span class="label label-warning">5.3</span>)
-                        </label>
-
-                        <label class="radio">
-                            <input type="radio" name="vagrantfile[vm][box_url]"
-                                {% if vagrantfile.vm.box_url == 'http://files.vagrantup.com/lucid64.box' %}checked{% endif %}
-                                   value="http://files.vagrantup.com/lucid64.box"
-                                   data-operating-system="ubuntu" data-vagrantfile-vm-box="lucid64" />
-                            Ubuntu Lucid 10.04 x64
-                            (PHP <span class="label label-success">5.5</span>
-                                 <span class="label label-info">5.4</span>
-                                 <span class="label label-warning">5.3</span>)
-                        </label>
+                            </label>
+                        {% endfor %}
                     </div>
 
                     <p class="help-block">
@@ -113,7 +88,7 @@
                             <label for="vagrantfile-vm-provider-virtualbox-memory">Box Memory</label>
                             <input type="text" id="vagrantfile-vm-provider-virtualbox-memory"
                                    name="vagrantfile[vm][provider][virtualbox][memory]"
-                                   required placeholder="1024" pattern="^[1-9][0-9]*$" min="64"
+                                   required placeholder="512" pattern="^[1-9][0-9]*$" min="64"
                                    value="{{ vagrantfile.vm.provider.virtualbox.memory }}" class="form-control" />
 
                             <p class="help-block">Memory to assign to VM in megabytes (only

@@ -11,9 +11,6 @@ services:
             - "@service_container"
         calls:
             - [ addExtension, [ @puphpet.extension.vagrantfile.configure ] ]
-            - [ addExtension, [ @puphpet.extension.server_basics.configure ] ]
-            - [ addExtension, [ @puphpet.extension.apache.configure ] ]
-            - [ addExtension, [ @puphpet.extension.php.configure ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

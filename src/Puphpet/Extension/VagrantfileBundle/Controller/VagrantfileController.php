@@ -5,16 +5,11 @@ namespace Puphpet\Extension\VagrantfileBundle\Controller;
 use Puphpet\MainBundle\Extension;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Yaml\Yaml;
 
 class VagrantfileController extends Controller implements Extension\ControllerInterface
 {
-    public function indexAction(array $data = [])
+    public function indexAction(array $data)
     {
-        if (empty($data)) {
-            $data = $this->getData();
-        }
-
         return $this->render('PuphpetExtensionVagrantfileBundle:form:Vagrantfile.html.twig', [
             'vagrantfile' => $data,
         ]);
@@ -23,7 +18,7 @@ class VagrantfileController extends Controller implements Extension\ControllerIn
     public function syncedFolderAction()
     {
         return $this->render('PuphpetExtensionVagrantfileBundle:form/sections:SyncedFolder.html.twig', [
-            'synced_folder' => array_shift($this->getData()['vm']['synced_folder']),
+            'synced_folder' => $this->getData()['empty_synced_folder'],
         ]);
     }
 
@@ -39,6 +34,7 @@ class VagrantfileController extends Controller implements Extension\ControllerIn
      */
     private function getData()
     {
-        return Yaml::parse(__DIR__ . '/../Resources/config/data.yml');
+        $config = $this->get('puphpet.extension.vagrantfile.configure');
+        return $config->getData();
     }
 }

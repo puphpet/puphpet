@@ -7,7 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 interface ControllerInterface
 {
     /**
+     * @param array $data
      * @return Response;
      */
-    public function indexAction();
+    public function indexAction(array $data);
 }

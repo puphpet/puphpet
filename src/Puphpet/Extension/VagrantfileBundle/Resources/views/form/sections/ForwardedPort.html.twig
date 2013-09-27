@@ -14,7 +14,7 @@
                             <label for="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-host">Host Port</label>
                             <input type="number" id="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-host"
                                    name="vagrantfile[vm][network][forwarded_port][{{ uniqid }}][host]"
-                                   placeholder="Host to VM port (e.g. 8080)" pattern="^[1-9][0-9]*$"
+                                   placeholder="8080" pattern="^[1-9][0-9]*$"
                                    required min="1" max="65535"
                                    title="Port on Host to forward to VM (e.g. 8080)"
                                    value="{{ forwarded_port.guest }}"
@@ -31,7 +31,7 @@
                             <label for="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-guest">Box Port</label>
                             <input type="number" id="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-guest"
                                    name="vagrantfile[vm][network][forwarded_port][{{ uniqid }}][guest]"
-                                   placeholder="VM from Host port (e.g. 80)" pattern="^[1-9][0-9]*$"
+                                   placeholder="80" pattern="^[1-9][0-9]*$"
                                    required min="1" max="65535"
                                    title="Port on VM to accept from Host (e.g. 80)"
                                    value="{{ forwarded_port.host }}"

@@ -3,7 +3,6 @@
 namespace Puphpet\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Yaml\Yaml;
 
 class DefaultController extends Controller
 {

@@ -170,3 +170,20 @@ footer .img-thumbnail img {
 .selectize-dropdown .optgroup .option {
     margin-left: 10px;
 }
+
+
+/*
+ * Extension CSS
+ * @todo: Move this into each extensions' public folder
+ */
+.php-version-5-5 {
+  background-color: #5cb85c;
+}
+
+.php-version-5-4 {
+  background-color: #5bc0de;
+}
+
+.php-version-5-3 {
+  background-color: #f0ad4e;
+}

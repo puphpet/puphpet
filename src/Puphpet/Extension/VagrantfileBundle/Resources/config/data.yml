@@ -1,16 +1,13 @@
 vm:
-    box: wheezy64
-    box_url: http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box
+    box: ~
+    box_url: ~
     graceful_halt_retry_count: 3
     graceful_halt_retry_interval: 1
     guest: :linux
     hostname: ~
     network:
         private_network: 192.168.56.101
-        forwarded_port:
-            -
-                guest: ~
-                host: ~
+        forwarded_port: []
     provider:
         virtualbox:
             name: my-vm-box
@@ -21,14 +18,8 @@ vm:
         puppet:
             manifests_path: manifests
             module_path: modules
-            options:
-                - --verbose
-    synced_folder:
-        -
-            source: ~/www/
-            target: /var/www
-            id: vagrant-root
-            nfs: true
+            options: []
+    synced_folder: []
     usable_port_range: 2200..2250
 ssh:
     host: ~
