@@ -19,7 +19,8 @@
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
-        "ircmaxell/random-lib": "1.0.*@dev"
+        "ircmaxell/random-lib": "1.0.*@dev",
+        "zenstruck/slugify-bundle": "1.*@dev"
     },
     "scripts": {
         "post-install-cmd": [

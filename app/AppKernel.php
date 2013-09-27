@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Puphpet\MainBundle\PuphpetMainBundle(),
+            new Zenstruck\SlugifyBundle\ZenstruckSlugifyBundle(),
 
             new Puphpet\Extension\VagrantfileBundle\PuphpetExtensionVagrantfileBundle(),
             new Puphpet\Extension\ServerBasicsBundle\PuphpetExtensionServerBasicsBundle(),
