@@ -24,8 +24,40 @@
             <div class="col-sm-9">
                 <div class="container">
 
-                    {% for extension in extensions %}
-                        {{ extension.render(extension.data)|raw }}
+                    {% for extension in extensionManager.getExtensions
+                       if not extensionManager.extensionAlreadyUsed(extension.name) %}
+
+                        {% set groupName = extensionManager.belongsToGroup(extension.name) %}
+
+                        {% if groupName %}
+                            <div class="page-header">
+                                <h1 id="{{ groupName|slugify }}">{{ groupName|title }}</h1>
+                            </div>
+
+                            {% set activeExtensionName = extensionManager.extensionInGroupHasCustomData(groupName) %}
+
+                            <ul class="nav group-nav nav-pills group-tabs" id="{{ groupName|slugify }}-tab">
+                                {% for extensionName in extensionManager.getExtensionNamesInGroup(groupName) %}
+                                    <li class="{% if extensionName == activeExtensionName %}active{% endif %}">
+                                        <a href="#{{ extensionName|slugify }}-tab"
+                                           data-target-element="{{ extensionName|slugify }}"
+                                           data-toggle="tab" >{{ extensionName|title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                            <div class="tab-content">
+                                {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
+                                    <div class="tab-pane {% if activeExtensionName == groupedExtension.name %}active{% endif %}"
+                                         id="{{ groupedExtension.name|slugify }}-tab">
+                                        {{ groupedExtension.render(groupedExtension.data)|raw }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ extension.render(extension.data)|raw }}
+                        {% endif %}
+
                     {% endfor %}
 
                 </div>

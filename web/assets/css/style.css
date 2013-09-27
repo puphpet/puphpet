@@ -133,6 +133,29 @@ div.navbar {
 }
 
 /*
+ * Group Tabs
+  */
+.group-tabs {
+    border-bottom: none;
+}
+
+.group-nav {
+    margin-bottom: 10px;
+}
+
+.group-tabs > li > a {
+    color: #000;
+    background-color: #eee;
+}
+
+.group-tabs > li.active > a,
+.group-tabs > li.active > a:hover,
+.group-tabs > li.active > a:focus {
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+/*
  * Footer
  */
 footer {

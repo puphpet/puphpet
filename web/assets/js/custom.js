@@ -33,6 +33,39 @@ $(document).ready(function() {
         $parentContainer.remove();
 
     });
+
+    // loop through any grouped extensions and the ones without 'active' class in tab
+    $('ul.group-tabs li').each(function() {
+        if ($(this).hasClass('active')) {
+            return;
+        }
+
+        var $anchor = $(this).children()[0];
+        var extensionId = $anchor.getAttribute('data-target-element');
+        var $disableField = $('input[name="is_disabled[' + extensionId + ']"]');
+
+        if (!$disableField.length) {
+            return;
+        }
+
+        $disableField.val(1);
+    });
+
+    // when switching tabs, disable original extension and enable the target
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var original = e.relatedTarget.getAttribute('data-target-element');
+        var target   = e.target.getAttribute('data-target-element');
+
+        var $disableField = $('input[name="is_disabled[' + original + ']"]');
+        var $enableField  = $('input[name="is_disabled[' + target + ']"]');
+
+        if (!$disableField.length || !$enableField.length) {
+            return;
+        }
+
+        $disableField.val(1);
+        $enableField.val(0);
+    })
 });
 
 function runSelectize($element) {

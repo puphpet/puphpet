@@ -9,7 +9,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         return $this->render('PuphpetMainBundle:Default:index.html.twig', [
-            'extensions' => $this->get('puphpet.extension.manager')->getParsed(),
+            'extensionManager' => $this->get('puphpet.extension.manager'),
         ]);
     }
 }
