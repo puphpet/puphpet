@@ -1,0 +1,12 @@
+parameters:
+
+services:
+    puphpet.extension.nginx.configure:
+        class: Puphpet\Extension\NginxBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.nginx.main_controller:
+        class: Puphpet\Extension\NginxBundle\Controller\NginxController
+        calls:
+            - [ setContainer, [@service_container] ]

@@ -1,0 +1,7 @@
+puphpet.extension.nginx.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionNginxBundle:Nginx:index }
+
+puphpet.extension.nginx.vhost:
+    pattern:  /vhost
+    defaults: { _controller: PuphpetExtensionNginxBundle:Nginx:vhost }

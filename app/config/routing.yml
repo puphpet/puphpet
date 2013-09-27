@@ -14,6 +14,10 @@ puphpet.extension.apache:
     resource: "@PuphpetExtensionApacheBundle/Resources/config/routing.yml"
     prefix:   /extensions/apache
 
+puphpet.extension.nginx:
+    resource: "@PuphpetExtensionNginxBundle/Resources/config/routing.yml"
+    prefix:   /extensions/nginx
+
 puphpet.extension.php:
     resource: "@PuphpetExtensionPhpBundle/Resources/config/routing.yml"
     prefix:   /extensions/php
