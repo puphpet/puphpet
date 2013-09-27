@@ -10,10 +10,3 @@ vhosts:
         port: 80
         envvars:
             - APP_ENV dev
-
-empty_vhost:
-    servername: ~
-    serveraliases: []
-    docroot: ~
-    port: 80
-    envvars: []

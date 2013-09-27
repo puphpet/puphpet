@@ -53,3 +53,10 @@ select_modules:
 
 modules: []
 vhosts: []
+
+empty_vhost:
+    servername: ~
+    serveraliases: []
+    docroot: ~
+    port: 80
+    envvars: []
