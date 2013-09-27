@@ -1,0 +1,93 @@
+{% set uniqid = uniqid('mysqlnuad_', true) %}
+
+<!-- Database / Create User & Database -->
+<div class="row" id="{{ uniqid }}">
+    <div class="col-xs-9">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create User & Database</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label for="mysql-db-{{ uniqid }}-privileges">Priveleges</label>
+
+                        <select id="mysql-db-{{ uniqid }}-privileges"
+                                name="mysql[db][{{ uniqid }}][privileges][]" multiple size="6"
+                                class="form-control select-tags">
+                            {% for type, privileges in available_privileges %}
+                                <optgroup label="{{ type }}">
+                                    {% for privilege in privileges %}
+                                        <option value="{{ privilege }}"
+                                            {% if privilege in database.privileges %}selected{% endif %}>{{ privilege }}</option>
+                                    {% endfor %}
+                                </optgroup>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="mysql-db-{{ uniqid }}-dbname">DB Name</label>
+                        <input type="text" id="mysql-db-{{ uniqid }}-dbname"
+                               name="mysql[db][{{ uniqid }}][dbname]" placeholder="database name"
+                               value="{{ database.db_name }}" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="mysql-db-{{ uniqid }}-dbhost">DB Host</label>
+                        <input type="text" id="mysql-db-{{ uniqid }}-dbhost"
+                               name="mysql[db][{{ uniqid }}][dbhost]"
+                               required placeholder="database host"
+                               value="{{ database.host }}" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="mysql-db-{{ uniqid }}-username">Username</label>
+                        <input type="text" id="mysql-db-{{ uniqid }}-username"
+                               name="mysql[db][{{ uniqid }}][username]"
+                               placeholder="username"
+                               value="{{ database.username }}" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="mysql-db-{{ uniqid }}-password">Password</label>
+                        <input type="text" id="mysql-db-{{ uniqid }}-password"
+                               name="mysql[db][{{ uniqid }}][password]"
+                               required placeholder="password"
+                               value="{{ database.password }}" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label for="mysql-db-{{ uniqid }}-sqlFile">Import Database From File</label>
+                        <input type="text" id="mysql-db-{{ uniqid }}-sqlFile"
+                               name="mysql[db][{{ uniqid }}][sqlFile]"
+                               placeholder="/var/www/sql/database_name.sql"
+                               value="{{ database.sql_file }}" class="form-control" />
+
+                        <p class="help-block">
+                            Optional. Make sure this file is inside the VM before running
+                            <code>$ vagrant up</code>
+                        </p>
+                    </div>
+                </div>
+
+                <p class="text-center">
+                    <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
+                            data-parent-id="{{ uniqid }}">Remove this database</button>
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-xs-3 right-panel"></div>
+</div>
+<!-- end Database / Create User & Database -->

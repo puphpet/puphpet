@@ -1,0 +1,9 @@
+databases:
+    -
+        privileges:
+            - ALL
+        username: ~
+        password: ~
+        db_name: ~
+        host: localhost
+        sql_file: ~

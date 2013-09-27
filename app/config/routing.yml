@@ -18,6 +18,10 @@ puphpet.extension.php:
     resource: "@PuphpetExtensionPhpBundle/Resources/config/routing.yml"
     prefix:   /extensions/php
 
-puphpet_extension.xdebug:
+puphpet.extension.xdebug:
     resource: "@PuphpetExtensionXdebugBundle/Resources/config/routing.yml"
     prefix:   /extensions/xdebug
+
+puphpet.extension.mysql:
+    resource: "@PuphpetExtensionMysqlBundle/Resources/config/routing.yml"
+    prefix:   /extensions/mysql

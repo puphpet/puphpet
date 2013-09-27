@@ -15,6 +15,7 @@ services:
             - [ addExtension, [ @puphpet.extension.apache.configure ] ]
             - [ addExtension, [ @puphpet.extension.php.configure ] ]
             - [ addExtension, [ @puphpet.extension.xdebug.configure ] ]
+            - [ addExtension, [ @puphpet.extension.mysql.configure ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

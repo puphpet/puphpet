@@ -1,0 +1,7 @@
+puphpet.extension.mysql.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionMysqlBundle:Mysql:index }
+
+puphpet.extension.mysql.add_database:
+    pattern:  /add-database
+    defaults: { _controller: PuphpetExtensionMysqlBundle:Mysql:addDatabase }
