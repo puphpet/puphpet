@@ -1,7 +1,9 @@
 version: 55
+
 composer:
     install: 1
-modules:
+
+available_modules:
     php:
         - php5-adodb
         - php5-auth-pam
@@ -149,6 +151,7 @@ modules:
         - php-xml-rss
         - php-xml-serializer
         - php-zeroc-ice
+
     pear:
         Authentication:
             - Auth_SASL2
@@ -379,6 +382,7 @@ modules:
             - XML_Util2
             - XML_XRD
             - XML_XUL
+
     pecl:
         Authentication:
             - courierauth
@@ -715,7 +719,7 @@ modules:
             - xmlwriter
             - xslcache
 
-ini:
+available_ini:
     allow_url_fopen:
     allow_url_include:
     always_populate_raw_post_data:
@@ -1294,7 +1298,7 @@ ini:
         - zlib.output_compression_level
         - zlib.output_handler
 
-timezones:
+available_timezones:
     Africa:
         - Africa/Abidjan
         - Africa/Accra
@@ -1726,18 +1730,9 @@ timezones:
     UTC:
         - UTC
 
-selected_modules:
-    php:
-        - php5-cli
-        - php5-curl
-        - php5-intl
-        - php5-mcrypt
-    pear:
-    pecl:
-        - pecl_http
-
-selected_ini:
-    display_errors: On
-    error_reporting: -1
-
-selected_timezone: America/Chicago
+modules:
+    php: []
+    pear: []
+    pecl: []
+ini: []
+timezone: ~

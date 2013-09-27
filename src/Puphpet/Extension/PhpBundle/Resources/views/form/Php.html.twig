@@ -43,7 +43,7 @@
                             <label>Composer</label><br />
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="php[composer]" value="1"
-                                    {% if php.composer.install == '1' %}checked{% endif %} /> Install Composer
+                                    {% if php.composer.install %}checked{% endif %} /> Install Composer
                             </label>
 
                             <p class="help-block">
@@ -61,7 +61,7 @@
                             <label for="php-ini">INI Settings</label>
                             <select id="php-ini" name="php[ini][]" multiple
                                     class="form-control select-tags-user-input" data-value-seperator=" = ">
-                                {% for ini, values in php.ini %}
+                                {% for ini, values in php.available_ini %}
                                     {% if values is not empty %}
                                         <optgroup label="{{ ini }}">
                                             {% for value in values %}
@@ -70,14 +70,14 @@
                                         </optgroup>
                                     {% else %}
                                         <option value="{{ ini }}"
-                                            {% if ini in php.selected_ini|keys %}selected{% endif %}>{{ ini }}</option>
+                                            {% if ini in php.ini|keys %}selected{% endif %}>{{ ini }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
 
                             <div id="php-ini-selected" style="display: none;">
-                                {% if php.selected_ini is defined and php.selected_ini is not empty %}
-                                    {% for option, value in php.selected_ini %}
+                                {% if php.ini is defined and php.ini is not empty %}
+                                    {% for option, value in php.ini %}
                                         <div data-option-name="{{ option }}" data-option-value="{{ value }}"></div>
                                     {% endfor %}
                                 {% endif %}
@@ -93,11 +93,11 @@
                             <label for="php-timezone">PHP Timezone</label>
                             <select id="php-timezone" name="php[timezone]"
                                     class="form-control select-tag">
-                                {% for namespace, timezones in php.timezones %}
+                                {% for namespace, timezones in php.available_timezones %}
                                     <optgroup label="{{ namespace }}">
                                         {% for timezone in timezones %}
                                             <option value="{{ timezone }}"
-                                                {% if timezone == php.selected_timezone %}selected{% endif %}>{{ timezone }}</option>
+                                                {% if timezone == php.timezone %}selected{% endif %}>{{ timezone }}</option>
                                         {% endfor %}
                                     </optgroup>
                                 {% endfor %}
@@ -112,9 +112,9 @@
                             <label for="php-modules-php">PHP Modules</label>
                             <select id="php-modules-php" name="php[modules][php][]"
                                     multiple class="form-control select-tags">
-                                {% for module in php.modules.php %}
+                                {% for module in php.available_modules.php %}
                                     <option value="{{ module }}"
-                                        {% if module in php.selected_modules.php %}selected{% endif %}>{{ module }}</option>
+                                        {% if module in php.modules.php %}selected{% endif %}>{{ module }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -127,11 +127,11 @@
                             <label for="php-modules-pear">PEAR Modules</label>
                             <select id="php-modules-pear" name="php[modules][pear][]"
                                     multiple class="form-control select-tags">
-                                {% for namespace, modules in php.modules.pear %}
+                                {% for namespace, modules in php.available_modules.pear %}
                                     <optgroup label="{{ namespace }}">
                                         {% for module in modules %}
                                             <option value="{{ module }}"
-                                                {% if module in php.selected_modules.pear %}selected{% endif %}>{{ module }}</option>
+                                                {% if module in php.modules.pear %}selected{% endif %}>{{ module }}</option>
                                         {% endfor %}
                                     </optgroup>
                                 {% endfor %}
@@ -146,11 +146,11 @@
                             <label for="php-modules-pecl">PECL Modules</label>
                             <select id="php-modules-pecl" name="php[modules][pecl][]"
                                     multiple class="form-control select-tags">
-                                {% for namespace, modules in php.modules.pecl %}
+                                {% for namespace, modules in php.available_modules.pecl %}
                                     <optgroup label="{{ namespace }}">
                                         {% for module in modules %}
                                             <option value="{{ module }}"
-                                                {% if module in php.selected_modules.pecl %}selected{% endif %}>{{ module }}</option>
+                                                {% if module in php.modules.pecl %}selected{% endif %}>{{ module }}</option>
                                         {% endfor %}
                                     </optgroup>
                                 {% endfor %}
@@ -166,66 +166,5 @@
         <div class="col-xs-3 right-panel"></div>
     </div>
     <!-- end PHP / Quick Settings -->
-
-    <!-- PHP / XDebug -->
-    <div class="row">
-        <div class="col-xs-9">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">XDebug</h3>
-                </div>
-
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="php[xdebug][install]" checked value="1" /> Install XDebug
-                            </label>
-
-                            <p class="help-block">
-                                CLI debugging will be automatically available. Simply run
-                                <code>$ xdebug foo.php</code>!
-                                <a href="http://devincharge.com/debug-cli-remote-server/">Follow
-                                    instructions here to setup PHPStorm to listen for a CLI connection</a>.
-                                Other IDEs should be similar.
-                            </p>
-                        </div>
-
-                        <div class="col-xs-12">
-                            <label for="php-xdebug-settings">Settings</label>
-                            <select id="php-xdebug-settings" name="php[xdebug][settings][]"
-                                    multiple class="form-control select-tags-user-input">
-                                <optgroup label="Authentication">
-                                    <option value="Auth_SASL2">Auth_SASL2</option>
-                                    <option value="OpenID">OpenID</option>
-                                </optgroup>
-                                <optgroup label="Configuration">
-                                    <option value="Config_Lite">Config_Lite</option>
-                                </optgroup>
-                                <optgroup label="Console">
-                                    <option value="Console_Color2">Console_Color2</option>
-                                    <option value="Console_CommandLine">Console_CommandLine</option>
-                                </optgroup>
-                                <optgroup label="Database">
-                                    <option value="DB_DataObject">DB_DataObject</option>
-                                    <option value="DB_Sqlite_Tools">DB_Sqlite_Tools</option>
-                                    <option value="MDB2">MDB2</option>
-                                </optgroup>
-                            </select>
-
-                            <p class="help-block">
-                                Not using Xdebug? Still pounding out <code>var_dump()</code> and
-                                <code>print_r()</code> and <code>echo</code>?<br />
-                                <a href="https://jtreminio.com/2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger">Xdebug and You: Why You Should be Using a Real Debugger</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-xs-3 right-panel"></div>
-    </div>
-    <!-- end PHP / XDebug -->
 
 </section>

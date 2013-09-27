@@ -1,0 +1,14 @@
+modules:
+    php:
+        - php5-cli
+        - php5-curl
+        - php5-intl
+        - php5-mcrypt
+    pecl:
+        - pecl_http
+
+ini:
+    display_errors: On
+    error_reporting: -1
+
+timezone: America/Chicago
