@@ -1,5 +1,4 @@
 parameters:
-#    puphpet_extension_vagrantfile.example.class: Puphpet\Extension\VagrantfileBundle\Example
 
 services:
     puphpet.extension.vagrantfile.configure:
