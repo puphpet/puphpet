@@ -5,7 +5,6 @@ namespace Puphpet\Extension\ApacheBundle\Controller;
 use Puphpet\MainBundle\Extension;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Yaml\Yaml;
 
 class ApacheController extends Controller implements Extension\ControllerInterface
 {
