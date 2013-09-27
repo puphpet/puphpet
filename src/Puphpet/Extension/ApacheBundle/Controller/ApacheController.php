@@ -9,12 +9,8 @@ use Symfony\Component\Yaml\Yaml;
 
 class ApacheController extends Controller implements Extension\ControllerInterface
 {
-    public function indexAction(array $data = [])
+    public function indexAction(array $data)
     {
-        if (empty($data)) {
-            $data = $this->getData();
-        }
-
         return $this->render('PuphpetExtensionApacheBundle:form:Apache.html.twig', [
             'apache' => $data,
         ]);
@@ -23,7 +19,7 @@ class ApacheController extends Controller implements Extension\ControllerInterfa
     public function vhostAction()
     {
         return $this->render('PuphpetExtensionApacheBundle:form/sections:vhost.html.twig', [
-            'vhost' => array_shift($this->getData()['vhosts']),
+            'vhost' => $this->getData()['empty_vhost'],
         ]);
     }
 
@@ -32,6 +28,7 @@ class ApacheController extends Controller implements Extension\ControllerInterfa
      */
     private function getData()
     {
-        return Yaml::parse(__DIR__ . '/../Resources/config/data.yml');
+        $config = $this->get('puphpet.extension.apache.configure');
+        return $config->getData();
     }
 }

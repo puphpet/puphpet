@@ -1,7 +1,7 @@
 puphpet.extension.apache.homepage:
     pattern:  /
-    defaults: { _controller: PuphpetExtensionApacheBundle:Default:index }
+    defaults: { _controller: PuphpetExtensionApacheBundle:Apache:index }
 
 puphpet.extension.apache.vhost:
     pattern:  /vhost
-    defaults: { _controller: PuphpetExtensionApacheBundle:Default:vhost }
+    defaults: { _controller: PuphpetExtensionApacheBundle:Apache:vhost }

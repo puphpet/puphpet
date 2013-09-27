@@ -1,4 +1,4 @@
-modules:
+select_modules:
     - rewrite
     - actions
     - asis
@@ -50,14 +50,4 @@ modules:
     - usertrack
     - version
     - vhost_alias
-selected_modules:
-    - rewrite
-vhosts:
-    -
-        servername: awesome.dev
-        serveraliases:
-            - www.awesome.dev
-        docroot: /var/www/awesome
-        port: 80
-        envvars:
-            - APP_ENV dev
+vhosts: []
