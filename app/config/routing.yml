@@ -17,3 +17,7 @@ puphpet.extension.apache:
 puphpet.extension.php:
     resource: "@PuphpetExtensionPhpBundle/Resources/config/routing.yml"
     prefix:   /extensions/php
+
+puphpet_extension.xdebug:
+    resource: "@PuphpetExtensionXdebugBundle/Resources/config/routing.yml"
+    prefix:   /extensions/xdebug

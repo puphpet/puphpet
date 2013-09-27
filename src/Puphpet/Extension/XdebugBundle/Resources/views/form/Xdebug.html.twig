@@ -1,0 +1,57 @@
+<section>
+
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">XDebug</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="php[xdebug][install]"
+                                       {% if xdebug.enabled %}checked{% endif %} value="1" /> Install XDebug
+                            </label>
+
+                            <p class="help-block">
+                                CLI debugging will be automatically available. Simply run
+                                <code>$ xdebug foo.php</code>!
+                                <a href="http://devincharge.com/debug-cli-remote-server/">Follow
+                                    instructions here to setup PHPStorm to listen for a CLI connection</a>.
+                                Other IDEs should be similar.
+                            </p>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <label for="php-xdebug-settings">Settings</label>
+                            <select id="php-xdebug-settings" name="php[xdebug][settings][]"
+                                    multiple class="form-control select-tags-user-input" data-value-seperator=" = ">
+                                {% for ini in xdebug.available_ini %}
+                                    <option value="{{ ini }}"
+                                        {% if ini in xdebug.ini|keys %}selected{% endif %}>{{ ini }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <div id="php-xdebug-settings-selected" style="display: none;">
+                                {% for option, value in xdebug.ini %}
+                                    <div data-option-name="{{ option }}" data-option-value="{{ value }}"></div>
+                                {% endfor %}
+                            </div>
+
+                            <p class="help-block">
+                                Not using Xdebug? Still pounding out <code>var_dump()</code> and
+                                <code>print_r()</code> and <code>echo</code>?<br />
+                                <a href="https://jtreminio.com/2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger">Xdebug and You: Why You Should be Using a Real Debugger</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+
+</section>

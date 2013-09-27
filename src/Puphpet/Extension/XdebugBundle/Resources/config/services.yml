@@ -1,0 +1,12 @@
+parameters:
+
+services:
+    puphpet.extension.xdebug.configure:
+        class: Puphpet\Extension\XdebugBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.xdebug.main_controller:
+        class: Puphpet\Extension\XdebugBundle\Controller\XdebugController
+        calls:
+            - [ setContainer, [@service_container] ]
