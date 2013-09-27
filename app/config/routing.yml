@@ -25,3 +25,7 @@ puphpet.extension.xdebug:
 puphpet.extension.mysql:
     resource: "@PuphpetExtensionMysqlBundle/Resources/config/routing.yml"
     prefix:   /extensions/mysql
+
+puphpet.extension.postgresql:
+    resource: "@PuphpetExtensionPostgresqlBundle/Resources/config/routing.yml"
+    prefix:   /extensions/postgresql

@@ -1,0 +1,27 @@
+root_password: 123
+
+available_privileges:
+    "Give all":
+        - ALL
+    "or, Give some":
+        - SELECT
+        - INSERT
+        - UPDATE
+        - DELETE
+        - TRUNCATE
+        - REFERENCE
+        - TRIGGER
+        - CREATE
+        - CONNECT
+        - TEMPORARY
+        - EXECUTE
+        - USAGE
+
+databases: []
+
+empty_database:
+    privileges: []
+    username: ~
+    password: ~
+    db_name: ~
+    sql_file: ~

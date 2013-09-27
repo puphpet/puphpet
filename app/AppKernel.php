@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Puphpet\Extension\PhpBundle\PuphpetExtensionPhpBundle(),
             new Puphpet\Extension\XdebugBundle\PuphpetExtensionXdebugBundle(),
             new Puphpet\Extension\MysqlBundle\PuphpetExtensionMysqlBundle(),
+            new Puphpet\Extension\PostgresqlBundle\PuphpetExtensionPostgresqlBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

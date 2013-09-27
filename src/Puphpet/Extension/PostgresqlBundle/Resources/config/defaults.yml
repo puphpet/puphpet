@@ -1,0 +1,8 @@
+databases:
+    -
+        privileges:
+            - ALL
+        username: ~
+        password: ~
+        db_name: ~
+        sql_file: ~

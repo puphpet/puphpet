@@ -1,0 +1,49 @@
+<section>
+
+    <div class="page-header">
+      <h1 id="database">Database</h1>
+    </div>
+
+    <!-- Database / Quick Settings -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Quick Settings</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="postgresql-root">Root Password</label>
+                            <input type="text" id="postgresql-root" name="postgresql[root]"
+                                   value="{{ postgresql.root_password }}" class="form-control" />
+
+                            <p class="help-block">
+                                Assign a password to the root user.
+                                <strong>Database will only be installed
+                                when a password is entered here.</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end Database / Quick Settings -->
+
+    {% for database in postgresql.databases %}
+        {% include 'PuphpetExtensionPostgresqlBundle:form/sections:NewUserAndDatabase.html.twig'
+            with {'available_privileges': postgresql.available_privileges, 'database': database} %}
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-xs-9">
+            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                    data-source-url="{{ path('puphpet.extension.postgresql.add_database') }}">Add another database</button>
+        </div>
+    </div>
+
+</section>
