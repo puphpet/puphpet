@@ -76,11 +76,9 @@
                             </select>
 
                             <div id="php-ini-selected" style="display: none;">
-                                {% if php.ini is defined and php.ini is not empty %}
-                                    {% for option, value in php.ini %}
-                                        <div data-option-name="{{ option }}" data-option-value="{{ value }}"></div>
-                                    {% endfor %}
-                                {% endif %}
+                                {% for option, value in php.ini %}
+                                    <div data-option-name="{{ option }}" data-option-value="{{ value }}"></div>
+                                {% endfor %}
                             </div>
 
                         </div>

@@ -1,6 +1,6 @@
 vm:
-    box: ~
-    box_url: ~
+    box: wheezy64
+    box_url: http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box
     graceful_halt_retry_count: 3
     graceful_halt_retry_interval: 1
     guest: :linux
@@ -21,6 +21,7 @@ vm:
             options: []
     synced_folder: []
     usable_port_range: 2200..2250
+
 ssh:
     host: ~
     port: ~
@@ -33,5 +34,48 @@ ssh:
     forward_agent: false
     forward_x11: false
     shell: bash -l
+
 vagrant:
     host: :detect
+
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: true
+
+available_boxes:
+    -
+        url: http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box
+        os: debian
+        short_name: wheezy64
+        long_name: Debian Wheezy 7.0rc1 x64
+        php_versions:
+            - 5.5
+            - 5.4
+    -
+        url: http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210.box
+        os: debian
+        short_name: squeeze64
+        long_name: Debian Squeeze 6.0.7 x64
+        php_versions:
+            - 5.4
+            - 5.3
+    -
+        url: http://files.vagrantup.com/precise64.box
+        os: ubuntu
+        short_name: precise64
+        long_name: Ubuntu Precise 12.04 x64
+        php_versions:
+            - 5.5
+            - 5.4
+            - 5.3
+    -
+        url: http://files.vagrantup.com/lucid64.box
+        os: ubuntu
+        short_name: lucid64
+        long_name: Ubuntu Lucid 10.04 x64
+        php_versions:
+            - 5.5
+            - 5.4
+            - 5.3

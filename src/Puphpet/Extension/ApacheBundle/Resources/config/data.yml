@@ -50,4 +50,6 @@ select_modules:
     - usertrack
     - version
     - vhost_alias
+
+modules: []
 vhosts: []
