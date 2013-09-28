@@ -22,6 +22,10 @@ h1,
     border-color: #64a9dc;
 }
 
+.text-large {
+    font-size: 2em;
+}
+
 .panel-info {
     border-color: #64a9dc;
 }
@@ -33,6 +37,11 @@ h1,
 
 button.addParentContainer {
     margin-bottom: 20px;
+}
+
+button.tall {
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 /*
