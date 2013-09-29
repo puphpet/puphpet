@@ -42,13 +42,8 @@ $(document).ready(function() {
 
         var $anchor = $(this).children()[0];
         var extensionId = $anchor.getAttribute('data-target-element');
-        var $disableField = $('input[name="is_disabled[' + extensionId + ']"]');
 
-        if (!$disableField.length) {
-            return;
-        }
-
-        $disableField.val(1);
+        $('#' + extensionId).find('input, textarea, button, select').prop('disabled', true);
     });
 
     // when switching tabs, disable original extension and enable the target
@@ -56,15 +51,8 @@ $(document).ready(function() {
         var original = e.relatedTarget.getAttribute('data-target-element');
         var target   = e.target.getAttribute('data-target-element');
 
-        var $disableField = $('input[name="is_disabled[' + original + ']"]');
-        var $enableField  = $('input[name="is_disabled[' + target + ']"]');
-
-        if (!$disableField.length || !$enableField.length) {
-            return;
-        }
-
-        $disableField.val(1);
-        $enableField.val(0);
+        $('#' + original).find('input, textarea, button, select').prop('disabled', true);
+        $('#' + target).find('input, textarea, button, select').prop('disabled', false);
     })
 });
 
