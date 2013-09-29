@@ -16,7 +16,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getController()
     {
-        return $this->container->get('puphpet.extension.nginx.main_controller');
+        return $this->container->get('puphpet.extension.nginx.front_controller');
     }
 
     /**

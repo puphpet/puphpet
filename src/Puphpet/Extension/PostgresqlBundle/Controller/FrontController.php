@@ -1,23 +1,23 @@
 <?php
 
-namespace Puphpet\Extension\MysqlBundle\Controller;
+namespace Puphpet\Extension\PostgresqlBundle\Controller;
 
 use Puphpet\MainBundle\Extension;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class MysqlController extends Controller implements Extension\ControllerInterface
+class FrontController extends Controller implements Extension\ControllerInterface
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetExtensionMysqlBundle:form:Mysql.html.twig', [
-            'mysql' => $data,
+        return $this->render('PuphpetExtensionPostgresqlBundle:form:Postgresql.html.twig', [
+            'postgresql' => $data,
         ]);
     }
 
     public function addDatabaseAction()
     {
-        return $this->render('PuphpetExtensionMysqlBundle:form/sections:NewUserAndDatabase.html.twig', [
+        return $this->render('PuphpetExtensionPostgresqlBundle:form/sections:NewUserAndDatabase.html.twig', [
             'available_privileges' => $this->getData()['available_privileges'],
             'database'             => $this->getData()['empty_database'],
         ]);
@@ -28,7 +28,7 @@ class MysqlController extends Controller implements Extension\ControllerInterfac
      */
     private function getData()
     {
-        $config = $this->get('puphpet.extension.mysql.configure');
+        $config = $this->get('puphpet.extension.postgresql.configure');
         return $config->getData();
     }
 }

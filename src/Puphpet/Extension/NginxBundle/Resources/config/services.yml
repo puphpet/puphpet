@@ -6,7 +6,7 @@ services:
         arguments:
             - "@service_container"
 
-    puphpet.extension.nginx.main_controller:
-        class: Puphpet\Extension\NginxBundle\Controller\NginxController
+    puphpet.extension.nginx.front_controller:
+        class: Puphpet\Extension\NginxBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]

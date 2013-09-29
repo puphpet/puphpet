@@ -16,7 +16,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getController()
     {
-        return $this->container->get('puphpet.extension.php.main_controller');
+        return $this->container->get('puphpet.extension.php.front_controller');
     }
 
     /**

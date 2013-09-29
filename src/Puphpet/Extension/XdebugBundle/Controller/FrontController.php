@@ -6,7 +6,7 @@ use Puphpet\MainBundle\Extension;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class XdebugController extends Controller implements Extension\ControllerInterface
+class FrontController extends Controller implements Extension\ControllerInterface
 {
     public function indexAction(array $data)
     {

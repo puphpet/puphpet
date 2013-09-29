@@ -6,7 +6,7 @@ services:
         arguments:
             - "@service_container"
 
-    puphpet.extension.mysql.main_controller:
-        class: Puphpet\Extension\MysqlBundle\Controller\MysqlController
+    puphpet.extension.mysql.front_controller:
+        class: Puphpet\Extension\MysqlBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]

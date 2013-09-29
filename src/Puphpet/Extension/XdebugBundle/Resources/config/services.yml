@@ -6,7 +6,7 @@ services:
         arguments:
             - "@service_container"
 
-    puphpet.extension.xdebug.main_controller:
-        class: Puphpet\Extension\XdebugBundle\Controller\XdebugController
+    puphpet.extension.xdebug.front_controller:
+        class: Puphpet\Extension\XdebugBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]

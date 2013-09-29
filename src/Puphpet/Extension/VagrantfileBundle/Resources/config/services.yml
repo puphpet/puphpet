@@ -6,7 +6,7 @@ services:
         arguments:
             - "@service_container"
 
-    puphpet.extension.vagrantfile.main_controller:
-        class: Puphpet\Extension\VagrantfileBundle\Controller\VagrantfileController
+    puphpet.extension.vagrantfile.front_controller:
+        class: Puphpet\Extension\VagrantfileBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]

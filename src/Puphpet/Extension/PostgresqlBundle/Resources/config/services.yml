@@ -6,7 +6,7 @@ services:
         arguments:
             - "@service_container"
 
-    puphpet.extension.postgresql.main_controller:
-        class: Puphpet\Extension\PostgresqlBundle\Controller\PostgresqlController
+    puphpet.extension.postgresql.front_controller:
+        class: Puphpet\Extension\PostgresqlBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]

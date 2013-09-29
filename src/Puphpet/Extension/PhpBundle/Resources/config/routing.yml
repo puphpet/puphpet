@@ -1,3 +1,3 @@
 puphpet.extension.php.homepage:
     pattern:  /
-    defaults: { _controller: PuphpetExtensionPhpBundle:Php:index }
+    defaults: { _controller: PuphpetExtensionPhpBundle:Front:index }

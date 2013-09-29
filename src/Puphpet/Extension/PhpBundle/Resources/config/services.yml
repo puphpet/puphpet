@@ -6,7 +6,7 @@ services:
         arguments:
             - "@service_container"
 
-    puphpet.extension.php.main_controller:
-        class: Puphpet\Extension\PhpBundle\Controller\PhpController
+    puphpet.extension.php.front_controller:
+        class: Puphpet\Extension\PhpBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
