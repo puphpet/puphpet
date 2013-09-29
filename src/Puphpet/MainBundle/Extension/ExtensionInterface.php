@@ -8,7 +8,7 @@ interface ExtensionInterface
 
     public function getSlug();
 
-    public function getController();
+    public function getFrontController();
 
     public function render(array $data = []);
 

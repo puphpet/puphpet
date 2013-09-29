@@ -14,7 +14,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'Server Basics';
     protected $slug = 'server';
 
-    public function getController()
+    public function getFrontController()
     {
         return $this->container->get('puphpet.extension.server_basics.front_controller');
     }

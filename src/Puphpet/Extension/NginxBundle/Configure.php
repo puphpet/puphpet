@@ -14,7 +14,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'Nginx';
     protected $slug = 'nginx';
 
-    public function getController()
+    public function getFrontController()
     {
         return $this->container->get('puphpet.extension.nginx.front_controller');
     }

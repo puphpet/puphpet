@@ -14,7 +14,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'Php';
     protected $slug = 'php';
 
-    public function getController()
+    public function getFrontController()
     {
         return $this->container->get('puphpet.extension.php.front_controller');
     }

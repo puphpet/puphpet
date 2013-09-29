@@ -48,7 +48,7 @@ abstract class ExtensionAbstract
     /**
      * @return ControllerInterface
      */
-    abstract public function getController();
+    abstract public function getFrontController();
 
     /**
      * @param array $data
@@ -56,7 +56,7 @@ abstract class ExtensionAbstract
      */
     public function render(array $data = [])
     {
-        return $this->getController()
+        return $this->getFrontController()
             ->indexAction($data)
             ->getContent();
     }

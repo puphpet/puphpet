@@ -14,7 +14,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'MySQL';
     protected $slug = 'mysql';
 
-    public function getController()
+    public function getFrontController()
     {
         return $this->container->get('puphpet.extension.mysql.front_controller');
     }

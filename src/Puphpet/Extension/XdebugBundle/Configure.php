@@ -14,7 +14,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'Xdebug';
     protected $slug = 'xdebug';
 
-    public function getController()
+    public function getFrontController()
     {
         return $this->container->get('puphpet.extension.xdebug.front_controller');
     }

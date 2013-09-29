@@ -14,7 +14,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'PostgreSQL';
     protected $slug = 'postgresql';
 
-    public function getController()
+    public function getFrontController()
     {
         return $this->container->get('puphpet.extension.postgresql.front_controller');
     }
