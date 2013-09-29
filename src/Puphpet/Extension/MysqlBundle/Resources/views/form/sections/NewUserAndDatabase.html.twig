@@ -33,7 +33,7 @@
                     <div class="col-md-6">
                         <label for="mysql-db-{{ uniqid }}-dbname">DB Name</label>
                         <input type="text" id="mysql-db-{{ uniqid }}-dbname"
-                               name="mysql[db][{{ uniqid }}][dbname]" placeholder="database name"
+                               name="mysql[db][{{ uniqid }}][dbname]" required placeholder="database name"
                                value="{{ database.db_name }}" class="form-control" />
                     </div>
 
@@ -51,7 +51,7 @@
                         <label for="mysql-db-{{ uniqid }}-username">Username</label>
                         <input type="text" id="mysql-db-{{ uniqid }}-username"
                                name="mysql[db][{{ uniqid }}][username]"
-                               placeholder="username"
+                               required placeholder="username"
                                value="{{ database.username }}" class="form-control" />
                     </div>
 
