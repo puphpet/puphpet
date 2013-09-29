@@ -1,11 +1,17 @@
 $(document).ready(function() {
     // Update elements based off of clicked data attributes
-    $(document).on('click', '#vagrantfile-details input', function(e){
-        var operatingSystem = this.getAttribute('data-operating-system');
-        var vmBox           = this.getAttribute('data-vagrantfile-vm-box');
+    $(document).on('click', '.update-other-input', function(e){
+        $.each($(this).data(), function(key, value) {
+            key = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 
-        $('#operating-system').val(operatingSystem);
-        $('#vagrantfile-vm-box').val(vmBox);
+            var $target = $('#' + key);
+
+            if (!$target.length) {
+                return;
+            }
+
+            $target.val(value);
+        });
     });
 
     runSelectize(null);

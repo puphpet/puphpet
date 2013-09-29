@@ -20,9 +20,10 @@
                     <div class="form-group">
                         {% for box in vagrantfile.available_boxes %}
                             <label class="radio">
-                                <input type="radio" name="vagrantfile[vm][box_url]"
+                                <input type="radio" class="update-other-input" name="vagrantfile[vm][box_url]"
                                        value="{{ box.url }}" {% if box.url == vagrantfile.vm.box_url %}checked{% endif %}
-                                       data-operating-system="{{ box.os }}" data-vagrantfile-vm-box="{{ box.short_name }}" />
+                                       data-operating-system="{{ box.os }}"
+                                       data-vagrantfile-vm-box="{{ box.short_name }}" />
                                 {{ box.long_name }}
                                 {% if box.php_versions is defined %}
                                     (PHP
