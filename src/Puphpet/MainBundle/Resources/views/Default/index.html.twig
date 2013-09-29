@@ -25,31 +25,31 @@
                 <div class="container">
 
                     {% for extension in extensionManager.getExtensions
-                       if not extensionManager.extensionAlreadyUsed(extension.name) %}
+                       if not extensionManager.extensionAlreadyUsed(extension.slug) %}
 
-                        {% set groupName = extensionManager.belongsToGroup(extension.name) %}
+                        {% set groupName = extensionManager.belongsToGroup(extension.slug) %}
 
                         {% if groupName %}
                             <div class="page-header">
                                 <h1 id="{{ groupName|slugify }}">{{ groupName|title }}</h1>
                             </div>
 
-                            {% set activeExtensionName = extensionManager.extensionInGroupHasCustomData(groupName) %}
+                            {% set activeExtensionSlug = extensionManager.extensionInGroupHasCustomData(groupName) %}
 
                             <ul class="nav group-nav nav-pills group-tabs" id="{{ groupName|slugify }}-tab">
-                                {% for extensionName in extensionManager.getExtensionNamesInGroup(groupName) %}
-                                    <li class="{% if extensionName == activeExtensionName %}active{% endif %}">
-                                        <a href="#{{ extensionName|slugify }}-tab"
-                                           data-target-element="{{ extensionName|slugify }}"
-                                           data-toggle="tab" >{{ extensionName|title }}</a>
+                                {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
+                                    <li class="{% if groupedExtension.slug == activeExtensionSlug %}active{% endif %}">
+                                        <a href="#{{ groupedExtension.slug }}-tab"
+                                           data-target-element="{{ groupedExtension.slug }}"
+                                           data-toggle="tab">{{ groupedExtension.name }}</a>
                                     </li>
                                 {% endfor %}
                             </ul>
 
                             <div class="tab-content">
                                 {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
-                                    <div class="tab-pane {% if activeExtensionName == groupedExtension.name %}active{% endif %}"
-                                         id="{{ groupedExtension.name|slugify }}-tab">
+                                    <div class="tab-pane {% if activeExtensionSlug == groupedExtension.slug %}active{% endif %}"
+                                         id="{{ groupedExtension.slug }}-tab">
                                         {{ groupedExtension.render(groupedExtension.data)|raw }}
                                     </div>
                                 {% endfor %}

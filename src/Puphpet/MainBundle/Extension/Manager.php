@@ -34,7 +34,7 @@ class Manager
      */
     public function addExtension(Extension\ExtensionInterface $extension)
     {
-        $this->extensions[$extension->getName()] = $extension;
+        $this->extensions[$extension->getSlug()] = $extension;
 
         return $this;
     }
@@ -52,8 +52,8 @@ class Manager
             $this->groups[$groupName] = [];
         }
 
-        $this->groups[$groupName][] = $extension->getName();
-        $this->groupsMirrored[$extension->getName()] = $groupName;
+        $this->groups[$groupName][] = $extension->getSlug();
+        $this->groupsMirrored[$extension->getSlug()] = $groupName;
 
         $this->addExtension($extension);
 
@@ -68,6 +68,11 @@ class Manager
         return $this->extensions;
     }
 
+    public function getExtensionBySlug()
+    {
+        //
+    }
+
     /**
      * @return array
      */
@@ -76,10 +81,29 @@ class Manager
         $parsed = [];
 
         foreach ($this->extensions as $extension) {
-            $parsed[$extension->getName()] = $extension;
+            $parsed[$extension->getSlug()] = $extension;
         }
 
         return $parsed;
+    }
+
+    /**
+     * Takes submitted information and extracts values that belong to extensions
+     *
+     * @param array $values
+     * @return array
+     */
+    public function parseSubmittedValues(array $values)
+    {
+        $validExtensions = [];
+
+        foreach ($this->extensions as $extension) {
+            if (array_key_exists($extension->getSlug(), $values)) {
+                $validExtensions[$extension->getSlug()] = $values[$extension->getSlug()];
+            }
+        }
+
+        return $validExtensions;
     }
 
     /**
