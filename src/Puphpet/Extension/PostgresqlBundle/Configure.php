@@ -11,10 +11,8 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     private $data = [];
     private $customData = [];
 
-    public function getName()
-    {
-        return 'PostgreSQL';
-    }
+    protected $name = 'PostgreSQL';
+    protected $slug = 'postgresql';
 
     public function getController()
     {

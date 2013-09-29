@@ -11,10 +11,8 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     private $data = [];
     private $customData = [];
 
-    public function getName()
-    {
-        return 'Vagrantfile';
-    }
+    protected $name = 'Vagrantfile';
+    protected $slug = 'vagrantfile';
 
     public function getController()
     {

@@ -11,10 +11,8 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     private $data = [];
     private $customData = [];
 
-    public function getName()
-    {
-        return 'Php';
-    }
+    protected $name = 'Php';
+    protected $slug = 'php';
 
     public function getController()
     {

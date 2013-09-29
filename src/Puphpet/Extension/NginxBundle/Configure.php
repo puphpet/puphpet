@@ -11,10 +11,8 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     private $data = [];
     private $customData = [];
 
-    public function getName()
-    {
-        return 'Nginx';
-    }
+    protected $name = 'Nginx';
+    protected $slug = 'nginx';
 
     public function getController()
     {

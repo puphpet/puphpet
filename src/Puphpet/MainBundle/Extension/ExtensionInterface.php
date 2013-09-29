@@ -6,6 +6,8 @@ interface ExtensionInterface
 {
     public function getName();
 
+    public function getSlug();
+
     public function getController();
 
     public function render(array $data = []);

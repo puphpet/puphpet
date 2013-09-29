@@ -11,10 +11,8 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     private $data = [];
     private $customData = [];
 
-    public function getName()
-    {
-        return 'Xdebug';
-    }
+    protected $name = 'Xdebug';
+    protected $slug = 'xdebug';
 
     public function getController()
     {

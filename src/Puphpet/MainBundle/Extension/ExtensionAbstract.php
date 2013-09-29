@@ -8,6 +8,9 @@ abstract class ExtensionAbstract
 {
     protected $container;
 
+    protected $name;
+    protected $slug;
+
     /**
      * @param Container $container
      */
@@ -18,8 +21,29 @@ abstract class ExtensionAbstract
 
     /**
      * @return string
+     * @throws \Exception
      */
-    abstract public function getName();
+    public function getName()
+    {
+        if (!$this->name) {
+            throw new \Exception('Extension name has not been defined');
+        }
+
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function getSlug()
+    {
+        if (!$this->slug) {
+            throw new \Exception('Extension slug has not been defined');
+        }
+
+        return $this->slug;
+    }
 
     /**
      * @return ControllerInterface
