@@ -15,7 +15,7 @@
                             <input type="number" id="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-host"
                                    name="vagrantfile[vm][network][forwarded_port][{{ uniqid }}][host]"
                                    placeholder="8080" pattern="^[1-9][0-9]*$"
-                                   required min="1" max="65535"
+                                   min="1" max="65535"
                                    title="Port on Host to forward to VM (e.g. 8080)"
                                    value="{{ forwarded_port.guest }}"
                                    class="form-control" />
@@ -32,7 +32,7 @@
                             <input type="number" id="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-guest"
                                    name="vagrantfile[vm][network][forwarded_port][{{ uniqid }}][guest]"
                                    placeholder="80" pattern="^[1-9][0-9]*$"
-                                   required min="1" max="65535"
+                                   min="1" max="65535"
                                    title="Port on VM to accept from Host (e.g. 80)"
                                    value="{{ forwarded_port.host }}"
                                    class="form-control" />
