@@ -11,7 +11,7 @@ services:
             - "@service_container"
         calls:
         # vagrantfile group
-            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile_local.configure ] ]
+            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.local.configure ] ]
             - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.digital_ocean.configure ] ]
             - [ addExtension, [ @puphpet.extension.server_basics.configure ] ]
         # webserver group

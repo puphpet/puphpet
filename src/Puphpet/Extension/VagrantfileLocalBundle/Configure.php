@@ -16,12 +16,12 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getFrontController()
     {
-        return $this->container->get('puphpet.extension.vagrantfile_local.front_controller');
+        return $this->container->get('puphpet.extension.vagrantfile.local.front_controller');
     }
 
     public function getManifestController()
     {
-        return $this->container->get('puphpet.extension.vagrantfile_local.manifest_controller');
+        return $this->container->get('puphpet.extension.vagrantfile.local.manifest_controller');
     }
 
     /**

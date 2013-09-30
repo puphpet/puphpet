@@ -34,7 +34,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
      */
     private function getData()
     {
-        $config = $this->get('puphpet.extension.vagrantfile_local.configure');
+        $config = $this->get('puphpet.extension.vagrantfile.local.configure');
         return $config->getData();
     }
 }
