@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
   config.vm.guest = "{{ data.vm.guest }}"
 
   config.vm.define :master do |master|
-    master.vm.box = 'digital_ocean'
+    master.vm.box = "digital_ocean"
   end
 
 {% if data.vm.hostname %}  config.vm.hostname = {{ data.vm.hostname }}{% endif %}
@@ -51,7 +51,9 @@ Vagrant.configure("2") do |config|
 {% if data.ssh.shell %}  config.ssh.shell = {{ data.ssh.shell }}{% endif %}
 
   config.ssh.keep_alive = {% if data.ssh.keep_alive %}true{% else %}false{% endif %}
+
   config.ssh.forward_agent = {% if data.ssh.forward_agent %}true{% else %}false{% endif %}
+
   config.ssh.forward_x11 = {% if data.ssh.forward_x11 %}true{% else %}false{% endif %}
 
 {% if data.vagrant.host %}  config.vagrant.host: "{{ data.vagrant.host }}"{% endif %}
