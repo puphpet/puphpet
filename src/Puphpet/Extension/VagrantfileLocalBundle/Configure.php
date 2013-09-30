@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\VagrantfileBundle;
+namespace Puphpet\Extension\VagrantfileLocalBundle;
 
 use Puphpet\MainBundle\Extension;
 
@@ -16,12 +16,12 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getFrontController()
     {
-        return $this->container->get('puphpet.extension.vagrantfile.front_controller');
+        return $this->container->get('puphpet.extension.vagrantfilelocal.front_controller');
     }
 
     public function getManifestController()
     {
-        return $this->container->get('puphpet.extension.vagrantfile.manifest_controller');
+        return $this->container->get('puphpet.extension.vagrantfilelocal.manifest_controller');
     }
 
     /**

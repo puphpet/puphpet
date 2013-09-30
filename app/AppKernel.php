@@ -19,7 +19,7 @@ class AppKernel extends Kernel
             new Puphpet\MainBundle\PuphpetMainBundle(),
             new Zenstruck\SlugifyBundle\ZenstruckSlugifyBundle(),
 
-            new Puphpet\Extension\VagrantfileBundle\PuphpetExtensionVagrantfileBundle(),
+            new Puphpet\Extension\VagrantfileLocalBundle\PuphpetExtensionVagrantfileLocalBundle(),
             new Puphpet\Extension\ServerBasicsBundle\PuphpetExtensionServerBasicsBundle(),
             new Puphpet\Extension\ApacheBundle\PuphpetExtensionApacheBundle(),
             new Puphpet\Extension\PhpBundle\PuphpetExtensionPhpBundle(),
@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Puphpet\Extension\MysqlBundle\PuphpetExtensionMysqlBundle(),
             new Puphpet\Extension\PostgresqlBundle\PuphpetExtensionPostgresqlBundle(),
             new Puphpet\Extension\NginxBundle\PuphpetExtensionNginxBundle(),
+            new Puphpet\Extension\VagrantfileDigitalOceanBundle\PuphpetExtensionVagrantfileDigitalOceanBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

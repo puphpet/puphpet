@@ -2,7 +2,7 @@
 
     <input type="hidden" id="vm-location" name="vm-location" value="local" />
     <input type="hidden" id="operating-system" name="operating-system" value="debian" />
-    <input type="hidden" id="vagrantfile-vm-box" name="vagrantfile[vm][box]" value="{{ vagrantfile.vm.box }}" />
+    <input type="hidden" id="vagrantfile-vm-box" name="vagrantfile[vm][box]" value="{{ data.vm.box }}" />
 
     <div class="page-header">
       <h1 id="base-configuration">Base Configuration</h1>
@@ -18,10 +18,10 @@
 
                 <div class="panel-body">
                     <div class="form-group">
-                        {% for box in vagrantfile.available_boxes %}
+                        {% for box in data.available_boxes %}
                             <label class="radio">
                                 <input type="radio" class="update-other-input" name="vagrantfile[vm][box_url]"
-                                       value="{{ box.url }}" {% if box.url == vagrantfile.vm.box_url %}checked{% endif %}
+                                       value="{{ box.url }}" {% if box.url == data.vm.box_url %}checked{% endif %}
                                        data-operating-system="{{ box.os }}"
                                        data-vagrantfile-vm-box="{{ box.short_name }}" />
                                 {{ box.long_name }}
@@ -65,7 +65,7 @@
                             <input type="text" id="vagrantfile-vm-provider-virtualbox-modifyvm-name"
                                    name="vagrantfile[vm][provider][virtualbox][modifyvm][name]"
                                    required placeholder="my-vm-box"
-                                   value="{{ vagrantfile.vm.provider.virtualbox.modifyvm.name }}" class="form-control" />
+                                   value="{{ data.vm.provider.virtualbox.modifyvm.name }}" class="form-control" />
 
                             <p class="help-block">
                                 Your personal name for the box. Should be unique to your system.
@@ -80,7 +80,7 @@
                             <input type="text" id="vagrantfile-vm-network-private_network"
                                    name="vagrantfile[vm][network][private_network]"
                                    required placeholder="192.168.56.101"
-                                   value="{{ vagrantfile.vm.network.private_network }}" class="form-control" />
+                                   value="{{ data.vm.network.private_network }}" class="form-control" />
 
                             <p class="help-block">IP address to use for accessing the VM</p>
                         </div>
@@ -90,7 +90,7 @@
                             <input type="text" id="vagrantfile-vm-provider-virtualbox-modifyvm-memory"
                                    name="vagrantfile[vm][provider][virtualbox][modifyvm][memory]"
                                    required placeholder="512" pattern="^[1-9][0-9]*$" min="64"
-                                   value="{{ vagrantfile.vm.provider.virtualbox.modifyvm.memory }}" class="form-control" />
+                                   value="{{ data.vm.provider.virtualbox.modifyvm.memory }}" class="form-control" />
 
                             <p class="help-block">Memory to assign to VM in megabytes (only
                                 integers)</p>
@@ -104,25 +104,25 @@
     </div>
     <!-- end Vagrantfile / Details -->
 
-    {% for forwarded_port in vagrantfile.vm.network.forwarded_port %}
-        {% include 'PuphpetExtensionVagrantfileBundle:form/sections:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
+    {% for forwarded_port in data.vm.network.forwarded_port %}
+        {% include 'PuphpetExtensionVagrantfileLocalBundle:form/sections:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
     {% endfor %}
 
     <div class="row">
         <div class="col-xs-9">
             <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.vagrantfile.forwarded_port') }}">Add another port pair</button>
+                    data-source-url="{{ path('puphpet.extension.vagrantfilelocal.forwarded_port') }}">Add another port pair</button>
         </div>
     </div>
 
-    {% for synced_folder in vagrantfile.vm.synced_folder %}
-        {% include 'PuphpetExtensionVagrantfileBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
+    {% for synced_folder in data.vm.synced_folder %}
+        {% include 'PuphpetExtensionVagrantfileLocalBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
     {% endfor %}
 
     <div class="row">
         <div class="col-xs-9">
             <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.vagrantfile.synced_folder') }}">Add another shared folder</button>
+                    data-source-url="{{ path('puphpet.extension.vagrantfilelocal.synced_folder') }}">Add another shared folder</button>
         </div>
     </div>
 

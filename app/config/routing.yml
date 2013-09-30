@@ -2,9 +2,13 @@ puphpet.main:
     resource: "@PuphpetMainBundle/Resources/config/routing.yml"
     prefix:   /
 
-puphpet.extension.vagrantfile:
-    resource: "@PuphpetExtensionVagrantfileBundle/Resources/config/routing.yml"
-    prefix:   /extension/vagrantfile
+puphpet.extension.vagrantfilelocal:
+    resource: "@PuphpetExtensionVagrantfileLocalBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile-local
+
+puphpet.extension.vagrantfiledigital_ocean:
+    resource: "@PuphpetExtensionVagrantfileDigitalOceanBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile-digitalocean
 
 puphpet.extension.server_basics:
     resource: "@PuphpetExtensionServerBasicsBundle/Resources/config/routing.yml"

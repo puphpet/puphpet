@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\VagrantfileBundle\Controller;
+namespace Puphpet\Extension\VagrantfileLocalBundle\Controller;
 
 use Puphpet\MainBundle\Extension;
 
@@ -10,7 +10,7 @@ class ManifestController extends Controller implements Extension\ControllerInter
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetExtensionVagrantfileBundle:manifest:Vagrantfile.pp.twig', [
+        return $this->render('PuphpetExtensionVagrantfileLocalBundle:manifest:vagrantfilelocal.pp.twig', [
             'data' => $data,
         ]);
     }
