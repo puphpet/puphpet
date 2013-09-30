@@ -22,13 +22,12 @@ vm:
             options:
                 - "--verbose"
     synced_folder: []
-    usable_port_range: 2200..2250
 
 ssh:
     host: ~
     port: ~
     private_key_path: ~
-    username: vagrant
+    username: ~
     guest_port: ~
     keep_alive: true
     max_tries: 100
