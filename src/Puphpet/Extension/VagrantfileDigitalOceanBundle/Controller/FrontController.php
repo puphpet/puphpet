@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetExtensionVagrantfileLocalBundle:form:VagrantfileLocal.html.twig', [
+        return $this->render('PuphpetExtensionVagrantfileLocalBundle:form:vagrantfilelocal.html.twig', [
             'data' => $data,
         ]);
     }
@@ -34,7 +34,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
      */
     private function getData()
     {
-        $config = $this->get('puphpet.extension.vagrantfile_local.configure');
+        $config = $this->get('puphpet.extension.vagrantfilelocal.configure');
         return $config->getData();
     }
 }
