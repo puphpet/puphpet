@@ -1,8 +1,8 @@
-<section id="vagrantfile-local">
+<section id="vagrantfile-digitalocean">
 
-    <input type="hidden" id="vagrantfile-local-vm-box" name="vagrantfile-local[vm][box]" value="{{ data.vm.box }}" />
+    <input type="hidden" id="vagrantfile-digitalocean-vm-box" name="vagrantfile-digitalocean[vm][box]" value="{{ data.vm.box }}" />
 
-    <!-- vagrantfile-local / Operating System -->
+    <!-- vagrantfile-digitalocean / Operating System -->
     <div class="row">
         <div class="col-xs-9">
             <div class="panel panel-info">
@@ -14,10 +14,9 @@
                     <div class="form-group">
                         {% for box in data.available_boxes %}
                             <label class="radio">
-                                <input type="radio" class="update-other-input" name="vagrantfile-local[vm][box_url]"
+                                <input type="radio" class="update-other-input" name="vagrantfile-digitalocean[vm][box_url]"
                                        value="{{ box.url }}" {% if box.url == data.vm.box_url %}checked{% endif %}
-                                       data-operating-system="{{ box.os }}"
-                                       data-vagrantfile-local-vm-box="{{ box.short_name }}" />
+                                       data-vagrantfile-digitalocean-vm-box="{{ box.short_name }}" />
                                 {{ box.long_name }}
                                 {% if box.php_versions is defined %}
                                     (PHP
@@ -42,9 +41,9 @@
         </div>
         <div class="col-xs-3 right-panel"></div>
     </div>
-    <!-- end vagrantfile-local / Operating System -->
+    <!-- end vagrantfile-digitalocean / Operating System -->
 
-    <!-- vagrantfile-local / Details -->
+    <!-- vagrantfile-digitalocean / Details -->
     <div class="row">
         <div class="col-xs-9">
             <div class="panel panel-info">
@@ -55,9 +54,9 @@
                 <div class="panel-body">
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="vagrantfile-local-vm-provider-virtualbox-modifyvm-name">Name Your Box</label>
-                            <input type="text" id="vagrantfile-local-vm-provider-virtualbox-modifyvm-name"
-                                   name="vagrantfile-local[vm][provider][virtualbox][modifyvm][name]"
+                            <label for="vagrantfile-digitalocean-vm-provider-virtualbox-modifyvm-name">Name Your Box</label>
+                            <input type="text" id="vagrantfile-digitalocean-vm-provider-virtualbox-modifyvm-name"
+                                   name="vagrantfile-digitalocean[vm][provider][virtualbox][modifyvm][name]"
                                    required placeholder="my-vm-box"
                                    value="{{ data.vm.provider.virtualbox.modifyvm.name }}" class="form-control" />
 
@@ -70,9 +69,9 @@
 
                     <div class="row form-group">
                         <div class="col-md-6">
-                            <label for="vagrantfile-local-vm-network-private_network">Box IP Address</label>
-                            <input type="text" id="vagrantfile-local-vm-network-private_network"
-                                   name="vagrantfile-local[vm][network][private_network]"
+                            <label for="vagrantfile-digitalocean-vm-network-private_network">Box IP Address</label>
+                            <input type="text" id="vagrantfile-digitalocean-vm-network-private_network"
+                                   name="vagrantfile-digitalocean[vm][network][private_network]"
                                    required placeholder="192.168.56.101"
                                    value="{{ data.vm.network.private_network }}" class="form-control" />
 
@@ -80,9 +79,9 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory">Box Memory</label>
-                            <input type="text" id="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory"
-                                   name="vagrantfile-local[vm][provider][virtualbox][modifyvm][memory]"
+                            <label for="vagrantfile-digitalocean-vm-provider-virtualbox-modifyvm-memory">Box Memory</label>
+                            <input type="text" id="vagrantfile-digitalocean-vm-provider-virtualbox-modifyvm-memory"
+                                   name="vagrantfile-digitalocean[vm][provider][virtualbox][modifyvm][memory]"
                                    required placeholder="512" pattern="^[1-9][0-9]*$" min="64"
                                    value="{{ data.vm.provider.virtualbox.modifyvm.memory }}" class="form-control" />
 
@@ -96,27 +95,16 @@
         </div>
         <div class="col-xs-3 right-panel"></div>
     </div>
-    <!-- end vagrantfile-local / Details -->
-
-    {% for forwarded_port in data.vm.network.forwarded_port %}
-        {% include 'PuphpetExtensionVagrantfileLocalBundle:form/sections:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
-    {% endfor %}
-
-    <div class="row">
-        <div class="col-xs-9">
-            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.vagrantfile_local.forwarded_port') }}">Add another port pair</button>
-        </div>
-    </div>
+    <!-- end vagrantfile-digitalocean / Details -->
 
     {% for synced_folder in data.vm.synced_folder %}
-        {% include 'PuphpetExtensionVagrantfileLocalBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
+        {% include 'PuphpetExtensionVagrantfileDigitalOceanBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
     {% endfor %}
 
     <div class="row">
         <div class="col-xs-9">
             <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.vagrantfile_local.synced_folder') }}">Add another shared folder</button>
+                    data-source-url="{{ path('puphpet.extension.vagrantfile_digitalocean.synced_folder') }}">Add another shared folder</button>
         </div>
     </div>
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\VagrantfileLocalBundle\Controller;
+namespace Puphpet\Extension\VagrantfileDigitalOceanBundle\Controller;
 
 use Puphpet\MainBundle\Extension;
 
@@ -10,22 +10,15 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetExtensionVagrantfileLocalBundle:form:vagrantfilelocal.html.twig', [
+        return $this->render('PuphpetExtensionVagrantfileDigitalOceanBundle:form:VagrantfileDigitalOcean.html.twig', [
             'data' => $data,
         ]);
     }
 
     public function syncedFolderAction()
     {
-        return $this->render('PuphpetExtensionVagrantfileLocalBundle:form/sections:SyncedFolder.html.twig', [
+        return $this->render('PuphpetExtensionVagrantfileDigitalOceanBundle:form/sections:SyncedFolder.html.twig', [
             'synced_folder' => $this->getData()['empty_synced_folder'],
-        ]);
-    }
-
-    public function forwardedPortAction()
-    {
-        return $this->render('PuphpetExtensionVagrantfileLocalBundle:form/sections:ForwardedPort.html.twig', [
-            'forwarded_port' => array_shift($this->getData()['vm']['network']['forwarded_port']),
         ]);
     }
 
@@ -34,7 +27,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
      */
     private function getData()
     {
-        $config = $this->get('puphpet.extension.vagrantfilelocal.configure');
+        $config = $this->get('puphpet.extension.vagrantfile_digitalocean.configure');
         return $config->getData();
     }
 }

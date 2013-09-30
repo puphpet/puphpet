@@ -10,7 +10,9 @@ services:
         arguments:
             - "@service_container"
         calls:
-            - [ addExtension, [ @puphpet.extension.vagrantfile_local.configure ] ]
+        # vagrantfile group
+            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile_local.configure ] ]
+            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile_digitalocean.configure ] ]
             - [ addExtension, [ @puphpet.extension.server_basics.configure ] ]
         # webserver group
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.apache.configure ] ]

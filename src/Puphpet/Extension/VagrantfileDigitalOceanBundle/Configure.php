@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\VagrantfileLocalBundle;
+namespace Puphpet\Extension\VagrantfileDigitalOceanBundle;
 
 use Puphpet\MainBundle\Extension;
 
@@ -11,17 +11,17 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     private $data = [];
     private $customData = [];
 
-    protected $name = 'Local';
-    protected $slug = 'vagrantfile-local';
+    protected $name = 'Digital Ocean';
+    protected $slug = 'vagrantfile-digitalocean';
 
     public function getFrontController()
     {
-        return $this->container->get('puphpet.extension.vagrantfile_local.front_controller');
+        return $this->container->get('puphpet.extension.vagrantfile_digitalocean.front_controller');
     }
 
     public function getManifestController()
     {
-        return $this->container->get('puphpet.extension.vagrantfile_local.manifest_controller');
+        throw new \Exception('pending manifest controller');
     }
 
     /**

@@ -1,0 +1,20 @@
+vm:
+    provider:
+        virtualbox: []
+    synced_folder:
+        -
+            source: ~/www/
+            target: /var/www
+            id: vagrant-root
+            nfs: true
+    network:
+        forwarded_port:
+            -
+                guest: ~
+                host: ~
+    provision:
+        puppet:
+            options:
+                - "--verbose"
+ssh:
+    forward_agent: true

@@ -1,6 +1,6 @@
 {% set uniqid = uniqid('vvnf_', true) %}
 
-<!-- Vagrantfile / Ports -->
+<!-- vagrantfile-local / Ports -->
 <div class="row" id="{{ uniqid }}">
     <div class="col-xs-9">
         <div class="panel panel-info">
@@ -11,9 +11,9 @@
             <div class="panel-body">
                 <div class="row form-group">
                         <div class="col-md-6">
-                            <label for="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-host">Host Port</label>
-                            <input type="number" id="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-host"
-                                   name="vagrantfile[vm][network][forwarded_port][{{ uniqid }}][host]"
+                            <label for="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-host">Host Port</label>
+                            <input type="number" id="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-host"
+                                   name="vagrantfile-local[vm][network][forwarded_port][{{ uniqid }}][host]"
                                    placeholder="8080" pattern="^[1-9][0-9]*$"
                                    min="1" max="65535"
                                    title="Port on Host to forward to VM (e.g. 8080)"
@@ -28,9 +28,9 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-guest">Box Port</label>
-                            <input type="number" id="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-guest"
-                                   name="vagrantfile[vm][network][forwarded_port][{{ uniqid }}][guest]"
+                            <label for="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-guest">Box Port</label>
+                            <input type="number" id="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-guest"
+                                   name="vagrantfile-local[vm][network][forwarded_port][{{ uniqid }}][guest]"
                                    placeholder="80" pattern="^[1-9][0-9]*$"
                                    min="1" max="65535"
                                    title="Port on VM to accept from Host (e.g. 80)"
@@ -55,4 +55,4 @@
     </div>
     <div class="col-xs-3 right-panel"></div>
 </div>
-<!-- end Vagrantfile / Ports -->
+<!-- end vagrantfile-local / Ports -->
