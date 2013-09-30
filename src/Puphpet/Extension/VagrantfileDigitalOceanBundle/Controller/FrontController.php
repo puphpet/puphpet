@@ -27,7 +27,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
      */
     private function getData()
     {
-        $config = $this->get('puphpet.extension.vagrantfile_digitalocean.configure');
+        $config = $this->get('puphpet.extension.vagrantfile.digitalocean.configure');
         return $config->getData();
     }
 }
