@@ -1,20 +1,22 @@
 vm:
     provider:
-        virtualbox: []
+        digital_ocean:
+            image: Debian 7.0 x64
+            region: New York 1
+            size: 1GB
+            client_id: DIGITAL_OCEAN_CLIENT_ID
+            api_key: DIGITAL_OCEAN_API_KEY
     synced_folder:
         -
             source: ~/www/
             target: /var/www
-            id: vagrant-root
-            nfs: true
+            id: webroot
+            nfs: false
     network:
-        forwarded_port:
-            -
-                guest: ~
-                host: ~
     provision:
         puppet:
             options:
                 - "--verbose"
 ssh:
     forward_agent: true
+    private_key_path: "~/.ssh/id_rsa"

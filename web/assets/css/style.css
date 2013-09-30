@@ -164,6 +164,12 @@ div.navbar {
     background-color: #f0ad4e;
 }
 
+.panel-body .tab-content code {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow-x: scroll;
+}
+
 /*
  * Footer
  */

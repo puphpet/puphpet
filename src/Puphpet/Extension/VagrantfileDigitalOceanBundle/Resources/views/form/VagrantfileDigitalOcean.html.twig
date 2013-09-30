@@ -1,40 +1,182 @@
 <section id="vagrantfile-digitalocean">
 
-    <input type="hidden" id="vagrantfile-digitalocean-vm-box" name="vagrantfile-digitalocean[vm][box]" value="{{ data.vm.box }}" />
+    <input type="hidden" id="vagrantfile-digitalocean-vm-box" name="vagrantfile-digitalocean[vm][box]" value="digital_ocean" />
+
+    <!-- vagrantfile-digitalocean / instructions -->
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Digital Ocean Instructions</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <h3>Digital Ocean Droplet</h3>
+
+                        <p>
+                            Don't have a Digital Ocean account?
+                            <a href="https://www.digitalocean.com/?refcode=475274cc0939" target="_blank">Click here to create one</a>
+                            (affiliate link - help support this free service)!
+                        </p>
+
+                        <p>
+                            Login to Digital Ocean and
+                            <a href="https://www.digitalocean.com/api_access" target="_blank">go to the API page</a>.
+                            You will need a Client ID and API Key.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3>Installation Requirements</h3>
+
+                        <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#digitalocean-instructions-mac" data-toggle="pill">Mac</a></li>
+                            <li><a href="#digitalocean-instructions-windows-linux" data-toggle="pill">Windows &amp; Linux</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="digitalocean-instructions-mac">
+                                <code class="col-xs-11">
+                                    $ vagrant plugin install vagrant-digitalocean<br />
+                                    $ vagrant box add digital_ocean https://puphpet.com/assets/box/digital_ocean.box<br />
+                                    $ brew install curl-ca-bundle<br />
+                                    $ echo export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt >> ~/.bash_profile
+                                </code>
+                            </div>
+                            <div class="tab-pane" id="digitalocean-instructions-windows-linux">
+                                <code class="col-xs-11">
+                                    $ vagrant plugin install vagrant-digitalocean<br />
+                                    $ vagrant box add digital_ocean https://puphpet.com/assets/box/digital_ocean.box
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3>Running Vagrant</h3>
+
+                        <p>
+                            Instead of running <code>$ vagrant up</code>, you will need to run
+                            <code>$ vagrant up --provider=digital_ocean</code>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-3 right-panel"></div>
+    </div>
+    <!-- end vagrantfile-digitalocean / instructions -->
 
     <!-- vagrantfile-digitalocean / Operating System -->
     <div class="row">
         <div class="col-xs-9">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Operating System</h3>
+                    <h3 class="panel-title">Digital Ocean VM Details</h3>
                 </div>
 
                 <div class="panel-body">
                     <div class="form-group">
-                        {% for box in data.available_boxes %}
-                            <label class="radio">
-                                <input type="radio" class="update-other-input" name="vagrantfile-digitalocean[vm][box_url]"
-                                       value="{{ box.url }}" {% if box.url == data.vm.box_url %}checked{% endif %}
-                                       data-vagrantfile-digitalocean-vm-box="{{ box.short_name }}" />
-                                {{ box.long_name }}
-                                {% if box.php_versions is defined %}
-                                    (PHP
-                                    {% for php in box.php_versions %}
-                                        <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
-                                    {% endfor %}
-                                    )
-                                {% endif %}
+                        <div class="col-md-12">
+                            <label>Digital Ocean VM Operating System</label>
 
-                            </label>
-                        {% endfor %}
+                            {% for image in data.available_images %}
+                                <label class="radio">
+                                    <input type="radio" name="vagrantfile-digital_ocean[vm][provider][digital_ocean][image]"
+                                           value="{{ image.image }}"
+                                           {% if image.image == data.vm.provider.digital_ocean.image %}checked{% endif %} />
+                                    {{ image.long_name }}
+                                    {% if image.php_versions is defined %}
+                                        (PHP
+                                        {% for php in image.php_versions %}
+                                            <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
+                                        {% endfor %}
+                                        )
+                                    {% endif %}
+                                </label>
+                            {% endfor %}
+                        </div>
                     </div>
 
-                    <p class="help-block">
-                        Choose the operating system for your VM. It will be downloaded the first time you run Vagrant.
-                        <a href="http://docs.vagrantup.com/v2/getting-started/boxes.html">More
-                            information may be found here</a>
-                    </p>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="vagrantfile-digitalocean-vm-provider-digital_ocean-size">Digital Ocean VM Size</label>
+                            <select id="vagrantfile-digitalocean-vm-provider-digital_ocean-size"
+                                    name="vagrantfile-digital_ocean[vm][provider][digital_ocean][size]"
+                                    class="form-control select-tag">
+                                {% for size, name in data.available_sizes %}
+                                    <option value="{{ size }}"
+                                        {% if size == data.vm.provider.digital_ocean.size %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <p class="help-block">
+                                <a href="https://www.digitalocean.com/pricing" target="_blank">Pricing information</a>.
+                                Digital Ocean charges by the hour, but also shows what a full month would cost.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="vagrantfile-digitalocean-vm-provider-digital_ocean-region">Digital Ocean VM Region</label>
+                            <select id="vagrantfile-digitalocean-vm-provider-digital_ocean-region"
+                                    name="vagrantfile-digital_ocean[vm][provider][digital_ocean][region]"
+                                    class="form-control select-tag">
+                                {% for region in data.available_regions %}
+                                    <option value="{{ region }}"
+                                        {% if region == data.vm.provider.digital_ocean.region %}selected{% endif %}>{{ region }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <p class="help-block">Choose the one closest to you, or your target audience!</p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="vagrantfile-digitalocean-vm-provider-digital_ocean-client_id">Digital Ocean VM Client ID</label>
+                            <input id="vagrantfile-digitalocean-vm-provider-digital_ocean-client_id"
+                                   name="vagrantfile-digital_ocean[vm][provider][digital_ocean][client_id]"
+                                   placeholder="DIGITAL OCEAN CLIENT ID"
+                                   value="{{ data.vm.provider.digital_ocean.client_id }}" class="form-control" />
+
+                            <p class="help-block">
+                                <a href="https://www.digitalocean.com/api_access" target="_blank">Get it here</a>
+                            </p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="vagrantfile-digitalocean-vm-provider-digital_ocean-api_key">Digital Ocean VM API Key</label>
+                            <input id="vagrantfile-digitalocean-vm-provider-digital_ocean-api_key"
+                                   name="vagrantfile-digital_ocean[vm][provider][digital_ocean][api_key]"
+                                   placeholder="DIGITAL OCEAN API KEY"
+                                   value="{{ data.vm.provider.digital_ocean.api_key }}" class="form-control" />
+
+                            <p class="help-block">
+                                <a href="https://www.digitalocean.com/api_access" target="_blank">Get it here</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="vagrantfile-digitalocean-ssh-private_key_path">Local Private Key Path</label>
+                            <input id="vagrantfile-digitalocean-ssh-private_key_path"
+                                   name="vagrantfile-digital_ocean[ssh][private_key_path]"
+                                   placeholder="~/.ssh/id_rsa"
+                                   value="{{ data.ssh.private_key_path }}" class="form-control" />
+
+                            <p class="help-block">
+                                The Digital Ocean VM will not be accessible without your private/public key.
+                                <strong>It will not be accessible using username/password, only private key!</strong>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -43,60 +185,6 @@
     </div>
     <!-- end vagrantfile-digitalocean / Operating System -->
 
-    <!-- vagrantfile-digitalocean / Details -->
-    <div class="row">
-        <div class="col-xs-9">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Set Up Local VM</h3>
-                </div>
-
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <label for="vagrantfile-digitalocean-vm-provider-virtualbox-modifyvm-name">Name Your Box</label>
-                            <input type="text" id="vagrantfile-digitalocean-vm-provider-virtualbox-modifyvm-name"
-                                   name="vagrantfile-digitalocean[vm][provider][virtualbox][modifyvm][name]"
-                                   required placeholder="my-vm-box"
-                                   value="{{ data.vm.provider.virtualbox.modifyvm.name }}" class="form-control" />
-
-                            <p class="help-block">
-                                Your personal name for the box. Should be unique to your system.
-                                If you have multiple boxes running, name each one differently.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label for="vagrantfile-digitalocean-vm-network-private_network">Box IP Address</label>
-                            <input type="text" id="vagrantfile-digitalocean-vm-network-private_network"
-                                   name="vagrantfile-digitalocean[vm][network][private_network]"
-                                   required placeholder="192.168.56.101"
-                                   value="{{ data.vm.network.private_network }}" class="form-control" />
-
-                            <p class="help-block">IP address to use for accessing the VM</p>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="vagrantfile-digitalocean-vm-provider-virtualbox-modifyvm-memory">Box Memory</label>
-                            <input type="text" id="vagrantfile-digitalocean-vm-provider-virtualbox-modifyvm-memory"
-                                   name="vagrantfile-digitalocean[vm][provider][virtualbox][modifyvm][memory]"
-                                   required placeholder="512" pattern="^[1-9][0-9]*$" min="64"
-                                   value="{{ data.vm.provider.virtualbox.modifyvm.memory }}" class="form-control" />
-
-                            <p class="help-block">Memory to assign to VM in megabytes (only
-                                integers)</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-xs-3 right-panel"></div>
-    </div>
-    <!-- end vagrantfile-digitalocean / Details -->
-
     {% for synced_folder in data.vm.synced_folder %}
         {% include 'PuphpetExtensionVagrantfileDigitalOceanBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
     {% endfor %}
@@ -104,8 +192,7 @@
     <div class="row">
         <div class="col-xs-9">
             <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.vagrantfile_digitalocean.synced_folder') }}">Add another shared folder</button>
+                    data-source-url="{{ path('puphpet.extension.vagrantfile_digitalocean.synced_folder') }}">Add another Digital Ocean VM shared folder</button>
         </div>
     </div>
-
 </section>

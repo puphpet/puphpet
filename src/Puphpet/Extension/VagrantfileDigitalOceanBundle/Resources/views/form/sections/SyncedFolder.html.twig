@@ -2,6 +2,10 @@
 
 <!-- vagrantfile-digitalocean / Shared Folders -->
 <div class="row" id="{{ uniqid }}">
+
+    <input type="hidden" name="vagrantfile-digitalocean[vm][synced_folder][{{ uniqid }}][id]"
+           value="{% if synced_folder.id %}{{ synced_folder.id }}{% else %}{{ uniqid() }}{% endif %}" />
+
     <div class="col-xs-9">
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -9,39 +13,6 @@
             </div>
 
             <div class="panel-body">
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="vagrantfile-digitalocean-vm-synced_folder-{{ uniqid }}-id">Unique Id</label>
-                        <input type="text" id="vagrantfile-digitalocean-vm-synced_folder-{{ uniqid }}-id"
-                               name="vagrantfile-digitalocean[vm][synced_folder][{{ uniqid }}][id]"
-                               required placeholder="webroot"
-                               value="{{ synced_folder.id }}" class="form-control" />
-
-                        <p class="help-block">
-                            Give this share a unique id, ex <code>webroot</code>
-                        </p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label>Shared Folder Type</label><br />
-                        <label class="radio-inline">
-                            <input type="radio" name="vagrantfile-digitalocean[vm][synced_folder][{{ uniqid }}][nfs]"
-                                   {% if not synced_folder.nfs %}checked{% endif %}
-                                   value="false" /> Default
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="vagrantfile-digitalocean[vm][synced_folder][{{ uniqid }}][nfs]"
-                                   {% if synced_folder.nfs %}checked{% endif %}
-                                   value="true" /> NFS
-                        </label>
-
-                        <p class="help-block">
-                            Windows users should choose the Default option,
-                            <a href="http://docs.vagrantup.com/v2/synced-folders/nfs.html">more information</a>
-                        </p>
-                    </div>
-                </div>
-
                 <div class="row form-group">
                     <div class="col-md-6">
                         <label for="vagrantfile-digitalocean-vm-synced_folder-{{ uniqid }}-source">Box Sync Folder Source</label>
@@ -69,6 +40,12 @@
                         </p>
                     </div>
                 </div>
+
+                <p class="help-block">
+                    To upload files, <code>rsync</code> is used on <code>$ vagrant up</code>,
+                    <code>$ vagrant provision</code> and <code>$ vagrant reload</code>.
+                    Now may be a good time to work out your deployment strategy.
+                </p>
 
                 <p class="text-center">
                     <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
