@@ -19,7 +19,6 @@
                                 <label class="radio">
                                     <input type="radio" class="update-other-input" name="vagrantfile-local[vm][box_url]"
                                            value="{{ box.url }}" {% if box.url == data.vm.box_url %}checked{% endif %}
-                                           data-operating-system="{{ box.os }}"
                                            data-vagrantfile-local-vm-box="{{ box.short_name }}" />
                                     {{ box.long_name }}
                                     {% if box.php_versions is defined %}

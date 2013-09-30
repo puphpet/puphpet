@@ -2,6 +2,10 @@
 
 <!-- vagrantfile-local / Shared Folders -->
 <div class="row" id="{{ uniqid }}">
+
+    <input type="hidden" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][id]"
+           value="{% if synced_folder.id %}{{ synced_folder.id }}{% else %}{{ uniqid() }}{% endif %}" />
+
     <div class="col-xs-9">
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -9,39 +13,6 @@
             </div>
 
             <div class="panel-body">
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-id">Unique Id</label>
-                        <input type="text" id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-id"
-                               name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][id]"
-                               required placeholder="webroot"
-                               value="{{ synced_folder.id }}" class="form-control" />
-
-                        <p class="help-block">
-                            Give this share a unique id, ex <code>webroot</code>
-                        </p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label>Shared Folder Type</label><br />
-                        <label class="radio-inline">
-                            <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][nfs]"
-                                   {% if not synced_folder.nfs %}checked{% endif %}
-                                   value="false" /> Default
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][nfs]"
-                                   {% if synced_folder.nfs %}checked{% endif %}
-                                   value="true" /> NFS
-                        </label>
-
-                        <p class="help-block">
-                            Windows users should choose the Default option,
-                            <a href="http://docs.vagrantup.com/v2/synced-folders/nfs.html">more information</a>
-                        </p>
-                    </div>
-                </div>
-
                 <div class="row form-group">
                     <div class="col-md-6">
                         <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-source">Box Sync Folder Source</label>
@@ -66,6 +37,27 @@
                         <p class="help-block">
                             Path your files are stored on host machine,
                             <a href="http://docs.vagrantup.com/v2/synced-folders/index.html">more information</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label>Shared Folder Type</label><br />
+                        <label class="radio-inline">
+                            <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][nfs]"
+                                   {% if not synced_folder.nfs %}checked{% endif %}
+                                   value="false" /> Default
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][nfs]"
+                                   {% if synced_folder.nfs %}checked{% endif %}
+                                   value="true" /> NFS
+                        </label>
+
+                        <p class="help-block">
+                            Windows users should choose the Default option,
+                            <a href="http://docs.vagrantup.com/v2/synced-folders/nfs.html">more information</a>
                         </p>
                     </div>
                 </div>
