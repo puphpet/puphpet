@@ -7,7 +7,7 @@
         <div class="col-xs-9">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Operating System</h3>
+                    <h3 class="panel-title">Local VM Operating System</h3>
                 </div>
 
                 <div class="panel-body">
@@ -49,13 +49,13 @@
         <div class="col-xs-9">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Set Up Local VM</h3>
+                    <h3 class="panel-title">Local VM Details</h3>
                 </div>
 
                 <div class="panel-body">
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="vagrantfile-local-vm-provider-virtualbox-modifyvm-name">Name Your Box</label>
+                            <label for="vagrantfile-local-vm-provider-virtualbox-modifyvm-name">Name Your Local VM</label>
                             <input type="text" id="vagrantfile-local-vm-provider-virtualbox-modifyvm-name"
                                    name="vagrantfile-local[vm][provider][virtualbox][modifyvm][name]"
                                    required placeholder="my-vm-box"
@@ -70,7 +70,7 @@
 
                     <div class="row form-group">
                         <div class="col-md-6">
-                            <label for="vagrantfile-local-vm-network-private_network">Box IP Address</label>
+                            <label for="vagrantfile-local-vm-network-private_network">Local VM IP Address</label>
                             <input type="text" id="vagrantfile-local-vm-network-private_network"
                                    name="vagrantfile-local[vm][network][private_network]"
                                    required placeholder="192.168.56.101"
@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory">Box Memory</label>
+                            <label for="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory">Local VM Memory</label>
                             <input type="text" id="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory"
                                    name="vagrantfile-local[vm][provider][virtualbox][modifyvm][memory]"
                                    required placeholder="512" pattern="^[1-9][0-9]*$" min="64"
@@ -105,7 +105,7 @@
     <div class="row">
         <div class="col-xs-9">
             <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.vagrantfile_local.forwarded_port') }}">Add another port pair</button>
+                    data-source-url="{{ path('puphpet.extension.vagrantfile_local.forwarded_port') }}">Add another local VM port pair</button>
         </div>
     </div>
 
@@ -116,7 +116,7 @@
     <div class="row">
         <div class="col-xs-9">
             <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.vagrantfile_local.synced_folder') }}">Add another shared folder</button>
+                    data-source-url="{{ path('puphpet.extension.vagrantfile_local.synced_folder') }}">Add another local VM shared folder</button>
         </div>
     </div>
 

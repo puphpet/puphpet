@@ -5,7 +5,7 @@ vm:
         -
             source: ~/www/
             target: /var/www
-            id: vagrant-root
+            id: webroot
             nfs: true
     network:
         forwarded_port:
