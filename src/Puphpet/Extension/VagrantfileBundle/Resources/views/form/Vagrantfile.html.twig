@@ -61,11 +61,11 @@
                 <div class="panel-body">
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="vagrantfile-vm-provider-virtualbox-name">Name Your Box</label>
-                            <input type="text" id="vagrantfile-vm-provider-virtualbox-name"
-                                   name="vagrantfile[vm][provider][virtualbox][name]"
+                            <label for="vagrantfile-vm-provider-virtualbox-modifyvm-name">Name Your Box</label>
+                            <input type="text" id="vagrantfile-vm-provider-virtualbox-modifyvm-name"
+                                   name="vagrantfile[vm][provider][virtualbox][modifyvm][name]"
                                    required placeholder="my-vm-box"
-                                   value="{{ vagrantfile.vm.provider.virtualbox.name }}" class="form-control" />
+                                   value="{{ vagrantfile.vm.provider.virtualbox.modifyvm.name }}" class="form-control" />
 
                             <p class="help-block">
                                 Your personal name for the box. Should be unique to your system.
@@ -86,11 +86,11 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="vagrantfile-vm-provider-virtualbox-memory">Box Memory</label>
-                            <input type="text" id="vagrantfile-vm-provider-virtualbox-memory"
-                                   name="vagrantfile[vm][provider][virtualbox][memory]"
+                            <label for="vagrantfile-vm-provider-virtualbox-modifyvm-memory">Box Memory</label>
+                            <input type="text" id="vagrantfile-vm-provider-virtualbox-modifyvm-memory"
+                                   name="vagrantfile[vm][provider][virtualbox][modifyvm][memory]"
                                    required placeholder="512" pattern="^[1-9][0-9]*$" min="64"
-                                   value="{{ vagrantfile.vm.provider.virtualbox.memory }}" class="form-control" />
+                                   value="{{ vagrantfile.vm.provider.virtualbox.modifyvm.memory }}" class="form-control" />
 
                             <p class="help-block">Memory to assign to VM in megabytes (only
                                 integers)</p>
