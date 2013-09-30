@@ -7,52 +7,40 @@
         <div class="col-xs-9">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Local VM Operating System</h3>
-                </div>
-
-                <div class="panel-body">
-                    <div class="form-group">
-                        {% for box in data.available_boxes %}
-                            <label class="radio">
-                                <input type="radio" class="update-other-input" name="vagrantfile-local[vm][box_url]"
-                                       value="{{ box.url }}" {% if box.url == data.vm.box_url %}checked{% endif %}
-                                       data-operating-system="{{ box.os }}"
-                                       data-vagrantfile-local-vm-box="{{ box.short_name }}" />
-                                {{ box.long_name }}
-                                {% if box.php_versions is defined %}
-                                    (PHP
-                                    {% for php in box.php_versions %}
-                                        <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
-                                    {% endfor %}
-                                    )
-                                {% endif %}
-
-                            </label>
-                        {% endfor %}
-                    </div>
-
-                    <p class="help-block">
-                        Choose the operating system for your VM. It will be downloaded the first time you run Vagrant.
-                        <a href="http://docs.vagrantup.com/v2/getting-started/boxes.html">More
-                            information may be found here</a>
-                    </p>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-xs-3 right-panel"></div>
-    </div>
-    <!-- end vagrantfile-local / Operating System -->
-
-    <!-- vagrantfile-local / Details -->
-    <div class="row">
-        <div class="col-xs-9">
-            <div class="panel panel-info">
-                <div class="panel-heading">
                     <h3 class="panel-title">Local VM Details</h3>
                 </div>
 
                 <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Local VM Operating System</label>
+
+                            {% for box in data.available_boxes %}
+                                <label class="radio">
+                                    <input type="radio" class="update-other-input" name="vagrantfile-local[vm][box_url]"
+                                           value="{{ box.url }}" {% if box.url == data.vm.box_url %}checked{% endif %}
+                                           data-operating-system="{{ box.os }}"
+                                           data-vagrantfile-local-vm-box="{{ box.short_name }}" />
+                                    {{ box.long_name }}
+                                    {% if box.php_versions is defined %}
+                                        (PHP
+                                        {% for php in box.php_versions %}
+                                            <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
+                                        {% endfor %}
+                                        )
+                                    {% endif %}
+
+                                </label>
+                            {% endfor %}
+
+                            <p class="help-block">
+                                Choose the operating system for your VM. It will be downloaded the first time you
+                                run Vagrant. <a href="http://docs.vagrantup.com/v2/getting-started/boxes.html">More
+                                    information may be found here</a>
+                            </p>
+                        </div>
+                    </div>
+
                     <div class="row form-group">
                         <div class="col-md-12">
                             <label for="vagrantfile-local-vm-provider-virtualbox-modifyvm-name">Name Your Local VM</label>
@@ -74,20 +62,24 @@
                             <input type="text" id="vagrantfile-local-vm-network-private_network"
                                    name="vagrantfile-local[vm][network][private_network]"
                                    required placeholder="192.168.56.101"
+                                   pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
+                                   oninvalid="setCustomValidity('IP address format: 192.168.56.101')"
                                    value="{{ data.vm.network.private_network }}" class="form-control" />
 
-                            <p class="help-block">IP address to use for accessing the VM</p>
+                            <p class="help-block">
+                                IP address to use for accessing the VM. This is the IP address you will need to enter
+                                into your <code>hosts</code> file for every virtual hosts you create later on.
+                            </p>
                         </div>
 
                         <div class="col-md-6">
                             <label for="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory">Local VM Memory</label>
-                            <input type="text" id="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory"
+                            <input type="number" id="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory"
                                    name="vagrantfile-local[vm][provider][virtualbox][modifyvm][memory]"
                                    required placeholder="512" pattern="^[1-9][0-9]*$" min="64"
                                    value="{{ data.vm.provider.virtualbox.modifyvm.memory }}" class="form-control" />
 
-                            <p class="help-block">Memory to assign to VM in megabytes (only
-                                integers)</p>
+                            <p class="help-block">Memory to assign to VM in megabytes (only integers)</p>
                         </div>
                     </div>
                 </div>
@@ -96,7 +88,7 @@
         </div>
         <div class="col-xs-3 right-panel"></div>
     </div>
-    <!-- end vagrantfile-local / Details -->
+    <!-- end vagrantfile-local / Operating System -->
 
     {% for forwarded_port in data.vm.network.forwarded_port %}
         {% include 'PuphpetExtensionVagrantfileLocalBundle:form/sections:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
