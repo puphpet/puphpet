@@ -50,12 +50,12 @@
                                 {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
                                     <div class="tab-pane {% if activeExtensionSlug == groupedExtension.slug %}active{% endif %}"
                                          id="{{ groupedExtension.slug }}-tab">
-                                        {{ groupedExtension.render(groupedExtension.data)|raw }}
+                                        {{ groupedExtension.renderFront(groupedExtension.data)|raw }}
                                     </div>
                                 {% endfor %}
                             </div>
                         {% else %}
-                            {{ extension.render(extension.data)|raw }}
+                            {{ extension.renderFront(extension.data)|raw }}
                         {% endif %}
 
                     {% endfor %}

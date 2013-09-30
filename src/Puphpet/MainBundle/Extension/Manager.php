@@ -68,9 +68,13 @@ class Manager
         return $this->extensions;
     }
 
-    public function getExtensionBySlug()
+    /**
+     * @param $slug
+     * @return ExtensionInterface
+     */
+    public function getExtensionBySlug($slug)
     {
-        //
+        return $this->extensions[$slug];
     }
 
     /**
@@ -88,12 +92,13 @@ class Manager
     }
 
     /**
-     * Takes submitted information and extracts values that belong to extensions
+     * Takes associative array and discards any keys not matching a registered
+     * extension slug
      *
      * @param array $values
      * @return array
      */
-    public function parseSubmittedValues(array $values)
+    public function matchExtensionToArrayValues(array $values)
     {
         $validExtensions = [];
 

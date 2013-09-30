@@ -51,12 +51,28 @@ abstract class ExtensionAbstract
     abstract public function getFrontController();
 
     /**
+     * @return ControllerInterface
+     */
+    abstract public function getManifestController();
+
+    /**
      * @param array $data
      * @return string
      */
-    public function render(array $data = [])
+    public function renderFront(array $data = [])
     {
         return $this->getFrontController()
+            ->indexAction($data)
+            ->getContent();
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    public function renderManifest(array $data = [])
+    {
+        return $this->getManifestController()
             ->indexAction($data)
             ->getContent();
     }

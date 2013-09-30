@@ -19,6 +19,11 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
         return $this->container->get('puphpet.extension.server_basics.front_controller');
     }
 
+    public function getManifestController()
+    {
+        throw new \Exception('pending manifest controller');
+    }
+
     /**
      * Return all data needed for our templates
      *

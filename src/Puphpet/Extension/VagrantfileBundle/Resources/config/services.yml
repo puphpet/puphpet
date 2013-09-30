@@ -10,3 +10,8 @@ services:
         class: Puphpet\Extension\VagrantfileBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
+
+    puphpet.extension.vagrantfile.manifest_controller:
+        class: Puphpet\Extension\VagrantfileBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]

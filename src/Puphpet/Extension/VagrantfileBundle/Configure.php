@@ -19,6 +19,11 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
         return $this->container->get('puphpet.extension.vagrantfile.front_controller');
     }
 
+    public function getManifestController()
+    {
+        return $this->container->get('puphpet.extension.vagrantfile.manifest_controller');
+    }
+
     /**
      * Return all data needed for our templates
      *

@@ -1,4 +1,6 @@
 vm:
+    provider:
+        virtualbox: []
     synced_folder:
         -
             source: ~/www/
@@ -13,4 +15,6 @@ vm:
     provision:
         puppet:
             options:
-                - --verbose
+                - "--verbose"
+ssh:
+    forward_agent: true

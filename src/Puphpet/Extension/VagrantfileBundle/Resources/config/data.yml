@@ -10,15 +10,17 @@ vm:
         forwarded_port: []
     provider:
         virtualbox:
-            name: my-vm-box
-            natdnshostresolver1: on
-            memory: 512
+            modifyvm:
+                name: my-vm-box
+                natdnshostresolver1: on
+                memory: 512
     provision:
-        shell: :inline => 'if [[ ! -f /apt-get-run ]]; then sudo apt-get update && touch /apt-get-run; fi'
+        shell: ':inline => "if [[ ! -f /apt-get-run ]]; then sudo apt-get update && touch /apt-get-run; fi"'
         puppet:
             manifests_path: manifests
             module_path: modules
-            options: []
+            options:
+                - "--verbose"
     synced_folder: []
     usable_port_range: 2200..2250
 

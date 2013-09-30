@@ -10,7 +10,11 @@ interface ExtensionInterface
 
     public function getFrontController();
 
-    public function render(array $data = []);
+    public function getManifestController();
+
+    public function renderFront(array $data = []);
+
+    public function renderManifest(array $data = []);
 
     public function getData();
 

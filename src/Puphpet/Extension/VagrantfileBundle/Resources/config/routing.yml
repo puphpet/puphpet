@@ -9,3 +9,7 @@ puphpet.extension.vagrantfile.synced_folder:
 puphpet.extension.vagrantfile.forwarded_port:
     pattern: /forwarded-port
     defaults: { _controller: PuphpetExtensionVagrantfileBundle:Front:forwardedPort }
+
+puphpet.extension.vagrantfile.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionVagrantfileBundle:Manifest:index }
