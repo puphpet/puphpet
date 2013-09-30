@@ -12,7 +12,7 @@ services:
         calls:
         # vagrantfile group
             - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile_local.configure ] ]
-            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile_digitalocean.configure ] ]
+            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.digital_ocean.configure ] ]
             - [ addExtension, [ @puphpet.extension.server_basics.configure ] ]
         # webserver group
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.apache.configure ] ]

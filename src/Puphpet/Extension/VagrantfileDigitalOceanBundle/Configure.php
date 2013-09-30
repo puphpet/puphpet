@@ -12,16 +12,16 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     private $customData = [];
 
     protected $name = 'Digital Ocean';
-    protected $slug = 'vagrantfile-digitalocean';
+    protected $slug = 'vagrantfile-digital_ocean';
 
     public function getFrontController()
     {
-        return $this->container->get('puphpet.extension.vagrantfile_digitalocean.front_controller');
+        return $this->container->get('puphpet.extension.vagrantfile.digital_ocean.front_controller');
     }
 
     public function getManifestController()
     {
-        throw new \Exception('pending manifest controller');
+        return $this->container->get('puphpet.extension.vagrantfile.digital_ocean.manifest_controller');
     }
 
     /**

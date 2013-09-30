@@ -1,12 +1,17 @@
 parameters:
 
 services:
-    puphpet.extension.vagrantfile_digitalocean.configure:
+    puphpet.extension.vagrantfile.digital_ocean.configure:
         class: Puphpet\Extension\VagrantfileDigitalOceanBundle\Configure
         arguments:
             - "@service_container"
 
-    puphpet.extension.vagrantfile_digitalocean.front_controller:
+    puphpet.extension.vagrantfile.digital_ocean.front_controller:
         class: Puphpet\Extension\VagrantfileDigitalOceanBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.vagrantfile.digital_ocean.manifest_controller:
+        class: Puphpet\Extension\VagrantfileDigitalOceanBundle\Controller\ManifestController
         calls:
             - [ setContainer, [@service_container] ]

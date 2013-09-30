@@ -1,0 +1,69 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "{{ data.vm.box }}"
+  config.vm.box_url = "{{ data.vm.box_url|raw }}"
+  config.vm.graceful_halt_retry_count = "{{ data.vm.graceful_halt_retry_count }}"
+  config.vm.graceful_halt_retry_interval = "{{ data.vm.graceful_halt_retry_interval }}"
+  config.vm.guest = "{{ data.vm.guest }}"
+{% if data.vm.hostname %}  config.vm.hostname = {{ data.vm.hostname }}{% endif %}
+
+{% if data.vm.network.private_network %}
+  config.vm.network "private_network", ip: "{{ data.vm.network.private_network }}"
+{% endif %}
+
+{% for forwarded in data.vm.network.forwarded_port if (forwarded.host and forwarded.guest) %}
+  config.vm.network "forwarded_port", guest: {{ forwarded.guest }}, host: {{ forwarded.host }}
+{% endfor %}
+
+{% for folder in data.vm.synced_folder %}
+  config.vm.synced_folder "{{ folder.source }}", "{{ folder.target }}"{% if folder.id %}, id: "{{ folder.id|raw }}"{% endif %}{% if folder.nfs %}, :nfs => {{ folder.nfs }}{% endif %}
+
+{% endfor %}
+
+{% if data.vm.usable_port_range %}  config.vm.usable_port_range = ({{ data.vm.usable_port_range }}){% endif %}
+
+{% for name, provider in data.vm.provider %}
+  config.vm.provider :{{ name }} do |{{ name }}|
+{% for type, values in provider %}
+{% for valueName, valueValue in values %}
+    v.customize ["{{ type }}", :id, "--{{ valueName }}", "{{ valueValue }}"]
+{% endfor %}
+{% endfor %}
+  end
+{% endfor %}
+
+{% for provisioner, data in data.vm.provision %}
+{% if data is not iterable %}
+  config.vm.provision :{{ provisioner }}, {{ data }}
+{% else %}
+  config.vm.provision :{{ provisioner }} do |{{ provisioner }}|
+{% for key, value in data if value %}
+    {{ provisioner }}.{{ key }} = {% if value is iterable %}["{{ value|join('", "') }}"]{% else %}"{{ value }}"{% endif %}
+
+{% endfor %}
+  end
+{% endif %}
+{% endfor %}
+
+{% if data.ssh.host %}  config.ssh.host = "{{ data.ssh.host }}"{% endif %}
+
+{% if data.ssh.port %}  config.ssh.port = {{ data.ssh.port }}{% endif %}
+
+{% if data.ssh.private_key_path %}  config.ssh.private_key_path = "{{ data.ssh.private_key_path }}"{% endif %}
+
+{% if data.ssh.username %}  config.ssh.username = "{{ data.ssh.username }}"{% endif %}
+
+{% if data.ssh.guest_port %}  config.ssh.guest_port = {{ data.ssh.guest_port }}{% endif %}
+
+{% if data.ssh.max_tries %}  config.ssh.max_tries = {{ data.ssh.max_tries }}{% endif %}
+
+{% if data.ssh.timeout %}  config.ssh.timeout = {{ data.ssh.timeout }}{% endif %}
+
+{% if data.ssh.shell %}  config.ssh.shell = {{ data.ssh.shell }}{% endif %}
+
+  config.ssh.keep_alive = {% if data.ssh.keep_alive %}true{% else %}false{% endif %}
+  config.ssh.forward_agent = {% if data.ssh.forward_agent %}true{% else %}false{% endif %}
+  config.ssh.forward_x11 = {% if data.ssh.forward_x11 %}true{% else %}false{% endif %}
+
+{% if data.vagrant.host %}  config.vagrant.host: "{{ data.vagrant.host }}"{% endif %}
+
+end

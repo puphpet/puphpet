@@ -1,9 +1,9 @@
 {% set uniqid = uniqid('vvs_', true) %}
 
-<!-- vagrantfile-digitalocean / Shared Folders -->
+<!-- vagrantfile-digital_ocean / Shared Folders -->
 <div class="row" id="{{ uniqid }}">
 
-    <input type="hidden" name="vagrantfile-digitalocean[vm][synced_folder][{{ uniqid }}][id]"
+    <input type="hidden" name="vagrantfile-digital_ocean[vm][synced_folder][{{ uniqid }}][id]"
            value="{% if synced_folder.id %}{{ synced_folder.id }}{% else %}{{ uniqid() }}{% endif %}" />
 
     <div class="col-xs-9">
@@ -15,9 +15,9 @@
             <div class="panel-body">
                 <div class="row form-group">
                     <div class="col-md-6">
-                        <label for="vagrantfile-digitalocean-vm-synced_folder-{{ uniqid }}-source">Box Sync Folder Source</label>
-                        <input type="text" id="vagrantfile-digitalocean-vm-synced_folder-{{ uniqid }}-source"
-                               name="vagrantfile-digitalocean[vm][synced_folder][{{ uniqid }}][source]"
+                        <label for="vagrantfile-digital_ocean-vm-synced_folder-{{ uniqid }}-source">Box Sync Folder Source</label>
+                        <input type="text" id="vagrantfile-digital_ocean-vm-synced_folder-{{ uniqid }}-source"
+                               name="vagrantfile-digital_ocean[vm][synced_folder][{{ uniqid }}][source]"
                                required placeholder="/path/to/your/web/files"
                                value="{{ synced_folder.source }}" class="form-control" />
 
@@ -28,9 +28,9 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="vagrantfile-digitalocean-vm-synced_folder-{{ uniqid }}-target">Box Sync Folder Target</label>
-                        <input type="text" id="vagrantfile-digitalocean-vm-synced_folder-{{ uniqid }}-target"
-                               name="vagrantfile-digitalocean[vm][synced_folder][{{ uniqid }}][target]"
+                        <label for="vagrantfile-digital_ocean-vm-synced_folder-{{ uniqid }}-target">Box Sync Folder Target</label>
+                        <input type="text" id="vagrantfile-digital_ocean-vm-synced_folder-{{ uniqid }}-target"
+                               name="vagrantfile-digital_ocean[vm][synced_folder][{{ uniqid }}][target]"
                                required placeholder="/path/on/vm"
                                value="{{ synced_folder.target }}" class="form-control" />
 
@@ -57,4 +57,4 @@
     </div>
     <div class="col-xs-3 right-panel"></div>
 </div>
-<!-- end vagrantfile-digitalocean / Shared Folders -->
+<!-- end vagrantfile-digital_ocean / Shared Folders -->

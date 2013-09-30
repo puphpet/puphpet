@@ -1,8 +1,8 @@
-<section id="vagrantfile-digitalocean">
+<section id="vagrantfile-digital_ocean">
 
-    <input type="hidden" id="vagrantfile-digitalocean-vm-box" name="vagrantfile-digitalocean[vm][box]" value="digital_ocean" />
+    <input type="hidden" id="vagrantfile-digital_ocean-vm-box" name="vagrantfile-digital_ocean[vm][box]" value="digital_ocean" />
 
-    <!-- vagrantfile-digitalocean / instructions -->
+    <!-- vagrantfile-digital_ocean / instructions -->
     <div class="row">
         <div class="col-xs-9">
             <div class="panel panel-info">
@@ -33,23 +33,23 @@
                         <p>Run the following commands from your host's terminal (not within the VM):</p>
 
                         <ul class="nav nav-pills">
-                            <li class="active"><a href="#digitalocean-instructions-mac" data-toggle="pill">Mac</a></li>
-                            <li><a href="#digitalocean-instructions-windows-linux" data-toggle="pill">Windows &amp; Linux</a></li>
+                            <li class="active"><a href="#digital_ocean-instructions-mac" data-toggle="pill">Mac</a></li>
+                            <li><a href="#digital_ocean-instructions-windows-linux" data-toggle="pill">Windows &amp; Linux</a></li>
                         </ul>
 
                         <div class="tab-content">
-                            <div class="tab-pane active" id="digitalocean-instructions-mac">
+                            <div class="tab-pane active" id="digital_ocean-instructions-mac">
                                 <code class="col-xs-11">
-                                    $ vagrant plugin install vagrant-digitalocean<br />
-                                    $ vagrant box add digital_ocean https://puphpet.com/assets/box/digital_ocean.box<br />
+                                    $ vagrant plugin install vagrant-digital_ocean<br />
+                                    $ vagrant box add digitalocean https://puphpet.com/assets/box/digitalocean.box<br />
                                     $ brew install curl-ca-bundle<br />
                                     $ echo export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt >> ~/.bash_profile
                                 </code>
                             </div>
-                            <div class="tab-pane" id="digitalocean-instructions-windows-linux">
+                            <div class="tab-pane" id="digital_ocean-instructions-windows-linux">
                                 <code class="col-xs-11">
-                                    $ vagrant plugin install vagrant-digitalocean<br />
-                                    $ vagrant box add digital_ocean https://puphpet.com/assets/box/digital_ocean.box
+                                    $ vagrant plugin install vagrant-digital_ocean<br />
+                                    $ vagrant box add digitalocean https://puphpet.com/assets/box/digitalocean.box
                                 </code>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
 
                         <p>
                             Instead of running <code>$ vagrant up</code>, you will need to run
-                            <code>$ vagrant up --provider=digital_ocean</code>
+                            <code>$ vagrant up --provider=digitalocean</code>
                         </p>
                     </div>
                 </div>
@@ -69,9 +69,9 @@
         </div>
         <div class="col-xs-3 right-panel"></div>
     </div>
-    <!-- end vagrantfile-digitalocean / instructions -->
+    <!-- end vagrantfile-digital_ocean / instructions -->
 
-    <!-- vagrantfile-digitalocean / Operating System -->
+    <!-- vagrantfile-digital_ocean / Operating System -->
     <div class="row">
         <div class="col-xs-9">
             <div class="panel panel-info">
@@ -104,8 +104,8 @@
 
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="vagrantfile-digitalocean-vm-provider-digital_ocean-size">Digital Ocean VM Size</label>
-                            <select id="vagrantfile-digitalocean-vm-provider-digital_ocean-size"
+                            <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-size">Digital Ocean VM Size</label>
+                            <select id="vagrantfile-digital_ocean-vm-provider-digital_ocean-size"
                                     name="vagrantfile-digital_ocean[vm][provider][digital_ocean][size]"
                                     class="form-control select-tag">
                                 {% for size, name in data.available_sizes %}
@@ -123,8 +123,8 @@
 
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="vagrantfile-digitalocean-vm-provider-digital_ocean-region">Digital Ocean VM Region</label>
-                            <select id="vagrantfile-digitalocean-vm-provider-digital_ocean-region"
+                            <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-region">Digital Ocean VM Region</label>
+                            <select id="vagrantfile-digital_ocean-vm-provider-digital_ocean-region"
                                     name="vagrantfile-digital_ocean[vm][provider][digital_ocean][region]"
                                     class="form-control select-tag">
                                 {% for region in data.available_regions %}
@@ -139,8 +139,8 @@
 
                     <div class="row form-group">
                         <div class="col-md-6">
-                            <label for="vagrantfile-digitalocean-vm-provider-digital_ocean-client_id">Digital Ocean VM Client ID</label>
-                            <input id="vagrantfile-digitalocean-vm-provider-digital_ocean-client_id"
+                            <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-client_id">Digital Ocean VM Client ID</label>
+                            <input id="vagrantfile-digital_ocean-vm-provider-digital_ocean-client_id"
                                    name="vagrantfile-digital_ocean[vm][provider][digital_ocean][client_id]"
                                    placeholder="DIGITAL OCEAN CLIENT ID"
                                    value="{{ data.vm.provider.digital_ocean.client_id }}" class="form-control" />
@@ -151,8 +151,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="vagrantfile-digitalocean-vm-provider-digital_ocean-api_key">Digital Ocean VM API Key</label>
-                            <input id="vagrantfile-digitalocean-vm-provider-digital_ocean-api_key"
+                            <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-api_key">Digital Ocean VM API Key</label>
+                            <input id="vagrantfile-digital_ocean-vm-provider-digital_ocean-api_key"
                                    name="vagrantfile-digital_ocean[vm][provider][digital_ocean][api_key]"
                                    placeholder="DIGITAL OCEAN API KEY"
                                    value="{{ data.vm.provider.digital_ocean.api_key }}" class="form-control" />
@@ -164,9 +164,18 @@
                     </div>
 
                     <div class="row form-group">
-                        <div class="col-md-12">
-                            <label for="vagrantfile-digitalocean-ssh-private_key_path">Local Private Key Path</label>
-                            <input id="vagrantfile-digitalocean-ssh-private_key_path"
+                        <div class="col-md-6">
+                            <label for="vagrantfile-digital_ocean-ssh-username">Local Private Key Username</label>
+                            <input id="vagrantfile-digital_ocean-ssh-username"
+                                   name="vagrantfile-digital_ocean[ssh][username]"
+                                   value="{{ data.ssh.username }}" class="form-control" />
+
+                            <p class="help-block">The username associated with the private key entered.</p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="vagrantfile-digital_ocean-ssh-private_key_path">Local Private Key Path</label>
+                            <input id="vagrantfile-digital_ocean-ssh-private_key_path"
                                    name="vagrantfile-digital_ocean[ssh][private_key_path]"
                                    placeholder="~/.ssh/id_rsa"
                                    value="{{ data.ssh.private_key_path }}" class="form-control" />
@@ -183,7 +192,7 @@
         </div>
         <div class="col-xs-3 right-panel"></div>
     </div>
-    <!-- end vagrantfile-digitalocean / Operating System -->
+    <!-- end vagrantfile-digital_ocean / Operating System -->
 
     {% for synced_folder in data.vm.synced_folder %}
         {% include 'PuphpetExtensionVagrantfileDigitalOceanBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
@@ -192,7 +201,7 @@
     <div class="row">
         <div class="col-xs-9">
             <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.vagrantfile_digitalocean.synced_folder') }}">Add another Digital Ocean VM shared folder</button>
+                    data-source-url="{{ path('puphpet.extension.vagrantfile.digital_ocean.synced_folder') }}">Add another Digital Ocean VM shared folder</button>
         </div>
     </div>
 </section>
