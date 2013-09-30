@@ -18,6 +18,6 @@ vm:
             options:
                 - "--verbose"
 ssh:
-    username: ~
+    username: PRIVATE_KEY_USER
     forward_agent: true
     private_key_path: "~/.ssh/id_rsa"
