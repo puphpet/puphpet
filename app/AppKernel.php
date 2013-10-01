@@ -20,7 +20,7 @@ class AppKernel extends Kernel
             new Zenstruck\SlugifyBundle\ZenstruckSlugifyBundle(),
 
             new Puphpet\Extension\VagrantfileLocalBundle\PuphpetExtensionVagrantfileLocalBundle(),
-            new Puphpet\Extension\ServerBasicsBundle\PuphpetExtensionServerBasicsBundle(),
+            new Puphpet\Extension\ServerBundle\PuphpetExtensionServerBundle(),
             new Puphpet\Extension\ApacheBundle\PuphpetExtensionApacheBundle(),
             new Puphpet\Extension\PhpBundle\PuphpetExtensionPhpBundle(),
             new Puphpet\Extension\XdebugBundle\PuphpetExtensionXdebugBundle(),

@@ -10,9 +10,9 @@ puphpet.extension.vagrantfile.digital_ocean:
     resource: "@PuphpetExtensionVagrantfileDigitalOceanBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/digitalocean
 
-puphpet.extension.server_basics:
-    resource: "@PuphpetExtensionServerBasicsBundle/Resources/config/routing.yml"
-    prefix:   /extension/server-basics
+puphpet.extension.server:
+    resource: "@PuphpetExtensionServerBundle/Resources/config/routing.yml"
+    prefix:   /extension/server
 
 puphpet.extension.apache:
     resource: "@PuphpetExtensionApacheBundle/Resources/config/routing.yml"

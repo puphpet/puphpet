@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\ServerBasicsBundle\DependencyInjection;
+namespace Puphpet\Extension\ServerBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class PuphpetExtensionServerBasicsExtension extends Extension
+class PuphpetExtensionServerExtension extends Extension
 {
     /**
      * {@inheritDoc}

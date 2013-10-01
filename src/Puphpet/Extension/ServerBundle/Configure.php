@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\ServerBasicsBundle;
+namespace Puphpet\Extension\ServerBundle;
 
 use Puphpet\MainBundle\Extension;
 
@@ -16,7 +16,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getFrontController()
     {
-        return $this->container->get('puphpet.extension.server_basics.front_controller');
+        return $this->container->get('puphpet.extension.server.front_controller');
     }
 
     public function getManifestController()
