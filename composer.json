@@ -33,7 +33,7 @@
         "example42/puppet-php":             "dev-master#3465b6d",
         "frastel/puppet-phpmyadmin":        "dev-master#b66963c",
         "frastel/puppet-symfony":           "dev-master#6b83915",
-        "jfryman/puppet-nginx":             "dev-master#4419300",
+        "jfryman/puppet-nginx":             "dev-master#04c5417",
         "puppetlabs/puppetlabs-mysql":      "dev-master#3205b83ac8",
         "puppetlabs/puppetlabs-apt":        "1.1.0",
         "puppetlabs/puppetlabs-postgresql": "2.2.1",
