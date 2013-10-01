@@ -18,6 +18,15 @@ class Add extends Controller
         $controllers->get('/vhost', [$this, 'vhostAction'])
              ->bind('add.vhost');
 
+        $controllers->get('/local/sharedfolder', [$this, 'localSharedfolderAction'])
+            ->bind('add.local.sharedfolder');
+
+        $controllers->get('/digitalocean/sharedfolder', [$this, 'digitaloceanSharedFolderAction'])
+            ->bind('add.digitalocean.sharedfolder');
+
+        $controllers->get('/rackspace/sharedfolder', [$this, 'rackspaceSharedFolderAction'])
+            ->bind('add.rackspace.sharedfolder');
+
         $controllers->get('/mysql/dbuser', [$this, 'mysqldbuserAction'])
              ->bind('add.mysql.dbuser');
 
@@ -32,6 +41,30 @@ class Add extends Controller
         return $this->twig()->render(
             'Front/Tabs/Webserver/Apache/vhost.html.twig',
             ['vhostNum' => $request->get('id')]
+        );
+    }
+
+    public function localSharedFolderAction(Request $request)
+    {
+        return $this->twig()->render(
+            "Front/Tabs/Vagrant/Box/SharedFolder/local.html.twig",
+            ['sharedFolderNum' => $request->get('id')]
+        );
+    }
+
+    public function digitaloceanSharedFolderAction(Request $request)
+    {
+        return $this->twig()->render(
+            "Front/Tabs/Vagrant/Box/SharedFolder/digitalocean.html.twig",
+            ['sharedFolderNum' => $request->get('id')]
+        );
+    }
+
+    public function rackspaceSharedFolderAction(Request $request)
+    {
+        return $this->twig()->render(
+            "Front/Tabs/Vagrant/Box/SharedFolder/rackspace.html.twig",
+            ['sharedFolderNum' => $request->get('id')]
         );
     }
 
