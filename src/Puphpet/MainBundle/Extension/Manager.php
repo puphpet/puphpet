@@ -11,6 +11,9 @@ class Manager
     /** @var array */
     private $alreadyIterated = [];
 
+    /** @var Extension\Archive */
+    private $archive;
+
     /** @var Container */
     private $container;
 
@@ -211,5 +214,56 @@ class Manager
         }
 
         return false;
+    }
+
+    public function createArchive(array $request)
+    {
+        $submittedExtensions = $this->matchExtensionToArrayValues($request);
+
+        $this->archive = new Extension\Archive;
+
+        $extensions = [];
+        $sources = [];
+
+        foreach ($submittedExtensions as $slug => $data) {
+            $extension = $this->getExtensionBySlug($slug);
+            $extension->setCustomData($data);
+
+            $extensions[$slug] = $extension;
+
+            $this->archive->queueToFile(
+                $extension->getTargetFile(),
+                $extension->renderManifest($extension->getData())
+            );
+
+            if ($extension->getSources()) {
+                foreach ($extension->getSources() as $name => $source) {
+                    $sources[$name] = $source;
+                }
+            }
+        }
+
+        $this->processExtensionSources($sources);
+
+        $this->archive->write();
+        $this->archive->dumpFiles();
+        exit;
+    }
+
+    private function processExtensionSources(array $sources)
+    {
+        foreach ($sources as $name => $source) {
+            if (empty($name)) {
+                continue;
+            }
+
+            $result = "mod '{$name}'";
+
+            if (!empty($source)) {
+                $result .= ", {$source}";
+            }
+
+            $this->archive->queueToFile('puppet/Puppetfile', $result);
+        }
     }
 }
