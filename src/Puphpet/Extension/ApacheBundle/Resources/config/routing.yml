@@ -5,3 +5,7 @@ puphpet.extension.apache.homepage:
 puphpet.extension.apache.vhost:
     pattern:  /vhost
     defaults: { _controller: PuphpetExtensionApacheBundle:Front:vhost }
+
+puphpet.extension.apache.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionApacheBundle:Manifest:index }

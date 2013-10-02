@@ -1,0 +1,17 @@
+$apache_values = hiera('apache')
+
+file { '/var/www':
+  ensure  => 'directory'
+}
+
+class { 'apache':
+  servername    => $apache_values['servername'],
+  default_vhost => false,
+  mpm_module    => 'prefork',
+  require       => [
+    Apt::Source['packages.dotdeb.org'],
+    File['/var/www']
+  ],
+}
+
+create_resources(apache::vhost, $apache_values['vhosts'])
