@@ -11,6 +11,8 @@ abstract class ExtensionAbstract
     protected $name;
     protected $slug;
 
+    protected $targetFile;
+
     /**
      * @param Container $container
      */
@@ -85,5 +87,15 @@ abstract class ExtensionAbstract
     public function hasCustomData()
     {
         return empty($this->customData) ? false : true;
+    }
+
+    /**
+     * Return the file extension output should be piped to
+     *
+     * @return string
+     */
+    public function getTargetFile()
+    {
+        return $this->targetFile;
     }
 }

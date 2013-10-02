@@ -14,6 +14,8 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'Local';
     protected $slug = 'vagrantfile-local';
 
+    protected $targetFile = 'Vagrantfile';
+
     public function getFrontController()
     {
         return $this->container->get('puphpet.extension.vagrantfile.local.front_controller');
