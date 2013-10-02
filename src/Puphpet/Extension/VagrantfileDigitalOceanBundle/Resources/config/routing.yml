@@ -5,3 +5,7 @@ puphpet.extension.vagrantfile.digital_ocean.homepage:
 puphpet.extension.vagrantfile.digital_ocean.synced_folder:
     pattern: /synced-folder
     defaults: { _controller: PuphpetExtensionVagrantfileDigitalOceanBundle:Front:syncedFolder }
+
+puphpet.extension.vagrantfile.digital_ocean.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionVagrantfileDigitalOceanBundle:Manifest:index }
