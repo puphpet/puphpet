@@ -14,6 +14,8 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'Digital Ocean';
     protected $slug = 'vagrantfile-digital_ocean';
 
+    protected $targetFile = 'Vagrantfile';
+
     public function getFrontController()
     {
         return $this->container->get('puphpet.extension.vagrantfile.digital_ocean.front_controller');

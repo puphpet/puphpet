@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
 
 {% for provisioner, data in data.vm.provision %}
 {% if data is not iterable %}
-  config.vm.provision :{{ provisioner }}, {{ data }}
+  config.vm.provision :{{ provisioner }}, {{ data|raw }}
 {% else %}
   config.vm.provision :{{ provisioner }} do |{{ provisioner }}|
 {% for key, value in data if value %}
@@ -48,7 +48,7 @@ Vagrant.configure("2") do |config|
 
 {% if data.ssh.timeout %}  config.ssh.timeout = {{ data.ssh.timeout }}{% endif %}
 
-{% if data.ssh.shell %}  config.ssh.shell = {{ data.ssh.shell }}{% endif %}
+{% if data.ssh.shell %}  config.ssh.shell = "{{ data.ssh.shell }}{% endif %}"
 
   config.ssh.keep_alive = {% if data.ssh.keep_alive %}true{% else %}false{% endif %}
 
