@@ -236,10 +236,8 @@ class Manager
                 $extension->renderManifest($extension->getData())
             );
 
-            if ($extension->getSources()) {
-                foreach ($extension->getSources() as $name => $source) {
-                    $sources[$name] = $source;
-                }
+            foreach ($extension->getSources() as $name => $source) {
+                $sources[$name] = $source;
             }
         }
 
