@@ -14,6 +14,8 @@ vm:
                 name: my-vm-box
                 natdnshostresolver1: on
                 memory: 512
+            setextradata:
+                "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root": 1
     provision:
         shell: ':inline => "if [[ ! -f /apt-get-run ]]; then sudo apt-get update && touch /apt-get-run; fi"'
         puppet:
