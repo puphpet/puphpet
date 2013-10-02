@@ -14,6 +14,8 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'Server Basics';
     protected $slug = 'server';
 
+    protected $targetFile = 'puppet/manifests/default.pp';
+
     public function getFrontController()
     {
         return $this->container->get('puphpet.extension.server.front_controller');
@@ -21,7 +23,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getManifestController()
     {
-        throw new \Exception('pending manifest controller');
+        return $this->container->get('puphpet.extension.server.manifest_controller');
     }
 
     /**
