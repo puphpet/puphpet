@@ -15,6 +15,9 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $slug = 'apache';
 
     protected $targetFile = 'puppet/manifests/default.pp';
+    protected $sources = [
+        'puppetlabs/apache' => ":git => 'git://github.com/puppetlabs/puppetlabs-apache.git'",
+    ];
 
     public function getFrontController()
     {

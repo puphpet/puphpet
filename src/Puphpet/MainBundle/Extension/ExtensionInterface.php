@@ -23,4 +23,6 @@ interface ExtensionInterface
     public function hasCustomData();
 
     public function getTargetFile();
+
+    public function getSources();
 }

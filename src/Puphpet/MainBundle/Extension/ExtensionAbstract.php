@@ -12,6 +12,7 @@ abstract class ExtensionAbstract
     protected $slug;
 
     protected $targetFile;
+    protected $sources = [];
 
     /**
      * @param Container $container
@@ -97,5 +98,21 @@ abstract class ExtensionAbstract
     public function getTargetFile()
     {
         return $this->targetFile;
+    }
+
+    /**
+     * If extension requires downloaded, returns associative array for librarian
+     *
+     * name => url (url is optional)
+     *
+     * @return array
+     */
+    public function getSources()
+    {
+        if (empty($this->sources)) {
+            return [];
+        }
+
+        return $this->sources;
     }
 }
