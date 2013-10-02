@@ -21,4 +21,6 @@ interface ExtensionInterface
     public function setCustomData(array $data = []);
 
     public function hasCustomData();
+
+    public function getTargetFile();
 }
