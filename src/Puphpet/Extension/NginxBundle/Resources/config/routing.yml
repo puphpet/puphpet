@@ -5,3 +5,8 @@ puphpet.extension.nginx.homepage:
 puphpet.extension.nginx.vhost:
     pattern:  /vhost
     defaults: { _controller: PuphpetExtensionNginxBundle:Front:vhost }
+
+puphpet.extension.nginx.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionNginxBundle:Manifest:index }
+

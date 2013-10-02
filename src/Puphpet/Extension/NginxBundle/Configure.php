@@ -14,6 +14,11 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'Nginx';
     protected $slug = 'nginx';
 
+    protected $targetFile = 'puppet/manifests/default.pp';
+    protected $sources = [
+        'nginx' => ":git => 'git://github.com/jfryman/puppet-nginx.git'",
+    ];
+
     public function getFrontController()
     {
         return $this->container->get('puphpet.extension.nginx.front_controller');
@@ -21,7 +26,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getManifestController()
     {
-        throw new \Exception('pending manifest controller');
+        return $this->container->get('puphpet.extension.nginx.manifest_controller');
     }
 
     /**
