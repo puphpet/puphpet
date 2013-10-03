@@ -17,8 +17,7 @@ h1,
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-    color: #4c9bd8;
-    background-color: #fff;
+    color: #fff;
     border-color: #64a9dc;
 }
 
