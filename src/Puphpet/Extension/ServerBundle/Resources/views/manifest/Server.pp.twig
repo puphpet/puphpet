@@ -1,0 +1,28 @@
+$server_values = hiera('server')
+
+group { 'puppet': ensure => present }
+Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
+File { owner => 0, group => 0, mode => 0644 }
+
+class { 'apt': }
+
+Class['::apt::update'] -> Package <|
+    title != 'python-software-properties'
+and title != 'software-properties-common'
+|>
+
+ensure_packages( $server_values['packages'] )
+
+case $::osfamily {
+  'debian': {
+    apt::source { 'packages.dotdeb.org':
+      location          => 'http://packages.dotdeb.org',
+      release           => $lsbdistcodename,
+      repos             => 'all',
+      required_packages => 'debian-keyring debian-archive-keyring',
+      key               => '89DF5277',
+      key_server        => 'keys.gnupg.net',
+      include_src       => true
+    }
+  }
+}
