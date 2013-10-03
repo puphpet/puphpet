@@ -1,0 +1,86 @@
+{% extends 'PuphpetMainBundle:front:template.html.twig' %}
+
+{% block main %}
+<div class="jumbotron well-sm" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>PuPHPet</h1>
+
+                <p>A simple GUI to set up virtual machines for PHP development.</p>
+
+                <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% include 'PuphpetMainBundle:front:sideMenu.html.twig' %}
+
+        <form role="form" action="#" method="post">
+
+            <div class="col-sm-9">
+                <div class="container">
+
+                    {% for extension in extensionManager.getExtensions
+                       if not extensionManager.extensionAlreadyUsed(extension.slug) %}
+
+                        {% set groupName = extensionManager.belongsToGroup(extension.slug) %}
+
+                        {% if groupName %}
+                            <div class="page-header">
+                                <h1 id="{{ groupName|slugify }}">{{ groupName|title }}</h1>
+                            </div>
+
+                            {% set activeExtensionSlug = extensionManager.extensionInGroupHasCustomData(groupName) %}
+
+                            <ul class="nav group-nav nav-pills group-tabs" id="{{ groupName|slugify }}-tab">
+                                {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
+                                    <li class="{% if groupedExtension.slug == activeExtensionSlug %}active{% endif %}">
+                                        <a href="#{{ groupedExtension.slug }}-tab"
+                                           data-target-element="{{ groupedExtension.slug }}"
+                                           data-toggle="tab">{{ groupedExtension.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                            <div class="tab-content">
+                                {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
+                                    <div class="tab-pane {% if activeExtensionSlug == groupedExtension.slug %}active{% endif %}"
+                                         id="{{ groupedExtension.slug }}-tab">
+                                        {{ groupedExtension.renderFront(groupedExtension.data)|raw }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ extension.renderFront(extension.data)|raw }}
+                        {% endif %}
+
+                    {% endfor %}
+
+                    <section id="create">
+
+                        <div class="page-header">
+                            <h1>Create your Manifest</h1>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <button type="submit" class="btn btn-info btn-lg btn-block tall text-large">
+                                    Go ahead then, make it!
+                                </button>
+                            </div>
+                        </div>
+
+                    </section>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+{% endblock %}
