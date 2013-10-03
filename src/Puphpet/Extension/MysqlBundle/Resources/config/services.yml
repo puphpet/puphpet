@@ -10,3 +10,8 @@ services:
         class: Puphpet\Extension\MysqlBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
+
+    puphpet.extension.mysql.manifest_controller:
+        class: Puphpet\Extension\MysqlBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]

@@ -1,3 +1,7 @@
 puphpet.extension.xdebug.homepage:
     pattern:  /
     defaults: { _controller: PuphpetExtensionXdebugBundle:Front:index }
+
+puphpet.extension.xdebug.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionXdebugBundle:Manifest:index }

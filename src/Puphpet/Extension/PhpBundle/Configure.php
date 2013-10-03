@@ -14,6 +14,11 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'Php';
     protected $slug = 'php';
 
+    protected $targetFile = 'puppet/manifests/default.pp';
+    protected $sources = [
+        'php' => ":git => 'git://github.com/example42/puppet-php.git'",
+    ];
+
     public function getFrontController()
     {
         return $this->container->get('puphpet.extension.php.front_controller');
@@ -21,7 +26,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getManifestController()
     {
-        throw new \Exception('pending manifest controller');
+        return $this->container->get('puphpet.extension.php.manifest_controller');
     }
 
     /**

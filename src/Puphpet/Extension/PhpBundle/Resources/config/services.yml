@@ -10,3 +10,8 @@ services:
         class: Puphpet\Extension\PhpBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
+
+    puphpet.extension.php.manifest_controller:
+        class: Puphpet\Extension\PhpBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]

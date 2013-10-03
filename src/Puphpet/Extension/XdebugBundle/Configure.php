@@ -14,6 +14,11 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'Xdebug';
     protected $slug = 'xdebug';
 
+    protected $targetFile = 'puppet/manifests/default.pp';
+    protected $sources = [
+        'xdebug' => ":git => 'git://github.com/puphpet/puphpet-xdebug.git'",
+    ];
+
     public function getFrontController()
     {
         return $this->container->get('puphpet.extension.xdebug.front_controller');
@@ -21,7 +26,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getManifestController()
     {
-        throw new \Exception('pending manifest controller');
+        return $this->container->get('puphpet.extension.xdebug.manifest_controller');
     }
 
     /**

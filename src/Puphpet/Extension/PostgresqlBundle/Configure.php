@@ -14,6 +14,11 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'PostgreSQL';
     protected $slug = 'postgresql';
 
+    protected $targetFile = 'puppet/manifests/default.pp';
+    protected $sources = [
+        'postgresql' => ":git => 'git://github.com/puppetlabs/puppetlabs-postgresql.git'",
+    ];
+
     public function getFrontController()
     {
         return $this->container->get('puphpet.extension.postgresql.front_controller');
@@ -21,7 +26,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getManifestController()
     {
-        throw new \Exception('pending manifest controller');
+        return $this->container->get('puphpet.extension.postgresql.manifest_controller');
     }
 
     /**

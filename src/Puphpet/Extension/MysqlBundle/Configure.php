@@ -14,6 +14,11 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
     protected $name = 'MySQL';
     protected $slug = 'mysql';
 
+    protected $targetFile = 'puppet/manifests/default.pp';
+    protected $sources = [
+        'mysql' => ":git => 'git://github.com/puppetlabs/puppetlabs-mysql.git'",
+    ];
+
     public function getFrontController()
     {
         return $this->container->get('puphpet.extension.mysql.front_controller');
@@ -21,7 +26,7 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
 
     public function getManifestController()
     {
-        throw new \Exception('pending manifest controller');
+        return $this->container->get('puphpet.extension.mysql.manifest_controller');
     }
 
     /**

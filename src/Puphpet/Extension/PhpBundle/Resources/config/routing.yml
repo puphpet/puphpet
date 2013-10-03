@@ -1,3 +1,7 @@
 puphpet.extension.php.homepage:
     pattern:  /
     defaults: { _controller: PuphpetExtensionPhpBundle:Front:index }
+
+puphpet.extension.php.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionPhpBundle:Manifest:index }
