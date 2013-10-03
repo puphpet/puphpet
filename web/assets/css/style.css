@@ -27,12 +27,13 @@ h1,
 }
 
 .panel-info {
-    border-color: #64a9dc;
+    border-color: #e3e3e3;
 }
 
 .panel-info > .panel-heading {
-    color: #fff;
-    background-color: #4c9bd8;
+    color: #000;
+    background-color: #eee;
+    border-color: #eee;
 }
 
 button.addParentContainer {
