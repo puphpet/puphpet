@@ -11,6 +11,12 @@ class FrontController extends Controller
 {
     public function indexAction(Request $request)
     {
+        if ($request->isMethod('POST')) {
+            $manager = $this->get('puphpet.extension.manager');
+
+            $manager->createArchive($request->request->all());
+        }
+
         return $this->render('PuphpetMainBundle:front:index.html.twig', [
             'extensionManager' => $this->get('puphpet.extension.manager'),
         ]);
