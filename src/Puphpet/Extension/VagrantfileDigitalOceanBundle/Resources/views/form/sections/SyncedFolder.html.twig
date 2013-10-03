@@ -6,7 +6,7 @@
     <input type="hidden" name="vagrantfile-digital_ocean[vm][synced_folder][{{ uniqid }}][id]"
            value="{% if synced_folder.id %}{{ synced_folder.id }}{% else %}{{ uniqid() }}{% endif %}" />
 
-    <div class="col-xs-9">
+    <div class="col-xs-12">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">Sharing Your Folders</h3>
@@ -55,6 +55,5 @@
 
         </div>
     </div>
-    <div class="col-xs-3 right-panel"></div>
 </div>
 <!-- end vagrantfile-digital_ocean / Shared Folders -->

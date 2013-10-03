@@ -4,7 +4,7 @@
 
     <!-- vagrantfile-digital_ocean / instructions -->
     <div class="row">
-        <div class="col-xs-9">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Digital Ocean Instructions</h3>
@@ -67,13 +67,12 @@
 
             </div>
         </div>
-        <div class="col-xs-3 right-panel"></div>
     </div>
     <!-- end vagrantfile-digital_ocean / instructions -->
 
     <!-- vagrantfile-digital_ocean / Operating System -->
     <div class="row">
-        <div class="col-xs-9">
+        <div class="col-xs-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Digital Ocean VM Details</h3>
@@ -190,7 +189,6 @@
 
             </div>
         </div>
-        <div class="col-xs-3 right-panel"></div>
     </div>
     <!-- end vagrantfile-digital_ocean / Operating System -->
 
@@ -199,7 +197,7 @@
     {% endfor %}
 
     <div class="row">
-        <div class="col-xs-9">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
             <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
                     data-source-url="{{ path('puphpet.extension.vagrantfile.digital_ocean.synced_folder') }}">Add another Digital Ocean VM shared folder</button>
         </div>
