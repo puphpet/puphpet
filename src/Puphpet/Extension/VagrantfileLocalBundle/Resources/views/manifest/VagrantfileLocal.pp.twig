@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
 {% else %}
   config.vm.provision :{{ provisioner }} do |{{ provisioner }}|
 {% for key, value in data if value %}
-    {{ provisioner }}.{{ key }} = {% if value is iterable %}["{{ value|join('", "') }}"]{% else %}"{{ value }}"{% endif %}
+    {{ provisioner }}.{{ key }} = {% if value is iterable %}["{{ value|join('", "')|raw }}"]{% else %}"{{ value|raw }}"{% endif %}
 
 {% endfor %}
   end

@@ -15,10 +15,11 @@ vm:
         "shell, :path": "shell/librarian-puppet-vagrant.sh"
         "shell, :inline": "if [[ ! -f /apt-get-run ]]; then sudo apt-get update && sudo apt-get install -y puppet && touch /apt-get-run; fi"
         puppet:
-            manifests_path: manifests
-            module_path: modules
+            manifests_path: "puppet/manifests"
+            module_path: "puppet/modules"
             options:
                 - "--verbose"
+                - "--hiera_config /vagrant/hiera.yaml"
     synced_folder: []
 
 ssh:
