@@ -16,7 +16,7 @@
                     <div class="row form-group">
                         <div class="col-xs-12">
                             <label for="server-packages">Installed Packages</label>
-                            <select id="server-packages" name="server[packages]"
+                            <select id="server-packages" name="server[packages][]"
                                     multiple class="form-control select-tags-editable">
                                 {% for package in server.packages %}
                                     <option selected value="{{ package }}">{{ package }}</option>
