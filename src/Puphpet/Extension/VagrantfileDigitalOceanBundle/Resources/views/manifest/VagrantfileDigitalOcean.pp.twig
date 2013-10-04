@@ -21,12 +21,18 @@ Vagrant.configure("2") do |config|
 
 {% endfor %}
 
-{% for provisioner, data in data.vm.provision %}
-{% if data is not iterable %}
-  config.vm.provision :{{ provisioner }} => "{{ data|raw }}"
+{% for provisioner, values in data.vm.provision %}
+{% if values is not iterable %}
+  config.vm.provision :{{ provisioner }} => "{{ values|raw }}"
 {% else %}
   config.vm.provision :{{ provisioner }} do |{{ provisioner }}|
-{% for key, value in data if value %}
+{% if provisioner == 'puppet' %}
+    puppet.facter = {
+      "ssh_username" => "{% if data.ssh.username %}{{ data.ssh.username }}{% else %}vagrant{% endif %}"
+    }
+{% endif %}
+
+{% for key, value in values if value %}
     {{ provisioner }}.{{ key }} = {% if value is iterable %}["{{ value|join('", "')|raw }}"]{% else %}"{{ value|raw }}"{% endif %}
 
 {% endfor %}
