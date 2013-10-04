@@ -1,6 +1,11 @@
 modules: []
 vhosts: []
 
+user: 'www-data'
+group: 'www-data'
+default_vhost: false
+mpm_module: prefork
+
 empty_vhost:
     servername: ~
     serveraliases: []

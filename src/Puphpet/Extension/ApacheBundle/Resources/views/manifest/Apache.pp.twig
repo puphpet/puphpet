@@ -1,17 +1,18 @@
-$apache_values = hiera('apache')
-
-file { '/var/www':
-  ensure  => 'directory'
+if $apache_values == undef {
+  $apache_values = hiera('apache', false)
 }
 
 class { 'apache':
-  servername    => $apache_values['servername'],
-  default_vhost => false,
-  mpm_module    => 'prefork',
-  require       => [
-    Apt::Source['packages.dotdeb.org'],
-    File['/var/www']
-  ],
+  user          => $apache_values['user'],
+  group         => $apache_values['group'],
+  default_vhost => $apache_values['default_vhost'],
+  mpm_module    => $apache_values['mpm_module']
+}
+
+case $apache_values['mpm_module'] {
+  'prefork': { ensure_packages( ['apache2-mpm-prefork'] ) }
+  'worker':  { ensure_packages( ['apache2-mpm-worker'] ) }
+  'event':   { ensure_packages( ['apache2-mpm-event'] ) }
 }
 
 create_resources(apache::vhost, $apache_values['vhosts'])
