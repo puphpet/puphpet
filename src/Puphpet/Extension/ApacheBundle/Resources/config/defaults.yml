@@ -8,5 +8,5 @@ vhosts:
             - www.awesome.dev
         docroot: /var/www/awesome
         port: 80
-        envvars:
+        setenv: # environment variables
             - APP_ENV dev

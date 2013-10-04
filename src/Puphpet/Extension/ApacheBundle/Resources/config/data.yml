@@ -59,4 +59,4 @@ empty_vhost:
     serveraliases: []
     docroot: ~
     port: 80
-    envvars: []
+    setenv: []

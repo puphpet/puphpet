@@ -52,12 +52,12 @@
 
                 <div class="row form-group">
                     <div class="col-xs-12">
-                        <label for="apache-vhosts-{{ uniqid }}-envvars">Environment Variables</label>
-                        <select id="apache-vhosts-{{ uniqid }}-envvars"
-                                name="apache[vhosts][{{ uniqid }}][envvars][]"
+                        <label for="apache-vhosts-{{ uniqid }}-setenv">Environment Variables</label>
+                        <select id="apache-vhosts-{{ uniqid }}-setenv"
+                                name="apache[vhosts][{{ uniqid }}][setenv][]"
                                 multiple class="form-control select-tags-editable">
-                            {% for envvar in vhost.envvars %}
-                                <option selected value="{{ envvar }}">{{ envvar }}</option>
+                            {% for setenv in vhost.setenv %}
+                                <option selected value="{{ setenv }}">{{ setenv }}</option>
                             {% endfor %}
                         </select>
 
