@@ -15,7 +15,7 @@
                         <div class="col-xs-12">
                             <label for="apache-modules">Apache Modules</label>
                             <select id="apache-modules" name="apache[modules][]" multiple class="form-control select-tags">
-                                {% for module in apache.select_modules %}
+                                {% for module in apache.available_modules %}
                                     <option value="{{ module }}"
                                         {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
                                 {% endfor %}
