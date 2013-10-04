@@ -1,8 +1,5 @@
 vm:
     box: digital_ocean
-    graceful_halt_retry_count: 3
-    graceful_halt_retry_interval: 1
-    guest: :linux
     hostname: master
     network:
         private_network: 192.168.56.101
@@ -30,8 +27,6 @@ ssh:
     username: ~
     guest_port: ~
     keep_alive: true
-    max_tries: 100
-    timeout: 30
     forward_agent: false
     forward_x11: false
     shell: bash -l

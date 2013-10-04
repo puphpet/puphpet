@@ -1,9 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "{{ data.vm.box }}"
   config.vm.box_url = "{{ data.vm.box_url|raw }}"
-  config.vm.graceful_halt_retry_count = "{{ data.vm.graceful_halt_retry_count }}"
-  config.vm.graceful_halt_retry_interval = "{{ data.vm.graceful_halt_retry_interval }}"
-  config.vm.guest = "{{ data.vm.guest }}"
 {% if data.vm.hostname %}  config.vm.hostname = {{ data.vm.hostname }}{% endif %}
 
 {% if data.vm.network.private_network %}
@@ -25,7 +22,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider :{{ name }} do |{{ name }}|
 {% for type, values in provider %}
 {% for valueName, valueValue in values %}
-    v.customize ["{{ type }}", :id, "--{{ valueName }}", "{{ valueValue }}"]
+    {{ name }}.customize ["{{ type }}", :id, "--{{ valueName }}", "{{ valueValue }}"]
 {% endfor %}
 {% endfor %}
   end
@@ -54,10 +51,6 @@ Vagrant.configure("2") do |config|
 
 {% if data.ssh.guest_port %}  config.ssh.guest_port = {{ data.ssh.guest_port }}{% endif %}
 
-{% if data.ssh.max_tries %}  config.ssh.max_tries = {{ data.ssh.max_tries }}{% endif %}
-
-{% if data.ssh.timeout %}  config.ssh.timeout = {{ data.ssh.timeout }}{% endif %}
-
 {% if data.ssh.shell %}  config.ssh.shell = "{{ data.ssh.shell }}{% endif %}"
 
   config.ssh.keep_alive = {% if data.ssh.keep_alive %}true{% else %}false{% endif %}
@@ -66,6 +59,6 @@ Vagrant.configure("2") do |config|
 
   config.ssh.forward_x11 = {% if data.ssh.forward_x11 %}true{% else %}false{% endif %}
 
-{% if data.vagrant.host %}  config.vagrant.host: "{{ data.vagrant.host }}"{% endif %}
+{% if data.vagrant.host %}  config.vagrant.host = {{ data.vagrant.host }}{% endif %}
 
 end
