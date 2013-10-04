@@ -16,3 +16,9 @@ case $apache_values['mpm_module'] {
 }
 
 create_resources(apache::vhost, $apache_values['vhosts'])
+
+define apache_mod {
+  class { "apache::mod::${name}": }
+}
+
+apache_mod { $apache_values['modules']:; }
