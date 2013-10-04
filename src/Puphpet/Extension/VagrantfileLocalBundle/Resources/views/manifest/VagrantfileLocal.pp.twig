@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
 
 {% for provisioner, data in data.vm.provision %}
 {% if data is not iterable %}
-  config.vm.provision :{{ provisioner }}, {{ data|raw }}
+  config.vm.provision :{{ provisioner }} => "{{ data|raw }}"
 {% else %}
   config.vm.provision :{{ provisioner }} do |{{ provisioner }}|
 {% for key, value in data if value %}
