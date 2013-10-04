@@ -101,16 +101,32 @@ function selectizeTagsUserInput($element) {
         persist: false,
         create: false,
         onItemAdd: function(value, $item) {
-            var suffix    = prompt('Enter Value:') || '0';
-            var seperator = this.$input[0].getAttribute('data-value-seperator');
-            var label     = this.options[value].text + seperator + suffix;
-            var data      = $.extend({}, this.options[value], {
+            var targetContainer     = '#' + $(this['$input'])[0].getAttribute('data-target-container');
+            var targetNameStructure = $(this['$input'])[0].getAttribute('data-target-name');
+            var elementName         = targetNameStructure + '[' + this.options[value].text + ']';
+
+            var suffix = prompt('Enter Value:') || '0';
+            var label  = this.options[value].text + ' = ' + suffix;
+            var data   = $.extend({}, this.options[value], {
                 text: label
             });
+
+            // Append this user input as a new hidden element
+            $('<input>').attr({
+                type:  'hidden',
+                name:  elementName,
+                value: suffix
+            }).appendTo(targetContainer);
 
             this.updateOption(value, data);
         },
         onItemRemove: function(value, $item) {
+            var targetContainer     = '#' + $(this['$input'])[0].getAttribute('data-target-container');
+            var targetNameStructure = $(this['$input'])[0].getAttribute('data-target-name');
+            var elementName         = targetNameStructure + '[' + this.options[value].value + ']';
+
+            $(targetContainer + ' input[name="' + elementName + '"]').remove();
+
             var data = $.extend({}, this.options[value], {
                 text: value
             });
@@ -122,7 +138,8 @@ function selectizeTagsUserInput($element) {
     // Adds pre-selected option values to selectize field
     for (var i = 0; i < $selectTagsUserInput.length; i++) {
         var $selectElement = $selectTagsUserInput[i].selectize;
-        var $selectedItems = $('#' + $selectTagsUserInput[i]['id'] + '-selected');
+        var targetContainer = '#' + $selectTagsUserInput[i].getAttribute('data-target-container');
+        var $selectedItems = $(targetContainer);
 
         if (!$selectedItems.length) {
             continue;
@@ -130,10 +147,9 @@ function selectizeTagsUserInput($element) {
 
         $selectedItems.children().each(function() {
             var optionName  = this.getAttribute('data-option-name');
-            var optionValue = this.getAttribute('data-option-value');
-            var seperator   = $selectElement.$input[0].getAttribute('data-value-seperator');
+            var optionValue = $(this).val();
 
-            var label = $selectElement.options[optionName].text + seperator + optionValue;
+            var label = $selectElement.options[optionName].text + ' = ' + optionValue;
             var data  = $.extend({}, $selectElement.options[optionName], {
                 text: label
             });

@@ -25,18 +25,22 @@
                         </div>
 
                         <div class="col-xs-12">
-                            <label for="php-xdebug-settings">Settings</label>
-                            <select id="php-xdebug-settings" name="php[xdebug][settings][]"
-                                    multiple class="form-control select-tags-user-input" data-value-seperator=" = ">
+                            <label for="php-xdebug-settings-displayer">Settings</label>
+                            <select id="php-xdebug-settings-displayer" multiple
+                                    class="form-control select-tags-user-input"
+                                    data-target-container="php-xdebug-settings"
+                                    data-target-name="php[xdebug][settings]"
+                                >
                                 {% for ini in xdebug.available_ini %}
                                     <option value="{{ ini }}"
                                         {% if ini in xdebug.ini|keys %}selected{% endif %}>{{ ini }}</option>
                                 {% endfor %}
                             </select>
 
-                            <div id="php-xdebug-settings-selected" style="display: none;">
-                                {% for option, value in xdebug.ini %}
-                                    <div data-option-name="{{ option }}" data-option-value="{{ value }}"></div>
+                            <div id="php-xdebug-settings" style="display: none;">
+                                {% for name, value in xdebug.ini %}
+                                    <input type="hidden" name="php[xdebug][settings][{{ name }}]"
+                                           data-option-name="{{ name }}" value="{{ value }}" />
                                 {% endfor %}
                             </div>
 

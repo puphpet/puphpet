@@ -58,9 +58,12 @@
                     <!-- PHP / Ini -->
                     <div class="row form-group">
                         <div class="col-xs-12">
-                            <label for="php-ini">INI Settings</label>
-                            <select id="php-ini" name="php[ini][]" multiple
-                                    class="form-control select-tags-user-input" data-value-seperator=" = ">
+                            <label for="php-ini-displayer">INI Settings</label>
+                            <select id="php-ini-displayer" multiple
+                                    class="form-control select-tags-user-input"
+                                    data-target-container="php-ini"
+                                    data-target-name="php[ini]"
+                                >
                                 {% for ini, values in php.available_ini %}
                                     {% if values is not empty %}
                                         <optgroup label="{{ ini }}">
@@ -75,9 +78,10 @@
                                 {% endfor %}
                             </select>
 
-                            <div id="php-ini-selected" style="display: none;">
-                                {% for option, value in php.ini %}
-                                    <div data-option-name="{{ option }}" data-option-value="{{ value }}"></div>
+                            <div id="php-ini" style="display: none;">
+                                {% for name, value in php.ini %}
+                                    <input type="hidden" name="php[ini][{{ name }}]"
+                                           data-option-name="{{ name }}" value="{{ value }}" />
                                 {% endfor %}
                             </div>
 
