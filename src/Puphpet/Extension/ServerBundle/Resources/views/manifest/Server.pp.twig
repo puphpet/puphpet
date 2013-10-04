@@ -4,25 +4,71 @@ group { 'puppet': ensure => present }
 Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
 File { owner => 0, group => 0, mode => 0644 }
 
-class { 'apt': }
+# in case php extension was not loaded
+if $php_values == undef {
+  $php_values = hiera('php', false)
+}
 
-Class['::apt::update'] -> Package <|
-    title != 'python-software-properties'
-and title != 'software-properties-common'
-|>
+# copy dot files to ssh user's home directory
+exec { 'dotfiles':
+  cwd     => "/home/${::ssh_username}",
+  command => "cp -r /vagrant/files/dot/.[a-zA-Z0-9]* /home/${::ssh_username}/",
+  onlyif  => "test -d /vagrant/files/dot",
+}
+
+# debian, ubuntu
+case $::osfamily {
+  'debian': {
+    class { 'apt': }
+
+    Class['::apt::update'] -> Package <|
+        title != 'python-software-properties'
+    and title != 'software-properties-common'
+    |>
+  }
+}
+
+case $::operatingsystem {
+  'debian': {
+    add_dotdeb { 'packages.dotdeb.org': release => $lsbdistcodename }
+
+    if is_hash($php_values) {
+      # Debian Squeeze 6.0 can do PHP 5.3 (default) and 5.4
+      if $lsbdistcodename == 'squeeze' and $php_values['version'] == '54' {
+        add_dotdeb { 'packages.dotdeb.org-php54': release => 'squeeze-php54' }
+      }
+      # Debian Wheezy 7.0 can do PHP 5.4 (default) and 5.5
+      elsif $lsbdistcodename == 'wheezy' and $php_values['version'] == '55' {
+        add_dotdeb { 'packages.dotdeb.org-php55': release => 'wheezy-php55' }
+      }
+    }
+  }
+  'ubuntu': {
+    apt::key { '4F4EA0AAE5267A6C': }
+
+    if is_hash($php_values) {
+      # Ubuntu Lucid 10.04, Precise 12.04, Quantal 12.10 and Raring 13.04 can do PHP 5.3 (default <= 12.10) and 5.4 (default <= 13.04)
+      if $lsbdistcodename in ['lucid', 'precise', 'quantal', 'raring'] and $php_values['version'] == '54' {
+        apt::ppa { 'ppa:ondrej/php5-oldstable': require => Apt::Key['4F4EA0AAE5267A6C'] }
+      }
+      # Ubuntu Precise 12.04, Quantal 12.10 and Raring 13.04 can do PHP 5.5
+      elsif $lsbdistcodename in ['precise', 'quantal', 'raring'] and $php_values['version'] == '55' {
+        apt::ppa { 'ppa:ondrej/php5': require => Apt::Key['4F4EA0AAE5267A6C'] }
+      }
+    }
+  }
+}
 
 ensure_packages( $server_values['packages'] )
 
-case $::osfamily {
-  'debian': {
-    apt::source { 'packages.dotdeb.org':
-      location          => 'http://packages.dotdeb.org',
-      release           => $lsbdistcodename,
-      repos             => 'all',
-      required_packages => 'debian-keyring debian-archive-keyring',
-      key               => '89DF5277',
-      key_server        => 'keys.gnupg.net',
-      include_src       => true
-    }
+define add_dotdeb ($release){
+   apt::source { $name:
+    location          => 'http://packages.dotdeb.org',
+    release           => $release,
+    repos             => 'all',
+    required_packages => 'debian-keyring debian-archive-keyring',
+    key               => '89DF5277',
+    key_server        => 'keys.gnupg.net',
+    include_src       => true
   }
 }
