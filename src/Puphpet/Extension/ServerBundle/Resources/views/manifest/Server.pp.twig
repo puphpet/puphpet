@@ -1,4 +1,6 @@
-$server_values = hiera('server')
+if $server_values == undef {
+  $server_values = hiera('server', false)
+}
 
 group { 'puppet': ensure => present }
 Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
