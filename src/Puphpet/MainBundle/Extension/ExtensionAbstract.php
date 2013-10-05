@@ -14,6 +14,8 @@ abstract class ExtensionAbstract
     protected $targetFile;
     protected $sources = [];
 
+    protected $returnAvailableData = true;
+
     /**
      * @param Container $container
      */
@@ -78,6 +80,19 @@ abstract class ExtensionAbstract
         return $this->getManifestController()
             ->indexAction($data)
             ->getContent();
+    }
+
+    /**
+     * Flag for returning available options in data
+     *
+     * @param bool $value
+     * @return $this
+     */
+    public function setReturnAvailableData($value)
+    {
+        $this->returnAvailableData = $value;
+
+        return $this;
     }
 
     /**

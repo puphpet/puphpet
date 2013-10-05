@@ -5,29 +5,3 @@ user: 'www-data'
 group: 'www-data'
 default_vhost: false
 mpm_module: prefork
-
-empty_vhost:
-    servername: ~
-    serveraliases: []
-    docroot: ~
-    port: 80
-    setenv: []
-
-available_modules:
-    - cache
-    - cgid
-    - dav
-    - dav_fs
-    - disk_cache
-    - expires
-    - headers
-    - info
-    - ldap
-    - mime_magic
-    - proxy_ajp
-    - proxy_balancer
-    - proxy
-    - rewrite
-    - ssl
-    - userdir
-    - vhost_alias

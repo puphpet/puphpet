@@ -1,0 +1,34 @@
+available_privileges:
+    "Give all":
+        - ALL
+    "or, Give some":
+        - ALTER
+        - CREATE
+        - CREATE TEMPORARY TABLES
+        - DELETE
+        - DROP
+        - EXECUTE
+        - FILE
+        - INDEX
+        - INSERT
+        - LOCAL TABLES
+        - PROCESS
+        - REFERENCES
+        - RELOAD
+        - REPLICATION CLIENT
+        - REPLICATION SLAVE
+        - SELECT
+        - SHOW DATABASES
+        - SHUTDOWN
+        - SUPER
+        - UPDATE
+        - USAGE
+        - GRANT OPTION
+
+empty_database:
+    privileges: []
+    username: ~
+    password: ~
+    db_name: ~
+    host: ~
+    sql_file: ~

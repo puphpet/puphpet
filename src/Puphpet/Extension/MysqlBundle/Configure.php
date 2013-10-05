@@ -40,6 +40,13 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
             ? Yaml::parse(__DIR__ . '/Resources/config/defaults.yml')
             : $this->customData;
 
+        if ($this->returnAvailableData) {
+            $dataToMerge = array_merge(
+                $dataToMerge,
+                $this->getAvailableData()
+            );
+        }
+
         $this->data = array_replace_recursive(
             $this->getDefaultData(),
             $dataToMerge
@@ -73,5 +80,19 @@ class Configure extends Extension\ExtensionAbstract implements Extension\Extensi
         }
 
         return $this->data;
+    }
+
+    /**
+     * Grab data to fill out available options
+     *
+     * @return array
+     */
+    private function getAvailableData()
+    {
+        $available = Yaml::parse(__DIR__ . '/Resources/config/available.yml');
+
+        return is_array($available)
+            ? $available
+            : [];
     }
 }

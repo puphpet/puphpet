@@ -12,6 +12,12 @@ interface ExtensionInterface
 
     public function getManifestController();
 
+    /**
+     * @param $value
+     * @return $this
+     */
+    public function setReturnAvailableData($value);
+
     public function renderFront(array $data = []);
 
     public function renderManifest(array $data = []);

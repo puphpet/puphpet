@@ -1,0 +1,10 @@
+empty_vhost:
+    servername: ~
+    serveraliases: []
+    docroot: ~
+    port: 80
+    envvars: []
+    index_files:
+        - index.html
+        - index.htm
+        - index.php
