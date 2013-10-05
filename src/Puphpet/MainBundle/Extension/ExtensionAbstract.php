@@ -3,18 +3,19 @@
 namespace Puphpet\MainBundle\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\Yaml\Yaml;
 
-abstract class ExtensionAbstract
+abstract class ExtensionAbstract implements ExtensionInterface
 {
     protected $container;
-
+    protected $customData = [];
+    protected $data = [];
+    protected $dataLocation;
     protected $name;
-    protected $slug;
-
-    protected $targetFile;
-    protected $sources = [];
-
     protected $returnAvailableData = true;
+    protected $slug;
+    protected $sources = [];
+    protected $targetFile;
 
     /**
      * @param Container $container
@@ -25,6 +26,8 @@ abstract class ExtensionAbstract
     }
 
     /**
+     * Get extension's English name, eg "Apache"
+     *
      * @return string
      * @throws \Exception
      */
@@ -38,6 +41,8 @@ abstract class ExtensionAbstract
     }
 
     /**
+     * Get url-friendly slug, eg "vagrantfile-local"
+     *
      * @return string
      * @throws \Exception
      */
@@ -51,17 +56,9 @@ abstract class ExtensionAbstract
     }
 
     /**
-     * @return ControllerInterface
-     */
-    abstract public function getFrontController();
-
-    /**
-     * @return ControllerInterface
-     */
-    abstract public function getManifestController();
-
-    /**
-     * @param array $data
+     * Run extension's front controller action and return rendered content
+     *
+     * @param array $data Data required by controller template
      * @return string
      */
     public function renderFront(array $data = [])
@@ -72,7 +69,9 @@ abstract class ExtensionAbstract
     }
 
     /**
-     * @param array $data
+     * Run extension's manifest controller action and return rendered content
+     *
+     * @param array $data Data required by controller template
      * @return string
      */
     public function renderManifest(array $data = [])
@@ -84,6 +83,10 @@ abstract class ExtensionAbstract
 
     /**
      * Flag for returning available options in data
+     *
+     * eg all available PHP modules that user can choose from in drop down
+     *
+     * This is not desirable to show in the final hiera file
      *
      * @param bool $value
      * @return $this
@@ -98,6 +101,8 @@ abstract class ExtensionAbstract
     /**
      * Whether any data came from outside sources
      *
+     * eg user submitted their pre-generated hiera file
+     *
      * @return bool
      */
     public function hasCustomData()
@@ -106,7 +111,7 @@ abstract class ExtensionAbstract
     }
 
     /**
-     * Return the file extension output should be piped to
+     * Return the file the extension output will be saved to
      *
      * @return string
      */
@@ -116,7 +121,7 @@ abstract class ExtensionAbstract
     }
 
     /**
-     * If extension requires downloaded, returns associative array for librarian
+     * If extension requires downloaded, returns associative array for puppet librarian
      *
      * name => url (url is optional)
      *
@@ -129,5 +134,72 @@ abstract class ExtensionAbstract
         }
 
         return $this->sources;
+    }
+
+    /**
+     * Return all data needed for our templates
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        $dataToMerge = empty($this->customData)
+            ? Yaml::parse($this->dataLocation . '/defaults.yml')
+            : $this->customData;
+
+        if ($this->returnAvailableData) {
+            $dataToMerge = array_merge(
+                $this->getAvailableData(),
+                $dataToMerge
+            );
+        }
+
+        $this->data = array_replace_recursive(
+            $this->getDefaultData(),
+            $dataToMerge
+        );
+
+        return $this->data;
+    }
+
+    /**
+     * Add user-supplied values
+     *
+     * @param array $data
+     * @return $this
+     */
+    public function setCustomData(array $data = [])
+    {
+        $this->customData = $data;
+
+        return $this;
+    }
+
+    /**
+     * Our base data
+     *
+     * @return array
+     */
+    protected function getDefaultData()
+    {
+        if (empty($this->data)) {
+            $this->data = Yaml::parse($this->dataLocation . '/data.yml');
+        }
+
+        return $this->data;
+    }
+
+    /**
+     * Grab data to fill out available options
+     *
+     * @return array
+     */
+    protected function getAvailableData()
+    {
+        $available = Yaml::parse($this->dataLocation . '/available.yml');
+
+        return is_array($available)
+            ? $available
+            : [];
     }
 }
