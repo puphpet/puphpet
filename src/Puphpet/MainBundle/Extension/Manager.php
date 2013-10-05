@@ -5,6 +5,7 @@ namespace Puphpet\MainBundle\Extension;
 use Puphpet\MainBundle\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\Yaml\Yaml;
 
 class Manager
 {
@@ -216,6 +217,9 @@ class Manager
         return false;
     }
 
+    /**
+     * @param array $request
+     */
     public function createArchive(array $request)
     {
         $submittedExtensions = $this->matchExtensionToArrayValues($request);
@@ -224,12 +228,15 @@ class Manager
 
         $extensions = [];
         $sources = [];
+        $mergedData = [];
 
         foreach ($submittedExtensions as $slug => $data) {
             $extension = $this->getExtensionBySlug($slug);
             $extension->setCustomData($data);
 
             $extensions[$slug] = $extension;
+
+            $extension->setReturnAvailableData(false);
 
             $this->archive->queueToFile(
                 $extension->getTargetFile(),
@@ -239,9 +246,16 @@ class Manager
             foreach ($extension->getSources() as $name => $source) {
                 $sources[$name] = $source;
             }
+
+            $mergedData[$slug] = $extension->getData(false);
         }
 
         $this->processExtensionSources($sources);
+
+        $this->archive->queueToFile(
+            'puppet/hieradata/common.yaml',
+            Yaml::dump($mergedData, 50)
+        );
 
         $this->archive->write();
         $this->archive->dumpFiles();
