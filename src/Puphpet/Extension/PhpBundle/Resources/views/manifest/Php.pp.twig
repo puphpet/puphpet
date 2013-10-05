@@ -1,5 +1,43 @@
-$php_values = hiera('PHP')
+## Begin PHP manifest
 
-class { 'php::devel':
-  require => Class['php'],
+if $php_values == undef {
+  $php_values = hiera('php', false)
+}
+
+if $apache_values == undef {
+  $apache_values = hiera('apache', false)
+}
+
+if $nginx_values == undef {
+  $nginx_values = hiera('nginx', false)
+}
+
+if is_hash($apache_values) {
+  $php_webserver_service = 'httpd'
+} elsif is_hash($nginx_values) {
+  $php_webserver_service = 'nginx'
+} else {
+  $php_webserver_service = undef
+}
+
+Class['Php'] -> Class['Php::Devel'] -> Php::Module <| |> -> Php::Pear::Module <| |> -> Php::Pecl::Module <| |> ~> Service[$php_webserver_service]
+
+class { 'php':
+  service => $php_webserver_service
+}
+
+class { 'php::devel': }
+
+php_mod { $php_values['modules']['php']:; }
+php_pear_mod { $php_values['modules']['pear']:; }
+php_pecl_mod { $php_values['modules']['pecl']:; }
+
+define php_mod {
+  php::module { $name: }
+}
+define php_pear_mod {
+  php::pear::module { $name: use_package => false }
+}
+define php_pecl_mod {
+  php::pecl::module { $name: use_package => false }
 }
