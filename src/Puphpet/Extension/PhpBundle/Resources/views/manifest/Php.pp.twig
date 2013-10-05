@@ -28,9 +28,15 @@ class { 'php':
 
 class { 'php::devel': }
 
-php_mod { $php_values['modules']['php']:; }
-php_pear_mod { $php_values['modules']['pear']:; }
-php_pecl_mod { $php_values['modules']['pecl']:; }
+if count($php_values['modules']['php']) > 0 {
+  php_mod { $php_values['modules']['php']:; }
+}
+if count($php_values['modules']['pear']) > 0 {
+  php_pear_mod { $php_values['modules']['pear']:; }
+}
+if count($php_values['modules']['pecl']) > 0 {
+  php_pecl_mod { $php_values['modules']['pecl']:; }
+}
 
 define php_mod {
   php::module { $name: }
@@ -40,4 +46,17 @@ define php_pear_mod {
 }
 define php_pecl_mod {
   php::pecl::module { $name: use_package => false }
+}
+
+if $php_values['composer'] == 1 {
+  class { 'composer':
+    target_dir      => '/usr/local/bin',
+    composer_file   => 'composer',
+    download_method => 'curl',
+    logoutput       => false,
+    tmp_path        => '/tmp',
+    php_package     => 'php5-cli',
+    curl_package    => 'curl',
+    suhosin_enabled => false,
+  }
 }
