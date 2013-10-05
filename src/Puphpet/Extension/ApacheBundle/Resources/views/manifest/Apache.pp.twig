@@ -23,4 +23,6 @@ define apache_mod {
   class { "apache::mod::${name}": }
 }
 
-apache_mod { $apache_values['modules']:; }
+if count($apache_values['modules']) > 1 {
+  apache_mod { $apache_values['modules']:; }
+}
