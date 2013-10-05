@@ -13,7 +13,8 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puppet/manifests/default.pp';
 
     protected $sources = [
-        'php' => ":git => 'git://github.com/example42/puppet-php.git'",
+        'php'      => ":git => 'git://github.com/example42/puppet-php.git'",
+        'composer' => ":git => 'git://github.com/puphpet/puppet-composer.git'",
     ];
 
     /**
