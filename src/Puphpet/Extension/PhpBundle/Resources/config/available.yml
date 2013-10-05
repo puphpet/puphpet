@@ -393,7 +393,7 @@ available_modules:
             - html_parse
             - tidy
         HTTP:
-            - http
+            - pecl_http
             - txforward
             - uri_template
         Images:
