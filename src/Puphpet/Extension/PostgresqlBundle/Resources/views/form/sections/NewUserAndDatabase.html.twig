@@ -12,18 +12,14 @@
 
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <label for="postgresql-db-{{ uniqid }}-privileges">Priveleges</label>
+                        <label for="postgresql-databases-{{ uniqid }}-privileges">Priveleges</label>
 
-                        <select id="postgresql-db-{{ uniqid }}-privileges"
-                                name="postgresql[db][{{ uniqid }}][privileges][]" multiple size="6"
+                        <select id="postgresql-databases-{{ uniqid }}-privileges"
+                                name="postgresql[databases][{{ uniqid }}][privileges][]" size="6"
                                 class="form-control select-tags">
-                            {% for type, privileges in available_privileges %}
-                                <optgroup label="{{ type }}">
-                                    {% for privilege in privileges %}
-                                        <option value="{{ privilege }}"
-                                            {% if privilege in database.privileges %}selected{% endif %}>{{ privilege }}</option>
-                                    {% endfor %}
-                                </optgroup>
+                            {% for privilege in available_privileges %}
+                                <option value="{{ privilege }}"
+                                    {% if privilege in database.grant %}selected{% endif %}>{{ privilege }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -31,26 +27,26 @@
 
                 <div class="row form-group">
                     <div class="col-md-6">
-                        <label for="postgresql-db-{{ uniqid }}-dbname">DB Name</label>
-                        <input type="text" id="postgresql-db-{{ uniqid }}-dbname"
-                               name="postgresql[db][{{ uniqid }}][dbname]" placeholder="database name"
-                               value="{{ database.db_name }}" class="form-control" />
+                        <label for="postgresql-databases-{{ uniqid }}-name">DB Name</label>
+                        <input type="text" id="postgresql-databases-{{ uniqid }}-name"
+                               name="postgresql[databases][{{ uniqid }}][name]" placeholder="database name"
+                               value="{{ database.name }}" class="form-control" />
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-6">
-                        <label for="postgresql-db-{{ uniqid }}-username">Username</label>
-                        <input type="text" id="postgresql-db-{{ uniqid }}-username"
-                               name="postgresql[db][{{ uniqid }}][username]"
+                        <label for="postgresql-databases-{{ uniqid }}-user">Username</label>
+                        <input type="text" id="postgresql-databases-{{ uniqid }}-user"
+                               name="postgresql[databases][{{ uniqid }}][user]"
                                placeholder="username"
-                               value="{{ database.username }}" class="form-control" />
+                               value="{{ database.user }}" class="form-control" />
                     </div>
 
                     <div class="col-md-6">
-                        <label for="postgresql-db-{{ uniqid }}-password">Password</label>
-                        <input type="text" id="postgresql-db-{{ uniqid }}-password"
-                               name="postgresql[db][{{ uniqid }}][password]"
+                        <label for="postgresql-databases-{{ uniqid }}-password">Password</label>
+                        <input type="text" id="postgresql-databases-{{ uniqid }}-password"
+                               name="postgresql[databases][{{ uniqid }}][password]"
                                required placeholder="password"
                                value="{{ database.password }}" class="form-control" />
                     </div>
@@ -58,9 +54,9 @@
 
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <label for="postgresql-db-{{ uniqid }}-sqlFile">Import Database From File</label>
-                        <input type="text" id="postgresql-db-{{ uniqid }}-sqlFile"
-                               name="postgresql[db][{{ uniqid }}][sqlFile]"
+                        <label for="postgresql-databases-{{ uniqid }}-sql_file">Import Database From File</label>
+                        <input type="text" id="postgresql-databases-{{ uniqid }}-sql_file"
+                               name="postgresql[databases][{{ uniqid }}][sql_file]"
                                placeholder="/var/www/sql/database_name.sql"
                                value="{{ database.sql_file }}" class="form-control" />
 

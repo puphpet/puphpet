@@ -1,23 +1,12 @@
 available_privileges:
-    "Give all":
-        - ALL
-    "or, Give some":
-        - SELECT
-        - INSERT
-        - UPDATE
-        - DELETE
-        - TRUNCATE
-        - REFERENCE
-        - TRIGGER
-        - CREATE
-        - CONNECT
-        - TEMPORARY
-        - EXECUTE
-        - USAGE
+    - ALL
+    - CREATE
+    - CONNECT
+    - TEMPORARY
 
 empty_database:
-    privileges: []
-    username: ~
+    name: ~
+    user: ~
     password: ~
-    db_name: ~
+    grant: ALL
     sql_file: ~

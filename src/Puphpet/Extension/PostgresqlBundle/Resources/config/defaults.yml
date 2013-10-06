@@ -1,8 +1,7 @@
 databases:
     -
-        privileges:
-            - ALL
-        username: ~
+        name: ~
+        user: ~
         password: ~
-        db_name: ~
+        grant: ALL
         sql_file: ~

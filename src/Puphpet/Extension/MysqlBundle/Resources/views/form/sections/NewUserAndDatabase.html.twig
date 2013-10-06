@@ -21,7 +21,7 @@
                                 <optgroup label="{{ type }}">
                                     {% for privilege in privileges %}
                                         <option value="{{ privilege }}"
-                                            {% if privilege in database.privileges %}selected{% endif %}>{{ privilege }}</option>
+                                            {% if privilege in database.grant %}selected{% endif %}>{{ privilege }}</option>
                                     {% endfor %}
                                 </optgroup>
                             {% endfor %}
@@ -34,7 +34,7 @@
                         <label for="mysql-databases-{{ uniqid }}-name">DB Name</label>
                         <input type="text" id="mysql-databases-{{ uniqid }}-name"
                                name="mysql[databases][{{ uniqid }}][name]" required placeholder="database name"
-                               value="{{ database.db_name }}" class="form-control" />
+                               value="{{ database.name }}" class="form-control" />
                     </div>
 
                     <div class="col-md-6">
@@ -52,7 +52,7 @@
                         <input type="text" id="mysql-databases-{{ uniqid }}-user"
                                name="mysql[databases][{{ uniqid }}][user]"
                                required placeholder="username"
-                               value="{{ database.username }}" class="form-control" />
+                               value="{{ database.user }}" class="form-control" />
                     </div>
 
                     <div class="col-md-6">
