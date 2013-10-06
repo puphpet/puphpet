@@ -12,10 +12,10 @@
 
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <label for="postgresql-databases-{{ uniqid }}-privileges">Priveleges</label>
+                        <label for="postgresql-databases-{{ uniqid }}-grant">Priveleges</label>
 
-                        <select id="postgresql-databases-{{ uniqid }}-privileges"
-                                name="postgresql[databases][{{ uniqid }}][privileges][]" size="6"
+                        <select id="postgresql-databases-{{ uniqid }}-grant"
+                                name="postgresql[databases][{{ uniqid }}][grant]" size="6"
                                 class="form-control select-tags">
                             {% for privilege in available_privileges %}
                                 <option value="{{ privilege }}"
