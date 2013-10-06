@@ -28,12 +28,10 @@ define postgresql_db (
     $table = "${name}.*"
 
     exec{ "${name}-import":
-      command     => "/usr/bin/mysql ${name} < ${sql_file}",
+      command     => "psql ${name} < ${sql_file}",
       logoutput   => true,
-      environment => "HOME=${mysql::root_home}",
       refreshonly => $refresh,
-      require     => Mysql_grant["${user}@${host}/${table}"],
-      subscribe   => Mysql_database[$name],
+      require     => Postgresql::Server::Db[$name],
       onlyif      => "test -f ${sql_file}"
     }
   }
