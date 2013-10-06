@@ -22,6 +22,7 @@ vm:
             options:
                 - "--verbose"
                 - "--hiera_config /vagrant/hiera.yaml"
+                - "--parser=future"
     synced_folder: []
     usable_port_range: 2200..2250
 

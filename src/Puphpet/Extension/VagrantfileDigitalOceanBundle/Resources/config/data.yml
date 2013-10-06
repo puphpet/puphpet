@@ -20,6 +20,7 @@ vm:
             options:
                 - "--verbose"
                 - "--hiera_config /vagrant/hiera.yaml"
+                - "--parser=future"
     synced_folder: []
 
 ssh:
