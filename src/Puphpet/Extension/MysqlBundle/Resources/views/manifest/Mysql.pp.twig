@@ -30,7 +30,7 @@ define mysql_db (
     $table = "${name}.*"
 
     exec{ "${name}-import":
-      command     => "/usr/bin/mysql ${name} < ${sql_file}",
+      command     => "mysql ${name} < ${sql_file}",
       logoutput   => true,
       environment => "HOME=${mysql::root_home}",
       refreshonly => $refresh,
