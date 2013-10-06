@@ -26,9 +26,9 @@ available_privileges:
         - GRANT OPTION
 
 empty_database:
-    privileges: []
-    username: ~
+    name: ~
+    user: ~
     password: ~
-    db_name: ~
-    host: ~
+    host: localhost
+    grant: []
     sql_file: ~
