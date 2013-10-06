@@ -1,1 +1,42 @@
 ## Begin MySQL manifest
+
+if $mysql_values == undef {
+  $mysql_values = hiera('mysql', false)
+}
+
+class { 'mysql::server':
+  root_password => $mysql_values['root_password'],
+}
+
+if is_hash($mysql_values['databases']) and count($mysql_values['databases']) > 0 {
+  create_resources(mysql_db, $mysql_values['databases'])
+}
+
+define mysql_db (
+  $user     = '',
+  $password = '',
+  $host     = '',
+  $grant    = [],
+  $sqlFile  = false
+) {
+  mysql::db { $name:
+    user     => $user,
+    password => $password,
+    host     => $host,
+    grant    => $grant
+  }
+
+  if $sqlFile {
+    $table = "${name}.*"
+
+    exec{ "${name}-import":
+      command     => "/usr/bin/mysql ${name} < ${sqlFile}",
+      logoutput   => true,
+      environment => "HOME=${mysql::root_home}",
+      refreshonly => $refresh,
+      require     => Mysql_grant["${user}@${host}/${table}"],
+      subscribe   => Mysql_database[$name],
+      onlyif      => "test -f ${sqlFile}"
+    }
+  }
+}
