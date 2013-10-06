@@ -16,7 +16,7 @@ class { 'xdebug':
   service => $xdebug_webserver_service
 }
 
-if is_hash($xdebug_values['settings']) and count($xdebug_values['settings']) > 1 {
+if is_hash($xdebug_values['settings']) and count($xdebug_values['settings']) > 0 {
   $xdebug_values['settings'].each { |$key, $value|
     xdebug::augeas { $key:
       value   => $value,
