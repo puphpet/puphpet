@@ -1,9 +1,9 @@
 databases:
     -
-        privileges:
-            - ALL
-        username: ~
+        name: ~
+        user: ~
         password: ~
-        db_name: ~
         host: localhost
+        grant:
+            - ALL
         sql_file: ~

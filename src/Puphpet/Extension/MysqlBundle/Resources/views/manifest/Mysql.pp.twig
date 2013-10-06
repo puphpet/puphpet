@@ -17,7 +17,7 @@ define mysql_db (
   $password = '',
   $host     = '',
   $grant    = [],
-  $sqlFile  = false
+  $sql_file = false
 ) {
   mysql::db { $name:
     user     => $user,
@@ -26,17 +26,17 @@ define mysql_db (
     grant    => $grant
   }
 
-  if $sqlFile {
+  if $sql_file {
     $table = "${name}.*"
 
     exec{ "${name}-import":
-      command     => "/usr/bin/mysql ${name} < ${sqlFile}",
+      command     => "/usr/bin/mysql ${name} < ${sql_file}",
       logoutput   => true,
       environment => "HOME=${mysql::root_home}",
       refreshonly => $refresh,
       require     => Mysql_grant["${user}@${host}/${table}"],
       subscribe   => Mysql_database[$name],
-      onlyif      => "test -f ${sqlFile}"
+      onlyif      => "test -f ${sql_file}"
     }
   }
 }
