@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
 
 {% endfor %}
 
+  config.vm.provision :shell, :path => "shell/update-puppet.sh", :args => "{{ data.vm.os_name }}"
 {% for provisioner, values in data.vm.provision %}
 {% if values is not iterable %}
   config.vm.provision :{{ provisioner }} => "{{ values|raw }}"
