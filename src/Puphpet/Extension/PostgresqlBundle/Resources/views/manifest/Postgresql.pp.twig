@@ -1,1 +1,40 @@
 ## Begin PostgreSQL manifest
+
+if $postgresql_values == undef {
+  $postgresql_values = hiera('postgresql', false)
+}
+
+class { 'postgresql::server':
+  postgres_password => $postgresql_values['root_password'],
+}
+
+if is_hash($postgresql_values['databases']) and count($postgresql_values['databases']) > 0 {
+  create_resources(postgresql_db, $postgresql_values['databases'])
+}
+
+define postgresql_db (
+  $user,
+  $password,
+  $grant,
+  $sql_file = false
+) {
+  postgresql::server::db { $name:
+    user     => $user,
+    password => $password,
+    grant    => $grant
+  }
+
+  if $sql_file {
+    $table = "${name}.*"
+
+    exec{ "${name}-import":
+      command     => "/usr/bin/mysql ${name} < ${sql_file}",
+      logoutput   => true,
+      environment => "HOME=${mysql::root_home}",
+      refreshonly => $refresh,
+      require     => Mysql_grant["${user}@${host}/${table}"],
+      subscribe   => Mysql_database[$name],
+      onlyif      => "test -f ${sql_file}"
+    }
+  }
+}

@@ -13,9 +13,9 @@ if is_hash($mysql_values['databases']) and count($mysql_values['databases']) > 0
 }
 
 define mysql_db (
-  $user     = '',
-  $password = '',
-  $host     = '',
+  $user,
+  $password,
+  $host,
   $grant    = [],
   $sql_file = false
 ) {
