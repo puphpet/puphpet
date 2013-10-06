@@ -11,7 +11,7 @@
                     <div class="row form-group">
                         <div class="col-xs-12">
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="php[xdebug][install]"
+                                <input type="checkbox" name="xdebug[install]"
                                        {% if xdebug.enabled %}checked{% endif %} value="1" /> Install XDebug
                             </label>
 
@@ -25,11 +25,11 @@
                         </div>
 
                         <div class="col-xs-12">
-                            <label for="php-xdebug-settings-displayer">Settings</label>
-                            <select id="php-xdebug-settings-displayer" multiple
+                            <label for="xdebug-settings-displayer">Settings</label>
+                            <select id="xdebug-settings-displayer" multiple
                                     class="form-control select-tags-user-input"
-                                    data-target-container="php-xdebug-settings"
-                                    data-target-name="php[xdebug][settings]"
+                                    data-target-container="xdebug-settings"
+                                    data-target-name="xdebug[settings]"
                                 >
                                 {% for ini in xdebug.available_ini %}
                                     <option value="{{ ini }}"
@@ -37,9 +37,9 @@
                                 {% endfor %}
                             </select>
 
-                            <div id="php-xdebug-settings" style="display: none;">
+                            <div id="xdebug-settings" style="display: none;">
                                 {% for name, value in xdebug.ini %}
-                                    <input type="hidden" name="php[xdebug][settings][{{ name }}]"
+                                    <input type="hidden" name="xdebug[settings][{{ name }}]"
                                            data-option-name="{{ name }}" value="{{ value }}" />
                                 {% endfor %}
                             </div>
