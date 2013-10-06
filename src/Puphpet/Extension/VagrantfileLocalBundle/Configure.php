@@ -37,4 +37,19 @@ class Configure extends Extension\ExtensionAbstract
     {
         return $this->container->get('puphpet.extension.vagrantfile.local.manifest_controller');
     }
+
+    /**
+     * Run extension's manifest controller action and return rendered content
+     *
+     * @param array $data Data required by controller template
+     * @return string
+     */
+    public function renderManifest(array $data = [])
+    {
+        if (!empty($data['vm'])) {
+            $data['vm']['os_name'] = trim(str_replace(range(0,9), '', $data['vm']['box']));
+        }
+
+        return parent::renderManifest($data);
+    }
 }
