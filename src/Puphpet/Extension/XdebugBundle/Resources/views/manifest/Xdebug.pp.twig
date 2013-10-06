@@ -1,1 +1,13 @@
-## Begin Xdebug manifest
+## Begin XDebug manifest
+
+if is_hash($apache_values) {
+  $xdebug_webserver_service = 'httpd'
+} elsif is_hash($nginx_values) {
+  $xdebug_webserver_service = 'nginx'
+} else {
+  $xdebug_webserver_service = undef
+}
+
+class { 'xdebug':
+  service => $xdebug_webserver_service
+}
