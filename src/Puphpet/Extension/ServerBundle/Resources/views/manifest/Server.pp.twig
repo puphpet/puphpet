@@ -29,6 +29,8 @@ case $::osfamily {
         title != 'python-software-properties'
     and title != 'software-properties-common'
     |>
+
+    ensure_packages( ['augeas-tools'] )
   }
 }
 
