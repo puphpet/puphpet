@@ -105,14 +105,26 @@ footer .img-thumbnail img {
 /*
  * Selectize
  */
-.selectize-control.multi .selectize-input > div {
+.selectize-control.multi .selectize-input > div,
+.selectize-input .item {
     color: #fff;
     background: #428bca;
     border: #a7d7c6;
 }
 
-.selectize-control.multi .selectize-input > div.active {
+.selectize-control.multi .selectize-input > div.active,
+.selectize-input .item {
     background: #428bca;
+}
+
+.selectize-input .item  {
+    padding: 1px 3px;
+    margin: 0 3px 3px 0;
+    cursor: pointer;
+    border: 0 solid rgba(0, 0, 0, 0);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .selectize-dropdown .optgroup:before {
