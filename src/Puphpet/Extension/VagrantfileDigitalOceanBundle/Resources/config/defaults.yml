@@ -17,6 +17,8 @@ vm:
         puppet:
             options:
                 - "--verbose"
+                - "--hiera_config /vagrant/hiera.yaml"
+                - "--parser future"
 ssh:
     username: PRIVATE_KEY_USER
     forward_agent: true
