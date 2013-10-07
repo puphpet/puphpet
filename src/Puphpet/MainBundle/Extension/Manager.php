@@ -219,6 +219,7 @@ class Manager
 
     /**
      * @param array $request
+     * @return string
      */
     public function createArchive(array $request)
     {
@@ -258,8 +259,8 @@ class Manager
         );
 
         $this->archive->write();
-        $this->archive->dumpFiles();
-        exit;
+
+        return $this->archive->zip();
     }
 
     private function processExtensionSources(array $sources)

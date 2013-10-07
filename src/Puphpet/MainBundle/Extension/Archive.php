@@ -64,6 +64,34 @@ class Archive
     }
 
     /**
+     * @return string
+     */
+    public function zip()
+    {
+        $folderBits = explode('/', $this->targetDir);
+        $folder = array_pop($folderBits);
+
+        // ignore .git folders/files
+        $exec = sprintf(
+            "cd %s && cd .. && zip -r %s %s -x */.git\*",
+            $this->targetDir,
+            $this->targetDir . '.zip',
+            $folder
+        );
+        exec($exec);
+
+        return $this->targetDir . '.zip';
+    }
+
+    /**
+     * @return string
+     */
+    public function getDir()
+    {
+        return $this->targetDir;
+    }
+
+    /**
      * Copy existing directory full of semi-empty template files, to a tmp location
      */
     private function initialize()
