@@ -1,1 +1,72 @@
 ## Begin Nginx manifest
+
+if $nginx_values == undef {
+   $nginx_values = hiera('nginx', false)
+}
+
+if $php_values == undef {
+   $php_values = hiera('php', false)
+}
+
+class { 'nginx': }
+
+if count($nginx_values['vhosts']) > 0 {
+  create_resources(nginx_vhost, $nginx_values['vhosts'])
+}
+
+define nginx_vhost (
+  $server_name,
+  $server_aliases = [],
+  $www_root,
+  $listen_port,
+  $index_files,
+  $envvars = [],
+){
+  $merged_server_name = concat([$server_name], $server_aliases)
+
+  if is_hash($index_files) and count($index_files) > 0 {
+    $try_files = $index_files[count($index_files) - 1]
+  } else {
+    $try_files = 'index.php'
+  }
+
+  nginx::resource::vhost { $server_name:
+    server_name => $merged_server_name,
+    www_root    => $www_root,
+    listen_port => $listen_port,
+    index_files => $index_files,
+    try_files   => ['$uri', '$uri/', "/${try_files}?\$args"],
+  }
+
+  if $php_values['version'] == undef {
+    $fastcgi_pass = null
+  } elsif $php_values['version'] == '53' {
+    $fastcgi_pass = '127.0.0.1:9000'
+  } else {
+    $fastcgi_pass = 'unix:/var/run/php5-fpm.sock'
+  }
+
+  $fastcgi_param = concat(
+  [
+    'PATH_INFO $fastcgi_path_info',
+    'PATH_TRANSLATED $document_root$fastcgi_path_info',
+    'SCRIPT_FILENAME $document_root$fastcgi_script_name',
+  ], $envvars)
+
+  nginx::resource::location { "${server_name}-php":
+    ensure              => present,
+    vhost               => $server_name,
+    location            => '~ \.php$',
+    proxy               => undef,
+    try_files           => ['$uri', '$uri/', "/${try_files}?\$args"],
+    www_root            => $www_root,
+    location_cfg_append => {
+      'fastcgi_split_path_info' => '^(.+\.php)(/.+)$',
+      'fastcgi_param'           => $fastcgi_param,
+      'fastcgi_pass'            => $fastcgi_pass,
+      'fastcgi_index'           => 'index.php',
+      'include'                 => 'fastcgi_params'
+    },
+    notify              => Class['nginx::service'],
+  }
+}
