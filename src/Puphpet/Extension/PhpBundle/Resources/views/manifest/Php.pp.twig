@@ -69,30 +69,3 @@ if $php_values['composer'] == 1 {
     suhosin_enabled => false,
   }
 }
-
-## Begin XDebug manifest
-
-if $xdebug_values == undef {
-  $xdebug_values = hiera('xdebug', false)
-}
-
-if is_hash($apache_values) {
-  $xdebug_webserver_service = 'httpd'
-} elsif is_hash($nginx_values) {
-  $xdebug_webserver_service = 'nginx'
-} else {
-  $xdebug_webserver_service = undef
-}
-
-class { 'xdebug':
-  service => $xdebug_webserver_service
-}
-
-if is_hash($xdebug_values['settings']) and count($xdebug_values['settings']) > 0 {
-  $xdebug_values['settings'].each { |$key, $value|
-    xdebug::augeas { $key:
-      value   => $value,
-      service => $xdebug_webserver_service
-    }
-  }
-}
