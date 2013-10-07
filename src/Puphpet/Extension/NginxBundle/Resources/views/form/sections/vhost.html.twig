@@ -11,19 +11,19 @@
             <div class="panel-body">
                 <div class="row form-group">
                     <div class="col-md-6">
-                        <label for="nginx-vhosts-{{ uniqid }}-servername">Server Name</label>
-                        <input type="text" id="nginx-vhosts-{{ uniqid }}-servername"
-                               name="nginx[vhosts][{{ uniqid }}][servername]"
+                        <label for="nginx-vhosts-{{ uniqid }}-server_name">Server Name</label>
+                        <input type="text" id="nginx-vhosts-{{ uniqid }}-server_name"
+                               name="nginx[vhosts][{{ uniqid }}][server_name]"
                                required placeholder="awesome.dev"
-                               value="{{ vhost.servername }}" class="form-control" />
+                               value="{{ vhost.server_name }}" class="form-control" />
                     </div>
 
                     <div class="col-md-6">
-                        <label for="nginx-vhosts-{{ uniqid }}-serveraliases">Server Aliases</label>
-                        <select id="nginx-vhosts-{{ uniqid }}-serveraliases"
-                                name="nginx[vhosts][{{ uniqid }}][serveraliases][]"
+                        <label for="nginx-vhosts-{{ uniqid }}-server_aliases">Server Aliases</label>
+                        <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
+                                name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
                                 multiple class="form-control select-tags-editable">
-                            {% for alias in vhost.serveraliases %}
+                            {% for alias in vhost.server_aliases %}
                                 <option selected value="{{ alias }}">{{ alias }}</option>
                             {% endfor %}
                         </select>
@@ -34,19 +34,19 @@
 
                 <div class="row form-group">
                     <div class="col-md-6">
-                        <label for="nginx-vhosts-{{ uniqid }}-docroot">Document Root</label>
-                        <input type="text" id="nginx-vhosts-{{ uniqid }}-docroot"
-                               name="nginx[vhosts][{{ uniqid }}][docroot]"
+                        <label for="nginx-vhosts-{{ uniqid }}-www_root">Document Root</label>
+                        <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
+                               name="nginx[vhosts][{{ uniqid }}][www_root]"
                                required placeholder="/var/www/awesome"
-                               value="{{ vhost.docroot }}" class="form-control" />
+                               value="{{ vhost.www_root }}" class="form-control" />
                     </div>
 
                     <div class="col-md-6">
-                        <label for="nginx-vhosts-{{ uniqid }}-port">Port</label>
-                        <input type="text" id="nginx-vhosts-{{ uniqid }}-port"
-                               name="nginx[vhosts][{{ uniqid }}][port]"
+                        <label for="nginx-vhosts-{{ uniqid }}-listen_port">Port</label>
+                        <input type="text" id="nginx-vhosts-{{ uniqid }}-listen_port"
+                               name="nginx[vhosts][{{ uniqid }}][listen_port]"
                                required placeholder="80"
-                               value="{{ vhost.port }}" class="form-control" />
+                               value="{{ vhost.listen_port }}" class="form-control" />
                     </div>
                 </div>
 

@@ -1,10 +1,10 @@
 vhosts:
     -
-        servername: awesome.dev
-        serveraliases:
+        server_name: awesome.dev
+        server_aliases:
             - www.awesome.dev
-        docroot: /var/www/awesome.dev
-        port: 80
+        www_root: /var/www/awesome.dev
+        listen_port: 80
         envvars:
             - APP_ENV dev
         index_files:

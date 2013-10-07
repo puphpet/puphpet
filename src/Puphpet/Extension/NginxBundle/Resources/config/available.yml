@@ -1,8 +1,8 @@
 empty_vhost:
-    servername: ~
-    serveraliases: []
-    docroot: ~
-    port: 80
+    server_name: ~
+    server_aliases: []
+    www_root: ~
+    listen_port: 80
     envvars: []
     index_files:
         - index.html
