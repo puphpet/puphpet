@@ -22,7 +22,7 @@ available_boxes:
             - 5.4
             - 5.3
     -
-        url: http://files.vagrantup.com/precise64.box
+        url: http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box
         os: ubuntu
         short_name: precise64
         long_name: Ubuntu Precise 12.04 x64
@@ -31,7 +31,7 @@ available_boxes:
             - 5.4
             - 5.3
     -
-        url: http://files.vagrantup.com/lucid64.box
+        url: http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-10044-x64-vbox4210.box
         os: ubuntu
         short_name: lucid64
         long_name: Ubuntu Lucid 10.04 x64
