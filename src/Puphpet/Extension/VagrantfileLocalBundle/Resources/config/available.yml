@@ -27,7 +27,6 @@ available_boxes:
         short_name: precise64
         long_name: Ubuntu Precise 12.04 x64
         php_versions:
-            - 5.5
             - 5.4
             - 5.3
     -
@@ -36,6 +35,5 @@ available_boxes:
         short_name: lucid64
         long_name: Ubuntu Lucid 10.04 x64
         php_versions:
-            - 5.5
             - 5.4
             - 5.3
