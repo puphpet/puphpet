@@ -31,19 +31,4 @@ class Configure extends Extension\ExtensionAbstract
     {
         return $this->container->get('puphpet.extension.vagrantfile.rackspace.manifest_controller');
     }
-
-    /**
-     * Run extension's manifest controller action and return rendered content
-     *
-     * @param array $data Data required by controller template
-     * @return string
-     */
-    public function renderManifest(array $data = [])
-    {
-        if (!empty($data['vm']['provider']['rackspace']['image'])) {
-            $data['vm']['os_name'] = strtolower(explode(' ', $data['vm']['provider']['rackspace']['image'])[0]);
-        }
-
-        return parent::renderManifest($data);
-    }
 }
