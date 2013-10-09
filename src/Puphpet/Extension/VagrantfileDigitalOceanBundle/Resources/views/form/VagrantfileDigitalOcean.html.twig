@@ -114,6 +114,18 @@
 
                     <div class="row form-group">
                         <div class="col-md-12">
+                            <label for="vagrantfile-digital_ocean-vm-hostname">Digital Ocean VM Name</label>
+                            <input id="vagrantfile-digital_ocean-vm-hostname"
+                                   name="vagrantfile-digital_ocean[vm][hostname]"
+                                   placeholder="my-awesome-box"
+                                   value="{{ data.vm.hostname }}" class="form-control" />
+
+                            <p class="help-block">Name your server. It must be unique to your account!</p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
                             <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-size">Digital Ocean VM Size</label>
                             <select id="vagrantfile-digital_ocean-vm-provider-digital_ocean-size"
                                     name="vagrantfile-digital_ocean[vm][provider][digital_ocean][size]"
