@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
     master.vm.box = "digital_ocean"
   end
 
-{% if data.vm.hostname %}  config.vm.hostname = {{ data.vm.hostname }}{% endif %}
+{% if data.vm.hostname %}  config.vm.hostname = "{{ data.vm.hostname }}"{% endif %}
 
   config.vm.provider :digital_ocean do |provider|
     provider.client_id = "{{ data.vm.provider.digital_ocean.client_id }}"
@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
 
 {% endfor %}
 
-  config.vm.provision :shell, :path => "shell/update-puppet.sh", :args => "{{ data.vm.os_name }}"
+  config.vm.provision :shell, :path => "shell/update-puppet.sh"
 {% for provisioner, values in data.vm.provision %}
 {% if values is not iterable %}
   config.vm.provision :{{ provisioner }} => "{{ values|raw }}"

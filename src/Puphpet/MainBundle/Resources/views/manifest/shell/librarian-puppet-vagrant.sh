@@ -34,6 +34,7 @@ fi
 cp /vagrant/puppet/Puppetfile $PUPPET_DIR
 
 if [ "$(gem search -i librarian-puppet)" = "false" ]; then
+  apt-get install -y build-essential ruby-dev
   gem install librarian-puppet
   cd $PUPPET_DIR && librarian-puppet install --clean
 else
