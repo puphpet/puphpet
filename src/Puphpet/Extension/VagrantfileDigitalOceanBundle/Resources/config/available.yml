@@ -12,12 +12,6 @@ available_images:
             - 5.5
             - 5.4
     -
-        image: Debian 6.0 x64
-        long_name: Debian Squeeze 6.0 x64
-        php_versions:
-            - 5.5
-            - 5.4
-    -
         image: Ubuntu 13.04 x64
         long_name: Ubuntu Raring 13.04 x64
         php_versions:
