@@ -1,0 +1,47 @@
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: true
+
+available_images:
+    -
+        image: Debian 7 (Wheezy)
+        long_name: Debian Squeeze 7 x64
+        php_versions:
+            - 5.5
+            - 5.4
+    -
+        image: Debian 6.06 (Squeeze)
+        long_name: Debian Wheezy 6.06 x64
+        php_versions:
+            - 5.5
+            - 5.4
+    -
+        image: Ubuntu 13.04 (Raring Ringtail)
+        long_name: Ubuntu Raring 13.04 x64
+        php_versions:
+            - 5.4
+    -
+        image: Ubuntu 12.10 (Quantal Quetzal)
+        long_name: Ubuntu Quantal 12.10 x64
+        php_versions:
+            - 5.4
+    -
+        image: Ubuntu 12.04 LTS (Precise Pangolin)
+        long_name: Ubuntu Precise 12.04 x64
+        php_versions:
+            - 5.4
+            - 5.3
+
+available_sizes:
+    - 512MB
+    - 1GB
+    - 2GB
+    - 4GB
+    - 8GB
+
+available_regions:
+    DFW: Dallas (DFW)
+    ORD: Chicago (ORD)
+    SYD: Sydney (SYD)

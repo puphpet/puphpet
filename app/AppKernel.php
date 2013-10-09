@@ -20,14 +20,15 @@ class AppKernel extends Kernel
             new Zenstruck\SlugifyBundle\ZenstruckSlugifyBundle(),
 
             new Puphpet\Extension\VagrantfileLocalBundle\PuphpetExtensionVagrantfileLocalBundle(),
+            new Puphpet\Extension\VagrantfileDigitalOceanBundle\PuphpetExtensionVagrantfileDigitalOceanBundle(),
+            new Puphpet\Extension\VagrantfileRackspaceBundle\PuphpetExtensionVagrantfileRackspaceBundle(),
             new Puphpet\Extension\ServerBundle\PuphpetExtensionServerBundle(),
             new Puphpet\Extension\ApacheBundle\PuphpetExtensionApacheBundle(),
+            new Puphpet\Extension\NginxBundle\PuphpetExtensionNginxBundle(),
             new Puphpet\Extension\PhpBundle\PuphpetExtensionPhpBundle(),
             new Puphpet\Extension\XdebugBundle\PuphpetExtensionXdebugBundle(),
             new Puphpet\Extension\MysqlBundle\PuphpetExtensionMysqlBundle(),
             new Puphpet\Extension\PostgresqlBundle\PuphpetExtensionPostgresqlBundle(),
-            new Puphpet\Extension\NginxBundle\PuphpetExtensionNginxBundle(),
-            new Puphpet\Extension\VagrantfileDigitalOceanBundle\PuphpetExtensionVagrantfileDigitalOceanBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

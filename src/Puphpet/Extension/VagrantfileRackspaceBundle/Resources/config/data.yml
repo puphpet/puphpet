@@ -1,0 +1,37 @@
+vm:
+    box: rackspace
+    hostname: master
+    provider:
+        rackspace:
+            server_name: ~
+            image: ~
+            region: ~
+            size: ~
+            username: ~
+            api_key: ~
+    provision:
+        "shell, :path": "shell/librarian-puppet-vagrant.sh"
+        "shell, :inline": "if [[ ! -f /apt-get-run ]]; then sudo apt-get update && sudo apt-get install -y puppet && touch /apt-get-run; fi"
+        puppet:
+            manifests_path: "puppet/manifests"
+            module_path: "puppet/modules"
+            options:
+                - "--verbose"
+                - "--hiera_config /vagrant/hiera.yaml"
+                - "--parser future"
+    synced_folder: []
+
+ssh:
+    host: ~
+    port: ~
+    private_key_path: ~
+    public_key_path: ~
+    username: ~
+    guest_port: ~
+    keep_alive: true
+    forward_agent: false
+    forward_x11: false
+    shell: bash -l
+
+vagrant:
+    host: :detect

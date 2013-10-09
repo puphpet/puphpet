@@ -1,0 +1,26 @@
+vm:
+    provider:
+        rackspace:
+            server_name: rackspace-server
+            image: Debian 7 (Wheezy)
+            region: Dallas (DFW)
+            size: 1GB
+            username: RACKSPACE_USERNAME
+            api_key: RACKSPACE_API_KEY
+    synced_folder:
+        -
+            source: ~/www/
+            target: /var/www
+            id: webroot
+            nfs: false
+    provision:
+        puppet:
+            options:
+                - "--verbose"
+                - "--hiera_config /vagrant/hiera.yaml"
+                - "--parser future"
+ssh:
+    username: PRIVATE_KEY_USER
+    forward_agent: true
+    private_key_path: "~/.ssh/id_rsa"
+    public_key_path: "~/.ssh/id_rsa.pub"
