@@ -31,4 +31,19 @@ class Configure extends Extension\ExtensionAbstract
     {
         return $this->container->get('puphpet.extension.vagrantfile.digital_ocean.manifest_controller');
     }
+
+    /**
+     * Run extension's manifest controller action and return rendered content
+     *
+     * @param array $data Data required by controller template
+     * @return string
+     */
+    public function renderManifest(array $data = [])
+    {
+        if (!empty($data['vm']['provider']['digital_ocean']['image'])) {
+            $data['vm']['os_name'] = strtolower(explode(' ', $data['vm']['provider']['digital_ocean']['image'])[0]);
+        }
+
+        return parent::renderManifest($data);
+    }
 }
