@@ -1,0 +1,11 @@
+puphpet.extension.vagrantfile.rackspace.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionVagrantfileRackspaceBundle:Front:index }
+
+puphpet.extension.vagrantfile.rackspace.synced_folder:
+    pattern: /synced-folder
+    defaults: { _controller: PuphpetExtensionVagrantfileRackspaceBundle:Front:syncedFolder }
+
+puphpet.extension.vagrantfile.rackspace.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionVagrantfileRackspaceBundle:Manifest:index }

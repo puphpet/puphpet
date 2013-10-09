@@ -1,0 +1,17 @@
+parameters:
+
+services:
+    puphpet.extension.vagrantfile.rackspace.configure:
+        class: Puphpet\Extension\VagrantfileRackspaceBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.vagrantfile.rackspace.front_controller:
+        class: Puphpet\Extension\VagrantfileRackspaceBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.vagrantfile.rackspace.manifest_controller:
+        class: Puphpet\Extension\VagrantfileRackspaceBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]
