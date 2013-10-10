@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Directory in which librarian-puppet should manage its modules directory
 PUPPET_DIR=/etc/puppet/
@@ -33,7 +33,13 @@ if [ ! -d "$PUPPET_DIR" ]; then
 fi
 cp /vagrant/puppet/Puppetfile $PUPPET_DIR
 
-apt-get install -y build-essential ruby-dev libgemplugin-ruby
+apt-get install -y build-essential ruby-dev
+
+OS=$(/bin/bash /vagrant/shell/os-detect.sh ID)
+
+if [ "$OS" == 'ubuntu' ]; then
+  apt-get install -y libgemplugin-ruby
+fi
 
 if [ "$(gem search -i librarian-puppet)" = "false" ]; then
   gem install librarian-puppet
