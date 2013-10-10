@@ -2,6 +2,11 @@
     font-size: 2em;
 }
 
+#logo {
+    width: 100%;
+    max-width: 200px;
+}
+
 button.addParentContainer {
     margin-bottom: 20px;
 }
