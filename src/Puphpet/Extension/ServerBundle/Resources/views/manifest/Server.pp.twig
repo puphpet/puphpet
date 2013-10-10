@@ -8,6 +8,17 @@ group { 'puppet': ensure => present }
 Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
 File { owner => 0, group => 0, mode => 0644 }
 
+user { $::ssh_username:
+    shell  => '/bin/bash',
+    home   => "/home/${::ssh_username}",
+    ensure => present
+}
+
+file { "/home/${::ssh_username}":
+    ensure => directory,
+    owner  => $::ssh_username,
+}
+
 # in case php extension was not loaded
 if $php_values == undef {
   $php_values = hiera('php', false)
