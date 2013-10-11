@@ -29,8 +29,14 @@ class Add extends Controller
 
     public function vhostAction(Request $request)
     {
+        $server = $request->get('server');
+
+        if (!in_array($server, array('apache', 'nginx'))) {
+            $server = 'apache';
+        }
+
         return $this->twig()->render(
-            'Front/Tabs/Webserver/Apache/vhost.html.twig',
+            sprintf('Front/Tabs/Webserver/%s/vhost.html.twig', ucfirst($server)),
             ['vhostNum' => $request->get('id')]
         );
     }
