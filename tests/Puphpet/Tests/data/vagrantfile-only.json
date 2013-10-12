@@ -28,7 +28,7 @@
                 },
                 ":shell": ":inline => 'if [[ ! -f /apt-get-run ]]; then sudo apt-get update && touch /apt-get-run; fi'"
             },
-            "synced_folder": "'./', '/var/www', id: 'vagrant-root' , :nfs => true",
+            "synced_folder": "'./', '/var/www', id: 'vagrant-root' , :nfs => false",
             "usable_port_range": "2200..2250"
         },
         "ssh": {
