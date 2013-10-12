@@ -59,7 +59,9 @@ $(document).ready(function() {
 
         $('#' + original).find('input, textarea, button, select').prop('disabled', true);
         $('#' + target).find('input, textarea, button, select').prop('disabled', false);
-    })
+    });
+
+    githubContributors();
 });
 
 function runSelectize($element) {
@@ -157,4 +159,13 @@ function selectizeTagsUserInput($element) {
             $selectElement.updateOption(optionName, data);
         });
     }
+}
+
+function githubContributors() {
+    $.get('https://api.github.com/repos/puphpet/puphpet/contributors', function(githubResponse) {
+        $.post('/app_dev.php/github-contributors', { contributors: githubResponse }, function(response) {
+            $('#contributors').html(response);
+            console.log(response);
+        });
+    });
 }
