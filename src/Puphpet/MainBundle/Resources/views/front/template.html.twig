@@ -4,6 +4,8 @@
     <head>
         <title>PuPHPet v2</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Vagrant/Puppet GUI Configuration" />
+        <meta name="author" content="Juan Treminio @ https://jtreminio.com" />
         <meta charset="utf-8">
         {% block stylesheets %}
             <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.css">
@@ -28,7 +30,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="#" class="navbar-brand">PuPHPet</a>
+                <a href="{{ path('puphpet.main.homepage') }}" class="navbar-brand">PuPHPet</a>
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -37,50 +39,37 @@
             </div>
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span
-                            class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="themes">
-                            <li><a tabindex="-1" href="#">Default</a></li>
-                            <li class="divider"></li>
-                            <li><a tabindex="-1" href="#">Amelia</a></li>
-                            <li><a tabindex="-1" href="#">Cerulean</a></li>
-                            <li><a tabindex="-1" href="#">Cosmo</a></li>
-                            <li><a tabindex="-1" href="#">Cyborg</a></li>
-                            <li><a tabindex="-1" href="#">Flatly</a></li>
-                            <li><a tabindex="-1" href="#">Journal</a></li>
-                            <li><a tabindex="-1" href="#">Readable</a></li>
-                            <li><a tabindex="-1" href="#">Simplex</a></li>
-                            <li><a tabindex="-1" href="#">Slate</a></li>
-                            <li><a tabindex="-1" href="#">Spacelab</a></li>
-                            <li><a tabindex="-1" href="#">United</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Help</a>
-                    </li>
-                    <li>
-                        <a href="http://news.bootswatch.com">Blog</a>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Download <span
-                            class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="download">
-                            <li><a tabindex="-1" href="#">bootstrap.min.css</a></li>
-                            <li><a tabindex="-1" href="#">bootstrap.css</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{ path('puphpet.main.about') }}">About</a></li>
+                    <li><a href="{{ path('puphpet.main.help') }}">Help!</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
-                    <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+                    <li><a href="https://github.com/puphpet/puphpet/issues" target="_blank">Issues?</a></li>
+                    <li><a href="https://github.com/puphpet/puphpet" target="_blank">Fork Me</a></li>
                 </ul>
 
             </div>
         </div>
     </div>
 {% endblock %}
+
+<div class="jumbotron well-sm" id="top">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 hidden-sm hidden-md hidden-lg hidden-print">
+                <h1>PuPHPet</h1>
+
+                <p>A simple GUI to set up virtual machines for <strike>PHP</strike> <strong>Web</strong> development.</p>
+            </div>
+            <div class="col-sm-3"><p class="text-center"><img src="/assets/img/logo.png" id="logo" /></p></div>
+            <div class="col-sm-9 hidden-xs">
+                <h1>PuPHPet</h1>
+
+                <p>A simple GUI to set up virtual machines for <strike>PHP</strike> <strong>Web</strong> development.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% block main %}
 {% endblock %}
@@ -91,17 +80,15 @@
         <div class="row">
             <div class="col-xs-12 col-sm-9 col-sm-push-3">
                 <ul class="list-unstyled">
-                    <li class="pull-right"><a href="#top">Back to top</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="https://twitter.com/juantreminio">Twitter</a></li>
-                    <li><a href="https://github.com/puphpet/puphpet">GitHub</a></li>
+                    <li class="pull-right"><span class="icon-arrow-up"></span> <a href="#top">Back to top</a></li>
+                    <li><span class="icon-pencil"></span> <a href="https://jtreminio.com">Blog</a></li>
+                    <li><span class="icon-twitter"></span> <a href="https://twitter.com/juantreminio" target="_blank">Twitter</a></li>
+                    <li><span class="icon-github"></span> <a href="https://github.com/puphpet/puphpet" target="_blank">GitHub</a></li>
                 </ul>
                 <p>
-                    Made by <a href="https://jtreminio.com">Juan Treminio</a>.
+                    Made with <span class="icon-heart"></span> by <a href="https://jtreminio.com">Juan Treminio</a>.
                     Contact him at <a href="mailto:jtreminio@gmail.com">jtreminio@gmail.com</a>.
-                </p>
-
-                <p>Code licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+                    Code licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
 
                 <h4>Made possible thanks to contributions by</h4>
 

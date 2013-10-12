@@ -12,9 +12,9 @@ class FrontController extends Controller
 {
     public function indexAction(Request $request)
     {
-        if ($request->isMethod('POST')) {
-            $manager = $this->get('puphpet.extension.manager');
+        $manager = $this->get('puphpet.extension.manager');
 
+        if ($request->isMethod('POST')) {
             $archive = $manager->createArchive($request->request->all());
 
             $response = new Response;
@@ -26,7 +26,17 @@ class FrontController extends Controller
         }
 
         return $this->render('PuphpetMainBundle:front:index.html.twig', [
-            'extensionManager' => $this->get('puphpet.extension.manager'),
+            'extensionManager' => $manager,
         ]);
+    }
+
+    public function aboutAction()
+    {
+        return $this->render('PuphpetMainBundle:front:about.html.twig');
+    }
+
+    public function helpAction()
+    {
+        return $this->render('PuphpetMainBundle:front:help.html.twig');
     }
 }

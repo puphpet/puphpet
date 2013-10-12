@@ -1,3 +1,11 @@
 puphpet.main.homepage:
     pattern:  /
     defaults: { _controller: PuphpetMainBundle:Front:index }
+
+puphpet.main.about:
+    pattern:  /about
+    defaults: { _controller: PuphpetMainBundle:Front:about }
+
+puphpet.main.help:
+    pattern:  /help
+    defaults: { _controller: PuphpetMainBundle:Front:help }
