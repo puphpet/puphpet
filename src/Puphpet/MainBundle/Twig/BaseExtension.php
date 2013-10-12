@@ -21,6 +21,13 @@ class BaseExtension extends \Twig_Extension
         ];
     }
 
+    public function getFilters()
+    {
+        return [
+            'str_replace' => new \Twig_Filter_Function([$this, 'str_replace']),
+        ];
+    }
+
     public function uniqid()
     {
         $random = $this->randomLib->getLowStrengthGenerator();
@@ -29,6 +36,11 @@ class BaseExtension extends \Twig_Extension
                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         return $random->generateString(12, $characters);
+    }
+
+    public function str_replace($subject, $search, $replace)
+    {
+        return str_replace($search, $replace, $subject);
     }
 
     public function getName()
