@@ -8,7 +8,7 @@ vm:
             api_key: DIGITAL_OCEAN_API_KEY
     synced_folder:
         -
-            source: ~/www/
+            source: ./
             target: /var/www
             id: webroot
             nfs: false

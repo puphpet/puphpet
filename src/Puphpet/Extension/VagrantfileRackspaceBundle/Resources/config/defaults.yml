@@ -9,7 +9,7 @@ vm:
             api_key: RACKSPACE_API_KEY
     synced_folder:
         -
-            source: ~/www/
+            source: ./
             target: /var/www
             id: webroot
             nfs: false
