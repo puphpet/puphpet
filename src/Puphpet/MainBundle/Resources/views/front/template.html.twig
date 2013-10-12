@@ -61,11 +61,16 @@
 
                 <p>A simple GUI to set up virtual machines for <strike>PHP</strike> <strong>Web</strong> development.</p>
             </div>
-            <div class="col-sm-3"><p class="text-center"><img src="/assets/img/logo.png" id="logo" /></p></div>
-            <div class="col-sm-9 hidden-xs">
+            <div class="col-sm-3 col-xs-6"><p class="text-center"><img src="/assets/img/logo.png" id="logo" /></p></div>
+            <div class="col-sm-6 hidden-xs">
                 <h1>PuPHPet</h1>
 
                 <p>A simple GUI to set up virtual machines for <strike>PHP</strike> <strong>Web</strong> development.</p>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                {% if not constant('DEBUG') %}
+                    {% include 'PuphpetMainBundle:front:carbonAds.html.twig' %}
+                {% endif %}
             </div>
         </div>
     </div>
