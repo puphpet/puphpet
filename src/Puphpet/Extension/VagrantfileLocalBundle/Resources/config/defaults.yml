@@ -3,10 +3,10 @@ vm:
         virtualbox: []
     synced_folder:
         -
-            source: ~/www/
+            source: ./
             target: /var/www
             id: webroot
-            nfs: true
+            nfs: false
     network:
         forwarded_port:
             -
