@@ -36,3 +36,11 @@ define postgresql_db (
     }
   }
 }
+
+if $php_values == undef {
+  $php_values = hiera('php', false)
+}
+
+if is_hash($php_values) {
+  ensure_packages( ['php5-pgsql'] )
+}
