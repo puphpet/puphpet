@@ -1,5 +1,6 @@
 modules:
     - rewrite
+    - php
 
 vhosts:
     -

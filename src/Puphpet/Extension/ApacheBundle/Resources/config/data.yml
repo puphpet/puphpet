@@ -3,5 +3,5 @@ vhosts: []
 
 user: 'www-data'
 group: 'www-data'
-default_vhost: false
+default_vhost: true
 mpm_module: prefork
