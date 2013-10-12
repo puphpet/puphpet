@@ -18,7 +18,6 @@ vm:
         "shell, :inline": "if [[ ! -f /apt-get-run ]]; then sudo apt-get update && touch /apt-get-run; fi"
         puppet:
             manifests_path: "puppet/manifests"
-            module_path: "puppet/modules"
             options:
                 - "--verbose"
                 - "--hiera_config /vagrant/hiera.yaml"
