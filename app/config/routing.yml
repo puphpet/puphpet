@@ -34,6 +34,10 @@ puphpet.extension.xdebug:
     resource: "@PuphpetExtensionXdebugBundle/Resources/config/routing.yml"
     prefix:   /extensions/xdebug
 
+puphpet.extension.xhprof:
+    resource: "@PuphpetExtensionXhprofBundle/Resources/config/routing.yml"
+    prefix:   /extensions/xhprof
+
 puphpet.extension.mysql:
     resource: "@PuphpetExtensionMysqlBundle/Resources/config/routing.yml"
     prefix:   /extensions/mysql

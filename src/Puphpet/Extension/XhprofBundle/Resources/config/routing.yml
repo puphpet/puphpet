@@ -1,0 +1,7 @@
+puphpet.extension.xhprof.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionXhprofBundle:Front:index }
+
+puphpet.extension.xhprof.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionXhprofBundle:Manifest:index }

@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Puphpet\Extension\NginxBundle\PuphpetExtensionNginxBundle(),
             new Puphpet\Extension\PhpBundle\PuphpetExtensionPhpBundle(),
             new Puphpet\Extension\XdebugBundle\PuphpetExtensionXdebugBundle(),
+            new Puphpet\Extension\XhprofBundle\PuphpetExtensionXhprofBundle(),
             new Puphpet\Extension\MysqlBundle\PuphpetExtensionMysqlBundle(),
             new Puphpet\Extension\PostgresqlBundle\PuphpetExtensionPostgresqlBundle(),
         );

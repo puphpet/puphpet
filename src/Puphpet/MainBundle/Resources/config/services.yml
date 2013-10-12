@@ -20,6 +20,7 @@ services:
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.nginx.configure ] ]
             - [ addExtension, [ @puphpet.extension.php.configure ] ]
             - [ addExtension, [ @puphpet.extension.xdebug.configure ] ]
+            - [ addExtension, [ @puphpet.extension.xhprof.configure ] ]
         # database group
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.mysql.configure ] ]
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.postgresql.configure ] ]

@@ -1,6 +1,8 @@
 $(document).ready(function() {
     // Update elements based off of clicked data attributes
     $(document).on('click', '.update-other-input', function(e){
+        var $parent = $(this);
+
         $.each($(this).data(), function(key, value) {
             key = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 
@@ -12,6 +14,14 @@ $(document).ready(function() {
 
             if ($target.is(':radio')) {
                 $target.prop('checked', true);
+
+                return;
+            }
+
+            if ($target.is(':checkbox')) {
+                if ($parent.is(':checked')) {
+                    $target.prop('checked', true)
+                }
 
                 return;
             }

@@ -1,0 +1,46 @@
+## Begin Xhprof manifest
+
+if $xhprof_values == undef {
+  $xhprof_values = hiera('xhprof', false)
+}
+
+if is_hash($xhprof_values) and $xhprof_values['install'] == 1 {
+  $xhprofPath = $xhprof_values['location']
+
+  php::pecl::module { 'xhprof':
+    use_package     => false,
+    preferred_state => 'beta',
+  }
+
+  ensure_packages( ['git-core'] )
+
+  exec { 'delete-xhprof-path-if-not-git-repo':
+    command => "rm -rf ${xhprofPath}",
+    onlyif => "test ! -d ${xhprofPath}/.git"
+  }
+
+  vcsrepo { $xhprofPath:
+    ensure   => present,
+    provider => git,
+    source   => 'https://github.com/facebook/xhprof.git',
+    require  => [
+      Package['git-core'],
+      Exec['delete-xhprof-path-if-not-git-repo']
+    ]
+  }
+
+  file { "${xhprofPath}/xhprof_html":
+    ensure  => directory,
+    mode    => 0775,
+    require => Vcsrepo[$xhprofPath]
+  }
+
+  composer::exec { 'xhprof-composer-run':
+    cmd     => 'install',
+    cwd     => $xhprofPath,
+    require => [
+      Class['composer'],
+      File["${xhprofPath}/xhprof_html"]
+    ]
+  }
+}
