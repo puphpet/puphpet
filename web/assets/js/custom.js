@@ -7,6 +7,12 @@ $(document).ready(function() {
             var $target = $('#' + key);
 
             if (!$target.length) {
+                $target = $('input[name="' + key + '"][value="'+ value +'"]')
+            }
+
+            if ($target.is(':radio')) {
+                $target.prop('checked', true);
+
                 return;
             }
 
@@ -165,7 +171,6 @@ function githubContributors() {
     $.get('https://api.github.com/repos/puphpet/puphpet/contributors', function(githubResponse) {
         $.post('/github-contributors', { contributors: githubResponse }, function(response) {
             $('#contributors').html(response);
-            console.log(response);
         });
     });
 }
