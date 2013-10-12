@@ -1,13 +1,12 @@
 <div class="col-sm-3 hidden-xs">
-    <div class="nav well well-sm" data-spy="affix" data-offset-top="200" role="complementary">
+    <div class="nav" data-spy="affix" data-offset-top="200" role="complementary">
         <ul class="nav">
-
-            {% for extension in extensionManager.getExtensions %}
-                <li><a href="#{{ extension.name|slugify }}">{{ extension.name }}</a></li>
-            {% endfor %}
-
+            <li><a href="#vagrantfile">Vagrantfile</a></li>
+            <li><a href="#server">Server Basics</a></li>
+            <li><a href="#webserver">Webserver</a></li>
+            <li><a href="#php">PHP</a></li>
+            <li><a href="#database">Database</a></li>
             <li><a href="#create">Create</a></li>
-
         </ul>
     </div>
 </div>
