@@ -163,7 +163,7 @@ function selectizeTagsUserInput($element) {
 
 function githubContributors() {
     $.get('https://api.github.com/repos/puphpet/puphpet/contributors', function(githubResponse) {
-        $.post('/app_dev.php/github-contributors', { contributors: githubResponse }, function(response) {
+        $.post('/github-contributors', { contributors: githubResponse }, function(response) {
             $('#contributors').html(response);
             console.log(response);
         });
