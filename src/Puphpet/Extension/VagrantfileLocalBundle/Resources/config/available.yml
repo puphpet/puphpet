@@ -2,7 +2,7 @@ empty_synced_folder:
     source: ~
     target: ~
     id: ~
-    nfs: true
+    nfs: false
 
 available_boxes:
     -
