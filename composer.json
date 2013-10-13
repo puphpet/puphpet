@@ -22,6 +22,11 @@
         "ircmaxell/random-lib": "1.0.*@dev",
         "zenstruck/slugify-bundle": "1.*@dev"
     },
+    "require-dev": {
+        "phpunit/phpunit":                           "3.7.27",
+        "whatthejeff/nyancat-phpunit-resultprinter": "1.1.x-dev",
+        "ptrofimov/xpmock":                          "dev-master"
+    },
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -41,7 +46,7 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",

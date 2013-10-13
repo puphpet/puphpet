@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+    backupStaticAttributes="false"
+    colors="true"
+    convertErrorsToExceptions="false"
+    convertNoticesToExceptions="false"
+    convertWarningsToExceptions="false"
+    printerClass="NyanCat\PHPunit\ResultPrinter"
+    printerFile="vendor/whatthejeff/nyancat-phpunit-resultprinter/src/NyanCat/PHPUnit/ResultPrinter.php"
+    processIsolation="false"
+    stopOnFailure="false"
+    stopOnError="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    syntaxCheck="false"
+    bootstrap="./src/Puphpet/MainBundle/Tests/bootstrap.php">
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>./src/Puphpet/MainBundle/Tests/Unit/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
