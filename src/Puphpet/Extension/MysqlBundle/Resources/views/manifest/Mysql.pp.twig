@@ -4,12 +4,14 @@ if $mysql_values == undef {
   $mysql_values = hiera('mysql', false)
 }
 
-class { 'mysql::server':
-  root_password => $mysql_values['root_password'],
-}
+if $mysql_values['root_password'] {
+  class { 'mysql::server':
+    root_password => $mysql_values['root_password'],
+  }
 
-if is_hash($mysql_values['databases']) and count($mysql_values['databases']) > 0 {
-  create_resources(mysql_db, $mysql_values['databases'])
+  if is_hash($mysql_values['databases']) and count($mysql_values['databases']) > 0 {
+    create_resources(mysql_db, $mysql_values['databases'])
+  }
 }
 
 define mysql_db (

@@ -4,12 +4,22 @@ if $postgresql_values == undef {
   $postgresql_values = hiera('postgresql', false)
 }
 
-class { 'postgresql::server':
-  postgres_password => $postgresql_values['root_password'],
+if $php_values == undef {
+  $php_values = hiera('php', false)
 }
 
-if is_hash($postgresql_values['databases']) and count($postgresql_values['databases']) > 0 {
-  create_resources(postgresql_db, $postgresql_values['databases'])
+if $postgresql_values['root_password'] {
+  class { 'postgresql::server':
+    postgres_password => $postgresql_values['root_password'],
+  }
+
+  if is_hash($postgresql_values['databases']) and count($postgresql_values['databases']) > 0 {
+    create_resources(postgresql_db, $postgresql_values['databases'])
+  }
+
+  if is_hash($php_values) {
+    ensure_packages( ['php5-pgsql'] )
+  }
 }
 
 define postgresql_db (
@@ -35,12 +45,4 @@ define postgresql_db (
       onlyif      => "test -f ${sql_file}"
     }
   }
-}
-
-if $php_values == undef {
-  $php_values = hiera('php', false)
-}
-
-if is_hash($php_values) {
-  ensure_packages( ['php5-pgsql'] )
 }
