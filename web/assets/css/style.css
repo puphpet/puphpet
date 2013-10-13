@@ -100,6 +100,15 @@ div.navbar {
 }
 
 /*
+ * Side Menu
+ */
+
+div.nav > ul.nav > li.active {
+    border-left: 3px solid #4C9BD8;
+    background-color: #eee;
+}
+
+/*
  * Footer
  */
 footer .img-thumbnail img {
