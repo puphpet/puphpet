@@ -73,8 +73,8 @@
 {% endblock %}
 
 {% block footerJs %}
-{{ parent() }}
-<script>
-  $('body').scrollspy({target: '#nav-sidebar', offset: 385});
-</script>
+    {{ parent() }}
+    <script>
+        $('body').scrollspy({target: '#nav-sidebar', offset: 385});
+    </script>
 {% endblock %}
