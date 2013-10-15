@@ -12,7 +12,7 @@
                         <div class="col-xs-12">
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="xdebug[install]"
-                                       {% if xdebug.enabled %}checked{% endif %} value="1" /> Install XDebug
+                                       {% if xdebug.install %}checked{% endif %} value="1" /> Install XDebug
                             </label>
 
                             <p class="help-block">
@@ -31,14 +31,14 @@
                                     data-target-container="xdebug-settings"
                                     data-target-name="xdebug[settings]"
                                 >
-                                {% for ini in xdebug.available_ini %}
-                                    <option value="{{ ini }}"
-                                        {% if ini in xdebug.ini|keys %}selected{% endif %}>{{ ini }}</option>
+                                {% for setting in xdebug.available_settings %}
+                                    <option value="{{ setting }}"
+                                        {% if setting in xdebug.settings|keys %}selected{% endif %}>{{ setting }}</option>
                                 {% endfor %}
                             </select>
 
                             <div id="xdebug-settings" style="display: none;">
-                                {% for name, value in xdebug.ini %}
+                                {% for name, value in xdebug.settings %}
                                     <input type="hidden" name="xdebug[settings][{{ name }}]"
                                            data-option-name="{{ name }}" value="{{ value }}" />
                                 {% endfor %}

@@ -1,4 +1,4 @@
-available_ini:
+available_settings:
     - xdebug.auto_trace
     - xdebug.collect_includes
     - xdebug.collect_params
