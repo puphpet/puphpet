@@ -4,17 +4,47 @@ namespace Puphpet\MainBundle\Extension;
 
 class Archive
 {
-    /** @var string Location of existing template file */
-    private $sourceDir;
-    private $targetDir;
+    /**
+     * @var string Location of existing, empty files
+     */
+    protected $sourceDir;
 
-    private $filesToWrite = [];
+    /**
+     * @var string Directory to save generated archive file
+     */
+    protected $targetDir;
+
+    /**
+     * @var array Hold associative values of filename => content
+     */
+    protected $filesToWrite = [];
 
     public function __construct()
     {
-        $this->sourceDir = __DIR__ . '/../Resources/views/manifest';
-
         $this->initialize();
+    }
+
+    public function getSourceDir()
+    {
+        if (!$this->sourceDir) {
+            $this->sourceDir = __DIR__ . '/../Resources/views/manifest';
+        }
+
+        return $this->sourceDir;
+    }
+
+    public function getTargetDir()
+    {
+        if (!$this->targetDir) {
+            $this->targetDir = $this->tempDirName();
+        }
+
+        return $this->targetDir;
+    }
+
+    public function getFilesToWrite()
+    {
+        return $this->filesToWrite;
     }
 
     /**
@@ -45,21 +75,11 @@ class Archive
     public function write()
     {
         foreach ($this->filesToWrite as $file => $content) {
-            file_put_contents(
+            $this->file_put_contents(
                 $this->targetDir . '/' . $file,
                 $content,
                 FILE_APPEND | LOCK_EX
             );
-        }
-    }
-
-    /**
-     * Dumps all files written to in current request
-     */
-    public function dumpFiles()
-    {
-        foreach ($this->filesToWrite as $file => $content) {
-            var_dump($this->targetDir . '/' . $file);
         }
     }
 
@@ -73,32 +93,27 @@ class Archive
 
         // ignore .git folders/files
         $exec = sprintf(
-            "cd %s && cd .. && zip -r %s %s -x */.git\*",
+            'cd "%s" && cd .. && zip -r "%s" "%s" -x */.git\*',
             $this->targetDir,
             $this->targetDir . '.zip',
             $folder
         );
-        exec($exec);
+
+        $this->exec($exec);
 
         return $this->targetDir . '.zip';
     }
 
     /**
-     * @return string
-     */
-    public function getDir()
-    {
-        return $this->targetDir;
-    }
-
-    /**
      * Copy existing directory full of semi-empty template files, to a tmp location
      */
-    private function initialize()
+    protected function initialize()
     {
-        $this->targetDir = $this->tempDirName();
-
-        exec("cp -r {$this->sourceDir} {$this->targetDir}");
+        $this->exec(sprintf(
+            'cp -r "%s" "%s"',
+            $this->getSourceDir(),
+            $this->getTargetDir()
+        ));
     }
 
     /**
@@ -106,14 +121,46 @@ class Archive
      *
      * @return string
      */
-    private function tempDirName()
+    protected function tempDirName()
     {
         $tempfile = tempnam(sys_get_temp_dir(), '');
 
         if (file_exists($tempfile)) {
-            unlink($tempfile);
+            $this->unlink($tempfile);
         }
 
         return $tempfile;
+    }
+
+    /**
+     * Mockable wrapper around exec()
+     *
+     * @param string $cmd
+     * @return string
+     */
+    protected function exec($cmd)
+    {
+        return exec($cmd);
+    }
+
+    /**
+     * Mockable wrapper around unlink()
+     *
+     * @param string   $file
+     */
+    protected function unlink($file)
+    {
+        unlink($file);
+    }
+
+    /**
+     * @param string   $filename
+     * @param mixed    $data
+     * @param int      $flags
+     * @return int
+     */
+    protected function file_put_contents($filename, $data, $flags = null)
+    {
+        return file_put_contents($filename, $data, $flags);
     }
 }
