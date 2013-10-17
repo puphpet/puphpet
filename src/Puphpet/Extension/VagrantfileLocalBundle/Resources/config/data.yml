@@ -14,8 +14,6 @@ vm:
             setextradata:
                 "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root": 1
     provision:
-        "shell, :path": "shell/librarian-puppet-vagrant.sh"
-        "shell, :inline": "if [[ ! -f /apt-get-run ]]; then sudo apt-get update && touch /apt-get-run; fi"
         puppet:
             manifests_path: "puppet/manifests"
             options:
