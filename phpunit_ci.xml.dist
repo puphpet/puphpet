@@ -5,8 +5,6 @@
     convertErrorsToExceptions="false"
     convertNoticesToExceptions="false"
     convertWarningsToExceptions="false"
-    printerClass="NyanCat\PHPunit\ResultPrinter"
-    printerFile="vendor/whatthejeff/nyancat-phpunit-resultprinter/src/NyanCat/PHPUnit/ResultPrinter.php"
     processIsolation="false"
     stopOnFailure="false"
     stopOnError="false"
@@ -19,4 +17,9 @@
             <directory>./src/Puphpet/MainBundle/Tests/Unit/</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory>./src</directory>
+        </whitelist>
+    </filter>
 </phpunit>
