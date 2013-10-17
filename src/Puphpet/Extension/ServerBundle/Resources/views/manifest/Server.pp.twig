@@ -73,6 +73,9 @@ case $::operatingsystem {
       elsif $lsbdistcodename in ['precise', 'quantal', 'raring'] and $php_values['version'] == '55' {
         apt::ppa { 'ppa:ondrej/php5': require => Apt::Key['4F4EA0AAE5267A6C'] }
       }
+      elsif $lsbdistcodename in ['lucid'] and $php_values['version'] == '55' {
+        err('You have chosen to install PHP 5.5 on Ubuntu 10.04 Lucid. This will probably not work!')
+      }
     }
   }
 }
