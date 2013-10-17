@@ -36,9 +36,17 @@ cp /vagrant/puppet/Puppetfile $PUPPET_DIR
 apt-get install -y build-essential ruby-dev
 
 OS=$(/bin/bash /vagrant/shell/os-detect.sh ID)
+CODENAME=$(/bin/bash /vagrant/shell/os-detect.sh CODENAME)
 
 if [ "$OS" == 'ubuntu' ]; then
   apt-get install -y libgemplugin-ruby
+  echo 'Updated GemPlugin'
+
+  if [ "$CODENAME" == 'lucid' ]; then
+    gem install rubygems-update
+    /var/lib/gems/1.8/bin/update_rubygems >/dev/null
+    echo 'Updated RubyGems'
+  fi
 fi
 
 if [ "$(gem search -i librarian-puppet)" = "false" ]; then
