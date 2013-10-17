@@ -10,6 +10,13 @@
             <div class="col-sm-9">
                 <div class="container">
 
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong>Attention!</strong>
+                        Don't download Virtualbox 2.4 just yet! Vagrant does not completely work
+                        with this new version, but will soon.
+                    </div>
+
                     {% for extension in extensionManager.getExtensions
                        if not extensionManager.extensionAlreadyUsed(extension.slug) %}
 
