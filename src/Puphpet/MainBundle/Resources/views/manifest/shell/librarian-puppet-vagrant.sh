@@ -59,7 +59,6 @@ if [ "$OS" == 'ubuntu' ]; then
         echo 'Ignore all "conflicting chdir" errors!'
         gem install rubygems-update >/dev/null
         /var/lib/gems/1.8/bin/update_rubygems >/dev/null
-        echo 'Stop ignoring all "conflicting chdir" errors!'
         echo 'Finished updating rubygems (Ubuntu Lucid only)'
 
         touch /.puphpet-stuff/librarian-rubygems-update
