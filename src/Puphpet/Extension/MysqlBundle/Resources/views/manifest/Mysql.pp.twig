@@ -42,10 +42,9 @@ define mysql_db (
     exec{ "${name}-import":
       command     => "mysql ${name} < ${sql_file}",
       logoutput   => true,
-      environment => "HOME=${mysql::root_home}",
       refreshonly => $refresh,
-      require     => Mysql_grant["${user}@${host}/${table}"],
-      subscribe   => Mysql_database[$name],
+      require     => Database_grant["${user}@${host}/${table}"],
+      subscribe   => Database[$name],
       onlyif      => "test -f ${sql_file}"
     }
   }
