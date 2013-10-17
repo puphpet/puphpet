@@ -17,8 +17,8 @@ if $mysql_values['root_password'] {
     create_resources(mysql_db, $mysql_values['databases'])
   }
 
-  if is_hash($php_values) {
-    ensure_packages( ['php5-mysql'] )
+  if is_hash($php_values) and Php::Module['php5-mysql'] == undef {
+    Php::Module['php5-mysql']
   }
 }
 

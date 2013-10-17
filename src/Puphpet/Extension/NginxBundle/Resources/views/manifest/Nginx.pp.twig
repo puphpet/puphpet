@@ -8,6 +8,14 @@ if $php_values == undef {
    $php_values = hiera('php', false)
 }
 
+if $lsbdistcodename in ['lucid'] and is_hash($php_values) and $php_values['version'] == '53' {
+  apt::key { '67E15F46': }
+  apt::ppa { 'ppa:l-mierzwa/lucid-php5':
+    options => '',
+    require => Apt::Key['67E15F46']
+  }
+}
+
 class { 'nginx': }
 
 if count($nginx_values['vhosts']) > 0 {
