@@ -32,7 +32,7 @@ define nginx_vhost (
 ){
   $merged_server_name = concat([$server_name], $server_aliases)
 
-  if is_hash($index_files) and count($index_files) > 0 {
+  if is_array($index_files) and count($index_files) > 0 {
     $try_files = $index_files[count($index_files) - 1]
   } else {
     $try_files = 'index.php'
