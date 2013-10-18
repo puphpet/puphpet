@@ -17,3 +17,11 @@ if [ "$OS" == 'debian' ] || [ "$OS" == 'ubuntu' ]; then
         echo "Finished running initial-setup apt-get update"
     fi
 fi
+
+if [[ "$OS" == 'ubuntu' && ("$CODENAME" == 'lucid' || "$CODENAME" == 'precise') && ! -f /.puphpet-stuff/ubuntu-required-libraries ]]; then
+    echo 'Installing basic curl packages (Ubuntu only)'
+    apt-get install -y libcurl3 libcurl4-gnutls-dev >/dev/null
+    echo 'Finished installing basic curl packages (Ubuntu only)'
+
+    touch /.puphpet-stuff/ubuntu-required-libraries
+fi
