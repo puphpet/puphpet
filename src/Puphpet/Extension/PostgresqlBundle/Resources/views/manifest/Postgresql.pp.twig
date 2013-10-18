@@ -17,8 +17,8 @@ if $postgresql_values['root_password'] {
     create_resources(postgresql_db, $postgresql_values['databases'])
   }
 
-  if is_hash($php_values) and Php::Module['php5-pgsql'] == undef {
-    Php::Module['php5-pgsql']
+  if is_hash($php_values) and ! defined(Php::Module['pgsql']) {
+    php::module { 'pgsql': }
   }
 }
 
