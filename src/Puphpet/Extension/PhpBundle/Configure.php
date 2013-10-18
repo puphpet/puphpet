@@ -15,6 +15,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $sources = [
         'php'      => ":git => 'git://github.com/example42/puppet-php.git'",
         'composer' => ":git => 'git://github.com/puphpet/puppet-composer.git'",
+        'puphpet'  => ":git => 'git://github.com/puphpet/puppet-puphpet.git'",
     ];
 
     /**

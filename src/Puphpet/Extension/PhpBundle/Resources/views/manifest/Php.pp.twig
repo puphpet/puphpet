@@ -15,23 +15,27 @@ if $nginx_values == undef {
 Class['Php'] -> Class['Php::Devel'] -> Php::Module <| |> -> Php::Pear::Module <| |> -> Php::Pecl::Module <| |>
 
 if is_hash($apache_values) {
+  $php_webserver_service = 'httpd'
+
   class { 'php':
-    service => 'httpd'
+    service => $php_webserver_service
   }
 } elsif is_hash($nginx_values) {
+  $php_webserver_service = 'php5-fpm'
+
   class { 'php':
-    package             => 'php5-fpm',
-    service             => 'php5-fpm',
+    package             => $php_webserver_service,
+    service             => $php_webserver_service,
     service_autorestart => false,
     config_file         => '/etc/php5/fpm/php.ini',
   }
 
-  service { 'php5-fpm':
+  service { $php_webserver_service:
     ensure     => running,
     enable     => true,
     hasrestart => true,
     hasstatus  => true,
-    require    => Package['php5-fpm']
+    require    => Package[$php_webserver_service]
   }
 }
 
@@ -45,6 +49,23 @@ if count($php_values['modules']['pear']) > 0 {
 }
 if count($php_values['modules']['pecl']) > 0 {
   php_pecl_mod { $php_values['modules']['pecl']:; }
+}
+if count($php_values['ini']) > 0 {
+  $php_values['ini'].each { |$key, $value|
+    puphpet::ini { $key:
+      entry       => "CUSTOM/${key}",
+      value       => $value,
+      php_version => $php_values['version'],
+      webserver   => $php_webserver_service
+    }
+  }
+}
+
+puphpet::ini { $key:
+  entry       => 'CUSTOM/date.timezone',
+  value       => $php_values['timezone'],
+  php_version => $php_values['version'],
+  webserver   => $php_webserver_service
 }
 
 define php_mod {
