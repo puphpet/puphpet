@@ -33,19 +33,7 @@ define mysql_db (
     user     => $user,
     password => $password,
     host     => $host,
-    grant    => $grant
-  }
-
-  if $sql_file {
-    $table = "${name}.*"
-
-    exec{ "${name}-import":
-      command     => "mysql ${name} < ${sql_file}",
-      logoutput   => true,
-      refreshonly => $refresh,
-      require     => Database_grant["${user}@${host}/${table}"],
-      subscribe   => Database[$name],
-      onlyif      => "test -f ${sql_file}"
-    }
+    grant    => $grant,
+    sql      => $sql_file,
   }
 }
