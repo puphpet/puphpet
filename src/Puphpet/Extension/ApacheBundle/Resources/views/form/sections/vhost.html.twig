@@ -16,6 +16,8 @@
                                name="apache[vhosts][{{ uniqid }}][servername]"
                                required placeholder="awesome.dev"
                                value="{{ vhost.servername }}" class="form-control" />
+
+                        <p class="help-block">Don't forget to add to your computer's hosts file!</p>
                     </div>
 
                     <div class="col-md-6">
@@ -39,6 +41,8 @@
                                name="apache[vhosts][{{ uniqid }}][docroot]"
                                required placeholder="/var/www"
                                value="{{ vhost.docroot }}" class="form-control" />
+
+                        <p class="help-block">Location of your site's index.php file, or other landing page.</p>
                     </div>
 
                     <div class="col-md-6">
@@ -47,11 +51,16 @@
                                name="apache[vhosts][{{ uniqid }}][port]"
                                required placeholder="80"
                                value="{{ vhost.port }}" class="form-control" />
+
+                        <p class="help-block">
+                            80 for normal browsing, if you choose another append it to the URL,
+                            ex: http://awesome.dev:1337
+                        </p>
                     </div>
                 </div>
 
                 <div class="row form-group">
-                    <div class="col-xs-12">
+                    <div class="col-md-6">
                         <label for="apache-vhosts-{{ uniqid }}-setenv">Environment Variables</label>
                         <select id="apache-vhosts-{{ uniqid }}-setenv"
                                 name="apache[vhosts][{{ uniqid }}][setenv][]"
@@ -62,6 +71,23 @@
                         </select>
 
                         <p class="help-block">"name value", separated by comma</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="apache-vhosts-{{ uniqid }}-override">AllowOverride</label>
+                        <select id="apache-vhosts-{{ uniqid }}-override"
+                                name="apache[vhosts][{{ uniqid }}][override][]"
+                                multiple class="form-control select-tags-editable">
+                            {% for override in vhost.override %}
+                                <option selected value="{{ override }}">{{ override }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <p class="help-block">
+                            Separated by comma, "All" is probably fine.
+                            <a href="http://httpd.apache.org/docs/2.2/mod/core.html#allowoverride"
+                               target="_blank">Click here for more hardcore information.</a>
+                        </p>
                     </div>
                 </div>
 

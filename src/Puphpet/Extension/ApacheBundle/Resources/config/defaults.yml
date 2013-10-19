@@ -11,3 +11,5 @@ vhosts:
         port: 80
         setenv: # environment variables
             - APP_ENV dev
+        override:
+            - All

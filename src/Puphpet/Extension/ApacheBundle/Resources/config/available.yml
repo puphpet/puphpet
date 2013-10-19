@@ -4,6 +4,7 @@ empty_vhost:
     docroot: ~
     port: 80
     setenv: []
+    override: []
 
 available_modules:
     - cache
