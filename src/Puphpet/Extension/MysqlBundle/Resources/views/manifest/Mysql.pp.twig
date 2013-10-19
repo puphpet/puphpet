@@ -29,7 +29,7 @@ define mysql_db (
   $grant    = [],
   $sql_file = false
 ) {
-  if !str2bool($name) or !str2bool($password) or !str2bool($host) {
+  if $name == '' or $password == '' or $host == '' {
     fail( 'MySQL DB requires that name, password and host be set. Please check your settings!' )
   }
 
