@@ -20,7 +20,9 @@ case $apache_values['mpm_module'] {
 create_resources(apache::vhost, $apache_values['vhosts'])
 
 define apache_mod {
-  class { "apache::mod::${name}": }
+  if ! defined(Class["apache::mod::${name}"]) {
+    class { "apache::mod::${name}": }
+  }
 }
 
 if count($apache_values['modules']) > 0 {
