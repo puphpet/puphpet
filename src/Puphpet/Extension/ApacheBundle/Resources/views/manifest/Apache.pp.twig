@@ -1,7 +1,12 @@
 ## Begin Apache manifest
 
+##
+if $yaml_values == undef {
+  $yaml_values = loadyaml('/vagrant/puppet/hieradata/common.yaml')
+}
+
 if $apache_values == undef {
-  $apache_values = hiera('apache', false)
+  $apache_values = $yaml_values['apache']
 }
 
 class { 'apache':
