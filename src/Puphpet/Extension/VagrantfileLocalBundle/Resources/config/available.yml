@@ -1,7 +1,7 @@
 empty_synced_folder:
     source: ~
     target: ~
-    id: ~
+    id: vagrant-root
     nfs: false
 
 available_boxes:
