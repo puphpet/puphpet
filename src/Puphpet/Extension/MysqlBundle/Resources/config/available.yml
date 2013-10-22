@@ -30,5 +30,6 @@ empty_database:
     user: ~
     password: ~
     host: localhost
-    grant: []
+    grant:
+        - ALL
     sql_file: ~
