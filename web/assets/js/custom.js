@@ -223,7 +223,7 @@ PUPHPET.disableInactiveTabElements = function() {
  * enable all form elements in newly active tab
  */
 PUPHPET.enableClickedTabElement = function() {
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
         var original = e.relatedTarget.getAttribute('data-target-element');
         var target   = e.target.getAttribute('data-target-element');
 
@@ -243,7 +243,7 @@ PUPHPET.githubContributors = function() {
     });
 };
 
-$(document).ready(function () {
+$(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.runSelectize(null);
     PUPHPET.addRepeatableElement();
