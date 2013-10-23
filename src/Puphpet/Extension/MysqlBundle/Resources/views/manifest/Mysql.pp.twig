@@ -18,7 +18,7 @@ if $mysql_values['root_password'] {
   }
 
   if is_hash($php_values) and ! defined(Php::Module['mysql']) {
-    php::module { 'mysql': }
+    php::module { 'mysqlnd': }
   }
 }
 
