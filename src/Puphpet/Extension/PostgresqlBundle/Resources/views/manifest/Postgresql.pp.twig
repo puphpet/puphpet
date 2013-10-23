@@ -28,7 +28,7 @@ define postgresql_db (
   $grant,
   $sql_file = false
 ) {
-  if $name == '' or $user == '' or $password == '' or $host == '' {
+  if $name == '' or $user == '' or $password == '' or $grant == '' {
     fail( 'PostgreSQL DB requires that name, user, password and grant be set. Please check your settings!' )
   }
 
