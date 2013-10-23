@@ -6,7 +6,7 @@ vm:
             source: ./
             target: /var/www
             id: vagrant-root
-            nfs: false
+            nfs: 'false'
     network:
         forwarded_port:
             -

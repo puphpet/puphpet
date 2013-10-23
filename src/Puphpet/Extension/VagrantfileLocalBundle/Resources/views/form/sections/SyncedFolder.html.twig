@@ -49,12 +49,12 @@
                         <label>Shared Folder Type</label><br />
                         <label class="radio-inline">
                             <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][nfs]"
-                                   {% if not synced_folder.nfs %}checked{% endif %}
+                                   {% if synced_folder.nfs == 'false' %}checked{% endif %}
                                    value="false" /> Default
                         </label>
                         <label class="radio-inline">
                             <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][nfs]"
-                                   {% if synced_folder.nfs %}checked{% endif %}
+                                   {% if synced_folder.nfs == 'true' %}checked{% endif %}
                                    value="true" /> NFS
                         </label>
 
