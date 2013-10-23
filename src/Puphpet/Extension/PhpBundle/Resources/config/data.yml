@@ -1,7 +1,6 @@
 version: 55
 
-composer:
-    install: 1
+composer: 1
 
 modules:
     php: []

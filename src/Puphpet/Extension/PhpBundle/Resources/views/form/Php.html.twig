@@ -43,7 +43,7 @@
                             <label>Composer</label><br />
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="php[composer]" value="1"
-                                    {% if php.composer.install %}checked{% endif %} /> Install Composer
+                                    {% if php.composer %}checked{% endif %} /> Install Composer
                             </label>
 
                             <p class="help-block">
@@ -129,13 +129,20 @@
                             <label for="php-modules-pear">PEAR Modules</label>
                             <select id="php-modules-pear" name="php[modules][pear][]"
                                     multiple class="form-control select-tags">
+                                {% set selectedPhpModulesPear = [] %}
                                 {% for namespace, modules in php.available_modules.pear %}
                                     <optgroup label="{{ namespace }}">
                                         {% for module in modules %}
+                                            {% set selectedPhpModulesPear = selectedPhpModulesPear|merge([module]) %}
                                             <option value="{{ module }}"
                                                 {% if module in php.modules.pear %}selected{% endif %}>{{ module }}</option>
                                         {% endfor %}
                                     </optgroup>
+                                {% endfor %}
+                                {% for module in php.modules.pear %}
+                                    {% if module not in selectedPhpModulesPear %}
+                                        <option value="{{ module }}" selected>{{ module }}</option>
+                                    {% endif %}>
                                 {% endfor %}
                             </select>
                         </div>
@@ -148,13 +155,20 @@
                             <label for="php-modules-pecl">PECL Modules</label>
                             <select id="php-modules-pecl" name="php[modules][pecl][]"
                                     multiple class="form-control select-tags">
+                                {% set selectedPhpModulesPecl = [] %}
                                 {% for namespace, modules in php.available_modules.pecl %}
                                     <optgroup label="{{ namespace }}">
                                         {% for module in modules %}
+                                            {% set selectedPhpModulesPecl = selectedPhpModulesPecl|merge([module]) %}
                                             <option value="{{ module }}"
                                                 {% if module in php.modules.pecl %}selected{% endif %}>{{ module }}</option>
                                         {% endfor %}
                                     </optgroup>
+                                {% endfor %}
+                                {% for module in php.modules.pecl %}
+                                    {% if module not in selectedPhpModulesPecl %}
+                                        <option value="{{ module }}" selected>{{ module }}</option>
+                                    {% endif %}>
                                 {% endfor %}
                             </select>
                         </div>

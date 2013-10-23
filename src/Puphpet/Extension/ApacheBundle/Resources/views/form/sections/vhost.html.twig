@@ -65,9 +65,11 @@
                         <select id="apache-vhosts-{{ uniqid }}-setenv"
                                 name="apache[vhosts][{{ uniqid }}][setenv][]"
                                 multiple class="form-control select-tags-editable">
-                            {% for setenv in vhost.setenv %}
-                                <option selected value="{{ setenv }}">{{ setenv }}</option>
-                            {% endfor %}
+                            {% if vhost.setenv is defined %}
+                                {% for setenv in vhost.setenv %}
+                                    <option selected value="{{ setenv }}">{{ setenv }}</option>
+                                {% endfor %}
+                            {% endif %}
                         </select>
 
                         <p class="help-block">"name value", separated by comma</p>
