@@ -5,8 +5,10 @@ namespace Puphpet\MainBundle\Controller;
 use Puphpet\MainBundle\Extension;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Yaml\Yaml;
 
 class FrontController extends Controller
 {
@@ -28,6 +30,45 @@ class FrontController extends Controller
         return $this->render('PuphpetMainBundle:front:index.html.twig', [
             'extensionManager' => $manager,
         ]);
+    }
+
+    public function uploadConfigAction(Request $request)
+    {
+        $config = $request->get('config');
+
+        $yaml = '';
+
+        try {
+            $yaml = Yaml::parse($config);
+        } catch (\Exception $e) {}
+
+        if (empty($yaml)) {
+            $this->get('session')->getFlashBag()->add(
+                'error',
+                'The config file provided was empty! Please recreate your manifest manually below.'
+            );
+
+            return new RedirectResponse($this->generateUrl('puphpet.main.homepage'));
+        }
+
+        $manager = $this->get('puphpet.extension.manager');
+        $manager->setCustomDataAll($yaml);
+
+        try {
+            $rendered = $this->render('PuphpetMainBundle:front:index.html.twig', [
+                'extensionManager' => $manager,
+                'hasCustom'        => true,
+            ]);
+
+            return $rendered;
+        } catch (\Exception $e) {
+            $this->get('session')->getFlashBag()->add(
+                'error',
+                'The config file provided had errors! Please recreate your manifest manually below.'
+            );
+
+            return new RedirectResponse($this->generateUrl('puphpet.main.homepage'));
+        }
     }
 
     public function aboutAction()

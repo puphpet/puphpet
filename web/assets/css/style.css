@@ -170,3 +170,34 @@ footer .img-thumbnail img {
 .php-version-5-3 {
   background-color: #f0ad4e;
 }
+
+/*
+ * Drag and drop overlay
+ */
+#drag-drop {
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: #fff;
+    opacity: 0.9;
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+#drag-drop p {
+    width: 100%;
+    text-align: center;
+    color: #4c9bd8;
+    position: absolute;
+    top: 40%;
+
+    font-size: 6em;
+    font-weight: 700;
+    line-height: 1em;
+    display: block;
+    text-shadow: 3px 3px 4px #000;
+    z-index: -1;
+}

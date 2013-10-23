@@ -263,6 +263,25 @@ class Manager
         return $this->archive->zip();
     }
 
+    /**
+     * Accepts custom data for all possible extensions
+     *
+     * @param yaml $data
+     * @return bool
+     */
+    public function setCustomDataAll($data)
+    {
+        foreach ($this->extensions as $extension) {
+            if (empty($data[$extension->getSlug()])) {
+                continue;
+            }
+
+            $extension->setCustomData($data[$extension->getSlug()]);
+        }
+
+        return true;
+    }
+
     private function processExtensionSources(array $sources)
     {
         foreach ($sources as $name => $source) {

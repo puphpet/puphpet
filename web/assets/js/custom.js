@@ -243,6 +243,81 @@ PUPHPET.githubContributors = function() {
     });
 };
 
+PUPHPET.uploadConfig = function() {
+    var dropzone = document.documentElement;
+    var tid;
+
+    dropzone.addEventListener('dragover', handleDragOver, false);
+    dropzone.addEventListener('dragleave', handleDragLeave, false);
+    dropzone.addEventListener('drop', handleFileSelect, false);
+
+
+    function handleDragOver(e) {
+        clearTimeout(tid);
+        e.stopPropagation();
+        e.preventDefault && e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+
+        $('#drag-drop').fadeIn('slow');
+    }
+
+    function handleDragLeave(e) {
+        tid = setTimeout(function () {
+            e.stopPropagation();
+            $('#drag-drop').fadeOut('slow');
+        }, 300);
+    }
+
+    function handleFileSelect(e) {
+        e.stopPropagation();
+        e.preventDefault && e.preventDefault();
+
+        $('#drag-drop').fadeOut('slow');
+
+        var files = e.dataTransfer.files; // FileList object.
+
+        // Only proceed when a single file is dropped
+        if (files.length > 1 || !files.length) {
+            return false;
+        }
+
+        var file = files[0];
+
+        // Only allow yaml uploads
+        if (file.name.split('.').pop().toLowerCase() !== 'yaml') {
+            return false;
+        }
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                submitForm(e.target.result);
+            };
+        })(file);
+
+        // Read in the image file as a data URL.
+        reader.readAsText(file);
+
+        return false;
+    }
+
+    function submitForm(config) {
+        if (!config.length) {
+            return;
+        }
+
+        var form = $(
+            '<form action="' + uploadConfigUrl + '" method="post">' +
+                '<input type="hidden" name="config" value="' + config + '" />' +
+            '</form>'
+        );
+        $('body').append(form);
+        $(form).submit();
+    }
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.runSelectize(null);
@@ -251,4 +326,5 @@ $(document).ready(function() {
     PUPHPET.disableInactiveTabElements();
     PUPHPET.enableClickedTabElement();
     PUPHPET.githubContributors();
+    PUPHPET.uploadConfig();
 });
