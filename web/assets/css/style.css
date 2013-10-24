@@ -16,6 +16,24 @@ button.tall {
     padding-bottom: 40px;
 }
 
+.jumbotron {
+    padding: 25px 30px 5px;
+    margin-bottom: 5px;
+    background-color: #fff;
+}
+
+#main {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: #eee;
+}
+
+#main > .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #fff;
+}
+
 /*
  * Top nav bar
  */
@@ -39,7 +57,6 @@ div.navbar {
 .navbar-default .navbar-toggle:focus {
     background-color: #4187bb;
 }
-
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #fff;
 }
@@ -116,6 +133,10 @@ div.navbar {
  * Side Menu
  */
 
+.affix-bottom {
+    position: absolute;
+}
+
 div.nav > ul.nav > li.active {
     border-left: 3px solid #4C9BD8;
     background-color: #eee;
@@ -124,6 +145,11 @@ div.nav > ul.nav > li.active {
 /*
  * Footer
  */
+
+footer {
+    margin: 2em 0;
+}
+
 footer .img-thumbnail img {
     width: 50px;
     height: 50px;
@@ -219,19 +245,19 @@ footer .img-thumbnail img {
    Responsive
 ================================================== */
 @media screen and (min-width: 768px) {
-    .nav.affix {
+    .nav.affix, .nav.affix-bottom {
         width: 158px;
     }
 }
 
 @media screen and (min-width: 992px) {
-    .nav.affix {
+    .nav.affix, .nav.affix-bottom {
         width: 213px;
     }
 }
 
 @media screen and (min-width: 1200px) {
-    .nav.affix {
+    .nav.affix, .nav.affix-bottom {
         width: 263px;
     }
 }

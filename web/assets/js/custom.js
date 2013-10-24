@@ -318,6 +318,21 @@ PUPHPET.uploadConfig = function() {
     }
 };
 
+PUPHPET.sidebar = function() {
+    $('#nav-sidebar').affix({
+        offset: {
+            top:  function () {
+                return $('#top').height() + 50;
+            },
+            bottom: function () {
+                return $('#footer').height() + 90;
+            }
+        }
+    });
+
+    $('body').scrollspy({target: '#nav-sidebar', offset: 385});
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.runSelectize(null);
@@ -327,4 +342,5 @@ $(document).ready(function() {
     PUPHPET.enableClickedTabElement();
     PUPHPET.githubContributors();
     PUPHPET.uploadConfig();
+    PUPHPET.sidebar();
 });
