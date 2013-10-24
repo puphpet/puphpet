@@ -1,0 +1,11 @@
+puphpet.extension.vagrantfile.aws.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionVagrantfileAwsBundle:Front:index }
+
+puphpet.extension.vagrantfile.aws.synced_folder:
+    pattern: /synced-folder
+    defaults: { _controller: PuphpetExtensionVagrantfileAwsBundle:Front:syncedFolder }
+
+puphpet.extension.vagrantfile.aws.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionVagrantfileAwsBundle:Manifest:index }

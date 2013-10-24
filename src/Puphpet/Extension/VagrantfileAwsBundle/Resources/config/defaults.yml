@@ -1,0 +1,26 @@
+vm:
+    provider:
+        aws:
+            name: Debian Wheezy 7.1a x64 (community)
+            ami: ami-4d83107d
+            region: New York 1
+            size: 1GB
+            client_id: DIGITAL_OCEAN_CLIENT_ID
+            api_key: DIGITAL_OCEAN_API_KEY
+    synced_folder:
+        -
+            source: ./
+            target: /var/www
+            id: webroot
+            nfs: false
+    network:
+    provision:
+        puppet:
+            options:
+                - "--verbose"
+                - "--hiera_config /vagrant/hiera.yaml"
+                - "--parser future"
+ssh:
+    username: PRIVATE_KEY_USER
+    forward_agent: true
+    private_key_path: "~/.ssh/id_rsa"

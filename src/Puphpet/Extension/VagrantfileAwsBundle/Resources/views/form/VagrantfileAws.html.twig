@@ -1,0 +1,220 @@
+<section id="vagrantfile-aws">
+
+    <input type="hidden" id="vagrantfile-aws-vm-box" name="vagrantfile-aws[vm][box]" value="aws" />
+
+    <!-- vagrantfile-aws / instructions -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Amazon Web Services Instructions</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <h3>AWS EC2 Instance</h3>
+
+                        <p>
+                            Don't have a Digital Ocean account?
+                            <a href="https://www.digitalocean.com/?refcode=475274cc0939" target="_blank">Click here to create one</a>
+                            (affiliate link - help support this free service)!
+                        </p>
+
+                        <p>
+                            Login to Digital Ocean and
+                            <a href="https://www.digitalocean.com/api_access" target="_blank">go to the API page</a>.
+                            You will need a Client ID and API Key.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3>Installation Requirements</h3>
+
+                        <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#aws-instructions-mac" data-toggle="pill">Mac</a></li>
+                            <li><a href="#aws-instructions-windows-linux" data-toggle="pill">Windows &amp; Linux</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="aws-instructions-mac">
+                                <code class="col-xs-11">
+                                    $ vagrant plugin install vagrant-aws<br />
+                                    $ vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box<br />
+                                    $ brew install curl-ca-bundle<br />
+                                    $ echo export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt >> ~/.bash_profile
+                                </code>
+                            </div>
+                            <div class="tab-pane" id="aws-instructions-windows-linux">
+                                <code class="col-xs-11">
+                                    $ vagrant plugin install vagrant-aws<br />
+                                    $ vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end vagrantfile-aws / instructions -->
+
+    <!-- vagrantfile-aws / Operating System -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">AWS EC2 Instance Details</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>AWS EC2 Instance Operating System</label>
+
+                            {% for image in data.available_images %}
+                                <label class="radio">
+                                    <input type="radio" class="update-other-input" value="{{ image.ami }}"
+                                           name="vagrantfile-aws[vm][provider][aws][ami]"
+                                           {% if image.ami == data.vm.provider.aws.ami %}checked{% endif %}
+                                           {% if image.php_versions is defined %}data-php[version]="{{ image.php_versions|first|str_replace('.', '') }}"{% endif %} />
+                                    {{ image.name }}
+                                    {% if image.php_versions is defined %}
+                                        (PHP
+                                        {% for php in image.php_versions %}
+                                            <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
+                                        {% endfor %}
+                                        )
+                                    {% endif %}
+                                </label>
+                            {% endfor %}
+
+                            <p class="help-block">
+                                Choose the operating system for your VM. Digital Ocean has pre-defined systems you can
+                                choose from. The ones listed are the ones PuPHPet has been tested with so far.
+                            </p>
+
+                            <p class="help-block">
+                                Note: Listed are the PHP installs that we have confirmed as working for their respective
+                                operating system. You are welcome to attempt to install higher if you'd like, but
+                                we cannot guarantee it will work. In fact in most cases it won't.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="vagrantfile-aws-vm-hostname">AWS EC2 Instance Name</label>
+                            <input id="vagrantfile-aws-vm-hostname"
+                                   name="vagrantfile-aws[vm][hostname]"
+                                   placeholder="my-awesome-box"
+                                   value="{{ data.vm.hostname }}" class="form-control" />
+
+                            <p class="help-block">Name your server. It must be unique to your account!</p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="vagrantfile-aws-vm-provider-aws-size">AWS EC2 Instance Size</label>
+                            <select id="vagrantfile-aws-vm-provider-aws-size"
+                                    name="vagrantfile-aws[vm][provider][aws][size]"
+                                    class="form-control select-tag">
+                                {% for size, name in data.available_sizes %}
+                                    <option value="{{ size }}"
+                                        {% if size == data.vm.provider.aws.size %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <p class="help-block">
+                                <a href="https://www.digitalocean.com/pricing" target="_blank">Pricing information</a>.
+                                Digital Ocean charges by the hour, but also shows what a full month would cost.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="vagrantfile-aws-vm-provider-aws-region">AWS EC2 Instance Region</label>
+                            <select id="vagrantfile-aws-vm-provider-aws-region"
+                                    name="vagrantfile-aws[vm][provider][aws][region]"
+                                    class="form-control select-tag">
+                                {% for region in data.available_regions %}
+                                    <option value="{{ region }}"
+                                        {% if region == data.vm.provider.aws.region %}selected{% endif %}>{{ region }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <p class="help-block">Choose the one closest to you, or your target audience!</p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="vagrantfile-aws-vm-provider-aws-client_id">AWS EC2 Instance Client ID</label>
+                            <input id="vagrantfile-aws-vm-provider-aws-client_id"
+                                   name="vagrantfile-aws[vm][provider][aws][client_id]"
+                                   placeholder="DIGITAL OCEAN CLIENT ID"
+                                   value="{{ data.vm.provider.aws.client_id }}" class="form-control" />
+
+                            <p class="help-block">
+                                <a href="https://www.digitalocean.com/api_access" target="_blank">Get it here</a>
+                            </p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="vagrantfile-aws-vm-provider-aws-api_key">AWS EC2 Instance API Key</label>
+                            <input id="vagrantfile-aws-vm-provider-aws-api_key"
+                                   name="vagrantfile-aws[vm][provider][aws][api_key]"
+                                   placeholder="DIGITAL OCEAN API KEY"
+                                   value="{{ data.vm.provider.aws.api_key }}" class="form-control" />
+
+                            <p class="help-block">
+                                <a href="https://www.digitalocean.com/api_access" target="_blank">Get it here</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="vagrantfile-aws-ssh-username">Local Private Key Username</label>
+                            <input id="vagrantfile-aws-ssh-username"
+                                   name="vagrantfile-aws[ssh][username]"
+                                   value="{{ data.ssh.username }}" class="form-control" />
+
+                            <p class="help-block">The username associated with the private key entered.</p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="vagrantfile-aws-ssh-private_key_path">Local Private Key Path</label>
+                            <input id="vagrantfile-aws-ssh-private_key_path"
+                                   name="vagrantfile-aws[ssh][private_key_path]"
+                                   placeholder="~/.ssh/id_rsa"
+                                   value="{{ data.ssh.private_key_path }}" class="form-control" />
+
+                            <p class="help-block">
+                                The Digital Ocean VM will not be accessible without your private/public key.
+                                <strong>It will not be accessible using username/password, only private key!</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end vagrantfile-aws / Operating System -->
+
+    {% for synced_folder in data.vm.synced_folder %}
+        {% include 'PuphpetExtensionVagrantfileAwsBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                    data-source-url="{{ path('puphpet.extension.vagrantfile.aws.synced_folder') }}">Add another AWS VM shared folder</button>
+        </div>
+    </div>
+</section>

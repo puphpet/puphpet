@@ -14,6 +14,7 @@ services:
             - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.local.configure ] ]
             - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.digital_ocean.configure ] ]
             - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.rackspace.configure ] ]
+            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.aws.configure ] ]
             - [ addExtension, [ @puphpet.extension.server.configure ] ]
         # webserver group
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.apache.configure ] ]

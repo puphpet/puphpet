@@ -1,0 +1,17 @@
+parameters:
+
+services:
+    puphpet.extension.vagrantfile.aws.configure:
+        class: Puphpet\Extension\VagrantfileAwsBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.vagrantfile.aws.front_controller:
+        class: Puphpet\Extension\VagrantfileAwsBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.vagrantfile.aws.manifest_controller:
+        class: Puphpet\Extension\VagrantfileAwsBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]
