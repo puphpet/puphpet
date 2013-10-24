@@ -31,6 +31,19 @@ div.navbar {
     background-color: #fff;
 }
 
+.navbar-default .navbar-toggle {
+    border-color: #fff;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #4187bb;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+
 .navbar-default .navbar-brand,
 .navbar-default .navbar-nav > .dropdown > a .caret,
 .navbar-default .navbar-nav > li > a {
@@ -200,4 +213,25 @@ footer .img-thumbnail img {
     display: block;
     text-shadow: 3px 3px 4px #000;
     z-index: -1;
+}
+
+/* ===============================================
+   Responsive
+================================================== */
+@media screen and (min-width: 768px) {
+    .nav.affix {
+        width: 158px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .nav.affix {
+        width: 213px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .nav.affix {
+        width: 263px;
+    }
 }
