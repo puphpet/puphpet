@@ -16,6 +16,24 @@ button.tall {
     padding-bottom: 40px;
 }
 
+.jumbotron {
+    padding: 25px 30px 5px;
+    margin-bottom: 5px;
+    background-color: #fff;
+}
+
+#main {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: #ffebeb;
+}
+
+#main > .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: #fff;
+}
+
 /*
  * Top nav bar
  */
@@ -28,6 +46,18 @@ div.navbar {
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
     color: #4c9bd8;
+    background-color: #fff;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #fff;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #4187bb;
+}
+.navbar-default .navbar-toggle .icon-bar {
     background-color: #fff;
 }
 
@@ -83,7 +113,7 @@ div.navbar {
 
 .group-tabs > li > a {
     color: #000;
-    background-color: #eee;
+    background-color: #f6e2e2;
 }
 
 .group-tabs > li.active > a,
@@ -103,14 +133,40 @@ div.navbar {
  * Side Menu
  */
 
+.affix-bottom {
+    position: absolute;
+}
+
 div.nav > ul.nav > li.active {
     border-left: 3px solid #4C9BD8;
-    background-color: #eee;
+    background-color: #f6e2e2;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+    background-color: #f6e2e2;
+}
+
+.nav > li.active > a {
+    margin-left: -3px;
+}
+
+/*
+ * Panels
+ */
+
+.panel-default > .panel-heading {
+    background-color: #f6e2e2;
 }
 
 /*
  * Footer
  */
+
+footer {
+    margin: 2em 0;
+}
+
 footer .img-thumbnail img {
     width: 50px;
     height: 50px;
@@ -200,4 +256,25 @@ footer .img-thumbnail img {
     display: block;
     text-shadow: 3px 3px 4px #000;
     z-index: -1;
+}
+
+/* ===============================================
+   Responsive
+================================================== */
+@media screen and (min-width: 768px) {
+    .nav.affix, .nav.affix-bottom {
+        width: 158px;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .nav.affix, .nav.affix-bottom {
+        width: 213px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .nav.affix, .nav.affix-bottom {
+        width: 263px;
+    }
 }

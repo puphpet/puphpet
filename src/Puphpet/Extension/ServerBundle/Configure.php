@@ -17,6 +17,7 @@ class Configure extends Extension\ExtensionAbstract
         'concat' => ":git => 'git://github.com/puppetlabs/puppetlabs-concat.git'",
         'apt'    => ":git => 'git://github.com/puppetlabs/puppetlabs-apt.git'",
         'git'    => ":git => 'git://github.com/nesi/puppet-git.git'",
+        'ntp'    => ":git => 'git://github.com/puppetlabs/puppetlabs-ntp.git'",
     ];
 
     /**

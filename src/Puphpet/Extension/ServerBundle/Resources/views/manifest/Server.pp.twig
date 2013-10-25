@@ -4,6 +4,10 @@ if $server_values == undef {
   $server_values = hiera('server', false)
 }
 
+# Ensure the time is accurate, reducing the possibilities of apt repositories
+# failing for invalid certificates
+include '::ntp'
+
 group { 'puppet': ensure => present }
 Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
 File { owner => 0, group => 0, mode => 0644 }

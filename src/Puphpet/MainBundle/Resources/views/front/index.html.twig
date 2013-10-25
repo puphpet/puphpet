@@ -8,109 +8,97 @@
 {% block main %}
 <div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
 
-<div class="container">
-    <div class="row">
-        {% include 'PuphpetMainBundle:front:sideMenu.html.twig' %}
+<div id="main">
+    <div class="container">
+        <div class="row">
+            {% include 'PuphpetMainBundle:front:sideMenu.html.twig' %}
 
-        <form role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
+            <form role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
 
-            <div class="col-sm-9">
-                <div class="container">
+                <div class="col-sm-9">
+                    <div class="container">
 
-                    {% for flashMessage in app.session.flashbag.get('error') %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{ flashMessage }}
-                        </div>
-                    {% endfor %}
-
-                    {% if hasCustom is defined %}
-                        <div class="alert alert-success alert-dismissable">
-                            Your previously generated config file was successfully loaded!
-                        </div>
-                    {% else %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <strong>Attention!</strong>
-                            Don't download Virtualbox 4.3 just yet! Vagrant does not completely work
-                            with this new version, but will soon.
-                        </div>
-
-                        <div class="alert alert-info alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Have an existing PuPHPet-generated manifest? Just drag your
-                            <code>puppet/hieradata/common.yaml</code> file into your browser and the form will be filled
-                            in with your previous values!
-                        </div>
-                    {% endif %}
-
-                    <div id="extensions-container">
-                        {% for extension in extensionManager.getExtensions
-                           if not extensionManager.extensionAlreadyUsed(extension.slug) %}
-
-                            {% set groupName = extensionManager.belongsToGroup(extension.slug) %}
-
-                            {% if groupName %}
-                                <div class="page-header">
-                                    <h1 id="{{ groupName|slugify }}">{{ groupName|title }}</h1>
-                                </div>
-
-                                {% set activeExtensionSlug = extensionManager.extensionInGroupHasCustomData(groupName) %}
-
-                                <ul class="nav group-nav nav-pills group-tabs" id="{{ groupName|slugify }}-tab">
-                                    {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
-                                        <li class="{% if groupedExtension.slug == activeExtensionSlug %}active{% endif %}">
-                                            <a href="#{{ groupedExtension.slug }}-tab"
-                                               data-target-element="{{ groupedExtension.slug }}"
-                                               data-toggle="tab">{{ groupedExtension.name }}</a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-
-                                <div class="tab-content">
-                                    {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
-                                        <div class="tab-pane {% if activeExtensionSlug == groupedExtension.slug %}active{% endif %}"
-                                             id="{{ groupedExtension.slug }}-tab">
-                                            {{ groupedExtension.renderFront(groupedExtension.data)|raw }}
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ extension.renderFront(extension.data)|raw }}
-                            {% endif %}
-
-                        {% endfor %}
-                    </div>
-
-                    <section id="create">
-
-                        <div class="page-header">
-                            <h1>Create your Manifest</h1>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <button type="submit" class="btn btn-primary btn-lg btn-block tall text-large">
-                                    Go ahead then, make it!
-                                </button>
+                        {% for flashMessage in app.session.flashbag.get('error') %}
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                {{ flashMessage }}
                             </div>
+                        {% endfor %}
+
+                        {% if hasCustom is defined %}
+                            <div class="alert alert-success alert-dismissable">
+                                Your previously generated config file was successfully loaded!
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                Have an existing PuPHPet-generated manifest? Just drag your
+                                <code>puppet/hieradata/common.yaml</code> file into your browser and the form will be filled
+                                in with your previous values!
+                            </div>
+                        {% endif %}
+
+                        <div id="extensions-container">
+                            {% for extension in extensionManager.getExtensions
+                               if not extensionManager.extensionAlreadyUsed(extension.slug) %}
+
+                                {% set groupName = extensionManager.belongsToGroup(extension.slug) %}
+
+                                {% if groupName %}
+                                    <div class="page-header">
+                                        <h1 id="{{ groupName|slugify }}">{{ groupName|title }}</h1>
+                                    </div>
+
+                                    {% set activeExtensionSlug = extensionManager.extensionInGroupHasCustomData(groupName) %}
+
+                                    <ul class="nav group-nav nav-pills group-tabs" id="{{ groupName|slugify }}-tab">
+                                        {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
+                                            <li class="{% if groupedExtension.slug == activeExtensionSlug %}active{% endif %}">
+                                                <a href="#{{ groupedExtension.slug }}-tab"
+                                                   data-target-element="{{ groupedExtension.slug }}"
+                                                   data-toggle="tab">{{ groupedExtension.name }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
+                                            <div class="tab-pane {% if activeExtensionSlug == groupedExtension.slug %}active{% endif %}"
+                                                 id="{{ groupedExtension.slug }}-tab">
+                                                {{ groupedExtension.renderFront(groupedExtension.data)|raw }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ extension.renderFront(extension.data)|raw }}
+                                {% endif %}
+
+                            {% endfor %}
                         </div>
 
-                    </section>
+                        <section id="create">
 
+                            <div class="page-header">
+                                <h1>Create your Manifest</h1>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block tall text-large">
+                                        Go ahead then, make it!
+                                    </button>
+                                </div>
+                            </div>
+
+                        </section>
+
+                    </div>
                 </div>
-            </div>
 
-        </form>
+            </form>
+        </div>
+
     </div>
-
 </div>
 
-{% endblock %}
-
-{% block footerJs %}
-    {{ parent() }}
-    <script>
-        $('body').scrollspy({target: '#nav-sidebar', offset: 385});
-    </script>
 {% endblock %}
