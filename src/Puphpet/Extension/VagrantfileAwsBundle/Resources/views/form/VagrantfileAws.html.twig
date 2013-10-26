@@ -77,7 +77,8 @@
                                             <option value="{{ value.ami }}"
                                                     data-vagrantfile-aws-ssh-username="{{ value.ssh_username }}"
                                                     data-vagrantfile-aws-vm-provider-aws-region="{{ region }}"
-                                                {% if value.ami == data.vm.provider.aws.ami %}selected{% endif %}>{{ region }} - {{ value.name }}</option>
+                                                    {% if value.php_versions is defined %}data-php[version]="{{ value.php_versions|first|str_replace('.', '') }}"{% endif %}
+                                                    {% if value.ami == data.vm.provider.aws.ami %}selected{% endif %}>{{ region }} - {{ value.name }}</option>
                                         {% endfor %}
                                     </optgroup>
                                 {% endfor %}
