@@ -25,7 +25,7 @@ button.tall {
 #main {
     padding-top: 30px;
     padding-bottom: 30px;
-    background: #ffebeb;
+    background: #f8f8f8;
 }
 
 #main > .container {
@@ -113,7 +113,7 @@ div.navbar {
 
 .group-tabs > li > a {
     color: #000;
-    background-color: #f6e2e2;
+    background-color: #f9f2f4;
 }
 
 .group-tabs > li.active > a,
@@ -139,12 +139,12 @@ div.navbar {
 
 div.nav > ul.nav > li.active {
     border-left: 3px solid #4C9BD8;
-    background-color: #f6e2e2;
+    background-color: #f9f2f4;
 }
 
 .nav > li > a:hover,
 .nav > li > a:focus {
-    background-color: #f6e2e2;
+    background-color: #f9f2f4;
 }
 
 .nav > li.active > a {
@@ -156,7 +156,7 @@ div.nav > ul.nav > li.active {
  */
 
 .panel-default > .panel-heading {
-    background-color: #f6e2e2;
+    background-color: #f9f2f4;
 }
 
 /*
