@@ -30,7 +30,7 @@ if [[ ! -f /.puphpet-stuff/update-puppet ]]; then
 
         echo "Running update-puppet yum update"
         yum -y update >/dev/null
-        echo "Finished running update-puppet apt-get update"
+        echo "Finished running update-puppet yum update"
 
         echo "Updating Puppet to latest version"
         yum -y update puppet >/dev/null
