@@ -5,43 +5,239 @@ empty_synced_folder:
     nfs: false
 
 available_images:
-    -
-        ami: ami-4d83107d
-        name: Debian Wheezy 7.1a x64 (community)
-        php_versions:
-            - 5.5
-            - 5.4
-    -
-        ami: ami-f4ee7bc4
-        name: Debian Squeeze 6.0.7 x64 (community)
-        php_versions:
-            - 5.4
-    -
-        ami: ami-04f36d34
-        name: Ubuntu Quantal 12.10 x64 (community)
-        php_versions:
-            - 5.4
-    -
-        ami: ami-6aad335a
-        name: Ubuntu Precise 12.04.3 x64 (official)
-        php_versions:
-            - 5.4
-            - 5.3
+# US East (Northern Virginia) Region
+    us-east-1:
+        -
+            ami: ami-a9cba9c0
+            name: Debian Wheezy 7.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
+            ami: ami-1cbc4375
+            name: Debian Squeeze 6.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.4
+        -
+            ami: ami-ad184ac4
+            name: Ubuntu Quantal 13.10 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+        -
+            ami: ami-a73264ce
+            name: Ubuntu Precise 12.04.3 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+                - 5.3
+# US West (Northern California) Region
+    us-west-1:
+        -
+            ami: ami-3f57787a
+            name: Debian Wheezy 7.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
+            ami: ami-47693a02
+            name: Debian Squeeze 6.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.4
+        -
+            ami: ami-4843740d
+            name: Ubuntu Quantal 13.10 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+        -
+            ami: ami-acf9cde9
+            name: Ubuntu Precise 12.04.3 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+                - 5.3
+# US West (Northern California) Region
+    us-west-2:
+        - # US West (Northern California) Region
+            ami: ami-eff462df
+            name: Debian Wheezy 7.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
+            ami: ami-ace67f9c
+            name: Ubuntu Quantal 13.10 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+        -
+            ami: ami-6aad335a
+            name: Ubuntu Precise 12.04.3 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+                - 5.3
+# EU (Ireland) Region
+    eu-west-1:
+        -
+            ami: ami-777e6f03
+            name: Debian Wheezy 7.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
+            ami: ami-8992a5fd
+            name: Debian Squeeze 6.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.4
+        -
+            ami: ami-480bea3f
+            name: Ubuntu Quantal 13.10 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+        -
+            ami: ami-8e987ef9
+            name: Ubuntu Precise 12.04.3 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+                - 5.3
+# South America (Sao Paulo) Region
+    sa-east-1:
+        -
+            ami: ami-723ae06f
+            name: Debian Wheezy 7.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
+            ami: ami-0626f91b
+            name: Debian Squeeze 6.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.4
+        -
+            ami: ami-41e84e5c
+            name: Ubuntu Quantal 13.10 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+        -
+            ami: ami-35258228
+            name: Ubuntu Precise 12.04.3 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+                - 5.3
+# Asia Pacific (Tokyo) Region
+    ap-northeast-1:
+        -
+            ami: ami-1b6ce01a
+            name: Debian Wheezy 7.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
+            ami: ami-b216a1b3
+            name: Debian Squeeze 6.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.4
+        -
+            ami: ami-b945ddb8
+            name: Ubuntu Quantal 13.10 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+        -
+            ami: ami-3f32ac3e
+            name: Ubuntu Precise 12.04.3 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+                - 5.3
+# Asia Pacific (Singapore) Region
+    ap-southeast-1:
+        -
+            ami: ami-349ed166
+            name: Debian Wheezy 7.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
+            ami: ami-26671e74
+            name: Debian Squeeze 6.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.4
+        -
+            ami: ami-94baf0c6
+            name: Ubuntu Quantal 13.10 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+        -
+            ami: ami-b84e04ea
+            name: Ubuntu Precise 12.04.3 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+                - 5.3
+# Asia Pacific (Sydney) Region
+    ap-southeast-2:
+        -
+            ami: ami-7d44d447
+            name: Debian Wheezy 7.0 x64 (community)
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
+            ami: ami-9fc25ea5
+            name: Ubuntu Quantal 13.10 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+        -
+            ami: ami-3d128f07
+            name: Ubuntu Precise 12.04.3 x64 (official)
+            ssh_username: ubuntu
+            php_versions:
+                - 5.4
+                - 5.3
 
-available_sizes:
-    512MB: 512MB / 1 CPU / 20GB SSD DISK / 1TB TRANSFER
-    1GB: 1GB / 1 CPU / 30GB SSD DISK / 2TB TRANSFER
-    2GB: 2GB / 2 CPUS / 40GB SSD DISK / 3TB TRANSFER
-    4GB: 4GB / 2 CPUS / 60GB SSD DISK / 4TB TRANSFER
-    8GB: 8GB / 4 CPUS / 80GB SSD DISK / 5TB TRANSFER
-    16GB: 16GB / 8 CPUS / 160GB SSD DISK / 6TB TRANSFER
-    32GB: 32GB / 12 CPUS / 320GB SSD DISK / 7TB TRANSFER
-    48GB: 48GB / 16 CPUS / 480GB SSD DISK / 8TB TRANSFER
-    64GB: 64GB / 20 CPUS / 640GB SSD DISK / 9TB TRANSFER
-    96GB: 96GB / 24 CPUS / 960GB SSD DISK / 10TB TRANSFER
+available_instance_types:
+    t1.micro: up to 2 ECUs, 1 vCPUs, 0.613 GiB memory, EBS only
+    m1.small: 1 ECUs, 1 vCPUs, 1.7 GiB memory, 1 x 160 GiB Storage Capacity
+    m1.medium: 2 ECUs, 1 vCPUs, 3.7 GiB memory, 1 x 410 GiB Storage Capacity
+    m1.large: 4 ECUs, 2 vCPUs, 7.5 GiB memory, 2 x 420 GiB Storage Capacity
+    m1.xlarge: 8 ECUs, 4 vCPUs, 15 GiB memory, 4 x 420 GiB Storage Capacity
+    m2.xlarge: 6.5 ECUs, 2 vCPUs, 17.1 GiB memory, 1 x 420 GiB Storage Capacity
+    m2.2xlarge: 13 ECUs, 4 vCPUs, 34.2 GiB memory, 1 x 850 GiB Storage Capacity
+    m2.4xlarge: 26 ECUs, 8 vCPUs, 68.4 GiB memory, 2 x 840 GiB Storage Capacity
+    hi1.4xlarge: 35 ECUs, 16 vCPUs, 60.5 GiB memory, 2 x 1024 GiB Storage Capacity
+    hs1.8xlarge: 35 ECUs, 16 vCPUs, 117 GiB memory, 24 x 2048 GiB Storage Capacity
+    c1.medium: 5 ECUs, 2 vCPUs, 1.7 GiB memory, 1 x 350 GiB Storage Capacity
+    c1.xlarge: 20 ECUs, 8 vCPUs, 7 GiB memory, 4 x 420 GiB Storage Capacity
 
 available_regions:
-    - New York 1
-    - New York 2
-    - San Francisco 1
-    - Amsterdam 1
+    ap-northeast-1: Asia Pacific (Tokyo) Region
+    ap-southeast-1: Asia Pacific (Singapore) Region
+    ap-southeast-2: Asia Pacific (Sydney) Region
+    eu-west-1: EU (Ireland) Region
+    sa-east-1: South America (Sao Paulo) Region
+    us-east-1: US East (Northern Virginia) Region
+    us-west-1: US West (Northern California) Region
+    us-west-2: US West (Oregon) Region

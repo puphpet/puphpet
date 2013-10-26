@@ -48,6 +48,45 @@ PUPHPET.updateOtherInput = function() {
         });
     });
 };
+PUPHPET.updateOtherInputSelect = function() {
+    $(document).on('change', 'select.update-other-input', function(e){
+        var $parent = $(this);
+
+        $('select.update-other-input option:selected').each(function() {
+            $.each($(this).data(), function(key, value) {
+                // jQuery changed "data-foo-bar" to "dataFooBar". Change them back.
+                key = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
+                var $target = $('#' + key);
+
+                // If target element is not defined as #foo, maybe it is an input,name,value target
+                if (!$target.length) {
+                    $target = $('input[name="' + key + '"][value="'+ value +'"]')
+                }
+
+                // If target is a radio element, check it, no need to uncheck in future
+                if ($target.is(':radio')) {
+                    $target.prop('checked', true);
+
+                    return;
+                }
+
+                /**
+                 * If target is checkbox element, check if clicked element was checked or unchecked.
+                 *
+                 * If unchecked, do not update target. We only want to handle positive actions
+                 */
+                if ($target.is(':checkbox') && $parent.is(':checked')) {
+                    $target.prop('checked', true);
+
+                    return;
+                }
+
+                $target.val(value);
+            });
+        });
+    });
+};
 
 /**
  * Run selectize.js on initial page load, and then re-run it whenever
@@ -335,6 +374,7 @@ PUPHPET.sidebar = function() {
 
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
+    PUPHPET.updateOtherInputSelect();
     PUPHPET.runSelectize(null);
     PUPHPET.addRepeatableElement();
     PUPHPET.delRepeatableElement();

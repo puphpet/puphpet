@@ -6,11 +6,13 @@ vm:
         forwarded_port: []
     provider:
         aws:
-            image: ~
+            access_key_id: ~
+            secret_access_key: ~
+            keypair_name: ~
+            ami: ~
             region: ~
-            size: ~
-            client_id: ~
-            api_key: ~
+            instance_type: ~
+            security_groups: {}
     provision:
         puppet:
             manifests_path: "puppet/manifests"

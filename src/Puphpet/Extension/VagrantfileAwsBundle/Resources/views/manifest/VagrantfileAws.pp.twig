@@ -1,21 +1,24 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'aws'
 
 Vagrant.configure("2") do |config|
-  config.ssh.private_key_path = "{{ data.ssh.private_key_path }}"
-  config.ssh.username = "{{ data.ssh.username }}"
-
-  config.vm.define :master do |master|
-    master.vm.box = "aws"
-  end
+  config.vm.box = "aws"
 
 {% if data.vm.hostname %}  config.vm.hostname = "{{ data.vm.hostname }}"{% endif %}
 
-  config.vm.provider :aws do |provider|
-    provider.client_id = "{{ data.vm.provider.aws.client_id }}"
-    provider.api_key = "{{ data.vm.provider.aws.api_key }}"
-    provider.image = "{{ data.vm.provider.aws.image }}"
-    provider.region = "{{ data.vm.provider.aws.region }}"
-    provider.size = "{{ data.vm.provider.aws.size }}"
+  config.vm.provider :aws do |aws, override|
+    aws.access_key_id = "{{ data.vm.provider.aws.access_key_id }}"
+    aws.secret_access_key = "{{ data.vm.provider.aws.secret_access_key }}"
+    aws.keypair_name = "{{ data.vm.provider.aws.keypair_name }}"
+    aws.ami = "{{ data.vm.provider.aws.ami }}"
+    {% if data.vm.provider.aws.region %}aws.region = "{{ data.vm.provider.aws.region }}"{% endif %}
+
+    aws.instance_type = "{{ data.vm.provider.aws.instance_type }}"
+    override.ssh.username = "{{ data.ssh.username }}"
+    override.ssh.private_key_path = "{{ data.ssh.private_key_path }}"
+{% if data.vm.provider.aws.security_groups is iterable %}
+    aws.security_groups = [ "{{ data.vm.provider.aws.security_groups|join('", "')|raw }}" ]
+{% endif %}
+
   end
 
 {% for folder in data.vm.synced_folder %}

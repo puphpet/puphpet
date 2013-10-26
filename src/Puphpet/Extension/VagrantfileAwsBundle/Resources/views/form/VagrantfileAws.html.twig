@@ -1,6 +1,8 @@
 <section id="vagrantfile-aws">
 
     <input type="hidden" id="vagrantfile-aws-vm-box" name="vagrantfile-aws[vm][box]" value="aws" />
+    <input type="hidden" id="vagrantfile-aws-ssh-username" name="vagrantfile-aws[ssh][username]" value="{{ data.ssh.username }}" />
+    <input type="hidden" id="vagrantfile-aws-vm-provider-aws-region" name="vagrantfile-aws[vm][provider][aws][region]" value="{{ data.vm.provider.aws.region }}" />
 
     <!-- vagrantfile-aws / instructions -->
     <div class="row">
@@ -15,15 +17,7 @@
                         <h3>AWS EC2 Instance</h3>
 
                         <p>
-                            Don't have a Digital Ocean account?
-                            <a href="https://www.digitalocean.com/?refcode=475274cc0939" target="_blank">Click here to create one</a>
-                            (affiliate link - help support this free service)!
-                        </p>
-
-                        <p>
-                            Login to Digital Ocean and
-                            <a href="https://www.digitalocean.com/api_access" target="_blank">go to the API page</a>.
-                            You will need a Client ID and API Key.
+                            Use Amazon's famously reliable servers for your app!
                         </p>
                     </div>
 
@@ -72,28 +66,25 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <div class="col-md-12">
-                            <label>AWS EC2 Instance Operating System</label>
+                            <label for="vagrantfile-aws-vm-provider-aws-ami">AWS EC2 Instance Image</label>
 
-                            {% for image in data.available_images %}
-                                <label class="radio">
-                                    <input type="radio" class="update-other-input" value="{{ image.ami }}"
-                                           name="vagrantfile-aws[vm][provider][aws][ami]"
-                                           {% if image.ami == data.vm.provider.aws.ami %}checked{% endif %}
-                                           {% if image.php_versions is defined %}data-php[version]="{{ image.php_versions|first|str_replace('.', '') }}"{% endif %} />
-                                    {{ image.name }}
-                                    {% if image.php_versions is defined %}
-                                        (PHP
-                                        {% for php in image.php_versions %}
-                                            <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
+                            <select id="vagrantfile-aws-vm-provider-aws-ami"
+                                    name="vagrantfile-aws[vm][provider][aws][ami]"
+                                    class="form-control update-other-input">
+                                {% for region, values in data.available_images %}
+                                    <optgroup label="{{ attribute(data.available_regions, region) }}">
+                                        {% for value in values %}
+                                            <option value="{{ value.ami }}"
+                                                    data-vagrantfile-aws-ssh-username="{{ value.ssh_username }}"
+                                                    data-vagrantfile-aws-vm-provider-aws-region="{{ region }}"
+                                                {% if value.ami == data.vm.provider.aws.ami %}selected{% endif %}>{{ region }} - {{ value.name }}</option>
                                         {% endfor %}
-                                        )
-                                    {% endif %}
-                                </label>
-                            {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
+                            </select>
 
                             <p class="help-block">
-                                Choose the operating system for your VM. Digital Ocean has pre-defined systems you can
-                                choose from. The ones listed are the ones PuPHPet has been tested with so far.
+                                Choose the operating system for your VM and region for your VM.
                             </p>
 
                             <p class="help-block">
@@ -106,85 +97,62 @@
 
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="vagrantfile-aws-vm-hostname">AWS EC2 Instance Name</label>
-                            <input id="vagrantfile-aws-vm-hostname"
-                                   name="vagrantfile-aws[vm][hostname]"
-                                   placeholder="my-awesome-box"
-                                   value="{{ data.vm.hostname }}" class="form-control" />
-
-                            <p class="help-block">Name your server. It must be unique to your account!</p>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <label for="vagrantfile-aws-vm-provider-aws-size">AWS EC2 Instance Size</label>
-                            <select id="vagrantfile-aws-vm-provider-aws-size"
-                                    name="vagrantfile-aws[vm][provider][aws][size]"
+                            <label for="vagrantfile-aws-vm-provider-aws-instance_type">AWS EC2 Instance Type</label>
+                            <select id="vagrantfile-aws-vm-provider-aws-instance_type"
+                                    name="vagrantfile-aws[vm][provider][aws][instance_type]"
                                     class="form-control select-tag">
-                                {% for size, name in data.available_sizes %}
-                                    <option value="{{ size }}"
-                                        {% if size == data.vm.provider.aws.size %}selected{% endif %}>{{ name }}</option>
+                                {% for type, description in data.available_instance_types %}
+                                    <option value="{{ type }}"
+                                        {% if type == data.vm.provider.aws.instance_type %}selected{% endif %}>{{ type }} - {{ description }}</option>
                                 {% endfor %}
                             </select>
 
                             <p class="help-block">
-                                <a href="https://www.digitalocean.com/pricing" target="_blank">Pricing information</a>.
-                                Digital Ocean charges by the hour, but also shows what a full month would cost.
+                                EC2 pricing is infamously difficult to calculate.
                             </p>
                         </div>
                     </div>
 
                     <div class="row form-group">
-                        <div class="col-md-12">
-                            <label for="vagrantfile-aws-vm-provider-aws-region">AWS EC2 Instance Region</label>
-                            <select id="vagrantfile-aws-vm-provider-aws-region"
-                                    name="vagrantfile-aws[vm][provider][aws][region]"
-                                    class="form-control select-tag">
-                                {% for region in data.available_regions %}
-                                    <option value="{{ region }}"
-                                        {% if region == data.vm.provider.aws.region %}selected{% endif %}>{{ region }}</option>
-                                {% endfor %}
-                            </select>
-
-                            <p class="help-block">Choose the one closest to you, or your target audience!</p>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
                         <div class="col-md-6">
-                            <label for="vagrantfile-aws-vm-provider-aws-client_id">AWS EC2 Instance Client ID</label>
-                            <input id="vagrantfile-aws-vm-provider-aws-client_id"
-                                   name="vagrantfile-aws[vm][provider][aws][client_id]"
-                                   placeholder="DIGITAL OCEAN CLIENT ID"
-                                   value="{{ data.vm.provider.aws.client_id }}" class="form-control" />
+                            <label for="vagrantfile-aws-vm-provider-aws-access_key_id">AWS EC2 Access Key ID</label>
+                            <input id="vagrantfile-aws-vm-provider-aws-access_key_id"
+                                   name="vagrantfile-aws[vm][provider][aws][access_key_id]"
+                                   placeholder="AWS ACCESS KEY ID"
+                                   value="{{ data.vm.provider.aws.access_key_id }}" class="form-control" />
 
                             <p class="help-block">
-                                <a href="https://www.digitalocean.com/api_access" target="_blank">Get it here</a>
+                                <a href="https://console.aws.amazon.com/iam/home?#security_credential" target="_blank">Get it here</a>.
+                                You can leave this blank and fill it in manually in the <code>Vagrantfile</code> if you want.
                             </p>
                         </div>
 
                         <div class="col-md-6">
-                            <label for="vagrantfile-aws-vm-provider-aws-api_key">AWS EC2 Instance API Key</label>
-                            <input id="vagrantfile-aws-vm-provider-aws-api_key"
-                                   name="vagrantfile-aws[vm][provider][aws][api_key]"
-                                   placeholder="DIGITAL OCEAN API KEY"
-                                   value="{{ data.vm.provider.aws.api_key }}" class="form-control" />
+                            <label for="vagrantfile-aws-vm-provider-aws-secret_access_key">AWS EC2 Secret Access Key</label>
+                            <input id="vagrantfile-aws-vm-provider-aws-secret_access_key"
+                                   name="vagrantfile-aws[vm][provider][aws][secret_access_key]"
+                                   placeholder="AWS SECRET ACCESS KEY"
+                                   value="{{ data.vm.provider.aws.secret_access_key }}" class="form-control" />
 
                             <p class="help-block">
-                                <a href="https://www.digitalocean.com/api_access" target="_blank">Get it here</a>
+                                <a href="https://portal.aws.amazon.com/gp/aws/securityCredentials?" target="_blank">Get it here</a>.
+                                You can leave this blank and fill it in manually in the <code>Vagrantfile</code> if you want.
                             </p>
                         </div>
                     </div>
 
                     <div class="row form-group">
                         <div class="col-md-6">
-                            <label for="vagrantfile-aws-ssh-username">Local Private Key Username</label>
-                            <input id="vagrantfile-aws-ssh-username"
-                                   name="vagrantfile-aws[ssh][username]"
-                                   value="{{ data.ssh.username }}" class="form-control" />
+                            <label for="vagrantfile-aws-vm-provider-aws-keypair_name">AWS EC2 Key Pair Name</label>
+                            <input id="vagrantfile-aws-vm-provider-aws-keypair_name"
+                                   name="vagrantfile-aws[vm][provider][aws][keypair_name]"
+                                   placeholder="AWS KEY PAIR NAME"
+                                   value="{{ data.vm.provider.aws.keypair_name }}" class="form-control" />
 
-                            <p class="help-block">The username associated with the private key entered.</p>
+                            <p class="help-block">
+                                The Key Pair name from
+                                <a href="https://console.aws.amazon.com/ec2/v2/home?#KeyPairs:" target="_blank">here</a>
+                            </p>
                         </div>
 
                         <div class="col-md-6">
@@ -195,11 +163,31 @@
                                    value="{{ data.ssh.private_key_path }}" class="form-control" />
 
                             <p class="help-block">
-                                The Digital Ocean VM will not be accessible without your private/public key.
-                                <strong>It will not be accessible using username/password, only private key!</strong>
+                                The AWS EC2 VM will not be accessible without your private/public key.
+                                <strong>It will not be accessible using username/password, only private key!</strong>.
+                                This corresponds to the Key Pair identified to the left!
                             </p>
                         </div>
                     </div>
+
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="vagrantfile-aws-vm-provider-aws-security_groups">AWS EC2 Security Groups</label>
+                            <select id="vagrantfile-aws-vm-provider-aws-security_groups"
+                                    name="vagrantfile-aws[vm][provider][aws][security_groups][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% for group in data.vm.provider.aws.security_groups %}
+                                    <option value="{{ group }}" selected>{{ group }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <p class="help-block">
+                                Assign security groups to this instance.
+                                <a href="https://console.aws.amazon.com/ec2/home?#s=SecurityGroups" target="_blank">Get them here</a>.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
