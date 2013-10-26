@@ -8,27 +8,8 @@ available_images:
 # US East (Northern Virginia) Region
     us-east-1:
         -
-            ami: ami-a9cba9c0
-            name: Debian Wheezy 7.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.5
-                - 5.4
-        -
-            ami: ami-1cbc4375
-            name: Debian Squeeze 6.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.4
-        -
-            ami: ami-ad184ac4
-            name: Ubuntu Quantal 13.10 x64 (official)
-            ssh_username: ubuntu
-            php_versions:
-                - 5.4
-        -
             ami: ami-a73264ce
-            name: Ubuntu Precise 12.04.3 x64 (official)
+            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -36,49 +17,17 @@ available_images:
 # US West (Northern California) Region
     us-west-1:
         -
-            ami: ami-3f57787a
-            name: Debian Wheezy 7.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.5
-                - 5.4
-        -
-            ami: ami-47693a02
-            name: Debian Squeeze 6.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.4
-        -
-            ami: ami-4843740d
-            name: Ubuntu Quantal 13.10 x64 (official)
-            ssh_username: ubuntu
-            php_versions:
-                - 5.4
-        -
             ami: ami-acf9cde9
-            name: Ubuntu Precise 12.04.3 x64 (official)
+            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
             ssh_username: ubuntu
             php_versions:
                 - 5.4
                 - 5.3
 # US West (Northern California) Region
     us-west-2:
-        - # US West (Northern California) Region
-            ami: ami-eff462df
-            name: Debian Wheezy 7.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.5
-                - 5.4
-        -
-            ami: ami-ace67f9c
-            name: Ubuntu Quantal 13.10 x64 (official)
-            ssh_username: ubuntu
-            php_versions:
-                - 5.4
         -
             ami: ami-6aad335a
-            name: Ubuntu Precise 12.04.3 x64 (official)
+            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -86,27 +35,8 @@ available_images:
 # EU (Ireland) Region
     eu-west-1:
         -
-            ami: ami-777e6f03
-            name: Debian Wheezy 7.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.5
-                - 5.4
-        -
-            ami: ami-8992a5fd
-            name: Debian Squeeze 6.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.4
-        -
-            ami: ami-480bea3f
-            name: Ubuntu Quantal 13.10 x64 (official)
-            ssh_username: ubuntu
-            php_versions:
-                - 5.4
-        -
             ami: ami-8e987ef9
-            name: Ubuntu Precise 12.04.3 x64 (official)
+            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -114,27 +44,8 @@ available_images:
 # South America (Sao Paulo) Region
     sa-east-1:
         -
-            ami: ami-723ae06f
-            name: Debian Wheezy 7.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.5
-                - 5.4
-        -
-            ami: ami-0626f91b
-            name: Debian Squeeze 6.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.4
-        -
-            ami: ami-41e84e5c
-            name: Ubuntu Quantal 13.10 x64 (official)
-            ssh_username: ubuntu
-            php_versions:
-                - 5.4
-        -
             ami: ami-35258228
-            name: Ubuntu Precise 12.04.3 x64 (official)
+            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -142,27 +53,8 @@ available_images:
 # Asia Pacific (Tokyo) Region
     ap-northeast-1:
         -
-            ami: ami-1b6ce01a
-            name: Debian Wheezy 7.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.5
-                - 5.4
-        -
-            ami: ami-b216a1b3
-            name: Debian Squeeze 6.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.4
-        -
-            ami: ami-b945ddb8
-            name: Ubuntu Quantal 13.10 x64 (official)
-            ssh_username: ubuntu
-            php_versions:
-                - 5.4
-        -
             ami: ami-3f32ac3e
-            name: Ubuntu Precise 12.04.3 x64 (official)
+            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -170,27 +62,8 @@ available_images:
 # Asia Pacific (Singapore) Region
     ap-southeast-1:
         -
-            ami: ami-349ed166
-            name: Debian Wheezy 7.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.5
-                - 5.4
-        -
-            ami: ami-26671e74
-            name: Debian Squeeze 6.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.4
-        -
-            ami: ami-94baf0c6
-            name: Ubuntu Quantal 13.10 x64 (official)
-            ssh_username: ubuntu
-            php_versions:
-                - 5.4
-        -
             ami: ami-b84e04ea
-            name: Ubuntu Precise 12.04.3 x64 (official)
+            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -198,21 +71,8 @@ available_images:
 # Asia Pacific (Sydney) Region
     ap-southeast-2:
         -
-            ami: ami-7d44d447
-            name: Debian Wheezy 7.0 x64 (community)
-            ssh_username: admin
-            php_versions:
-                - 5.5
-                - 5.4
-        -
-            ami: ami-9fc25ea5
-            name: Ubuntu Quantal 13.10 x64 (official)
-            ssh_username: ubuntu
-            php_versions:
-                - 5.4
-        -
             ami: ami-3d128f07
-            name: Ubuntu Precise 12.04.3 x64 (official)
+            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
             ssh_username: ubuntu
             php_versions:
                 - 5.4
