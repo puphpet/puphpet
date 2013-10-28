@@ -55,6 +55,7 @@ PUPHPET.updateOtherInput = function() {
         });
     });
 };
+
 PUPHPET.updateOtherInputSelect = function() {
     $(document).on('change', 'select.update-other-input', function(e){
         var $parent = $(this);

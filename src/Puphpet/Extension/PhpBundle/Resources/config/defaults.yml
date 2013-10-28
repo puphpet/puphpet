@@ -1,7 +1,6 @@
 modules:
     php:
         - cli
-        - curl
         - intl
         - mcrypt
     pecl:
