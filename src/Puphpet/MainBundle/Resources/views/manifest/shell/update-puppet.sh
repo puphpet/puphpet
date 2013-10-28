@@ -25,7 +25,7 @@ if [[ ! -f /.puphpet-stuff/update-puppet ]]; then
         echo "Created empty file /.puphpet-stuff/update-puppet"
     elif [ "$OS" == 'centos' ]; then
         echo "Downloading http://yum.puppetlabs.com/el/${RELEASE}/products/x86_64/puppetlabs-release-6-7.noarch.rpm"
-        rpm -ivh "http://yum.puppetlabs.com/el/${RELEASE}/products/x86_64/puppetlabs-release-6-7.noarch.rpm"
+        yum -y --nogpgcheck install "http://yum.puppetlabs.com/el/${RELEASE}/products/x86_64/puppetlabs-release-6-7.noarch.rpm" >/dev/null
         echo "Finished downloading http://yum.puppetlabs.com/el/${RELEASE}/products/x86_64/puppetlabs-release-6-7.noarch.rpm"
 
         echo "Running update-puppet yum update"
