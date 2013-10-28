@@ -1,6 +1,5 @@
 ## Begin Apache manifest
 
-##
 if $yaml_values == undef {
   $yaml_values = loadyaml('/vagrant/puppet/hieradata/common.yaml')
 }
@@ -16,10 +15,17 @@ class { 'apache':
   mpm_module    => $apache_values['mpm_module']
 }
 
-case $apache_values['mpm_module'] {
-  'prefork': { ensure_packages( ['apache2-mpm-prefork'] ) }
-  'worker':  { ensure_packages( ['apache2-mpm-worker'] ) }
-  'event':   { ensure_packages( ['apache2-mpm-event'] ) }
+if $::osfamily == 'debian' {
+  case $apache_values['mpm_module'] {
+    'prefork': { ensure_packages( ['apache2-mpm-prefork'] ) }
+    'worker':  { ensure_packages( ['apache2-mpm-worker'] ) }
+    'event':   { ensure_packages( ['apache2-mpm-event'] ) }
+  }
+} elsif $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/80']) {
+  iptables::allow { 'tcp/80':
+    port     => '80',
+    protocol => 'tcp'
+  }
 }
 
 create_resources(apache::vhost, $apache_values['vhosts'])
@@ -31,5 +37,5 @@ define apache_mod {
 }
 
 if count($apache_values['modules']) > 0 {
-  apache_mod { $apache_values['modules']:; }
+  apache_mod { $apache_values['modules']: }
 }

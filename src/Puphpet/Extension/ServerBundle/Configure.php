@@ -13,11 +13,13 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puppet/manifests/default.pp';
 
     protected $sources = [
-        'stdlib' => ":git => 'git://github.com/puppetlabs/puppetlabs-stdlib.git'",
-        'concat' => ":git => 'git://github.com/puppetlabs/puppetlabs-concat.git'",
-        'apt'    => ":git => 'git://github.com/puppetlabs/puppetlabs-apt.git'",
-        'git'    => ":git => 'git://github.com/nesi/puppet-git.git'",
-        'ntp'    => ":git => 'git://github.com/puppetlabs/puppetlabs-ntp.git'",
+        'stdlib'   => ":git => 'git://github.com/puppetlabs/puppetlabs-stdlib.git'",
+        'concat'   => ":git => 'git://github.com/puppetlabs/puppetlabs-concat.git'",
+        'apt'      => ":git => 'git://github.com/puppetlabs/puppetlabs-apt.git'",
+        'yum'      => ":git => 'git://github.com/example42/puppet-yum.git'",
+        'vcsrepo'  => ":git => 'git://github.com/puppetlabs/puppetlabs-vcsrepo.git'",
+        'ntp'      => ":git => 'git://github.com/puppetlabs/puppetlabs-ntp.git'",
+        'iptables' => ":git => 'git://github.com/erwbgy/puppet-iptables.git'",
     ];
 
     /**

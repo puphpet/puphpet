@@ -12,7 +12,7 @@ RELEASE="unknown"
 if [ "$OS" == "Linux" ]; then
     # detect centos
     grep "centos" /etc/issue -i -q
-    if [ $? = '0' ];then
+    if [ $? = '0' ]; then
         ID="centos"
         RELEASE=$(cat /etc/redhat-release | grep -o 'release [0-9]' | cut -d " " -f2)
     # could be debian or ubuntu

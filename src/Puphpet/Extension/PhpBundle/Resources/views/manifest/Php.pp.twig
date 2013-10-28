@@ -85,7 +85,7 @@ if $php_values['composer'] == 1 {
     download_method => 'curl',
     logoutput       => false,
     tmp_path        => '/tmp',
-    php_package     => 'php5-cli',
+    php_package     => "${php::params::module_prefix}cli",
     curl_package    => 'curl',
     suhosin_enabled => false,
   }

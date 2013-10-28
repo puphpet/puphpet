@@ -36,8 +36,8 @@ exec { 'dotfiles':
   require => User[$::ssh_username]
 }
 
-# debian, ubuntu
 case $::osfamily {
+  # debian, ubuntu
   'debian': {
     class { 'apt': }
 
@@ -47,6 +47,39 @@ case $::osfamily {
     |>
 
     ensure_packages( ['augeas-tools'] )
+  }
+  # redhat, centos
+  'redhat': {
+    class { 'yum': extrarepo => ['epel'] }
+
+    Class['::yum'] -> Yum::Managed_yumrepo <| |> -> Package <| |>
+
+    exec { 'bash_git':
+      cwd     => "/home/${::ssh_username}",
+      command => "curl https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > /home/${::ssh_username}/.bash_git",
+      creates => "/home/${::ssh_username}/.bash_git"
+    }
+
+    file_line { 'link ~/.bash_git':
+      ensure  => present,
+      line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
+      path    => "/home/${::ssh_username}/.bash_profile",
+      require => [
+        Exec['dotfiles'],
+        Exec['bash_git'],
+      ]
+    }
+
+    file_line { 'link ~/.bash_aliases':
+      ensure  => present,
+      line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
+      path    => "/home/${::ssh_username}/.bash_profile",
+      require => [
+        File_line['link ~/.bash_git'],
+      ]
+    }
+
+    ensure_packages( ['augeas'] )
   }
 }
 
@@ -83,6 +116,18 @@ case $::operatingsystem {
       }
       elsif $lsbdistcodename in ['lucid'] and $php_values['version'] == '55' {
         err('You have chosen to install PHP 5.5 on Ubuntu 10.04 Lucid. This will probably not work!')
+      }
+    }
+  }
+  'redhat', 'centos': {
+    if is_hash($php_values) {
+      if $php_values['version'] == '54' {
+        class { 'yum::repo::remi': }
+      }
+      # remi_php55 requires the remi repo as well
+      elsif $php_values['version'] == '55' {
+        class { 'yum::repo::remi': }
+        class { 'yum::repo::remi_php55': }
       }
     }
   }
