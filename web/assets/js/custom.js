@@ -19,6 +19,13 @@ PUPHPET.updateOtherInput = function() {
             // jQuery changed "data-foo-bar" to "dataFooBar". Change them back.
             key = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 
+            // Only work with data attributes that have "update-"
+            if (key.search('update-') !== 0) {
+                return;
+            }
+
+            key = key.replace('update-', '');
+
             var $target = $('#' + key);
 
             // If target element is not defined as #foo, maybe it is an input,name,value target
@@ -48,6 +55,7 @@ PUPHPET.updateOtherInput = function() {
         });
     });
 };
+
 PUPHPET.updateOtherInputSelect = function() {
     $(document).on('change', 'select.update-other-input', function(e){
         var $parent = $(this);
@@ -56,6 +64,13 @@ PUPHPET.updateOtherInputSelect = function() {
             $.each($(this).data(), function(key, value) {
                 // jQuery changed "data-foo-bar" to "dataFooBar". Change them back.
                 key = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
+                // Only work with data attributes that have "update-"
+                if (key.search('update-') !== 0) {
+                    return;
+                }
+
+                key = key.replace('update-', '');
 
                 var $target = $('#' + key);
 

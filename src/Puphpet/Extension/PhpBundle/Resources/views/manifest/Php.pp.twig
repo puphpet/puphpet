@@ -14,6 +14,20 @@ if $nginx_values == undef {
 
 Class['Php'] -> Class['Php::Devel'] -> Php::Module <| |> -> Php::Pear::Module <| |> -> Php::Pecl::Module <| |>
 
+if $php_prefix == undef {
+  $php_prefix = $::operatingsystem ? {
+    /(?i:Ubuntu|Debian|Mint|SLES|OpenSuSE)/ => 'php5-',
+    default                                 => 'php-',
+  }
+}
+
+if $php_fpm_ini == undef {
+  $php_fpm_ini = $::operatingsystem ? {
+    /(?i:Ubuntu|Debian|Mint|SLES|OpenSuSE)/ => '/etc/php5/fpm/php.ini',
+    default                                 => '/etc/php.ini',
+  }
+}
+
 if is_hash($apache_values) {
   $php_webserver_service = 'httpd'
 
@@ -21,13 +35,13 @@ if is_hash($apache_values) {
     service => $php_webserver_service
   }
 } elsif is_hash($nginx_values) {
-  $php_webserver_service = 'php5-fpm'
+  $php_webserver_service = "${php_prefix}fpm"
 
   class { 'php':
     package             => $php_webserver_service,
     service             => $php_webserver_service,
     service_autorestart => false,
-    config_file         => '/etc/php5/fpm/php.ini',
+    config_file         => $php_fpm_ini,
   }
 
   service { $php_webserver_service:
@@ -85,7 +99,7 @@ if $php_values['composer'] == 1 {
     download_method => 'curl',
     logoutput       => false,
     tmp_path        => '/tmp',
-    php_package     => 'php5-cli',
+    php_package     => "${php::params::module_prefix}cli",
     curl_package    => 'curl',
     suhosin_enabled => false,
   }

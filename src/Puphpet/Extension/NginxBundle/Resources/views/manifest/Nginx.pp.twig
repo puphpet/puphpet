@@ -8,7 +8,7 @@ if $php_values == undef {
    $php_values = hiera('php', false)
 }
 
-if $lsbdistcodename in ['lucid'] and is_hash($php_values) and $php_values['version'] == '53' {
+if $::osfamily == 'debian' and $lsbdistcodename in ['lucid'] and is_hash($php_values) and $php_values['version'] == '53' {
   apt::key { '67E15F46': }
   apt::ppa { 'ppa:l-mierzwa/lucid-php5':
     options => '',
@@ -16,10 +16,27 @@ if $lsbdistcodename in ['lucid'] and is_hash($php_values) and $php_values['versi
   }
 }
 
+$php5_fpm_sock = '/var/run/php5-fpm.sock'
+
+if $php_values['version'] == undef {
+  $fastcgi_pass = null
+} elsif $php_values['version'] == '53' {
+  $fastcgi_pass = '127.0.0.1:9000'
+} else {
+  $fastcgi_pass = "unix:${php5_fpm_sock}"
+}
+
 class { 'nginx': }
 
 if count($nginx_values['vhosts']) > 0 {
   create_resources(nginx_vhost, $nginx_values['vhosts'])
+}
+
+if $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/80']) {
+  iptables::allow { 'tcp/80':
+    port     => '80',
+    protocol => 'tcp'
+  }
 }
 
 define nginx_vhost (
@@ -46,14 +63,6 @@ define nginx_vhost (
     try_files   => ['$uri', '$uri/', "/${try_files}?\$args"],
   }
 
-  if $php_values['version'] == undef {
-    $fastcgi_pass = null
-  } elsif $php_values['version'] == '53' {
-    $fastcgi_pass = '127.0.0.1:9000'
-  } else {
-    $fastcgi_pass = 'unix:/var/run/php5-fpm.sock'
-  }
-
   $fastcgi_param = concat(
   [
     'PATH_INFO $fastcgi_path_info',
@@ -76,5 +85,23 @@ define nginx_vhost (
       'include'                 => 'fastcgi_params'
     },
     notify              => Class['nginx::service'],
+  }
+}
+
+if $::osfamily == 'redhat' and $fastcgi_pass == "unix:${php5_fpm_sock}" {
+  exec { "create ${php5_fpm_sock} file":
+    command => "touch ${php5_fpm_sock} && chmod 777 ${php5_fpm_sock}",
+    onlyif  => ["test ! -f ${php5_fpm_sock}", "test ! -f ${php5_fpm_sock}="],
+    require => Package['nginx']
+  }
+
+  exec { "listen = 127.0.0.1:9000 => listen = ${php5_fpm_sock}":
+    command => "perl -p -i -e 's#listen = 127.0.0.1:9000#listen = ${php5_fpm_sock}#gi' /etc/php-fpm.d/www.conf",
+    unless  => "grep -c 'listen = 127.0.0.1:9000' '${php5_fpm_sock}'",
+    notify  => [
+      Class['nginx::service'],
+      Service['php-fpm']
+    ],
+    require => Exec["create ${php5_fpm_sock} file"]
   }
 }

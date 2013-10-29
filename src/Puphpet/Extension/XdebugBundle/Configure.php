@@ -12,10 +12,6 @@ class Configure extends Extension\ExtensionAbstract
     protected $slug = 'xdebug';
     protected $targetFile = 'puppet/manifests/default.pp';
 
-    protected $sources = [
-        'xdebug' => ":git => 'git://github.com/puphpet/puphpet-xdebug.git'",
-    ];
-
     /**
      * @param Container $container
      */

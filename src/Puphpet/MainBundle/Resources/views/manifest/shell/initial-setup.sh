@@ -9,12 +9,21 @@ if [[ ! -d /.puphpet-stuff ]]; then
     echo "Created directory /.puphpet-stuff"
 fi
 
-if [ "$OS" == 'debian' ] || [ "$OS" == 'ubuntu' ]; then
-    if [[ ! -f /.puphpet-stuff/initial-setup-apt-get-update ]]; then
+if [[ ! -f /.puphpet-stuff/initial-setup-repo-update ]]; then
+    if [ "$OS" == 'debian' ] || [ "$OS" == 'ubuntu' ]; then
         echo "Running initial-setup apt-get update"
         apt-get update >/dev/null
-        touch /.puphpet-stuff/initial-setup-apt-get-update
+        touch /.puphpet-stuff/initial-setup-repo-update
         echo "Finished running initial-setup apt-get update"
+    elif [[ "$OS" == 'centos' ]]; then
+        echo "Running initial-setup yum update"
+        yum update -y >/dev/null
+        echo "Finished running initial-setup yum update"
+
+        echo "Installing basic development tools (CentOS)"
+        yum -y groupinstall "Development Tools" >/dev/null
+        echo "Finished installing basic development tools (CentOS)"
+        touch /.puphpet-stuff/initial-setup-repo-update
     fi
 fi
 

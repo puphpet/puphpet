@@ -6,6 +6,14 @@ empty_synced_folder:
 
 available_boxes:
     -
+        url: http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box
+        os: centos
+        short_name: centos64
+        long_name: CentOS 6.4 x64
+        php_versions:
+            - 5.5
+            - 5.4
+    -
         url: http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box
         os: debian
         short_name: wheezy64
