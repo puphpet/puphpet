@@ -4,9 +4,7 @@ Vagrant.configure("2") do |config|
   config.ssh.private_key_path = "{{ data.ssh.private_key_path }}"
   config.ssh.username = "{{ data.ssh.username }}"
 
-  config.vm.define :master do |master|
-    master.vm.box = "digital_ocean"
-  end
+  config.vm.box = "dummy"
 
 {% if data.vm.hostname %}  config.vm.hostname = "{{ data.vm.hostname }}"{% endif %}
 
