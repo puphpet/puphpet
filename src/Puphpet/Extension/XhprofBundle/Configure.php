@@ -13,7 +13,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puppet/manifests/default.pp';
 
     protected $sources = [
-        'vcsrepo' => ":git => 'git://github.com/puppetlabs/puppetlabs-vcsrepo.git'",
+        'vcsrepo' => ":git => 'git://github.com/puphpet/puppetlabs-vcsrepo.git'",
     ];
 
     /**
