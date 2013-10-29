@@ -16,7 +16,7 @@
             <form role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
 
                 <div class="col-sm-9">
-                    <div class="container">
+                    <div>
 
                         {% for flashMessage in app.session.flashbag.get('error') %}
                             <div class="alert alert-danger alert-dismissable">
