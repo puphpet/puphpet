@@ -3,7 +3,7 @@ vm:
         rackspace:
             server_name: rackspace-server
             image: Debian 7 (Wheezy)
-            region: Dallas (DFW)
+            region: dfw
             size: 1GB
             username: RACKSPACE_USERNAME
             api_key: RACKSPACE_API_KEY

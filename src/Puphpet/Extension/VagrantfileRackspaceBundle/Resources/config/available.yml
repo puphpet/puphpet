@@ -42,6 +42,7 @@ available_sizes:
     - 8GB
 
 available_regions:
-    DFW: Dallas (DFW)
-    ORD: Chicago (ORD)
-    SYD: Sydney (SYD)
+    dfw: Dallas (DFW)
+    ord: Chicago (ORD)
+    iad: Northern Virginia (IAD)
+    syd: Sydney (SYD)

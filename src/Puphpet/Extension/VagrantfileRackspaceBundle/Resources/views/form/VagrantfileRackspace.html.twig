@@ -28,41 +28,34 @@
 
                         <ul class="nav nav-pills">
                             <li class="active"><a href="#rackspace-instructions-mac" data-toggle="pill">Mac</a></li>
-                            <li><a href="#rackspace-instructions-windows" data-toggle="pill">Windows</a></li>
-                            <li><a href="#rackspace-instructions-linux" data-toggle="pill">Linux</a></li>
+                            <li><a href="#rackspace-instructions-windows-linux" data-toggle="pill">Windows &amp; Linux</a></li>
                         </ul>
 
                         <div class="tab-content">
                             <div class="tab-pane active" id="rackspace-instructions-mac">
                                 <code class="col-xs-11">
                                     $ vagrant plugin install vagrant-rackspace<br />
-                                    $ vagrant box add rackspace https://puphpet.com/assets/box/rackspace.box<br />
-                                    $ rm -rf "~/.vagrant.d/gems/gems/vagrant-rackspace-0.1.1"
-                                          && git clone https://github.com/puphpet/vagrant-rackspace.git
-                                          "~/.vagrant.d/gems/gems/vagrant-rackspace-0.1.1"<br />
+                                    $ vagrant box add dummy https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box<br />
                                     $ brew install curl-ca-bundle<br />
                                     $ echo export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt >> ~/.bash_profile
                                 </code>
                             </div>
-                            <div class="tab-pane" id="rackspace-instructions-windows">
+                            <div class="tab-pane" id="rackspace-instructions-windows-linux">
                                 <code class="col-xs-11">
                                     $ vagrant plugin install vagrant-rackspace<br />
-                                    $ vagrant box add rackspace https://puphpet.com/assets/box/rackspace.box<br />
-                                    $ rmdir /s /q "%userprofile%/.vagrant.d/gems/gems/vagrant-rackspace-0.1.1"
-                                          && git clone https://github.com/puphpet/vagrant-rackspace.git
-                                          "%userprofile%/.vagrant.d/gems/gems/vagrant-rackspace-0.1.1"<br />
-                                </code>
-                            </div>
-                            <div class="tab-pane" id="rackspace-instructions-linux">
-                                <code class="col-xs-11">
-                                    $ vagrant plugin install vagrant-rackspace<br />
-                                    $ vagrant box add rackspace https://puphpet.com/assets/box/rackspace.box<br />
-                                    $ rm -rf "~/.vagrant.d/gems/gems/vagrant-rackspace-0.1.1"
-                                          && git clone https://github.com/puphpet/vagrant-rackspace.git
-                                          "~/.vagrant.d/gems/gems/vagrant-rackspace-0.1.1"<br />
+                                    $ vagrant box add dummy https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box<br />
                                 </code>
                             </div>
                         </div>
+                    </div>
+
+                    <div>
+                        <h3>Accessing Your VM</h3>
+
+                        <p>
+                            To access your VM after running <code>$ vagrant up</code>, type
+                            <code>$ vagrant ssh-config</code> to get the IP address assigned to the server you created!
+                        </p>
                     </div>
                 </div>
 
@@ -152,7 +145,7 @@
                                     class="form-control select-tag">
                                 {% for key, region in data.available_regions %}
                                     <option value="{{ key }}"
-                                        {% if region == data.vm.provider.rackspace.region %}selected{% endif %}>{{ region }}</option>
+                                        {% if key == data.vm.provider.rackspace.region %}selected{% endif %}>{{ region }}</option>
                                 {% endfor %}
                             </select>
 
