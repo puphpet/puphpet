@@ -1,3 +1,3 @@
 root_password: 123
-
+user_group: postgres
 databases: []

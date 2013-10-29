@@ -9,8 +9,13 @@ if $php_values == undef {
 }
 
 if $postgresql_values['root_password'] {
+  group { $postgresql_values['user_group']:
+      ensure => present
+  }
+
   class { 'postgresql::server':
     postgres_password => $postgresql_values['root_password'],
+    require           => Group[$postgresql_values['user_group']]
   }
 
   if is_hash($postgresql_values['databases']) and count($postgresql_values['databases']) > 0 {
