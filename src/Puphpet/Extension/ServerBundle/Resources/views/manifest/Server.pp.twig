@@ -133,7 +133,9 @@ case $::operatingsystem {
   }
 }
 
-ensure_packages( $server_values['packages'] )
+if !empty($server_values['packages']) {
+  ensure_packages( $server_values['packages'] )
+}
 
 define add_dotdeb ($release){
    apt::source { $name:
