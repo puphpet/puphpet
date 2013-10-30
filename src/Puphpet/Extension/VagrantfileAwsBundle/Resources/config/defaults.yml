@@ -1,7 +1,7 @@
 vm:
     provider:
         aws:
-            ami: ami-a9cba9c0
+            ami: ami-a73264ce
             region: us-east-1
             instance_type: m1.small
     synced_folder:
