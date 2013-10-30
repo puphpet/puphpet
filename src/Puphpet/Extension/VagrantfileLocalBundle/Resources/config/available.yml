@@ -14,6 +14,14 @@ available_boxes:
             - 5.5
             - 5.4
     -
+        url: https://puphpet.s3.amazonaws.com/centos64-x64-vbox43.box
+        os: centos
+        short_name: centos64-x64-vbox43
+        long_name: CentOS 6.4 x64 - VirtualBox 4.3+
+        php_versions:
+            - 5.5
+            - 5.4
+    -
         url: http://puppet-vagrant-boxes.puppetlabs.com/debian-70rc1-x64-vbox4210.box
         os: debian
         short_name: wheezy64
