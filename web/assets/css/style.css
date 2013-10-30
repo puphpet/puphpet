@@ -34,6 +34,10 @@ button.tall {
     background: #fff;
 }
 
+.padded-fieldset fieldset {
+    margin-bottom: 15px;
+}
+
 /*
  * Top nav bar
  */

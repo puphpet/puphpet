@@ -9,7 +9,7 @@ available_images:
     us-east-1:
         -
             ami: ami-a73264ce
-            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
+            name: Ubuntu Precise 12.04.3 x64
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -18,7 +18,8 @@ available_images:
     us-west-1:
         -
             ami: ami-acf9cde9
-            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
+            os: ubuntu
+            name: Ubuntu Precise 12.04.3 x64
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -27,7 +28,8 @@ available_images:
     us-west-2:
         -
             ami: ami-6aad335a
-            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
+            os: ubuntu
+            name: Ubuntu Precise 12.04.3 x64
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -36,7 +38,8 @@ available_images:
     eu-west-1:
         -
             ami: ami-8e987ef9
-            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
+            os: ubuntu
+            name: Ubuntu Precise 12.04.3 x64
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -45,7 +48,8 @@ available_images:
     sa-east-1:
         -
             ami: ami-35258228
-            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
+            os: ubuntu
+            name: Ubuntu Precise 12.04.3 x64
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -54,7 +58,8 @@ available_images:
     ap-northeast-1:
         -
             ami: ami-3f32ac3e
-            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
+            os: ubuntu
+            name: Ubuntu Precise 12.04.3 x64
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -63,7 +68,8 @@ available_images:
     ap-southeast-1:
         -
             ami: ami-b84e04ea
-            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
+            os: ubuntu
+            name: Ubuntu Precise 12.04.3 x64
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -72,7 +78,8 @@ available_images:
     ap-southeast-2:
         -
             ami: ami-3d128f07
-            name: Ubuntu Precise 12.04.3 x64 (only PHP 5.3 and 5.4!)
+            os: ubuntu
+            name: Ubuntu Precise 12.04.3 x64
             ssh_username: ubuntu
             php_versions:
                 - 5.4

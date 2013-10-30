@@ -1,7 +1,7 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'aws'
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "aws"
+  config.vm.box = "dummy"
 
 {% if data.vm.hostname %}  config.vm.hostname = "{{ data.vm.hostname }}"{% endif %}
 
