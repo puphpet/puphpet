@@ -32,10 +32,10 @@ if [[ ! -f /.puphpet-stuff/update-puppet ]]; then
         yum -y update >/dev/null
         echo "Finished running update-puppet yum update"
 
-        echo "Updating Puppet to latest version"
-        yum -y update puppet >/dev/null
+        echo "Installing/Updating Puppet to latest version"
+        yum -y install puppet >/dev/null
         PUPPET_VERSION=$(puppet help | grep 'Puppet v')
-        echo "Finished updating puppet to latest version: $PUPPET_VERSION"
+        echo "Finished installing/updating puppet to latest version: $PUPPET_VERSION"
 
         touch /.puphpet-stuff/update-puppet
         echo "Created empty file /.puphpet-stuff/update-puppet"
