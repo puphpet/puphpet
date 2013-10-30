@@ -40,6 +40,8 @@ available_sizes:
     - 2GB
     - 4GB
     - 8GB
+    - 15GB
+    - 30GB
 
 available_regions:
     dfw: Dallas (DFW)
