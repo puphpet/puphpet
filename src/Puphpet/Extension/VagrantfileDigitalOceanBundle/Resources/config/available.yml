@@ -6,6 +6,12 @@ empty_synced_folder:
 
 available_images:
     -
+        image: CentOS 6.4 x64
+        long_name: CentOS 6.4 x64
+        php_versions:
+            - 5.5
+            - 5.4
+    -
         image: Debian 7.0 x64
         long_name: Debian Wheezy 7.0 x64
         php_versions:
