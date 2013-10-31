@@ -120,11 +120,16 @@ PUPHPET.runSelectize = function($element) {
                 value: input,
                 text: input
             }
-        }
+        },
+        maxItems: null,
+        valueField: 'value',
+        labelField: 'title',
+        searchField: 'value',
+        options: []
     });
 
     // select elements; asks user for value of selected tags; cannot create own tags
-    PUPHPET.selectizeTagsUserInput($element);
+    var $selectTagsUserInput = PUPHPET.selectizeTagsUserInput($element);
 
     // select single element; does not allow creating new tag
     var $selectTag = $('.select-tag', $element).selectize({
@@ -139,6 +144,11 @@ PUPHPET.runSelectize = function($element) {
         persist: false,
         create: false
     });
+
+    PUPHPET._trackSelectize($selectTagsEditable);
+    PUPHPET._trackSelectize($selectTagsUserInput);
+    PUPHPET._trackSelectize($selectTag);
+    PUPHPET._trackSelectize($selectTags);
 };
 
 /**
@@ -215,6 +225,47 @@ PUPHPET.selectizeTagsUserInput = function($element) {
             $selectElement.updateOption(optionName, data);
         });
     }
+
+    return $selectTagsUserInput;
+};
+
+var selectizedObjects = [];
+
+/**
+ * Keep track of all initialized selectize.js elements
+ *
+ * @param $selectizeElements
+ * @private
+ */
+PUPHPET._trackSelectize = function($selectizeElements) {
+    for (var i = 0; i < $selectizeElements.length; i++) {
+        selectizedObjects[$selectizeElements[i].id] = $selectizeElements[i];
+    }
+};
+
+/**
+ * Allows adding an item to a selectize.js element on user click
+ */
+PUPHPET.selectizeAddClickedToElement = function() {
+    $(document).on('click', '.addClickedToSelectizeElement', function(e){
+        var target    = this.getAttribute('data-target');
+        var itemValue = this.getAttribute('data-value');
+        var itemTitle = this.getAttribute('data-title');
+
+        if (!(target in selectizedObjects)) {
+            return false;
+        }
+
+        var control = selectizedObjects[target].selectize;
+
+        control.addOption({
+            value: itemValue,
+            title: itemTitle
+        });
+        control.addItem(itemValue);
+
+        return false;
+    });
 };
 
 /**
@@ -398,6 +449,7 @@ $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
     PUPHPET.runSelectize(null);
+    PUPHPET.selectizeAddClickedToElement();
     PUPHPET.addRepeatableElement();
     PUPHPET.delRepeatableElement();
     PUPHPET.disableInactiveTabElements();
