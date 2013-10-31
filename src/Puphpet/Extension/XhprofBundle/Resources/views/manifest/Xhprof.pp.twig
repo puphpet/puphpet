@@ -12,8 +12,6 @@ if is_hash($xhprof_values) and $xhprof_values['install'] == 1 {
     preferred_state => 'beta',
   }
 
-  ensure_packages( ['git-core'] )
-
   exec { 'delete-xhprof-path-if-not-git-repo':
     command => "rm -rf ${xhprofPath}",
     onlyif => "test ! -d ${xhprofPath}/.git"
@@ -23,10 +21,7 @@ if is_hash($xhprof_values) and $xhprof_values['install'] == 1 {
     ensure   => present,
     provider => git,
     source   => 'https://github.com/facebook/xhprof.git',
-    require  => [
-      Package['git-core'],
-      Exec['delete-xhprof-path-if-not-git-repo']
-    ]
+    require  => Exec['delete-xhprof-path-if-not-git-repo']
   }
 
   file { "${xhprofPath}/xhprof_html":
