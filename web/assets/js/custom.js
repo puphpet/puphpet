@@ -297,6 +297,10 @@ PUPHPET.githubContributors = function() {
     });
 };
 
+/**
+ * Allows user to drag and drop a pre-generated yaml file containing
+ * their VMs configuration.
+ */
 PUPHPET.uploadConfig = function() {
     var dropzone = document.documentElement;
     var tid;
@@ -372,6 +376,9 @@ PUPHPET.uploadConfig = function() {
     }
 };
 
+/**
+ * Controls how the static sidebar scrolls with user
+ */
 PUPHPET.sidebar = function() {
     $('#nav-sidebar').affix({
         offset: {
