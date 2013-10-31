@@ -19,19 +19,21 @@ button.tall {
 .jumbotron {
     padding: 25px 30px 5px;
     margin-bottom: 5px;
-    background-color: #fff;
+    background-color: #f9f9f9;
 }
 
 #main {
     padding-top: 30px;
     padding-bottom: 30px;
-    background: #f8f8f8;
+    background: url('/assets/img/tweed.png');
 }
 
 #main > .container {
     padding-top: 10px;
     padding-bottom: 10px;
-    background: #fff;
+    background: #f9f9f9;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 
 .padded-fieldset fieldset {
@@ -113,17 +115,22 @@ div.navbar {
 
 .group-nav {
     margin-bottom: 10px;
+    padding: 0 15px;
 }
 
 .group-tabs > li > a {
     color: #000;
-    background-color: #f9f2f4;
+    background-color: #eee;
+}
+
+.group-tabs > li > a:hover,
+.group-tabs > li > a:focus {
+    background-color: #bce8f1;
 }
 
 .group-tabs > li.active > a,
 .group-tabs > li.active > a:hover,
 .group-tabs > li.active > a:focus {
-    color: #fff;
     background-color: #f0ad4e;
 }
 
@@ -141,18 +148,17 @@ div.navbar {
     position: absolute;
 }
 
-div.nav > ul.nav > li.active {
-    border-left: 3px solid #4C9BD8;
-    background-color: #f9f2f4;
-}
-
-.nav > li > a:hover,
-.nav > li > a:focus {
-    background-color: #f9f2f4;
-}
-
-.nav > li.active > a {
+#nav-sidebar .nav > li > a:hover,
+#nav-sidebar .nav > li > a:focus {
     margin-left: -3px;
+    border-left: 3px solid #f0ad4e;
+}
+
+#nav-sidebar .nav > li.active,
+#nav-sidebar .nav > li.active > a:hover {
+    border-left: 3px solid #4C9BD8;
+    margin-left: -3px;
+    background: #eee;
 }
 
 /*
@@ -160,7 +166,11 @@ div.nav > ul.nav > li.active {
  */
 
 .panel-default > .panel-heading {
-    background-color: #f9f2f4;
+    background-color: #eee;
+}
+
+.panel-body {
+    background: #f1f1f1;
 }
 
 /*
@@ -168,7 +178,9 @@ div.nav > ul.nav > li.active {
  */
 
 footer {
-    margin: 2em 0;
+    margin: 0;
+    padding: 2em 0;
+    background: #f9f9f9;
 }
 
 footer .img-thumbnail img {
