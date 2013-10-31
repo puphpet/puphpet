@@ -123,9 +123,8 @@ PUPHPET.runSelectize = function($element) {
         },
         maxItems: null,
         valueField: 'value',
-        labelField: 'title',
-        searchField: 'value',
-        options: []
+        labelField: 'text',
+        searchField: 'value'
     });
 
     // select elements; asks user for value of selected tags; cannot create own tags
@@ -250,7 +249,9 @@ PUPHPET.selectizeAddClickedToElement = function() {
     $(document).on('click', '.addClickedToSelectizeElement', function(e){
         var target    = this.getAttribute('data-target');
         var itemValue = this.getAttribute('data-value');
-        var itemTitle = this.getAttribute('data-title');
+        var itemTitle = this.getAttribute('data-title') != null
+            ? this.getAttribute('data-title')
+            : $(this).text();
 
         if (!(target in selectizedObjects)) {
             return false;
@@ -260,7 +261,7 @@ PUPHPET.selectizeAddClickedToElement = function() {
 
         control.addOption({
             value: itemValue,
-            title: itemTitle
+            text: itemTitle
         });
         control.addItem(itemValue);
 
