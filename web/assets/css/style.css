@@ -40,6 +40,18 @@ button.tall {
     margin-bottom: 15px;
 }
 
+.alert-info {
+    background-color: #E5E9EB;
+}
+
+code {
+    background-color: #eed9cd;
+}
+
+.btn-success {
+    background-color: #3F9E3F;
+}
+
 /*
  * Top nav bar
  */
@@ -108,7 +120,7 @@ div.navbar {
 
 /*
  * Group Tabs
-  */
+ */
 .group-tabs {
     border-bottom: none;
 }
@@ -118,26 +130,35 @@ div.navbar {
     padding: 0 15px;
 }
 
-.group-tabs > li > a {
-    color: #000;
-    background-color: #eee;
-}
-
+.group-tabs > li > a,
 .group-tabs > li > a:hover,
 .group-tabs > li > a:focus {
-    background-color: #bce8f1;
+    background-color: #ddd;
+}
+
+.group-tabs > li.active > a:hover,
+.group-tabs > li.active > a:focus {
 }
 
 .group-tabs > li.active > a,
 .group-tabs > li.active > a:hover,
 .group-tabs > li.active > a:focus {
-    background-color: #f0ad4e;
 }
 
 .panel-body .tab-content code {
     margin-top: 10px;
     margin-bottom: 10px;
     overflow-x: scroll;
+}
+
+/*
+ * Nav Pills
+ */
+
+.nav-pills > li > a,
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus {
+    background-color: #e8e8e8;
 }
 
 /*
@@ -152,13 +173,18 @@ div.navbar {
 #nav-sidebar .nav > li > a:focus {
     margin-left: -3px;
     border-left: 3px solid #f0ad4e;
+    background-color: #e8e8e8;
 }
 
 #nav-sidebar .nav > li.active,
 #nav-sidebar .nav > li.active > a:hover {
-    border-left: 3px solid #4C9BD8;
+    border-left: 3px solid #f0ad4e;
     margin-left: -3px;
-    background: #eee;
+    background: #4C9BD8;
+}
+
+#nav-sidebar .nav > li.active > a {
+    color: #fff;
 }
 
 /*
@@ -166,7 +192,7 @@ div.navbar {
  */
 
 .panel-default > .panel-heading {
-    background-color: #eee;
+    background-color: #e8e8e8;
 }
 
 .panel-body {
