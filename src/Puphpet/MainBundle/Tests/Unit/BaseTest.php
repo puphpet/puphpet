@@ -2,10 +2,41 @@
 
 namespace Puphpet\Tests\Unit;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-abstract class TestExtensions extends WebTestCase
+require_once __DIR__ . '/../../../../../app/AppKernel.php';
+
+abstract class TestExtensions extends \PHPUnit_Framework_TestCase
 {
+    /** @var \AppKernel */
+    protected $kernel;
+
+    /** @var ContainerInterface */
+    protected $container;
+
+    public function setUp()
+    {
+        if (null !== $this->kernel) {
+            $this->kernel->shutdown();
+        }
+
+        $this->kernel = new \AppKernel('test', true);
+        $this->kernel->boot();
+
+        $this->container = $this->kernel->getContainer();
+
+        parent::setUp();
+    }
+
+    public function tearDown()
+    {
+        if (null !== $this->kernel) {
+            $this->kernel->shutdown();
+        }
+
+        parent::tearDown();
+    }
+
     /**
      * Set protected/private attribute of object
      *
