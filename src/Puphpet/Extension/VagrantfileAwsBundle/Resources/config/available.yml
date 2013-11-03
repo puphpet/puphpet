@@ -17,7 +17,7 @@ available_images:
                 - 5.4
         -
             ami: ami-a73264ce
-            name: Ubuntu Precise 12.04.3 x64
+            name: Ubuntu Precise 12.04.3 x64 EBS
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -35,7 +35,7 @@ available_images:
         -
             ami: ami-acf9cde9
             os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64
+            name: Ubuntu Precise 12.04.3 x64 EBS
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -53,7 +53,7 @@ available_images:
         -
             ami: ami-6aad335a
             os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64
+            name: Ubuntu Precise 12.04.3 x64 EBS
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -71,7 +71,7 @@ available_images:
         -
             ami: ami-8e987ef9
             os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64
+            name: Ubuntu Precise 12.04.3 x64 EBS
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -89,7 +89,7 @@ available_images:
         -
             ami: ami-35258228
             os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64
+            name: Ubuntu Precise 12.04.3 x64 EBS
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -107,7 +107,7 @@ available_images:
         -
             ami: ami-3f32ac3e
             os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64
+            name: Ubuntu Precise 12.04.3 x64 EBS
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -125,7 +125,7 @@ available_images:
         -
             ami: ami-b84e04ea
             os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64
+            name: Ubuntu Precise 12.04.3 x64 EBS
             ssh_username: ubuntu
             php_versions:
                 - 5.4
@@ -143,7 +143,7 @@ available_images:
         -
             ami: ami-3d128f07
             os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64
+            name: Ubuntu Precise 12.04.3 x64 EBS
             ssh_username: ubuntu
             php_versions:
                 - 5.4
