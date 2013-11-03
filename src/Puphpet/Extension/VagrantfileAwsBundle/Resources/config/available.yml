@@ -8,6 +8,14 @@ available_images:
 # US East (Northern Virginia) Region
     us-east-1:
         -
+            ami: ami-4b124a22
+            os: debian
+            name: Debian 7.1a x64 EBS
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
             ami: ami-a73264ce
             name: Ubuntu Precise 12.04.3 x64
             ssh_username: ubuntu
@@ -16,6 +24,14 @@ available_images:
                 - 5.3
 # US West (Northern California) Region
     us-west-1:
+        -
+            ami: ami-80487ec5
+            os: debian
+            name: Debian 7.1a x64 EBS
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
         -
             ami: ami-acf9cde9
             os: ubuntu
@@ -27,6 +43,14 @@ available_images:
 # US West (Northern California) Region
     us-west-2:
         -
+            ami: ami-a850c898
+            os: debian
+            name: Debian 7.1a x64 EBS
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
             ami: ami-6aad335a
             os: ubuntu
             name: Ubuntu Precise 12.04.3 x64
@@ -36,6 +60,14 @@ available_images:
                 - 5.3
 # EU (Ireland) Region
     eu-west-1:
+        -
+            ami: ami-e34dae94
+            os: debian
+            name: Debian 7.1a x64 EBS
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
         -
             ami: ami-8e987ef9
             os: ubuntu
@@ -47,6 +79,14 @@ available_images:
 # South America (Sao Paulo) Region
     sa-east-1:
         -
+            ami: ami-8b6cca96
+            os: debian
+            name: Debian 7.1a x64 EBS
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
             ami: ami-35258228
             os: ubuntu
             name: Ubuntu Precise 12.04.3 x64
@@ -56,6 +96,14 @@ available_images:
                 - 5.3
 # Asia Pacific (Tokyo) Region
     ap-northeast-1:
+        -
+            ami: ami-914f2a90
+            os: debian
+            name: Debian 7.1a x64 EBS
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
         -
             ami: ami-3f32ac3e
             os: ubuntu
@@ -67,6 +115,14 @@ available_images:
 # Asia Pacific (Singapore) Region
     ap-southeast-1:
         -
+            ami: ami-687d283a
+            os: debian
+            name: Debian 7.1a x64 EBS
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
+        -
             ami: ami-b84e04ea
             os: ubuntu
             name: Ubuntu Precise 12.04.3 x64
@@ -76,6 +132,14 @@ available_images:
                 - 5.3
 # Asia Pacific (Sydney) Region
     ap-southeast-2:
+        -
+            ami: ami-9d4fd3a7
+            os: debian
+            name: Debian 7.1a x64 EBS
+            ssh_username: admin
+            php_versions:
+                - 5.5
+                - 5.4
         -
             ami: ami-3d128f07
             os: ubuntu
