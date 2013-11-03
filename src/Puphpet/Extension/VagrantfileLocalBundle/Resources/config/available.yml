@@ -6,9 +6,9 @@ empty_synced_folder:
 
 available_boxes:
     -
-        url: https://puphpet.s3.amazonaws.com/centos64-x64-vbox43-1383503206.box
+        url: https://puphpet.s3.amazonaws.com/centos64-x64-vbox43.box
         os: centos
-        short_name: centos64-x64-vbox43-1383503206
+        short_name: centos64-x64-vbox43-1383512148
         long_name: CentOS 6.4 x64 - VirtualBox 4.3
         php_versions:
             - 5.5
@@ -16,7 +16,7 @@ available_boxes:
     -
         url: https://puphpet.s3.amazonaws.com/centos64-x64-vbox4210.box
         os: centos
-        short_name: centos64-x64-vbox4210
+        short_name: centos64-x64-vbox4210-1383511158
         long_name: CentOS 6.4 x64 - Virtualbox 4.2
         php_versions:
             - 5.5
