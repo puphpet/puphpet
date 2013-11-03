@@ -6,18 +6,18 @@ empty_synced_folder:
 
 available_boxes:
     -
-        url: http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box
+        url: https://puphpet.s3.amazonaws.com/centos64-x64-vbox43-1383503206.box
         os: centos
-        short_name: centos64
-        long_name: CentOS 6.4 x64 - Virtualbox 4.2
+        short_name: centos64-x64-vbox43-1383503206
+        long_name: CentOS 6.4 x64 - VirtualBox 4.3
         php_versions:
             - 5.5
             - 5.4
     -
-        url: https://puphpet.s3.amazonaws.com/centos64-x64-vbox43.box
+        url: https://puphpet.s3.amazonaws.com/centos64-x64-vbox4210.box
         os: centos
-        short_name: centos64-x64-vbox43
-        long_name: CentOS 6.4 x64 - VirtualBox 4.3
+        short_name: centos64-x64-vbox4210
+        long_name: CentOS 6.4 x64 - Virtualbox 4.2
         php_versions:
             - 5.5
             - 5.4
