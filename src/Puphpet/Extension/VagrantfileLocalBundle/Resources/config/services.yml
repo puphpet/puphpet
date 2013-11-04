@@ -5,6 +5,8 @@ services:
         class: Puphpet\Extension\VagrantfileLocalBundle\Configure
         arguments:
             - "@service_container"
+        tags:
+            - { name: puphpet.extension, group: "vagrantfile", priority: 390 }
 
     puphpet.extension.vagrantfile.local.front_controller:
         class: Puphpet\Extension\VagrantfileLocalBundle\Controller\FrontController

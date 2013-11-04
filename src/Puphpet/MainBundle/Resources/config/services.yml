@@ -9,22 +9,6 @@ services:
         class: Puphpet\MainBundle\Extension\Manager
         arguments:
             - "@service_container"
-        calls:
-        # vagrantfile group
-            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.local.configure ] ]
-            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.digital_ocean.configure ] ]
-            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.rackspace.configure ] ]
-            - [ addExtensionToGroup, [ 'vagrantfile', @puphpet.extension.vagrantfile.aws.configure ] ]
-            - [ addExtension, [ @puphpet.extension.server.configure ] ]
-        # webserver group
-            - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.apache.configure ] ]
-            - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.nginx.configure ] ]
-            - [ addExtension, [ @puphpet.extension.php.configure ] ]
-            - [ addExtension, [ @puphpet.extension.xdebug.configure ] ]
-            - [ addExtension, [ @puphpet.extension.xhprof.configure ] ]
-        # database group
-            - [ addExtensionToGroup, [ 'database', @puphpet.extension.mysql.configure ] ]
-            - [ addExtensionToGroup, [ 'database', @puphpet.extension.postgresql.configure ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

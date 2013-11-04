@@ -5,6 +5,8 @@ services:
         class: Puphpet\Extension\PostgresqlBundle\Configure
         arguments:
             - "@service_container"
+        tags:
+            - { name: puphpet.extension, group: "database", priority: 170 }
 
     puphpet.extension.postgresql.front_controller:
         class: Puphpet\Extension\PostgresqlBundle\Controller\FrontController

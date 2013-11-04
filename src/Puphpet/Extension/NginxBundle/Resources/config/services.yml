@@ -5,6 +5,8 @@ services:
         class: Puphpet\Extension\NginxBundle\Configure
         arguments:
             - "@service_container"
+        tags:
+            - { name: puphpet.extension, group: "webserver", priority: 270 }
 
     puphpet.extension.nginx.front_controller:
         class: Puphpet\Extension\NginxBundle\Controller\FrontController

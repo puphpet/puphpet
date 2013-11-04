@@ -5,6 +5,8 @@ services:
         class: Puphpet\Extension\ServerBundle\Configure
         arguments:
             - "@service_container"
+        tags:
+            - { name: puphpet.extension, priority: 310 }
 
     puphpet.extension.server.front_controller:
         class: Puphpet\Extension\ServerBundle\Controller\FrontController
