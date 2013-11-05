@@ -92,16 +92,10 @@ class FrontController extends Controller
 
     public function githubContributorsAction(Request $request)
     {
-        if ($this->container->has('profiler')) {
-            $this->container->get('profiler')->disable();
-        }
+        $contributors = $this->get('puphpet.repository.contributor')->findAll();
 
-        $contributors = $request->get('contributors');
-
-        $foo = $this->render('PuphpetMainBundle:front:github-contributors.html.twig', [
+        return $this->render('PuphpetMainBundle:front:github-contributors.html.twig', [
             'contributors' => $contributors
         ]);
-
-        return $foo;
     }
 }
