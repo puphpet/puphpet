@@ -2,8 +2,6 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
-define('DEBUG', false);
-
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 
 $loader->register(true);
