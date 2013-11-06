@@ -5,6 +5,8 @@ services:
         class: Puphpet\Extension\VagrantfileRackspaceBundle\Configure
         arguments:
             - "@service_container"
+        tags:
+            - { name: puphpet.extension, group: "vagrantfile", priority: 350 }
 
     puphpet.extension.vagrantfile.rackspace.front_controller:
         class: Puphpet\Extension\VagrantfileRackspaceBundle\Controller\FrontController

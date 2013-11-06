@@ -5,6 +5,8 @@ services:
         class: Puphpet\Extension\VagrantfileDigitalOceanBundle\Configure
         arguments:
             - "@service_container"
+        tags:
+            - { name: puphpet.extension, group: "vagrantfile", priority: 370 }
 
     puphpet.extension.vagrantfile.digital_ocean.front_controller:
         class: Puphpet\Extension\VagrantfileDigitalOceanBundle\Controller\FrontController

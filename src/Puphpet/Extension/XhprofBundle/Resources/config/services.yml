@@ -5,6 +5,8 @@ services:
         class: Puphpet\Extension\XhprofBundle\Configure
         arguments:
             - "@service_container"
+        tags:
+            - { name: puphpet.extension, priority: 210 }
 
     puphpet.extension.xhprof.front_controller:
         class: Puphpet\Extension\XhprofBundle\Controller\FrontController

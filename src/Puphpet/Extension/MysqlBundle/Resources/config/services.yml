@@ -5,6 +5,8 @@ services:
         class: Puphpet\Extension\MysqlBundle\Configure
         arguments:
             - "@service_container"
+        tags:
+            - { name: puphpet.extension, group: "database", priority: 190 }
 
     puphpet.extension.mysql.front_controller:
         class: Puphpet\Extension\MysqlBundle\Controller\FrontController

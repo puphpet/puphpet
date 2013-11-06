@@ -5,6 +5,8 @@ services:
         class: Puphpet\Extension\VagrantfileAwsBundle\Configure
         arguments:
             - "@service_container"
+        tags:
+            - { name: puphpet.extension, group: "vagrantfile", priority: 330 }
 
     puphpet.extension.vagrantfile.aws.front_controller:
         class: Puphpet\Extension\VagrantfileAwsBundle\Controller\FrontController
