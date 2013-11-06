@@ -62,8 +62,10 @@ if $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
     }
 
     $phpMyAdmin_package = 'phpmyadmin'
+    $phpMyAdmin_folder = 'phpmyadmin'
   } elsif $::osfamily == 'redhat' {
     $phpMyAdmin_package = 'phpMyAdmin.noarch'
+    $phpMyAdmin_folder = 'phpMyAdmin'
   }
 
   if ! defined(Package[$phpMyAdmin_package]) {
@@ -75,20 +77,23 @@ if $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
   include puphpet::params
 
   if is_hash($apache_values) {
-    $webroot_location = $puphpet::params::apache_webroot_location
+    $mysql_webroot_location = $puphpet::params::apache_webroot_location
   } elsif is_hash($nginx_values) {
-    $webroot_location = $puphpet::params::nginx_webroot_location
+    $mysql_webroot_location = $puphpet::params::nginx_webroot_location
 
     mysql_nginx_default_conf { 'override_default_conf':
-      webroot => $webroot_location
+      webroot => $mysql_webroot_location
     }
   }
 
-  file { "${webroot_location}/phpmyadmin":
-    target  => '/usr/share/phpMyAdmin',
+  file { "${mysql_webroot_location}/phpmyadmin":
+    target  => "/usr/share/${phpMyAdmin_folder}",
     ensure  => link,
     replace => 'no',
-    require => Package[$phpMyAdmin_package]
+    require => [
+      Package[$phpMyAdmin_package],
+      File[$mysql_webroot_location]
+    ]
   }
 }
 

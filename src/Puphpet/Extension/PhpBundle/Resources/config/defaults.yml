@@ -9,5 +9,6 @@ modules:
 ini:
     display_errors: On
     error_reporting: -1
+    session.save_path: "/var/lib/php/session"
 
 timezone: America/Chicago

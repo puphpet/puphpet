@@ -29,13 +29,19 @@ if $php_fpm_ini == undef {
 }
 
 if is_hash($apache_values) {
+  include apache::params
+
   $php_webserver_service = 'httpd'
+  $php_webserver_user = $apache::params::user
 
   class { 'php':
     service => $php_webserver_service
   }
 } elsif is_hash($nginx_values) {
+  include nginx::params
+
   $php_webserver_service = "${php_prefix}fpm"
+  $php_webserver_user = $nginx::params::nx_daemon_user
 
   class { 'php':
     package             => $php_webserver_service,
@@ -71,6 +77,19 @@ if count($php_values['ini']) > 0 {
       value       => $value,
       php_version => $php_values['version'],
       webserver   => $php_webserver_service
+    }
+  }
+
+  if $php_values['ini']['session.save_path'] != undef {
+    exec {"mkdir -p ${php_values['ini']['session.save_path']}":
+      onlyif  => "test ! -d ${php_values['ini']['session.save_path']}",
+    }
+
+    file { $php_values['ini']['session.save_path']:
+      ensure  => directory,
+      group   => 'www-data',
+      mode    => 0775,
+      require => Exec["mkdir -p ${php_values['ini']['session.save_path']}"]
     }
   }
 }

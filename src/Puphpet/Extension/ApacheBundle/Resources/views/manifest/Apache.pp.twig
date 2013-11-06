@@ -8,11 +8,34 @@ if $apache_values == undef {
   $apache_values = $yaml_values['apache']
 }
 
+include puphpet::params
+
+$webroot_location = $puphpet::params::apache_webroot_location
+
+exec { "exec mkdir -p ${webroot_location}":
+  command => "mkdir -p ${webroot_location}",
+  onlyif  => "test -d ${webroot_location}",
+}
+
+if ! defined(File[$webroot_location]) {
+  file { $webroot_location:
+    ensure  => directory,
+    group   => 'www-data',
+    mode    => 0775,
+    require => [
+      Exec["exec mkdir -p ${webroot_location}"],
+      Group['www-data']
+    ]
+  }
+}
+
 class { 'apache':
   user          => $apache_values['user'],
   group         => $apache_values['group'],
   default_vhost => $apache_values['default_vhost'],
-  mpm_module    => $apache_values['mpm_module']
+  mpm_module    => $apache_values['mpm_module'],
+  manage_user   => false,
+  manage_group  => false
 }
 
 if $::osfamily == 'debian' {
