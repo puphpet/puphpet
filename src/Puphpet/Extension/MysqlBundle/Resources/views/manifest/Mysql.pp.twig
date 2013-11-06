@@ -8,6 +8,14 @@ if $php_values == undef {
   $php_values = hiera('php', false)
 }
 
+if $apache_values == undef {
+  $apache_values = hiera('apache', false)
+}
+
+if $nginx_values == undef {
+  $nginx_values = hiera('nginx', false)
+}
+
 if $mysql_values['root_password'] {
   class { 'mysql::server':
     root_password => $mysql_values['root_password'],
@@ -43,5 +51,64 @@ define mysql_db (
     host     => $host,
     grant    => $grant,
     sql      => $sql_file,
+  }
+}
+
+if $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
+  if $::osfamily == 'debian' {
+    if $::operatingsystem == 'ubuntu' {
+      apt::key { '80E7349A06ED541C': }
+      apt::ppa { 'ppa:nijel/phpmyadmin': require => Apt::Key['80E7349A06ED541C'] }
+    }
+
+    $phpMyAdmin_package = 'phpmyadmin'
+  } elsif $::osfamily == 'redhat' {
+    $phpMyAdmin_package = 'phpMyAdmin.noarch'
+  }
+
+  if ! defined(Package[$phpMyAdmin_package]) {
+    package { $phpMyAdmin_package:
+      require => Class['mysql::server']
+    }
+  }
+
+  include puphpet::params
+
+  if is_hash($apache_values) {
+    $webroot_location = $puphpet::params::apache_webroot_location
+  } elsif is_hash($nginx_values) {
+    $webroot_location = $puphpet::params::nginx_webroot_location
+
+    mysql_nginx_default_conf { 'override_default_conf':
+      webroot => $webroot_location
+    }
+  }
+
+  file { "${webroot_location}/phpmyadmin":
+    target  => '/usr/share/phpMyAdmin',
+    ensure  => link,
+    replace => 'no',
+    require => Package[$phpMyAdmin_package]
+  }
+}
+
+define mysql_nginx_default_conf (
+  $webroot
+) {
+  if $php5_fpm_sock == undef {
+    $php5_fpm_sock = '/var/run/php5-fpm.sock'
+  }
+
+  if $fastcgi_pass == undef {
+    $fastcgi_pass = $php_values['version'] ? {
+      undef   => null,
+      '53'    => '127.0.0.1:9000',
+      default => "unix:${php5_fpm_sock}"
+    }
+  }
+
+  class { 'puphpet::nginx':
+    fastcgi_pass => $fastcgi_pass,
+    notify       => Class['nginx::service'],
   }
 }
