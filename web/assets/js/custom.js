@@ -438,12 +438,33 @@ PUPHPET.sidebar = function() {
                 return $('#top').height() + 50;
             },
             bottom: function () {
-                return $('#footer').height() + 90;
+                return $('footer').height() + 140;
             }
         }
     });
 
     $('body').scrollspy({target: '#nav-sidebar', offset: 385});
+};
+
+/**
+ * Toggles pills in main container by clicking sidebar links
+ */
+PUPHPET.sidebarPillToggle = function() {
+    $('#nav-sidebar ul li p a').click(function (e) {
+        var tagTarget = this.getAttribute('data-tab-target');
+        var $container = $(this).closest('p');
+
+        if (tagTarget != null) {
+            $(tagTarget).tab('show');
+        }
+
+        var toActive = $(this).find('span.glyphicon')[0];
+
+        $container.siblings().find('span.glyphicon').removeClass('active');
+        $(toActive).addClass('active');
+
+        return true;
+    });
 };
 
 $(document).ready(function() {
@@ -458,4 +479,5 @@ $(document).ready(function() {
     PUPHPET.githubContributors();
     PUPHPET.uploadConfig();
     PUPHPET.sidebar();
+    PUPHPET.sidebarPillToggle();
 });
