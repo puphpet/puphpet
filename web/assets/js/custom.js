@@ -443,7 +443,7 @@ PUPHPET.sidebar = function() {
         }
     });
 
-    $('body').scrollspy({target: '#nav-sidebar', offset: 385});
+    $('body').scrollspy({target: '#nav-sidebar', offset: 300});
 };
 
 /**
@@ -462,6 +462,8 @@ PUPHPET.sidebarPillToggle = function() {
 
         $container.siblings().find('span.glyphicon').removeClass('active');
         $(toActive).addClass('active');
+
+        $('body').scrollspy('refresh');
 
         return true;
     });
