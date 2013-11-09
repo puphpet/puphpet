@@ -16,6 +16,27 @@ if $::osfamily == 'debian' and $lsbdistcodename in ['lucid'] and is_hash($php_va
   }
 }
 
+include puphpet::params
+
+$webroot_location = $puphpet::params::nginx_webroot_location
+
+exec { "exec mkdir -p ${webroot_location}":
+  command => "mkdir -p ${webroot_location}",
+  onlyif  => "test -d ${webroot_location}",
+}
+
+if ! defined(File[$webroot_location]) {
+  file { $webroot_location:
+    ensure  => directory,
+    group   => 'www-data',
+    mode    => 0775,
+    require => [
+      Exec["exec mkdir -p ${webroot_location}"],
+      Group['www-data']
+    ]
+  }
+}
+
 $php5_fpm_sock = '/var/run/php5-fpm.sock'
 
 if $php_values['version'] == undef {

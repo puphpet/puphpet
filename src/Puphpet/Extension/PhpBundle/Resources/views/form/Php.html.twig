@@ -68,7 +68,8 @@
                                     {% if values is not empty %}
                                         <optgroup label="{{ ini }}">
                                             {% for value in values %}
-                                                <option value="{{ value }}">{{ value }}</option>
+                                                <option value="{{ value }}"
+                                                    {% if value in php.ini|keys %}selected{% endif %}>{{ value }}</option>
                                             {% endfor %}
                                         </optgroup>
                                     {% else %}

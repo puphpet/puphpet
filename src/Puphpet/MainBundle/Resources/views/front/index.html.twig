@@ -55,6 +55,7 @@
                                         {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
                                             <li class="{% if groupedExtension.slug == activeExtensionSlug %}active{% endif %}">
                                                 <a href="#{{ groupedExtension.slug }}-tab"
+                                                   id="{{ groupedExtension.slug }}-pill"
                                                    data-target-element="{{ groupedExtension.slug }}"
                                                    data-toggle="tab">{{ groupedExtension.name }}</a>
                                             </li>

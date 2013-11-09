@@ -176,15 +176,47 @@ div.navbar {
     background-color: #e8e8e8;
 }
 
-#nav-sidebar .nav > li.active,
-#nav-sidebar .nav > li.active > a:hover {
+#nav-sidebar .nav > li.active {
+    border-right: 3px solid #f0ad4e;
     border-left: 3px solid #f0ad4e;
     margin-left: -3px;
     background: #4C9BD8;
 }
 
+#nav-sidebar .nav > li.active > a:hover {
+    background: #4C9BD8;
+}
+
 #nav-sidebar .nav > li.active > a {
     color: #fff;
+}
+
+#nav-sidebar .nav > li p {
+    margin: 0 0 0 35px;
+}
+
+#nav-sidebar .nav > li p a {
+    width: 100%;
+    height: 100%;
+    padding: 5px 0;
+    display: block;
+    color: #4C9BD8;
+}
+
+#nav-sidebar .nav > li.active p a {
+    color: #fff;
+}
+
+#nav-sidebar .nav > li.active p a .glyphicon {
+    color: #fff !important;
+}
+
+#nav-sidebar .nav > li p a .glyphicon {
+    visibility: hidden;
+}
+
+#nav-sidebar .nav > li p a .glyphicon.active {
+    visibility: visible;
 }
 
 /*

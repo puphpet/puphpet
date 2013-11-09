@@ -60,7 +60,16 @@
 
                         <p class="help-block">
                             Windows users should choose the Default option,
-                            <a href="http://docs.vagrantup.com/v2/synced-folders/nfs.html">more information</a>
+                            <a href="http://docs.vagrantup.com/v2/synced-folders/nfs.html">more information</a>.
+                        </p>
+                        <p class="help-block">
+                            <strong>
+                                NFS is currently buggy mostly on CentOS, and VirtualBox 4.3+. If you experience
+                                errors on <code>$ vagrant up</code> complaining about mounting, disable NFS sharing.
+                                NFS performance is faster than default, but is mostly for advanced users only. You
+                                should be comfortable diving into Puppet to debug any potential permissions
+                                issues!
+                            </strong>
                         </p>
                     </div>
                 </div>
