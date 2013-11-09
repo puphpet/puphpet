@@ -143,10 +143,12 @@ abstract class ExtensionAbstract implements ExtensionInterface
      */
     public function getData()
     {
+        // User-specified, or the default filled-on data
         $dataToMerge = empty($this->customData)
-            ? Yaml::parse($this->dataLocation . '/defaults.yml')
+            ? $this->yamlParse('defaults.yml')
             : $this->customData;
 
+        // All available options. Don't want these in generated user-facing yaml file
         if ($this->returnAvailableData) {
             $dataToMerge = array_merge(
                 $this->getAvailableData(),
@@ -154,6 +156,7 @@ abstract class ExtensionAbstract implements ExtensionInterface
             );
         }
 
+        // Sane defaults for all data options
         $this->data = array_replace_recursive(
             $this->getDefaultData(),
             $dataToMerge
@@ -183,7 +186,7 @@ abstract class ExtensionAbstract implements ExtensionInterface
     protected function getDefaultData()
     {
         if (empty($this->data)) {
-            $this->data = Yaml::parse($this->dataLocation . '/data.yml');
+            $this->data = $this->yamlParse('data.yml');
         }
 
         return $this->data;
@@ -196,10 +199,21 @@ abstract class ExtensionAbstract implements ExtensionInterface
      */
     protected function getAvailableData()
     {
-        $available = Yaml::parse($this->dataLocation . '/available.yml');
+        $available = $this->yamlParse('available.yml');
 
         return is_array($available)
             ? $available
             : [];
+    }
+
+    /**
+     * Parse a YAML file from dataLocation root
+     *
+     * @param string $file
+     * @return array
+     */
+    protected function yamlParse($file)
+    {
+        return Yaml::parse($this->dataLocation . '/' . $file);
     }
 }
