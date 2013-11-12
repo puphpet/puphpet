@@ -1,5 +1,4 @@
 parameters:
-#    puphpet_main.example.class: Puphpet\MainBundle\Example
 
 services:
     randomlib:
