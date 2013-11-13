@@ -450,7 +450,7 @@ PUPHPET.sidebar = function() {
  * Toggles pills in main container by clicking sidebar links
  */
 PUPHPET.sidebarPillToggle = function() {
-    $('#nav-sidebar ul li p a').click(function (e) {
+    $(document).on('click', '#nav-sidebar ul li p a', function(e){
         var tagTarget = this.getAttribute('data-tab-target');
         var $container = $(this).closest('p');
 
@@ -458,15 +458,27 @@ PUPHPET.sidebarPillToggle = function() {
             $(tagTarget).tab('show');
         }
 
-        var toActive = $(this).find('span.glyphicon')[0];
+        return _toggleTabs($container, $(this).find('span.glyphicon')[0]);
+    });
 
+    $(document).on('click', 'ul.group-tabs a[data-toggle="tab"]', function(e){
+        var id = '#' + this.id;
+        var $menuTarget = $('#nav-sidebar ul li p a[data-tab-target="' + id + '"]');
+        var $container = $menuTarget.closest('p');
+
+        if ($menuTarget == null) {
+            return;
+        }
+
+        return _toggleTabs($container, $menuTarget.find('span.glyphicon')[0]);
+    });
+
+    function _toggleTabs($container, toActive) {
         $container.siblings().find('span.glyphicon').removeClass('active');
         $(toActive).addClass('active');
 
-        $('body').scrollspy('refresh');
-
         return true;
-    });
+    }
 };
 
 $(document).ready(function() {
