@@ -15,7 +15,7 @@
                         <input type="text" id="apache-vhosts-{{ uniqid }}-servername"
                                name="apache[vhosts][{{ uniqid }}][servername]"
                                required placeholder="awesome.dev"
-                               value="{{ vhost.servername }}" class="form-control" />
+                               value="{{ vhost.servername }}" class="form-control"/>
 
                         <p class="help-block">Don't forget to add to your computer's hosts file!</p>
                     </div>
@@ -40,7 +40,7 @@
                         <input type="text" id="apache-vhosts-{{ uniqid }}-docroot"
                                name="apache[vhosts][{{ uniqid }}][docroot]"
                                required placeholder="/var/www"
-                               value="{{ vhost.docroot }}" class="form-control" />
+                               value="{{ vhost.docroot }}" class="form-control"/>
 
                         <p class="help-block">Location of your site's index.php file, or other landing page.</p>
                     </div>
@@ -50,12 +50,51 @@
                         <input type="text" id="apache-vhosts-{{ uniqid }}-port"
                                name="apache[vhosts][{{ uniqid }}][port]"
                                required placeholder="80"
-                               value="{{ vhost.port }}" class="form-control" />
+                               value="{{ vhost.port }}" class="form-control"/>
 
                         <p class="help-block">
                             80 for normal browsing, if you choose another append it to the URL,
                             ex: http://awesome.dev:1337
                         </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                {% set ssl = vhost.ssl is defined? vhost.ssl : 0 %}
+                                <label>SSL Binding</label><br/>
+                                <select name="apache[vhosts][{{ uniqid }}][ssl]"
+                                        class="form-control">
+                                    <option value="0" {% if ssl == 0 or not ssl %}selected="selected"{% endif %}>
+                                        disabled
+                                    </option>
+                                    <option value="1" {% if ssl == 1 %}selected="selected"{% endif %}>http + https
+                                    </option>
+                                    <option value="2" {% if ssl == 2 %}selected="selected"{% endif %}>https</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <div class="help-block">
+                                    <ul>
+                                        <li>option <strong>http + https</strong>: vhost will be enabled for http and
+                                            https
+                                        </li>
+                                        <li>option <strong>https</strong>: If you want to define only one single https
+                                            vhost
+                                            please use this option
+                                        </li>
+                                    </ul>
+
+                                    Please go sure that the used SSL Port (by default 443) is correctly mapped to your
+                                    VM
+                                    (add additional Forwarded Port if needed).<br/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -95,7 +134,8 @@
 
                 <p class="text-center">
                     <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
-                            data-parent-id="{{ uniqid }}">Remove this vhost</button>
+                            data-parent-id="{{ uniqid }}">Remove this vhost
+                    </button>
                 </p>
             </div>
         </div>
