@@ -16,6 +16,7 @@ available_modules:
         - intl
         - ldap
         - mapscript
+        - mbstring
         - mcrypt
         - memcache
         - memcached
