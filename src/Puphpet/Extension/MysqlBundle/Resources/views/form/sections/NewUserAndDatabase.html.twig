@@ -53,6 +53,11 @@
                                name="mysql[databases][{{ uniqid }}][user]"
                                required placeholder="username"
                                value="{{ database.user }}" class="form-control" />
+
+                        <p class="help-block">
+                            At this time, one user can only be assigned to one database. You should not enter "root"
+                            here! You should not have a single user appear twice!
+                        </p>
                     </div>
 
                     <div class="col-md-6">
