@@ -25,6 +25,19 @@
                             </div>
                         {% endfor %}
 
+                        <div class="alert alert-warning alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <strong>ATTN</strong>:
+                            If you previously created a PuPHPet box and now Vagrant is complaining about not being able
+                            to download the box you chose, or that the box is corrupt, please update box URLs within
+                            <code>Vagrantfile</code> and <code>common.yaml</code>! I received a scary bill from AWS S3
+                            and had to find a new host. Thanks to my buddies at
+                            <a href="http://pressable.com" target="_blank">Pressable</a> for
+                            donating space and bandwidth! All box URLs have been changed from
+                            <strong>https://puphpet.s3.amazonaws.com</strong>/* to
+                            <strong>http://box.puphpet.com</strong>/*.
+                        </div>
+
                         {% if hasCustom is defined %}
                             <div class="alert alert-success alert-dismissable">
                                 Your previously generated config file was successfully loaded!
