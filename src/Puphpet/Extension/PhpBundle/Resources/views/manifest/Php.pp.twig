@@ -32,7 +32,8 @@ if is_hash($apache_values) {
   include apache::params
 
   $php_webserver_service = 'httpd'
-  $php_webserver_user = $apache::params::user
+  $php_webserver_user    = $apache::params::user
+  $php_webserver_restart = true
 
   class { 'php':
     service => $php_webserver_service
@@ -41,7 +42,8 @@ if is_hash($apache_values) {
   include nginx::params
 
   $php_webserver_service = "${php_prefix}fpm"
-  $php_webserver_user = $nginx::params::nx_daemon_user
+  $php_webserver_user    = $nginx::params::nx_daemon_user
+  $php_webserver_restart = true
 
   class { 'php':
     package             => $php_webserver_service,
@@ -56,6 +58,15 @@ if is_hash($apache_values) {
     hasrestart => true,
     hasstatus  => true,
     require    => Package[$php_webserver_service]
+  }
+} else {
+  $php_webserver_service = undef
+  $php_webserver_restart = false
+
+  class { 'php':
+    package             => "${php_prefix}cli",
+    service             => $php_webserver_service,
+    service_autorestart => false,
   }
 }
 
@@ -102,13 +113,21 @@ puphpet::ini { $key:
 }
 
 define php_mod {
-  php::module { $name: }
+  php::module { $name:
+    service_autorestart => $php_webserver_restart,
+  }
 }
 define php_pear_mod {
-  php::pear::module { $name: use_package => false }
+  php::pear::module { $name:
+    use_package         => false,
+    service_autorestart => $php_webserver_restart,
+  }
 }
 define php_pecl_mod {
-  php::pecl::module { $name: use_package => false }
+  php::pecl::module { $name:
+    use_package         => false,
+    service_autorestart => $php_webserver_restart,
+  }
 }
 
 if $php_values['composer'] == 1 {

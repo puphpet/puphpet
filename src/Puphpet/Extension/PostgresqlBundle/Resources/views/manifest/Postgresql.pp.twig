@@ -8,6 +8,12 @@ if $php_values == undef {
   $php_values = hiera('php', false)
 }
 
+if is_hash($apache_values) or is_hash($nginx_values) {
+  $postgresql_webserver_restart = true
+} else {
+  $postgresql_webserver_restart = false
+}
+
 if $postgresql_values['root_password'] {
   group { $postgresql_values['user_group']:
       ensure => present
@@ -23,7 +29,9 @@ if $postgresql_values['root_password'] {
   }
 
   if is_hash($php_values) and ! defined(Php::Module['pgsql']) {
-    php::module { 'pgsql': }
+    php::module { 'pgsql':
+      service_autorestart => $postgresql_webserver_restart,
+    }
   }
 }
 

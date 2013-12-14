@@ -16,6 +16,12 @@ if $nginx_values == undef {
   $nginx_values = hiera('nginx', false)
 }
 
+if is_hash($apache_values) or is_hash($nginx_values) {
+  $mysql_webserver_restart = true
+} else {
+  $mysql_webserver_restart = false
+}
+
 if $mysql_values['root_password'] {
   class { 'mysql::server':
     root_password => $mysql_values['root_password'],
@@ -27,9 +33,13 @@ if $mysql_values['root_password'] {
 
   if is_hash($php_values) {
     if $::osfamily == 'redhat' and $php_values['version'] == '53' and ! defined(Php::Module['mysql']) {
-      php::module { 'mysql': }
+      php::module { 'mysql':
+        service_autorestart => $mysql_webserver_restart,
+      }
     } elsif ! defined(Php::Module['mysqlnd']) {
-      php::module { 'mysqlnd': }
+      php::module { 'mysqlnd':
+        service_autorestart => $mysql_webserver_restart,
+      }
     }
   }
 }
