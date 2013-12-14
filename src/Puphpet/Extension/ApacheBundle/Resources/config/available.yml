@@ -5,6 +5,7 @@ empty_vhost:
     port: 80
     setenv: []
     override: []
+    ssl: 0
 
 available_modules:
     - cache

@@ -13,3 +13,4 @@ vhosts:
             - APP_ENV dev
         override:
             - All
+        ssl: 0
