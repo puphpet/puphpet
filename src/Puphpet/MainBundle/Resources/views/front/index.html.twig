@@ -28,9 +28,11 @@
                         <div class="alert alert-warning alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <strong>ATTN</strong>:
-                            Recent updates to Puppet broke PuPHPet for all manifests generated before Dec 20.
-                            To fix, just drag/drop your <code>common.yaml</code> file to this page and regenerate your
-                            manifest.
+                            Puppet recently update to 3.4. More than likely <strong>ALL</strong> manifests generated
+                            prior to Dec 20 are now *broken*. To fix, just drag/drop your <code>common.yaml</code>
+                            file to this page and regenerate your manifest, or
+                            <a href="https://github.com/puphpet/puphpet/commit/9824659ab3be1df088abf476c8444a3bfe9046bd">apply
+                                these changes manually</a> in your <code>puppet/manifests/default.pp</code> file.
                         </div>
 
                         <div class="alert alert-warning alert-dismissable">
