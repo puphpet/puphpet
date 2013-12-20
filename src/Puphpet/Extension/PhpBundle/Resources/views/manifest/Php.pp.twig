@@ -82,7 +82,7 @@ if count($php_values['modules']['pecl']) > 0 {
   php_pecl_mod { $php_values['modules']['pecl']:; }
 }
 if count($php_values['ini']) > 0 {
-  $php_values['ini'].each { |$key, $value|
+  each( $php_values['ini'] ) |$key, $value| {
     puphpet::ini { $key:
       entry       => "CUSTOM/${key}",
       value       => $value,
