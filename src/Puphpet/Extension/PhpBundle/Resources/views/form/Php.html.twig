@@ -120,6 +120,12 @@
                                         {% if module in php.modules.php %}selected{% endif %}>{{ module }}</option>
                                 {% endfor %}
                             </select>
+
+                            <p class="help-block">
+                                If you've chosen CentOS, Some modules come pre-installed: <code>curl</code>,
+                                <code>imagick</code>, <code>memcached</code>, <code>sqlite</code>. Don't choose these
+                                here.
+                            </p>
                         </div>
                     </div>
                     <!-- end PHP / PHP Modules -->
