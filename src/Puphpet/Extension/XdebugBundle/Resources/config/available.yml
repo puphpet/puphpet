@@ -1,5 +1,7 @@
 available_settings:
     - xdebug.auto_trace
+    - xdebug.cli_color
+    - xdebug.collect_assignments
     - xdebug.collect_includes
     - xdebug.collect_params
     - xdebug.collect_return
@@ -17,9 +19,11 @@ available_settings:
     - xdebug.dump_once
     - xdebug.dump_undefined
     - xdebug.extended_info
+    - xdebug.file_link_format
     - xdebug.idekey
     - xdebug.manual_url
     - xdebug.max_nesting_level
+    - xdebug.overload_var_dump
     - xdebug.profiler_aggregate
     - xdebug.profiler_append
     - xdebug.profiler_enable
@@ -29,11 +33,13 @@ available_settings:
     - xdebug.remote_autostart
     - xdebug.remote_enable
     - xdebug.remote_connect_back
+    - xdebug.remote_cookie_expire_time
     - xdebug.remote_handler
     - xdebug.remote_host
     - xdebug.remote_log
     - xdebug.remote_mode
     - xdebug.remote_port
+    - xdebug.scream
     - xdebug.show_exception_trace
     - xdebug.show_local_vars
     - xdebug.show_mem_delta
