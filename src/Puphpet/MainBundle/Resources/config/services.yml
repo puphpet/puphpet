@@ -19,6 +19,7 @@ services:
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.apache.configure ] ]
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.nginx.configure ] ]
             - [ addExtension, [ @puphpet.extension.php.configure ] ]
+            - [ addExtension, [ @puphpet.extension.drush.configure ] ]
             - [ addExtension, [ @puphpet.extension.xdebug.configure ] ]
             - [ addExtension, [ @puphpet.extension.xhprof.configure ] ]
         # database group
