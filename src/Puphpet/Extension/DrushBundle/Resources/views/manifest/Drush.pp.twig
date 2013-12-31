@@ -1,144 +1,24 @@
-## Begin PHP manifest
+## Begin Drush manifest
 
-if $php_values == undef {
-  $php_values = hiera('php', false)
+if $drush_values == undef {
+  $drush_values = hiera('drush', false)
 }
 
-if $apache_values == undef {
-  $apache_values = hiera('apache', false)
-}
-
-if $nginx_values == undef {
-  $nginx_values = hiera('nginx', false)
-}
-
-Class['Php'] -> Class['Php::Devel'] -> Php::Module <| |> -> Php::Pear::Module <| |> -> Php::Pecl::Module <| |>
-
-if $php_prefix == undef {
-  $php_prefix = $::operatingsystem ? {
-    /(?i:Ubuntu|Debian|Mint|SLES|OpenSuSE)/ => 'php5-',
-    default                                 => 'php-',
+if $drush_values['install'] != undef and $drush_values['install'] == 1 {
+  if ($drush_values['settings']['drush.tag_branch'] != undef) {
+    $drush_tag_branch = $drush_values['settings']['drush.tag_branch']
   }
-}
-
-if $php_fpm_ini == undef {
-  $php_fpm_ini = $::operatingsystem ? {
-    /(?i:Ubuntu|Debian|Mint|SLES|OpenSuSE)/ => '/etc/php5/fpm/php.ini',
-    default                                 => '/etc/php.ini',
-  }
-}
-
-if is_hash($apache_values) {
-  include apache::params
-
-  $php_webserver_service = 'httpd'
-  $php_webserver_user    = $apache::params::user
-  $php_webserver_restart = true
-
-  class { 'php':
-    service => $php_webserver_service
-  }
-} elsif is_hash($nginx_values) {
-  include nginx::params
-
-  $php_webserver_service = "${php_prefix}fpm"
-  $php_webserver_user    = $nginx::params::nx_daemon_user
-  $php_webserver_restart = true
-
-  class { 'php':
-    package             => $php_webserver_service,
-    service             => $php_webserver_service,
-    service_autorestart => false,
-    config_file         => $php_fpm_ini,
+  else {
+    $drush_tag_branch = ''
   }
 
-  service { $php_webserver_service:
-    ensure     => running,
-    enable     => true,
-    hasrestart => true,
-    hasstatus  => true,
-    require    => Package[$php_webserver_service]
-  }
-} else {
-  $php_webserver_service = undef
-  $php_webserver_restart = false
+  ## @see https://drupal.org/node/2165015
+  include drush::git::drush
 
-  class { 'php':
-    package             => "${php_prefix}cli",
-    service             => $php_webserver_service,
-    service_autorestart => false,
-  }
+  ## class {'drush::git::drush':
+  ##   git_branch => $drush_tag_branch,
+  ##   update     => true,
+  ## }
 }
 
-class { 'php::devel': }
-
-if count($php_values['modules']['php']) > 0 {
-  php_mod { $php_values['modules']['php']:; }
-}
-if count($php_values['modules']['pear']) > 0 {
-  php_pear_mod { $php_values['modules']['pear']:; }
-}
-if count($php_values['modules']['pecl']) > 0 {
-  php_pecl_mod { $php_values['modules']['pecl']:; }
-}
-if count($php_values['ini']) > 0 {
-  each( $php_values['ini'] ) |$key, $value| {
-    puphpet::ini { $key:
-      entry       => "CUSTOM/${key}",
-      value       => $value,
-      php_version => $php_values['version'],
-      webserver   => $php_webserver_service
-    }
-  }
-
-  if $php_values['ini']['session.save_path'] != undef {
-    exec {"mkdir -p ${php_values['ini']['session.save_path']}":
-      onlyif  => "test ! -d ${php_values['ini']['session.save_path']}",
-    }
-
-    file { $php_values['ini']['session.save_path']:
-      ensure  => directory,
-      group   => 'www-data',
-      mode    => 0775,
-      require => Exec["mkdir -p ${php_values['ini']['session.save_path']}"]
-    }
-  }
-}
-
-puphpet::ini { $key:
-  entry       => 'CUSTOM/date.timezone',
-  value       => $php_values['timezone'],
-  php_version => $php_values['version'],
-  webserver   => $php_webserver_service
-}
-
-define php_mod {
-  php::module { $name:
-    service_autorestart => $php_webserver_restart,
-  }
-}
-define php_pear_mod {
-  php::pear::module { $name:
-    use_package         => false,
-    service_autorestart => $php_webserver_restart,
-  }
-}
-define php_pecl_mod {
-  php::pecl::module { $name:
-    use_package         => false,
-    service_autorestart => $php_webserver_restart,
-  }
-}
-
-if $php_values['composer'] == 1 {
-  class { 'composer':
-    target_dir      => '/usr/local/bin',
-    composer_file   => 'composer',
-    download_method => 'curl',
-    logoutput       => false,
-    tmp_path        => '/tmp',
-    php_package     => "${php::params::module_prefix}cli",
-    curl_package    => 'curl',
-    suhosin_enabled => false,
-  }
-}
+## End Drush manifest
