@@ -138,7 +138,7 @@ if $mysql_values['adminer'] == 1 {
     }
 
     exec{"download_adminer":
-      command => "wget -O /var/www/adminer/index.php http://www.adminer.org/latest-mysql-en.php",
+      command => "wget -O /var/www/adminer/index.php http://www.adminer.org/latest.php",
       require => File["/var/www/adminer"],
     }
   }
