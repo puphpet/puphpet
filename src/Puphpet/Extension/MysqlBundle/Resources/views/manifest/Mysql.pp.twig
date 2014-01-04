@@ -127,3 +127,21 @@ define mysql_nginx_default_conf (
     notify       => Class['nginx::service'],
   }
 }
+
+if $mysql_values['adminer'] == 1 {
+  class adminer {
+
+    file { "/var/www/adminer":
+      ensure => "directory",
+      owner => $::ssh_username,
+      mode   => 775,
+    }
+
+    exec{"download_adminer":
+      command => "wget -O /var/www/adminer/index.php http://www.adminer.org/latest-mysql-en.php",
+      require => File["/var/www/adminer"],
+    }
+  }
+
+class { "adminer": }
+}
