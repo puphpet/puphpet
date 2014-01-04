@@ -24,7 +24,7 @@
     },
     "require-dev": {
         "phpunit/phpunit":                           "3.7.27",
-        "whatthejeff/nyancat-phpunit-resultprinter": "1.1.x-dev",
+        "whatthejeff/nyancat-phpunit-resultprinter": "~1.2",
         "ptrofimov/xpmock":                          "dev-master"
     },
     "scripts": {
