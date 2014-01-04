@@ -2,4 +2,6 @@ root_password: 123
 
 phpmyadmin: 0
 
+adminer: 0
+
 databases: []
