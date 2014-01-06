@@ -31,6 +31,12 @@ class ManagerTest extends Unit\TestExtensions
         return $mock;
     }
 
+    public function getEventDispatcherMock()
+    {
+        return $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')
+            ->getMockForAbstractClass();
+    }
+
     public function testAddExtensionToGroupSavesToGroupArray()
     {
         $extensionApache     = $this->getExtensionMock('apache');
@@ -38,7 +44,9 @@ class ManagerTest extends Unit\TestExtensions
         $extensionMySQL      = $this->getExtensionMock('mysql');
         $extensionPostgreSQL = $this->getExtensionMock('postgresql');
 
-        $manager = new Manager($this->container);
+        $eventDispatcher = $this->getEventDispatcherMock();
+
+        $manager = new Manager($eventDispatcher, $this->container);
 
         $manager->addExtensionToGroup('webserver', $extensionApache)
             ->addExtensionToGroup('webserver', $extensionNginx)
@@ -56,7 +64,9 @@ class ManagerTest extends Unit\TestExtensions
         $extensionApache = $this->getExtensionMock('apache');
         $extensionPHP    = $this->getExtensionMock('php');
 
-        $manager = new Manager($this->container);
+        $eventDispatcher = $this->getEventDispatcherMock();
+
+        $manager = new Manager($eventDispatcher, $this->container);
 
         $manager->addExtension($extensionPHP)
             ->addExtensionToGroup('webserver', $extensionApache);
@@ -69,7 +79,9 @@ class ManagerTest extends Unit\TestExtensions
     {
         $extensionPHP = $this->getExtensionMock('php');
 
-        $manager = new Manager($this->container);
+        $eventDispatcher = $this->getEventDispatcherMock();
+
+        $manager = new Manager($eventDispatcher, $this->container);
 
         $manager->addExtension($extensionPHP);
 

@@ -2,13 +2,21 @@
 
 namespace Puphpet\MainBundle\Extension;
 
+use Puphpet\MainBundle\Event\ConfigurationEvent;
+use Puphpet\MainBundle\Event\ConfigurationEvents;
 use Puphpet\MainBundle\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class Manager
 {
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
     /** @var array */
     private $alreadyIterated = [];
 
@@ -27,8 +35,9 @@ class Manager
     /** @var array */
     private $groupsMirrored = [];
 
-    public function __construct(Container $container)
+    public function __construct(EventDispatcherInterface $eventDispatcher, Container $container)
     {
+        $this->eventDispatcher = $eventDispatcher;
         $this->container = $container;
     }
 
@@ -233,7 +242,13 @@ class Manager
 
         foreach ($submittedExtensions as $slug => $data) {
             $extension = $this->getExtensionBySlug($slug);
-            $extension->setCustomData($data);
+
+            // provides hook to build extension data from the complete configuration
+            // or sth accordingly
+            $configurationEvent = new ConfigurationEvent($submittedExtensions, $data);
+            $this->eventDispatcher->dispatch(ConfigurationEvents::EXTENSION_PRE_BIND, $configurationEvent);
+
+            $extension->setCustomData($configurationEvent->getData());
 
             $extensions[$slug] = $extension;
 
