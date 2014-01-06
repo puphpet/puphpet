@@ -128,20 +128,17 @@ define mysql_nginx_default_conf (
   }
 }
 
-if $mysql_values['adminer'] == 1 {
-  class adminer {
-
-    file { "/var/www/adminer":
-      ensure => "directory",
-      owner => $::ssh_username,
-      mode   => 775,
-    }
-
-    exec{"download_adminer":
-      command => "wget -O /var/www/adminer/index.php http://www.adminer.org/latest.php",
-      require => File["/var/www/adminer"],
-    }
+if has_key($mysql_values, 'adminer') and $mysql_values['adminer'] == 1 and is_hash($php_values) {
+  if is_hash($apache_values) {
+    $mysql_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  } elsif is_hash($nginx_values) {
+    $mysql_adminer_webroot_location = $puphpet::params::nginx_webroot_location
+  } else {
+    $mysql_adminer_webroot_location = $puphpet::params::apache_webroot_location
   }
 
-class { "adminer": }
+  class { 'puphpet::adminer':
+    location => "${mysql_adminer_webroot_location}/adminer",
+    owner    => 'www-data'
+  }
 }
