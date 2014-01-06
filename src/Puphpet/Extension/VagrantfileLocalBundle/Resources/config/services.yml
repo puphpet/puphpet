@@ -15,3 +15,8 @@ services:
         class: Puphpet\Extension\VagrantfileLocalBundle\Controller\ManifestController
         calls:
             - [ setContainer, [@service_container] ]
+
+    puphpet.extension.vagrantfile.local.hostname_listener:
+        class: Puphpet\Extension\VagrantfileLocalBundle\EventListener\HostnameMixinListener
+        tags:
+            - { name: kernel.event_listener, event: configuration.extension.pre_bind, method: onPreBind }

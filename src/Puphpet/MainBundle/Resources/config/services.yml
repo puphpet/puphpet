@@ -7,6 +7,7 @@ services:
     puphpet.extension.manager:
         class: Puphpet\MainBundle\Extension\Manager
         arguments:
+            - "@event_dispatcher"
             - "@service_container"
         calls:
         # vagrantfile group

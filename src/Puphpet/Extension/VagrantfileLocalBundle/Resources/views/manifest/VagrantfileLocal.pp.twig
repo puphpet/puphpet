@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "{{ data.vm.box }}"
   config.vm.box_url = "{{ data.vm.box_url|raw }}"
-{% if data.vm.hostname %}  config.vm.hostname = {{ data.vm.hostname }}{% endif %}
+{% if data.vm.hostname %}  config.vm.hostname = "{{ data.vm.hostname }}"{% endif %}
 
 {% if data.vm.network.private_network %}
   config.vm.network "private_network", ip: "{{ data.vm.network.private_network }}"
