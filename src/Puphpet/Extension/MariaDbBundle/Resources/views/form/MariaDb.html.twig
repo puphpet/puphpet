@@ -1,0 +1,84 @@
+<input type="hidden" name="is_disabled[mariadb]" value="0" />
+
+<section id="mariadb">
+
+    <!-- Database / Quick Settings -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">MariaDB Quick Settings</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label>Version</label><br />
+
+                            {% for version in mariadb.available_versions %}
+                                <label class="radio-inline">
+                                    <input type="radio" name="mariadb[version]" value="{{ version }}"
+                                        {% if version == mariadb.version %}checked{% endif %} /> {{ version }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="mariadb-root_password">Root Password</label>
+                            <input type="text" id="mariadb-root_password" name="mariadb[root_password]"
+                                   value="{{ mariadb.root_password }}" class="form-control" />
+
+                            <p class="help-block">
+                                Assign a password to the root user.
+                                <strong>Database will only be installed
+                                when a password is entered here.</strong>
+                            </p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="mariadb-phpmyadmin">phpMyAdmin</label><br />
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="mariadb-phpmyadmin" name="mariadb[phpmyadmin]"
+                                       {% if mariadb.phpmyadmin %}checked{% endif %} value="1" /> Install phpMyAdmin
+                            </label>
+
+                            <p class="help-block">
+                                If installed it will be available from
+                                <code>http://{SERVER_IP_ADDRESS}/phpmyadmin</code>.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mariadb-adminer">Adminer</label><br />
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="mariadb-adminer" name="mariadb[adminer]"
+                                       {% if mariadb.adminer %}checked{% endif %} value="1" /> Install Adminer
+                            </label>
+
+                            <p class="help-block">
+                                If installed it will be available from
+                                <code>http://{SERVER_IP_ADDRESS}/adminer</code>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end Database / Quick Settings -->
+
+    {% for database in mariadb.databases %}
+        {% include 'PuphpetExtensionMariaDbBundle:form/sections:NewUserAndDatabase.html.twig'
+            with {'available_privileges': mariadb.available_privileges, 'database': database} %}
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                    data-source-url="{{ path('puphpet.extension.mariadb.add_database') }}">Add another MariaDB database</button>
+        </div>
+    </div>
+
+</section>

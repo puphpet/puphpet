@@ -25,6 +25,7 @@ services:
         # database group
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.mysql.configure ] ]
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.postgresql.configure ] ]
+            - [ addExtensionToGroup, [ 'database', @puphpet.extension.mariadb.configure ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
