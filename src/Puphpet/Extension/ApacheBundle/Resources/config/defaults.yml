@@ -13,3 +13,5 @@ vhosts:
             - APP_ENV dev
         override:
             - All
+
+pagespeed: 1

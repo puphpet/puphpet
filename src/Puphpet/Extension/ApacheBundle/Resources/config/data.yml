@@ -5,3 +5,5 @@ user: 'www-data'
 group: 'www-data'
 default_vhost: true
 mpm_module: prefork
+
+pagespeed: true

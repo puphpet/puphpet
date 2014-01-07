@@ -22,6 +22,18 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="apache-pagespeed">PageSpeed Module</label><br>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="apache-pagespeed" name="apache[pagespeed]" value="1"
+                                    {% if apache.pagespeed %}checked{% endif %} />
+                                Enable
+                                <a href="https://developers.google.com/speed/pagespeed/module?hl=de" target="_blank">PageSpeed Module</a>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
             </div>
