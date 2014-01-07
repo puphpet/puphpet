@@ -51,8 +51,12 @@ if $::osfamily == 'debian' {
   }
 }
 
-if has_key($apache_values, 'pagespeed') and $apache_values['pagespeed'] == 1 {
+if has_key($apache_values, 'mod_pagespeed') and $apache_values['mod_pagespeed'] == 1 {
   class { 'puphpet::apache::modpagespeed': }
+}
+
+if has_key($apache_values, 'mod_spdy') and $apache_values['mod_spdy'] == 1 {
+  class { 'puphpet::apache::modspdy': }
 }
 
 create_resources(apache::vhost, $apache_values['vhosts'])
