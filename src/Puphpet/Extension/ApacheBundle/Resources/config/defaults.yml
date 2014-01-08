@@ -14,5 +14,5 @@ vhosts:
         override:
             - All
 
-mod_pagespeed: true
-mod_spdy: true
+mod_pagespeed: 0
+mod_spdy: 0
