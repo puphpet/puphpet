@@ -1,0 +1,73 @@
+{% macro single(extensionManager, name) %}
+    {% set extension = extensionManager.getExtensionBySlug(name) %}
+
+    {{ extension.renderFront(extension.data)|raw }}
+{% endmacro %}
+
+{% macro grouped(extensionManager, name, title) %}
+    {% if title %}
+        <div class="page-header">
+            <h1 id="{{ name }}">{{ title }}</h1>
+        </div>
+    {% endif %}
+
+    {% for extension in extensionManager.getExtensionsInGroup(name) %}
+        {{ extension.renderFront(extension.data)|raw }}
+    {% endfor %}
+{% endmacro %}
+
+{% macro singleSelectGrouped(extensionManager, name, title) %}
+    {% set activeExtensionSlug = extensionManager.extensionInGroupHasCustomData(name) %}
+
+    <div class="page-header">
+        <h1 id="{{ name }}">{{ title }}</h1>
+    </div>
+
+     <ul class="nav group-nav nav-pills group-tabs" id="deploy-target-tab">
+        {% for extension in extensionManager.getExtensionsInGroup(name) %}
+            <li class="{% if extension.slug == activeExtensionSlug %}active{% endif %}">
+                <a href="#{{ extension.slug }}-tab"
+                   id="{{ extension.slug }}-pill"
+                   data-target-element="{{ extension.slug }}"
+                   data-toggle="tab">{{ extension.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content">
+        {% for extension in extensionManager.getExtensionsInGroup(name) %}
+            <div class="tab-pane {% if activeExtensionSlug == extension.slug %}active{% endif %}"
+                 id="{{ extension.slug }}-tab">
+                {{ extension.renderFront(extension.data)|raw }}
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro multiSelectGrouped(extensionManager, name, title) %}
+    {% set activeExtensionSlug = extensionManager.extensionInGroupHasCustomData(name) %}
+
+    <div class="page-header">
+        <h1 id="{{ name }}">{{ title }}</h1>
+    </div>
+
+     <ul class="nav group-nav nav-pills group-tabs" id="deploy-target-tab">
+        {% for extension in extensionManager.getExtensionsInGroup(name) %}
+            <li class="{% if extension.slug == activeExtensionSlug %}active{% endif %}">
+                <a href="#{{ extension.slug }}-tab"
+                   id="{{ extension.slug }}-pill"
+                   data-target-element="{{ extension.slug }}"
+                   data-toggle="tab">{{ extension.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content">
+        {% for extension in extensionManager.getExtensionsInGroup(name) %}
+            <div class="tab-pane {% if activeExtensionSlug == extension.slug %}active{% endif %}"
+                 id="{{ extension.slug }}-tab">
+                {{ extension.renderFront(extension.data)|raw }}
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

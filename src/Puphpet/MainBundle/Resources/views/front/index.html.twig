@@ -1,5 +1,7 @@
 {% extends 'PuphpetMainBundle:front:template.html.twig' %}
 
+{% import "PuphpetMainBundle:front:sections.html.twig" as sections %}
+
 {% block topJs %}
     {{ parent() }}
     <script>var uploadConfigUrl = '{{ path('puphpet.main.upload_config') }}';</script>
@@ -62,42 +64,21 @@
                         {% endif %}
 
                         <div id="extensions-container">
-                            {% for extension in extensionManager.getExtensions
-                               if not extensionManager.extensionAlreadyUsed(extension.slug) %}
 
-                                {% set groupName = extensionManager.belongsToGroup(extension.slug) %}
+                            {{ sections.singleSelectGrouped(extensionManager, 'deploy-target', 'Deploy Target') }}
 
-                                {% if groupName %}
-                                    <div class="page-header">
-                                        <h1 id="{{ groupName|slugify }}">{{ groupName|title }}</h1>
-                                    </div>
+                            {{ sections.single(extensionManager, 'server') }}
 
-                                    {% set activeExtensionSlug = extensionManager.extensionInGroupHasCustomData(groupName) %}
+                            {{ sections.singleSelectGrouped(extensionManager, 'webserver', 'Webserver') }}
 
-                                    <ul class="nav group-nav nav-pills group-tabs" id="{{ groupName|slugify }}-tab">
-                                        {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
-                                            <li class="{% if groupedExtension.slug == activeExtensionSlug %}active{% endif %}">
-                                                <a href="#{{ groupedExtension.slug }}-tab"
-                                                   id="{{ groupedExtension.slug }}-pill"
-                                                   data-target-element="{{ groupedExtension.slug }}"
-                                                   data-toggle="tab">{{ groupedExtension.name }}</a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
+                            {{ sections.single(extensionManager, 'php') }}
 
-                                    <div class="tab-content">
-                                        {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
-                                            <div class="tab-pane {% if activeExtensionSlug == groupedExtension.slug %}active{% endif %}"
-                                                 id="{{ groupedExtension.slug }}-tab">
-                                                {{ groupedExtension.renderFront(groupedExtension.data)|raw }}
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                {% else %}
-                                    {{ extension.renderFront(extension.data)|raw }}
-                                {% endif %}
+                            {{ sections.grouped(extensionManager, 'php-extensions') }}
 
-                            {% endfor %}
+                            {{ sections.singleSelectGrouped(extensionManager, 'database', 'Database') }}
+
+                            {{ sections.singleSelectGrouped(extensionManager, 'work-queue', 'Work Queue') }}
+
                         </div>
 
                         <section id="create">
