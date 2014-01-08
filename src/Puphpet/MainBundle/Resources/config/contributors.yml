@@ -1,0 +1,43 @@
+parameters:
+    puphpet.contributors.file: "contributors.json"
+
+services:
+
+    puphpet.filesystem:
+        class: Puphpet\MainBundle\Filesystem\Filesystem
+        public: false
+
+    # gets the contributors from github api
+    # should not be called from outside
+    puphpet.repository.contributor.curl:
+        class: Puphpet\MainBundle\Repository\ContributorRepository
+        public: false
+        arguments:
+            - "https://api.github.com/repos/puphpet/puphpet/contributors"
+
+    # caches returned github contributors
+    puphpet.cache_warmer.contributors:
+        class: Puphpet\MainBundle\CacheWarmer\ContributorsCacheWarmer
+        public: false
+        arguments:
+            - "@puphpet.repository.contributor.curl"
+            - "%puphpet.contributors.file%"
+            - "@puphpet.filesystem"
+        tags:
+            - { name: "kernel.cache_warmer" }
+
+    # proxy for the real repository
+    # should also not be used from outside
+    puphpet.repository.contributor.cached:
+        class: Puphpet\MainBundle\Repository\CachedContributorRepository
+        public: false
+        arguments:
+            - "%kernel.cache_dir%"
+            - "%puphpet.contributors.file%"
+            - "@puphpet.filesystem"
+            - "@puphpet.repository.contributor.curl"
+
+    # via this alias we make the contributor service available to the outside
+    # and hide that we are using a caching layer
+    puphpet.repository.contributor:
+        alias: puphpet.repository.contributor.cached
