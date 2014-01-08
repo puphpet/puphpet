@@ -73,7 +73,7 @@ define mariadb_db (
   }
 }
 
-if $mariadb_values['phpmyadmin'] == 1 and is_hash($php_values) {
+if has_key($mariadb_values, 'phpmyadmin') and $mariadb_values['phpmyadmin'] == 1 and is_hash($php_values) {
   if $::osfamily == 'debian' {
     if $::operatingsystem == 'ubuntu' {
       apt::key { '80E7349A06ED541C': }
@@ -96,23 +96,44 @@ if $mariadb_values['phpmyadmin'] == 1 and is_hash($php_values) {
   include puphpet::params
 
   if is_hash($apache_values) {
-    $mariadb_webroot_location = $puphpet::params::apache_webroot_location
+    $mariadb_pma_webroot_location = $puphpet::params::apache_webroot_location
   } elsif is_hash($nginx_values) {
-    $mariadb_webroot_location = $puphpet::params::nginx_webroot_location
+    $mariadb_pma_webroot_location = $puphpet::params::nginx_webroot_location
 
     mariadb_nginx_default_conf { 'override_default_conf':
-      webroot => $mariadb_webroot_location
+      webroot => $mariadb_pma_webroot_location
     }
   }
 
-  file { "${mariadb_webroot_location}/phpmyadmin":
-    target  => "/usr/share/${phpMyAdmin_folder}",
-    ensure  => link,
-    replace => 'no',
+  exec { 'move phpmyadmin to webroot':
+    command => "mv /usr/share/${phpMyAdmin_folder} ${mariadb_pma_webroot_location}/phpmyadmin",
+    onlyif  => "test ! -d ${mariadb_pma_webroot_location}/phpmyadmin",
     require => [
       Package[$phpMyAdmin_package],
-      File[$mariadb_webroot_location]
+      File[mariadb_pma_webroot_location]
     ]
+  }
+
+  file { "/usr/share/${phpMyAdmin_folder}":
+    target  => "${mariadb_pma_webroot_location}/phpmyadmin",
+    ensure  => link,
+    replace => 'no',
+    require => Exec['move phpmyadmin to webroot']
+  }
+}
+
+if has_key($mariadb_values, 'adminer') and $mariadb_values['adminer'] == 1 and is_hash($php_values) {
+  if is_hash($apache_values) {
+    $mariadb_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  } elsif is_hash($nginx_values) {
+    $mariadb_adminer_webroot_location = $puphpet::params::nginx_webroot_location
+  } else {
+    $mariadb_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  }
+
+  class { 'puphpet::adminer':
+    location => "${mariadb_adminer_webroot_location}/adminer",
+    owner    => 'www-data'
   }
 }
 
@@ -134,20 +155,5 @@ define mariadb_nginx_default_conf (
   class { 'puphpet::nginx':
     fastcgi_pass => $fastcgi_pass,
     notify       => Class['nginx::service'],
-  }
-}
-
-if has_key($mariadb_values, 'adminer') and $mariadb_values['adminer'] == 1 and is_hash($php_values) {
-  if is_hash($apache_values) {
-    $mariadb_adminer_webroot_location = $puphpet::params::apache_webroot_location
-  } elsif is_hash($nginx_values) {
-    $mariadb_adminer_webroot_location = $puphpet::params::nginx_webroot_location
-  } else {
-    $mariadb_adminer_webroot_location = $puphpet::params::apache_webroot_location
-  }
-
-  class { 'puphpet::adminer':
-    location => "${mariadb_adminer_webroot_location}/adminer",
-    owner    => 'www-data'
   }
 }
