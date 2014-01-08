@@ -63,3 +63,18 @@ define postgresql_db (
     }
   }
 }
+
+if has_key($postgresql_values, 'adminer') and $postgresql_values['adminer'] == 1 and is_hash($php_values) {
+  if is_hash($apache_values) {
+    $postgresql_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  } elsif is_hash($nginx_values) {
+    $postgresql_adminer_webroot_location = $puphpet::params::nginx_webroot_location
+  } else {
+    $postgresql_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  }
+
+  class { 'puphpet::adminer':
+    location => "${postgresql_adminer_webroot_location}/adminer",
+    owner    => 'www-data'
+  }
+}

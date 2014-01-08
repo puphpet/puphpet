@@ -1,3 +1,9 @@
 root_password: 123
+
+phppgadmin: 0
+
 user_group: postgres
+
 databases: []
+
+adminer: 0
