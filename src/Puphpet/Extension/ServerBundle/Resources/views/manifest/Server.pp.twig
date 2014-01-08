@@ -56,7 +56,16 @@ case $::osfamily {
   'redhat': {
     class { 'yum': extrarepo => ['epel'] }
 
+    class { 'yum::repo::rpmforge': }
+    class { 'yum::repo::repoforgeextras': }
+
     Class['::yum'] -> Yum::Managed_yumrepo <| |> -> Package <| |>
+
+    package { 'git-latest':
+      name    => 'git',
+      ensure  => 'latest',
+      require => Class['yum::repo::repoforgeextras']
+    }
 
     exec { 'bash_git':
       cwd     => "/home/${::ssh_username}",
@@ -93,6 +102,8 @@ if $php_values == undef {
 
 case $::operatingsystem {
   'debian': {
+    include apt::backports
+
     add_dotdeb { 'packages.dotdeb.org': release => $lsbdistcodename }
 
     if is_hash($php_values) {
@@ -105,9 +116,19 @@ case $::operatingsystem {
         add_dotdeb { 'packages.dotdeb.org-php55': release => 'wheezy-php55' }
       }
     }
+
+    $server_lsbdistcodename = downcase($lsbdistcodename)
+
+    apt::force { 'git':
+      release => "${server_lsbdistcodename}-backports",
+      timeout => 60
+    }
   }
   'ubuntu': {
     apt::key { '4F4EA0AAE5267A6C': }
+    apt::key { '4CBEDD5A': }
+
+    apt::ppa { 'ppa:pdoes/ppa': require => Apt::Key['4CBEDD5A'] }
 
     if is_hash($php_values) {
       # Ubuntu Lucid 10.04, Precise 12.04, Quantal 12.10 and Raring 13.04 can do PHP 5.3 (default <= 12.10) and 5.4 (default <= 13.04)
