@@ -26,6 +26,8 @@ services:
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.mysql.configure ] ]
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.postgresql.configure ] ]
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.mariadb.configure ] ]
+        # work queues
+            - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.beanstalkd.configure ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

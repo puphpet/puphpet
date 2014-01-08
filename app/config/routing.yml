@@ -53,3 +53,7 @@ puphpet.extension.postgresql:
 puphpet.extension.mariadb:
     resource: "@PuphpetExtensionMariaDbBundle/Resources/config/routing.yml"
     prefix:   /extensions/mariadb
+
+puphpet.extension.beanstalkd:
+    resource: "@PuphpetExtensionBeanstalkdBundle/Resources/config/routing.yml"
+    prefix:   /extensions/beanstalkd

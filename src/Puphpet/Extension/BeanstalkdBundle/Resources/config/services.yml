@@ -1,0 +1,17 @@
+parameters:
+
+services:
+    puphpet.extension.beanstalkd.configure:
+        class: Puphpet\Extension\BeanstalkdBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.beanstalkd.front_controller:
+        class: Puphpet\Extension\BeanstalkdBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.beanstalkd.manifest_controller:
+        class: Puphpet\Extension\BeanstalkdBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]

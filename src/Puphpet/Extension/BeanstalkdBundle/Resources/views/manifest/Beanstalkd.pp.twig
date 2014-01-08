@@ -1,0 +1,9 @@
+# Begin beanstalkd
+
+if $beanstalkd_values == undef {
+  $beanstalkd_values = hiera('beanstalkd', false)
+}
+
+if has_key($beanstalkd_values, 'install') and $beanstalkd_values['install'] == 1 {
+  beanstalkd::config { $beanstalkd_values: }
+}
