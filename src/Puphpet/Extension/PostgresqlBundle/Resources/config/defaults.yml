@@ -6,6 +6,4 @@ databases:
         grant: ALL
         sql_file: ~
 
-phppgadmin: 0
-
 adminer: 0
