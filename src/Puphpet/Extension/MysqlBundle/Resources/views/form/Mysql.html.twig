@@ -12,7 +12,7 @@
 
                 <div class="panel-body">
                     <div class="row form-group">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="mysql-root_password">Root Password</label>
                             <input type="text" id="mysql-root_password" name="mysql[root_password]"
                                    value="{{ mysql.root_password }}" class="form-control" />
@@ -34,6 +34,18 @@
                             <p class="help-block">
                                 If installed it will be available from
                                 <code>http://{SERVER_IP_ADDRESS}/phpmyadmin</code>.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mysql-adminer">Adminer</label><br />
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="mysql-adminer" name="mysql[adminer]"
+                                       {% if mysql.adminer %}checked{% endif %} value="1" /> Install Adminer
+                            </label>
+
+                            <p class="help-block">
+                                If installed it will be available from
+                                <code>http://{SERVER_IP_ADDRESS}/adminer</code>.
                             </p>
                         </div>
                     </div>
