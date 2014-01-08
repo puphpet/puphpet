@@ -6,5 +6,5 @@ group: 'www-data'
 default_vhost: true
 mpm_module: prefork
 
-mod_pagespeed: true
-mod_spdy: true
+mod_pagespeed: 0
+mod_spdy: 0
