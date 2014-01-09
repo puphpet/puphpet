@@ -126,8 +126,12 @@ case $::operatingsystem {
     }
   }
   'ubuntu': {
-    apt::key { '4F4EA0AAE5267A6C': }
-    apt::key { '4CBEDD5A': }
+    apt::key { '4F4EA0AAE5267A6C':
+      key_server => 'hkp://keyserver.ubuntu.com:80'
+    }
+    apt::key { '4CBEDD5A':
+      key_server => 'hkp://keyserver.ubuntu.com:80'
+    }
 
     apt::ppa { 'ppa:pdoes/ppa': require => Apt::Key['4CBEDD5A'] }
 
