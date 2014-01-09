@@ -36,7 +36,8 @@ file { "/home/${::ssh_username}":
 exec { 'dotfiles':
   cwd     => "/home/${::ssh_username}",
   command => "cp -r /vagrant/files/dot/.[a-zA-Z0-9]* /home/${::ssh_username}/ && chown -R ${::ssh_username} /home/${::ssh_username}/.[a-zA-Z0-9]*",
-  onlyif  => "test -d /vagrant/files/dot",
+  onlyif  => 'test -d /vagrant/files/dot',
+  returns => [0, 1],
   require => User[$::ssh_username]
 }
 
