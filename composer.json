@@ -1,31 +1,26 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "puphpet/puphpet",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "A simple GUI to set up virtual machines for PHP development.",
     "autoload": {
         "psr-0": { "": "src/" }
     },
     "require": {
-        "php": ">=5.3.3",
-        "symfony/symfony": "2.3.*",
-        "doctrine/orm": ">=2.2.3,<2.4-dev",
-        "doctrine/doctrine-bundle": "1.2.*",
-        "twig/extensions": "1.0.*",
-        "symfony/assetic-bundle": "2.3.*",
-        "symfony/swiftmailer-bundle": "2.3.*",
-        "symfony/monolog-bundle": "2.3.*",
-        "sensio/distribution-bundle": "2.3.*",
-        "sensio/framework-extra-bundle": "2.3.*",
-        "sensio/generator-bundle": "2.3.*",
-        "incenteev/composer-parameter-handler": "~2.0",
-        "ircmaxell/random-lib": "1.0.*@dev",
-        "zenstruck/slugify-bundle": "1.*@dev"
+        "php"                                   : ">=5.4",
+        "symfony/symfony"                       : "~2.4",
+        "twig/extensions"                       : "~1.0",
+        "symfony/assetic-bundle"                : "~2.3",
+        "sensio/distribution-bundle"            : "~2.3",
+        "sensio/framework-extra-bundle"         : "~3.0",
+        "sensio/generator-bundle"               : "~2.3",
+        "incenteev/composer-parameter-handler"  : "~2.0",
+        "ircmaxell/random-lib"                  : "v1.0.0",
+        "zenstruck/slugify-bundle"              : "v1.1.1"
     },
     "require-dev": {
-        "phpunit/phpunit":                           "3.7.27",
-        "whatthejeff/nyancat-phpunit-resultprinter": "~1.2",
-        "ptrofimov/xpmock":                          "dev-master"
+        "phpunit/phpunit"                           : "~3.7",
+        "whatthejeff/nyancat-phpunit-resultprinter" : "~1.2"
     },
     "scripts": {
         "post-install-cmd": [
@@ -46,15 +41,11 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "dev",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "2.3-dev"
         }
     }
 }
