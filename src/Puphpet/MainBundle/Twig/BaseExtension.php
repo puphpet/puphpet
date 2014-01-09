@@ -17,6 +17,7 @@ class BaseExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
+            new \Twig_SimpleFunction('mt_rand', [$this, 'mt_rand']),
             new \Twig_SimpleFunction('uniqid', [$this, 'uniqid']),
         ];
     }
@@ -36,6 +37,11 @@ class BaseExtension extends \Twig_Extension
                       'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         return $random->generateString(12, $characters);
+    }
+
+    public function mt_rand($min, $max)
+    {
+        return mt_rand($min, $max);
     }
 
     public function str_replace($subject, $search, $replace)
