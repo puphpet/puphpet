@@ -36,7 +36,8 @@ file { "/home/${::ssh_username}":
 exec { 'dotfiles':
   cwd     => "/home/${::ssh_username}",
   command => "cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /home/${::ssh_username}/ \
-              && chown -R ${::ssh_username} /home/${::ssh_username}/.[a-zA-Z0-9]*",
+              && chown -R ${::ssh_username} /home/${::ssh_username}/.[a-zA-Z0-9]* \
+              && cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /root/",
   onlyif  => 'test -d /vagrant/puphpet/files/dot',
   returns => [0, 1],
   require => User[$::ssh_username]
@@ -75,6 +76,13 @@ case $::osfamily {
       creates => "/home/${::ssh_username}/.bash_git"
     }
 
+    exec { 'bash_git for root':
+      cwd     => '/root',
+      command => "cp /home/${::ssh_username}/.bash_git /root/.bash_git",
+      creates => '/root/.bash_git',
+      require => Exec['bash_git']
+    }
+
     file_line { 'link ~/.bash_git':
       ensure  => present,
       line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
@@ -85,13 +93,28 @@ case $::osfamily {
       ]
     }
 
+    file_line { 'link ~/.bash_git for root':
+      ensure  => present,
+      line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
+      path    => '/root/.bashrc',
+      require => [
+        Exec['dotfiles'],
+        Exec['bash_git'],
+      ]
+    }
+
     file_line { 'link ~/.bash_aliases':
       ensure  => present,
       line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
       path    => "/home/${::ssh_username}/.bash_profile",
-      require => [
-        File_line['link ~/.bash_git'],
-      ]
+      require => File_line['link ~/.bash_git']
+    }
+
+    file_line { 'link ~/.bash_aliases for root':
+      ensure  => present,
+      line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
+      path    => '/root/.bashrc',
+      require => File_line['link ~/.bash_git for root']
     }
 
     ensure_packages( ['augeas'] )
