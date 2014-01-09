@@ -8,7 +8,6 @@ vm:
     provider:
         virtualbox:
             modifyvm:
-                name: my-vm-box
                 natdnshostresolver1: on
                 memory: 512
             setextradata:
