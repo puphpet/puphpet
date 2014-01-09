@@ -1,7 +1,7 @@
 ## Begin Apache manifest
 
 if $yaml_values == undef {
-  $yaml_values = loadyaml('/vagrant/puppet/hieradata/common.yaml')
+  $yaml_values = loadyaml('/vagrant/puphpet/config.yaml')
 }
 
 if $apache_values == undef {

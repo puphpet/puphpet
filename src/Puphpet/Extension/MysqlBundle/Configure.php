@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'MySQL';
     protected $slug = 'mysql';
-    protected $targetFile = 'puppet/manifests/default.pp';
+    protected $targetFile = 'puphpet/puppet/manifests/default.pp';
 
     protected $sources = [
         'mysql' => ":git => 'https://github.com/puphpet/puppetlabs-mysql.git'",
