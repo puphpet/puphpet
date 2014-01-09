@@ -13,7 +13,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puppet/manifests/default.pp';
 
     protected $sources = [
-        'postgresql' => ":git => 'git://github.com/puphpet/puppetlabs-postgresql.git'",
+        'postgresql' => ":git => 'https://github.com/puphpet/puppetlabs-postgresql.git'",
     ];
 
     /**

@@ -13,10 +13,10 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puppet/manifests/default.pp';
 
     protected $sources = [
-        'apt'    => ":git => 'git://github.com/puphpet/puppetlabs-apt.git'",
-        'mysql'  => ":git => 'git://github.com/puphpet/puppetlabs-mysql.git'",
-        'stdlib' => ":git => 'git://github.com/puphpet/puppetlabs-stdlib.git'",
-        'yum'    => ":git => 'git://github.com/puphpet/puppet-yum.git'",
+        'apt'    => ":git => 'https://github.com/puphpet/puppetlabs-apt.git'",
+        'mysql'  => ":git => 'https://github.com/puphpet/puppetlabs-mysql.git'",
+        'stdlib' => ":git => 'https://github.com/puphpet/puppetlabs-stdlib.git'",
+        'yum'    => ":git => 'https://github.com/puphpet/puppet-yum.git'",
     ];
 
     /**

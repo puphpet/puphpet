@@ -13,7 +13,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puppet/manifests/default.pp';
 
     protected $sources = [
-        'nginx' => ":git => 'git://github.com/puphpet/puppet-nginx.git'",
+        'nginx' => ":git => 'https://github.com/puphpet/puppet-nginx.git'",
     ];
 
     /**

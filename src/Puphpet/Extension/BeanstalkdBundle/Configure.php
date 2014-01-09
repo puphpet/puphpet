@@ -13,7 +13,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puppet/manifests/default.pp';
 
     protected $sources = [
-        'beanstalkd' => ":git => 'git://github.com/puphpet/puppet-beanstalkd.git'",
+        'beanstalkd' => ":git => 'https://github.com/puphpet/puppet-beanstalkd.git'",
     ];
 
     /**

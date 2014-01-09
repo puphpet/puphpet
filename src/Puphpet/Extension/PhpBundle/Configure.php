@@ -13,9 +13,9 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puppet/manifests/default.pp';
 
     protected $sources = [
-        'php'      => ":git => 'git://github.com/puphpet/puppet-php.git'",
-        'composer' => ":git => 'git://github.com/puphpet/puppet-composer.git'",
-        'puphpet'  => ":git => 'git://github.com/puphpet/puppet-puphpet.git'",
+        'php'      => ":git => 'https://github.com/puphpet/puppet-php.git'",
+        'composer' => ":git => 'https://github.com/puphpet/puppet-composer.git'",
+        'puphpet'  => ":git => 'https://github.com/puphpet/puppet-puphpet.git'",
     ];
 
     /**
