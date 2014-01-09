@@ -10,7 +10,7 @@ class ManifestController extends Controller implements Extension\ControllerInter
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetExtensionVagrantfileDigitalOceanBundle:manifest:VagrantfileDigitalOcean.pp.twig', [
+        return $this->render('PuphpetExtensionVagrantfileDigitalOceanBundle:manifest:VagrantfileDigitalOcean.rb.twig', [
             'data' => $data,
         ]);
     }
