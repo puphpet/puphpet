@@ -82,3 +82,10 @@ else
     cd "${PUPPET_DIR}" && librarian-puppet update >/dev/null
     echo 'Finished running update librarian-puppet'
 fi
+
+if [[ "${OS}" == 'centos' ]]; then
+    echo "Replacing puppetlabs-git module with custom"
+    rm -rf /etc/puppet/modules/git
+    git clone https://github.com/puphpet/puppetlabs-git.git /etc/puppet/modules/git
+    echo "Finished replacing puppetlabs-git module with custom"
+fi
