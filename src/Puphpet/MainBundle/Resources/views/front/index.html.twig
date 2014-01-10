@@ -51,12 +51,14 @@
                             {{ sections.single(extensionManager, 'php') }}
 
                             {{ sections.grouped(extensionManager, 'php-extensions') }}
+                            
+                            {{ sections.single(extensionManager, 'elasticsearch', 'Elasticsearch') }}
 
                             {{ sections.singleSelectGrouped(extensionManager, 'database', 'Database') }}
 
                             {{ sections.singleSelectGrouped(extensionManager, 'work-queue', 'Work Queue') }}
                              
-                            {{ sections.singleSelectGrouped(extensionManager, 'elasticsearch', 'Elasticsearch') }}
+                            
                             
                         </div>
 
