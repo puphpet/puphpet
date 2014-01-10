@@ -14,7 +14,7 @@ $webroot_location = $puphpet::params::apache_webroot_location
 
 exec { "exec mkdir -p ${webroot_location}":
   command => "mkdir -p ${webroot_location}",
-  onlyif  => "test -d ${webroot_location}",
+  creates => $webroot_location,
 }
 
 if ! defined(File[$webroot_location]) {
