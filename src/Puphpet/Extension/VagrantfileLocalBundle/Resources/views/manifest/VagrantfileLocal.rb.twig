@@ -50,6 +50,8 @@ Vagrant.configure("2") do |config|
 {% endif %}
 {% endfor %}
 
+  config.vm.provision :shell, :path => "puphpet/shell/execute-files.sh"
+
 {% if data.ssh.host %}  config.ssh.host = "{{ data.ssh.host }}"{% endif %}
 
 {% if data.ssh.port %}  config.ssh.port = {{ data.ssh.port }}{% endif %}
