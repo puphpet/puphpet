@@ -64,10 +64,11 @@ case $::osfamily {
 
     Class['::yum'] -> Yum::Managed_yumrepo <| |> -> Package <| |>
 
-    package { 'git-latest':
-      name    => 'git',
-      ensure  => 'latest',
-      require => Class['yum::repo::repoforgeextras']
+    if defined(Package['git']) == false {
+      package { 'git':
+        ensure  => latest,
+        require => Class['yum::repo::repoforgeextras']
+      }
     }
 
     exec { 'bash_git':
