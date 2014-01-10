@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'Elasticsearch';
     protected $slug = 'elasticsearch';
-    protected $targetFile = 'puppet/manifests/default.pp';
+    protected $targetFile = 'puphpet/puppet/manifests/default.pp';
 
     protected $sources = [
         'mysql' => ":git => 'https://github.com/elasticsearch/puppet-elasticsearch'",
