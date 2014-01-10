@@ -1,0 +1,3 @@
+puphpet.extension.mysql.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionElasticsearchBundle:Front:index }

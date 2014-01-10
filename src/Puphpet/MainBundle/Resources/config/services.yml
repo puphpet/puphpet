@@ -30,6 +30,8 @@ services:
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.mariadb.configure ] ]
         # work queues
             - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.beanstalkd.configure ] ]
+        # Elasticsearch
+            - [ addExtension, [ @puphpet.extension.elasticsearch.configure ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

@@ -1,0 +1,33 @@
+<input type="hidden" name="is_disabled[elasticsearch]" value="0" />
+
+<section id="elasticsearch">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Elasticsearch</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="elasticsearch[install]"
+                                       class="update-other-input"
+                                       {% if elasticsearch.install %}checked{% endif %} value="1" /> Install Elasticsearch
+                            </label>
+
+                            <p class="help-block">
+                                Elastic search will be installed to /etc/etlasticsearch-{version}. A service wrapper will be added
+                                for accessing elastic search. If istalled it will be started on boot.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+    
