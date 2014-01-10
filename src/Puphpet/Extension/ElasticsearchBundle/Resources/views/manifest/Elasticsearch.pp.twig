@@ -1,0 +1,7 @@
+##begin elastic search manifest
+if $osfamily == 'debian' {
+        class { 'elasticsearch':
+
+                package_url => 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb'
+        }
+}

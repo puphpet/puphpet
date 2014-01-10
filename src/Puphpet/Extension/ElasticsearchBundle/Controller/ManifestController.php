@@ -10,7 +10,7 @@ class ManifestController extends Controller implements Extension\ControllerInter
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetExtensionMysqlBundle:manifest:Mysql.pp.twig', [
+        return $this->render('PuphpetExtensionElasticsearchBundle:manifest:Elasticsearch.pp.twig', [
             'data' => $data,
         ]);
     }
