@@ -1,75 +1,88 @@
+require 'yaml'
+
+configValues = YAML.load_file('./puphpet/config.yaml')
+data = configValues['vagrantfile-local']
+
 Vagrant.configure("2") do |config|
-  config.vm.box = "{{ data.vm.box }}"
-  config.vm.box_url = "{{ data.vm.box_url|raw }}"
-{% if data.vm.hostname %}  config.vm.hostname = {{ data.vm.hostname }}{% endif %}
+  config.vm.box = "#{data['vm']['box']}"
+  config.vm.box_url = "#{data['vm']['box_url']}"
 
-{% if data.vm.network.private_network %}
-  config.vm.network "private_network", ip: "{{ data.vm.network.private_network }}"
-{% endif %}
-
-{% for forwarded in data.vm.network.forwarded_port if (forwarded.host and forwarded.guest) %}
-  config.vm.network "forwarded_port", guest: {{ forwarded.guest }}, host: {{ forwarded.host }}
-{% endfor %}
-
-{% for folder in data.vm.synced_folder %}
-  config.vm.synced_folder "{{ folder.source }}", "{{ folder.target }}"{% if folder.id %}, id: "{{ folder.id|raw }}"{% endif %}{% if folder.nfs %}, type: "nfs"{% endif %}
-
-{% endfor %}
-
-{% if data.vm.usable_port_range %}  config.vm.usable_port_range = ({{ data.vm.usable_port_range }}){% endif %}
-
-{% for name, provider in data.vm.provider %}
-  config.vm.provider :{{ name }} do |{{ name }}|
-{% for type, values in provider %}
-{% for valueName, valueValue in values %}
-    {{ name }}.customize ["{{ type }}", :id, "--{{ valueName }}", "{{ valueValue }}"]
-{% endfor %}
-{% endfor %}
+  if data['vm']['hostname'].to_s != ''
+    config.vm.hostname = "#{data['vm']['hostname']}"
   end
-{% endfor %}
 
-  config.vm.provision :shell, :path => "puphpet/shell/initial-setup.sh"
+  if data['vm']['network']['private_network'].to_s != ''
+    config.vm.network "private_network", ip: "#{data['vm']['network']['private_network']}"
+  end
+
+  data['vm']['network']['forwarded_port'].each do |i, port|
+    config.vm.network :forwarded_port, guest: port['guest'].to_i, host: port['host'].to_i
+  end
+
+  data['vm']['synced_folder'].each do |i, folder|
+    nfs = (folder['nfs'] == "true") ? "nfs" : nil
+    config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{folder['id']}", type: nfs
+  end
+
+  config.vm.usable_port_range = (10200..10500)
+
+  if !data['vm']['provider']['virtualbox'].empty?
+    config.vm.provider :virtualbox do |virtualbox|
+      data['vm']['provider']['virtualbox']['modifyvm'].each do |key, value|
+        if key == "natdnshostresolver1"
+          value = value ? "on" : "off"
+        end
+        virtualbox.customize ["modifyvm", :id, "--#{key}", "#{value}"]
+      end
+    end
+  end
+
+  config.vm.provision "shell" do |s|
+    s.path = "puphpet/shell/initial-setup.sh"
+    s.args = "/vagrant/puphpet"
+  end
   config.vm.provision :shell, :path => "puphpet/shell/update-puppet.sh"
   config.vm.provision :shell, :path => "puphpet/shell/librarian-puppet-vagrant.sh"
-{% for provisioner, values in data.vm.provision %}
-{% if values is not iterable %}
-  config.vm.provision :{{ provisioner }} => "{{ values|raw }}"
-{% else %}
-  config.vm.provision :{{ provisioner }} do |{{ provisioner }}|
-{% if provisioner == 'puppet' %}
-    puppet.facter = {
-      "ssh_username" => "{% if data.ssh.username %}{{ data.ssh.username }}{% else %}vagrant{% endif %}"
-    }
-{% endif %}
 
-{% for key, value in values if value %}
-    {{ provisioner }}.{{ key }} = {% if value is iterable %}["{{ value|join('", "')|raw }}"]{% else %}"{{ value|raw }}"{% endif %}
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
 
-{% endfor %}
+    if !data['vm']['provision']['puppet']['options'].empty?
+      puppet.options = data['vm']['provision']['puppet']['options']
+    end
   end
-{% endif %}
-{% endfor %}
 
   config.vm.provision :shell, :path => "puphpet/shell/execute-files.sh"
 
-{% if data.ssh.host %}  config.ssh.host = "{{ data.ssh.host }}"{% endif %}
-
-{% if data.ssh.port %}  config.ssh.port = {{ data.ssh.port }}{% endif %}
-
-{% if data.ssh.private_key_path %}  config.ssh.private_key_path = "{{ data.ssh.private_key_path }}"{% endif %}
-
-{% if data.ssh.username %}  config.ssh.username = "{{ data.ssh.username }}"{% endif %}
-
-{% if data.ssh.guest_port %}  config.ssh.guest_port = {{ data.ssh.guest_port }}{% endif %}
-
-{% if data.ssh.shell %}  config.ssh.shell = "{{ data.ssh.shell }}{% endif %}"
-
-  config.ssh.keep_alive = {% if data.ssh.keep_alive %}true{% else %}false{% endif %}
-
-  config.ssh.forward_agent = {% if data.ssh.forward_agent %}true{% else %}false{% endif %}
-
-  config.ssh.forward_x11 = {% if data.ssh.forward_x11 %}true{% else %}false{% endif %}
-
-{% if data.vagrant.host %}  config.vagrant.host = {{ data.vagrant.host }}{% endif %}
+  if !data['ssh']['host'].nil?
+    config.ssh.host = "#{data['ssh']['host']}"
+  end
+  if !data['ssh']['port'].nil?
+    config.ssh.port = "#{data['ssh']['port']}"
+  end
+  if !data['ssh']['private_key_path'].nil?
+    config.ssh.private_key_path = "#{data['ssh']['private_key_path']}"
+  end
+  if !data['ssh']['username'].nil?
+    config.ssh.username = "#{data['ssh']['username']}"
+  end
+  if !data['ssh']['guest_port'].nil?
+    config.ssh.guest_port = data['ssh']['guest_port']
+  end
+  if !data['ssh']['shell'].nil?
+    config.ssh.shell = "#{data['ssh']['shell']}"
+  end
+  if !data['ssh']['keep_alive'].nil?
+    config.ssh.keep_alive = data['ssh']['keep_alive']
+  end
+  if !data['ssh']['forward_agent'].nil?
+    config.ssh.forward_agent = data['ssh']['forward_agent']
+  end
+  if !data['ssh']['forward_x11'].nil?
+    config.ssh.forward_x11 = data['ssh']['forward_x11']
+  end
+  if !data['vagrant']['host'].nil?
+    config.vagrant.host = data['vagrant']['host']
+  end
 
 end
