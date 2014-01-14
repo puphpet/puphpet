@@ -336,10 +336,6 @@ PUPHPET.disableInactiveTabElements = function() {
  */
 PUPHPET.enableClickedTabElement = function() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-        if ($(this).parentsUntil('.multi-select')!== 0) {
-            return;
-        }
-
         var original = e.relatedTarget.getAttribute('data-target-element');
         var target   = e.target.getAttribute('data-target-element');
 
