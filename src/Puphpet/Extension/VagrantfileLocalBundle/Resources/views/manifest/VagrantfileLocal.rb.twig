@@ -81,8 +81,5 @@ Vagrant.configure("2") do |config|
   if !data['ssh']['forward_x11'].nil?
     config.ssh.forward_x11 = data['ssh']['forward_x11']
   end
-  if !data['vagrant']['host'].nil?
-    config.vagrant.host = data['vagrant']['host']
-  end
 
 end
