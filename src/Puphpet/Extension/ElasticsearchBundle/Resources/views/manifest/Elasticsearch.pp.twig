@@ -1,7 +1,14 @@
 ##begin elastic search manifest
+
 if $osfamily == 'debian' {
         class { 'elasticsearch':
-
+                java_install => true,
+                autoupgrade => true,
                 package_url => 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb'
+        }
+}else if $osfamily == 'redhat'{
+        class { 'elasticsearch':
+                java_install => true,
+                autoupgrade => true
         }
 }
