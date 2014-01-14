@@ -336,6 +336,10 @@ PUPHPET.disableInactiveTabElements = function() {
  */
 PUPHPET.enableClickedTabElement = function() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        if ($(this).parent().parent().hasClass('multi-select')) {
+            return;
+        }
+
         var original = e.relatedTarget.getAttribute('data-target-element');
         var target   = e.target.getAttribute('data-target-element');
 
@@ -501,9 +505,6 @@ PUPHPET.toggleMultiGroupedTab = function() {
             $(targetContainerSpan).removeClass('glyphicon-check');
             $(targetContainerSpan).addClass('glyphicon-unchecked');
         }
-
-        //var $checkbox = $(this).find('input');
-        //$checkbox.prop('checked', !$checkbox.prop('checked'));
     });
 };
 
