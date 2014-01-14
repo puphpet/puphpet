@@ -305,7 +305,8 @@ PUPHPET.delRepeatableElement = function() {
 };
 
 /**
- * If elements are grouped into tabs, set all non-active tab elements as inactive
+ * If elements are grouped into tabs, set all non-active tab elements as inactive.
+ * Do not auto-disable tabs that belong to multi-selectable groups.
  *
  * This is useful so inactive choices do not get POSTed along with rest of form data.
  *
@@ -313,6 +314,10 @@ PUPHPET.delRepeatableElement = function() {
  */
 PUPHPET.disableInactiveTabElements = function() {
     $('ul.group-tabs li').each(function() {
+        if ($(this).parent().hasClass('multi-select')) {
+            return;
+        }
+
         if ($(this).hasClass('active')) {
             return;
         }
@@ -326,10 +331,15 @@ PUPHPET.disableInactiveTabElements = function() {
 
 /**
  * When switching tabs, disable all form elements in non-active tabs and
- * enable all form elements in newly active tab
+ * enable all form elements in newly active tab. Do not auto-disable
+ * tabs that belong to multi-selectable groups
  */
 PUPHPET.enableClickedTabElement = function() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        if ($(this).parentsUntil('.multi-select')!== 0) {
+            return;
+        }
+
         var original = e.relatedTarget.getAttribute('data-target-element');
         var target   = e.target.getAttribute('data-target-element');
 
@@ -481,6 +491,26 @@ PUPHPET.sidebarPillToggle = function() {
     }
 };
 
+PUPHPET.toggleMultiGroupedTab = function() {
+    $(document).on('change', 'input.multiselect-grouped-tab', function(e) {
+        var targetContainer     = '#' + this.getAttribute('data-tab-target');
+        var targetContainerSpan = '#' + this.getAttribute('data-tab-target') + ' span';
+
+        $(targetContainer).toggleClass('text-success');
+
+        if($(this).is(':checked')){
+            $(targetContainerSpan).removeClass('glyphicon-unchecked');
+            $(targetContainerSpan).addClass('glyphicon-check');
+        } else {
+            $(targetContainerSpan).removeClass('glyphicon-check');
+            $(targetContainerSpan).addClass('glyphicon-unchecked');
+        }
+
+        //var $checkbox = $(this).find('input');
+        //$checkbox.prop('checked', !$checkbox.prop('checked'));
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -494,4 +524,5 @@ $(document).ready(function() {
     PUPHPET.uploadConfig();
     PUPHPET.sidebar();
     PUPHPET.sidebarPillToggle();
+    PUPHPET.toggleMultiGroupedTab();
 });
