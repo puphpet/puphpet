@@ -31,4 +31,4 @@ ssh:
     shell: bash -l
 
 vagrant:
-    host: :detect
+    host: detect
