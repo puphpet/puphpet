@@ -169,6 +169,14 @@ div.navbar {
     position: absolute;
 }
 
+#nav-sidebar.affix {
+    top: 50px;
+}
+
+#nav-sidebar .nav > li > a {
+    padding: 5px 10px;
+}
+
 #nav-sidebar .nav > li > a:hover,
 #nav-sidebar .nav > li > a:focus {
     margin-left: -3px;
@@ -201,6 +209,10 @@ div.navbar {
     padding: 5px 0;
     display: block;
     color: #4C9BD8;
+}
+
+#nav-sidebar .nav > li p a {
+    padding: 2px 0;
 }
 
 #nav-sidebar .nav > li.active p a {
