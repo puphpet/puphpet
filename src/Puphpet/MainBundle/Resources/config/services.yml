@@ -28,6 +28,8 @@ services:
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.mysql.configure ] ]
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.postgresql.configure ] ]
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.mariadb.configure ] ]
+        # nosql db group
+            - [ addExtensionToGroup, [ 'nosql', @puphpet.extension.mongodb.configure ] ]
         # work queues
             - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.beanstalkd.configure ] ]
 

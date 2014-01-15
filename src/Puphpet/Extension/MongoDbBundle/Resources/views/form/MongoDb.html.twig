@@ -1,0 +1,50 @@
+<input type="hidden" name="is_disabled[mongodb]" value="0" />
+
+<section id="mongodb">
+
+    <!-- MongoDB / Quick Settings -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">MongoDB Quick Settings</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="mongodb[install]"
+                                       {% if mongodb.install %}checked{% endif %} value="1" /> Install MongoDB
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="mongodb-port">Port</label>
+                            <input type="number" id="mongodb-port" name="mongodb[port]"
+                                   placeholder="27017" pattern="^[1-9][0-9]*$" min="1"
+                                   value="{{ mongodb.port }}" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end MongoDB / Quick Settings -->
+
+    {% for database in mongodb.databases %}
+        {% include 'PuphpetExtensionMongoDbBundle:form/sections:NewUserAndDatabase.html.twig'
+            with {'database': database} %}
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                    data-source-url="{{ path('puphpet.extension.mongodb.add_database') }}">Add another MongoDB database</button>
+        </div>
+    </div>
+
+</section>

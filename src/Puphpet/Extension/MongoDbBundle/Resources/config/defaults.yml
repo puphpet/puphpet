@@ -1,0 +1,5 @@
+databases:
+    -
+        name: ~
+        user: ~
+        password: ~
