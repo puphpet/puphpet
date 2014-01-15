@@ -43,6 +43,7 @@ Vagrant.configure("2") do |config|
       "ssh_username" => "#{ssh_username}"
     }
     puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
+    puppet.manifest_file = "#{data['vm']['provision']['puppet']['manifest_file']}"
 
     if !data['vm']['provision']['puppet']['options'].empty?
       puppet.options = data['vm']['provision']['puppet']['options']

@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'MariaDB';
     protected $slug = 'mariadb';
-    protected $targetFile = 'puphpet/puppet/manifests/default.pp';
+    protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
         'apt'    => ":git => 'https://github.com/puphpet/puppetlabs-apt.git'",

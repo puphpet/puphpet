@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'Nginx';
     protected $slug = 'nginx';
-    protected $targetFile = 'puphpet/puppet/manifests/default.pp';
+    protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
         'nginx' => ":git => 'https://github.com/puphpet/puppet-nginx.git'",

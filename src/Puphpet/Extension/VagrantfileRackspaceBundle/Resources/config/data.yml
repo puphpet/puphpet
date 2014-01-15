@@ -11,7 +11,8 @@ vm:
             api_key: ~
     provision:
         puppet:
-            manifests_path: "puphpet/puppet/manifests"
+            manifests_path: "puphpet/puppet"
+            manifest_file: "manifest.pp"
             options:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
