@@ -67,7 +67,7 @@ define mysql_db (
 if has_key($mysql_values, 'phpmyadmin') and $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
   if $::osfamily == 'debian' {
     if $::operatingsystem == 'ubuntu' {
-      apt::key { '80E7349A06ED541C': }
+      apt::key { '80E7349A06ED541C': key_server => 'hkp://keyserver.ubuntu.com:80' }
       apt::ppa { 'ppa:nijel/phpmyadmin': require => Apt::Key['80E7349A06ED541C'] }
     }
 
