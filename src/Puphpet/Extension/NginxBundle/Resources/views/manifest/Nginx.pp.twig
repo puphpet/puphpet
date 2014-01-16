@@ -9,7 +9,7 @@ if $php_values == undef {
 }
 
 if $::osfamily == 'debian' and $lsbdistcodename in ['lucid'] and is_hash($php_values) and $php_values['version'] == '53' {
-  apt::key { '67E15F46': }
+  apt::key { '67E15F46': key_server => 'hkp://keyserver.ubuntu.com:80' }
   apt::ppa { 'ppa:l-mierzwa/lucid-php5':
     options => '',
     require => Apt::Key['67E15F46']
