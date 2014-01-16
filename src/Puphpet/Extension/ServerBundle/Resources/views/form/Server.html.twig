@@ -93,8 +93,8 @@
                     </p>
 
                     <p>
-                        Files within <code>exec-always</code> will run everytime you
-                        <code>$ vagrant up|provision|reload</code>, while files within <code>exec-once</code> will
+                        Files within <code>exec-always</code> will run on initial <code>$ vagrant up</code> and all
+                        <code>$ vagrant provision</code>, while files within <code>exec-once</code> will
                         run only the first time you run Vagrant, unless you SSH into the VM and remove the
                         <code>/.puphpet-stuff/exec-once-ran</code> file and re-run Vagrant.
                     </p>
