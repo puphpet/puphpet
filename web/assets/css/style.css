@@ -1,3 +1,7 @@
+body {
+    background: url('/assets/img/tweed.png');
+}
+
 .text-large {
     font-size: 2em;
 }
@@ -19,13 +23,13 @@ button.tall {
 .jumbotron {
     padding: 25px 30px 5px;
     margin-bottom: 5px;
-    background-color: #f9f9f9;
+    background-color: rgba(249, 249, 249, .3);
+    color: #fff;
 }
 
 #main {
     padding-top: 30px;
     padding-bottom: 30px;
-    background: url('/assets/img/tweed.png');
 }
 
 #main > .container {
