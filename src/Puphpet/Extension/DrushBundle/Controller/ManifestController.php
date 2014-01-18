@@ -10,7 +10,7 @@ class ManifestController extends Controller implements Extension\ControllerInter
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetExtensionDrushBundle:manifest:Solr.pp.twig', [
+        return $this->render('PuphpetExtensionDrushBundle:manifest:Drush.pp.twig', [
             'data' => $data,
         ]);
     }
