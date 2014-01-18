@@ -1,2 +1,5 @@
-available_settings:
-    - solr.cores
+versions:
+    - 4.4
+
+settings:
+    cores: [ 'development', 'staging', 'production' ]
