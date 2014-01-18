@@ -13,7 +13,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
-        'solr' => ":git => 'https://github.com/vamsee/puppet-solr.git', :ref => '0.0.5'",
+        'solr' => ":git => 'https://github.com/M1r1k/puppet-solr.git', :ref => 'puphpet-integration'",
     ];
 
     /**

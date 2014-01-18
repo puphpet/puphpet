@@ -1,5 +1,4 @@
 <section id="solr">
-
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -22,29 +21,31 @@
                         </div>
 
                         <div class="col-xs-12">
-                            <label for="solr-settings-displayer">Settings</label>
-                            <select id="solr-settings-displayer"
-                                    class="form-control select-tags-user-input"
-                                    data-target-container="solr-settings"
-                                    data-target-name="solr[settings]"
+                            <label for="solr-versions-displayer">Solr version</label>
+                            <select id="solr-versions-displayer"
+                                    class="form-control select-tag selectize"
+                                    data-target-container="solr-versions"
+                                    data-target-name="solr[versions]"
+                                    name="solr[versions]"
                                 >
-                                {% for setting in solr.available_settings %}
-                                    <option value="{{ setting }}"
-                                        {% if setting in solr.settings|keys %}selected{% endif %}>{{ setting }}</option>
+                                {% for version in solr.versions %}
+                                    <option value="{{ version }}">{{ version }}</option>
                                 {% endfor %}
                             </select>
-
-                            <div id="solr-settings" style="display: none;">
-                                {% for name, value in solr.settings %}
-                                    <input type="hidden" name="solr[settings][{{ name }}]"
-                                           data-option-name="{{ name }}" value="{{ value }}" />
-                                {% endfor %}
-                            </div>
 
                             <p class="help-block">
                                 You can choose which branch / tag of Solr to checkout.
                                 See <a href="http://mvnrepository.com/artifact/org.apache.solr/solr-core" target="_blank">list</a>
                                 for current versions.
+                            </p>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <label for="solr-cores">Solr index cores</label>
+                            <input id="solr-cores" name="solr[settings][cores]" class="form-control select-tags-user-input" value="dev,stage,prod">
+
+                            <p class="help-block">
+                                You can create any amount of index cores with any name, one per line.
                             </p>
                         </div>
                     </div>

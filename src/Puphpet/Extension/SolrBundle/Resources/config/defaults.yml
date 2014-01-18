@@ -1,2 +1,2 @@
 settings:
-    solr.cores: [ 'development', 'staging', 'production' ]
+    cores: [ 'development', 'staging', 'production' ]

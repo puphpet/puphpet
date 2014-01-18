@@ -1,23 +1,20 @@
-## Begin Drush manifest
+## Begin Solr manifest
 
-if $drush_values == undef {
-  $drush_values = hiera('drush', false)
+if $solr_values == undef {
+    $solr_values = hiera('solr', false)
 }
 
-if $drush_values['install'] != undef and $drush_values['install'] == 1 {
-  if ($drush_values['settings']['drush.tag_branch'] != undef) {
-    $drush_tag_branch = $drush_values['settings']['drush.tag_branch']
-  } else {
-    $drush_tag_branch = ''
-  }
+if $solr_values['install'] != undef and $solr_values['install'] == 1 {
+    if ($solr_values['settings']['cores'] != undef) {
+        $solr_cores = $solr_values['settings']['cores'].split(',')
 
-  ## @see https://drupal.org/node/2165015
-  include drush::git::drush
+    } else {
+        $solr_cores = []
+    }
 
-  ## class { 'drush::git::drush':
-  ##   git_branch => $drush_tag_branch,
-  ##   update     => true,
-  ## }
+    class { solr:
+        cores => $solr_cores
+    }
 }
 
-## End Drush manifest
+## End Solr manifest
