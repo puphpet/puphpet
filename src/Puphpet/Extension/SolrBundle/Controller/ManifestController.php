@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\DrushBundle\Controller;
+namespace Puphpet\Extension\SolrBundle\Controller;
 
 use Puphpet\MainBundle\Extension;
 
@@ -10,7 +10,7 @@ class ManifestController extends Controller implements Extension\ControllerInter
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetExtensionDrushBundle:manifest:Solr.pp.twig', [
+        return $this->render('PuphpetExtensionSolrBundle:manifest:Solr.pp.twig', [
             'data' => $data,
         ]);
     }
