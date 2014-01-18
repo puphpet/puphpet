@@ -1,0 +1,48 @@
+<section id="varnish">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Varnish</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="varnish[install]" class="update-other-input multiselect-grouped-tab"
+                                       data-tab-target="varnish-pill" data-update-php[composer]="1"
+                                       {% if varnish.install %}checked{% endif %} value="1" /> Install Varnish
+                            </label>
+
+                            <p class="help-block">
+                                Install Varnish
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="varnish-instructions" tabindex="-1" role="dialog"
+         aria-labelledby="varnish-instructions-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="varnish-instructions-label">Varnish instructions</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Here will be described Varnish usage instructions:</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
