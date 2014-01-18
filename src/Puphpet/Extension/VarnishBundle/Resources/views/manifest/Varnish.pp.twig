@@ -1,2 +1,10 @@
 ## Begin Varnish manifest
 
+if $varnish_values == undef {
+  $varnish_values = hiera('varnish', false)
+}
+if $varnish_values['install'] {
+  class { 'varnish': }
+}
+
+

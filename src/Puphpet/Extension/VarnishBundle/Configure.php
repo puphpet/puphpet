@@ -13,7 +13,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
-        'puppet-varnish'     => ":git => 'https://github.com/podarok/puppet-varnish.git'",
+        'varnish'     => ":git => 'https://github.com/podarok/puppet-varnish.git'",
     ];
 
     /**
