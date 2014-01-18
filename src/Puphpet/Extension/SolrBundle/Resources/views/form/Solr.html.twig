@@ -1,0 +1,57 @@
+<section id="solr">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Solr</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="solr[install]" class="multiselect-grouped-tab"
+                                       data-tab-target="solr-pill"
+                                       {% if solr.install %}checked{% endif %} value="1" /> Install Solr
+                            </label>
+
+                            <p class="help-block">
+                                Solr will be installed from official Maven repo.
+                            </p>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <label for="solr-settings-displayer">Settings</label>
+                            <select id="solr-settings-displayer"
+                                    class="form-control select-tags-user-input"
+                                    data-target-container="solr-settings"
+                                    data-target-name="solr[settings]"
+                                >
+                                {% for setting in solr.available_settings %}
+                                    <option value="{{ setting }}"
+                                        {% if setting in solr.settings|keys %}selected{% endif %}>{{ setting }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <div id="solr-settings" style="display: none;">
+                                {% for name, value in solr.settings %}
+                                    <input type="hidden" name="solr[settings][{{ name }}]"
+                                           data-option-name="{{ name }}" value="{{ value }}" />
+                                {% endfor %}
+                            </div>
+
+                            <p class="help-block">
+                                You can choose which branch / tag of Solr to checkout.
+                                See <a href="http://mvnrepository.com/artifact/org.apache.solr/solr-core" target="_blank">list</a>
+                                for current versions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>

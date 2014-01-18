@@ -1,0 +1,7 @@
+puphpet.extension.solr.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionSolrBundle:Front:index }
+
+puphpet.extension.solr.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionSolrBundle:Manifest:index }
