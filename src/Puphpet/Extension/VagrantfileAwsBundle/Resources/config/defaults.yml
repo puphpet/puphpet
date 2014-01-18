@@ -13,9 +13,11 @@ vm:
     network:
     provision:
         puppet:
+            manifests_path: "puphpet/puppet"
+            manifest_file: "manifest.pp"
             options:
                 - "--verbose"
-                - "--hiera_config /vagrant/hiera.yaml"
+                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
                 - "--parser future"
 ssh:
     username: admin

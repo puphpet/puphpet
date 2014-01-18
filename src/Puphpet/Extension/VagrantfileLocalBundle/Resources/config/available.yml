@@ -14,26 +14,10 @@ available_boxes:
             - 5.5
             - 5.4
     -
-        url: http://box.puphpet.com/centos64-x64-vbox4210.box
-        os: centos
-        short_name: centos64-x64-vbox4210-1383511158
-        long_name: CentOS 6.4 x64 - Virtualbox 4.2
-        php_versions:
-            - 5.5
-            - 5.4
-    -
         url: http://box.puphpet.com/debian-wheezy72-x64-vbox43.box
         os: debian
         short_name: debian-wheezy72-x64-vbox43
         long_name: Debian Wheezy 7.2 x64 - Virtualbox 4.3
-        php_versions:
-            - 5.5
-            - 5.4
-    -
-        url: http://box.puphpet.com/debian-wheezy71-x64-vbox42.box
-        os: debian
-        short_name: debian-wheezy71-x64-vbox42
-        long_name: Debian Wheezy 7.1 x64 - Virtualbox 4.2
         php_versions:
             - 5.5
             - 5.4
@@ -46,14 +30,6 @@ available_boxes:
             - 5.4
             - 5.3
     -
-        url: http://box.puphpet.com/debian-squeeze607-x64-vbox4210.box
-        os: debian
-        short_name: debian-squeeze607-x64-vbox4210
-        long_name: Debian Squeeze 6.0.7 x64 - Virtualbox 4.2
-        php_versions:
-            - 5.4
-            - 5.3
-    -
         url: http://box.puphpet.com/ubuntu-precise12042-x64-vbox43.box
         os: ubuntu
         short_name: ubuntu-precise12042-x64-vbox43
@@ -62,26 +38,10 @@ available_boxes:
             - 5.4
             - 5.3
     -
-        url: http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box
-        os: ubuntu
-        short_name: ubuntu-precise12042-x64-vbox4210
-        long_name: Ubuntu Precise 12.04 x64 - Virtualbox 4.2
-        php_versions:
-            - 5.4
-            - 5.3
-    -
         url: http://box.puphpet.com/ubuntu-lucid10044-x64-vbox43.box
         os: ubuntu
         short_name: ubuntu-lucid10044-x64-vbox43
         long_name: Ubuntu Lucid 10.04 x64 - Virtualbox 4.3
-        php_versions:
-            - 5.4
-            - 5.3
-    -
-        url: http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-10044-x64-vbox4210.box
-        os: ubuntu
-        short_name: lucid64
-        long_name: Ubuntu Lucid 10.04 x64 - Virtualbox 4.2
         php_versions:
             - 5.4
             - 5.3

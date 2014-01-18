@@ -8,17 +8,17 @@ vm:
     provider:
         virtualbox:
             modifyvm:
-                name: my-vm-box
                 natdnshostresolver1: on
                 memory: 512
             setextradata:
                 "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root": 1
     provision:
         puppet:
-            manifests_path: "puppet/manifests"
+            manifests_path: "puphpet/puppet"
+            manifest_file: "manifest.pp"
             options:
                 - "--verbose"
-                - "--hiera_config /vagrant/hiera.yaml"
+                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
                 - "--parser future"
     synced_folder: []
     usable_port_range: 2200..2250
@@ -35,4 +35,4 @@ ssh:
     shell: bash -l
 
 vagrant:
-    host: :detect
+    host: detect

@@ -1,0 +1,17 @@
+parameters:
+
+services:
+    puphpet.extension.mongodb.configure:
+        class: Puphpet\Extension\MongoDbBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.mongodb.front_controller:
+        class: Puphpet\Extension\MongoDbBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.mongodb.manifest_controller:
+        class: Puphpet\Extension\MongoDbBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]

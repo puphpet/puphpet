@@ -35,8 +35,11 @@ file { "/home/${::ssh_username}":
 # copy dot files to ssh user's home directory
 exec { 'dotfiles':
   cwd     => "/home/${::ssh_username}",
-  command => "cp -r /vagrant/files/dot/.[a-zA-Z0-9]* /home/${::ssh_username}/ && chown -R ${::ssh_username} /home/${::ssh_username}/.[a-zA-Z0-9]*",
-  onlyif  => "test -d /vagrant/files/dot",
+  command => "cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /home/${::ssh_username}/ \
+              && chown -R ${::ssh_username} /home/${::ssh_username}/.[a-zA-Z0-9]* \
+              && cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /root/",
+  onlyif  => 'test -d /vagrant/puphpet/files/dot',
+  returns => [0, 1],
   require => User[$::ssh_username]
 }
 
@@ -56,12 +59,29 @@ case $::osfamily {
   'redhat': {
     class { 'yum': extrarepo => ['epel'] }
 
+    class { 'yum::repo::rpmforge': }
+    class { 'yum::repo::repoforgeextras': }
+
     Class['::yum'] -> Yum::Managed_yumrepo <| |> -> Package <| |>
+
+    if defined(Package['git']) == false {
+      package { 'git':
+        ensure  => latest,
+        require => Class['yum::repo::repoforgeextras']
+      }
+    }
 
     exec { 'bash_git':
       cwd     => "/home/${::ssh_username}",
       command => "curl https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > /home/${::ssh_username}/.bash_git",
       creates => "/home/${::ssh_username}/.bash_git"
+    }
+
+    exec { 'bash_git for root':
+      cwd     => '/root',
+      command => "cp /home/${::ssh_username}/.bash_git /root/.bash_git",
+      creates => '/root/.bash_git',
+      require => Exec['bash_git']
     }
 
     file_line { 'link ~/.bash_git':
@@ -74,13 +94,28 @@ case $::osfamily {
       ]
     }
 
+    file_line { 'link ~/.bash_git for root':
+      ensure  => present,
+      line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
+      path    => '/root/.bashrc',
+      require => [
+        Exec['dotfiles'],
+        Exec['bash_git'],
+      ]
+    }
+
     file_line { 'link ~/.bash_aliases':
       ensure  => present,
       line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
       path    => "/home/${::ssh_username}/.bash_profile",
-      require => [
-        File_line['link ~/.bash_git'],
-      ]
+      require => File_line['link ~/.bash_git']
+    }
+
+    file_line { 'link ~/.bash_aliases for root':
+      ensure  => present,
+      line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
+      path    => '/root/.bashrc',
+      require => File_line['link ~/.bash_git for root']
     }
 
     ensure_packages( ['augeas'] )
@@ -93,6 +128,8 @@ if $php_values == undef {
 
 case $::operatingsystem {
   'debian': {
+    include apt::backports
+
     add_dotdeb { 'packages.dotdeb.org': release => $lsbdistcodename }
 
     if is_hash($php_values) {
@@ -105,9 +142,23 @@ case $::operatingsystem {
         add_dotdeb { 'packages.dotdeb.org-php55': release => 'wheezy-php55' }
       }
     }
+
+    $server_lsbdistcodename = downcase($lsbdistcodename)
+
+    apt::force { 'git':
+      release => "${server_lsbdistcodename}-backports",
+      timeout => 60
+    }
   }
   'ubuntu': {
-    apt::key { '4F4EA0AAE5267A6C': }
+    apt::key { '4F4EA0AAE5267A6C':
+      key_server => 'hkp://keyserver.ubuntu.com:80'
+    }
+    apt::key { '4CBEDD5A':
+      key_server => 'hkp://keyserver.ubuntu.com:80'
+    }
+
+    apt::ppa { 'ppa:pdoes/ppa': require => Apt::Key['4CBEDD5A'] }
 
     if is_hash($php_values) {
       # Ubuntu Lucid 10.04, Precise 12.04, Quantal 12.10 and Raring 13.04 can do PHP 5.3 (default <= 12.10) and 5.4 (default <= 13.04)

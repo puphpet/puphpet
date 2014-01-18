@@ -31,6 +31,12 @@ if $php_fpm_ini == undef {
 if is_hash($apache_values) {
   include apache::params
 
+  if has_key($apache_values, 'mod_spdy') and $apache_values['mod_spdy'] == 1 {
+    $php_webserver_service_ini = 'cgi'
+  } else {
+    $php_webserver_service_ini = 'httpd'
+  }
+
   $php_webserver_service = 'httpd'
   $php_webserver_user    = $apache::params::user
   $php_webserver_restart = true
@@ -41,9 +47,10 @@ if is_hash($apache_values) {
 } elsif is_hash($nginx_values) {
   include nginx::params
 
-  $php_webserver_service = "${php_prefix}fpm"
-  $php_webserver_user    = $nginx::params::nx_daemon_user
-  $php_webserver_restart = true
+  $php_webserver_service     = "${php_prefix}fpm"
+  $php_webserver_service_ini = $php_webserver_service
+  $php_webserver_user        = $nginx::params::nx_daemon_user
+  $php_webserver_restart     = true
 
   class { 'php':
     package             => $php_webserver_service,
@@ -60,8 +67,9 @@ if is_hash($apache_values) {
     require    => Package[$php_webserver_service]
   }
 } else {
-  $php_webserver_service = undef
-  $php_webserver_restart = false
+  $php_webserver_service     = undef
+  $php_webserver_service_ini = undef
+  $php_webserver_restart     = false
 
   class { 'php':
     package             => "${php_prefix}cli",
@@ -83,11 +91,22 @@ if count($php_values['modules']['pecl']) > 0 {
 }
 if count($php_values['ini']) > 0 {
   each( $php_values['ini'] ) |$key, $value| {
-    puphpet::ini { $key:
-      entry       => "CUSTOM/${key}",
-      value       => $value,
-      php_version => $php_values['version'],
-      webserver   => $php_webserver_service
+    if is_array($value) {
+      each( $php_values['ini'][$key] ) |$innerkey, $innervalue| {
+        puphpet::ini { "${key}_${innerkey}":
+          entry       => "CUSTOM_${innerkey}/${key}",
+          value       => $innervalue,
+          php_version => $php_values['version'],
+          webserver   => $php_webserver_service_ini
+        }
+      }
+    } else {
+      puphpet::ini { $key:
+        entry       => "CUSTOM/${key}",
+        value       => $value,
+        php_version => $php_values['version'],
+        webserver   => $php_webserver_service_ini
+      }
     }
   }
 
@@ -109,7 +128,7 @@ puphpet::ini { $key:
   entry       => 'CUSTOM/date.timezone',
   value       => $php_values['timezone'],
   php_version => $php_values['version'],
-  webserver   => $php_webserver_service
+  webserver   => $php_webserver_service_ini
 }
 
 define php_mod {

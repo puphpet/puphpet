@@ -10,10 +10,10 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'Apache';
     protected $slug = 'apache';
-    protected $targetFile = 'puppet/manifests/default.pp';
+    protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
-        'apache' => ":git => 'git://github.com/puphpet/puppetlabs-apache.git'",
+        'apache' => ":git => 'https://github.com/puphpet/puppetlabs-apache.git'",
     ];
 
     /**

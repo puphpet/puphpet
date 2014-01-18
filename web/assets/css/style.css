@@ -1,3 +1,7 @@
+body {
+    background: url('/assets/img/tweed.png');
+}
+
 .text-large {
     font-size: 2em;
 }
@@ -19,13 +23,13 @@ button.tall {
 .jumbotron {
     padding: 25px 30px 5px;
     margin-bottom: 5px;
-    background-color: #f9f9f9;
+    background-color: rgba(249, 249, 249, .3);
+    color: #fff;
 }
 
 #main {
     padding-top: 30px;
     padding-bottom: 30px;
-    background: url('/assets/img/tweed.png');
 }
 
 #main > .container {
@@ -169,6 +173,14 @@ div.navbar {
     position: absolute;
 }
 
+#nav-sidebar.affix {
+    top: 50px;
+}
+
+#nav-sidebar .nav > li > a {
+    padding: 5px 10px;
+}
+
 #nav-sidebar .nav > li > a:hover,
 #nav-sidebar .nav > li > a:focus {
     margin-left: -3px;
@@ -201,6 +213,10 @@ div.navbar {
     padding: 5px 0;
     display: block;
     color: #4C9BD8;
+}
+
+#nav-sidebar .nav > li p a {
+    padding: 2px 0;
 }
 
 #nav-sidebar .nav > li.active p a {

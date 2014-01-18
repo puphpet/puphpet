@@ -5,3 +5,5 @@ databases:
         password: ~
         grant: ALL
         sql_file: ~
+
+adminer: 0

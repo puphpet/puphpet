@@ -64,10 +64,10 @@ define mysql_db (
   }
 }
 
-if $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
+if has_key($mysql_values, 'phpmyadmin') and $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
   if $::osfamily == 'debian' {
     if $::operatingsystem == 'ubuntu' {
-      apt::key { '80E7349A06ED541C': }
+      apt::key { '80E7349A06ED541C': key_server => 'hkp://keyserver.ubuntu.com:80' }
       apt::ppa { 'ppa:nijel/phpmyadmin': require => Apt::Key['80E7349A06ED541C'] }
     }
 
@@ -87,23 +87,44 @@ if $mysql_values['phpmyadmin'] == 1 and is_hash($php_values) {
   include puphpet::params
 
   if is_hash($apache_values) {
-    $mysql_webroot_location = $puphpet::params::apache_webroot_location
+    $mysql_pma_webroot_location = $puphpet::params::apache_webroot_location
   } elsif is_hash($nginx_values) {
-    $mysql_webroot_location = $puphpet::params::nginx_webroot_location
+    $mysql_pma_webroot_location = $puphpet::params::nginx_webroot_location
 
     mysql_nginx_default_conf { 'override_default_conf':
-      webroot => $mysql_webroot_location
+      webroot => $mysql_pma_webroot_location
     }
   }
 
-  file { "${mysql_webroot_location}/phpmyadmin":
-    target  => "/usr/share/${phpMyAdmin_folder}",
-    ensure  => link,
-    replace => 'no',
+  exec { 'move phpmyadmin to webroot':
+    command => "mv /usr/share/${phpMyAdmin_folder} ${mysql_pma_webroot_location}/phpmyadmin",
+    onlyif  => "test ! -d ${mysql_pma_webroot_location}/phpmyadmin",
     require => [
       Package[$phpMyAdmin_package],
-      File[$mysql_webroot_location]
+      File[$mysql_pma_webroot_location]
     ]
+  }
+
+  file { "/usr/share/${phpMyAdmin_folder}":
+    target  => "${mysql_pma_webroot_location}/phpmyadmin",
+    ensure  => link,
+    replace => 'no',
+    require => Exec['move phpmyadmin to webroot']
+  }
+}
+
+if has_key($mysql_values, 'adminer') and $mysql_values['adminer'] == 1 and is_hash($php_values) {
+  if is_hash($apache_values) {
+    $mysql_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  } elsif is_hash($nginx_values) {
+    $mysql_adminer_webroot_location = $puphpet::params::nginx_webroot_location
+  } else {
+    $mysql_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  }
+
+  class { 'puphpet::adminer':
+    location => "${mysql_adminer_webroot_location}/adminer",
+    owner    => 'www-data'
   }
 }
 
@@ -126,22 +147,4 @@ define mysql_nginx_default_conf (
     fastcgi_pass => $fastcgi_pass,
     notify       => Class['nginx::service'],
   }
-}
-
-if $mysql_values['adminer'] == 1 {
-  class adminer {
-
-    file { "/var/www/adminer":
-      ensure => "directory",
-      owner => $::ssh_username,
-      mode   => 775,
-    }
-
-    exec{"download_adminer":
-      command => "wget -O /var/www/adminer/index.php http://www.adminer.org/latest.php",
-      require => File["/var/www/adminer"],
-    }
-  }
-
-class { "adminer": }
 }

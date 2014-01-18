@@ -30,7 +30,7 @@ Originally developed by [Juan Treminio](https://jtreminio.com), PuPHPet has now 
 with the talented [Frank Stelzer](https://twitter.com/frastel) heavily contributing. Also making significant
 contributions is [Michaël Perrin](http://www.michaelperrin.fr/).
 
-Sometime in mid Auguest 2013 work on v2 was begun to attempt to solve problems encountered with v1: difficult to
+Sometime in mid August 2013, work on v2 was begun to attempt to solve problems encountered with v1: difficult to
 add new features, too much PHP logic controlling Puppet logic, difficult to change an existing manifest.
 
 ## Goals ##

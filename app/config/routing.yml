@@ -49,3 +49,15 @@ puphpet.extension.mysql:
 puphpet.extension.postgresql:
     resource: "@PuphpetExtensionPostgresqlBundle/Resources/config/routing.yml"
     prefix:   /extensions/postgresql
+
+puphpet.extension.mariadb:
+    resource: "@PuphpetExtensionMariaDbBundle/Resources/config/routing.yml"
+    prefix:   /extensions/mariadb
+
+puphpet.extension.mongodb:
+    resource: "@PuphpetExtensionMongoDbBundle/Resources/config/routing.yml"
+    prefix:   /extensions/mongodb
+
+puphpet.extension.beanstalkd:
+    resource: "@PuphpetExtensionBeanstalkdBundle/Resources/config/routing.yml"
+    prefix:   /extensions/beanstalkd

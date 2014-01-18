@@ -1,0 +1,11 @@
+databases:
+    -
+        name: ~
+        user: ~
+        password: ~
+        host: localhost
+        grant:
+            - ALL
+        sql_file: ~
+
+version: "10.0"

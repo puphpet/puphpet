@@ -1,0 +1,17 @@
+parameters:
+
+services:
+    puphpet.extension.mariadb.configure:
+        class: Puphpet\Extension\MariaDbBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.mariadb.front_controller:
+        class: Puphpet\Extension\MariaDbBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.mariadb.manifest_controller:
+        class: Puphpet\Extension\MariaDbBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]

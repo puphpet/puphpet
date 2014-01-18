@@ -19,20 +19,43 @@ if is_hash($apache_values) or is_hash($nginx_values) {
 }
 
 if is_hash($xhprof_values) and $xhprof_values['install'] == 1 {
-  $xhprofPath = $xhprof_values['location']
+  if $::operatingsystem == 'ubuntu' {
+    apt::key { '8D0DC64F':
+      key_server => 'hkp://keyserver.ubuntu.com:80'
+    }
 
-  php::pecl::module { 'xhprof':
-    use_package         => false,
-    preferred_state     => 'beta',
-    service_autorestart => $xhprof_webserver_restart,
+    apt::ppa { 'ppa:brianmercer/php5-xhprof': require => Apt::Key['8D0DC64F'] }
   }
+
+  $xhprof_package = $puphpet::params::xhprof_package
+
+  if is_hash($apache_values) {
+    $xhprof_webroot_location = $puphpet::params::apache_webroot_location
+    $xhprof_webserver_service = Service['httpd']
+  } elsif is_hash($nginx_values) {
+    $xhprof_webroot_location = $puphpet::params::nginx_webroot_location
+    $xhprof_webserver_service = Service['nginx']
+  } else {
+    $xhprof_webroot_location = $xhprof_values['location']
+    $xhprof_webserver_service = undef
+  }
+
+  if defined(Package[$xhprof_package]) == false {
+    package { $xhprof_package:
+      ensure  => installed,
+      require => Package['php'],
+      notify  => $xhprof_webserver_service,
+    }
+  }
+
+  ensure_packages( ['graphviz'] )
 
   exec { 'delete-xhprof-path-if-not-git-repo':
     command => "rm -rf ${xhprofPath}",
     onlyif  => "test ! -d ${xhprofPath}/.git"
   }
 
-  vcsrepo { $xhprofPath:
+  vcsrepo { "${xhprof_webroot_location}/xhprof":
     ensure   => present,
     provider => git,
     source   => 'https://github.com/facebook/xhprof.git',
@@ -42,12 +65,12 @@ if is_hash($xhprof_values) and $xhprof_values['install'] == 1 {
   file { "${xhprofPath}/xhprof_html":
     ensure  => directory,
     mode    => 0775,
-    require => Vcsrepo[$xhprofPath]
+    require => Vcsrepo["${xhprof_webroot_location}/xhprof"]
   }
 
   composer::exec { 'xhprof-composer-run':
     cmd     => 'install',
-    cwd     => $xhprofPath,
+    cwd     => "${xhprof_webroot_location}/xhprof",
     require => [
       Class['composer'],
       File["${xhprofPath}/xhprof_html"]

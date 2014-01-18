@@ -1,0 +1,12 @@
+puphpet.extension.mongodb.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionMongoDbBundle:Front:index }
+
+puphpet.extension.mongodb.add_database:
+    pattern:  /add-database
+    defaults: { _controller: PuphpetExtensionMongoDbBundle:Front:addDatabase }
+
+puphpet.extension.mongodb.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionMongoDbBundle:Manifest:index }
+

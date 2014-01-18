@@ -37,7 +37,7 @@ class ExtensionServerTest extends Unit\TestExtensions
     public function testGetSourcesReturnsAssociativeArray()
     {
         $expected = [
-            'stdlib'   => ":git => 'git://github.com/puphpet/puppetlabs-stdlib.git'",
+            'stdlib'   => ":git => 'https://github.com/puphpet/puppetlabs-stdlib.git'",
         ];
 
         $result = $this->extension->getSources();

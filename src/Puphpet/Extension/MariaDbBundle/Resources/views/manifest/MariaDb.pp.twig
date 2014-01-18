@@ -1,0 +1,159 @@
+## Begin MariaDb manifest
+
+if $mariadb_values == undef {
+  $mariadb_values = hiera('mariadb', false)
+}
+
+if $php_values == undef {
+  $php_values = hiera('php', false)
+}
+
+if $apache_values == undef {
+  $apache_values = hiera('apache', false)
+}
+
+if $nginx_values == undef {
+  $nginx_values = hiera('nginx', false)
+}
+
+if is_hash($apache_values) or is_hash($nginx_values) {
+  $mariadb_webserver_restart = true
+} else {
+  $mariadb_webserver_restart = false
+}
+
+if has_key($mariadb_values, 'root_password') and $mariadb_values['root_password'] {
+  class { 'puphpet::mariadb':
+    version => $mariadb_values['version']
+  }
+
+  class { 'mysql::server':
+    package_name  => $puphpet::params::mariadb_package_server_name,
+    root_password => $mariadb_values['root_password']
+  }
+
+  class { 'mysql::client':
+    package_name => $puphpet::params::mariadb_package_client_name
+  }
+
+  if is_hash($mariadb_values['databases']) and count($mariadb_values['databases']) > 0 {
+    create_resources(mariadb_db, $mariadb_values['databases'])
+  }
+
+  if is_hash($php_values) {
+    if $::osfamily == 'redhat' and $php_values['version'] == '53' and ! defined(Php::Module['mysql']) {
+      php::module { 'mysql':
+        service_autorestart => $mariadb_webserver_restart,
+      }
+    } elsif ! defined(Php::Module['mysqlnd']) {
+      php::module { 'mysqlnd':
+        service_autorestart => $mariadb_webserver_restart,
+      }
+    }
+  }
+}
+
+define mariadb_db (
+  $user,
+  $password,
+  $host,
+  $grant    = [],
+  $sql_file = false
+) {
+  if $name == '' or $password == '' or $host == '' {
+    fail( 'MariaDB requires that name, password and host be set. Please check your settings!' )
+  }
+
+  mysql::db { $name:
+    user     => $user,
+    password => $password,
+    host     => $host,
+    grant    => $grant,
+    sql      => $sql_file,
+  }
+}
+
+if has_key($mariadb_values, 'phpmyadmin') and $mariadb_values['phpmyadmin'] == 1 and is_hash($php_values) {
+  if $::osfamily == 'debian' {
+    if $::operatingsystem == 'ubuntu' {
+      apt::key { '80E7349A06ED541C': key_server => 'hkp://keyserver.ubuntu.com:80' }
+      apt::ppa { 'ppa:nijel/phpmyadmin': require => Apt::Key['80E7349A06ED541C'] }
+    }
+
+    $phpMyAdmin_package = 'phpmyadmin'
+    $phpMyAdmin_folder = 'phpmyadmin'
+  } elsif $::osfamily == 'redhat' {
+    $phpMyAdmin_package = 'phpMyAdmin.noarch'
+    $phpMyAdmin_folder = 'phpMyAdmin'
+  }
+
+  if ! defined(Package[$phpMyAdmin_package]) {
+    package { $phpMyAdmin_package:
+      require => Class['mysql::server']
+    }
+  }
+
+  include puphpet::params
+
+  if is_hash($apache_values) {
+    $mariadb_pma_webroot_location = $puphpet::params::apache_webroot_location
+  } elsif is_hash($nginx_values) {
+    $mariadb_pma_webroot_location = $puphpet::params::nginx_webroot_location
+
+    mariadb_nginx_default_conf { 'override_default_conf':
+      webroot => $mariadb_pma_webroot_location
+    }
+  }
+
+  exec { 'move phpmyadmin to webroot':
+    command => "mv /usr/share/${phpMyAdmin_folder} ${mariadb_pma_webroot_location}/phpmyadmin",
+    onlyif  => "test ! -d ${mariadb_pma_webroot_location}/phpmyadmin",
+    require => [
+      Package[$phpMyAdmin_package],
+      File[mariadb_pma_webroot_location]
+    ]
+  }
+
+  file { "/usr/share/${phpMyAdmin_folder}":
+    target  => "${mariadb_pma_webroot_location}/phpmyadmin",
+    ensure  => link,
+    replace => 'no',
+    require => Exec['move phpmyadmin to webroot']
+  }
+}
+
+if has_key($mariadb_values, 'adminer') and $mariadb_values['adminer'] == 1 and is_hash($php_values) {
+  if is_hash($apache_values) {
+    $mariadb_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  } elsif is_hash($nginx_values) {
+    $mariadb_adminer_webroot_location = $puphpet::params::nginx_webroot_location
+  } else {
+    $mariadb_adminer_webroot_location = $puphpet::params::apache_webroot_location
+  }
+
+  class { 'puphpet::adminer':
+    location => "${mariadb_adminer_webroot_location}/adminer",
+    owner    => 'www-data'
+  }
+}
+
+define mariadb_nginx_default_conf (
+  $webroot
+) {
+  if $php5_fpm_sock == undef {
+    $php5_fpm_sock = '/var/run/php5-fpm.sock'
+  }
+
+  if $fastcgi_pass == undef {
+    $fastcgi_pass = $php_values['version'] ? {
+      undef   => null,
+      '53'    => '127.0.0.1:9000',
+      default => "unix:${php5_fpm_sock}"
+    }
+  }
+
+  class { 'puphpet::nginx':
+    fastcgi_pass => $fastcgi_pass,
+    notify       => Class['nginx::service'],
+  }
+}

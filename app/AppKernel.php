@@ -11,10 +11,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new Symfony\Bundle\MonologBundle\MonologBundle(),
-            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Puphpet\MainBundle\PuphpetMainBundle(),
             new Zenstruck\SlugifyBundle\ZenstruckSlugifyBundle(),
@@ -32,6 +29,9 @@ class AppKernel extends Kernel
             new Puphpet\Extension\XhprofBundle\PuphpetExtensionXhprofBundle(),
             new Puphpet\Extension\MysqlBundle\PuphpetExtensionMysqlBundle(),
             new Puphpet\Extension\PostgresqlBundle\PuphpetExtensionPostgresqlBundle(),
+            new Puphpet\Extension\MariaDbBundle\PuphpetExtensionMariaDbBundle(),
+            new Puphpet\Extension\BeanstalkdBundle\PuphpetExtensionBeanstalkdBundle(),
+            new Puphpet\Extension\MongoDbBundle\PuphpetExtensionMongoDbBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

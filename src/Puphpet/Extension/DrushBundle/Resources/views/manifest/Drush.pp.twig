@@ -7,15 +7,14 @@ if $drush_values == undef {
 if $drush_values['install'] != undef and $drush_values['install'] == 1 {
   if ($drush_values['settings']['drush.tag_branch'] != undef) {
     $drush_tag_branch = $drush_values['settings']['drush.tag_branch']
-  }
-  else {
+  } else {
     $drush_tag_branch = ''
   }
 
   ## @see https://drupal.org/node/2165015
   include drush::git::drush
 
-  ## class {'drush::git::drush':
+  ## class { 'drush::git::drush':
   ##   git_branch => $drush_tag_branch,
   ##   update     => true,
   ## }

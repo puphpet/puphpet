@@ -1,5 +1,7 @@
 {% extends 'PuphpetMainBundle:front:template.html.twig' %}
 
+{% import "PuphpetMainBundle:front:sections.html.twig" as sections %}
+
 {% block topJs %}
     {{ parent() }}
     <script>var uploadConfigUrl = '{{ path('puphpet.main.upload_config') }}';</script>
@@ -25,29 +27,6 @@
                             </div>
                         {% endfor %}
 
-                        <div class="alert alert-warning alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <strong>ATTN</strong>:
-                            Puppet recently update to 3.4. More than likely <strong>ALL</strong> manifests generated
-                            prior to Dec 20 are now *broken*. To fix, just drag/drop your <code>common.yaml</code>
-                            file to this page and regenerate your manifest, or
-                            <a href="https://github.com/puphpet/puphpet/commit/9824659ab3be1df088abf476c8444a3bfe9046bd">apply
-                                these changes manually</a> in your <code>puppet/manifests/default.pp</code> file.
-                        </div>
-
-                        <div class="alert alert-warning alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <strong>ATTN</strong>:
-                            If you previously created a PuPHPet box and now Vagrant is complaining about not being able
-                            to download the box you chose, or that the box is corrupt, please update box URLs within
-                            <code>Vagrantfile</code> and <code>common.yaml</code>! I received a scary bill from AWS S3
-                            and had to find a new host. Thanks to my buddies at
-                            <a href="http://pressable.com" target="_blank">Pressable</a> for
-                            donating space and bandwidth! All box URLs have been changed from
-                            <strong>https://puphpet.s3.amazonaws.com</strong>/* to
-                            <strong>http://box.puphpet.com</strong>/*.
-                        </div>
-
                         {% if hasCustom is defined %}
                             <div class="alert alert-success alert-dismissable">
                                 Your previously generated config file was successfully loaded!
@@ -56,48 +35,28 @@
                             <div class="alert alert-info alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 Have an existing PuPHPet-generated manifest? Just drag your
-                                <code>puppet/hieradata/common.yaml</code> file into your browser and the form will be filled
+                                <code>puphpet/config.yaml</code> file into your browser and the form will be filled
                                 in with your previous values!
                             </div>
                         {% endif %}
 
                         <div id="extensions-container">
-                            {% for extension in extensionManager.getExtensions
-                               if not extensionManager.extensionAlreadyUsed(extension.slug) %}
 
-                                {% set groupName = extensionManager.belongsToGroup(extension.slug) %}
+                            {{ sections.singleSelectGrouped(extensionManager, 'deploy-target', 'Deploy Target') }}
 
-                                {% if groupName %}
-                                    <div class="page-header">
-                                        <h1 id="{{ groupName|slugify }}">{{ groupName|title }}</h1>
-                                    </div>
+                            {{ sections.single(extensionManager, 'server') }}
 
-                                    {% set activeExtensionSlug = extensionManager.extensionInGroupHasCustomData(groupName) %}
+                            {{ sections.singleSelectGrouped(extensionManager, 'webserver', 'Webserver') }}
 
-                                    <ul class="nav group-nav nav-pills group-tabs" id="{{ groupName|slugify }}-tab">
-                                        {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
-                                            <li class="{% if groupedExtension.slug == activeExtensionSlug %}active{% endif %}">
-                                                <a href="#{{ groupedExtension.slug }}-tab"
-                                                   id="{{ groupedExtension.slug }}-pill"
-                                                   data-target-element="{{ groupedExtension.slug }}"
-                                                   data-toggle="tab">{{ groupedExtension.name }}</a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
+                            {{ sections.single(extensionManager, 'php') }}
 
-                                    <div class="tab-content">
-                                        {% for groupedExtension in extensionManager.getExtensionsInGroup(groupName) %}
-                                            <div class="tab-pane {% if activeExtensionSlug == groupedExtension.slug %}active{% endif %}"
-                                                 id="{{ groupedExtension.slug }}-tab">
-                                                {{ groupedExtension.renderFront(groupedExtension.data)|raw }}
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                {% else %}
-                                    {{ extension.renderFront(extension.data)|raw }}
-                                {% endif %}
+                            {{ sections.multiSelectGrouped(extensionManager, 'php-extensions', 'PHP Extensions') }}
 
-                            {% endfor %}
+                            {{ sections.singleSelectGrouped(extensionManager, 'database', 'Database') }}
+                            {{ sections.singleSelectGrouped(extensionManager, 'nosql', 'NoSQL Database') }}
+
+                            {{ sections.singleSelectGrouped(extensionManager, 'work-queue', 'Work Queue') }}
+
                         </div>
 
                         <section id="create">

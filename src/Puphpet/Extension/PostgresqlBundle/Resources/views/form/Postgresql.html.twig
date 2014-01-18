@@ -23,6 +23,19 @@
                                 when a password is entered here.</strong>
                             </p>
                         </div>
+
+                        <div class="col-md-6">
+                            <label for="postgresql-adminer">Adminer</label><br />
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="postgresql-adminer" name="postgresql[adminer]"
+                                       {% if postgresql.adminer %}checked{% endif %} value="1" /> Install Adminer
+                            </label>
+
+                            <p class="help-block">
+                                If installed it will be available from
+                                <code>http://{SERVER_IP_ADDRESS}/adminer</code>.
+                            </p>
+                        </div>
                     </div>
                 </div>
 

@@ -56,19 +56,21 @@
     </div>
     <!-- end Server / Packages -->
 
-    <!-- Server / dotfiles -->
+    <!-- Server / custom-files -->
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">dotfiles</h3>
+                    <h3 class="panel-title">Custom files</h3>
                 </div>
 
                 <div class="panel-body">
+                    <h4>dotfiles</h4>
+
                     <p>
                         You can add all your dot files (<code>.bash_aliases</code>, <code>.vimrc</code>,
                         <code>.gitconfig</code>, etc),
-                        to the <code>./files/dot/</code> folder that will appear after you extract your
+                        to the <code>puphpet/files/dot/</code> folder that will appear after you extract your
                         generated zip file.
                     </p>
 
@@ -76,6 +78,25 @@
                         During initial startup, they will automatically be copied into the VM. There is
                         a sample
                         <code>.bash_aliases</code> file there for you to start with - overwrite at will!
+                    </p>
+
+                    <h4>Script files</h4>
+
+                    <p>
+                        You can run your own custom code after the VM finishes provisioning by adding files to the
+                        <code>puphpet/files/exec-always</code> and <code>puphpet/files/exec-once</code> folders.
+                    </p>
+
+                    <p>
+                        <strong>Files are executed in alphabetical order</strong>. Files within <code>exec-once</code>
+                        are run before files within <code>exec-always</code>.
+                    </p>
+
+                    <p>
+                        Files within <code>exec-always</code> will run on initial <code>$ vagrant up</code> and all
+                        <code>$ vagrant provision</code>, while files within <code>exec-once</code> will
+                        run only the first time you run Vagrant, unless you SSH into the VM and remove the
+                        <code>/.puphpet-stuff/exec-once-ran</code> file and re-run Vagrant.
                     </p>
                 </div>
 

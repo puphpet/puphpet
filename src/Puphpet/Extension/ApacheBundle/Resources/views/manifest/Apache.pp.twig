@@ -1,7 +1,7 @@
 ## Begin Apache manifest
 
 if $yaml_values == undef {
-  $yaml_values = loadyaml('/vagrant/puppet/hieradata/common.yaml')
+  $yaml_values = loadyaml('/vagrant/puphpet/config.yaml')
 }
 
 if $apache_values == undef {
@@ -14,7 +14,7 @@ $webroot_location = $puphpet::params::apache_webroot_location
 
 exec { "exec mkdir -p ${webroot_location}":
   command => "mkdir -p ${webroot_location}",
-  onlyif  => "test -d ${webroot_location}",
+  creates => $webroot_location,
 }
 
 if ! defined(File[$webroot_location]) {
@@ -49,6 +49,14 @@ if $::osfamily == 'debian' {
     port     => '80',
     protocol => 'tcp'
   }
+}
+
+if has_key($apache_values, 'mod_pagespeed') and $apache_values['mod_pagespeed'] == 1 {
+  class { 'puphpet::apache::modpagespeed': }
+}
+
+if has_key($apache_values, 'mod_spdy') and $apache_values['mod_spdy'] == 1 {
+  class { 'puphpet::apache::modspdy': }
 }
 
 create_resources(apache::vhost, $apache_values['vhosts'])

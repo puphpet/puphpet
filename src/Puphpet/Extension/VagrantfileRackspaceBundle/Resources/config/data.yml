@@ -11,10 +11,11 @@ vm:
             api_key: ~
     provision:
         puppet:
-            manifests_path: "puppet/manifests"
+            manifests_path: "puphpet/puppet"
+            manifest_file: "manifest.pp"
             options:
                 - "--verbose"
-                - "--hiera_config /vagrant/hiera.yaml"
+                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
                 - "--parser future"
     synced_folder: []
 
@@ -31,4 +32,4 @@ ssh:
     shell: bash -l
 
 vagrant:
-    host: :detect
+    host: detect

@@ -1,0 +1,12 @@
+puphpet.extension.mariadb.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionMariaDbBundle:Front:index }
+
+puphpet.extension.mariadb.add_database:
+    pattern:  /add-database
+    defaults: { _controller: PuphpetExtensionMariaDbBundle:Front:addDatabase }
+
+puphpet.extension.mariadb.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionMariaDbBundle:Manifest:index }
+

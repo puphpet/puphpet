@@ -254,7 +254,7 @@ class Manager
         $this->processExtensionSources($sources);
 
         $this->archive->queueToFile(
-            'puppet/hieradata/common.yaml',
+            'puphpet/config.yaml',
             Yaml::dump($mergedData, 50)
         );
 
@@ -295,7 +295,7 @@ class Manager
                 $result .= ", {$source}";
             }
 
-            $this->archive->queueToFile('puppet/Puppetfile', $result);
+            $this->archive->queueToFile('puphpet/puppet/Puppetfile', $result);
         }
     }
 }

@@ -17,7 +17,7 @@
                                    placeholder="8080" pattern="^[1-9][0-9]*$"
                                    min="1" max="65535"
                                    title="Port on Host to forward to VM (e.g. 8080)"
-                                   value="{{ forwarded_port.host }}"
+                                   value="{% if forwarded_port.host %}{{ forwarded_port.host }}{% else %}{{ mt_rand(5000, 9999) }}{% endif %}"
                                    class="form-control" />
 
                             <p class="help-block">
@@ -34,7 +34,7 @@
                                    placeholder="80" pattern="^[1-9][0-9]*$"
                                    min="1" max="65535"
                                    title="Port on VM to accept from Host (e.g. 80)"
-                                   value="{{ forwarded_port.guest }}"
+                                   value="{% if forwarded_port.guest %}{{ forwarded_port.guest }}{% else %}22{% endif %}"
                                    class="form-control" />
 
                             <p class="help-block">

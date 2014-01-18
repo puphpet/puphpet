@@ -1,0 +1,82 @@
+<section id="beanstalkd">
+
+    <!-- beanstalkd -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Beanstalkd Quick Settings</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="beanstalkd[install]" value="1"
+                                    {% if beanstalkd.install == 1 %}checked{% endif %} /> Install Beanstalkd
+                            </label>
+
+                            <p class="help-block">
+                                Beanstalk is a simple, fast work queue.
+                                <a href="http://alister.github.io/presentations/Beanstalkd/" target="_blank">
+                                    Learn about Beanstalkd</a>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="beanstalkd-listenaddress">Listen Address</label>
+                            <input type="text" id="beanstalkd-listenaddress" name="beanstalkd[listenaddress]"
+                                   required placeholder="0.0.0.0"
+                                   pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
+                                   oninvalid="setCustomValidity('IP address format: 0.0.0.0')"
+                                   value="{{ beanstalkd.listenaddress }}" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="beanstalkd-listenport">Listen Port</label>
+                            <input type="number" id="beanstalkd-listenport"
+                                   name="beanstalkd[listenport]"
+                                   required placeholder="13000" pattern="^[1-9][0-9]*$" min="10000" max="20000"
+                                   value="{{ beanstalkd.listenport }}" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="beanstalkd-maxjobsize">Max Job Size</label>
+                            <input type="text" id="beanstalkd-maxjobsize" name="beanstalkd[maxjobsize]"
+                                   required placeholder="65535" pattern="^[1-9][0-9]*$" min="10000"
+                                   value="{{ beanstalkd.maxjobsize }}" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="beanstalkd-maxconnections">Max Connections</label>
+                            <input type="number" id="beanstalkd-maxconnections"
+                                   name="beanstalkd[maxconnections]"
+                                   required placeholder="1024" pattern="^[1-9][0-9]*$" min="32"
+                                   value="{{ beanstalkd.maxconnections }}" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="beanstalkd-binlogdir">Binlog Directory</label>
+                            <input type="text" id="beanstalkd-binlogdir"
+                                   name="beanstalkd[binlogdir]" placeholder="/var/lib/beanstalkd/binlog"
+                                   value="{{ beanstalkd.binlogdir }}" class="form-control" />
+
+                            <p class="help-block">
+                                Set empty to disable binlog.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end beanstalkd -->
+
+</section>
