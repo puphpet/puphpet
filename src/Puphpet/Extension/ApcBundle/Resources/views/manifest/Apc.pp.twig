@@ -1,0 +1,11 @@
+## Begin APC manifest
+
+if $apc_values == undef {
+  $apc_values = hiera('apc', false)
+}
+
+if $apc_values['install'] != undef and $apc_values['install'] == 1 {
+  include apc
+}
+
+## End APC manifest

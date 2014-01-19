@@ -1,0 +1,55 @@
+<section id="apc">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Apc</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="apc[install]" class="multiselect-grouped-tab"
+                                       data-tab-target="apc-pill"
+                                       {% if apc.install %}checked{% endif %} value="1" /> Install APC
+                            </label>
+
+                            <p class="help-block">
+                                APC is php accelerator.
+                            </p>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <label for="apc-settings-displayer">Settings</label>
+                            <select id="apc-settings-displayer" multiple
+                                    class="form-control select-tags-user-input"
+                                    data-target-container="apc-settings"
+                                    data-target-name="apc[settings]"
+                                >
+                                {% for setting in apc.available_settings %}
+                                    <option value="{{ setting }}"
+                                        {% if setting in apc.settings|keys %}selected{% endif %}>{{ setting }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <div id="apc-settings" style="display: none;">
+                                {% for name, value in apc.settings %}
+                                    <input type="hidden" name="apc[settings][{{ name }}]"
+                                           data-option-name="{{ name }}" value="{{ value }}" />
+                                {% endfor %}
+                            </div>
+
+                            <p class="help-block">
+                                Some help text.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
