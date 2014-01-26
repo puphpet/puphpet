@@ -644,6 +644,7 @@ available_ini:
     max_input_nesting_level:
     max_input_vars:
     max_input_time:
+    magic_quotes_gpc:
     memory_limit:
     open_basedir:
     output_buffering:
@@ -654,6 +655,7 @@ available_ini:
     realpath_cache_size:
     realpath_cache_ttl:
     register_argc_argv:
+    register_globals:
     report_memleaks:
     report_zend_debug:
     request_order:
