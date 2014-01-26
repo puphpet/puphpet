@@ -53,7 +53,7 @@ case $::osfamily {
     and title != 'software-properties-common'
     |>
 
-    include augeas
+    ensure_packages( ['augeas-tools'] )
   }
   # redhat, centos
   'redhat': {
@@ -118,7 +118,7 @@ case $::osfamily {
       require => File_line['link ~/.bash_git for root']
     }
 
-    include augeas
+    ensure_packages( ['augeas'] )
   }
 }
 
