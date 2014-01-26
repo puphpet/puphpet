@@ -12,9 +12,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $slug = 'apc';
     protected $targetFile = 'puphpet/puppet/manifest.pp';
 
-    protected $sources = [
-        'apc' => ":git => 'https://github.com/ridonkulous/puppet-apc.git'",
-    ];
+    protected $sources = [];
 
     /**
      * @param Container $container

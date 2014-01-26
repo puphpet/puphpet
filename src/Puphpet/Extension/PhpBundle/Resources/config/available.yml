@@ -681,33 +681,6 @@ available_ini:
     zend_extension_debug:
     zend_extension_debug_ts:
     zend_extension_ts:
-    apc:
-        - apc.cache_by_default
-        - apc.enabled
-        - apc.enable_cli
-        - apc.file_update_protection
-        - apc.filters
-        - apc.gc_ttl
-        - apc.include_once_override
-        - apc.localcache
-        - apc.localcache.size
-        - apc.max_file_size
-        - apc.mmap_file_mask
-        - apc.num_files_hint
-        - apc.report_autofilter
-        - apc.rfc1867
-        - apc.rfc1867_freq
-        - apc.rfc1867_name
-        - apc.rfc1867_prefix
-        - apc.shm_segments
-        - apc.shm_size
-        - apc.slam_defense
-        - apc.stat
-        - apc.stat_ctime
-        - apc.ttl
-        - apc.user_entries_hint
-        - apc.user_ttl
-        - apc.write_lock
     apd:
         - apd.dumpdir
         - apd.statement_tracing

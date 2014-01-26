@@ -1,2 +1,5 @@
 settings:
-    apc.shm_size: 64M
+    apc.shm_size: 64
+    apc.shm_segments: 1
+    apc.stat: 0
+    apc.ttl: 0
