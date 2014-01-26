@@ -10,7 +10,7 @@ if $php_values['version'] == '53' {
 
     ## Enable apc.
     puphpet::ini { 'apc_apc.enabled':
-      entry       => 'CUSTOM_apc.enabled/apc',
+      entry       => 'apc/apc.enabled',
       value       => 1,
       php_version => $php_values['version'],
       webserver   => $php_webserver_service_ini
@@ -18,7 +18,7 @@ if $php_values['version'] == '53' {
 
     each( $apc_values['settings'] ) |$innerkey, $innervalue| {
       puphpet::ini { "apc_${innerkey}":
-        entry       => "CUSTOM_${innerkey}/apc",
+        entry       => "apc/${innerkey}",
         value       => $innervalue,
         php_version => $php_values['version'],
         webserver   => $php_webserver_service_ini
