@@ -1,11 +1,30 @@
 ## Begin APC manifest
 
-if $apc_values == undef {
-  $apc_values = hiera('apc', false)
-}
+if $php_values['version'] == '53' {
+  if $apc_values == undef {
+    $apc_values = hiera('apc', false)
+  }
 
-if $apc_values['install'] != undef and $apc_values['install'] == 1 {
-  include apc
+  if $apc_values['install'] != undef and $apc_values['install'] == 1 {
+    php::pecl::module { 'apc': }
+
+    ## Enable apc.
+    puphpet::ini { 'apc_apc.enabled':
+      entry       => 'CUSTOM_apc.enabled/apc',
+      value       => 1,
+      php_version => $php_values['version'],
+      webserver   => $php_webserver_service_ini
+    }
+
+    each( $apc_values['settings'] ) |$innerkey, $innervalue| {
+      puphpet::ini { "apc_${innerkey}":
+        entry       => "CUSTOM_${innerkey}/apc",
+        value       => $innervalue,
+        php_version => $php_values['version'],
+        webserver   => $php_webserver_service_ini
+      }
+    }
+  }
 }
 
 ## End APC manifest

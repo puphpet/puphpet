@@ -1,2 +1,3 @@
 available_settings:
-    - apc.shm_size
+  - apc.enabled
+  - apc.shm_size
