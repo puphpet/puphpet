@@ -1,0 +1,27 @@
+<section id="elasticsearch">
+    
+    <div class="page-header">
+      <h1 id="php">Elasticsearch</h1>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-xs-12">
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="elasticsearch[install]"
+                           class="update-other-input"
+                           {% if elasticsearch.install %}checked{% endif %} value="1" /> Install Elasticsearch
+                </label>
+
+                <p class="help-block">
+                    Elastic search will be installed and the service will start automatically. Java will also be installed
+                    if not already present on the vagrant box.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    
+</section>
+
+    
