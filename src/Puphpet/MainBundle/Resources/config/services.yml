@@ -33,7 +33,7 @@ services:
         # work queues
             - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.beanstalkd.configure ] ]
         # search servers
-            #- [ addExtensionToGroup, [ 'search-server', @puphpet.extension.elastic_search.configure ] ]
+            - [ addExtensionToGroup, [ 'search-server', @puphpet.extension.elastic_search.configure ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
