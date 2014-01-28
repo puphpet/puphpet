@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\ElasticsearchBundle\Controller;
+namespace Puphpet\Extension\ElasticSearchBundle\Controller;
 
 use Puphpet\MainBundle\Extension;
 
@@ -10,7 +10,7 @@ class ManifestController extends Controller implements Extension\ControllerInter
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetExtensionElasticsearchBundle:manifest:Elasticsearch.pp.twig', [
+        return $this->render('PuphpetExtensionElasticSearchBundle:manifest:ElasticSearch.pp.twig', [
             'data' => $data,
         ]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\ElasticsearchBundle\Controller;
+namespace Puphpet\Extension\ElasticSearchBundle\Controller;
 
 use Puphpet\MainBundle\Extension;
 
@@ -11,8 +11,8 @@ class FrontController extends Controller implements Extension\ControllerInterfac
     public function indexAction(array $data)
     {
         
-        return $this->render('PuphpetExtensionElasticsearchBundle:form:Elasticsearch.html.twig', [
-            'elasticsearch' => $data,
+        return $this->render('PuphpetExtensionElasticSearchBundle:form:ElasticSearch.html.twig', [
+            'elastic_search' => $data,
         ]);
     }
 
@@ -21,7 +21,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
      */
     private function getData()
     {
-        $config = $this->get('puphpet.extension.elasticsearch.configure');
+        $config = $this->get('puphpet.extension.elastic_search.configure');
         return $config->getData();
     }
 }

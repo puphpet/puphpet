@@ -1,7 +1,7 @@
-puphpet.extension.elasticsearch.homepage:
+puphpet.extension.elastic_search.homepage:
     pattern:  /
-    defaults: { _controller: PuphpetExtensionElasticsearchBundle:Front:index }
+    defaults: { _controller: PuphpetExtensionElasticSearchBundle:Front:index }
 
-puphpet.extension.php.manifest:
+puphpet.extension.elastic_search.manifest:
     pattern:  /manifest
-    defaults: { _controller: PuphpetExtensionElasticsearchBundle:Manifest:index }
+    defaults: { _controller: PuphpetExtensionElasticSearchBundle:Manifest:index }

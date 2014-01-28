@@ -61,3 +61,7 @@ puphpet.extension.mongodb:
 puphpet.extension.beanstalkd:
     resource: "@PuphpetExtensionBeanstalkdBundle/Resources/config/routing.yml"
     prefix:   /extensions/beanstalkd
+
+puphpet.extension.elastic-search:
+    resource: "@PuphpetExtensionElasticSearchBundle/Resources/config/routing.yml"
+    prefix:   /extensions/elastic-search

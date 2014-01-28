@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\ElasticsearchBundle\DependencyInjection;
+namespace Puphpet\Extension\ElasticSearchBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

@@ -1,15 +1,19 @@
-##begin elastic search manifest
+# Begin elastic search
 
-if $osfamily == 'debian' {
-        class { 'elasticsearch':
-                java_install => true,
-                autoupgrade => true,
-                package_url => 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb'
-        }
-}elsif $osfamily == 'redhat'{
-        class { 'elasticsearch':
-                java_install => true,
-                autoupgrade => true,
-                package_url => 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.10.noarch.rpm'
-        }
+if $elasticsearch_values == undef {
+  $elasticsearch_values = hiera('elastic_search', false)
+}
+
+if has_key($elasticsearch_values, 'install') and $elasticsearch_values['install'] == 1 {
+  case $::osfamily {
+    'debian': { $package_url = 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb' }
+    'redhat': { $package_url = 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.10.noarch.rpm' }
+    default:  { fail('Unrecognized operating system for Elastic Search') }
+  }
+
+  class { 'elasticsearch':
+    java_install => true,
+    autoupgrade  => true,
+    package_url  => $package_url
+  }
 }

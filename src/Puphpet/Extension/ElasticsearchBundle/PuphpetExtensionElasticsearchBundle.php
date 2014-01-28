@@ -1,9 +1,9 @@
 <?php
 
-namespace Puphpet\Extension\ElasticsearchBundle;
+namespace Puphpet\Extension\ElasticSearchBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class PuphpetExtensionElasticsearchBundle extends Bundle
+class PuphpetExtensionElasticSearchBundle extends Bundle
 {
 }

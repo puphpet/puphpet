@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\ElasticsearchBundle;
+namespace Puphpet\Extension\ElasticSearchBundle;
 
 use Puphpet\MainBundle\Extension;
 
@@ -8,12 +8,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class Configure extends Extension\ExtensionAbstract
 {
-    protected $name = 'Elasticsearch';
-    protected $slug = 'elasticsearch';
-    protected $targetFile = 'puphpet/puppet/manifests/default.pp';
+    protected $name = 'Elastic Search';
+    protected $slug = 'elastic_search';
+    protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
-        'elasticsearch' => ":git => 'https://github.com/elasticsearch/puppet-elasticsearch'"
+        'elasticsearch' => ":git => 'https://github.com/puphpet/puppet-elasticsearch.git'"
     ];
 
     /**
@@ -28,11 +28,11 @@ class Configure extends Extension\ExtensionAbstract
 
     public function getFrontController()
     {
-        return $this->container->get('puphpet.extension.elasticsearch.front_controller');
+        return $this->container->get('puphpet.extension.elastic_search.front_controller');
     }
 
     public function getManifestController()
     {
-        return $this->container->get('puphpet.extension.elasticsearch.manifest_controller');
+        return $this->container->get('puphpet.extension.elastic_search.manifest_controller');
     }
 }
