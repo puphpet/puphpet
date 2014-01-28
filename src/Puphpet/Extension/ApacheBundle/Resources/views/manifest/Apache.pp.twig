@@ -59,6 +59,14 @@ if has_key($apache_values, 'mod_spdy') and $apache_values['mod_spdy'] == 1 {
   class { 'puphpet::apache::modspdy': }
 }
 
+if count($apache_values['vhosts']) > 0 {
+  each( $apache_values['vhosts'] ) |$key, $vhost| {
+    file { $vhost['docroot']:
+      ensure => directory
+    }
+  }
+}
+
 create_resources(apache::vhost, $apache_values['vhosts'])
 
 define apache_mod {
