@@ -96,20 +96,13 @@ if has_key($mysql_values, 'phpmyadmin') and $mysql_values['phpmyadmin'] == 1 and
     }
   }
 
-  exec { 'move phpmyadmin to webroot':
+  exec { 'cp phpmyadmin to webroot':
     command => "cp -LR /usr/share/${phpMyAdmin_folder} ${mysql_pma_webroot_location}/phpmyadmin",
     onlyif  => "test ! -d ${mysql_pma_webroot_location}/phpmyadmin",
     require => [
       Package[$phpMyAdmin_package],
       File[$mysql_pma_webroot_location]
     ]
-  }
-
-  file { "/usr/share/${phpMyAdmin_folder}":
-    target  => "${mysql_pma_webroot_location}/phpmyadmin",
-    ensure  => link,
-    replace => 'no',
-    require => Exec['move phpmyadmin to webroot']
   }
 }
 
