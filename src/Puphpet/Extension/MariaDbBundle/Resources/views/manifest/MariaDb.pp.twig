@@ -106,11 +106,11 @@ if has_key($mariadb_values, 'phpmyadmin') and $mariadb_values['phpmyadmin'] == 1
   }
 
   exec { 'move phpmyadmin to webroot':
-    command => "mv /usr/share/${phpMyAdmin_folder} ${mariadb_pma_webroot_location}/phpmyadmin",
+    command => "cp -R /usr/share/${phpMyAdmin_folder} ${mariadb_pma_webroot_location}/phpmyadmin",
     onlyif  => "test ! -d ${mariadb_pma_webroot_location}/phpmyadmin",
     require => [
       Package[$phpMyAdmin_package],
-      File[mariadb_pma_webroot_location]
+      File[$mariadb_pma_webroot_location]
     ]
   }
 
