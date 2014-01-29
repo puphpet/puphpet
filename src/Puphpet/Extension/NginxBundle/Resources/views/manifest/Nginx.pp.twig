@@ -51,14 +51,16 @@ class { 'nginx': }
 
 if count($nginx_values['vhosts']) > 0 {
   each( $nginx_values['vhosts'] ) |$key, $vhost| {
-    exec { "exec mkdir -p ${vhost['www_root']}":
+    exec { "exec mkdir -p ${vhost['www_root']} @ key ${key}":
       command => "mkdir -p ${vhost['www_root']}",
       creates => $vhost['docroot'],
     }
 
-    file { $vhost['www_root']:
-      ensure  => directory,
-      require => Exec["exec mkdir -p ${vhost['www_root']}"]
+    if ! defined(File[$vhost['www_root']]) {
+      file { $vhost['www_root']:
+        ensure  => directory,
+        require => Exec["exec mkdir -p ${vhost['www_root']} @ key ${key}"]
+      }
     }
   }
 

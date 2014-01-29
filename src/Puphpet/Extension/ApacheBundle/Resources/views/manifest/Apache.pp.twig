@@ -61,14 +61,16 @@ if has_key($apache_values, 'mod_spdy') and $apache_values['mod_spdy'] == 1 {
 
 if count($apache_values['vhosts']) > 0 {
   each( $apache_values['vhosts'] ) |$key, $vhost| {
-    exec { "exec mkdir -p ${vhost['docroot']}":
+    exec { "exec mkdir -p ${vhost['docroot']} @ key ${key}":
       command => "mkdir -p ${vhost['docroot']}",
       creates => $vhost['docroot'],
     }
 
-    file { $vhost['docroot']:
-      ensure  => directory,
-      require => Exec["exec mkdir -p ${vhost['docroot']}"]
+    if ! defined(File[$vhost['docroot']]) {
+      file { $vhost['docroot']:
+        ensure  => directory,
+        require => Exec["exec mkdir -p ${vhost['docroot']} @ key ${key}"]
+      }
     }
   }
 }
