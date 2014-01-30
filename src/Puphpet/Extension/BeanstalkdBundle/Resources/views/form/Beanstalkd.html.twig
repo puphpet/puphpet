@@ -46,7 +46,7 @@
                     <div class="row form-group">
                         <div class="col-md-6">
                             <label for="beanstalkd-maxjobsize">Max Job Size</label>
-                            <input type="text" id="beanstalkd-maxjobsize" name="beanstalkd[maxjobsize]"
+                            <input type="number" id="beanstalkd-maxjobsize" name="beanstalkd[maxjobsize]"
                                    required placeholder="65535" pattern="^[1-9][0-9]*$" min="10000"
                                    value="{{ beanstalkd.maxjobsize }}" class="form-control" />
                         </div>
