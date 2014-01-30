@@ -7,3 +7,5 @@ maxconnections: "1024"
 binlogdir: "/var/lib/beanstalkd/binlog"
 binlogfsync: ~
 binlogsize: "10485760"
+
+beanstalk_console: 1

@@ -22,6 +22,21 @@
                                     Learn about Beanstalkd</a>.
                             </p>
                         </div>
+
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="beanstalkd[beanstalk_console]" value="1"
+                                    {% if beanstalkd.beanstalk_console == 1 %}checked{% endif %} /> Install Beanstalk Console
+                            </label>
+
+                            <p class="help-block">
+                                Admin console for Beanstalk queue server, written in PHP.
+                                <a href="https://github.com/ptrofimov/beanstalk_console" target="_blank">
+                                    More information</a>.
+                                If installed, it will be available at
+                                <code>http://{SERVER_IP_ADDRESS}/beanstalk_console/public/</code>
+                            </p>
+                        </div>
                     </div>
 
                     <div class="row form-group">
