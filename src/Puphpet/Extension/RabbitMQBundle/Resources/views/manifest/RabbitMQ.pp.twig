@@ -1,0 +1,11 @@
+# Begin rabbitmq
+
+if $rabbitmq_values == undef {
+  $rabbitmq_values = hiera('rabbitmq', false)
+}
+
+if has_key($rabbitmq_values, 'install') and $rabbitmq_values['install'] == 1 {
+  class { 'rabbitmq':
+    port => $rabbitmq_values['port']
+  }
+}

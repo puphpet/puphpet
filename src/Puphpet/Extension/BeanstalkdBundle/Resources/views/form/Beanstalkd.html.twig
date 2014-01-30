@@ -12,8 +12,9 @@
                     <div class="row form-group">
                         <div class="col-xs-12">
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="beanstalkd[install]" value="1"
-                                    {% if beanstalkd.install == 1 %}checked{% endif %} /> Install Beanstalkd
+                                <input type="checkbox" name="beanstalkd[install]" class="multiselect-grouped-tab"
+                                       data-tab-target="beanstalkd-pill"
+                                       {% if beanstalkd.install %}checked{% endif %} value="1" /> Install Beanstalkd
                             </label>
 
                             <p class="help-block">

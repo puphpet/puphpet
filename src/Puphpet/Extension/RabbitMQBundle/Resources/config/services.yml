@@ -1,0 +1,15 @@
+services:
+    puphpet.extension.rabbitmq.configure:
+        class: Puphpet\Extension\RabbitMQBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.rabbitmq.front_controller:
+        class: Puphpet\Extension\RabbitMQBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.rabbitmq.manifest_controller:
+        class: Puphpet\Extension\RabbitMQBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]

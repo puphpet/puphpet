@@ -33,6 +33,7 @@ services:
             - [ addExtensionToGroup, [ 'nosql', @puphpet.extension.mongodb.configure ] ]
         # work queues
             - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.beanstalkd.configure ] ]
+            - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.rabbitmq.configure ] ]
         # search servers
             - [ addExtensionToGroup, [ 'search-server', @puphpet.extension.elastic_search.configure ] ]
 
