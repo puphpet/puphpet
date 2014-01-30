@@ -24,48 +24,48 @@ puphpet.extension.server:
 
 puphpet.extension.apache:
     resource: "@PuphpetExtensionApacheBundle/Resources/config/routing.yml"
-    prefix:   /extensions/apache
+    prefix:   /extension/apache
 
 puphpet.extension.nginx:
     resource: "@PuphpetExtensionNginxBundle/Resources/config/routing.yml"
-    prefix:   /extensions/nginx
+    prefix:   /extension/nginx
 
 puphpet.extension.php:
     resource: "@PuphpetExtensionPhpBundle/Resources/config/routing.yml"
-    prefix:   /extensions/php
+    prefix:   /extension/php
 
 puphpet.extension.xdebug:
     resource: "@PuphpetExtensionXdebugBundle/Resources/config/routing.yml"
-    prefix:   /extensions/xdebug
+    prefix:   /extension/xdebug
 
 puphpet.extension.xhprof:
     resource: "@PuphpetExtensionXhprofBundle/Resources/config/routing.yml"
-    prefix:   /extensions/xhprof
+    prefix:   /extension/xhprof
 
 puphpet.extension.mysql:
     resource: "@PuphpetExtensionMysqlBundle/Resources/config/routing.yml"
-    prefix:   /extensions/mysql
+    prefix:   /extension/mysql
 
 puphpet.extension.postgresql:
     resource: "@PuphpetExtensionPostgresqlBundle/Resources/config/routing.yml"
-    prefix:   /extensions/postgresql
+    prefix:   /extension/postgresql
 
 puphpet.extension.mariadb:
     resource: "@PuphpetExtensionMariaDbBundle/Resources/config/routing.yml"
-    prefix:   /extensions/mariadb
+    prefix:   /extension/mariadb
 
 puphpet.extension.mongodb:
     resource: "@PuphpetExtensionMongoDbBundle/Resources/config/routing.yml"
-    prefix:   /extensions/mongodb
+    prefix:   /extension/mongodb
 
 puphpet.extension.beanstalkd:
     resource: "@PuphpetExtensionBeanstalkdBundle/Resources/config/routing.yml"
-    prefix:   /extensions/beanstalkd
+    prefix:   /extension/beanstalkd
 
 puphpet.extension.elastic-search:
     resource: "@PuphpetExtensionElasticSearchBundle/Resources/config/routing.yml"
-    prefix:   /extensions/elastic-search
+    prefix:   /extension/elastic-search
 
 puphpet.extension.mailcatcher:
     resource: "@PuphpetExtensionMailCatcherBundle/Resources/config/routing.yml"
-    prefix:   /extensions/mailcatcher
+    prefix:   /extension/mailcatcher
