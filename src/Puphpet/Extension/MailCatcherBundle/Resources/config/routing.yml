@@ -1,0 +1,7 @@
+puphpet.extension.mailcatcher.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionMailCatcherBundle:Front:index }
+
+puphpet.extension.mailcatcher.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionMailCatcherBundle:Manifest:index }

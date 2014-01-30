@@ -65,3 +65,7 @@ puphpet.extension.beanstalkd:
 puphpet.extension.elastic-search:
     resource: "@PuphpetExtensionElasticSearchBundle/Resources/config/routing.yml"
     prefix:   /extensions/elastic-search
+
+puphpet.extension.mailcatcher:
+    resource: "@PuphpetExtensionMailCatcherBundle/Resources/config/routing.yml"
+    prefix:   /extensions/mailcatcher

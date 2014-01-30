@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             new Puphpet\Extension\BeanstalkdBundle\PuphpetExtensionBeanstalkdBundle(),
             new Puphpet\Extension\MongoDbBundle\PuphpetExtensionMongoDbBundle(),
             new Puphpet\Extension\ElasticSearchBundle\PuphpetExtensionElasticSearchBundle(),
+            new Puphpet\Extension\MailCatcherBundle\PuphpetExtensionMailCatcherBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -16,6 +16,7 @@ services:
             - [ addExtensionToGroup, [ 'deploy-target', @puphpet.extension.vagrantfile.aws.configure ] ]
         # server
             - [ addExtension, [ @puphpet.extension.server.configure ] ]
+            - [ addExtensionToGroup, [ 'server-extensions', @puphpet.extension.mailcatcher.configure ] ]
         # webserver group
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.apache.configure ] ]
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.nginx.configure ] ]
