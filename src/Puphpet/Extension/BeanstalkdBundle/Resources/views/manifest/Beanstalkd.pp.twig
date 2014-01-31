@@ -25,7 +25,7 @@ if is_hash($apache_values) {
 }
 
 if has_key($beanstalkd_values, 'install') and $beanstalkd_values['install'] == 1 {
-  beanstalkd::config { $beanstalkd_values: }
+  create_resources(beanstalkd::config, {'beanstalkd' => $beanstalkd_values['settings']})
 
   if has_key($beanstalkd_values, 'beanstalk_console') and $beanstalkd_values['beanstalk_console'] == 1 and $beanstalk_console_webroot_location != undef and is_hash($php_values) {
     exec { 'delete-beanstalk_console-path-if-not-git-repo':
@@ -33,7 +33,7 @@ if has_key($beanstalkd_values, 'install') and $beanstalkd_values['install'] == 1
       onlyif  => "test ! -d ${beanstalk_console_webroot_location}/.git"
     }
 
-    vcsrepo { "${beanstalk_console_webroot_location}":
+    vcsrepo { $beanstalk_console_webroot_location:
       ensure   => present,
       provider => git,
       source   => 'https://github.com/ptrofimov/beanstalk_console.git',
