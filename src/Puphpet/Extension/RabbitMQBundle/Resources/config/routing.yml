@@ -1,0 +1,7 @@
+puphpet.extension.rabbitmq.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionRabbitMQBundle:Front:index }
+
+puphpet.extension.rabbitmq.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionRabbitMQBundle:Manifest:index }

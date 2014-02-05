@@ -45,7 +45,7 @@
 
                     <div class="col-md-6">
                         <label for="nginx-vhosts-{{ uniqid }}-listen_port">Port</label>
-                        <input type="text" id="nginx-vhosts-{{ uniqid }}-listen_port"
+                        <input type="number" id="nginx-vhosts-{{ uniqid }}-listen_port"
                                name="nginx[vhosts][{{ uniqid }}][listen_port]"
                                required placeholder="80"
                                value="{{ vhost.listen_port }}" class="form-control" />

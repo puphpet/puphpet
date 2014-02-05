@@ -1,0 +1,17 @@
+parameters:
+
+services:
+    puphpet.extension.elastic_search.configure:
+        class: Puphpet\Extension\ElasticSearchBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.elastic_search.front_controller:
+        class: Puphpet\Extension\ElasticSearchBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.elastic_search.manifest_controller:
+        class: Puphpet\Extension\ElasticSearchBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]

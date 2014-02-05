@@ -32,6 +32,8 @@ if has_key($mongodb_values, 'install') and $mongodb_values['install'] == 1 {
         auth => $mongodb_values['auth'],
         port => $mongodb_values['port'],
       }
+
+      $mongodb_pecl = 'mongo'
     }
     'redhat': {
       class {'::mongodb::globals':
@@ -42,6 +44,8 @@ if has_key($mongodb_values, 'install') and $mongodb_values['install'] == 1 {
         port => $mongodb_values['port'],
       }->
       class {'::mongodb::client': }
+
+      $mongodb_pecl = 'pecl-mongo'
     }
   }
 
@@ -49,8 +53,8 @@ if has_key($mongodb_values, 'install') and $mongodb_values['install'] == 1 {
     create_resources(mongodb_db, $mongodb_values['databases'])
   }
 
-  if is_hash($php_values) and defined(Php::Pecl::Module['mongo']) == false {
-    php::pecl::module { 'mongo':
+  if is_hash($php_values) and ! defined(Php::Pecl::Module[$mongodb_pecl]) {
+    php::pecl::module { $mongodb_pecl:
       service_autorestart => $mariadb_webserver_restart,
       require             => Class['::mongodb::server']
     }

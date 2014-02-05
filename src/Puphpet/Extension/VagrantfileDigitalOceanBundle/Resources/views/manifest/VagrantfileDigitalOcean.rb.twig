@@ -2,7 +2,9 @@ require 'yaml'
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'digital_ocean'
 
-configValues = YAML.load_file('./puphpet/config.yaml')
+dir = File.dirname(File.expand_path(__FILE__))
+
+configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 data = configValues['vagrantfile-digital_ocean']
 
 Vagrant.configure("2") do |config|

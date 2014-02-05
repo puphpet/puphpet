@@ -50,6 +50,20 @@ if $php_values['version'] == undef {
 class { 'nginx': }
 
 if count($nginx_values['vhosts']) > 0 {
+  each( $nginx_values['vhosts'] ) |$key, $vhost| {
+    exec { "exec mkdir -p ${vhost['www_root']} @ key ${key}":
+      command => "mkdir -p ${vhost['www_root']}",
+      creates => $vhost['docroot'],
+    }
+
+    if ! defined(File[$vhost['www_root']]) {
+      file { $vhost['www_root']:
+        ensure  => directory,
+        require => Exec["exec mkdir -p ${vhost['www_root']} @ key ${key}"]
+      }
+    }
+  }
+
   create_resources(nginx_vhost, $nginx_values['vhosts'])
 }
 

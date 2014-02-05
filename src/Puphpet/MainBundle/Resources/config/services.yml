@@ -16,6 +16,7 @@ services:
             - [ addExtensionToGroup, [ 'deploy-target', @puphpet.extension.vagrantfile.aws.configure ] ]
         # server
             - [ addExtension, [ @puphpet.extension.server.configure ] ]
+            - [ addExtensionToGroup, [ 'server-extensions', @puphpet.extension.mailcatcher.configure ] ]
         # webserver group
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.apache.configure ] ]
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.nginx.configure ] ]
@@ -36,6 +37,9 @@ services:
             - [ addExtensionToGroup, [ 'nosql', @puphpet.extension.mongodb.configure ] ]
         # work queues
             - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.beanstalkd.configure ] ]
+            - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.rabbitmq.configure ] ]
+        # search servers
+            - [ addExtensionToGroup, [ 'search-server', @puphpet.extension.elastic_search.configure ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

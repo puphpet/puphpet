@@ -47,7 +47,7 @@
 
                     <div class="col-md-6">
                         <label for="apache-vhosts-{{ uniqid }}-port">Port</label>
-                        <input type="text" id="apache-vhosts-{{ uniqid }}-port"
+                        <input type="number" id="apache-vhosts-{{ uniqid }}-port"
                                name="apache[vhosts][{{ uniqid }}][port]"
                                required placeholder="80"
                                value="{{ vhost.port }}" class="form-control" />

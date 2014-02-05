@@ -45,11 +45,11 @@
                             {{ sections.singleSelectGrouped(extensionManager, 'deploy-target', 'Deploy Target') }}
 
                             {{ sections.single(extensionManager, 'server') }}
+                            {{ sections.multiSelectGrouped(extensionManager, 'server-extensions', 'Server Extensions') }}
 
                             {{ sections.singleSelectGrouped(extensionManager, 'webserver', 'Webserver') }}
 
                             {{ sections.single(extensionManager, 'php') }}
-
                             {{ sections.multiSelectGrouped(extensionManager, 'php-extensions', 'PHP Extensions') }}
 
                             {{ sections.singleSelectGrouped(extensionManager, 'search-engine-extensions', 'Search engines Extensions') }}
@@ -57,8 +57,10 @@
                             {{ sections.singleSelectGrouped(extensionManager, 'database', 'Database') }}
                             {{ sections.singleSelectGrouped(extensionManager, 'nosql', 'NoSQL Database') }}
 
-                            {{ sections.singleSelectGrouped(extensionManager, 'work-queue', 'Work Queue') }}
+                            {{ sections.multiSelectGrouped(extensionManager, 'work-queue', 'Work Queue') }}
 
+                            {{ sections.singleSelectGrouped(extensionManager, 'search-server', 'Search Server') }}
+                             
                         </div>
 
                         <section id="create">

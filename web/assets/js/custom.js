@@ -56,6 +56,11 @@ PUPHPET.updateOtherInput = function() {
     });
 };
 
+/**
+ * When a <select> element is chosen, check another element.
+ *
+ * For example, choosing Debian 6 will auto-select PHP 5.4, as 5.5 is not supported.
+ */
 PUPHPET.updateOtherInputSelect = function() {
     $(document).on('change', 'select.update-other-input', function(e){
         var $parent = $(this);
@@ -491,6 +496,13 @@ PUPHPET.sidebarPillToggle = function() {
     }
 };
 
+/**
+ * Multi-group allows focusing on a tabbed element and hiding others, without
+ * disabling hidden elements.
+ *
+ * Useful for grouping related extensions that are not exclusive of each other:
+ *      Xdebug, Xhprof, Drush
+ */
 PUPHPET.toggleMultiGroupedTab = function() {
     $(document).on('change', 'input.multiselect-grouped-tab', function(e) {
         var targetContainer     = '#' + this.getAttribute('data-tab-target');
