@@ -1,0 +1,75 @@
+<section id="vagrantfile-gce">
+
+    <input type="hidden" id="vagrantfile-gce-vm-box" name="vagrantfile-gce[vm][box]" value="gce" />
+
+    <!-- vagrantfile-gce / instructions -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Google Compute Engine Instructions</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <h3>Google Compute Engine Instance</h3>
+
+                        <p>
+                            Don't have a Google Compute Engine account?
+                            <a href="https://github.com/mitchellh/vagrant-google#google-cloud-platform-setup" target="_blank">Follow the instructions here.</a>
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3>Installation Requirements</h3>
+
+                        <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#gce-instructions-mac" data-toggle="pill">Mac</a></li>
+                            <li><a href="#gce-instructions-windows-linux" data-toggle="pill">Windows &amp; Linux</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="gce-instructions-mac">
+                                <code class="col-xs-11">
+                                    $ git clone https://github.com/mitchellh/vagrant-google.git<br />
+                                    $ cd vagrant-google/<br />
+                                    $ gem build vagrant-google.gemspec<br />
+                                    $ vagrant plugin install vagrant-google-*.gem<br />
+                                    $ vagrant box add gce https://github.com/mitchellh/vagrant-google/raw/master/google.box<br />
+                                    $ brew install curl-ca-bundle<br />
+                                    $ echo export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt >> ~/.bash_profile
+                                </code>
+                            </div>
+                            <div class="tab-pane" id="gce-instructions-windows-linux">
+                                <code class="col-xs-11">
+                                    $ git clone https://github.com/mitchellh/vagrant-google.git<br />
+                                    $ cd vagrant-google/<br />
+                                    $ gem build vagrant-google.gemspec<br />
+                                    $ vagrant plugin install vagrant-google-*.gem<br />
+                                    $ vagrant box add gce https://github.com/mitchellh/vagrant-google/raw/master/google.box
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3>Accessing Your VM</h3>
+
+                        <p>
+                            To access your VM after running <code>$ vagrant up</code>, type
+                            <code>$ vagrant ssh-config</code> to get the IP address assigned to the server you created,
+                            and add the IP address to your computer's hosts file. Type <code>$ vagrant ssh</code> to
+                            be immediately connected via SSH to your new server!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end vagrantfile-gce / instructions -->
+
+
+</section>
