@@ -67,21 +67,15 @@ if [ "${OS}" == 'ubuntu' ]; then
     fi
 fi
 
-if [[ ! -f /.puphpet-stuff/librarian-puppet-installed ]]; then
-    echo 'Installing librarian-puppet'
-    gem install librarian-puppet >/dev/null
-    echo 'Finished installing librarian-puppet'
+echo 'Installing librarian-puppet'
+gem install librarian-puppet-maestrodev >/dev/null
+echo 'Finished installing librarian-puppet'
 
-    echo 'Running initial librarian-puppet'
-    cd "${PUPPET_DIR}" && librarian-puppet install --clean >/dev/null
-    echo 'Finished running initial librarian-puppet'
+echo 'Running initial librarian-puppet'
+cd "${PUPPET_DIR}" && librarian-puppet install --clean >/dev/null
+echo 'Finished running initial librarian-puppet'
 
-    touch /.puphpet-stuff/librarian-puppet-installed
-else
-    echo 'Running update librarian-puppet'
-    cd "${PUPPET_DIR}" && librarian-puppet update >/dev/null
-    echo 'Finished running update librarian-puppet'
-fi
+touch /.puphpet-stuff/librarian-puppet-installed
 
 echo "Replacing puppetlabs-git module with custom"
 rm -rf /etc/puppet/modules/git
