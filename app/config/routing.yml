@@ -42,6 +42,10 @@ puphpet.extension.xhprof:
     resource: "@PuphpetExtensionXhprofBundle/Resources/config/routing.yml"
     prefix:   /extension/xhprof
 
+puphpet.extension.varnish:
+    resource: "@PuphpetExtensionVarnishBundle/Resources/config/routing.yml"
+    prefix:   /extensions/varnish
+
 puphpet.extension.mysql:
     resource: "@PuphpetExtensionMysqlBundle/Resources/config/routing.yml"
     prefix:   /extension/mysql

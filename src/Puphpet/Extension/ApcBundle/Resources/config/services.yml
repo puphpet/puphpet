@@ -1,0 +1,17 @@
+parameters:
+
+services:
+    puphpet.extension.apc.configure:
+        class: Puphpet\Extension\ApcBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.apc.front_controller:
+        class: Puphpet\Extension\ApcBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.apc.manifest_controller:
+        class: Puphpet\Extension\ApcBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]
