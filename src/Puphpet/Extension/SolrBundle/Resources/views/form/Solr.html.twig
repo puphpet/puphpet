@@ -10,9 +10,8 @@
                     <div class="row form-group">
                         <div class="col-xs-12">
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="solr[install]" class="multiselect-grouped-tab"
-                                       data-tab-target="solr-pill"
-                                       {% if solr.install %}checked{% endif %} value="1" /> Install Solr
+                                <input type="checkbox" name="solr[install]" value="1"
+                                    {% if solr.install %}checked{% endif %} /> Install Solr
                             </label>
 
                             <p class="help-block">
