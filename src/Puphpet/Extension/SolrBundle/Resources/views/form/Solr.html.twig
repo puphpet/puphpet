@@ -16,27 +16,7 @@
                             </label>
 
                             <p class="help-block">
-                                Solr will be installed from official Maven repo.
-                            </p>
-                        </div>
-
-                        <div class="col-xs-12">
-                            <label for="solr-versions-displayer">Solr version</label>
-                            <select id="solr-versions-displayer"
-                                    class="form-control select-tag selectize"
-                                    data-target-container="solr-versions"
-                                    data-target-name="solr[versions]"
-                                    name="solr[versions]"
-                                >
-                                {% for version in solr.versions %}
-                                    <option value="{{ version }}">{{ version }}</option>
-                                {% endfor %}
-                            </select>
-
-                            <p class="help-block">
-                                You can choose which branch / tag of Solr to checkout.
-                                See <a href="http://mvnrepository.com/artifact/org.apache.solr/solr-core" target="_blank">list</a>
-                                for current versions.
+                                Solr 4.6.0 will be installed. To open your Solr admin page http://[your-host]:8080/solr.
                             </p>
                         </div>
 
