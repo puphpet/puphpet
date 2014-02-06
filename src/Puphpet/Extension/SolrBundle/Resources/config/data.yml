@@ -1,6 +1,4 @@
 install: 0
 
-versions: 4.4
-
 settings:
     cores: [ 'development', 'staging', 'production' ]
