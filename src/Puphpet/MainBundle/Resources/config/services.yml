@@ -25,8 +25,6 @@ services:
             - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.xdebug.configure ] ]
             - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.xhprof.configure ] ]
             - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.drush.configure ] ]
-        #search-engine
-            - [ addExtensionToGroup, [ 'search-engine-extensions', @puphpet.extension.solr.configure ] ]
         # database group
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.mysql.configure ] ]
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.postgresql.configure ] ]
@@ -38,6 +36,7 @@ services:
             - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.rabbitmq.configure ] ]
         # search servers
             - [ addExtensionToGroup, [ 'search-server', @puphpet.extension.elastic_search.configure ] ]
+            - [ addExtensionToGroup, [ 'search-server', @puphpet.extension.solr.configure ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
