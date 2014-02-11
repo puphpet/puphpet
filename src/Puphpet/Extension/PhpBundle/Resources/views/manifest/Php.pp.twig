@@ -117,7 +117,7 @@ if count($php_values['ini']) > 0 {
 
     file { $php_values['ini']['session.save_path']:
       ensure  => directory,
-      group   => 'www-data',
+      group   => $apache_values['group'],
       mode    => 0775,
       require => Exec["mkdir -p ${php_values['ini']['session.save_path']}"]
     }
