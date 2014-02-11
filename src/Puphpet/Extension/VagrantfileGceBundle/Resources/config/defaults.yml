@@ -1,0 +1,28 @@
+vm:
+    provider:
+        google:
+            zone: us-central1-a
+            zone_config:
+                name: gae-server
+                image: backports-debian-7-wheezy-v20131127
+                machine_type: g1-small
+                zone: us-central1-a
+    synced_folder:
+        -
+            source: ./
+            target: /var/www
+            id: webroot
+            nfs: false
+    network:
+    provision:
+        puppet:
+            manifests_path: "puphpet/puppet"
+            manifest_file: "manifest.pp"
+            options:
+                - "--verbose"
+                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
+                - "--parser future"
+ssh:
+    username: PRIVATE_KEY_USER
+    forward_agent: true
+    private_key_path: "~/.ssh/id_rsa"

@@ -1,0 +1,41 @@
+vm:
+    box: gce
+    hostname: master
+    network:
+        private_network: 192.168.56.101
+        forwarded_port: []
+    provider:
+        google:
+            google_project_id: ~
+            google_client_email: ~
+            google_key_location: ~
+            zone: ~
+            zone_config:
+                name: ~
+                image: ~
+                machine_type: ~
+                zone: ~
+                metadata: { }
+    provision:
+        puppet:
+            manifests_path: "puphpet/puppet"
+            manifest_file: "manifest.pp"
+            options:
+                - "--verbose"
+                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
+                - "--parser future"
+    synced_folder: []
+
+ssh:
+    host: ~
+    port: ~
+    private_key_path: ~
+    username: ~
+    guest_port: ~
+    keep_alive: true
+    forward_agent: false
+    forward_x11: false
+    shell: bash -l
+
+vagrant:
+    host: detect
