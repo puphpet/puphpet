@@ -9,7 +9,7 @@ CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
 if [[ ! -f /.puphpet-stuff/update-puppet ]]; then
     if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
         echo "Downloading http://apt.puppetlabs.com/puppetlabs-release-${CODENAME}.deb"
-        wget --quiet --tries=5 --timeout=10 -O "/.puphpet-stuff/puppetlabs-release-${CODENAME}.deb" "http://apt.puppetlabs.com/puppetlabs-release-${CODENAME}.deb"
+        wget --quiet --tries=5 --connect-timeout=10 -O "/.puphpet-stuff/puppetlabs-release-${CODENAME}.deb" "http://apt.puppetlabs.com/puppetlabs-release-${CODENAME}.deb"
         echo "Finished downloading http://apt.puppetlabs.com/puppetlabs-release-${CODENAME}.deb"
 
         dpkg -i "/.puphpet-stuff/puppetlabs-release-${CODENAME}.deb" >/dev/null
