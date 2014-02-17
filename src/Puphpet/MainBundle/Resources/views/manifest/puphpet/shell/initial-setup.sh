@@ -42,7 +42,7 @@ fi
 
 if [[ "${OS}" == 'ubuntu' && ("${CODENAME}" == 'lucid' || "${CODENAME}" == 'precise') && ! -f /.puphpet-stuff/ubuntu-required-libraries ]]; then
     echo 'Installing basic curl packages (Ubuntu only)'
-    apt-get install -y libcurl3 libcurl4-gnutls-dev >/dev/null
+    apt-get install -y libcurl3 libcurl4-gnutls-dev curl >/dev/null
     echo 'Finished installing basic curl packages (Ubuntu only)'
 
     touch /.puphpet-stuff/ubuntu-required-libraries
