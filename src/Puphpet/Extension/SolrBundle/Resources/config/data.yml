@@ -1,0 +1,4 @@
+install: 0
+
+settings:
+    cores: [ 'development', 'staging', 'production' ]

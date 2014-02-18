@@ -1,0 +1,2 @@
+settings:
+    cores: [ 'development', 'staging', 'production' ]

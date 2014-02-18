@@ -1,0 +1,37 @@
+<section id="solr">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Solr</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="solr[install]" value="1"
+                                    {% if solr.install %}checked{% endif %} /> Install Solr
+                            </label>
+
+                            <p class="help-block">
+                                Solr 4.6.0 will be installed. To open your Solr admin page http://[your-host]:8080/solr.
+                            </p>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <label for="solr-cores">Solr index cores</label>
+                            <input id="solr-cores" name="solr[settings][cores]" class="form-control select-tags-user-input" value="dev,stage,prod">
+
+                            <p class="help-block">
+                                You can create any amount of index cores with any name, one per line.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
