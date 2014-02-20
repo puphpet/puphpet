@@ -7,7 +7,7 @@ services:
             - "@service_container"
 
     puphpet.extension.hhvm.front_controller:
-        class: Puphpet\Extension\hhvmBundle\Controller\FrontController
+        class: Puphpet\Extension\HhvmBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
 
