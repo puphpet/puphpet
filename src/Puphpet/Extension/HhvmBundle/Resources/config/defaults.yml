@@ -1,0 +1,6 @@
+install: 0
+nightly: 0
+
+settings:
+    host: 127.0.0.1
+    port: 9000

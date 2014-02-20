@@ -11,17 +11,20 @@ available_images:
         php_versions:
             - 5.5
             - 5.4
+            - HHVM
     -
         image: Debian 7.0 x64
         long_name: Debian Wheezy 7.0 x64
         php_versions:
             - 5.5
             - 5.4
+            - HHVM
     -
         image: Ubuntu 13.04 x64
         long_name: Ubuntu Raring 13.04 x64
         php_versions:
             - 5.4
+            - HHVM
     -
         image: Ubuntu 12.10 x64
         long_name: Ubuntu Quantal 12.10 x64
@@ -33,6 +36,7 @@ available_images:
         php_versions:
             - 5.4
             - 5.3
+            - HHVM
 
 available_sizes:
     512MB: 512MB / 1 CPU / 20GB SSD DISK / 1TB TRANSFER

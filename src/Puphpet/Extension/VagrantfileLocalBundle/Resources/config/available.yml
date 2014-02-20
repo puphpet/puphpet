@@ -13,6 +13,7 @@ available_boxes:
         php_versions:
             - 5.5
             - 5.4
+            - HHVM
     -
         url: http://box.puphpet.com/debian-wheezy72-x64-vbox43.box
         os: debian
@@ -21,6 +22,7 @@ available_boxes:
         php_versions:
             - 5.5
             - 5.4
+            - HHVM
     -
         url: http://box.puphpet.com/debian-squeeze607-x64-vbox43.box
         os: debian
@@ -37,6 +39,7 @@ available_boxes:
         php_versions:
             - 5.4
             - 5.3
+            - HHVM
     -
         url: http://box.puphpet.com/ubuntu-lucid10044-x64-vbox43.box
         os: ubuntu

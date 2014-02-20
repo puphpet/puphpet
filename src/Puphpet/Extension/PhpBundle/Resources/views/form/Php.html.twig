@@ -1,9 +1,5 @@
 <section id="php">
 
-    <div class="page-header">
-      <h1 id="php">PHP</h1>
-    </div>
-
     <!-- PHP / Quick Settings -->
     <div class="row">
         <div class="col-xs-12">
@@ -13,6 +9,15 @@
                 </div>
 
                 <div class="panel-body">
+
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="php[install]"
+                                       {% if php.install %}checked{% endif %} value="1" /> Install PHP
+                            </label>
+                        </div>
+                    </div>
 
                     <!-- PHP / Version & Composer -->
                     <div class="row form-group">
