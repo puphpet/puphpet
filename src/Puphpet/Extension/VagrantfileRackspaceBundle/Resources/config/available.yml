@@ -11,6 +11,7 @@ available_images:
         php_versions:
             - 5.5
             - 5.4
+            - HHVM
     -
         image: Debian 6.06 (Squeeze)
         long_name: Debian Wheezy 6.06 x64
@@ -22,6 +23,7 @@ available_images:
         long_name: Ubuntu Raring 13.04 x64
         php_versions:
             - 5.4
+            - HHVM
     -
         image: Ubuntu 12.10 (Quantal Quetzal)
         long_name: Ubuntu Quantal 12.10 x64
@@ -33,6 +35,7 @@ available_images:
         php_versions:
             - 5.4
             - 5.3
+            - HHVM
 
 available_sizes:
     - 512MB

@@ -4,7 +4,6 @@ vhosts: []
 user: 'www-data'
 group: 'www-data'
 default_vhost: true
-mpm_module: prefork
 
 mod_pagespeed: 0
 mod_spdy: 0

@@ -1,0 +1,67 @@
+## Begin HHVM manifest
+
+if $hhvm_values == undef {
+  $hhvm_values = hiera('hhvm', false)
+}
+
+if $apache_values == undef {
+  $apache_values = hiera('apache', false)
+}
+
+if $nginx_values == undef {
+  $nginx_values = hiera('nginx', false)
+}
+
+if is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['install'] == 1 {
+  if is_hash($apache_values) {
+    $hhvm_webserver = 'httpd'
+  } elsif is_hash($nginx_values) {
+    $hhvm_webserver = 'nginx'
+  } else {
+    $hhvm_webserver = undef
+  }
+
+  class { 'puphpet::hhvm':
+    nightly   => $hhvm_values['nightly'],
+    webserver => $hhvm_webserver
+  }
+
+  if ! defined(User['hhvm']) {
+    user { 'hhvm':
+      home       => '/home/hhvm',
+      groups     => 'www-data',
+      ensure     => present,
+      managehome => true,
+      require    => Group['www-data']
+    }
+  }
+
+  if ! defined(Class['supervisord']) {
+    class { 'supervisord':
+      install_pip => true,
+    }
+  }
+
+  $supervisord_hhvm_cmd = "hhvm --mode server -vServer.Type=fastcgi -vServer.Port=${hhvm_values['settings']['port']}"
+
+  supervisord::program { 'hhvm':
+    command     => $supervisord_hhvm_cmd,
+    priority    => '100',
+    user        => 'hhvm',
+    autostart   => true,
+    autorestart => true,
+    environment => {
+      'PATH' => '/bin:/sbin:/usr/bin:/usr/sbin'
+    },
+    require     => [
+      User['hhvm'],
+      Package['hhvm']
+    ]
+  }
+
+  file { '/usr/bin/php':
+    ensure  => 'link',
+    target  => '/usr/bin/hhvm',
+    require => Package['hhvm']
+  }
+}

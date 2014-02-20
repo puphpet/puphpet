@@ -317,6 +317,10 @@ footer .img-thumbnail img {
   background-color: #f0ad4e;
 }
 
+.php-version-HHVM {
+  background-color: #45679e;
+}
+
 /*
  * Drag and drop overlay
  */

@@ -130,7 +130,7 @@ case $::operatingsystem {
 
     add_dotdeb { 'packages.dotdeb.org': release => $lsbdistcodename }
 
-    if is_hash($php_values) {
+   if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
       # Debian Squeeze 6.0 can do PHP 5.3 (default) and 5.4
       if $lsbdistcodename == 'squeeze' and $php_values['version'] == '54' {
         add_dotdeb { 'packages.dotdeb.org-php54': release => 'squeeze-php54' }
@@ -158,7 +158,7 @@ case $::operatingsystem {
 
     apt::ppa { 'ppa:pdoes/ppa': require => Apt::Key['4CBEDD5A'] }
 
-    if is_hash($php_values) {
+    if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
       # Ubuntu Lucid 10.04, Precise 12.04, Quantal 12.10 and Raring 13.04 can do PHP 5.3 (default <= 12.10) and 5.4 (default <= 13.04)
       if $lsbdistcodename in ['lucid', 'precise', 'quantal', 'raring'] and $php_values['version'] == '54' {
         if $lsbdistcodename == 'lucid' {
@@ -177,7 +177,7 @@ case $::operatingsystem {
     }
   }
   'redhat', 'centos': {
-    if is_hash($php_values) {
+    if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
       if $php_values['version'] == '54' {
         class { 'yum::repo::remi': }
       }
