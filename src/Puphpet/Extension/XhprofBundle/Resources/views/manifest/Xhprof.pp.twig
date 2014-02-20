@@ -18,8 +18,7 @@ if is_hash($apache_values) or is_hash($nginx_values) {
   $xhprof_webserver_restart = false
 }
 
-if (is_hash($xhprof_values) and has_key($xhprof_values, 'install') and $xhprof_values['install'] == 1)
-  and is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
+if is_hash($xhprof_values) and $xhprof_values['install'] == 1 {
   if $::operatingsystem == 'ubuntu' {
     apt::key { '8D0DC64F':
       key_server => 'hkp://keyserver.ubuntu.com:80'

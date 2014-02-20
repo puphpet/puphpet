@@ -8,10 +8,6 @@ if $php_values == undef {
    $php_values = hiera('php', false)
 }
 
-if $hhvm_values == undef {
-  $hhvm_values = hiera('hhvm', false)
-}
-
 if $::osfamily == 'debian' and $lsbdistcodename in ['lucid'] and is_hash($php_values) and $php_values['version'] == '53' {
   apt::key { '67E15F46': key_server => 'hkp://keyserver.ubuntu.com:80' }
   apt::ppa { 'ppa:l-mierzwa/lucid-php5':
@@ -41,49 +37,14 @@ if ! defined(File[$webroot_location]) {
   }
 }
 
-if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
-  $php5_fpm_sock = '/var/run/php5-fpm.sock'
+$php5_fpm_sock = '/var/run/php5-fpm.sock'
 
-  if $php_values['version'] == undef {
-    $fastcgi_pass = null
-  } elsif $php_values['version'] == '53' {
-    $fastcgi_pass = '127.0.0.1:9000'
-  } else {
-    $fastcgi_pass = "unix:${php5_fpm_sock}"
-  }
-
-  $fastcgi_param_parts = [
-    'PATH_INFO $fastcgi_path_info',
-    'PATH_TRANSLATED $document_root$fastcgi_path_info',
-    'SCRIPT_FILENAME $document_root$fastcgi_script_name'
-  ]
-
-  if $::osfamily == 'redhat' and $fastcgi_pass == "unix:${php5_fpm_sock}" {
-    exec { "create ${php5_fpm_sock} file":
-      command => "touch ${php5_fpm_sock} && chmod 777 ${php5_fpm_sock}",
-      onlyif  => ["test ! -f ${php5_fpm_sock}", "test ! -f ${php5_fpm_sock}="],
-      require => Package['nginx']
-    }
-
-    exec { "listen = 127.0.0.1:9000 => listen = ${php5_fpm_sock}":
-      command => "perl -p -i -e 's#listen = 127.0.0.1:9000#listen = ${php5_fpm_sock}#gi' /etc/php-fpm.d/www.conf",
-      unless  => "grep -c 'listen = 127.0.0.1:9000' '${php5_fpm_sock}'",
-      notify  => [
-        Class['nginx::service'],
-        Service['php-fpm']
-      ],
-      require => Exec["create ${php5_fpm_sock} file"]
-    }
-  }
-} elsif is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['install'] == 1 {
+if $php_values['version'] == undef {
+  $fastcgi_pass = null
+} elsif $php_values['version'] == '53' {
   $fastcgi_pass = '127.0.0.1:9000'
-
-  $fastcgi_param_parts = [
-    'SCRIPT_FILENAME $document_root$fastcgi_script_name'
-  ]
 } else {
-  $fastcgi_pass = ''
-  $fastcgi_param_parts = []
+  $fastcgi_pass = "unix:${php5_fpm_sock}"
 }
 
 class { 'nginx': }
@@ -137,7 +98,12 @@ define nginx_vhost (
     try_files   => ['$uri', '$uri/', "/${try_files}?\$args"],
   }
 
-  $fastcgi_param = concat($fastcgi_param_parts, $envvars)
+  $fastcgi_param = concat(
+  [
+    'PATH_INFO $fastcgi_path_info',
+    'PATH_TRANSLATED $document_root$fastcgi_path_info',
+    'SCRIPT_FILENAME $document_root$fastcgi_script_name',
+  ], $envvars)
 
   nginx::resource::location { "${server_name}-php":
     ensure              => present,
@@ -154,5 +120,23 @@ define nginx_vhost (
       'include'                 => 'fastcgi_params'
     },
     notify              => Class['nginx::service'],
+  }
+}
+
+if $::osfamily == 'redhat' and $fastcgi_pass == "unix:${php5_fpm_sock}" {
+  exec { "create ${php5_fpm_sock} file":
+    command => "touch ${php5_fpm_sock} && chmod 777 ${php5_fpm_sock}",
+    onlyif  => ["test ! -f ${php5_fpm_sock}", "test ! -f ${php5_fpm_sock}="],
+    require => Package['nginx']
+  }
+
+  exec { "listen = 127.0.0.1:9000 => listen = ${php5_fpm_sock}":
+    command => "perl -p -i -e 's#listen = 127.0.0.1:9000#listen = ${php5_fpm_sock}#gi' /etc/php-fpm.d/www.conf",
+    unless  => "grep -c 'listen = 127.0.0.1:9000' '${php5_fpm_sock}'",
+    notify  => [
+      Class['nginx::service'],
+      Service['php-fpm']
+    ],
+    require => Exec["create ${php5_fpm_sock} file"]
   }
 }

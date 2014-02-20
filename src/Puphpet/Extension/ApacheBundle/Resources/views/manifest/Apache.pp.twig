@@ -8,16 +8,7 @@ if $apache_values == undef {
   $apache_values = $yaml_values['apache']
 }
 
-if $php_values == undef {
-  $php_values = hiera('php', false)
-}
-
-if $hhvm_values == undef {
-  $hhvm_values = hiera('hhvm', false)
-}
-
 include puphpet::params
-include apache::params
 
 $webroot_location = $puphpet::params::apache_webroot_location
 
@@ -38,31 +29,22 @@ if ! defined(File[$webroot_location]) {
   }
 }
 
-if is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['install'] == 1 {
-  $mpm_module           = 'worker'
-  $disallowed_modules   = ['php']
-  $apache_conf_template = 'puphpet/apache/hhvm-httpd.conf.erb'
-} elsif (is_hash($php_values)) {
-  $mpm_module           = 'prefork'
-  $disallowed_modules   = []
-  $apache_conf_template = $apache::params::conf_template
-} else {
-  $mpm_module           = 'prefork'
-  $disallowed_modules   = []
-  $apache_conf_template = $apache::params::conf_template
-}
-
 class { 'apache':
   user          => $apache_values['user'],
   group         => $apache_values['group'],
-  default_vhost => true,
-  mpm_module    => $mpm_module,
+  default_vhost => $apache_values['default_vhost'],
+  mpm_module    => $apache_values['mpm_module'],
   manage_user   => false,
-  manage_group  => false,
-  conf_template => $apache_conf_template
+  manage_group  => false
 }
 
-if $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/80']) {
+if $::osfamily == 'debian' {
+  case $apache_values['mpm_module'] {
+    'prefork': { ensure_packages( ['apache2-mpm-prefork'] ) }
+    'worker':  { ensure_packages( ['apache2-mpm-worker'] ) }
+    'event':   { ensure_packages( ['apache2-mpm-event'] ) }
+  }
+} elsif $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/80']) {
   iptables::allow { 'tcp/80':
     port     => '80',
     protocol => 'tcp'
@@ -96,7 +78,7 @@ if count($apache_values['vhosts']) > 0 {
 create_resources(apache::vhost, $apache_values['vhosts'])
 
 define apache_mod {
-  if ! defined(Class["apache::mod::${name}"]) and !($name in $disallowed_modules) {
+  if ! defined(Class["apache::mod::${name}"]) {
     class { "apache::mod::${name}": }
   }
 }

@@ -354,34 +354,6 @@ PUPHPET.enableClickedTabElement = function() {
 };
 
 /**
- * On source click, enable target and all form fields
- *
- * @param source
- * @param target
- */
-PUPHPET.enableTargetElements = function(source, target) {
-    $(document).on('click', source, function(e){
-        var $target = $(target);
-        $target.show();
-        $target.find('input, textarea, button, select').prop('disabled', false);
-    });
-};
-
-/**
- * On source click, disable target and all form fields
- *
- * @param source
- * @param target
- */
-PUPHPET.disableTargetElements = function(source, target) {
-    $(document).on('click', source, function(e){
-        var $target = $(target);
-        $target.hide();
-        $target.find('input, textarea, button, select').prop('disabled', true);
-    });
-};
-
-/**
  * Display the information about PuPHPet's beloved contributors!
  */
 PUPHPET.githubContributors = function() {
@@ -562,8 +534,4 @@ $(document).ready(function() {
     PUPHPET.sidebar();
     PUPHPET.sidebarPillToggle();
     PUPHPET.toggleMultiGroupedTab();
-    PUPHPET.enableTargetElements('#php-pill', '#php-extensions');
-    PUPHPET.enableTargetElements('#php-pill-menulink', '#php-extensions');
-    PUPHPET.disableTargetElements('#hhvm-pill', '#php-extensions');
-    PUPHPET.disableTargetElements('#hhvm-pill-menulink', '#php-extensions');
 });

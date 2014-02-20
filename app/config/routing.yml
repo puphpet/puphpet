@@ -34,10 +34,6 @@ puphpet.extension.php:
     resource: "@PuphpetExtensionPhpBundle/Resources/config/routing.yml"
     prefix:   /extension/php
 
-puphpet.extension.hhvm:
-    resource: "@PuphpetExtensionHhvmBundle/Resources/config/routing.yml"
-    prefix:   /extension/hhvm
-
 puphpet.extension.xdebug:
     resource: "@PuphpetExtensionXdebugBundle/Resources/config/routing.yml"
     prefix:   /extension/xdebug

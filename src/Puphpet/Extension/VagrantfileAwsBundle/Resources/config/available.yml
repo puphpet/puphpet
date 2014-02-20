@@ -15,7 +15,6 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
-                - HHVM
         -
             ami: ami-a73264ce
             name: Ubuntu Precise 12.04.3 x64 EBS
@@ -23,7 +22,6 @@ available_images:
             php_versions:
                 - 5.4
                 - 5.3
-                - HHVM
 # US West (Northern California) Region
     us-west-1:
         -
@@ -34,7 +32,6 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
-                - HHVM
         -
             ami: ami-acf9cde9
             os: ubuntu
@@ -43,7 +40,6 @@ available_images:
             php_versions:
                 - 5.4
                 - 5.3
-                - HHVM
 # US West (Northern California) Region
     us-west-2:
         -
@@ -54,7 +50,6 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
-                - HHVM
         -
             ami: ami-6aad335a
             os: ubuntu
@@ -63,7 +58,6 @@ available_images:
             php_versions:
                 - 5.4
                 - 5.3
-                - HHVM
 # EU (Ireland) Region
     eu-west-1:
         -
@@ -74,7 +68,6 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
-                - HHVM
         -
             ami: ami-8e987ef9
             os: ubuntu
@@ -83,7 +76,6 @@ available_images:
             php_versions:
                 - 5.4
                 - 5.3
-                - HHVM
 # South America (Sao Paulo) Region
     sa-east-1:
         -
@@ -94,7 +86,6 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
-                - HHVM
         -
             ami: ami-35258228
             os: ubuntu
@@ -103,7 +94,6 @@ available_images:
             php_versions:
                 - 5.4
                 - 5.3
-                - HHVM
 # Asia Pacific (Tokyo) Region
     ap-northeast-1:
         -
@@ -114,7 +104,6 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
-                - HHVM
         -
             ami: ami-3f32ac3e
             os: ubuntu
@@ -123,7 +112,6 @@ available_images:
             php_versions:
                 - 5.4
                 - 5.3
-                - HHVM
 # Asia Pacific (Singapore) Region
     ap-southeast-1:
         -
@@ -134,7 +122,6 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
-                - HHVM
         -
             ami: ami-b84e04ea
             os: ubuntu
@@ -143,7 +130,6 @@ available_images:
             php_versions:
                 - 5.4
                 - 5.3
-                - HHVM
 # Asia Pacific (Sydney) Region
     ap-southeast-2:
         -
@@ -154,7 +140,6 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
-                - HHVM
         -
             ami: ami-3d128f07
             os: ubuntu
@@ -163,7 +148,6 @@ available_images:
             php_versions:
                 - 5.4
                 - 5.3
-                - HHVM
 
 available_instance_types:
     t1.micro: up to 2 ECUs, 1 vCPUs, 0.613 GiB memory, EBS only
