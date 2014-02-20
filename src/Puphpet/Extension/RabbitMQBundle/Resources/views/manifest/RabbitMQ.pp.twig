@@ -13,7 +13,7 @@ if has_key($rabbitmq_values, 'install') and $rabbitmq_values['install'] == 1 {
     port => $rabbitmq_values['port']
   }
 
-  if is_hash($php_values) and ! defined(Php::Pecl::Module['amqp']) {
+  if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 and ! defined(Php::Pecl::Module['amqp']) {
     php_pecl_mod { 'amqp': }
   }
 }
