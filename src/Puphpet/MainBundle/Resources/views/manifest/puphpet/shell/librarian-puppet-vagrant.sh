@@ -16,14 +16,18 @@ if [ "${FOUND_GIT}" -ne '0' ] && [ ! -f /.puphpet-stuff/librarian-puppet-install
     FOUND_APT=$?
     $(which yum > /dev/null 2>&1)
     FOUND_YUM=$?
+    $(which pacman > /dev/null 2>&1)
+    FOUND_PACMAN=$?
 
     echo 'Installing git'
 
     if [ "${FOUND_YUM}" -eq '0' ]; then
         yum -q -y makecache
         yum -q -y install git
-    else
+    elif [ "${FOUND_APT}" -eq '0' ]; then
         apt-get -q -y install git-core >/dev/null
+    elif [ "${FOUND_PACMAN}" -eq '0' ]; then
+        pacman -S git --noconfirm >/dev/null
     fi
 
     echo 'Finished installing git'
@@ -68,8 +72,30 @@ if [ "${OS}" == 'ubuntu' ]; then
 fi
 
 if [[ ! -f /.puphpet-stuff/librarian-puppet-installed ]]; then
+
     echo 'Installing librarian-puppet'
-    gem install librarian-puppet >/dev/null
+    if [ "${OS}" == 'arch' ]; then
+        if [ -f /usr/bin/yaourt ]; then
+            yaourt -S librarian-puppet --noconfirm --needed &>/dev/null
+        else
+            CURRENT_PATH=$(pwd)
+            cd /tmp/
+
+            wget -q https://aur.archlinux.org/packages/li/librarian-puppet/librarian-puppet.tar.gz
+            
+            tar xfz librarian-puppet.tar.gz
+
+            cd librarian-puppet
+            makepkg -si --noconfrim --needed &>/dev/null
+
+            rm -rf librarian-puppet
+            rm librarian-puppet.tar.gz
+
+            cd $CURRENT_PATH
+        fi
+    else
+        gem install librarian-puppet >/dev/null
+    fi
     echo 'Finished installing librarian-puppet'
 
     echo 'Running initial librarian-puppet'
