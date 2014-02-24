@@ -135,6 +135,9 @@ define nginx_vhost (
     listen_port => $listen_port,
     index_files => $index_files,
     try_files   => ['$uri', '$uri/', "/${try_files}?\$args"],
+    vhost_cfg_append => {
+       sendfile => 'off'
+    }
   }
 
   $fastcgi_param = concat($fastcgi_param_parts, $envvars)
