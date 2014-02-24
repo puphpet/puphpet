@@ -2,13 +2,9 @@
 
 if $postgresql_values == undef {
   $postgresql_values = hiera('postgresql', false)
-}
-
-if $php_values == undef {
+} if $php_values == undef {
   $php_values = hiera('php', false)
-}
-
-if $hhvm_values == undef {
+} if $hhvm_values == undef {
   $hhvm_values = hiera('hhvm', false)
 }
 
@@ -18,9 +14,12 @@ if is_hash($apache_values) or is_hash($nginx_values) {
   $postgresql_webserver_restart = false
 }
 
-if hash_key_equals($php_values, 'install', 1) or hash_key_equals($hhvm_values, 'install', 1)
-{
+if hash_key_equals($php_values, 'install', 1) {
   $postgresql_php_installed = true
+  $postgresql_php_package   = 'php'
+} elsif hash_key_equals($hhvm_values, 'install', 1) {
+  $postgresql_php_installed = true
+  $postgresql_php_package   = 'hhvm'
 } else {
   $postgresql_php_installed = false
 }
@@ -39,7 +38,7 @@ if $postgresql_values['root_password'] {
     create_resources(postgresql_db, $postgresql_values['databases'])
   }
 
-  if $postgresql_php_installed and $php_values['installed'] == 1 and ! defined(Php::Module['pgsql']) {
+  if $postgresql_php_installed and $postgresql_php_package == 'php' and ! defined(Php::Module['pgsql']) {
     php::module { 'pgsql':
       service_autorestart => $postgresql_webserver_restart,
     }
@@ -85,7 +84,8 @@ if hash_key_equals($postgresql_values, 'adminer', 1) and $postgresql_php_install
   }
 
   class { 'puphpet::adminer':
-    location => "${postgresql_adminer_webroot_location}/adminer",
-    owner    => 'www-data'
+    location    => "${postgresql_adminer_webroot_location}/adminer",
+    owner       => 'www-data',
+    php_package => $mariadb_php_package
   }
 }
