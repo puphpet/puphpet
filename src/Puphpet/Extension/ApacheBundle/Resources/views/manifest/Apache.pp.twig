@@ -42,14 +42,17 @@ if hash_key_equals($hhvm_values, 'install', 1) {
   $mpm_module           = 'worker'
   $disallowed_modules   = ['php']
   $apache_conf_template = 'puphpet/apache/hhvm-httpd.conf.erb'
+  $apache_php_package   = 'hhvm'
 } elsif hash_key_equals($php_values, 'install', 1) {
   $mpm_module           = 'prefork'
   $disallowed_modules   = []
   $apache_conf_template = $apache::params::conf_template
+  $apache_php_package   = 'php'
 } else {
   $mpm_module           = 'prefork'
   $disallowed_modules   = []
   $apache_conf_template = $apache::params::conf_template
+  $apache_php_package   = ''
 }
 
 class { 'apache':
@@ -74,7 +77,9 @@ if hash_key_equals($apache_values, 'mod_pagespeed', 1) {
 }
 
 if hash_key_equals($apache_values, 'mod_spdy', 1) {
-  class { 'puphpet::apache::modspdy': }
+  class { 'puphpet::apache::modspdy':
+    php_package => $apache_php_package
+  }
 }
 
 if count($apache_values['vhosts']) > 0 {
