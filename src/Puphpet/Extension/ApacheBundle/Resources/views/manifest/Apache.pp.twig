@@ -38,11 +38,11 @@ if ! defined(File[$webroot_location]) {
   }
 }
 
-if is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['install'] == 1 {
+if hash_key_equals($hhvm_values, 'install', 1) {
   $mpm_module           = 'worker'
   $disallowed_modules   = ['php']
   $apache_conf_template = 'puphpet/apache/hhvm-httpd.conf.erb'
-} elsif (is_hash($php_values)) {
+} elsif hash_key_equals($php_values, 'install', 1) {
   $mpm_module           = 'prefork'
   $disallowed_modules   = []
   $apache_conf_template = $apache::params::conf_template
@@ -69,11 +69,11 @@ if $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/80']) {
   }
 }
 
-if has_key($apache_values, 'mod_pagespeed') and $apache_values['mod_pagespeed'] == 1 {
+if hash_key_equals($apache_values, 'mod_pagespeed', 1) {
   class { 'puphpet::apache::modpagespeed': }
 }
 
-if has_key($apache_values, 'mod_spdy') and $apache_values['mod_spdy'] == 1 {
+if hash_key_equals($apache_values, 'mod_spdy', 1) {
   class { 'puphpet::apache::modspdy': }
 }
 

@@ -24,8 +24,7 @@ if is_hash($apache_values) {
   $xdebug_webserver_service = undef
 }
 
-if (is_hash($xdebug_values) and has_key($xdebug_values, 'install') and $xdebug_values['install'] == 1)
-  and is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
+if hash_key_equals($xdebug_values, 'install', 1) and hash_key_equals($php_values, 'install', 1) {
   class { 'puphpet::xdebug':
     webserver => $xdebug_webserver_service
   }

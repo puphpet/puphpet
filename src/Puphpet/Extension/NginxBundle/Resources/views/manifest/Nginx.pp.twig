@@ -41,7 +41,7 @@ if ! defined(File[$webroot_location]) {
   }
 }
 
-if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 {
+if hash_key_equals($php_values, 'install', 1) {
   $php5_fpm_sock = '/var/run/php5-fpm.sock'
 
   if $php_values['version'] == undef {
@@ -75,7 +75,7 @@ if is_hash($php_values) and has_key($php_values, 'install') and $php_values['ins
       require => Exec["create ${php5_fpm_sock} file"]
     }
   }
-} elsif is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['install'] == 1 {
+} elsif hash_key_equals($hhvm_values, 'install', 1) {
   $fastcgi_pass = '127.0.0.1:9000'
 
   $fastcgi_param_parts = [

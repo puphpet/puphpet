@@ -18,8 +18,7 @@ if is_hash($apache_values) or is_hash($nginx_values) {
   $postgresql_webserver_restart = false
 }
 
-if (is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1)
-  or (is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['install'] == 1)
+if hash_key_equals($php_values, 'install', 1) or hash_key_equals($hhvm_values, 'install', 1)
 {
   $postgresql_php_installed = true
 } else {
@@ -76,7 +75,7 @@ define postgresql_db (
   }
 }
 
-if has_key($postgresql_values, 'adminer') and $postgresql_values['adminer'] == 1 and $postgresql_php_installed {
+if hash_key_equals($postgresql_values, 'adminer', 1) and $postgresql_php_installed {
   if is_hash($apache_values) {
     $postgresql_adminer_webroot_location = $puphpet::params::apache_webroot_location
   } elsif is_hash($nginx_values) {
