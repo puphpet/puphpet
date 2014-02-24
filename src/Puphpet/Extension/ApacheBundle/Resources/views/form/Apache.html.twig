@@ -13,6 +13,15 @@
                 <div class="panel-body">
                     <div class="row form-group">
                         <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="apache[install]"
+                                       {% if apache.install %}checked{% endif %} value="1" /> Install Apache2
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-xs-12">
                             <label for="apache-modules">Apache Modules</label>
                             <select id="apache-modules" name="apache[modules][]" multiple class="form-control select-tags">
                                 {% for module in apache.available_modules %}
