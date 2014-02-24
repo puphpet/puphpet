@@ -17,7 +17,13 @@
                                 <input type="checkbox" name="apache[install]"
                                        {% if apache.install %}checked{% endif %} value="1" /> Install Apache2
                             </label>
+
+                            <p class="help-block">
+                                Only Apache or Nginx can be installed (or none at all).
+                                Installing both at the same time is not supported.
+                            </p>
                         </div>
+
                     </div>
 
                     <div class="row form-group">
