@@ -53,7 +53,7 @@ if hash_key_equals($mongodb_values, 'install', 1) {
     create_resources(mongodb_db, $mongodb_values['databases'])
   }
 
-  if is_hash($php_values) and has_key($php_values, 'install') and $php_values['install'] == 1 and ! defined(Php::Pecl::Module[$mongodb_pecl]) {
+  if hash_key_equals($php_values, 'install', 1) and ! defined(Php::Pecl::Module[$mongodb_pecl]) {
     php::pecl::module { $mongodb_pecl:
       service_autorestart => $mariadb_webserver_restart,
       require             => Class['::mongodb::server']
