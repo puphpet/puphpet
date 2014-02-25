@@ -12,6 +12,19 @@
 
                 <div class="panel-body">
                     <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="mysql[install]"
+                                       {% if mysql.install %}checked{% endif %} value="1" /> Install MySQL
+                            </label>
+
+                            <p class="help-block">
+                                If you install MySQL, you cannot install MariaDB.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
                         <div class="col-md-12">
                             <label for="mysql-root_password">Root Password</label>
                             <input type="text" id="mysql-root_password" name="mysql[root_password]"
