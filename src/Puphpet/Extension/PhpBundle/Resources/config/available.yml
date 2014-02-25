@@ -20,6 +20,8 @@ available_modules:
         - mcrypt
         - memcache
         - memcached
+        - mysql
+        - mysqlnd
         - odbc
         - pspell
         - readline
