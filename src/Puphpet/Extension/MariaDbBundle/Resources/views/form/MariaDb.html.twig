@@ -12,6 +12,19 @@
 
                 <div class="panel-body">
                     <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="mariadb[install]"
+                                       {% if mariadb.install %}checked{% endif %} value="1" /> Install MariaDB
+                            </label>
+
+                            <p class="help-block">
+                                If you install MariaDB, you cannot install MySQL.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
                         <div class="col-md-12">
                             <label>Version</label><br />
 
