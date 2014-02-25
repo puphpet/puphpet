@@ -52,27 +52,6 @@ if hash_key_equals($mysql_values, 'install', 1) {
   }
 
   if hash_key_equals($mysql_values, 'phpmyadmin', 1) and $mysql_php_installed {
-    if $::osfamily == 'debian' {
-      if $::operatingsystem == 'ubuntu' {
-        apt::key { '80E7349A06ED541C': key_server => 'hkp://keyserver.ubuntu.com:80' }
-        apt::ppa { 'ppa:nijel/phpmyadmin': require => Apt::Key['80E7349A06ED541C'] }
-      }
-
-      $phpMyAdmin_package = 'phpmyadmin'
-      $phpMyAdmin_folder  = 'phpmyadmin'
-    } elsif $::osfamily == 'redhat' {
-      $phpMyAdmin_package = 'phpMyAdmin.noarch'
-      $phpMyAdmin_folder  = 'phpMyAdmin'
-    }
-
-    if ! defined(Package[$phpMyAdmin_package]) {
-      package { $phpMyAdmin_package:
-        require => Class['mysql::server']
-      }
-    }
-
-    include puphpet::params
-
     if hash_key_equals($apache_values, 'install', 1) {
       $mysql_pma_webroot_location = $puphpet::params::apache_webroot_location
     } elsif hash_key_equals($nginx_values, 'install', 1) {
@@ -81,15 +60,13 @@ if hash_key_equals($mysql_values, 'install', 1) {
       mysql_nginx_default_conf { 'override_default_conf':
         webroot => $mysql_pma_webroot_location
       }
+    } else {
+      $mysql_pma_webroot_location = '/var/www'
     }
 
-    exec { 'cp phpmyadmin to webroot':
-      command => "cp -LR /usr/share/${phpMyAdmin_folder} ${mysql_pma_webroot_location}/phpmyadmin",
-      onlyif  => "test ! -d ${mysql_pma_webroot_location}/phpmyadmin",
-      require => [
-        Package[$phpMyAdmin_package],
-        File[$mysql_pma_webroot_location]
-      ]
+    class { 'puphpet::phpmyadmin':
+      dbms             => 'mysql::server',
+      webroot_location => $mysql_pma_webroot_location,
     }
   }
 
