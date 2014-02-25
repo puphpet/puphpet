@@ -35,7 +35,6 @@ available_images:
         long_name: Ubuntu Precise 12.04.3 x64
         php_versions:
             - 5.4
-            - 5.3
             - HHVM
 
 available_sizes:

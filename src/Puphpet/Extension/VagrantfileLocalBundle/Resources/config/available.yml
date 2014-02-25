@@ -30,7 +30,6 @@ available_boxes:
         long_name: Debian Squeeze 6.0.7 x64 - Virtualbox 4.3
         php_versions:
             - 5.4
-            - 5.3
     -
         url: http://box.puphpet.com/ubuntu-precise12042-x64-vbox43.box
         os: ubuntu
@@ -38,7 +37,6 @@ available_boxes:
         long_name: Ubuntu Precise 12.04 x64 - Virtualbox 4.3
         php_versions:
             - 5.4
-            - 5.3
             - HHVM
     -
         url: http://files.vagrantup.com/precise32.box
@@ -47,7 +45,6 @@ available_boxes:
         long_name: Ubuntu Precise 12.04 x32 - Virtualbox 4.3
         php_versions:
             - 5.4
-            - 5.3
             - HHVM
     -
         url: http://box.puphpet.com/ubuntu-lucid10044-x64-vbox43.box
@@ -56,4 +53,3 @@ available_boxes:
         long_name: Ubuntu Lucid 10.04 x64 - Virtualbox 4.3
         php_versions:
             - 5.4
-            - 5.3
