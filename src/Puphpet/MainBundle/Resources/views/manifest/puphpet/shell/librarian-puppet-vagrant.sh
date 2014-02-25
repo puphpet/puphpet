@@ -69,6 +69,7 @@ fi
 
 if [[ ! -f /.puphpet-stuff/librarian-puppet-installed ]]; then
     echo 'Installing librarian-puppet'
+    gem install json >/dev/null
     gem install librarian-puppet >/dev/null
     echo 'Finished installing librarian-puppet'
 
