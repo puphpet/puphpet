@@ -41,6 +41,15 @@ available_boxes:
             - 5.3
             - HHVM
     -
+        url: http://files.vagrantup.com/precise32.box
+        os: ubuntu
+        short_name: ubuntu-precise1204-x32-vbox43
+        long_name: Ubuntu Precise 12.04 x32 - Virtualbox 4.3
+        php_versions:
+            - 5.4
+            - 5.3
+            - HHVM
+    -
         url: http://box.puphpet.com/ubuntu-lucid10044-x64-vbox43.box
         os: ubuntu
         short_name: ubuntu-lucid10044-x64-vbox43
