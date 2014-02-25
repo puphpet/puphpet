@@ -12,6 +12,15 @@
 
                 <div class="panel-body">
                     <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="postgresql[install]"
+                                       {% if postgresql.install %}checked{% endif %} value="1" /> Install PostgreSQL
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
                         <div class="col-md-12">
                             <label for="postgresql-root_password">Root Password</label>
                             <input type="text" id="postgresql-root_password" name="postgresql[root_password]"
