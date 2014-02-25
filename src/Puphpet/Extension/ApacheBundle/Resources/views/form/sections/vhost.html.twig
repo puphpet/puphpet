@@ -93,6 +93,17 @@
                     </div>
                 </div>
 
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label for="apache-vhosts-{{ uniqid }}-custom_fragment">Custom Directives</label>
+                        <textarea id="apache-vhosts-{{ uniqid }}-custom_fragment"
+                               name="apache[vhosts][{{ uniqid }}][custom_fragment]"
+                               class="form-control">{{ vhost.custom_fragment }}</textarea>
+
+                        <p class="help-block">Advanced usage!</p>
+                    </div>
+                </div>
+
                 <p class="text-center">
                     <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
                             data-parent-id="{{ uniqid }}">Remove this vhost</button>

@@ -15,6 +15,7 @@ vhosts:
             - APP_ENV dev
         override:
             - All
+        custom_fragment: ~
 
 mod_pagespeed: 0
 mod_spdy: 0
