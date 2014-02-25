@@ -9,8 +9,6 @@ if $nginx_values == undef {
 }
 
 if hash_key_equals($apache_values, 'install', 1) {
-  include puphpet::params
-
   if $lsbdistcodename in ['lucid'] and hash_key_equals($php_values, 'version', '53') {
     apt::key { '67E15F46': key_server => 'hkp://keyserver.ubuntu.com:80' }
     apt::ppa { 'ppa:l-mierzwa/lucid-php5':

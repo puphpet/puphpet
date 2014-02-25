@@ -6,7 +6,10 @@ if $server_values == undef {
 
 # Ensure the time is accurate, reducing the possibilities of apt repositories
 # failing for invalid certificates
-include '::ntp'
+class { 'ntp': }
+
+include 'puphpet'
+include 'puphpet::params'
 
 Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
 group { 'puppet':   ensure => present }
