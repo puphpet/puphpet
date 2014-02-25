@@ -73,9 +73,9 @@ if hash_key_equals($mysql_values, 'install', 1) {
 
     include puphpet::params
 
-    if is_hash($apache_values) {
+    if hash_key_equals($apache_values, 'install', 1) {
       $mysql_pma_webroot_location = $puphpet::params::apache_webroot_location
-    } elsif is_hash($nginx_values) {
+    } elsif hash_key_equals($nginx_values, 'install', 1) {
       $mysql_pma_webroot_location = $puphpet::params::nginx_webroot_location
 
       mysql_nginx_default_conf { 'override_default_conf':
