@@ -41,5 +41,34 @@ if [[ ! -f /.puphpet-stuff/update-puppet ]]; then
 
         touch /.puphpet-stuff/update-puppet
         echo "Created empty file /.puphpet-stuff/update-puppet"
+    elif [ "${OS}" == 'arch' ]; then
+        if [ -f /usr/bin/yaourt ]; then
+            echo "Installing/Updating puppet"
+            yaourt -S puppet --noconfirm --needed &>/dev/null
+            echo "Finished installing/updating puppet"
+        else
+            CURRENT_PATH=$(pwd)
+            cd /tmp/
+
+            echo "Downloading https://aur.archlinux.org/packages/pu/puppet/puppet.tar.gz"
+            wget -q https://aur.archlinux.org/packages/pu/puppet/puppet.tar.gz
+            echo "Finished downloading https://aur.archlinux.org/packages/pu/puppet/puppet.tar.gz"
+            
+            echo "Unpacking puppet.tar.gz"
+            tar xfz puppet.tar.gz
+            echo "Finished puppet.tar.gz"
+
+            echo "Building and installing/updating puppet"
+            cd puppet
+            makepkg -si --noconfrim --needed &>/dev/null
+            echo "Finished building and and installing/updating puppet"
+
+            rm -rf puppet
+            rm puppet.tar.gz
+
+            cd $CURRENT_PATH
+        fi
+        touch /.puphpet-stuff/update-puppet
+        echo "Created empty file /.puphpet-stuff/update-puppet"
     fi
 fi

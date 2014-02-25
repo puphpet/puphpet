@@ -38,6 +38,18 @@ if [[ ! -f /.puphpet-stuff/initial-setup-repo-update ]]; then
         yum -y groupinstall "Development Tools" >/dev/null
         echo "Finished installing basic development tools (CentOS)"
         touch /.puphpet-stuff/initial-setup-repo-update
+    elif [[ "${OS}" == 'arch' ]]; then
+        if [ -f /usr/bin/yaourt ]; then
+            echo "Running initial-setup yaourt -Syua"
+            yaourt -Syua --noconfirm >/dev/null
+            echo "Finished running initial-setup yaourt -Syu"
+        else
+            echo "Running initial-setup pacman -Syu"
+            pacman -Syu --noconfirm --noprogressbar >/dev/null
+            echo "Finished running initial-setup pacman -Syu"
+        fi
+
+        touch /.puphpet-stuff/initial-setup-repo-update
     fi
 fi
 
