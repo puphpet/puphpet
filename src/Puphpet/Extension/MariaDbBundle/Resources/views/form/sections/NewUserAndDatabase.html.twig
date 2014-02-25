@@ -51,7 +51,7 @@
                         <label for="mariadb-databases-{{ uniqid }}-user">Username</label>
                         <input type="text" id="mariadb-databases-{{ uniqid }}-user"
                                name="mariadb[databases][{{ uniqid }}][user]"
-                               required placeholder="username"
+                               required placeholder="username" maxlength="16"
                                value="{{ database.user }}" class="form-control" />
 
                         <p class="help-block">
