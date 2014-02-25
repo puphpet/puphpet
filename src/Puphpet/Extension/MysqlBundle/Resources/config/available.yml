@@ -12,6 +12,7 @@ available_privileges:
         - INDEX
         - INSERT
         - LOCAL TABLES
+        - LOCK TABLES
         - PROCESS
         - REFERENCES
         - RELOAD
