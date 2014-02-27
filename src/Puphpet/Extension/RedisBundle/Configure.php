@@ -13,7 +13,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
-        'redis' => ":git => 'https://github.com/ykamakazi/puppetlabs-redis.git'",
+        'redis' => ":git => 'https://github.com/ykamakazi/puppet-redis'",
     ];
 
     /**

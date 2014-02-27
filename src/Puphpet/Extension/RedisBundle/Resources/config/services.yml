@@ -9,7 +9,7 @@ services:
         calls:
             - [ setContainer, [@service_container] ]
 
-    puphpet.extension.rabbitmq.manifest_controller:
+    puphpet.extension.redis.manifest_controller:
         class: Puphpet\Extension\RedisBundle\Controller\ManifestController
         calls:
             - [ setContainer, [@service_container] ]
