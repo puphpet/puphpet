@@ -13,11 +13,9 @@
 <div id="main">
     <div class="container">
         <div class="row">
-            {% include 'PuphpetMainBundle:front:sideMenu.html.twig' %}
-
             <form role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
 
-                <div class="col-sm-9">
+                <div class="col-sm-12">
                     <div>
 
                         {% for flashMessage in app.session.flashbag.get('error') %}
