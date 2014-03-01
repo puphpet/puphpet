@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new Puphpet\Extension\MailCatcherBundle\PuphpetExtensionMailCatcherBundle(),
             new Puphpet\Extension\RabbitMQBundle\PuphpetExtensionRabbitMQBundle(),
             new Puphpet\Extension\HhvmBundle\PuphpetExtensionHhvmBundle(),
+            new Puphpet\Extension\RedisBundle\PuphpetExtensionRedisBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

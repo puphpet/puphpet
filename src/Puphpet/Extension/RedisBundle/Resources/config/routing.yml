@@ -1,0 +1,7 @@
+puphpet.extension.redis.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionRedisBundle:Front:index }
+
+puphpet.extension.redis.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionRedisBundle:Manifest:index }

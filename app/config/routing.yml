@@ -77,3 +77,7 @@ puphpet.extension.elastic-search:
 puphpet.extension.mailcatcher:
     resource: "@PuphpetExtensionMailCatcherBundle/Resources/config/routing.yml"
     prefix:   /extension/mailcatcher
+
+puphpet.extension.redis:
+    resource: "@PuphpetExtensionRedisBundle/Resources/config/routing.yml"
+    prefix:   /extension/redis

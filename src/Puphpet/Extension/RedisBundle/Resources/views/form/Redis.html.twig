@@ -1,0 +1,34 @@
+<section id="redis">
+
+    <!-- redis -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Redis Quick Settings</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="redis[install]" class="multiselect-grouped-tab"
+                                       data-tab-target="redis-pill"
+                                       {% if redis.install == 1 %}checked{% endif %} value="1" /> Install Redis
+                            </label>
+
+                            <p class="help-block">
+                                Redis is an open source, BSD licensed, advanced key-value store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets and sorted sets.
+                                <a href="http://try.redis.io/" target="_blank">
+                                    Try Redis</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end redis -->
+
+</section>

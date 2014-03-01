@@ -32,6 +32,7 @@ services:
             - [ addExtensionToGroup, [ 'database', @puphpet.extension.mariadb.configure ] ]
         # nosql db group
             - [ addExtensionToGroup, [ 'nosql', @puphpet.extension.mongodb.configure ] ]
+            - [ addExtensionToGroup, [ 'nosql', @puphpet.extension.redis.configure ] ]
         # work queues
             - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.beanstalkd.configure ] ]
             - [ addExtensionToGroup, [ 'work-queue', @puphpet.extension.rabbitmq.configure ] ]
