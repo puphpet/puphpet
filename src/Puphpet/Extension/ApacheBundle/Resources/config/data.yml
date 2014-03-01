@@ -10,4 +10,4 @@ default_vhost: true
 mod_pagespeed: 0
 mod_spdy: 0
 
-sendfile: 0
+sendfile: Off
