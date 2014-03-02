@@ -18,10 +18,20 @@
                             </label>
 
                             <p class="help-block">
-                                Redis is an open source, BSD licensed, advanced key-value store. It is often referred to as a data structure server since keys can contain strings, hashes, lists, sets and sorted sets.
-                                <a href="http://try.redis.io/" target="_blank">
-                                    Try Redis</a>.
+                                Redis is an open source, BSD licensed, advanced key-value store. It is often referred
+                                to as a data structure server since keys can contain strings, hashes, lists, sets and
+                                sorted sets. <a href="http://try.redis.io/" target="_blank">Try Redis</a>.
                             </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="redis-settings-conf_port">Listen Port</label>
+                            <input type="number" id="redis-settings-conf_port"
+                                   name="redis[settings][conf_port]"
+                                   required placeholder="5673" pattern="^[1-9][0-9]*$" min="5000" max="20000"
+                                   value="{{ redis.settings.conf_port }}" class="form-control" />
                         </div>
                     </div>
                 </div>
