@@ -2,21 +2,13 @@
 
 if $beanstalkd_values == undef {
   $beanstalkd_values = hiera('beanstalkd', false)
-}
-
-if $php_values == undef {
+} if $php_values == undef {
   $php_values = hiera('php', false)
-}
-
-if $hhvm_values == undef {
+} if $hhvm_values == undef {
   $hhvm_values = hiera('hhvm', false)
-}
-
-if $apache_values == undef {
+} if $apache_values == undef {
   $apache_values = hiera('apache', false)
-}
-
-if $nginx_values == undef {
+} if $nginx_values == undef {
   $nginx_values = hiera('nginx', false)
 }
 
@@ -35,9 +27,12 @@ if hash_key_equals($php_values, 'install', 1) or hash_key_equals($hhvm_values, '
 }
 
 if hash_key_equals($beanstalkd_values, 'install', 1) {
-  create_resources(beanstalkd::config, {'beanstalkd' => $beanstalkd_values['settings']})
+  create_resources(beanstalkd::config, { 'beanstalkd' => $beanstalkd_values['settings'] })
 
-  if hash_key_equals($beanstalkd_values, 'beanstalk_console', 1) and $beanstalk_console_webroot_location != undef and $beanstalkd_php_installed {
+  if hash_key_equals($beanstalkd_values, 'beanstalk_console', 1)
+    and $beanstalk_console_webroot_location != undef
+    and $beanstalkd_php_installed
+  {
     exec { 'delete-beanstalk_console-path-if-not-git-repo':
       command => "rm -rf ${beanstalk_console_webroot_location}",
       onlyif  => "test ! -d ${beanstalk_console_webroot_location}/.git"
