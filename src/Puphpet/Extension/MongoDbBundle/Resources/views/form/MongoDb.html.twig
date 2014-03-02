@@ -1,5 +1,3 @@
-<input type="hidden" name="is_disabled[mongodb]" value="0" />
-
 <section id="mongodb">
 
     <!-- MongoDB / Quick Settings -->
@@ -14,7 +12,8 @@
                     <div class="row form-group">
                         <div class="col-xs-12">
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="mongodb[install]"
+                                <input type="checkbox" name="mongodb[install]" class="multiselect-grouped-tab"
+                                       data-tab-target="mongodb-pill"
                                        {% if mongodb.install %}checked{% endif %} value="1" /> Install MongoDB
                             </label>
                         </div>
