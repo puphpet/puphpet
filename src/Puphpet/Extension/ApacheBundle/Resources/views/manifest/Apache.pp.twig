@@ -50,16 +50,13 @@ if hash_key_equals($apache_values, 'install', 1) {
     $apache_php_package   = ''
   }
 
-  class { 'apache':
-    user          => $apache_values['user'],
-    group         => $apache_values['group'],
-    default_vhost => true,
-    mpm_module    => $mpm_module,
-    manage_user   => false,
-    manage_group  => false,
-    conf_template => $apache_conf_template,
-    sendfile      => $apache_values['sendfile'] ? { 0 => 'Off', 1 => 'On', default => 'Off' }
-  }
+  $apache_settings = merge($apache_values['settings'], {
+    'mpm_module'    => $mpm_module,
+    'conf_template' => $apache_conf_template,
+    'sendfile'      => $apache_values['settings']['sendfile'] ? { 0 => 'Off', 1 => 'On', default => 'Off' },
+  })
+
+  create_resources('class', { 'apache' => $apache_settings })
 
   if $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/80']) {
     iptables::allow { 'tcp/80':
