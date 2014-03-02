@@ -22,9 +22,9 @@
                     <div class="row form-group">
                         <div class="col-md-12">
                             <label for="mongodb-port">Port</label>
-                            <input type="number" id="mongodb-port" name="mongodb[port]"
+                            <input type="number" id="mongodb-settings-port" name="mongodb[settings][port]"
                                    placeholder="27017" pattern="^[1-9][0-9]*$" min="1"
-                                   value="{{ mongodb.port }}" class="form-control" />
+                                   value="{{ mongodb.settings.port }}" class="form-control" />
                         </div>
                     </div>
                 </div>
