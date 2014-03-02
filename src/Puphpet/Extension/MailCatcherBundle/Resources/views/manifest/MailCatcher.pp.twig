@@ -5,31 +5,22 @@ if $mailcatcher_values == undef {
 }
 
 if hash_key_equals($mailcatcher_values, 'install', 1) {
-  $mailcatcher_path       = $mailcatcher_values['settings']['path']
-  $mailcatcher_smtp_ip    = $mailcatcher_values['settings']['smtp_ip']
-  $mailcatcher_smtp_port  = $mailcatcher_values['settings']['smtp_port']
-  $mailcatcher_http_ip    = $mailcatcher_values['settings']['http_ip']
-  $mailcatcher_http_port  = $mailcatcher_values['settings']['http_port']
-  $mailcatcher_log        = $mailcatcher_values['settings']['log']
+  create_resources('class', { 'mailcatcher' => $mailcatcher_values['settings'] })
 
-  class { 'mailcatcher':
-    mailcatcher_path => $mailcatcher_path,
-    smtp_ip          => $mailcatcher_smtp_ip,
-    smtp_port        => $mailcatcher_smtp_port,
-    http_ip          => $mailcatcher_http_ip,
-    http_port        => $mailcatcher_http_port,
-  }
-
-  if $::osfamily == 'redhat' and ! defined(Iptables::Allow["tcp/${mailcatcher_smtp_port}"]) {
-    iptables::allow { "tcp/${mailcatcher_smtp_port}":
-      port     => $mailcatcher_smtp_port,
+  if $::osfamily == 'redhat'
+    and ! defined(Iptables::Allow["tcp/${mailcatcher_values['settings']['smtp_port']}"])
+  {
+    iptables::allow { "tcp/${mailcatcher_values['settings']['smtp_port']}":
+      port     => $mailcatcher_values['settings']['smtp_port'],
       protocol => 'tcp'
     }
   }
 
-  if $::osfamily == 'redhat' and ! defined(Iptables::Allow["tcp/${mailcatcher_http_port}"]) {
-    iptables::allow { "tcp/${mailcatcher_http_port}":
-      port     => $mailcatcher_http_port,
+  if $::osfamily == 'redhat'
+    and ! defined(Iptables::Allow["tcp/${mailcatcher_values['settings']['http_port']}"])
+  {
+    iptables::allow { "tcp/${mailcatcher_values['settings']['http_port']}":
+      port     => $mailcatcher_values['settings']['http_port'],
       protocol => 'tcp'
     }
   }
@@ -41,13 +32,13 @@ if hash_key_equals($mailcatcher_values, 'install', 1) {
   }
 
   $supervisord_mailcatcher_options = sort(join_keys_to_values({
-    ' --smtp-ip'   => $mailcatcher_smtp_ip,
-    ' --smtp-port' => $mailcatcher_smtp_port,
-    ' --http-ip'   => $mailcatcher_http_ip,
-    ' --http-port' => $mailcatcher_http_port
+    ' --smtp-ip'   => $mailcatcher_values['settings']['smtp_ip'],
+    ' --smtp-port' => $mailcatcher_values['settings']['smtp_port'],
+    ' --http-ip'   => $mailcatcher_values['settings']['http_ip'],
+    ' --http-port' => $mailcatcher_values['settings']['http_port']
   }, ' '))
 
-  $supervisord_mailcatcher_cmd = "mailcatcher ${supervisord_mailcatcher_options} -f  >> ${mailcatcher_log}"
+  $supervisord_mailcatcher_cmd = "mailcatcher ${supervisord_mailcatcher_options} -f  >> ${mailcatcher_values['settings']['log']}"
 
   supervisord::program { 'mailcatcher':
     command     => $supervisord_mailcatcher_cmd,
@@ -56,7 +47,7 @@ if hash_key_equals($mailcatcher_values, 'install', 1) {
     autostart   => true,
     autorestart => true,
     environment => {
-      'PATH' => "/bin:/sbin:/usr/bin:/usr/sbin:${mailcatcher_path}"
+      'PATH' => "/bin:/sbin:/usr/bin:/usr/sbin:${mailcatcher_values['settings']['path']}"
     },
     require => Package['mailcatcher']
   }
