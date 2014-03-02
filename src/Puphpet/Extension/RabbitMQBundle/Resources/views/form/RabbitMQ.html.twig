@@ -27,11 +27,11 @@
 
                     <div class="row form-group">
                         <div class="col-md-6">
-                            <label for="rabbitmq-port">Listen Port</label>
-                            <input type="number" id="rabbitmq-port"
-                                   name="rabbitmq[port]"
+                            <label for="rabbitmq-settings-port">Listen Port</label>
+                            <input type="number" id="rabbitmq-settings-port"
+                                   name="rabbitmq[settings][port]"
                                    required placeholder="5672" pattern="^[1-9][0-9]*$" min="5000" max="20000"
-                                   value="{{ rabbitmq.port }}" class="form-control" />
+                                   value="{{ rabbitmq.settings.port }}" class="form-control" />
                         </div>
                     </div>
                 </div>

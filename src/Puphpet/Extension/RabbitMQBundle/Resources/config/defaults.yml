@@ -1,3 +1,4 @@
 install: 0
 
-port: 5672
+settings:
+    port: 5672
