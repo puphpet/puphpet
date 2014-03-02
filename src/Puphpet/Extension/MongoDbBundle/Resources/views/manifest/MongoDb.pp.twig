@@ -2,21 +2,15 @@
 
 if $mongodb_values == undef {
   $mongodb_values = hiera('mongodb', false)
-}
-
-if $php_values == undef {
+} if $php_values == undef {
   $php_values = hiera('php', false)
-}
-
-if $apache_values == undef {
+} if $apache_values == undef {
   $apache_values = hiera('apache', false)
-}
-
-if $nginx_values == undef {
+} if $nginx_values == undef {
   $nginx_values = hiera('nginx', false)
 }
 
-if is_hash($apache_values) or is_hash($nginx_values) {
+if hash_key_equals($apache_values, 'install', 1) or hash_key_equals($nginx_values, 'install', 1) {
   $mongodb_webserver_restart = true
 } else {
   $mongodb_webserver_restart = false
@@ -55,6 +49,7 @@ if hash_key_equals($mongodb_values, 'install', 1) {
 
   if hash_key_equals($php_values, 'install', 1) and ! defined(Php::Pecl::Module[$mongodb_pecl]) {
     php::pecl::module { $mongodb_pecl:
+      use_package         => false,
       service_autorestart => $mongodb_webserver_restart,
       require             => Class['::mongodb::server']
     }
