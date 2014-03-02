@@ -20,9 +20,9 @@ if $nginx_values == undef {
   $nginx_values = hiera('nginx', false)
 }
 
-if is_hash($apache_values) {
+if hash_key_equals($apache_values, 'install', 1) {
   $beanstalk_console_webroot_location = "${puphpet::params::apache_webroot_location}/beanstalk_console"
-} elsif is_hash($nginx_values) {
+} elsif hash_key_equals($nginx_values, 'install', 1) {
   $beanstalk_console_webroot_location = "${puphpet::params::nginx_webroot_location}/beanstalk_console"
 } else {
   $beanstalk_console_webroot_location = undef
