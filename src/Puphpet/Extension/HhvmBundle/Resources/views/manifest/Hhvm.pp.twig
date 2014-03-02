@@ -2,13 +2,9 @@
 
 if $hhvm_values == undef {
   $hhvm_values = hiera('hhvm', false)
-}
-
-if $apache_values == undef {
+} if $apache_values == undef {
   $apache_values = hiera('apache', false)
-}
-
-if $nginx_values == undef {
+} if $nginx_values == undef {
   $nginx_values = hiera('nginx', false)
 }
 
