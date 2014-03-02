@@ -19,7 +19,7 @@ if hash_key_equals($apache_values, 'install', 1)
 }
 
 if hash_key_equals($mongodb_values, 'install', 1) {
-  Class['Mongodb::Globals'] -> Class['Mongodb::Server'] -> Class['Mongodb::Client']
+  Class['Mongodb::Globals'] -> Class['Mongodb::Server']
 
   class { 'mongodb::globals':
     manage_package_repo => true,
@@ -32,7 +32,9 @@ if hash_key_equals($mongodb_values, 'install', 1) {
       $mongodb_pecl = 'mongo'
     }
     'redhat': {
-      class { 'mongodb::client': }
+      class { '::mongodb::client':
+        require => Class['::Mongodb::Server']
+      }
 
       $mongodb_pecl = 'pecl-mongo'
     }
