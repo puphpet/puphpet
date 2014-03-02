@@ -1,18 +1,19 @@
+
+
 # Begin redis
 
 if $redis_values == undef {
-$redis_values = hiera('redis', false)
+  $redis_values = hiera('redis', false)
+} if $php_values == undef {
+  $php_values = hiera('php', false)
 }
 
-if $php_values == undef {
-$php_values = hiera('php', false)
-}
+if hash_key_equals($redis_values, 'install', 1) {
+  class {'redis':
+    conf_port => $redis_values['settings']['conf_port']
+  }
 
-if has_key($redis_values, 'install') and $redis_values['install'] == 1 {
-class { 'redis':
-}
-
-if is_hash($php_values) and ! defined(Php::Pecl::Module['redis']) {
-php_pecl_mod { 'redis': }
-}
+  if hash_key_equals($php_values, 'install', 1) and ! defined(Php::Pecl::Module['redis']) {
+    php::pecl::module { 'redis': }
+  }
 }
