@@ -1,6 +1,7 @@
 install: 0
 
-auth: 1
-port: 27017
+settings:
+    auth: 1
+    port: 27017
 
 databases: []

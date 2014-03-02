@@ -1,1 +1,5 @@
 databases: []
+
+settings:
+    auth: 1
+    port: 27017
