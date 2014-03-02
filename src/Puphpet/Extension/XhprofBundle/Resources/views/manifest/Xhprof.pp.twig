@@ -10,7 +10,9 @@ if $php_values == undef {
   $nginx_values = hiera('nginx', false)
 }
 
-if hash_key_equals($xhprof_values, 'install', 1) and hash_key_equals($php_values, 'install', 1) {
+if hash_key_equals($xhprof_values, 'install', 1)
+  and hash_key_equals($php_values, 'install', 1)
+{
   if $::operatingsystem == 'ubuntu' {
     apt::key { '8D0DC64F':
       key_server => 'hkp://keyserver.ubuntu.com:80'
@@ -30,7 +32,11 @@ if hash_key_equals($xhprof_values, 'install', 1) and hash_key_equals($php_values
     $xhprof_webserver_service = undef
   }
 
-  ensure_packages( ['graphviz'] )
+  if ! defined(Package['graphviz']) {
+    package { 'graphviz':
+      ensure  => present,
+    }
+  }
 
   class { 'puphpet::xhprof':
     php_version       => $php_values['version'],
