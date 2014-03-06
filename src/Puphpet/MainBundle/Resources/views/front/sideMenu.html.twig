@@ -1,41 +1,10 @@
-<div class="col-sm-3 hidden-xs">
-    <div id="nav-sidebar" class="nav">
-        <ul class="nav">
-            <li class="active"><a href="#deploy-target">Deploy Target</a>
-                <p><a href="#vagrantfile-local-pill" data-tab-target="#vagrantfile-local-pill">Local</a></p>
-                <p><a href="#vagrantfile-digital_ocean-pill" data-tab-target="#vagrantfile-digital_ocean-pill">Digital Ocean</a></p>
-                <p><a href="#vagrantfile-rackspace-pill" data-tab-target="#vagrantfile-rackspace-pill">Rackspace</a></p>
-                <p><a href="#vagrantfile-aws-pill" data-tab-target="#vagrantfile-aws-pill">Amazon EC2</a></p>
-            </li>
-            <li><a href="#server">Server Basics</a>
-                <p><a href="#mailcatcher-pill" data-tab-target="#mailcatcher-pill">MailCatcher</a></p>
-            </li>
-            <li><a href="#webserver">Webserver</a>
-                <p><a href="#apache-pill" data-tab-target="#apache-pill">Apache</a></p>
-                <p><a href="#nginx-pill" data-tab-target="#nginx-pill">Nginx</a></p>
-            </li>
-            <li><a href="#php-engine">PHP Engine</a>
-                <p><a href="#php-pill" data-tab-target="#php-pill" id="php-pill-menulink">Official PHP</a></p>
-                <p><a href="#hhvm-pill" data-tab-target="#hhvm-pill" id="hhvm-pill-menulink">Facebook HHVM</a></p>
-            </li>
-            <li><a href="#database">Database</a>
-                <p><a href="#mysql-pill" data-tab-target="#mysql-pill">MySQL</a></p>
-                <p><a href="#postgresql-pill" data-tab-target="#postgresql-pill">PostgreSQL</a></p>
-                <p><a href="#mariadb-pill" data-tab-target="#mariadb-pill">MariaDB</a></p>
-            </li>
-            <li><a href="#nosql">NoSQL Database</a>
-                <p><a href="#mongodb-pill" data-tab-target="#mongodb-pill">MongoDB</a></p>
-                <p><a href="#redis-pill" data-tab-target="#redis-pill">Redis</a></p>
-            </li>
-            <li><a href="#work-queue">Work-Queue</a>
-                <p><a href="#beanstalkd-pill" data-tab-target="#beanstalkd-pill">Beanstalkd</a></p>
-                <p><a href="#rabbitmq-pill" data-tab-target="#rabbitmq-pill">RabbitMQ</a></p>
-            </li>
-            <li><a href="#search-server">Search Server</a>
-                <p><a href="#elastic_search-pill" data-tab-target="#elastic_search-pill">Elastic Search</a></p>
-            </li>
-            
-            <li><a href="#create">Create</a></li>
-        </ul>
-    </div>
-</div>
+<ul id="nav-sidebar" class="nav nav-pills nav-stacked col-md-3 hidden-sm hidden-xs">
+    <li class="active"><a href="#deploy-target" data-toggle="tab"><i class="fa fa-cloud"></i> Deploy Target</a></li>
+    <li><a href="#server" data-toggle="tab"><i class="fa fa-cogs"></i> Server Basics</a></li>
+    <li><a href="#webserver" data-toggle="tab"><i class="fa fa-globe"></i> Webservers</a></li>
+    <li><a href="#languages" data-toggle="tab"><i class="fa fa-code"></i> Languages</a></li>
+    <li><a href="#database" data-toggle="tab"><i class="fa fa-tasks"></i> Databases</a></li>
+    <li><a href="#work-queue" data-toggle="tab"><i class="fa fa-sort-numeric-asc"></i> Work Queues</a></li>
+    <li><a href="#search-server" data-toggle="tab"><i class="fa fa-search"></i> Search Servers</a></li>
+    <li><a href="#create" data-toggle="tab"><i class="fa fa-magic"></i> Create</a></li>
+</ul>
