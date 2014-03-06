@@ -6,8 +6,8 @@ if $elasticsearch_values == undef {
 
 if hash_key_equals($elasticsearch_values, 'install', 1) {
   case $::osfamily {
-    'debian': { $elasticsearch_package_url = 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.7.deb' }
-    'redhat': { $elasticsearch_package_url = 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.10.noarch.rpm' }
+    'debian': { $elasticsearch_package_url = 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.0.1.deb' }
+    'redhat': { $elasticsearch_package_url = 'https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.0.1.noarch.rpm' }
     default:  { fail('Unrecognized operating system for Elastic Search') }
   }
 
