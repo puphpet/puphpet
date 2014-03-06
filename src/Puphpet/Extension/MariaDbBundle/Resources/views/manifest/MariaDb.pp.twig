@@ -50,7 +50,7 @@ if hash_key_equals($mariadb_values, 'install', 1) {
     if $mariadb_php_installed and $mariadb_php_package == 'php' {
       if $::osfamily == 'redhat' and $php_values['version'] == '53' {
         $mariadb_php_module = 'mysql'
-      } elsif $lsbdistcodename in ['lucid', 'squeeze'] {
+      } elsif $lsbdistcodename == 'lucid' or $lsbdistcodename == 'squeeze' {
         $mariadb_php_module = 'mysql'
       } else {
         $mariadb_php_module = 'mysqlnd'
