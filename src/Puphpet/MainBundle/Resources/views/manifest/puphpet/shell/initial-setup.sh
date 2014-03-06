@@ -22,8 +22,12 @@ if [[ ! -f /.puphpet-stuff/initial-setup-repo-update ]]; then
         echo "Finished running initial-setup apt-get update"
     elif [[ "${OS}" == 'centos' ]]; then
         echo "Running initial-setup yum update"
+        mkdir /etc/yum.repos.disabled
+        mv /etc/yum.repos.d/* /etc/yum.repos.disabled/
+        mv /etc/yum.repos.disabled/CentOS-Vault.repo /etc/yum.repos.d/
         yum install yum-plugin-fastestmirror -y >/dev/null
         yum check-update -y >/dev/null
+        mv /etc/yum.repos.disabled/* /etc/yum.repos.d/
         echo "Finished running initial-setup yum update"
 
         echo "Updating to Ruby 1.9.3"
