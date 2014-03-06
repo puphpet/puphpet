@@ -68,6 +68,7 @@ code {
 
     .nav-tabs.icon-bar > li > a:hover,
     .nav-tabs.icon-bar > li > a:focus {
+        margin-bottom: 6px;
         color: #fff;
         background-color: #428bca;
     }
@@ -82,27 +83,27 @@ code {
         border-bottom-color: transparent;
     }
 
-    .nav-tabs.icon-bar li a .deploy-icon {
+    .nav-tabs.icon-bar li a .tab-icon {
         width: 100%;
         margin: 0 auto 15px;
     }
 
-    .nav-tabs.icon-bar li a .deploy-icon img {
+    .nav-tabs.icon-bar li a .tab-icon img {
         width: 100%;
         max-width: 125px;
         margin: 0 auto 10px;
     }
 
-    .nav-tabs.icon-bar li a .deploy-icon img.deploy-icon-active,
-    .nav-tabs.icon-bar li a:hover .deploy-icon img.deploy-icon-inactive,
-    .nav-tabs.icon-bar li.active a .deploy-icon img.deploy-icon-inactive,
-    .nav-tabs.icon-bar li.active a:hover .deploy-icon img.deploy-icon-inactive{
+    .nav-tabs.icon-bar li a .tab-icon img.tab-icon-active,
+    .nav-tabs.icon-bar li a:hover .tab-icon img.tab-icon-inactive,
+    .nav-tabs.icon-bar li.active a .tab-icon img.tab-icon-inactive,
+    .nav-tabs.icon-bar li.active a:hover .tab-icon img.tab-icon-inactive{
         display: none;
     }
-    .nav-tabs.icon-bar li a .deploy-icon img.deploy-icon-inactive,
-    .nav-tabs.icon-bar li a:hover .deploy-icon img.deploy-icon-active,
-    .nav-tabs.icon-bar li.active a .deploy-icon img.deploy-icon-active,
-    .nav-tabs.icon-bar li.active a:hover .deploy-icon img.deploy-icon-active {
+    .nav-tabs.icon-bar li a .tab-icon img.tab-icon-inactive,
+    .nav-tabs.icon-bar li a:hover .tab-icon img.tab-icon-active,
+    .nav-tabs.icon-bar li.active a .tab-icon img.tab-icon-active,
+    .nav-tabs.icon-bar li.active a:hover .tab-icon img.tab-icon-active {
         display: block;
     }
 
