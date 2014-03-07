@@ -36,13 +36,11 @@ button.tall {
     padding-top: 40px;
     padding-bottom: 40px;
 }
-
-@media (min-width: 979px) {
-    #nav-sidebar.affix-top,
-    #nav-sidebar.affix-bottom {
-        position: static;
-        margin-top: 30px;
-        width: 228px;
+/*
+ * Sidebar
+**/
+    #nav-sidebar {
+        max-width: 300px;
     }
 
     #nav-sidebar.affix {
@@ -50,12 +48,12 @@ button.tall {
         top: 70px;
         width: 228px;
     }
-}
-/*
- * Sidebar
-**/
-    #nav-sidebar {
-        max-width: 300px;
+
+    #nav-sidebar.affix-top,
+    #nav-sidebar.affix-bottom {
+        position: static;
+        margin-top: 30px;
+        width: 228px;
     }
 
     #nav-sidebar.nav-pills > li.active > a,
@@ -70,6 +68,14 @@ button.tall {
     #nav-sidebar .nav > li.active > a {
         color: #fff;
         background-color: #428bca;
+    }
+
+    @media (min-width: 1200px) {
+        #nav-sidebar.affix,
+        #nav-sidebar.affix-top,
+        #nav-sidebar.affix-bottom {
+            width: 278px;
+        }
     }
 
 /*

@@ -477,13 +477,28 @@ PUPHPET.uploadConfig = function() {
 PUPHPET.sidebar = function() {
     $('#nav-sidebar').affix({
         offset: {
-            top:  function () {
+            top: function () {
                 return $('#top').height();
             },
             bottom: function () {
                 return $('footer').height() + 50;
             }
         }
+    });
+
+    var $root = $('html, body');
+    var $link = $('#nav-sidebar li a[data-toggle="tab"]');
+
+    $link.on('show.bs.tab', function (e) {
+        window.location.hash = this.hash;
+    });
+
+    $link.on('shown.bs.tab', function (e) {
+        var theOffset = $(this.hash).offset().top;
+
+        $root.animate({
+            scrollTop: theOffset - 55
+        }, 0);
     });
 };
 
