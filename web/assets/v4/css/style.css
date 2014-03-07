@@ -3,6 +3,10 @@ body {
     font-size: 16px;
 }
 
+.text-large {
+    font-size: 2em;
+}
+
 label.radio {
     cursor: pointer;
 }
@@ -22,6 +26,11 @@ code {
 .page-header.compact {
     margin-top: 0;
     border: 0;
+}
+
+button.tall {
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 /*
@@ -54,6 +63,8 @@ code {
     }
 
     .nav-tabs.icon-bar > li {
+        padding-left: 5px;
+        padding-right: 5px;
         text-align: center;
     }
 

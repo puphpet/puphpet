@@ -24,27 +24,11 @@
                 {% include 'PuphpetMainBundle:front:sections/deploy-target.html.twig' %}
                 {% include 'PuphpetMainBundle:front:sections/server.html.twig' %}
                 {% include 'PuphpetMainBundle:front:sections/webserver.html.twig' %}
-
-                {{ sections.singleSelectGrouped(extensionManager, 'php-engine', 'PHP') }}
-                {{ sections.multiSelectGrouped(extensionManager, 'php-extensions', 'PHP Extensions') }}
-                {{ sections.singleSelectGrouped(extensionManager, 'database', 'Database') }}
-                {{ sections.multiSelectGrouped(extensionManager, 'nosql', 'NoSQL Database') }}
-                {{ sections.multiSelectGrouped(extensionManager, 'work-queue', 'Work Queue') }}
-                {{ sections.singleSelectGrouped(extensionManager, 'search-server', 'Search Server') }}
-
-                <section id="create">
-                    <div class="page-header">
-                        <h1>Create your Manifest</h1>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block tall text-large">
-                                Go ahead then, make it!
-                            </button>
-                        </div>
-                    </div>
-                </section>
+                {% include 'PuphpetMainBundle:front:sections/language.html.twig' %}
+                {% include 'PuphpetMainBundle:front:sections/database.html.twig' %}
+                {% include 'PuphpetMainBundle:front:sections/work-queue.html.twig' %}
+                {% include 'PuphpetMainBundle:front:sections/search-server.html.twig' %}
+                {% include 'PuphpetMainBundle:front:sections/create.html.twig' %}
             </div>
         </form>
     </div>
