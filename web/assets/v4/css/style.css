@@ -37,6 +37,20 @@ button.tall {
     padding-bottom: 40px;
 }
 
+@media (min-width: 979px) {
+    #nav-sidebar.affix-top,
+    #nav-sidebar.affix-bottom {
+        position: static;
+        margin-top: 30px;
+        width: 228px;
+    }
+
+    #nav-sidebar.affix {
+        position: fixed !important;
+        top: 70px;
+        width: 228px;
+    }
+}
 /*
  * Sidebar
 **/
