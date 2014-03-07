@@ -36,6 +36,11 @@ button.tall {
     padding-top: 40px;
     padding-bottom: 40px;
 }
+
+footer {
+    margin-top: 20px;
+}
+
 /*
  * Sidebar
 **/
