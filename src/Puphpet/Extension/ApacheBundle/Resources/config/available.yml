@@ -5,6 +5,7 @@ empty_vhost:
     port: 80
     setenv: []
     override: []
+    custom_fragment: ~
 
 available_modules:
     - cache
