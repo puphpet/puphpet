@@ -19,6 +19,10 @@ code {
     overflow-x: scroll;
 }
 
+code.inline-instructions {
+    margin-bottom: 10px;
+}
+
 #main-body {
     margin-top: 30px;
 }
@@ -136,6 +140,10 @@ button.tall {
     .panel-default > .panel-body h3 {
         margin-top: 0;
         padding-top: 0;
+    }
+
+    .panel-body ul.nav-pills li {
+        margin-bottom: 10px;
     }
 
 /*

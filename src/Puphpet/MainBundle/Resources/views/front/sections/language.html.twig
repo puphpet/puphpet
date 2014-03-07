@@ -31,7 +31,7 @@
                 {% set extension = extensionManager.getExtensionBySlug('php') %}
                 {{ extension.renderFront(extension.data)|raw }}
 
-                {{ sections.multiSelectGrouped(extensionManager, 'php-extensions', 'PHP Extensions') }}r
+                {{ sections.multiSelectGrouped(extensionManager, 'php-extensions', 'PHP Extensions') }}
             </div>
             <div class="tab-pane" id="hhvm">
                 {% set extension = extensionManager.getExtensionBySlug('hhvm') %}
