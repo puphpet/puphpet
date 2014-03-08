@@ -291,8 +291,8 @@ PUPHPET.addRepeatableElement = function() {
         }).done(function(response) {
             var $row = $(response).insertBefore(buttonEle.closest('.row'));
             PUPHPET.runSelectize($row);
+            PUPHPET.enablePopovers($row.find('i'));
         });
-
     });
 };
 
@@ -305,7 +305,6 @@ PUPHPET.delRepeatableElement = function() {
         var $parentContainer = $('#' + parentId);
 
         $parentContainer.remove();
-
     });
 };
 
@@ -403,7 +402,6 @@ PUPHPET.uploadConfig = function() {
     dropzone.addEventListener('dragover', handleDragOver, false);
     dropzone.addEventListener('dragleave', handleDragLeave, false);
     dropzone.addEventListener('drop', handleFileSelect, false);
-
 
     function handleDragOver(e) {
         clearTimeout(tid);
@@ -530,6 +528,34 @@ PUPHPET.toggleMultiGroupedTab = function() {
     });
 };
 
+PUPHPET.enablePopovers = function($element) {
+    if ($element == undefined) {
+        $element = $('.popover-container');
+    }
+
+    console.log($element);
+
+    $element.popover({
+        container: 'body',
+        html: true,
+        placement: 'bottom',
+        trigger: 'manual'
+    }).on('mouseenter', function () {
+            var _this = this;
+            $(this).popover('show');
+            $('.popover').on('mouseleave', function () {
+                $(_this).popover('hide');
+            });
+        }).on('mouseleave', function () {
+            var _this = this;
+            setTimeout(function () {
+                if (!$('.popover:hover').length) {
+                    $(_this).popover('hide');
+                }
+            }, 400);
+        });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -543,6 +569,7 @@ $(document).ready(function() {
     PUPHPET.uploadConfig();
     PUPHPET.sidebar();
     PUPHPET.toggleMultiGroupedTab();
+    PUPHPET.enablePopovers();
     PUPHPET.enableTargetElements('#php-pill', '#php-extensions');
     PUPHPET.enableTargetElements('#php-pill-menulink', '#php-extensions');
     PUPHPET.disableTargetElements('#hhvm-pill', '#php-extensions');
