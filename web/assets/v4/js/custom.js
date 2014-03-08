@@ -528,6 +528,11 @@ PUPHPET.toggleMultiGroupedTab = function() {
     });
 };
 
+/**
+ * Configures bootstrap popover elements
+ *
+ * @param $element
+ */
 PUPHPET.enablePopovers = function($element) {
     if ($element == undefined) {
         $element = $('.popover-container');
@@ -554,6 +559,9 @@ PUPHPET.enablePopovers = function($element) {
         });
 };
 
+/**
+ * Configures bootstrap collapseable elements
+ */
 PUPHPET.configureCollapseable = function() {
     $('.collapse').on('shown.bs.collapse',function () {
         $(this).parent().find('.glyphicon-plus')
