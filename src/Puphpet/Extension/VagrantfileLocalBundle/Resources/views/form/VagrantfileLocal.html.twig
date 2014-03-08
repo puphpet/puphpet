@@ -1,24 +1,29 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+
 <input type="hidden" id="vagrantfile-local-vm-box" name="vagrantfile-local[vm][box]" value="{{ data.vm.box }}" />
 
 <!-- vagrantfile-local / instructions -->
 <div class="row">
     <div class="col-xs-12">
-        <div class="panel panel-default">
+        <div class="panel panel-default" id="vagrantfile-local-instructions-container">
             <div class="panel-heading">
-                <h3 class="panel-title">Local VM Instructions</h3>
+                <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#vagrantfile-local-instructions-container"
+                       href="#vagrantfile-local-instructions-content">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        Local VM Instructions
+                    </a>
+                </h3>
             </div>
 
-            <div class="panel-body">
-                <div>
-                    <h3>Pre-requisites</h3>
-
+            <div id="vagrantfile-local-instructions-content" class="panel-collapse collapse">
+                <div class="panel-body">
                     <ol>
                         <li><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download the latest version of VirtualBox from here</a></li>
                         <li><a href="http://www.vagrantup.com/downloads.html" target="_blank">Download the latest version of Vagrant from here.</a></li>
                     </ol>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -35,7 +40,17 @@
             <div class="panel-body">
                 <div class="form-group">
                     <div class="col-md-12">
-                        <label>Local VM Operating System</label>
+                        <label>
+                            Local VM Operating System
+                            {{ popover.small('Choose the operating system for your VM. It will be downloaded the first time you
+                                run Vagrant. <a href="http://docs.vagrantup.com/v2/getting-started/boxes.html">More
+                                information may be found here</a>.<br /><br />
+                                Note: Listed are the PHP installs that we have confirmed as working for their
+                                respective operating system. You are welcome to attempt to install higher if
+                                you\'d like, but we cannot guarantee it will work. In fact in most cases it
+                                won\'t.')
+                            }}
+                        </label>
 
                         {% for box in data.available_boxes %}
                             <label class="radio">
@@ -51,52 +66,40 @@
                                     {% endfor %}
                                     )
                                 {% endif %}
-
                             </label>
                         {% endfor %}
-
-                        <p class="help-block">
-                            Choose the operating system for your VM. It will be downloaded the first time you
-                            run Vagrant. <a href="http://docs.vagrantup.com/v2/getting-started/boxes.html">More
-                                information may be found here</a>.
-                        </p>
-
-                        <p class="help-block">
-                            Note: Listed are the PHP installs that we have confirmed as working for their respective
-                            operating system. You are welcome to attempt to install higher if you'd like, but
-                            we cannot guarantee it will work. In fact in most cases it won't.
-                        </p>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-6">
-                        <label for="vagrantfile-local-vm-network-private_network">Local VM IP Address</label>
+                        <label for="vagrantfile-local-vm-network-private_network">
+                            Local VM IP Address
+                            {{ popover.small('IP address to use for accessing the VM. This is the IP address you will
+                                need to enter into your <code>hosts</code> file for every virtual hosts you create later
+                                on.')
+                            }}
+                        </label>
                         <input type="text" id="vagrantfile-local-vm-network-private_network"
                                name="vagrantfile-local[vm][network][private_network]"
                                required placeholder="192.168.56.101"
                                pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
                                oninvalid="setCustomValidity('IP address format: 192.168.56.101')"
                                value="{{ data.vm.network.private_network }}" class="form-control" />
-
-                        <p class="help-block">
-                            IP address to use for accessing the VM. This is the IP address you will need to enter
-                            into your <code>hosts</code> file for every virtual hosts you create later on.
-                        </p>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory">Local VM Memory</label>
+                        <label for="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory">
+                            Local VM Memory
+                            {{ popover.small('Memory to assign to VM in megabytes (only integers)') }}
+                        </label>
                         <input type="number" id="vagrantfile-local-vm-provider-virtualbox-modifyvm-memory"
                                name="vagrantfile-local[vm][provider][virtualbox][modifyvm][memory]"
                                required placeholder="512" pattern="^[1-9][0-9]*$" min="64"
                                value="{{ data.vm.provider.virtualbox.modifyvm.memory }}" class="form-control" />
-
-                        <p class="help-block">Memory to assign to VM in megabytes (only integers)</p>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

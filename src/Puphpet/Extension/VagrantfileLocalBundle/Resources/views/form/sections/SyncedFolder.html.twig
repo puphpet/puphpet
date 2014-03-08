@@ -1,3 +1,4 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 {% set uniqid = uniqid('vvs_', true) %}
 
 <!-- vagrantfile-local / Shared Folders -->
@@ -15,38 +16,50 @@
             <div class="panel-body">
                 <div class="row form-group">
                     <div class="col-md-6">
-                        <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-source">Box Sync Folder Source</label>
+                        <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-source">
+                            Box Sync Folder Source
+                            {{ popover.small('Path your files are stored on host machine,
+                                <a href="http://docs.vagrantup.com/v2/synced-folders/index.html" target="_blank">more information</a>.
+                                <strong>Windows users:</strong> You must use forward-slash
+                                <code>c:/dev/vagrant/webroot</code> or double back-slash
+                                <code>c:\\dev\\vagrant\\webroot</code>')
+                            }}
+                        </label>
                         <input type="text" id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-source"
                                name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][source]"
                                required placeholder="/path/to/your/web/files"
                                value="{{ synced_folder.source }}" class="form-control" />
-
-                        <p class="help-block">
-                            Path your files are stored on host machine,
-                            <a href="http://docs.vagrantup.com/v2/synced-folders/index.html" target="_blank">more information</a>.
-                            <strong>Windows users:</strong> You must use forward-slash
-                            <code>c:/dev/vagrant/webroot</code> or double back-slash 
-                            <code>c:\\dev\\vagrant\\webroot</code>
-                        </p>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-target">Box Sync Folder Target</label>
+                        <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-target">
+                            Box Sync Folder Target
+                            {{ popover.small('Path your hosts\' files are mounted on guest machine,
+                                <a href="http://docs.vagrantup.com/v2/synced-folders/index.html" target="_blank">more information</a>')
+                            }}
+                        </label>
                         <input type="text" id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-target"
                                name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][target]"
                                required placeholder="/path/on/vm"
                                value="{{ synced_folder.target }}" class="form-control" />
-
-                        <p class="help-block">
-                            Path your hosts' files are mounted on guest machine,
-                            <a href="http://docs.vagrantup.com/v2/synced-folders/index.html" target="_blank">more information</a>
-                        </p>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-md-12">
-                        <label>Shared Folder Type</label><br />
+                        <label>
+                            Shared Folder Type
+                            {{ popover.small('Windows users should choose the Default option,
+                                <a href="http://docs.vagrantup.com/v2/synced-folders/nfs.html" target="_blank">more information</a>.<br /><br />
+                                <strong>
+                                    NFS is currently buggy mostly on CentOS, and VirtualBox 4.3+. If you experience
+                                    errors on <code>$ vagrant up</code> complaining about mounting, disable NFS sharing.
+                                    NFS performance is faster than default, but is mostly for advanced users only. You
+                                    should be comfortable diving into Puppet to debug any potential permissions
+                                    issues!
+                                </strong>')
+                            }}
+                        </label><br />
                         <label class="radio-inline">
                             <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][nfs]"
                                    {% if synced_folder.nfs == 'false' %}checked{% endif %}
@@ -57,20 +70,6 @@
                                    {% if synced_folder.nfs == 'true' %}checked{% endif %}
                                    value="true" /> NFS
                         </label>
-
-                        <p class="help-block">
-                            Windows users should choose the Default option,
-                            <a href="http://docs.vagrantup.com/v2/synced-folders/nfs.html" target="_blank">more information</a>.
-                        </p>
-                        <p class="help-block">
-                            <strong>
-                                NFS is currently buggy mostly on CentOS, and VirtualBox 4.3+. If you experience
-                                errors on <code>$ vagrant up</code> complaining about mounting, disable NFS sharing.
-                                NFS performance is faster than default, but is mostly for advanced users only. You
-                                should be comfortable diving into Puppet to debug any potential permissions
-                                issues!
-                            </strong>
-                        </p>
                     </div>
                 </div>
 
