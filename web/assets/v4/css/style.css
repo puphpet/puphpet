@@ -220,3 +220,7 @@ footer {
         text-shadow: 3px 3px 4px #000;
         z-index: -1;
     }
+
+.popover {
+    max-width: 500px;
+}
