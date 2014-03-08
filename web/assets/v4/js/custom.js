@@ -291,7 +291,7 @@ PUPHPET.addRepeatableElement = function() {
         }).done(function(response) {
             var $row = $(response).insertBefore(buttonEle.closest('.row'));
             PUPHPET.runSelectize($row);
-            PUPHPET.enablePopovers($row.find('i'));
+            PUPHPET.enablePopovers($row.find('.popover-container'));
         });
     });
 };
@@ -533,8 +533,6 @@ PUPHPET.enablePopovers = function($element) {
         $element = $('.popover-container');
     }
 
-    console.log($element);
-
     $element.popover({
         container: 'body',
         html: true,
@@ -556,6 +554,18 @@ PUPHPET.enablePopovers = function($element) {
         });
 };
 
+PUPHPET.configureCollapseable = function() {
+    $('.collapse').on('shown.bs.collapse',function () {
+        $(this).parent().find('.glyphicon-plus')
+            .removeClass('glyphicon-plus')
+            .addClass('glyphicon-minus');
+    }).on('hidden.bs.collapse', function () {
+        $(this).parent().find('.glyphicon-minus')
+            .removeClass('glyphicon-minus')
+            .addClass('glyphicon-plus');
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -570,6 +580,7 @@ $(document).ready(function() {
     PUPHPET.sidebar();
     PUPHPET.toggleMultiGroupedTab();
     PUPHPET.enablePopovers();
+    PUPHPET.configureCollapseable();
     PUPHPET.enableTargetElements('#php-pill', '#php-extensions');
     PUPHPET.enableTargetElements('#php-pill-menulink', '#php-extensions');
     PUPHPET.disableTargetElements('#hhvm-pill', '#php-extensions');
