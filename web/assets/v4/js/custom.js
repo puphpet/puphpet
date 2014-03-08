@@ -491,6 +491,10 @@ PUPHPET.sidebar = function() {
         $('#nav-sidebar li a[href=' + window.location.hash + ']').tab('show');
     }
 
+    $(window).on('hashchange', function() {
+      $('#nav-sidebar li a[href=' + window.location.hash + ']').tab('show');
+    });
+
     $link.on('show.bs.tab', function (e) {
         window.location.hash = this.hash;
     });
