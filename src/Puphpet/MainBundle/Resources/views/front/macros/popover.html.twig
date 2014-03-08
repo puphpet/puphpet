@@ -1,0 +1,4 @@
+{% macro small(content) %}
+    <i class="popover-container fa fa-question-circle text-warning" data-toggle="popover"
+       data-content='{{ content|replace({"'": '&#39;'})|raw }}'></i>
+{% endmacro %}
