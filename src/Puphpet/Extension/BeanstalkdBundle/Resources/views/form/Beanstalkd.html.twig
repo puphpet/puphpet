@@ -1,6 +1,6 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 <section id="beanstalkd">
 
-    <!-- beanstalkd -->
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -14,29 +14,27 @@
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="beanstalkd[install]" class="multiselect-grouped-tab"
                                        data-tab-target="beanstalkd-pill"
-                                       {% if beanstalkd.install %}checked{% endif %} value="1" /> Install Beanstalkd
+                                       {% if beanstalkd.install %}checked{% endif %} value="1" />
+                                Install Beanstalkd
+                                {{ popover.small('Beanstalk is a simple, fast work queue.
+                                    <a href="http://alister.github.io/presentations/Beanstalkd/" target="_blank">
+                                        Learn about Beanstalkd</a>.') }}
                             </label>
-
-                            <p class="help-block">
-                                Beanstalk is a simple, fast work queue.
-                                <a href="http://alister.github.io/presentations/Beanstalkd/" target="_blank">
-                                    Learn about Beanstalkd</a>.
-                            </p>
                         </div>
+                    </div>
 
+                    <div class="row form-group">
                         <div class="col-xs-12">
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="beanstalkd[beanstalk_console]" value="1"
-                                    {% if beanstalkd.beanstalk_console == 1 %}checked{% endif %} /> Install Beanstalk Console
+                                    {% if beanstalkd.beanstalk_console == 1 %}checked{% endif %} />
+                                Install Beanstalk Console
+                                {{ popover.small('Admin console for Beanstalk queue server, written in PHP.
+                                    <a href="https://github.com/ptrofimov/beanstalk_console" target="_blank">
+                                        More information</a>.
+                                    If installed, it will be available at
+                                    <code>http://{SERVER_IP_ADDRESS}/beanstalk_console/public/</code>') }}
                             </label>
-
-                            <p class="help-block">
-                                Admin console for Beanstalk queue server, written in PHP.
-                                <a href="https://github.com/ptrofimov/beanstalk_console" target="_blank">
-                                    More information</a>.
-                                If installed, it will be available at
-                                <code>http://{SERVER_IP_ADDRESS}/beanstalk_console/public/</code>
-                            </p>
                         </div>
                     </div>
 
@@ -78,21 +76,18 @@
 
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="beanstalkd-settings-binlogdir">Binlog Directory</label>
+                            <label for="beanstalkd-settings-binlogdir">
+                                Binlog Directory
+                                {{ popover.small('Set empty to disable binlog.') }}
+                            </label>
                             <input type="text" id="beanstalkd-settings-binlogdir"
                                    name="beanstalkd[binlogdir]" placeholder="/var/lib/beanstalkd/binlog"
                                    value="{{ beanstalkd.settings.binlogdir }}" class="form-control" />
-
-                            <p class="help-block">
-                                Set empty to disable binlog.
-                            </p>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- end beanstalkd -->
 
 </section>
