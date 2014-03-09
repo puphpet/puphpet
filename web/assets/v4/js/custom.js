@@ -317,7 +317,7 @@ PUPHPET.delRepeatableElement = function() {
  * Runs on initial page load
  */
 PUPHPET.disableInactiveTabElements = function() {
-    $('ul.group-tabs li').each(function() {
+    $('.nav.nav-tabs.icon-bar li').each(function() {
         if ($(this).parent().hasClass('multi-select')) {
             return;
         }
@@ -326,10 +326,15 @@ PUPHPET.disableInactiveTabElements = function() {
             return;
         }
 
-        var $anchor = $(this).children()[0];
-        var extensionId = $anchor.getAttribute('data-target-element');
+        var $anchor = $(this).find('a');
 
-        $('#' + extensionId).find('input, textarea, button, select').prop('disabled', true);
+        if ($anchor[0] == undefined) {
+            return;
+        }
+
+        var hash = $anchor[0].hash;
+
+        $(hash).find('input, textarea, button, select').prop('disabled', true);
     });
 };
 
@@ -585,7 +590,7 @@ $(document).ready(function() {
     PUPHPET.selectizeAddClickedToElement();
     PUPHPET.addRepeatableElement();
     PUPHPET.delRepeatableElement();
-    PUPHPET.disableInactiveTabElements();
+    //PUPHPET.disableInactiveTabElements();
     PUPHPET.enableClickedTabElement();
     PUPHPET.githubContributors();
     PUPHPET.uploadConfig();
