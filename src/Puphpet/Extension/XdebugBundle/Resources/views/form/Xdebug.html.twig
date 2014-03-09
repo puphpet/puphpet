@@ -1,3 +1,5 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+
 <section id="xdebug">
     <div class="panel-body">
         <div class="row form-group">
@@ -5,18 +7,18 @@
                 <label class="checkbox-inline">
                     <input type="checkbox" name="xdebug[install]" class="multiselect-grouped-tab"
                            data-tab-target="xdebug-pill"
-                           {% if xdebug.install %}checked{% endif %} value="1" /> Install XDebug
+                           {% if xdebug.install %}checked{% endif %} value="1" />
+                    Install XDebug
+                    {{ popover.small('CLI debugging will be automatically available. Simply run
+                        <code>$ xdebug foo.php</code>!
+                        <a href="http://devincharge.com/debug-cli-remote-server/">Follow
+                            instructions here to setup PHPStorm to listen for a CLI connection</a>.
+                        Other IDEs should be similar.') }}
                 </label>
-
-                <p class="help-block">
-                    CLI debugging will be automatically available. Simply run
-                    <code>$ xdebug foo.php</code>!
-                    <a href="http://devincharge.com/debug-cli-remote-server/">Follow
-                        instructions here to setup PHPStorm to listen for a CLI connection</a>.
-                    Other IDEs should be similar.
-                </p>
             </div>
+        </div>
 
+        <div class="row form-group">
             <div class="col-xs-12">
                 <label for="xdebug-settings-displayer">Settings</label>
                 <select id="xdebug-settings-displayer" multiple

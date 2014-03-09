@@ -1,3 +1,5 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+
 <section id="drush">
     <div class="panel-body">
         <div class="row form-group">
@@ -5,14 +7,14 @@
                 <label class="checkbox-inline">
                     <input type="checkbox" name="drush[install]" class="multiselect-grouped-tab"
                            data-tab-target="drush-pill"
-                           {% if drush.install %}checked{% endif %} value="1" /> Install Drush
+                           {% if drush.install %}checked{% endif %} value="1" />
+                    Install Drush
+                    {{ popover.small('Drush will be installed from official github repo.') }}
                 </label>
-
-                <p class="help-block">
-                    Drush will be installed from official github repo.
-                </p>
             </div>
+        </div>
 
+        <div class="row form-group">
             <div class="col-xs-12">
                 <label for="drush-settings-displayer">Settings</label>
                 <select id="drush-settings-displayer" multiple
