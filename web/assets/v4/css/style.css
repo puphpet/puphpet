@@ -42,6 +42,16 @@ footer {
 }
 
 /*
+ * Nav pills
+**/
+    .nav-pills > li.active > a,
+    .nav-pills > li.active > a:hover,
+    .nav-pills > li.active > a:focus {
+        background-color: #428bca;
+        margin-bottom: 10px;
+    }
+
+/*
  * Sidebar
 **/
     #nav-sidebar {
@@ -153,23 +163,30 @@ footer {
     .panel {
     }
 
-    .panel-default > .panel-heading {
+    .panel-default .panel-heading {
         color: #fff;
         background-color: #428bca;
         border: none;
         border-radius: 0;
     }
 
-    .panel-default > .panel-body h1,
-    .panel-default > .panel-body h2,
-    .panel-default > .panel-body h3 {
+    .panel-default .panel-body h1,
+    .panel-default .panel-body h2,
+    .panel-default .panel-body h3 {
         margin-top: 0;
         padding-top: 0;
     }
 
-    .panel-body ul.nav-pills li {
+    .panel-default .panel-body ul.nav-pills li {
         margin-bottom: 10px;
     }
+
+    .panel .collapse-container {
+        border: 1px solid #e7e7e7;
+        -webkit-box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+    }
+
 
 /*
  * PHP version badge colors for OS selection
