@@ -1,3 +1,5 @@
+install: 1
+
 modules:
     php:
         - cli
