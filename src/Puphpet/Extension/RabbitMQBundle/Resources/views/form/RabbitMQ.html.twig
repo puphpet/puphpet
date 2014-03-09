@@ -1,6 +1,7 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+
 <section id="rabbitmq">
 
-    <!-- rabbitmq -->
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -14,14 +15,12 @@
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="rabbitmq[install]" class="multiselect-grouped-tab"
                                        data-tab-target="rabbitmq-pill"
-                                    {% if rabbitmq.install == 1 %}checked{% endif %} value="1" /> Install RabbitMQ
+                                    {% if rabbitmq.install == 1 %}checked{% endif %} value="1" />
+                                Install RabbitMQ
+                                {{ popover.small('RabbitMQ is a complete and highly reliable enterprise messaging system.
+                                    <a href="http://www.rabbitmq.com/tutorials/tutorial-one-php.html" target="_blank">
+                                        Learn about RabbitMQ</a>.') }}
                             </label>
-
-                            <p class="help-block">
-                                RabbitMQ is a complete and highly reliable enterprise messaging system.
-                                <a href="http://www.rabbitmq.com/tutorials/tutorial-one-php.html" target="_blank">
-                                    Learn about RabbitMQ</a>.
-                            </p>
                         </div>
                     </div>
 
@@ -35,10 +34,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- end beanstalkd -->
 
 </section>
