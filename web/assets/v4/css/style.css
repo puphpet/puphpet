@@ -177,16 +177,12 @@ footer {
         padding-top: 0;
     }
 
-    .panel-default .panel-body ul.nav-pills li {
-        margin-bottom: 10px;
-    }
-
     .panel .collapse-container {
         border: 1px solid #e7e7e7;
+        border-width: 0 0 1px 0;
         -webkit-box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
         box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
     }
-
 
 /*
  * PHP version badge colors for OS selection
