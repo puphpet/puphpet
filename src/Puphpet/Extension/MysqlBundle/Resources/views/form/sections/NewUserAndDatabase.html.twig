@@ -68,8 +68,9 @@
             <div class="col-md-12">
                 <label for="mysql-databases-{{ uniqid }}-sql_file">
                     Import Database From File
-                    {{ popover.small('Optional. Make sure this file is inside the VM before running
-                        <code>$ vagrant up</code>') }}
+                    {{ popover.small('Optional. Make sure this file is inside the VM,
+                        or is inside a <a href="#deploy-target">shared folder defined here</a>
+                        before running <code>$ vagrant up</code>') }}
                 </label>
                 <input type="text" id="mysql-databases-{{ uniqid }}-sql_file"
                        name="mysql[databases][{{ uniqid }}][sql_file]"
