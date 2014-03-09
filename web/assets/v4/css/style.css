@@ -44,9 +44,9 @@ footer {
 /*
  * Nav pills
 **/
-    .nav-pills > li.active > a,
-    .nav-pills > li.active > a:hover,
-    .nav-pills > li.active > a:focus {
+    .panel-body .nav-pills > li.active > a,
+    .panel-body .nav-pills > li.active > a:hover,
+    .panel-body .nav-pills > li.active > a:focus {
         background-color: #428bca;
         margin-bottom: 10px;
     }
