@@ -9,38 +9,38 @@
 
     <div class="panel-body">
         <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-host">
-                        Host Port
-                        {{ popover.small('Port on Host to forward to VM. Optional,
-                            <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
-                               target="_blank">more information</a>') }}
-                    </label>
-                    <input type="number" id="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-host"
-                           name="vagrantfile-local[vm][network][forwarded_port][{{ uniqid }}][host]"
-                           placeholder="8080" pattern="^[1-9][0-9]*$"
-                           min="1" max="65535"
-                           title="Port on Host to forward to VM (e.g. 8080)"
-                           value="{% if forwarded_port.host %}{{ forwarded_port.host }}{% else %}{{ mt_rand(5000, 9999) }}{% endif %}"
-                           class="form-control" />
-                </div>
-
-                <div class="col-md-6">
-                    <label for="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-guest">
-                        Box Port
-                        {{ popover.small('Port on VM to accept from Host. Optional,
-                            <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
-                               target="_blank">more information</a>') }}
-                    </label>
-                    <input type="number" id="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-guest"
-                           name="vagrantfile-local[vm][network][forwarded_port][{{ uniqid }}][guest]"
-                           placeholder="80" pattern="^[1-9][0-9]*$"
-                           min="1" max="65535"
-                           title="Port on VM to accept from Host (e.g. 80)"
-                           value="{% if forwarded_port.guest %}{{ forwarded_port.guest }}{% else %}22{% endif %}"
-                           class="form-control" />
-                </div>
+            <div class="col-md-6">
+                <label for="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-host">
+                    Host Port
+                    {{ popover.small('Port on Host to forward to VM. Optional,
+                        <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
+                           target="_blank">more information</a>') }}
+                </label>
+                <input type="number" id="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-host"
+                       name="vagrantfile-local[vm][network][forwarded_port][{{ uniqid }}][host]"
+                       placeholder="8080" pattern="^[1-9][0-9]*$"
+                       min="1" max="65535"
+                       title="Port on Host to forward to VM (e.g. 8080)"
+                       value="{% if forwarded_port.host %}{{ forwarded_port.host }}{% else %}{{ mt_rand(5000, 9999) }}{% endif %}"
+                       class="form-control" />
             </div>
+
+            <div class="col-md-6">
+                <label for="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-guest">
+                    Box Port
+                    {{ popover.small('Port on VM to accept from Host. Optional,
+                        <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
+                           target="_blank">more information</a>') }}
+                </label>
+                <input type="number" id="vagrantfile-local-vm-network-forwarded_port-{{ uniqid }}-guest"
+                       name="vagrantfile-local[vm][network][forwarded_port][{{ uniqid }}][guest]"
+                       placeholder="80" pattern="^[1-9][0-9]*$"
+                       min="1" max="65535"
+                       title="Port on VM to accept from Host (e.g. 80)"
+                       value="{% if forwarded_port.guest %}{{ forwarded_port.guest }}{% else %}22{% endif %}"
+                       class="form-control" />
+            </div>
+        </div>
 
         <p class="text-center">
             <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
