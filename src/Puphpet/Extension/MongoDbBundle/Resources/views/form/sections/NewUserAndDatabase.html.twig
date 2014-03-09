@@ -1,55 +1,47 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 {% set uniqid = uniqid('mongodbnuad_', true) %}
 
-<!-- MongoDB / Create User & Database -->
-<div class="row" id="{{ uniqid }}">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">MongoDB Create User & Database</h3>
+<div id="{{ uniqid }}">
+    <div class="panel-heading">
+        <h3 class="panel-title">MongoDB Create User & Database</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="mongodb-databases-{{ uniqid }}-name">DB Name</label>
+                <input type="text" id="mongodb-databases-{{ uniqid }}-name"
+                       name="mongodb[databases][{{ uniqid }}][name]" required placeholder="database name"
+                       value="{{ database.name }}" class="form-control" />
             </div>
-
-            <div class="panel-body">
-
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="mongodb-databases-{{ uniqid }}-name">DB Name</label>
-                        <input type="text" id="mongodb-databases-{{ uniqid }}-name"
-                               name="mongodb[databases][{{ uniqid }}][name]" required placeholder="database name"
-                               value="{{ database.name }}" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="mongodb-databases-{{ uniqid }}-user">Username</label>
-                        <input type="text" id="mongodb-databases-{{ uniqid }}-user"
-                               name="mongodb[databases][{{ uniqid }}][user]"
-                               required placeholder="username"
-                               value="{{ database.user }}" class="form-control" />
-
-                        <p class="help-block">
-                            At this time, one user can only be assigned to one database. You should not enter "root"
-                            here! You should not have a single user appear twice!
-                        </p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="mongodb-databases-{{ uniqid }}-password">Password</label>
-                        <input type="text" id="mongodb-databases-{{ uniqid }}-password"
-                               name="mongodb[databases][{{ uniqid }}][password]"
-                               required placeholder="password"
-                               value="{{ database.password }}" class="form-control" />
-                    </div>
-                </div>
-
-                <p class="text-center">
-                    <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
-                            data-parent-id="{{ uniqid }}">Remove this database</button>
-                </p>
-
-            </div>
-
         </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="mongodb-databases-{{ uniqid }}-user">
+                    Username
+                    {{ popover.small('At this time, one user can only be assigned to one database. You should not
+                        enter "root" here! You should not have a single user appear twice!') }}
+                </label>
+                <input type="text" id="mongodb-databases-{{ uniqid }}-user"
+                       name="mongodb[databases][{{ uniqid }}][user]"
+                       required placeholder="username"
+                       value="{{ database.user }}" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="mongodb-databases-{{ uniqid }}-password">Password</label>
+                <input type="text" id="mongodb-databases-{{ uniqid }}-password"
+                       name="mongodb[databases][{{ uniqid }}][password]"
+                       required placeholder="password"
+                       value="{{ database.password }}" class="form-control" />
+            </div>
+        </div>
+
+        <p class="text-center">
+            <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
+                    data-parent-id="{{ uniqid }}">Remove this database</button>
+        </p>
+
     </div>
 </div>
-<!-- end MongoDb / Create User & Database -->
