@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class FrontController extends Controller implements Extension\ControllerInterface
 {
-    public function indexAction(array $data)
+    public function indexAction(array $data, $extra = '')
     {
         return $this->render('PuphpetExtensionPostgresqlBundle:form:Postgresql.html.twig', [
             'postgresql' => $data,

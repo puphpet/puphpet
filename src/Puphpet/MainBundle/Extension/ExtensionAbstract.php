@@ -58,13 +58,14 @@ abstract class ExtensionAbstract implements ExtensionInterface
     /**
      * Run extension's front controller action and return rendered content
      *
-     * @param array $data Data required by controller template
+     * @param array  $data  Data required by controller template
+     * @param string $extra Extra template string not belonging to specific extension
      * @return string
      */
-    public function renderFront(array $data = [])
+    public function renderFront(array $data = [], $extra = null)
     {
         return $this->getFrontController()
-            ->indexAction($data)
+            ->indexAction($data, $extra)
             ->getContent();
     }
 

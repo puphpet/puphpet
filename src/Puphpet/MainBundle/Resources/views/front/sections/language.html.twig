@@ -28,10 +28,10 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="php">
-                {% set extension = extensionManager.getExtensionBySlug('php') %}
-                {{ extension.renderFront(extension.data)|raw }}
+                {% set phpLibraries = sections.multiSelectGroupedNoHeaders(extensionManager, 'php-extensions', 'PHP Extensions') %}
 
-                {{ sections.multiSelectGrouped(extensionManager, 'php-extensions', 'PHP Extensions') }}
+                {% set extension = extensionManager.getExtensionBySlug('php') %}
+                {{ extension.renderFront(extension.data, phpLibraries)|raw }}
             </div>
             <div class="tab-pane" id="hhvm">
                 {% set extension = extensionManager.getExtensionBySlug('hhvm') %}

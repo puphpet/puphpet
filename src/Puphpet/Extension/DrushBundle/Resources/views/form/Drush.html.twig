@@ -1,57 +1,44 @@
 <section id="drush">
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-xs-12">
+                <label class="checkbox-inline">
+                    <input type="checkbox" name="drush[install]" class="multiselect-grouped-tab"
+                           data-tab-target="drush-pill"
+                           {% if drush.install %}checked{% endif %} value="1" /> Install Drush
+                </label>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Drush</h3>
+                <p class="help-block">
+                    Drush will be installed from official github repo.
+                </p>
+            </div>
+
+            <div class="col-xs-12">
+                <label for="drush-settings-displayer">Settings</label>
+                <select id="drush-settings-displayer" multiple
+                        class="form-control select-tags-user-input"
+                        data-target-container="drush-settings"
+                        data-target-name="drush[settings]"
+                    >
+                    {% for setting in drush.available_settings %}
+                        <option value="{{ setting }}"
+                            {% if setting in drush.settings|keys %}selected{% endif %}>{{ setting }}</option>
+                    {% endfor %}
+                </select>
+
+                <div id="drush-settings" style="display: none;">
+                    {% for name, value in drush.settings %}
+                        <input type="hidden" name="drush[settings][{{ name }}]"
+                               data-option-name="{{ name }}" value="{{ value }}" />
+                    {% endfor %}
                 </div>
 
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="drush[install]" class="multiselect-grouped-tab"
-                                       data-tab-target="drush-pill"
-                                       {% if drush.install %}checked{% endif %} value="1" /> Install Drush
-                            </label>
-
-                            <p class="help-block">
-                                Drush will be installed from official github repo.
-                            </p>
-                        </div>
-
-                        <div class="col-xs-12">
-                            <label for="drush-settings-displayer">Settings</label>
-                            <select id="drush-settings-displayer" multiple
-                                    class="form-control select-tags-user-input"
-                                    data-target-container="drush-settings"
-                                    data-target-name="drush[settings]"
-                                >
-                                {% for setting in drush.available_settings %}
-                                    <option value="{{ setting }}"
-                                        {% if setting in drush.settings|keys %}selected{% endif %}>{{ setting }}</option>
-                                {% endfor %}
-                            </select>
-
-                            <div id="drush-settings" style="display: none;">
-                                {% for name, value in drush.settings %}
-                                    <input type="hidden" name="drush[settings][{{ name }}]"
-                                           data-option-name="{{ name }}" value="{{ value }}" />
-                                {% endfor %}
-                            </div>
-
-                            <p class="help-block">
-                                You can choose which branch / tag of drush to checkout.
-                                See <a href="https://github.com/drush-ops/drush/tree/6.x#drush-versions" target="_blank">documentation</a>
-                                for current versions.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
+                <p class="help-block">
+                    You can choose which branch / tag of drush to checkout.
+                    See <a href="https://github.com/drush-ops/drush/tree/6.x#drush-versions" target="_blank">documentation</a>
+                    for current versions.
+                </p>
             </div>
         </div>
     </div>
-
 </section>

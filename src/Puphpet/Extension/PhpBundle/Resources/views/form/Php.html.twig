@@ -1,3 +1,5 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+
 <section id="php">
 
     <!-- PHP / Quick Settings -->
@@ -9,7 +11,6 @@
                 </div>
 
                 <div class="panel-body">
-
                     <div class="row form-group">
                         <div class="col-xs-12">
                             <label class="checkbox-inline">
@@ -22,7 +23,13 @@
                     <!-- PHP / Version & Composer -->
                     <div class="row form-group">
                         <div class="col-md-6">
-                            <label>PHP Version</label><br />
+                            <label>
+                                PHP Version
+                                {{ popover.small('Ubuntu appears to have occasional problems using a non-default
+                                    PHP repo version. If using Ubuntu, proceed with caution and
+                                    <a href="#deploy-target">please reference the default PHP versions
+                                        outline here.</a>') }}
+                            </label><br />
                             <label class="radio-inline">
                                 <input type="radio" name="php[version]" value="55"
                                     {% if php.version == '55' %}checked{% endif %} /> 5.5
@@ -35,27 +42,19 @@
                                 <input type="radio" name="php[version]" value="53"
                                     {% if php.version == '53' %}checked{% endif %} /> 5.3
                             </label>
-
-                            <p class="help-block">
-                                Ubuntu appears to have occasional problems using a non-default
-                                PHP repo version. If using Ubuntu, proceed with caution and
-                                <a href="#deploy-target">please reference the default PHP versions
-                                    outline here.</a>
-                            </p>
                         </div>
 
                         <div class="col-md-6">
-                            <label>Composer</label><br />
+                            <label>
+                                Composer
+                                {{ popover.small('<a href="https://getcomposer.org">Composer</a> will be available as a
+                                    system service:<br />
+                                    <code>$ composer</code>') }}
+                            </label><br />
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="php[composer]" value="1"
                                     {% if php.composer %}checked{% endif %} /> Install Composer
                             </label>
-
-                            <p class="help-block">
-                                <a href="https://getcomposer.org">Composer</a> will be available as a
-                                system service:<br />
-                                <code>$ composer</code>
-                            </p>
                         </div>
                     </div>
                     <!-- End PHP / Version & Composer -->
@@ -117,7 +116,12 @@
                     <!-- PHP / PHP Modules -->
                     <div class="row form-group">
                         <div class="col-xs-12">
-                            <label for="php-modules-php">PHP Modules</label>
+                            <label for="php-modules-php">
+                                PHP Modules
+                                {{ popover.small('If you\'ve chosen CentOS, Some modules come pre-installed: <code>curl</code>,
+                                    <code>imagick</code>, <code>memcached</code>, <code>sqlite</code>. Don\'t choose these
+                                    here.') }}
+                            </label>
                             <select id="php-modules-php" name="php[modules][php][]"
                                     multiple class="form-control select-tags">
                                 {% for module in php.available_modules.php %}
@@ -125,12 +129,6 @@
                                         {% if module in php.modules.php %}selected{% endif %}>{{ module }}</option>
                                 {% endfor %}
                             </select>
-
-                            <p class="help-block">
-                                If you've chosen CentOS, Some modules come pre-installed: <code>curl</code>,
-                                <code>imagick</code>, <code>memcached</code>, <code>sqlite</code>. Don't choose these
-                                here.
-                            </p>
                         </div>
                     </div>
                     <!-- end PHP / PHP Modules -->
@@ -186,7 +184,14 @@
                         </div>
                     </div>
                     <!-- end PHP / PECL Modules -->
+                </div>
 
+                <div class="panel-heading">
+                    <h3 class="panel-title">PHP Libraries</h3>
+                </div>
+
+                <div class="panel-body">
+                    {{ extra }}
                 </div>
 
             </div>
