@@ -1,3 +1,5 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+
 <section id="redis">
 
     <!-- redis -->
@@ -14,14 +16,13 @@
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="redis[install]" class="multiselect-grouped-tab"
                                        data-tab-target="redis-pill"
-                                       {% if redis.install == 1 %}checked{% endif %} value="1" /> Install Redis
+                                       {% if redis.install == 1 %}checked{% endif %} value="1" />
+                                Install Redis
+                                {{ popover.small('Redis is an open source, BSD licensed, advanced key-value store. It
+                                    is often referred to as a data structure server since keys can contain strings,
+                                    hashes, lists, sets and sorted sets.
+                                    <a href="http://try.redis.io/" target="_blank">Try Redis</a>.') }}
                             </label>
-
-                            <p class="help-block">
-                                Redis is an open source, BSD licensed, advanced key-value store. It is often referred
-                                to as a data structure server since keys can contain strings, hashes, lists, sets and
-                                sorted sets. <a href="http://try.redis.io/" target="_blank">Try Redis</a>.
-                            </p>
                         </div>
                     </div>
 
