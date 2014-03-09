@@ -2,9 +2,9 @@ install: 1
 
 databases:
     -
-        name: ~
-        user: ~
-        password: ~
+        name: dbname
+        user: dbuser
+        password: 123
         host: localhost
         grant:
             - ALL

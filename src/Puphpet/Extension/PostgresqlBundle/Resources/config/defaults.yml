@@ -1,11 +1,5 @@
 install: 0
 
-databases:
-    -
-        name: ~
-        user: ~
-        password: ~
-        grant: ALL
-        sql_file: ~
+databases: []
 
 adminer: 0
