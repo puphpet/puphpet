@@ -1,0 +1,67 @@
+<div class="collapse-container" id="vagrantfile-aws-instructions-container">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#vagrantfile-aws-instructions-container"
+               href="#vagrantfile-aws-instructions-content">
+                <i class="glyphicon glyphicon-plus"></i>
+                Amazon Web Services Instructions
+            </a>
+        </h3>
+    </div>
+
+    <div id="vagrantfile-aws-instructions-content" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div>
+                <h3>AWS EC2 Instance</h3>
+
+                <p>
+                    Use Amazon's famously reliable servers for your app!
+                </p>
+            </div>
+
+            <div>
+                <h3>Installation Requirements</h3>
+
+                <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#aws-instructions-mac" data-toggle="pill">Mac</a></li>
+                    <li><a href="#aws-instructions-windows" data-toggle="pill">Windows</a></li>
+                    <li><a href="#aws-instructions-linux" data-toggle="pill">Linux</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="aws-instructions-mac">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-aws<br />
+                            $ vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box<br />
+                            $ brew install curl-ca-bundle<br />
+                            $ echo export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt >> ~/.bash_profile
+                        </code>
+                    </div>
+                    <div class="tab-pane" id="aws-instructions-windows">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-aws<br />
+                            $ vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
+                        </code>
+
+                        <div class="clearfix"></div>
+
+                        <p>
+                            You need rsync installed. Easiest way is to use Cygwin and install it through there.
+                            Alternatively, you can
+                            <a href="https://www.itefix.no/i2/content/cwrsync-free-edition" target="_blank">install rsync separately</a>
+                            and add it to your PATH.
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="aws-instructions-linux">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-aws<br />
+                            $ vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
