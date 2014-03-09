@@ -1,8 +1,6 @@
 <input type="hidden" name="is_disabled[apache]" value="0" />
 
 <section id="apache">
-
-    <!-- HTTP Server / Apache / Modules -->
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -60,20 +58,18 @@
                     </div>
                 </div>
 
+                {% for vhost in apache.vhosts %}
+                    {% include 'PuphpetExtensionApacheBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.apache.vhost') }}">Add another Apache vhost</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-    <!-- end HTTP Server / Apache / Modules -->
-
-    {% for vhost in apache.vhosts %}
-        {% include 'PuphpetExtensionApacheBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
-    {% endfor %}
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.apache.vhost') }}">Add another Apache vhost</button>
-        </div>
-    </div>
-
 </section>
