@@ -8,30 +8,31 @@
                     <h3 class="panel-title">Install Nginx</h3>
                 </div>
 
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="nginx[install]"
-                                       {% if nginx.install %}checked{% endif %} value="1" /> Install Nginx
-                            </label>
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input class="install-checkbox" type="checkbox" name="nginx[install]"
+                                   data-hide-on-uncheck="#nginx-config-container"
+                                   {% if nginx.install %}checked{% endif %} value="1" /> Install Nginx
+                        </label>
 
-                            <p class="help-block">
-                                Only Apache or Nginx can be installed (or none at all).
-                                Installing both at the same time is not supported.
-                            </p>
-                        </div>
+                        <p class="help-block">
+                            Only Apache or Nginx can be installed (or none at all).
+                            Installing both at the same time is not supported.
+                        </p>
                     </div>
                 </div>
 
-                {% for vhost in nginx.vhosts %}
-                    {% include 'PuphpetExtensionNginxBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
-                {% endfor %}
+                <div class="{% if not nginx.install %}hidden{% endif %}" id="nginx-config-container">
+                    {% for vhost in nginx.vhosts %}
+                        {% include 'PuphpetExtensionNginxBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
+                    {% endfor %}
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                data-source-url="{{ path('puphpet.extension.nginx.vhost') }}">Add another Nginx vhost</button>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                    data-source-url="{{ path('puphpet.extension.nginx.vhost') }}">Add another Nginx vhost</button>
+                        </div>
                     </div>
                 </div>
             </div>

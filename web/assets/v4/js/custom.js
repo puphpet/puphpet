@@ -583,6 +583,18 @@ PUPHPET.configureCollapseable = function() {
     });
 };
 
+PUPHPET.hideOnNotInstalled = function () {
+    $('.install-checkbox').on('change',function () {
+        var target = this.getAttribute('data-hide-on-uncheck');
+
+        if ($(this).is(':checked')) {
+            $(target).removeClass('hidden');
+        } else {
+            $(target).addClass('hidden');
+        }
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -598,6 +610,7 @@ $(document).ready(function() {
     PUPHPET.toggleMultiGroupedTab();
     PUPHPET.enablePopovers();
     PUPHPET.configureCollapseable();
+    PUPHPET.hideOnNotInstalled();
     PUPHPET.enableTargetElements('#php-pill', '#php-extensions');
     PUPHPET.enableTargetElements('#php-pill-menulink', '#php-extensions');
     PUPHPET.disableTargetElements('#hhvm-pill', '#php-extensions');

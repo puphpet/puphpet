@@ -1,6 +1,5 @@
 <section id="elastic_search">
 
-    <!-- elastic search -->
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -8,32 +7,38 @@
                     <h3 class="panel-title">Elastic Search Quick Settings</h3>
                 </div>
 
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="elastic_search[install]" value="1"
-                                    {% if elastic_search.install == 1 %}checked{% endif %} /> Install Elastic Search
-                            </label>
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input class="install-checkbox" type="checkbox" name="elastic_search[install]"
+                                   data-hide-on-uncheck="#elastic_search-config-container"
+                                   {% if elastic_search.install %}checked{% endif %} value="1" /> Install Elastic Search
+                        </label>
+                    </div>
+                </div>
 
-                            <p class="help-block">
-                                Elastic Search is a powerful open source search and analytics engine that makes data
-                                easy to explore.
-                                <a href="http://www.elasticsearch.org/" target="_blank">Learn about Elastic Search</a>.
-                                <br /><br />
-                                <a href="https://github.com/elasticsearch/elasticsearch-php" target="_blank">The
-                                    official Elastic Search PHP library</a>
-                                <br /> <br />
-                                Elastic Search will be installed and the service will start automatically. Java will
-                                also be installed if not already present on the vagrant box. The default port is 9200.
-                            </p>
+                <div class="{% if not elastic_search.install %}hidden{% endif %}" id="elastic_search-config-container">
+                    <div class="panel-body">
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <p class="help-block">
+                                    Elastic Search is a powerful open source search and analytics engine that makes data
+                                    easy to explore.
+                                    <a href="http://www.elasticsearch.org/" target="_blank">Learn about Elastic Search</a>.
+                                    <br /><br />
+                                    <a href="https://github.com/elasticsearch/elasticsearch-php" target="_blank">The
+                                        official Elastic Search PHP library</a>
+                                    <br /> <br />
+                                    Elastic Search will be installed and the service will start automatically. Java will
+                                    also be installed if not already present on the vagrant box. The default port is 9200.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end elastic search -->
 
 </section>
 

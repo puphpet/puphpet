@@ -8,67 +8,69 @@
                     <h3 class="panel-title">Apache Modules</h3>
                 </div>
 
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="apache[install]"
-                                       {% if apache.install %}checked{% endif %} value="1" /> Install Apache2
-                            </label>
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input class="install-checkbox" type="checkbox" name="apache[install]"
+                                   data-hide-on-uncheck="#apache-config-container"
+                                   {% if apache.install %}checked{% endif %} value="1" /> Install Apache2
+                        </label>
 
-                            <p class="help-block">
-                                Only Apache or Nginx can be installed (or none at all).
-                                Installing both at the same time is not supported.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label for="apache-modules">Apache Modules</label>
-                            <select id="apache-modules" name="apache[modules][]" multiple class="form-control select-tags">
-                                {% for module in apache.available_modules %}
-                                    <option value="{{ module }}"
-                                        {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label for="apache-mod_pagespeed">PageSpeed Module</label><br>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="apache-mod_pagespeed" name="apache[mod_pagespeed]" value="1"
-                                    {% if apache.mod_pagespeed %}checked{% endif %} />
-                                Enable
-                                <a href="https://developers.google.com/speed/pagespeed/module?hl=de" target="_blank">PageSpeed Module</a>
-                            </label>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="apache-mod_spdy">Spdy Module</label><br>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="apache-mod_spdy" name="apache[mod_spdy]" value="1"
-                                    {% if apache.mod_spdy %}checked{% endif %} />
-                                Enable
-                                <a href="https://developers.google.com/speed/spdy/mod_spdy/" target="_blank">Spdy Module</a>
-                            </label>
-                        </div>
+                        <p class="help-block">
+                            Only Apache or Nginx can be installed (or none at all).
+                            Installing both at the same time is not supported.
+                        </p>
                     </div>
                 </div>
 
-                {% for vhost in apache.vhosts %}
-                    {% include 'PuphpetExtensionApacheBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
-                {% endfor %}
+                <div class="{% if not apache.install %}hidden{% endif %}" id="apache-config-container">
+                    <div class="panel-body">
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <label for="apache-modules">Apache Modules</label>
+                                <select id="apache-modules" name="apache[modules][]" multiple class="form-control select-tags">
+                                    {% for module in apache.available_modules %}
+                                        <option value="{{ module }}"
+                                            {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                data-source-url="{{ path('puphpet.extension.apache.vhost') }}">Add another Apache vhost</button>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label for="apache-mod_pagespeed">PageSpeed Module</label><br>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="apache-mod_pagespeed" name="apache[mod_pagespeed]" value="1"
+                                        {% if apache.mod_pagespeed %}checked{% endif %} />
+                                    Enable
+                                    <a href="https://developers.google.com/speed/pagespeed/module?hl=de" target="_blank">PageSpeed Module</a>
+                                </label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="apache-mod_spdy">Spdy Module</label><br>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="apache-mod_spdy" name="apache[mod_spdy]" value="1"
+                                        {% if apache.mod_spdy %}checked{% endif %} />
+                                    Enable
+                                    <a href="https://developers.google.com/speed/spdy/mod_spdy/" target="_blank">Spdy Module</a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% for vhost in apache.vhosts %}
+                        {% include 'PuphpetExtensionApacheBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                    data-source-url="{{ path('puphpet.extension.apache.vhost') }}">Add another Apache vhost</button>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

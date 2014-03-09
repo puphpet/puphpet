@@ -2,201 +2,201 @@
 
 <section id="php">
 
-    <!-- PHP / Quick Settings -->
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Quick Settings</h3>
+                    <h3 class="panel-title">PHP Quick Settings</h3>
                 </div>
 
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="php[install]"
-                                       {% if php.install %}checked{% endif %} value="1" /> Install PHP
-                            </label>
-                        </div>
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input class="install-checkbox" type="checkbox" name="php[install]"
+                                   data-hide-on-uncheck="#php-config-container"
+                                   {% if php.install %}checked{% endif %} value="1" /> Install PHP
+                        </label>
                     </div>
+                </div>
 
-                    <!-- PHP / Version & Composer -->
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label>
-                                PHP Version
-                                {{ popover.small('Ubuntu appears to have occasional problems using a non-default
-                                    PHP repo version. If using Ubuntu, proceed with caution and
-                                    <a href="#deploy-target">please reference the default PHP versions
-                                        outline here.</a>') }}
-                            </label><br />
-                            <label class="radio-inline">
-                                <input type="radio" name="php[version]" value="55"
-                                    {% if php.version == '55' %}checked{% endif %} /> 5.5
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="php[version]" value="54"
-                                    {% if php.version == '54' %}checked{% endif %} /> 5.4
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="php[version]" value="53"
-                                    {% if php.version == '53' %}checked{% endif %} /> 5.3
-                            </label>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label>
-                                Composer
-                                {{ popover.small('<a href="https://getcomposer.org">Composer</a> will be available as a
-                                    system service:<br />
-                                    <code>$ composer</code>') }}
-                            </label><br />
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="php[composer]" value="1"
-                                    {% if php.composer %}checked{% endif %} /> Install Composer
-                            </label>
-                        </div>
-                    </div>
-                    <!-- End PHP / Version & Composer -->
-
-                    <!-- PHP / Ini -->
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label for="php-ini-displayer">INI Settings</label>
-                            <select id="php-ini-displayer" multiple
-                                    class="form-control select-tags-user-input"
-                                    data-target-container="php-ini"
-                                    data-target-name="php[ini]"
-                                >
-                                {% for ini, values in php.available_ini %}
-                                    {% if values is not empty %}
-                                        <optgroup label="{{ ini }}">
-                                            {% for value in values %}
-                                                <option value="{{ value }}"
-                                                    {% if value in php.ini|keys %}selected{% endif %}>{{ value }}</option>
-                                            {% endfor %}
-                                        </optgroup>
-                                    {% else %}
-                                        <option value="{{ ini }}"
-                                            {% if ini in php.ini|keys %}selected{% endif %}>{{ ini }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-
-                            <div id="php-ini" style="display: none;">
-                                {% for name, value in php.ini %}
-                                    <input type="hidden" name="php[ini][{{ name }}]"
-                                           data-option-name="{{ name }}" value="{{ value }}" />
-                                {% endfor %}
+                <div class="{% if not php.install %}hidden{% endif %}" id="php-config-container">
+                    <div class="panel-body">
+                        <!-- PHP / Version & Composer -->
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label>
+                                    PHP Version
+                                    {{ popover.small('Ubuntu appears to have occasional problems using a non-default
+                                        PHP repo version. If using Ubuntu, proceed with caution and
+                                        <a href="#deploy-target">please reference the default PHP versions
+                                            outline here.</a>') }}
+                                </label><br />
+                                <label class="radio-inline">
+                                    <input type="radio" name="php[version]" value="55"
+                                        {% if php.version == '55' %}checked{% endif %} /> 5.5
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="php[version]" value="54"
+                                        {% if php.version == '54' %}checked{% endif %} /> 5.4
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="php[version]" value="53"
+                                        {% if php.version == '53' %}checked{% endif %} /> 5.3
+                                </label>
                             </div>
 
+                            <div class="col-md-6">
+                                <label>
+                                    Composer
+                                    {{ popover.small('<a href="https://getcomposer.org">Composer</a> will be available as a
+                                        system service:<br />
+                                        <code>$ composer</code>') }}
+                                </label><br />
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="php[composer]" value="1"
+                                        {% if php.composer %}checked{% endif %} /> Install Composer
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <!-- End PHP / Ini -->
+                        <!-- End PHP / Version & Composer -->
 
-                    <!-- PHP / Timezone -->
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label for="php-timezone">PHP Timezone</label>
-                            <select id="php-timezone" name="php[timezone]"
-                                    class="form-control select-tag">
-                                {% for namespace, timezones in php.available_timezones %}
-                                    <optgroup label="{{ namespace }}">
-                                        {% for timezone in timezones %}
-                                            <option value="{{ timezone }}"
-                                                {% if timezone == php.timezone %}selected{% endif %}>{{ timezone }}</option>
-                                        {% endfor %}
-                                    </optgroup>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <!-- End PHP / Timezone -->
+                        <!-- PHP / Ini -->
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <label for="php-ini-displayer">INI Settings</label>
+                                <select id="php-ini-displayer" multiple
+                                        class="form-control select-tags-user-input"
+                                        data-target-container="php-ini"
+                                        data-target-name="php[ini]"
+                                    >
+                                    {% for ini, values in php.available_ini %}
+                                        {% if values is not empty %}
+                                            <optgroup label="{{ ini }}">
+                                                {% for value in values %}
+                                                    <option value="{{ value }}"
+                                                        {% if value in php.ini|keys %}selected{% endif %}>{{ value }}</option>
+                                                {% endfor %}
+                                            </optgroup>
+                                        {% else %}
+                                            <option value="{{ ini }}"
+                                                {% if ini in php.ini|keys %}selected{% endif %}>{{ ini }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
 
-                    <!-- PHP / PHP Modules -->
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label for="php-modules-php">
-                                PHP Modules
-                                {{ popover.small('If you\'ve chosen CentOS, Some modules come pre-installed: <code>curl</code>,
-                                    <code>imagick</code>, <code>memcached</code>, <code>sqlite</code>. Don\'t choose these
-                                    here.') }}
-                            </label>
-                            <select id="php-modules-php" name="php[modules][php][]"
-                                    multiple class="form-control select-tags">
-                                {% for module in php.available_modules.php %}
-                                    <option value="{{ module }}"
-                                        {% if module in php.modules.php %}selected{% endif %}>{{ module }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <!-- end PHP / PHP Modules -->
+                                <div id="php-ini" style="display: none;">
+                                    {% for name, value in php.ini %}
+                                        <input type="hidden" name="php[ini][{{ name }}]"
+                                               data-option-name="{{ name }}" value="{{ value }}" />
+                                    {% endfor %}
+                                </div>
 
-                    <!-- PHP / PEAR Modules -->
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label for="php-modules-pear">PEAR Modules</label>
-                            <select id="php-modules-pear" name="php[modules][pear][]"
-                                    multiple class="form-control select-tags">
-                                {% set selectedPhpModulesPear = [] %}
-                                {% for namespace, modules in php.available_modules.pear %}
-                                    <optgroup label="{{ namespace }}">
-                                        {% for module in modules %}
-                                            {% set selectedPhpModulesPear = selectedPhpModulesPear|merge([module]) %}
-                                            <option value="{{ module }}"
-                                                {% if module in php.modules.pear %}selected{% endif %}>{{ module }}</option>
-                                        {% endfor %}
-                                    </optgroup>
-                                {% endfor %}
-                                {% for module in php.modules.pear %}
-                                    {% if module not in selectedPhpModulesPear %}
-                                        <option value="{{ module }}" selected>{{ module }}</option>
-                                    {% endif %}>
-                                {% endfor %}
-                            </select>
+                            </div>
                         </div>
-                    </div>
-                    <!-- end PHP / PEAR Modules -->
+                        <!-- End PHP / Ini -->
 
-                    <!-- PHP / PECL Modules -->
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label for="php-modules-pecl">PECL Modules</label>
-                            <select id="php-modules-pecl" name="php[modules][pecl][]"
-                                    multiple class="form-control select-tags">
-                                {% set selectedPhpModulesPecl = [] %}
-                                {% for namespace, modules in php.available_modules.pecl %}
-                                    <optgroup label="{{ namespace }}">
-                                        {% for module in modules %}
-                                            {% set selectedPhpModulesPecl = selectedPhpModulesPecl|merge([module]) %}
-                                            <option value="{{ module }}"
-                                                {% if module in php.modules.pecl %}selected{% endif %}>{{ module }}</option>
-                                        {% endfor %}
-                                    </optgroup>
-                                {% endfor %}
-                                {% for module in php.modules.pecl %}
-                                    {% if module not in selectedPhpModulesPecl %}
-                                        <option value="{{ module }}" selected>{{ module }}</option>
-                                    {% endif %}>
-                                {% endfor %}
-                            </select>
+                        <!-- PHP / Timezone -->
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <label for="php-timezone">PHP Timezone</label>
+                                <select id="php-timezone" name="php[timezone]"
+                                        class="form-control select-tag">
+                                    {% for namespace, timezones in php.available_timezones %}
+                                        <optgroup label="{{ namespace }}">
+                                            {% for timezone in timezones %}
+                                                <option value="{{ timezone }}"
+                                                    {% if timezone == php.timezone %}selected{% endif %}>{{ timezone }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </div>
+                        <!-- End PHP / Timezone -->
+
+                        <!-- PHP / PHP Modules -->
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <label for="php-modules-php">
+                                    PHP Modules
+                                    {{ popover.small('If you\'ve chosen CentOS, Some modules come pre-installed: <code>curl</code>,
+                                        <code>imagick</code>, <code>memcached</code>, <code>sqlite</code>. Don\'t choose these
+                                        here.') }}
+                                </label>
+                                <select id="php-modules-php" name="php[modules][php][]"
+                                        multiple class="form-control select-tags">
+                                    {% for module in php.available_modules.php %}
+                                        <option value="{{ module }}"
+                                            {% if module in php.modules.php %}selected{% endif %}>{{ module }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <!-- end PHP / PHP Modules -->
+
+                        <!-- PHP / PEAR Modules -->
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <label for="php-modules-pear">PEAR Modules</label>
+                                <select id="php-modules-pear" name="php[modules][pear][]"
+                                        multiple class="form-control select-tags">
+                                    {% set selectedPhpModulesPear = [] %}
+                                    {% for namespace, modules in php.available_modules.pear %}
+                                        <optgroup label="{{ namespace }}">
+                                            {% for module in modules %}
+                                                {% set selectedPhpModulesPear = selectedPhpModulesPear|merge([module]) %}
+                                                <option value="{{ module }}"
+                                                    {% if module in php.modules.pear %}selected{% endif %}>{{ module }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    {% endfor %}
+                                    {% for module in php.modules.pear %}
+                                        {% if module not in selectedPhpModulesPear %}
+                                            <option value="{{ module }}" selected>{{ module }}</option>
+                                        {% endif %}>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <!-- end PHP / PEAR Modules -->
+
+                        <!-- PHP / PECL Modules -->
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <label for="php-modules-pecl">PECL Modules</label>
+                                <select id="php-modules-pecl" name="php[modules][pecl][]"
+                                        multiple class="form-control select-tags">
+                                    {% set selectedPhpModulesPecl = [] %}
+                                    {% for namespace, modules in php.available_modules.pecl %}
+                                        <optgroup label="{{ namespace }}">
+                                            {% for module in modules %}
+                                                {% set selectedPhpModulesPecl = selectedPhpModulesPecl|merge([module]) %}
+                                                <option value="{{ module }}"
+                                                    {% if module in php.modules.pecl %}selected{% endif %}>{{ module }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    {% endfor %}
+                                    {% for module in php.modules.pecl %}
+                                        {% if module not in selectedPhpModulesPecl %}
+                                            <option value="{{ module }}" selected>{{ module }}</option>
+                                        {% endif %}>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <!-- end PHP / PECL Modules -->
                     </div>
-                    <!-- end PHP / PECL Modules -->
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">PHP Libraries</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        {{ extra }}
+                    </div>
                 </div>
-
-                <div class="panel-heading">
-                    <h3 class="panel-title">PHP Libraries</h3>
-                </div>
-
-                <div class="panel-body">
-                    {{ extra }}
-                </div>
-
             </div>
         </div>
     </div>
-    <!-- end PHP / Quick Settings -->
 
 </section>

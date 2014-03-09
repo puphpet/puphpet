@@ -41,6 +41,11 @@ footer {
     margin-top: 20px;
 }
 
+.install-checkbox-container {
+    margin-bottom: 5px;
+    padding: 15px 15px 0 15px;
+}
+
 /*
  * Nav pills
 **/

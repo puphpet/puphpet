@@ -9,28 +9,30 @@
                     <h3 class="panel-title">RabbitMQ Quick Settings</h3>
                 </div>
 
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="rabbitmq[install]" class="multiselect-grouped-tab"
-                                       data-tab-target="rabbitmq-pill"
-                                    {% if rabbitmq.install == 1 %}checked{% endif %} value="1" />
-                                Install RabbitMQ
-                                {{ popover.small('RabbitMQ is a complete and highly reliable enterprise messaging system.
-                                    <a href="http://www.rabbitmq.com/tutorials/tutorial-one-php.html" target="_blank">
-                                        Learn about RabbitMQ</a>.') }}
-                            </label>
-                        </div>
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input class="install-checkbox" type="checkbox" name="rabbitmq[install]"
+                                   data-hide-on-uncheck="#rabbitmq-config-container"
+                                   {% if rabbitmq.install %}checked{% endif %} value="1" />
+                            Install RabbitMQ
+                            {{ popover.small('RabbitMQ is a complete and highly reliable enterprise messaging system.
+                                <a href="http://www.rabbitmq.com/tutorials/tutorial-one-php.html" target="_blank">
+                                    Learn about RabbitMQ</a>.') }}
+                        </label>
                     </div>
+                </div>
 
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label for="rabbitmq-settings-port">Listen Port</label>
-                            <input type="number" id="rabbitmq-settings-port"
-                                   name="rabbitmq[settings][port]"
-                                   required placeholder="5672" pattern="^[1-9][0-9]*$" min="5000" max="20000"
-                                   value="{{ rabbitmq.settings.port }}" class="form-control" />
+                <div class="{% if not rabbitmq.install %}hidden{% endif %}" id="rabbitmq-config-container">
+                    <div class="panel-body">
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label for="rabbitmq-settings-port">Listen Port</label>
+                                <input type="number" id="rabbitmq-settings-port"
+                                       name="rabbitmq[settings][port]"
+                                       required placeholder="5672" pattern="^[1-9][0-9]*$" min="5000" max="20000"
+                                       value="{{ rabbitmq.settings.port }}" class="form-control" />
+                            </div>
                         </div>
                     </div>
                 </div>
