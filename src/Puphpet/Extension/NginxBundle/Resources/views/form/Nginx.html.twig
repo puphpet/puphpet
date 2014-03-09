@@ -1,8 +1,6 @@
 <input type="hidden" name="is_disabled[nginx]" value="0" />
 
 <section id="nginx">
-
-    <!-- HTTP Server / Nginx Install -->
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -24,23 +22,19 @@
                             </p>
                         </div>
                     </div>
-
                 </div>
 
+                {% for vhost in nginx.vhosts %}
+                    {% include 'PuphpetExtensionNginxBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.nginx.vhost') }}">Add another Nginx vhost</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- end HTTP Server / Nginx Install -->
-
-    {% for vhost in nginx.vhosts %}
-        {% include 'PuphpetExtensionNginxBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
-    {% endfor %}
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.nginx.vhost') }}">Add another Nginx vhost</button>
-        </div>
-    </div>
-
 </section>

@@ -1,92 +1,98 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 {% set uniqid = uniqid('nxv_', true) %}
 
-<!-- HTTP Server / Nginx / Vhost -->
-<div class="row" id="{{ uniqid }}">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Nginx Virtual Host</h3>
+<div id="{{ uniqid }}">
+    <div class="panel-heading">
+        <h3 class="panel-title">Nginx Virtual Host</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="nginx-vhosts-{{ uniqid }}-server_name">
+                    Server Name
+                    {{ popover.small('Don\'t forget to <a href="/help#update-my-hosts-file">update your computer\'s hosts file!</a>') }}
+                </label>
+                <input type="text" id="nginx-vhosts-{{ uniqid }}-server_name"
+                       name="nginx[vhosts][{{ uniqid }}][server_name]"
+                       required placeholder="awesome.dev"
+                       value="{{ vhost.server_name }}" class="form-control" />
             </div>
 
-            <div class="panel-body">
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="nginx-vhosts-{{ uniqid }}-server_name">Server Name</label>
-                        <input type="text" id="nginx-vhosts-{{ uniqid }}-server_name"
-                               name="nginx[vhosts][{{ uniqid }}][server_name]"
-                               required placeholder="awesome.dev"
-                               value="{{ vhost.server_name }}" class="form-control" />
-
-                        <p class="help-block">Don't forget to <a href="/help#update-my-hosts-file">update your computer's hosts file!</a></p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="nginx-vhosts-{{ uniqid }}-server_aliases">Server Aliases</label>
-                        <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
-                                name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
-                                multiple class="form-control select-tags-editable">
-                            {% for alias in vhost.server_aliases %}
-                                <option selected value="{{ alias }}">{{ alias }}</option>
-                            {% endfor %}
-                        </select>
-
-                        <p class="help-block">Separated by comma</p>
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="nginx-vhosts-{{ uniqid }}-www_root">Document Root</label>
-                        <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
-                               name="nginx[vhosts][{{ uniqid }}][www_root]"
-                               required placeholder="/var/www"
-                               value="{{ vhost.www_root }}" class="form-control" />
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="nginx-vhosts-{{ uniqid }}-listen_port">Port</label>
-                        <input type="number" id="nginx-vhosts-{{ uniqid }}-listen_port"
-                               name="nginx[vhosts][{{ uniqid }}][listen_port]"
-                               required placeholder="80"
-                               value="{{ vhost.listen_port }}" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="row form-group">
-
-                    <div class="col-md-6">
-                        <label for="nginx-vhosts-{{ uniqid }}-index_files">Index Files</label>
-                        <select id="nginx-vhosts-{{ uniqid }}-index_files"
-                                name="nginx[vhosts][{{ uniqid }}][index_files][]"
-                                multiple class="form-control select-tags-editable">
-                            {% for index_file in vhost.index_files %}
-                                <option selected value="{{ index_file }}">{{ index_file }}</option>
-                            {% endfor %}
-                        </select>
-
-                        <p class="help-block">The last file should be the accessor to your PHP script or front controller</p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="nginx-vhosts-{{ uniqid }}-envvars">Environment Variables</label>
-                        <select id="nginx-vhosts-{{ uniqid }}-envvars"
-                                name="nginx[vhosts][{{ uniqid }}][envvars][]"
-                                multiple class="form-control select-tags-editable">
-                            {% for envvar in vhost.envvars %}
-                                <option selected value="{{ envvar }}">{{ envvar }}</option>
-                            {% endfor %}
-                        </select>
-
-                        <p class="help-block">"name value", separated by comma</p>
-                    </div>
-                </div>
-
-                <p class="text-center">
-                    <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
-                            data-parent-id="{{ uniqid }}">Remove this vhost</button>
-                </p>
+            <div class="col-md-6">
+                <label for="nginx-vhosts-{{ uniqid }}-server_aliases">
+                    Server Aliases
+                    {{ popover.small('Separated by comma') }}
+                </label>
+                <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
+                        name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for alias in vhost.server_aliases %}
+                        <option selected value="{{ alias }}">{{ alias }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="nginx-vhosts-{{ uniqid }}-www_root">
+                    Document Root
+                    {{ popover.small('Location of your site\'s index.php file, or other landing page.') }}
+                </label>
+                <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
+                       name="nginx[vhosts][{{ uniqid }}][www_root]"
+                       required placeholder="/var/www"
+                       value="{{ vhost.www_root }}" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="nginx-vhosts-{{ uniqid }}-listen_port">
+                    Port
+                    {{ popover.small('80 for normal browsing, if you choose another append it to the URL,
+                        ex: http://awesome.dev:1337') }}
+                </label>
+                <input type="number" id="nginx-vhosts-{{ uniqid }}-listen_port"
+                       name="nginx[vhosts][{{ uniqid }}][listen_port]"
+                       required placeholder="80"
+                       value="{{ vhost.listen_port }}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+
+            <div class="col-md-6">
+                <label for="nginx-vhosts-{{ uniqid }}-index_files">
+                    Index Files
+                    {{ popover.small('The last file should be the accessor to your PHP script or front controller') }}
+                </label>
+                <select id="nginx-vhosts-{{ uniqid }}-index_files"
+                        name="nginx[vhosts][{{ uniqid }}][index_files][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for index_file in vhost.index_files %}
+                        <option selected value="{{ index_file }}">{{ index_file }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="nginx-vhosts-{{ uniqid }}-envvars">
+                    Environment Variables
+                    {{ popover.small('"name value", separated by comma') }}
+                </label>
+                <select id="nginx-vhosts-{{ uniqid }}-envvars"
+                        name="nginx[vhosts][{{ uniqid }}][envvars][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for envvar in vhost.envvars %}
+                        <option selected value="{{ envvar }}">{{ envvar }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <p class="text-center">
+            <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
+                    data-parent-id="{{ uniqid }}">Remove this vhost</button>
+        </p>
     </div>
 </div>
-<!-- end HTTP Server / Nginx / Vhost -->
