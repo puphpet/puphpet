@@ -2,37 +2,30 @@
 
 <input type="hidden" id="vagrantfile-local-vm-box" name="vagrantfile-local[vm][box]" value="{{ data.vm.box }}" />
 
-<!-- vagrantfile-local / instructions -->
-<div class="row">
-    <div class="col-xs-12">
-        <div class="panel panel-default" id="vagrantfile-local-instructions-container">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#vagrantfile-local-instructions-container"
-                       href="#vagrantfile-local-instructions-content">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        Local VM Instructions
-                    </a>
-                </h3>
-            </div>
-
-            <div id="vagrantfile-local-instructions-content" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <ol>
-                        <li><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download the latest version of VirtualBox from here</a></li>
-                        <li><a href="http://www.vagrantup.com/downloads.html" target="_blank">Download the latest version of Vagrant from here.</a></li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end vagrantfile-local / instructions -->
-
-<!-- vagrantfile-local / Operating System -->
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-default">
+            <div class="collapse-container" id="vagrantfile-local-instructions-container">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#vagrantfile-local-instructions-container"
+                           href="#vagrantfile-local-instructions-content">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            Local VM Instructions
+                        </a>
+                    </h3>
+                </div>
+
+                <div id="vagrantfile-local-instructions-content" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ol>
+                            <li><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download the latest version of VirtualBox from here</a></li>
+                            <li><a href="http://www.vagrantup.com/downloads.html" target="_blank">Download the latest version of Vagrant from here.</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
             <div class="panel-heading">
                 <h3 class="panel-title">Local VM Details</h3>
             </div>
@@ -100,29 +93,29 @@
                     </div>
                 </div>
             </div>
+
+            {% for forwarded_port in data.vm.network.forwarded_port %}
+                {% include 'PuphpetExtensionVagrantfileLocalBundle:form/sections:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                            data-source-url="{{ path('puphpet.extension.vagrantfile.local.forwarded_port') }}">Add another local VM port pair</button>
+                </div>
+            </div>
+
+            {% for synced_folder in data.vm.synced_folder %}
+                {% include 'PuphpetExtensionVagrantfileLocalBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                            data-source-url="{{ path('puphpet.extension.vagrantfile.local.synced_folder') }}">Add another local VM shared folder</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<!-- end vagrantfile-local / Operating System -->
 
-{% for forwarded_port in data.vm.network.forwarded_port %}
-    {% include 'PuphpetExtensionVagrantfileLocalBundle:form/sections:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
-{% endfor %}
-
-<div class="row">
-    <div class="col-xs-12 col-sm-8 col-sm-push-2">
-        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                data-source-url="{{ path('puphpet.extension.vagrantfile.local.forwarded_port') }}">Add another local VM port pair</button>
-    </div>
-</div>
-
-{% for synced_folder in data.vm.synced_folder %}
-    {% include 'PuphpetExtensionVagrantfileLocalBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
-{% endfor %}
-
-<div class="row">
-    <div class="col-xs-12 col-sm-8 col-sm-push-2">
-        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                data-source-url="{{ path('puphpet.extension.vagrantfile.local.synced_folder') }}">Add another local VM shared folder</button>
-    </div>
-</div>
