@@ -1,0 +1,80 @@
+<div class="collapse-container" id="vagrantfile-rackspace-instructions-container">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#vagrantfile-rackspace-instructions-container"
+               href="#vagrantfile-rackspace-instructions-content">
+                <i class="glyphicon glyphicon-plus"></i>
+                Rackspace Instructions
+            </a>
+        </h3>
+    </div>
+
+    <div id="vagrantfile-rackspace-instructions-content" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div>
+                <h3>Rackspace Instance</h3>
+
+                <p>
+                    Login to Rackspace and
+                    <a href="https://manage.rackspacecloud.com/APIAccess.do" target="_blank">go to the API page</a>.
+                    You will need an API Key.
+                </p>
+            </div>
+
+            <div>
+                <h3>Installation Requirements</h3>
+
+                <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#rackspace-instructions-mac" data-toggle="pill">Mac</a></li>
+                    <li><a href="#rackspace-instructions-windows" data-toggle="pill">Windows</a></li>
+                    <li><a href="#rackspace-instructions-linux" data-toggle="pill">Linux</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="rackspace-instructions-mac">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-rackspace<br />
+                            $ vagrant box add dummy https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box<br />
+                            $ brew install curl-ca-bundle<br />
+                            $ echo export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt >> ~/.bash_profile
+                        </code>
+                    </div>
+                    <div class="tab-pane" id="rackspace-instructions-windows">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-rackspace<br />
+                            $ vagrant box add dummy https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box<br />
+                        </code>
+
+                        <div class="clearfix"></div>
+
+                        <p>
+                            You need rsync installed. Easiest way is to use Cygwin and install it through there.
+                            Alternatively, you can
+                            <a href="https://www.itefix.no/i2/content/cwrsync-free-edition" target="_blank">install rsync separately</a>
+                            and add it to your PATH.
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="rackspace-instructions-linux">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-rackspace<br />
+                            $ vagrant box add dummy https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box<br />
+                        </code>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3>Accessing Your VM</h3>
+
+                <p>
+                    To access your VM after running <code>$ vagrant up</code>, type
+                    <code>$ vagrant ssh-config</code> to get the IP address assigned to the server you created,
+                    and add the IP address to your computer's hosts file. Type <code>$ vagrant ssh</code> to
+                    be immediately connected via SSH to your new server!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
