@@ -317,11 +317,7 @@ PUPHPET.delRepeatableElement = function() {
  * Runs on initial page load
  */
 PUPHPET.disableInactiveTabElements = function() {
-    $('.nav.nav-tabs.icon-bar li').each(function() {
-        if ($(this).parent().hasClass('multi-select')) {
-            return;
-        }
-
+    $('.nav.nav-tabs.icon-bar.single-select li').each(function() {
         if ($(this).hasClass('active')) {
             return;
         }
@@ -344,16 +340,16 @@ PUPHPET.disableInactiveTabElements = function() {
  * tabs that belong to multi-selectable groups
  */
 PUPHPET.enableClickedTabElement = function() {
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    $('.nav.nav-tabs.icon-bar.single-select li a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
         if ($(this).parent().parent().hasClass('multi-select')) {
             return;
         }
 
-        var original = e.relatedTarget.getAttribute('data-target-element');
-        var target   = e.target.getAttribute('data-target-element');
+        var original = e.relatedTarget.hash;
+        var target   = e.target.hash;
 
-        $('#' + original).find('input, textarea, button, select').prop('disabled', true);
-        $('#' + target).find('input, textarea, button, select').prop('disabled', false);
+        $(original).find('input, textarea, button, select').prop('disabled', true);
+        $(target).find('input, textarea, button, select').prop('disabled', false);
     });
 };
 
@@ -602,7 +598,7 @@ $(document).ready(function() {
     PUPHPET.selectizeAddClickedToElement();
     PUPHPET.addRepeatableElement();
     PUPHPET.delRepeatableElement();
-    //PUPHPET.disableInactiveTabElements();
+    PUPHPET.disableInactiveTabElements();
     PUPHPET.enableClickedTabElement();
     PUPHPET.githubContributors();
     PUPHPET.uploadConfig();
