@@ -239,6 +239,16 @@ footer {
         z-index: -1;
     }
 
+/*
+ * Next/Previous links
+**/
+    .pagination > li > a,
+    .pager > li > a,
+    .pagination > li > span,
+    .pager > li > span {
+        font-size: 1.3em;
+    }
+
 .popover {
     max-width: 500px;
 }
