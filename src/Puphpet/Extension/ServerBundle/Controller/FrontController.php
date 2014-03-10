@@ -12,6 +12,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
     {
         return $this->render('PuphpetExtensionServerBundle:form:Server.html.twig', [
             'server' => $data,
+            'extra'  => $extra,
         ]);
     }
 }

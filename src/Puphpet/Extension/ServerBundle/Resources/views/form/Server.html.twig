@@ -1,6 +1,5 @@
 <input type="hidden" name="server[_prevent_empty]" />
 
-<!-- Server / Packages -->
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-default">
@@ -45,15 +44,8 @@
                 </div>
             </div>
 
-        </div>
-    </div>
-</div>
-<!-- end Server / Packages -->
+            {{ extra|raw }}
 
-<!-- Server / custom-files -->
-<div class="row">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Custom files</h3>
             </div>
@@ -97,4 +89,3 @@
         </div>
     </div>
 </div>
-<!-- end Server / dotfiles -->
