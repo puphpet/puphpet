@@ -86,3 +86,38 @@
         </div>
     </section>
 {% endmacro %}
+
+{% macro multiSelectGroupedNoHeaders(extensionManager, name, title) %}
+    {% set activeExtensionSlug = extensionManager.extensionInGroupHasCustomData(name) %}
+
+    <section class="nested-extensions" id="{{ name }}">
+         <ul class="nav group-nav nav-pills group-tabs multi-select">
+            {% for extension in extensionManager.getExtensionsInGroup(name) %}
+                <li class="{% if loop.first %}active{% endif %}">
+                    {% if extension.data.install is defined and extension.data.install %}
+                        {% set installed = true %}
+                    {% else %}
+                        {% set installed = false %}
+                    {% endif %}
+                    <a href="#{{ extension.slug }}-tab"
+                       id="{{ extension.slug }}-pill" class="{% if installed %}text-success{% endif %}"
+                       data-target-element="{{ extension.slug }}"
+                       data-toggle="tab">
+                        <span class="glyphicon
+                            {% if installed %}glyphicon-check{% else %}glyphicon-unchecked{% endif %}"></span>
+                        {{ extension.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="tab-content">
+            {% for extension in extensionManager.getExtensionsInGroup(name) %}
+                <div class="tab-pane {% if activeExtensionSlug == extension.slug %}active{% endif %}"
+                     id="{{ extension.slug }}-tab">
+                    {{ extension.renderFront(extension.data)|raw }}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endmacro %}

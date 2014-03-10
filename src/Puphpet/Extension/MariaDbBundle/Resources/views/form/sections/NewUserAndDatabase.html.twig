@@ -1,97 +1,88 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 {% set uniqid = uniqid('mariadbnuad_', true) %}
 
-<!-- Database / Create User & Database -->
-<div class="row" id="{{ uniqid }}">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">MariaDB Create User & Database</h3>
-            </div>
+<div id="{{ uniqid }}">
+    <div class="panel-heading">
+        <h3 class="panel-title">MariaDB Create User & Database</h3>
+    </div>
 
-            <div class="panel-body">
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-md-12">
+                <label for="mariadb-databases-{{ uniqid }}-grant">Privileges</label>
 
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <label for="mariadb-databases-{{ uniqid }}-grant">Privileges</label>
-
-                        <select id="mariadb-databases-{{ uniqid }}-grant"
-                                name="mariadb[databases][{{ uniqid }}][grant][]" multiple size="6"
-                                class="form-control select-tags">
-                            {% for type, privileges in available_privileges %}
-                                <optgroup label="{{ type }}">
-                                    {% for privilege in privileges %}
-                                        <option value="{{ privilege }}"
-                                            {% if privilege in database.grant %}selected{% endif %}>{{ privilege }}</option>
-                                    {% endfor %}
-                                </optgroup>
+                <select id="mariadb-databases-{{ uniqid }}-grant"
+                        name="mariadb[databases][{{ uniqid }}][grant][]" multiple size="6"
+                        class="form-control select-tags">
+                    {% for type, privileges in available_privileges %}
+                        <optgroup label="{{ type }}">
+                            {% for privilege in privileges %}
+                                <option value="{{ privilege }}"
+                                    {% if privilege in database.grant %}selected{% endif %}>{{ privilege }}</option>
                             {% endfor %}
-                        </select>
-                    </div>
-                </div>
+                        </optgroup>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
 
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="mariadb-databases-{{ uniqid }}-name">DB Name</label>
-                        <input type="text" id="mariadb-databases-{{ uniqid }}-name"
-                               name="mariadb[databases][{{ uniqid }}][name]" required placeholder="database name"
-                               value="{{ database.name }}" class="form-control" />
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="mariadb-databases-{{ uniqid }}-host">DB Host</label>
-                        <input type="text" id="mariadb-databases-{{ uniqid }}-host"
-                               name="mariadb[databases][{{ uniqid }}][host]"
-                               required placeholder="database host"
-                               value="{{ database.host }}" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="mariadb-databases-{{ uniqid }}-user">Username</label>
-                        <input type="text" id="mariadb-databases-{{ uniqid }}-user"
-                               name="mariadb[databases][{{ uniqid }}][user]"
-                               required placeholder="username" maxlength="16"
-                               value="{{ database.user }}" class="form-control" />
-
-                        <p class="help-block">
-                            At this time, one user can only be assigned to one database. You should not enter "root"
-                            here! You should not have a single user appear twice!
-                        </p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="mariadb-databases-{{ uniqid }}-password">Password</label>
-                        <input type="text" id="mariadb-databases-{{ uniqid }}-password"
-                               name="mariadb[databases][{{ uniqid }}][password]"
-                               required placeholder="password"
-                               value="{{ database.password }}" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <label for="mariadb-databases-{{ uniqid }}-sql_file">Import Database From File</label>
-                        <input type="text" id="mariadb-databases-{{ uniqid }}-sql_file"
-                               name="mariadb[databases][{{ uniqid }}][sql_file]"
-                               placeholder="/var/www/sql/database_name.sql"
-                               value="{{ database.sql_file }}" class="form-control" />
-
-                        <p class="help-block">
-                            Optional. Make sure this file is inside the VM before running
-                            <code>$ vagrant up</code>
-                        </p>
-                    </div>
-                </div>
-
-                <p class="text-center">
-                    <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
-                            data-parent-id="{{ uniqid }}">Remove this database</button>
-                </p>
-
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="mariadb-databases-{{ uniqid }}-name">DB Name</label>
+                <input type="text" id="mariadb-databases-{{ uniqid }}-name"
+                       name="mariadb[databases][{{ uniqid }}][name]" required placeholder="database name"
+                       value="{{ database.name }}" class="form-control" />
             </div>
 
+            <div class="col-md-6">
+                <label for="mariadb-databases-{{ uniqid }}-host">DB Host</label>
+                <input type="text" id="mariadb-databases-{{ uniqid }}-host"
+                       name="mariadb[databases][{{ uniqid }}][host]"
+                       required placeholder="database host"
+                       value="{{ database.host }}" class="form-control" />
+            </div>
         </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="mariadb-databases-{{ uniqid }}-user">
+                    Username
+                    {{ popover.small('At this time, one user can only be assigned to one database. You should not enter "root"
+                        here! You should not have a single user appear twice!') }}
+                </label>
+                <input type="text" id="mariadb-databases-{{ uniqid }}-user"
+                       name="mariadb[databases][{{ uniqid }}][user]"
+                       required placeholder="username" maxlength="16"
+                       value="{{ database.user }}" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="mariadb-databases-{{ uniqid }}-password">Password</label>
+                <input type="text" id="mariadb-databases-{{ uniqid }}-password"
+                       name="mariadb[databases][{{ uniqid }}][password]"
+                       required placeholder="password"
+                       value="{{ database.password }}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12">
+                <label for="mariadb-databases-{{ uniqid }}-sql_file">
+                    Import Database From File
+                    {{ popover.small('Optional. Make sure this file is inside the VM,
+                        or is inside a <a href="#deploy-target">shared folder defined here</a>
+                        before running <code>$ vagrant up</code>') }}
+                </label>
+                <input type="text" id="mariadb-databases-{{ uniqid }}-sql_file"
+                       name="mariadb[databases][{{ uniqid }}][sql_file]"
+                       placeholder="/var/www/sql/database_name.sql"
+                       value="{{ database.sql_file }}" class="form-control" />
+            </div>
+        </div>
+
+        <p class="text-center">
+            <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
+                    data-parent-id="{{ uniqid }}">Remove this database</button>
+        </p>
     </div>
 </div>
-<!-- end Database / Create User & Database -->

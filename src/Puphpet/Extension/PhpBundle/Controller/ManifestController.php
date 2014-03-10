@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ManifestController extends Controller implements Extension\ControllerInterface
 {
-    public function indexAction(array $data)
+    public function indexAction(array $data, $extra = '')
     {
         return $this->render('PuphpetExtensionPhpBundle:manifest:Php.pp.twig', [
             'data' => $data,

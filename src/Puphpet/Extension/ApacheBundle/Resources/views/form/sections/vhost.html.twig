@@ -1,115 +1,113 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 {% set uniqid = uniqid('av_', true) %}
 
-<!-- HTTP Server / Apache / Vhost -->
-<div class="row" id="{{ uniqid }}">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Apache Virtual Host</h3>
+<div id="{{ uniqid }}">
+    <div class="panel-heading">
+        <h3 class="panel-title">Apache Virtual Host</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="apache-vhosts-{{ uniqid }}-servername">
+                    Server Name
+                    {{ popover.small('Don\'t forget to <a href="/help#update-my-hosts-file">update your computer\'s hosts file!</a>') }}
+                </label>
+                <input type="text" id="apache-vhosts-{{ uniqid }}-servername"
+                       name="apache[vhosts][{{ uniqid }}][servername]"
+                       required placeholder="awesome.dev"
+                       value="{{ vhost.servername }}" class="form-control" />
             </div>
 
-            <div class="panel-body">
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="apache-vhosts-{{ uniqid }}-servername">Server Name</label>
-                        <input type="text" id="apache-vhosts-{{ uniqid }}-servername"
-                               name="apache[vhosts][{{ uniqid }}][servername]"
-                               required placeholder="awesome.dev"
-                               value="{{ vhost.servername }}" class="form-control" />
-
-                        <p class="help-block">Don't forget to <a href="/help#update-my-hosts-file">update your computer's hosts file!</a></p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="apache-vhosts-{{ uniqid }}-serveraliases">Server Aliases</label>
-                        <select id="apache-vhosts-{{ uniqid }}-serveraliases"
-                                name="apache[vhosts][{{ uniqid }}][serveraliases][]"
-                                multiple class="form-control select-tags-editable">
-                            {% for alias in vhost.serveraliases %}
-                                <option selected value="{{ alias }}">{{ alias }}</option>
-                            {% endfor %}
-                        </select>
-
-                        <p class="help-block">Separated by comma</p>
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="apache-vhosts-{{ uniqid }}-docroot">Document Root</label>
-                        <input type="text" id="apache-vhosts-{{ uniqid }}-docroot"
-                               name="apache[vhosts][{{ uniqid }}][docroot]"
-                               required placeholder="/var/www"
-                               value="{{ vhost.docroot }}" class="form-control" />
-
-                        <p class="help-block">Location of your site's index.php file, or other landing page.</p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="apache-vhosts-{{ uniqid }}-port">Port</label>
-                        <input type="number" id="apache-vhosts-{{ uniqid }}-port"
-                               name="apache[vhosts][{{ uniqid }}][port]"
-                               required placeholder="80"
-                               value="{{ vhost.port }}" class="form-control" />
-
-                        <p class="help-block">
-                            80 for normal browsing, if you choose another append it to the URL,
-                            ex: http://awesome.dev:1337
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="apache-vhosts-{{ uniqid }}-setenv">Environment Variables</label>
-                        <select id="apache-vhosts-{{ uniqid }}-setenv"
-                                name="apache[vhosts][{{ uniqid }}][setenv][]"
-                                multiple class="form-control select-tags-editable">
-                            {% if vhost.setenv is defined %}
-                                {% for setenv in vhost.setenv %}
-                                    <option selected value="{{ setenv }}">{{ setenv }}</option>
-                                {% endfor %}
-                            {% endif %}
-                        </select>
-
-                        <p class="help-block">"name value", separated by comma</p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="apache-vhosts-{{ uniqid }}-override">AllowOverride</label>
-                        <select id="apache-vhosts-{{ uniqid }}-override"
-                                name="apache[vhosts][{{ uniqid }}][override][]"
-                                multiple class="form-control select-tags-editable">
-                            {% for override in vhost.override %}
-                                <option selected value="{{ override }}">{{ override }}</option>
-                            {% endfor %}
-                        </select>
-
-                        <p class="help-block">
-                            Separated by comma, "All" is probably fine.
-                            <a href="http://httpd.apache.org/docs/2.2/mod/core.html#allowoverride"
-                               target="_blank">Click here for more hardcore information.</a>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <label for="apache-vhosts-{{ uniqid }}-custom_fragment">Custom Directives</label>
-                        <textarea id="apache-vhosts-{{ uniqid }}-custom_fragment"
-                               name="apache[vhosts][{{ uniqid }}][custom_fragment]"
-                               class="form-control">{{ vhost.custom_fragment }}</textarea>
-
-                        <p class="help-block">Advanced usage!</p>
-                    </div>
-                </div>
-
-                <p class="text-center">
-                    <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
-                            data-parent-id="{{ uniqid }}">Remove this vhost</button>
-                </p>
+            <div class="col-md-6">
+                <label for="apache-vhosts-{{ uniqid }}-serveraliases">
+                    Server Aliases
+                    {{ popover.small('Separated by comma') }}
+                </label>
+                <select id="apache-vhosts-{{ uniqid }}-serveraliases"
+                        name="apache[vhosts][{{ uniqid }}][serveraliases][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for alias in vhost.serveraliases %}
+                        <option selected value="{{ alias }}">{{ alias }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="apache-vhosts-{{ uniqid }}-docroot">
+                    Document Root
+                    {{ popover.small('Location of your site\'s index.php file, or other landing page.') }}
+                </label>
+                <input type="text" id="apache-vhosts-{{ uniqid }}-docroot"
+                       name="apache[vhosts][{{ uniqid }}][docroot]"
+                       required placeholder="/var/www"
+                       value="{{ vhost.docroot }}" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="apache-vhosts-{{ uniqid }}-port">
+                    Port
+                    {{ popover.small('80 for normal browsing, if you choose another append it to the URL,
+                        ex: http://awesome.dev:1337') }}
+                </label>
+                <input type="number" id="apache-vhosts-{{ uniqid }}-port"
+                       name="apache[vhosts][{{ uniqid }}][port]"
+                       required placeholder="80"
+                       value="{{ vhost.port }}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="apache-vhosts-{{ uniqid }}-setenv">
+                    Environment Variables
+                    {{ popover.small('"name value", separated by comma') }}
+                </label>
+                <select id="apache-vhosts-{{ uniqid }}-setenv"
+                        name="apache[vhosts][{{ uniqid }}][setenv][]"
+                        multiple class="form-control select-tags-editable">
+                    {% if vhost.setenv is defined %}
+                        {% for setenv in vhost.setenv %}
+                            <option selected value="{{ setenv }}">{{ setenv }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="apache-vhosts-{{ uniqid }}-override">
+                    AllowOverride
+                    {{ popover.small('Separated by comma, "All" is probably fine.
+                        <a href="http://httpd.apache.org/docs/2.2/mod/core.html#allowoverride"
+                            target="_blank">Click here for more hardcore information.</a>') }}
+                </label>
+                <select id="apache-vhosts-{{ uniqid }}-override"
+                        name="apache[vhosts][{{ uniqid }}][override][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for override in vhost.override %}
+                        <option selected value="{{ override }}">{{ override }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12">
+                <label for="apache-vhosts-{{ uniqid }}-custom_fragment">
+                    Custom Directives
+                    {{ popover.small('Advanced usage!') }}
+                </label>
+                <textarea id="apache-vhosts-{{ uniqid }}-custom_fragment"
+                       name="apache[vhosts][{{ uniqid }}][custom_fragment]"
+                       class="form-control">{{ vhost.custom_fragment }}</textarea>
+            </div>
+        </div>
+
+        <p class="text-center">
+            <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
+                    data-parent-id="{{ uniqid }}">Remove this vhost</button>
+        </p>
     </div>
 </div>
-<!-- end HTTP Server / Apache / Vhost -->

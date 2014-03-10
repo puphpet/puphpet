@@ -1,0 +1,254 @@
+body {
+    padding-top: 50px;
+    font-size: 16px;
+}
+
+.text-large {
+    font-size: 2em;
+}
+
+label.radio {
+    cursor: pointer;
+}
+
+button.addParentContainer {
+    margin-bottom: 20px;
+}
+
+code {
+    overflow-x: scroll;
+}
+
+code.inline-instructions {
+    margin-bottom: 10px;
+}
+
+#main-body {
+    margin-top: 30px;
+}
+
+.page-header.compact {
+    margin-top: 0;
+    border: 0;
+}
+
+button.tall {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+footer {
+    margin-top: 20px;
+}
+
+.install-checkbox-container {
+    margin-bottom: 5px;
+    padding: 15px 15px 0 15px;
+}
+
+/*
+ * Nav pills
+**/
+    .panel-body .nav-pills > li.active > a,
+    .panel-body .nav-pills > li.active > a:hover,
+    .panel-body .nav-pills > li.active > a:focus {
+        background-color: #428bca;
+        margin-bottom: 10px;
+    }
+
+/*
+ * Sidebar
+**/
+    #nav-sidebar {
+        max-width: 300px;
+    }
+
+    #nav-sidebar.affix {
+        position: fixed !important;
+        top: 70px;
+        width: 228px;
+    }
+
+    #nav-sidebar.affix-top,
+    #nav-sidebar.affix-bottom {
+        position: static;
+        margin-top: 30px;
+        width: 228px;
+    }
+
+    #nav-sidebar.nav-pills > li.active > a,
+    #nav-sidebar.nav-pills > li.active > a:hover,
+    #nav-sidebar.nav-pills > li.active > a:focus,
+    #nav-sidebar.nav > li > a:hover,
+    #nav-sidebar.nav > li > a:focus {
+        color: #fff;
+        background-color: #428bca;
+    }
+
+    #nav-sidebar .nav > li.active > a {
+        color: #fff;
+        background-color: #428bca;
+    }
+
+    @media (min-width: 1200px) {
+        #nav-sidebar.affix,
+        #nav-sidebar.affix-top,
+        #nav-sidebar.affix-bottom {
+            width: 278px;
+        }
+    }
+
+/*
+ * Big icon tabbed switches
+**/
+    .nav-tabs.icon-bar {
+        margin-bottom: 15px;
+        border: 0;
+    }
+
+    .nav-tabs.icon-bar > li {
+        padding-left: 5px;
+        padding-right: 5px;
+        text-align: center;
+    }
+
+    .nav-tabs.icon-bar > li > a {
+        height: 150px;
+        margin-right: 2px;
+        background-color: #f8f8f8;
+        line-height: 1.4;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .nav-tabs.icon-bar > li > a:hover,
+    .nav-tabs.icon-bar > li > a:focus {
+        margin-bottom: 6px;
+        color: #fff;
+        background-color: #428bca;
+    }
+
+    .nav-tabs.icon-bar > li.active > a,
+    .nav-tabs.icon-bar > li.active > a:hover,
+    .nav-tabs.icon-bar > li.active > a:focus {
+        color: #fff;
+        cursor: default;
+        background-color: #428bca;
+        border: 1px solid #ddd;
+        border-bottom-color: transparent;
+    }
+
+    .nav-tabs.icon-bar li a .tab-icon {
+        width: 100%;
+        margin: 0 auto 15px;
+    }
+
+    .nav-tabs.icon-bar li a .tab-icon img {
+        width: 100%;
+        max-width: 125px;
+        margin: 0 auto 10px;
+    }
+
+    .nav-tabs.icon-bar li a .tab-icon img.tab-icon-active,
+    .nav-tabs.icon-bar li a:hover .tab-icon img.tab-icon-inactive,
+    .nav-tabs.icon-bar li.active a .tab-icon img.tab-icon-inactive,
+    .nav-tabs.icon-bar li.active a:hover .tab-icon img.tab-icon-inactive{
+        display: none;
+    }
+    .nav-tabs.icon-bar li a .tab-icon img.tab-icon-inactive,
+    .nav-tabs.icon-bar li a:hover .tab-icon img.tab-icon-active,
+    .nav-tabs.icon-bar li.active a .tab-icon img.tab-icon-active,
+    .nav-tabs.icon-bar li.active a:hover .tab-icon img.tab-icon-active {
+        display: block;
+    }
+
+/*
+ * Panels
+**/
+    .panel {
+    }
+
+    .panel-default .panel-heading {
+        color: #fff;
+        background-color: #428bca;
+        border: none;
+        border-radius: 0;
+    }
+
+    .panel-default .panel-body h1,
+    .panel-default .panel-body h2,
+    .panel-default .panel-body h3 {
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .panel .collapse-container {
+        border: 1px solid #e7e7e7;
+        border-width: 0 0 1px 0;
+        -webkit-box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+    }
+
+/*
+ * PHP version badge colors for OS selection
+**/
+    .php-version-5-5 {
+        background-color: #5cb85c;
+    }
+
+    .php-version-5-4 {
+        background-color: #5bc0de;
+    }
+
+    .php-version-5-3 {
+        background-color: #f0ad4e;
+    }
+
+    .php-version-HHVM {
+        background-color: #45679e;
+    }
+
+/*
+ * Drag and drop overlay
+**/
+    #drag-drop {
+        width: 100%;
+        height: 100%;
+        display: none;
+        background: #fff;
+        opacity: 0.9;
+        cursor: pointer;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+    }
+
+    #drag-drop p {
+        width: 100%;
+        text-align: center;
+        color: #4c9bd8;
+        position: absolute;
+        top: 40%;
+
+        font-size: 6em;
+        font-weight: 700;
+        line-height: 1em;
+        display: block;
+        text-shadow: 3px 3px 4px #000;
+        z-index: -1;
+    }
+
+/*
+ * Next/Previous links
+**/
+    .pagination > li > a,
+    .pager > li > a,
+    .pagination > li > span,
+    .pager > li > span {
+        font-size: 1.3em;
+    }
+
+.popover {
+    max-width: 500px;
+}

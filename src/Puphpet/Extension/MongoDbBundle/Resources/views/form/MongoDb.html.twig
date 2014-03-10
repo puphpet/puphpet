@@ -1,6 +1,6 @@
-<section id="mongodb">
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 
-    <!-- MongoDB / Quick Settings -->
+<section id="mongodb">
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -8,42 +8,44 @@
                     <h3 class="panel-title">MongoDB Quick Settings</h3>
                 </div>
 
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="mongodb[install]" class="multiselect-grouped-tab"
-                                       data-tab-target="mongodb-pill"
-                                       {% if mongodb.install %}checked{% endif %} value="1" /> Install MongoDB
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <label for="mongodb-port">Port</label>
-                            <input type="number" id="mongodb-settings-port" name="mongodb[settings][port]"
-                                   placeholder="27017" pattern="^[1-9][0-9]*$" min="1"
-                                   value="{{ mongodb.settings.port }}" class="form-control" />
-                        </div>
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input class="install-checkbox" type="checkbox" name="mongodb[install]"
+                                   data-hide-on-uncheck="#mongodb-config-container"
+                                   {% if mongodb.install %}checked{% endif %} value="1" />
+                            Install MongoDB
+                            {{ popover.small('MongoDB is a document-oriented database system.
+                                <a href="http://www.mongodb.org/" target="_blank">Learn about MongoDB</a>.') }}
+                        </label>
                     </div>
                 </div>
 
+                <div class="{% if not mongodb.install %}hidden{% endif %}" id="mongodb-config-container">
+                    <div class="panel-body">
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <label for="mongodb-port">Port</label>
+                                <input type="number" id="mongodb-settings-port" name="mongodb[settings][port]"
+                                       placeholder="27017" pattern="^[1-9][0-9]*$" min="1"
+                                       value="{{ mongodb.settings.port }}" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {% for database in mongodb.databases %}
+                        {% include 'PuphpetExtensionMongoDbBundle:form/sections:NewUserAndDatabase.html.twig'
+                            with {'database': database} %}
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                    data-source-url="{{ path('puphpet.extension.mongodb.add_database') }}">Add another MongoDB database</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- end MongoDB / Quick Settings -->
-
-    {% for database in mongodb.databases %}
-        {% include 'PuphpetExtensionMongoDbBundle:form/sections:NewUserAndDatabase.html.twig'
-            with {'database': database} %}
-    {% endfor %}
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                    data-source-url="{{ path('puphpet.extension.mongodb.add_database') }}">Add another MongoDB database</button>
-        </div>
-    </div>
-
 </section>

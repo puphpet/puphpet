@@ -1,0 +1,80 @@
+<div class="tab-pane fade in" id="database">
+    <div class="page-header compact">
+        <h1><i class="fa fa-tasks"></i> Databases</h1>
+    </div>
+    <ul class="nav nav-tabs icon-bar">
+        <li class="col-xs-2 active">
+            <a href="#mysql" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/mysql-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/mysql-inactive.png" class="tab-icon-inactive" />
+                    MySQL
+                </div>
+            </a>
+        </li>
+        <li class="col-xs-2">
+            <a href="#postgresql" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/postgresql-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/postgresql-inactive.png" class="tab-icon-inactive" />
+                    PostgreSQL
+                </div>
+            </a>
+        </li>
+        <li class="col-xs-2">
+            <a href="#mariadb" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/mariadb-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/mariadb-inactive.png" class="tab-icon-inactive" />
+                    MariaDB
+                </div>
+            </a>
+        </li>
+        <li class="col-xs-2">
+            <a href="#mongodb" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/mongodb-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/mongodb-inactive.png" class="tab-icon-inactive" />
+                    MongoDB
+                </div>
+            </a>
+        </li>
+        <li class="col-xs-2">
+            <a href="#redis" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/redis-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/redis-inactive.png" class="tab-icon-inactive" />
+                    Redis
+                </div>
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="mysql">
+            {% set extension = extensionManager.getExtensionBySlug('mysql') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="postgresql">
+            {% set extension = extensionManager.getExtensionBySlug('postgresql') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="mariadb">
+            {% set extension = extensionManager.getExtensionBySlug('mariadb') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="mongodb">
+            {% set extension = extensionManager.getExtensionBySlug('mongodb') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="redis">
+            {% set extension = extensionManager.getExtensionBySlug('redis') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+    </div>
+
+    <ul class="pager">
+        <li class="previous"><a href="#languages">← Languages</a></li>
+        <li class="next"><a href="#work-queue">Work Queues →</a></li>
+    </ul>
+</div>

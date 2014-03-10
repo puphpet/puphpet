@@ -1,6 +1,6 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 <section id="beanstalkd">
 
-    <!-- beanstalkd -->
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -8,91 +8,88 @@
                     <h3 class="panel-title">Beanstalkd Quick Settings</h3>
                 </div>
 
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="beanstalkd[install]" class="multiselect-grouped-tab"
-                                       data-tab-target="beanstalkd-pill"
-                                       {% if beanstalkd.install %}checked{% endif %} value="1" /> Install Beanstalkd
-                            </label>
-
-                            <p class="help-block">
-                                Beanstalk is a simple, fast work queue.
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input class="install-checkbox" type="checkbox" name="beanstalkd[install]"
+                                   data-hide-on-uncheck="#beanstalkd-config-container"
+                                   {% if beanstalkd.install %}checked{% endif %} value="1" />
+                            Install Beanstalkd
+                            {{ popover.small('Beanstalk is a simple, fast work queue.
                                 <a href="http://alister.github.io/presentations/Beanstalkd/" target="_blank">
-                                    Learn about Beanstalkd</a>.
-                            </p>
-                        </div>
-
-                        <div class="col-xs-12">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="beanstalkd[beanstalk_console]" value="1"
-                                    {% if beanstalkd.beanstalk_console == 1 %}checked{% endif %} /> Install Beanstalk Console
-                            </label>
-
-                            <p class="help-block">
-                                Admin console for Beanstalk queue server, written in PHP.
-                                <a href="https://github.com/ptrofimov/beanstalk_console" target="_blank">
-                                    More information</a>.
-                                If installed, it will be available at
-                                <code>http://{SERVER_IP_ADDRESS}/beanstalk_console/public/</code>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label for="beanstalkd-settings-listenaddress">Listen Address</label>
-                            <input type="text" id="beanstalkd-settings-listenaddress" name="beanstalkd[settings][listenaddress]"
-                                   required placeholder="0.0.0.0"
-                                   pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
-                                   oninvalid="setCustomValidity('IP address format: 0.0.0.0')"
-                                   value="{{ beanstalkd.settings.listenaddress }}" class="form-control" />
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="beanstalkd-settings-listenport">Listen Port</label>
-                            <input type="number" id="beanstalkd-settings-listenport"
-                                   name="beanstalkd[settings][listenport]"
-                                   required placeholder="13000" pattern="^[1-9][0-9]*$" min="10000" max="20000"
-                                   value="{{ beanstalkd.settings.listenport }}" class="form-control" />
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label for="beanstalkd-settings-maxjobsize">Max Job Size</label>
-                            <input type="number" id="beanstalkd-settings-maxjobsize" name="beanstalkd[settings][maxjobsize]"
-                                   required placeholder="65535" pattern="^[1-9][0-9]*$" min="10000"
-                                   value="{{ beanstalkd.settings.maxjobsize }}" class="form-control" />
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="beanstalkd-settings-maxconnections">Max Connections</label>
-                            <input type="number" id="beanstalkd-settings-maxconnections"
-                                   name="beanstalkd[settings][maxconnections]"
-                                   required placeholder="1024" pattern="^[1-9][0-9]*$" min="32"
-                                   value="{{ beanstalkd.settings.maxconnections }}" class="form-control" />
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <label for="beanstalkd-settings-binlogdir">Binlog Directory</label>
-                            <input type="text" id="beanstalkd-settings-binlogdir"
-                                   name="beanstalkd[binlogdir]" placeholder="/var/lib/beanstalkd/binlog"
-                                   value="{{ beanstalkd.settings.binlogdir }}" class="form-control" />
-
-                            <p class="help-block">
-                                Set empty to disable binlog.
-                            </p>
-                        </div>
+                                    Learn about Beanstalkd</a>.') }}
+                        </label>
                     </div>
                 </div>
 
+                <div class="{% if not beanstalkd.install %}hidden{% endif %}" id="beanstalkd-config-container">
+                    <div class="panel-body">
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="beanstalkd[beanstalk_console]" value="1"
+                                        {% if beanstalkd.beanstalk_console == 1 %}checked{% endif %} />
+                                    Install Beanstalk Console
+                                    {{ popover.small('Admin console for Beanstalk queue server, written in PHP.
+                                        <a href="https://github.com/ptrofimov/beanstalk_console" target="_blank">
+                                            More information</a>.
+                                        If installed, it will be available at
+                                        <code>http://{SERVER_IP_ADDRESS}/beanstalk_console/public/</code>') }}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label for="beanstalkd-settings-listenaddress">Listen Address</label>
+                                <input type="text" id="beanstalkd-settings-listenaddress" name="beanstalkd[settings][listenaddress]"
+                                       required placeholder="0.0.0.0"
+                                       pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
+                                       oninvalid="setCustomValidity('IP address format: 0.0.0.0')"
+                                       value="{{ beanstalkd.settings.listenaddress }}" class="form-control" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="beanstalkd-settings-listenport">Listen Port</label>
+                                <input type="number" id="beanstalkd-settings-listenport"
+                                       name="beanstalkd[settings][listenport]"
+                                       required placeholder="13000" pattern="^[1-9][0-9]*$" min="10000" max="20000"
+                                       value="{{ beanstalkd.settings.listenport }}" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label for="beanstalkd-settings-maxjobsize">Max Job Size</label>
+                                <input type="number" id="beanstalkd-settings-maxjobsize" name="beanstalkd[settings][maxjobsize]"
+                                       required placeholder="65535" pattern="^[1-9][0-9]*$" min="10000"
+                                       value="{{ beanstalkd.settings.maxjobsize }}" class="form-control" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="beanstalkd-settings-maxconnections">Max Connections</label>
+                                <input type="number" id="beanstalkd-settings-maxconnections"
+                                       name="beanstalkd[settings][maxconnections]"
+                                       required placeholder="1024" pattern="^[1-9][0-9]*$" min="32"
+                                       value="{{ beanstalkd.settings.maxconnections }}" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <label for="beanstalkd-settings-binlogdir">
+                                    Binlog Directory
+                                    {{ popover.small('Set empty to disable binlog.') }}
+                                </label>
+                                <input type="text" id="beanstalkd-settings-binlogdir"
+                                       name="beanstalkd[binlogdir]" placeholder="/var/lib/beanstalkd/binlog"
+                                       value="{{ beanstalkd.settings.binlogdir }}" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- end beanstalkd -->
 
 </section>

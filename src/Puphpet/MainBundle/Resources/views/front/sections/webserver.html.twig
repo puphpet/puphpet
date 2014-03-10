@@ -1,0 +1,41 @@
+<div class="tab-pane fade in" id="webserver">
+    <div class="page-header compact">
+        <h1><i class="fa fa-globe"></i> Webservers</h1>
+    </div>
+    <ul class="nav nav-tabs icon-bar">
+        <li class="col-xs-3 active">
+            <a href="#apache" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/apache-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/apache-inactive.png" class="tab-icon-inactive" />
+                    Apache
+                </div>
+            </a>
+        </li>
+        <li class="col-xs-3">
+            <a href="#nginx" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/nginx-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/nginx-inactive.png" class="tab-icon-inactive" />
+                    Nginx
+                </div>
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="apache">
+            {% set extension = extensionManager.getExtensionBySlug('apache') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="nginx">
+            {% set extension = extensionManager.getExtensionBySlug('nginx') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+    </div>
+
+    <ul class="pager">
+        <li class="previous"><a href="#server">← Server Basics</a></li>
+        <li class="next"><a href="#languages">Languages →</a></li>
+    </ul>
+</div>

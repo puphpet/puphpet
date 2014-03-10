@@ -1,0 +1,48 @@
+<div class="tab-pane fade in" id="languages">
+
+    <section id="php-engine">
+        <!-- PHP Engine -->
+        <div class="page-header compact">
+            <h1><i class="fa fa-code"></i> PHP Engine</h1>
+        </div>
+        <ul class="nav nav-tabs icon-bar single-select">
+            <li class="col-xs-3 active">
+                <a href="#php" data-toggle="tab">
+                    <div class="tab-icon">
+                        <img src="/assets/v4/img/vendors/php-active.png" class="tab-icon-active" />
+                        <img src="/assets/v4/img/vendors/php-inactive.png" class="tab-icon-inactive" />
+                        PHP
+                    </div>
+                </a>
+            </li>
+            <li class="col-xs-3">
+                <a href="#hhvm" data-toggle="tab">
+                    <div class="tab-icon">
+                        <img src="/assets/v4/img/vendors/hhvm-active.png" class="tab-icon-active" />
+                        <img src="/assets/v4/img/vendors/hhvm-inactive.png" class="tab-icon-inactive" />
+                        HHVM
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="php">
+                {% set phpLibraries = sections.multiSelectGroupedNoHeaders(extensionManager, 'php-extensions', 'PHP Extensions') %}
+
+                {% set extension = extensionManager.getExtensionBySlug('php') %}
+                {{ extension.renderFront(extension.data, phpLibraries)|raw }}
+            </div>
+            <div class="tab-pane" id="hhvm">
+                {% set extension = extensionManager.getExtensionBySlug('hhvm') %}
+                {{ extension.renderFront(extension.data)|raw }}
+            </div>
+        </div>
+        <!-- End PHP Engine -->
+    </section>
+
+    <ul class="pager">
+        <li class="previous"><a href="#webserver">← Web Servers</a></li>
+        <li class="next"><a href="#database">Databases →</a></li>
+    </ul>
+</div>

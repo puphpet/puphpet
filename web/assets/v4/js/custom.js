@@ -291,8 +291,8 @@ PUPHPET.addRepeatableElement = function() {
         }).done(function(response) {
             var $row = $(response).insertBefore(buttonEle.closest('.row'));
             PUPHPET.runSelectize($row);
+            PUPHPET.enablePopovers($row.find('.popover-container'));
         });
-
     });
 };
 
@@ -305,7 +305,6 @@ PUPHPET.delRepeatableElement = function() {
         var $parentContainer = $('#' + parentId);
 
         $parentContainer.remove();
-
     });
 };
 
@@ -318,19 +317,20 @@ PUPHPET.delRepeatableElement = function() {
  * Runs on initial page load
  */
 PUPHPET.disableInactiveTabElements = function() {
-    $('ul.group-tabs li').each(function() {
-        if ($(this).parent().hasClass('multi-select')) {
-            return;
-        }
-
+    $('.nav.nav-tabs.icon-bar.single-select li').each(function() {
         if ($(this).hasClass('active')) {
             return;
         }
 
-        var $anchor = $(this).children()[0];
-        var extensionId = $anchor.getAttribute('data-target-element');
+        var $anchor = $(this).find('a');
 
-        $('#' + extensionId).find('input, textarea, button, select').prop('disabled', true);
+        if ($anchor[0] == undefined) {
+            return;
+        }
+
+        var hash = $anchor[0].hash;
+
+        $(hash).find('input, textarea, button, select').prop('disabled', true);
     });
 };
 
@@ -340,16 +340,16 @@ PUPHPET.disableInactiveTabElements = function() {
  * tabs that belong to multi-selectable groups
  */
 PUPHPET.enableClickedTabElement = function() {
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    $('.nav.nav-tabs.icon-bar.single-select li a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
         if ($(this).parent().parent().hasClass('multi-select')) {
             return;
         }
 
-        var original = e.relatedTarget.getAttribute('data-target-element');
-        var target   = e.target.getAttribute('data-target-element');
+        var original = e.relatedTarget.hash;
+        var target   = e.target.hash;
 
-        $('#' + original).find('input, textarea, button, select').prop('disabled', true);
-        $('#' + target).find('input, textarea, button, select').prop('disabled', false);
+        $(original).find('input, textarea, button, select').prop('disabled', true);
+        $(target).find('input, textarea, button, select').prop('disabled', false);
     });
 };
 
@@ -403,7 +403,6 @@ PUPHPET.uploadConfig = function() {
     dropzone.addEventListener('dragover', handleDragOver, false);
     dropzone.addEventListener('dragleave', handleDragLeave, false);
     dropzone.addEventListener('drop', handleFileSelect, false);
-
 
     function handleDragOver(e) {
         clearTimeout(tid);
@@ -477,51 +476,37 @@ PUPHPET.uploadConfig = function() {
 PUPHPET.sidebar = function() {
     $('#nav-sidebar').affix({
         offset: {
-            top:  function () {
-                return $('#top').height() + 70;
+            top: function () {
+                return $('#top').height();
             },
             bottom: function () {
-                return $('footer').height() + 140;
+                return $('footer').height() + 50;
             }
         }
     });
 
-    $('body').scrollspy({target: '#nav-sidebar', offset: 300});
-};
+    var $root = $('html, body');
+    var $link = $('#nav-sidebar li a[data-toggle="tab"]');
 
-/**
- * Toggles pills in main container by clicking sidebar links
- */
-PUPHPET.sidebarPillToggle = function() {
-    $(document).on('click', '#nav-sidebar ul li p a', function(e){
-        var tagTarget = this.getAttribute('data-tab-target');
-        var $container = $(this).closest('p');
-
-        if (tagTarget != null) {
-            $(tagTarget).tab('show');
-        }
-
-        return _toggleTabs($container, $(this).find('span.glyphicon')[0]);
-    });
-
-    $(document).on('click', 'ul.group-tabs a[data-toggle="tab"]', function(e){
-        var id = '#' + this.id;
-        var $menuTarget = $('#nav-sidebar ul li p a[data-tab-target="' + id + '"]');
-        var $container = $menuTarget.closest('p');
-
-        if ($menuTarget == null) {
-            return;
-        }
-
-        return _toggleTabs($container, $menuTarget.find('span.glyphicon')[0]);
-    });
-
-    function _toggleTabs($container, toActive) {
-        $container.siblings().find('span.glyphicon').removeClass('active');
-        $(toActive).addClass('active');
-
-        return true;
+    if (window.location.hash.length) {
+        $('#nav-sidebar li a[href=' + window.location.hash + ']').tab('show');
     }
+
+    $(window).on('hashchange', function() {
+      $('#nav-sidebar li a[href=' + window.location.hash + ']').tab('show');
+    });
+
+    $link.on('show.bs.tab', function (e) {
+        window.location.hash = this.hash;
+    });
+
+    $link.on('shown.bs.tab', function (e) {
+        var theOffset = $(this.hash).offset().top;
+
+        $root.animate({
+            scrollTop: theOffset - 55
+        }, 0);
+    });
 };
 
 /**
@@ -548,6 +533,64 @@ PUPHPET.toggleMultiGroupedTab = function() {
     });
 };
 
+/**
+ * Configures bootstrap popover elements
+ *
+ * @param $element
+ */
+PUPHPET.enablePopovers = function($element) {
+    if ($element == undefined) {
+        $element = $('.popover-container');
+    }
+
+    $element.popover({
+        container: 'body',
+        html: true,
+        placement: 'bottom',
+        trigger: 'manual'
+    }).on('mouseenter', function () {
+            var _this = this;
+            $(this).popover('show');
+            $('.popover').on('mouseleave', function () {
+                $(_this).popover('hide');
+            });
+        }).on('mouseleave', function () {
+            var _this = this;
+            setTimeout(function () {
+                if (!$('.popover:hover').length) {
+                    $(_this).popover('hide');
+                }
+            }, 400);
+        });
+};
+
+/**
+ * Configures bootstrap collapseable elements
+ */
+PUPHPET.configureCollapseable = function() {
+    $('.collapse').on('shown.bs.collapse',function () {
+        $(this).parent().find('.glyphicon-plus')
+            .removeClass('glyphicon-plus')
+            .addClass('glyphicon-minus');
+    }).on('hidden.bs.collapse', function () {
+        $(this).parent().find('.glyphicon-minus')
+            .removeClass('glyphicon-minus')
+            .addClass('glyphicon-plus');
+    });
+};
+
+PUPHPET.hideOnNotInstalled = function () {
+    $('.install-checkbox').on('change',function () {
+        var target = this.getAttribute('data-hide-on-uncheck');
+
+        if ($(this).is(':checked')) {
+            $(target).removeClass('hidden');
+        } else {
+            $(target).addClass('hidden');
+        }
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -560,8 +603,10 @@ $(document).ready(function() {
     PUPHPET.githubContributors();
     PUPHPET.uploadConfig();
     PUPHPET.sidebar();
-    PUPHPET.sidebarPillToggle();
     PUPHPET.toggleMultiGroupedTab();
+    PUPHPET.enablePopovers();
+    PUPHPET.configureCollapseable();
+    PUPHPET.hideOnNotInstalled();
     PUPHPET.enableTargetElements('#php-pill', '#php-extensions');
     PUPHPET.enableTargetElements('#php-pill-menulink', '#php-extensions');
     PUPHPET.disableTargetElements('#hhvm-pill', '#php-extensions');

@@ -1,0 +1,66 @@
+<div class="tab-pane fade in active" id="deploy-target">
+    <div class="page-header compact">
+        <h1><i class="fa fa-cloud"></i> Where do you want your virtual machine?</h1>
+    </div>
+    <ul class="nav nav-tabs icon-bar single-select">
+        <li class="col-xs-3 active">
+            <a href="#vagrantfile-local" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/local-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/local-inactive.png" class="tab-icon-inactive" />
+                    Locally
+                </div>
+            </a>
+        </li>
+        <li class="col-xs-3">
+            <a href="#vagrantfile-digitalocean" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/digitalocean-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/digitalocean-inactive.png" class="tab-icon-inactive" />
+                    Digital Ocean
+                </div>
+            </a>
+        </li>
+        <li class="col-xs-3">
+            <a href="#vagrantfile-rackspace" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/rackspace-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/rackspace-inactive.png" class="tab-icon-inactive" />
+                    Rackspace
+                </div>
+            </a>
+        </li>
+        <li class="col-xs-3">
+            <a href="#vagrantfile-aws" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/aws-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/aws-inactive.png" class="tab-icon-inactive" />
+                    Amazon Web Service
+                </div>
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="vagrantfile-local">
+            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-local') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="vagrantfile-digitalocean">
+            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-digital_ocean') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="vagrantfile-rackspace">
+            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-rackspace') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="vagrantfile-aws">
+            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-aws') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+    </div>
+
+    <ul class="pager">
+        <li class="next"><a href="#server">Server Basics →</a></li>
+    </ul>
+</div>
