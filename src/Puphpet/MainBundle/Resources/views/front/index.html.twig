@@ -12,14 +12,13 @@
 
 <div id="main-body" class="container">
     <div class="row">
-        <div class="col-xs-12">{# include 'PuphpetMainBundle:front:alerts.html.twig' #}</div>
-    </div>
-
-    <div class="row">
         {% include 'PuphpetMainBundle:front:sideMenu.html.twig' %}
 
         <form role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
             <div id="main-content" class="col-md-9 tab-content">
+                <div class="row">
+                    <div class="col-xs-12">{% include 'PuphpetMainBundle:front:alerts.html.twig' %}</div>
+                </div>
 
                 {% include 'PuphpetMainBundle:front:sections/deploy-target.html.twig' %}
                 {% include 'PuphpetMainBundle:front:sections/server.html.twig' %}

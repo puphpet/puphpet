@@ -1,17 +1,16 @@
 {% for flashMessage in app.session.flashbag.get('error') %}
-    <div class="alert alert-danger alert-dismissable">
+    <div class="alert alert-danger alert-dismissable" data-dismiss="alert" aria-hidden="true">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         {{ flashMessage }}
     </div>
 {% endfor %}
 
 {% if hasCustom is defined %}
-    <div class="alert alert-success alert-dismissable">
+    <div class="alert alert-success alert-dismissable" data-dismiss="alert" aria-hidden="true">
         Your previously generated config file was successfully loaded!
     </div>
 {% else %}
-    <div class="alert alert-info alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <div class="alert alert-info alert-dismissable" data-dismiss="alert" aria-hidden="true">
         Have an existing PuPHPet-generated manifest? Just drag your
         <code>puphpet/config.yaml</code> file into your browser and the form will be filled
         in with your previous values!
