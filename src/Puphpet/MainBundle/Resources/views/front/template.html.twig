@@ -61,14 +61,29 @@
 <footer>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                <ul class="list-unstyled list-inline">
+            <div class="col-sm-12">
+                <ul class="list-unstyled list-inline pull-left">
                     <li><i class="fa fa-pencil"></i> <a href="https://jtreminio.com">Blog</a></li>
                     <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/puphpet" target="_blank">Twitter</a></li>
                     <li><i class="fa fa-github"></i> <a href="https://github.com/puphpet/puphpet" target="_blank">GitHub</a></li>
                     <li><i class="fa fa-comments"></i> <a href="https://kiwiirc.com/client/chat.freenode.net/#puphpet" target="_blank">IRC</a></li>
                 </ul>
 
+                <ul class="list-unstyled list-inline pull-right">
+                    <li>
+                        <iframe class="github-btn" allowtransparency="true" frameborder="0" scrolling="0" width="100px" height="20px"
+                                src="{{ path('puphpet.main.github_btn') }}?user=puphpet&repo=puphpet&type=watch&count=true"></iframe>
+                    </li>
+                    <li>
+                        <iframe class="github-btn" allowtransparency="true" frameborder="0" scrolling="0" width="102px" height="20px"
+                                src="{{ path('puphpet.main.github_btn') }}?user=puphpet&repo=puphpet&type=fork&count=true"></iframe>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
                 <p>
                     Made with <span class="glyphicon glyphicon-heart"></span> by <a href="https://jtreminio.com">Juan Treminio</a>.
                     Contact him at <a href="mailto:jtreminio@gmail.com">jtreminio@gmail.com</a>.
