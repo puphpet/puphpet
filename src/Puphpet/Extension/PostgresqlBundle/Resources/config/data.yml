@@ -3,6 +3,7 @@ install: 0
 settings:
     root_password: 123
     user_group: postgres
+    encoding: UTF8
     version: "9.3"
 
 databases: []

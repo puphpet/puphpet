@@ -32,6 +32,7 @@ if hash_key_equals($postgresql_values, 'install', 1) {
 
     class { 'postgresql::globals':
       manage_package_repo => true,
+      encoding            => $postgresql_values['settings']['encoding'],
       version             => $postgresql_values['settings']['version']
     }->
     class { 'postgresql::server':
