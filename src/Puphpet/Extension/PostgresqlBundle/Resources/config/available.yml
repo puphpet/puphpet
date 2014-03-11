@@ -10,3 +10,9 @@ empty_database:
     password: ~
     grant: ALL
     sql_file: ~
+
+available_versions:
+    - "9.3"
+    - "9.2"
+    - "9.1"
+    - "8.4"

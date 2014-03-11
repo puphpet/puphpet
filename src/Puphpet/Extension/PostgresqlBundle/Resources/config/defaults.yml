@@ -1,5 +1,10 @@
 install: 0
 
+settings:
+    version: "9.3"
+
 databases: []
 
 adminer: 0
+
+

@@ -26,13 +26,26 @@
                     <div class="panel-body">
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <label for="postgresql-root_password">
+                                <label>Version</label><br />
+
+                                {% for version in postgresql.available_versions %}
+                                    <label class="radio-inline">
+                                        <input type="radio" name="postgresql[settings][version]" value="{{ version }}"
+                                            {% if version == postgresql.settings.version %}checked{% endif %} /> {{ version }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <label for="postgresql-settings-root_password">
                                     Root Password
                                     {{ popover.small('Assign a password to the root user.
                                         <strong>Database will only be installed when a password is entered here.</strong>') }}
                                 </label>
-                                <input type="text" id="postgresql-root_password" name="postgresql[root_password]"
-                                       value="{{ postgresql.root_password }}" class="form-control" />
+                                <input type="text" id="postgresql-settings-root_password" name="postgresql[settings][root_password]"
+                                       value="{{ postgresql.settings.root_password }}" class="form-control" />
                             </div>
                         </div>
 
