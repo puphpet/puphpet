@@ -16,6 +16,7 @@ class Configure extends Extension\ExtensionAbstract
         'php'      => ":git => 'https://github.com/puphpet/puppet-php.git'",
         'composer' => ":git => 'https://github.com/puphpet/puppet-composer.git'",
         'puphpet'  => ":git => 'https://github.com/puphpet/puppet-puphpet.git'",
+        'puppi'    => ":git => 'https://github.com/puphpet/puppi.git'",
     ];
 
     /**
