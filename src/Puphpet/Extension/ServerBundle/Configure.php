@@ -20,6 +20,7 @@ class Configure extends Extension\ExtensionAbstract
         'vcsrepo'  => ":git => 'https://github.com/puphpet/puppetlabs-vcsrepo.git'",
         'ntp'      => ":git => 'https://github.com/puphpet/puppetlabs-ntp.git'",
         'iptables' => ":git => 'https://github.com/puphpet/puppet-iptables.git'",
+        'git'      => ":git => 'https://github.com/puphpet/puppetlabs-git.git'",
     ];
 
     /**
