@@ -44,5 +44,12 @@ if hash_key_equals($beanstalkd_values, 'install', 1) {
       source   => 'https://github.com/ptrofimov/beanstalk_console.git',
       require  => Exec['delete-beanstalk_console-path-if-not-git-repo']
     }
+
+    file { "${beanstalk_console_webroot_location}/storage.json":
+      ensure  => present,
+      group   => 'www-data',
+      mode    => 0775,
+      require => Vcsrepo[$beanstalk_console_webroot_location]
+    }
   }
 }
