@@ -2,7 +2,7 @@ vm:
     provider:
         rackspace:
             server_name: rackspace-server
-            image: Debian 7 (Wheezy)
+            image: Wheezy
             region: dfw
             size: 1GB
             username: RACKSPACE_USERNAME

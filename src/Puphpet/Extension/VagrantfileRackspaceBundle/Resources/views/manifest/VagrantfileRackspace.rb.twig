@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
     rs.username           = "#{data['vm']['provider']['rackspace']['username']}"
     rs.api_key            = "#{data['vm']['provider']['rackspace']['api_key']}"
     rs.flavor             = /#{data['vm']['provider']['rackspace']['size']}/
-    rs.image              = "#{data['vm']['provider']['rackspace']['image']}"
+    rs.image              = /#{data['vm']['provider']['rackspace']['image']}/
     rs.rackspace_region   = "#{data['vm']['provider']['rackspace']['region'].downcase}"
     rs.public_key_path    = "#{data['ssh']['public_key_path']}"
     rs.server_name        = "#{data['vm']['provider']['rackspace']['server_name']}"

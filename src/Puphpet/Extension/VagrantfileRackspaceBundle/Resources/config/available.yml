@@ -6,33 +6,33 @@ empty_synced_folder:
 
 available_images:
     -
-        image: Debian 7 (Wheezy)
-        long_name: Debian Squeeze 7 x64
+        image: Wheezy
+        long_name: Debian Wheezy 7 x64
         php_versions:
             - 5.5
             - 5.4
             - HHVM
     -
-        image: Debian 6.06 (Squeeze)
-        long_name: Debian Wheezy 6.06 x64
+        image: Squeeze
+        long_name: Debian Squeeze 6.06 x64
         php_versions:
             - 5.5
             - 5.4
     -
-        image: Ubuntu 13.04 (Raring Ringtail)
+        image: Raring
         long_name: Ubuntu Raring 13.04 x64
         php_versions:
             - 5.5
             - 5.4
             - HHVM
     -
-        image: Ubuntu 12.10 (Quantal Quetzal)
+        image: Quantal
         long_name: Ubuntu Quantal 12.10 x64
         php_versions:
             - 5.5
             - 5.4
     -
-        image: Ubuntu 12.04 LTS (Precise Pangolin)
+        image: Precise
         long_name: Ubuntu Precise 12.04 x64
         php_versions:
             - 5.5
