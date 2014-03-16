@@ -27,17 +27,6 @@
                 <div class="{% if not redis.install %}hidden{% endif %}" id="redis-config-container">
                     <div class="panel-body">
                         <div class="row form-group">
-                            <div class="col-xs-12">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" name="redis[install]" class="multiselect-grouped-tab"
-                                           data-tab-target="redis-pill"
-                                           {% if redis.install == 1 %}checked{% endif %} value="1" />
-
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="row form-group">
                             <div class="col-md-6">
                                 <label for="redis-settings-conf_port">Listen Port</label>
                                 <input type="number" id="redis-settings-conf_port"
