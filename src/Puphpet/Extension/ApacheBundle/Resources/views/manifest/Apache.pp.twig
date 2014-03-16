@@ -50,10 +50,20 @@ if hash_key_equals($apache_values, 'install', 1) {
     $apache_php_package   = ''
   }
 
+  if $::operatingsystem == 'ubuntu'
+  and hash_key_equals($php_values, 'install', 1)
+  and hash_key_equals($php_values, 'version', 55)
+  {
+    $apache_version = '2.4'
+  } else {
+    $apache_version = $apache::version::default
+  }
+
   $apache_settings = merge($apache_values['settings'], {
-    'mpm_module'    => $mpm_module,
-    'conf_template' => $apache_conf_template,
-    'sendfile'      => $apache_values['settings']['sendfile'] ? { 0 => 'Off', 1 => 'On', default => 'Off' },
+    'mpm_module'     => $mpm_module,
+    'conf_template'  => $apache_conf_template,
+    'sendfile'       => $apache_values['settings']['sendfile'] ? { 0 => 'Off', 1 => 'On', default => 'Off' },
+    'apache_version' => $apache_version
   })
 
   create_resources('class', { 'apache' => $apache_settings })

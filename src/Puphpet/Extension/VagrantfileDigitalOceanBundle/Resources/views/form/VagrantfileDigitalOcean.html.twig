@@ -27,10 +27,9 @@
 
                         {% for image in data.available_images %}
                             <label class="radio">
-                                <input type="radio" class="update-other-input" value="{{ image.image }}"
+                                <input type="radio" value="{{ image.image }}"
                                        name="vagrantfile-digital_ocean[vm][provider][digital_ocean][image]"
-                                       {% if image.image == data.vm.provider.digital_ocean.image %}checked{% endif %}
-                                       {% if image.php_versions is defined %}data-update-php[version]="{{ image.php_versions|first|str_replace('.', '') }}"{% endif %} />
+                                       {% if image.image == data.vm.provider.digital_ocean.image %}checked{% endif %} />
                                 {{ image.long_name }}
                                 {% if image.php_versions is defined %}
                                     (PHP

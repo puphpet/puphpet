@@ -36,6 +36,7 @@ available_boxes:
         short_name: ubuntu-precise12042-x64-vbox43
         long_name: Ubuntu Precise 12.04 x64 - Virtualbox 4.3
         php_versions:
+            - 5.5
             - 5.4
             - HHVM
     -
@@ -44,6 +45,7 @@ available_boxes:
         short_name: ubuntu-precise1204-x32-vbox43
         long_name: Ubuntu Precise 12.04 x32 - Virtualbox 4.3
         php_versions:
+            - 5.5
             - 5.4
             - HHVM
     -

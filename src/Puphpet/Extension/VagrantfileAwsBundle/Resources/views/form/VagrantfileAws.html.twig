@@ -31,11 +31,10 @@
                                 <legend>{{ attribute(data.available_regions, region) }}</legend>
                                 {% for image in images %}
                                     <label class="radio">
-                                        <input type="radio" class="update-other-input"
+                                        <input type="radio"
                                                name="vagrantfile-aws[vm][provider][aws][ami]"
                                                data-update-vagrantfile-aws-ssh-username="{{ image.ssh_username }}"
                                                data-update-vagrantfile-aws-vm-provider-aws-region="{{ region }}"
-                                               {% if image.php_versions is defined %}data-update-php[version]="{{ image.php_versions|first|str_replace('.', '') }}"{% endif %}
                                                {% if image.ami == data.vm.provider.aws.ami %}checked{% endif %}
                                                value="{{ image.ami }}" />{{ image.name }}
                                         {% if image.php_versions is defined %}
