@@ -47,6 +47,18 @@ footer {
 }
 
 /*
+ * Logo/Slogan
+**/
+    #slogan h1 {
+        margin-top: 0;
+    }
+
+    #logo {
+        width: 100%;
+        max-width: 120px;
+    }
+
+/*
  * Nav pills
 **/
     .panel-body .nav-pills > li.active > a,
@@ -62,10 +74,9 @@ footer {
     #nav-sidebar {
         max-width: 300px;
     }
-
     #nav-sidebar.affix {
         position: fixed !important;
-        top: 70px;
+        top: 73px;
         width: 228px;
     }
 

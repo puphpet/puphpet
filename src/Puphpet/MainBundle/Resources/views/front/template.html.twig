@@ -54,6 +54,27 @@
     </div>
 {% endblock %}
 
+<div class="jumbotron well-sm" id="slogan">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 hidden-md hidden-lg hidden-print">
+                <h1>PuPHPet</h1>
+                <p>A simple GUI to set up virtual machines for Web development.</p>
+            </div>
+            <div class="col-xs-6 col-md-2"><img src="/assets/v4/img/logo.png" id="logo" /></div>
+            <div class="col-md-6 hidden-xs hidden-sm">
+                <h1>PuPHPet</h1>
+                <p>A simple GUI to set up virtual machines for Web development.</p>
+            </div>
+            <div class="col-xs-6 col-md-4">
+                {% if app.debug %}
+                    {% include 'PuphpetMainBundle:front:carbonAds.html.twig' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
 {% block main %}
 {% endblock %}
 
@@ -116,6 +137,6 @@
             ga('send', 'pageview');
         </script>
     {% endif %}
+{% endblock footer %}
 </body>
 </html>
-{% endblock footer %}

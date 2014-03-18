@@ -477,7 +477,7 @@ PUPHPET.sidebar = function() {
     $('#nav-sidebar').affix({
         offset: {
             top: function () {
-                return $('#top').height();
+                return $('#top').height() + $('#slogan').height();
             },
             bottom: function () {
                 return $('footer').height() + 50;
