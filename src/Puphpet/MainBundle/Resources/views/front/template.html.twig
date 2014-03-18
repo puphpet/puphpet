@@ -67,7 +67,7 @@
                 <p>A simple GUI to set up virtual machines for Web development.</p>
             </div>
             <div class="col-xs-6 col-md-4">
-                {% if app.debug %}
+                {% if not app.debug %}
                     {% include 'PuphpetMainBundle:front:carbonAds.html.twig' %}
                 {% endif %}
             </div>
