@@ -48,7 +48,8 @@
                         {% for box in data.available_boxes %}
                             <label class="radio">
                                 <input type="radio" class="update-other-input" name="vagrantfile-local[vm][box_url]"
-                                       value="{{ box.url }}" {% if box.url == data.vm.box_url %}checked{% endif %} />
+                                       value="{{ box.url }}" {% if box.url == data.vm.box_url %}checked{% endif %}
+                                       data-update-vagrantfile-local-vm-box="{{ box.short_name }}" />
                                 {{ box.long_name }}
                                 {% if box.php_versions is defined %}
                                     (PHP
