@@ -30,7 +30,13 @@ PUPHPET.updateOtherInput = function() {
 
             // If target element is not defined as #foo, maybe it is an input,name,value target
             if (!$target.length) {
-                $target = $('input[name="' + key + '"][value="'+ value +'"]')
+                var selector = 'input[name="' + key + '"]';
+
+                if (value.length) {
+                    selector = selector + '[value="'+ value +'"]'
+                }
+
+                $target = $(selector)
             }
 
             // If target is a radio element, check it, no need to uncheck in future
@@ -46,7 +52,7 @@ PUPHPET.updateOtherInput = function() {
              * If unchecked, do not update target. We only want to handle positive actions
              */
             if ($target.is(':checkbox') && $parent.is(':checked')) {
-                $target.prop('checked', true);
+                $target.prop('checked', false);
 
                 return;
             }
