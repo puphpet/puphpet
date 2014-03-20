@@ -19,6 +19,11 @@ vhosts:
         override:
             - All
         custom_fragment: ~
+        ssl: 0
+        ssl_cert: ~
+        ssl_key: ~
+        ssl_chain: ~
+        ssl_certs_dir: ~
 
 mod_pagespeed: 0
 mod_spdy: 0

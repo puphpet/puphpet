@@ -586,7 +586,7 @@ PUPHPET.configureCollapseable = function() {
 };
 
 PUPHPET.hideOnNotInstalled = function () {
-    $('.install-checkbox').on('change',function () {
+    $(document).on('change', '.install-checkbox', function(e) {
         var target = this.getAttribute('data-hide-on-uncheck');
 
         if ($(this).is(':checked')) {

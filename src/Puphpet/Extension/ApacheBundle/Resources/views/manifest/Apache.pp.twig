@@ -62,7 +62,7 @@ if hash_key_equals($apache_values, 'install', 1) {
   $apache_settings = merge($apache_values['settings'], {
     'mpm_module'     => $mpm_module,
     'conf_template'  => $apache_conf_template,
-    'sendfile'       => $apache_values['settings']['sendfile'] ? { 0 => 'Off', 1 => 'On', default => 'Off' },
+    'sendfile'       => $apache_values['settings']['sendfile'] ? { 1 => 'On', default => 'Off' },
     'apache_version' => $apache_version
   })
 
@@ -100,7 +100,12 @@ if hash_key_equals($apache_values, 'install', 1) {
       }
 
       create_resources(apache::vhost, { "${key}" => merge($vhost, {
-          'custom_fragment' => template('puphpet/apache/custom_fragment.erb')
+          'custom_fragment' => template('puphpet/apache/custom_fragment.erb'),
+          'ssl'             => 'ssl' in $vhost and str2bool($vhost['ssl']) ? { true => true, default => false },
+          'ssl_cert'        => $vhost['ssl_cert'] ? { true => $vhost['ssl_cert'], default => undef },
+          'ssl_key'         => $vhost['ssl_key'] ? { true => $vhost['ssl_key'], default => undef },
+          'ssl_chain'       => $vhost['ssl_chain'] ? { true => $vhost['ssl_chain'], default => undef },
+          'ssl_certs_dir'   => $vhost['ssl_certs_dir'] ? { true => $vhost['ssl_certs_dir'], default => undef }
         })
       })
     }

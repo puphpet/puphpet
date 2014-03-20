@@ -6,6 +6,11 @@ empty_vhost:
     setenv: []
     override: []
     custom_fragment: ~
+    ssl: 0
+    ssl_cert: ~
+    ssl_key: ~
+    ssl_chain: ~
+    ssl_certs_dir: ~
 
 available_modules:
     - cache
