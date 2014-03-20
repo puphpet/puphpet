@@ -13,7 +13,9 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input class="install-checkbox" type="checkbox" name="mariadb[install]"
+                            <input type="checkbox" class="install-checkbox update-other-input"
+                                   name="mariadb[install]"
+                                   data-update-mysql[install]
                                    data-hide-on-uncheck="#mariadb-config-container"
                                    {% if mariadb.install %}checked{% endif %} value="1" /> Install MariaDB
                         </label>
