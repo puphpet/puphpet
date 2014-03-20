@@ -12,7 +12,9 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input class="install-checkbox" type="checkbox" name="php[install]"
+                            <input type="checkbox" class="install-checkbox update-other-input"
+                                   name="php[install]"
+                                   data-update-hhvm[install]
                                    data-hide-on-uncheck="#php-config-container"
                                    {% if php.install %}checked{% endif %} value="1" />
                             Install PHP

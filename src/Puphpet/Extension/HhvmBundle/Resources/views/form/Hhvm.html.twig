@@ -12,7 +12,9 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input class="install-checkbox" type="checkbox" name="hhvm[install]"
+                            <input type="checkbox" class="install-checkbox update-other-input"
+                                   name="hhvm[install]"
+                                   data-update-php[install]
                                    data-hide-on-uncheck="#hhvm-config-container"
                                    {% if hhvm.install %}checked{% endif %} value="1" />
                             Install HHVM
