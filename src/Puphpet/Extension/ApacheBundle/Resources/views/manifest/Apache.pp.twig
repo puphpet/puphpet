@@ -102,10 +102,10 @@ if hash_key_equals($apache_values, 'install', 1) {
       create_resources(apache::vhost, { "${key}" => merge($vhost, {
           'custom_fragment' => template('puphpet/apache/custom_fragment.erb'),
           'ssl'             => 'ssl' in $vhost and str2bool($vhost['ssl']) ? { true => true, default => false },
-          'ssl_cert'        => $vhost['ssl_cert'] ? { true => $vhost['ssl_cert'], default => undef },
-          'ssl_key'         => $vhost['ssl_key'] ? { true => $vhost['ssl_key'], default => undef },
-          'ssl_chain'       => $vhost['ssl_chain'] ? { true => $vhost['ssl_chain'], default => undef },
-          'ssl_certs_dir'   => $vhost['ssl_certs_dir'] ? { true => $vhost['ssl_certs_dir'], default => undef }
+          'ssl_cert'        => $vhost['ssl_cert'] ? { undef => undef, '' => undef, default => $vhost['ssl_cert'] },
+          'ssl_key'         => $vhost['ssl_key'] ? { undef => undef, '' => undef, default => $vhost['ssl_key'] },
+          'ssl_chain'       => $vhost['ssl_chain'] ? { undef => undef, '' => undef, default => $vhost['ssl_chain'] },
+          'ssl_certs_dir'   => $vhost['ssl_certs_dir'] ? { undef => undef, '' => undef, default => $vhost['ssl_certs_dir'] }
         })
       })
     }
