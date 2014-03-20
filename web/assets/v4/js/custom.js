@@ -468,7 +468,7 @@ PUPHPET.uploadConfig = function() {
 
         var form = $(
             '<form action="' + uploadConfigUrl + '" method="post">' +
-                '<input type="hidden" name="config" value="' + config + '" />' +
+                '<textarea style="display:none;" name="config">' + config + '</textarea>' +
             '</form>'
         );
         $('body').append(form);
