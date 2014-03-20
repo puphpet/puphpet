@@ -98,10 +98,13 @@ if hash_key_equals($apache_values, 'install', 1) {
           require => Exec["exec mkdir -p ${vhost['docroot']} @ key ${key}"]
         }
       }
+
+      create_resources(apache::vhost, { "${key}" => merge($vhost, {
+          'custom_fragment' => template('puphpet/apache/custom_fragment.erb')
+        })
+      })
     }
   }
-
-  create_resources(apache::vhost, $apache_values['vhosts'])
 
   if count($apache_values['modules']) > 0 {
     apache_mod { $apache_values['modules']: }
