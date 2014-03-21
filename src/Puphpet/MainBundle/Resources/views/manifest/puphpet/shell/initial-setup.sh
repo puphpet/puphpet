@@ -23,6 +23,7 @@ if [[ ! -f /.puphpet-stuff/initial-setup-repo-update ]]; then
     elif [[ "${OS}" == 'centos' ]]; then
         echo "Running initial-setup yum update"
         yum install yum-plugin-fastestmirror -y >/dev/null
+        yum install yum-plugin-priorities -y >/dev/null
         yum check-update -y >/dev/null
         echo "Finished running initial-setup yum update"
 
