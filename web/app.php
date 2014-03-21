@@ -2,6 +2,8 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
+umask(0000); // This will let the permissions be 0777
+
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 
 $loader->register(true);
