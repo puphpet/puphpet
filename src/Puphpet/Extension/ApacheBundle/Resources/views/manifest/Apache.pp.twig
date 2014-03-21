@@ -95,7 +95,12 @@ if hash_key_equals($apache_values, 'install', 1) {
       if ! defined(File[$vhost['docroot']]) {
         file { $vhost['docroot']:
           ensure  => directory,
-          require => Exec["exec mkdir -p ${vhost['docroot']} @ key ${key}"]
+          group   => 'www-user',
+          mode    => 0765,
+          require => [
+            Exec["exec mkdir -p ${vhost['docroot']} @ key ${key}"],
+            Group['www-user']
+          ]
         }
       }
 
