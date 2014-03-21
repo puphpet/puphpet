@@ -113,7 +113,7 @@ class ArchiveTest extends Unit\TestExtensions
         $this->setAttribute($this->archive, 'targetDir', $targetDir);
 
         $exec = sprintf(
-            'cd "%s" && cd .. && zip -r "%s" "%s" -x */.git\*',
+            'cd "%s" && cd .. && zip -r "%s" "%s" -x */.git[!a]\*',
             $targetDir,
             $targetDir . '.zip',
             $baseDir

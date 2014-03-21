@@ -93,7 +93,7 @@ class Archive
 
         // ignore .git folders/files
         $exec = sprintf(
-            'cd "%s" && cd .. && zip -r "%s" "%s" -x */.git\*',
+            'cd "%s" && cd .. && zip -r "%s" "%s" -x */.git[!a]\*',
             $this->targetDir,
             $this->targetDir . '.zip',
             $folder
