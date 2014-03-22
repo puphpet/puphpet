@@ -1,14 +1,5 @@
 require 'yaml'
 
-unless Vagrant.has_plugin?('vagrant-rekey-ssh')
-  rekeyInstalled = system( 'vagrant plugin install vagrant-rekey-ssh' )
-
-  if !rekeyInstalled
-    raise 'The "vagrant-rekey-ssh" plugin is required and was not successfully installed.'
-    raise 'Please manually run "$ vagrant plugin install vagrant-rekey-ssh" before continuing.'
-  end
-end
-
 dir = File.dirname(File.expand_path(__FILE__))
 
 configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
