@@ -63,7 +63,7 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  if File.file?("#{dir}/puphpet/files/dot/.ssh/id_rsa")
+  if File.file?("#{dir}/puphpet/files/dot/ssh/id_rsa")
     config.ssh.private_key_path = [
       "#{dir}/puphpet/files/dot/ssh/id_rsa",
       "#{ENV['HOME']}/.vagrant.d/insecure_private_key"

@@ -23,3 +23,5 @@ if [ "${VAGRANT_SSH_USERNAME}" != 'root' ]; then
     chgrp "${VAGRANT_SSH_USERNAME}" "${VAGRANT_SSH_FOLDER}/authorized_keys"
     chmod 600 "${VAGRANT_SSH_FOLDER}/authorized_keys"
 fi
+
+passwd -d vagrant >/dev/null
