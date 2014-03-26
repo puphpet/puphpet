@@ -24,7 +24,22 @@ if hash_key_equals($nginx_values, 'install', 1) {
     onlyif  => "test -d ${webroot_location}",
   }
 
-  if ! defined(File[$webroot_location]) {
+  if (downcase($::provisioner_type) in ['virtualbox', 'vmware_fusion'])
+    and ! defined(File[$webroot_location])
+  {
+    file { $webroot_location:
+      ensure  => directory,
+      mode    => 0775,
+      require => [
+        Exec["exec mkdir -p ${webroot_location}"],
+        Group['www-data']
+      ]
+    }
+  }
+
+  if !(downcase($::provisioner_type) in ['virtualbox', 'vmware_fusion'])
+    and ! defined(File[$webroot_location])
+  {
     file { $webroot_location:
       ensure  => directory,
       group   => 'www-data',
