@@ -2,9 +2,6 @@
 {% set uniqid = uniqid('vvs_', true) %}
 
 <!-- vagrantfile-local / Shared Folders -->
-<input type="hidden" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][id]"
-       value="{% if synced_folder.id %}{{ synced_folder.id }}{% else %}{{ uniqid() }}{% endif %}" />
-
 <div id="{{ uniqid }}">
     <div class="panel-heading">
         <h3 class="panel-title">Sharing Folders with Local VM</h3>

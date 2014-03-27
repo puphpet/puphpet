@@ -1,9 +1,6 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 {% set uniqid = uniqid('vvs_', true) %}
 
-<input type="hidden" name="vagrantfile-digital_ocean[vm][synced_folder][{{ uniqid }}][id]"
-   value="{% if synced_folder.id %}{{ synced_folder.id }}{% else %}{{ uniqid() }}{% endif %}" />
-
 <div id="{{ uniqid }}">
     <div class="panel-heading">
         <h3 class="panel-title">
