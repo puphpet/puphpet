@@ -101,7 +101,7 @@
                 </label>
                 <textarea id="apache-vhosts-{{ uniqid }}-custom_fragment"
                        name="apache[vhosts][{{ uniqid }}][custom_fragment]"
-                       class="form-control">{{ vhost.custom_fragment }}</textarea>
+                       class="form-control">{% if vhost.custom_fragment is defined %}{{ vhost.custom_fragment }}{% endif %}</textarea>
             </div>
         </div>
 
@@ -112,13 +112,13 @@
                            id="apache-vhosts-{{ uniqid }}-ssl"
                            name="apache[vhosts][{{ uniqid }}][ssl]" value="1"
                            data-hide-on-uncheck="#apache-vhosts-{{ uniqid }}-ssl_options"
-                           {% if vhost.ssl %}checked{% endif %} />
+                           {% if vhost.ssl is defined and vhost.ssl %}checked{% endif %} />
                     Enable SSL
                 </label>
             </div>
         </div>
 
-        <div class="{% if not vhost.ssl %}hidden{% endif %}" id="apache-vhosts-{{ uniqid }}-ssl_options">
+        <div class="{% if vhost.ssl is not defined or not vhost.ssl %}hidden{% endif %}" id="apache-vhosts-{{ uniqid }}-ssl_options">
             <div class="row form-group">
                 <div class="col-md-6">
                     <label for="apache-vhosts-{{ uniqid }}-ssl_cert">
@@ -131,7 +131,7 @@
                     </label>
                     <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_cert"
                            name="apache[vhosts][{{ uniqid }}][ssl_cert]"
-                           placeholder="" value="{{ vhost.ssl_cert }}" class="form-control" />
+                           placeholder="" value="{% if vhost.ssl_cert is defined %}{{ vhost.ssl_cert }}{% endif %}" class="form-control" />
                 </div>
 
                 <div class="col-md-6">
@@ -145,7 +145,7 @@
                     </label>
                     <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_key"
                            name="apache[vhosts][{{ uniqid }}][ssl_key]"
-                           placeholder="" value="{{ vhost.ssl_key }}" class="form-control" />
+                           placeholder="" value="{% if vhost.ssl_key is defined %}{{ vhost.ssl_key }}{% endif %}" class="form-control" />
                 </div>
             </div>
 
@@ -162,7 +162,7 @@
                     </label>
                     <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_chain"
                            name="apache[vhosts][{{ uniqid }}][ssl_chain]"
-                           placeholder="" value="{{ vhost.ssl_chain }}" class="form-control" />
+                           placeholder="" value="{% if vhost.ssl_chain is defined %}{{ vhost.ssl_chain }}{% endif %}" class="form-control" />
                 </div>
 
                 <div class="col-md-6">
@@ -176,7 +176,7 @@
                     </label>
                     <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_certs_dir"
                            name="apache[vhosts][{{ uniqid }}][ssl_certs_dir]"
-                           placeholder="" value="{{ vhost.ssl_certs_dir }}" class="form-control" />
+                           placeholder="" value="{% if vhost.ssl_certs_dir is defined %}{{ vhost.ssl_certs_dir }}{% endif %}" class="form-control" />
                 </div>
             </div>
 
