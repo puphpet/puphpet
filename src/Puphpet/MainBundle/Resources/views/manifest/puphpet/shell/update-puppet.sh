@@ -12,14 +12,14 @@ if [[ ! -f /.puphpet-stuff/update-puppet ]]; then
         wget --quiet --tries=5 --connect-timeout=10 -O "/.puphpet-stuff/puppetlabs-release-${CODENAME}.deb" "http://apt.puppetlabs.com/puppetlabs-release-${CODENAME}.deb"
         echo "Finished downloading http://apt.puppetlabs.com/puppetlabs-release-${CODENAME}.deb"
 
-        dpkg -i "/.puphpet-stuff/puppetlabs-release-${CODENAME}.deb" >/dev/null
+        dpkg -i "/.puphpet-stuff/puppetlabs-release-${CODENAME}.deb" > /dev/null
 
         echo "Running update-puppet apt-get update"
         apt-get update >/dev/null
         echo "Finished running update-puppet apt-get update"
 
         echo "Updating Puppet to latest version"
-        apt-get install -y puppet=3.4.3-1puppetlabs1 puppet-common=3.4.3-1puppetlabs1 > dev/null
+        apt-get install -y puppet=3.4.3-1puppetlabs1 puppet-common=3.4.3-1puppetlabs1 > /dev/null
         PUPPET_VERSION=$(puppet help | grep 'Puppet v')
         echo "Finished updating puppet to latest version: ${PUPPET_VERSION}"
 
