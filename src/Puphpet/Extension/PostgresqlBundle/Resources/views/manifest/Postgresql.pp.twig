@@ -89,7 +89,7 @@ define postgresql_db (
     $table = "${name}.*"
 
     exec{ "${name}-import":
-      command     => "psql ${name} < ${sql_file}",
+      command     => "sudo -u postgres psql ${name} < ${sql_file}",
       logoutput   => true,
       refreshonly => $refresh,
       require     => Postgresql::Server::Db[$name],
