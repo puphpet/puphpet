@@ -27,9 +27,9 @@ if [[ ! -f /.puphpet-stuff/initial-setup-repo-update ]]; then
         echo "Finished running initial-setup yum update"
 
         echo "Updating to Ruby 1.9.3"
-        yum install centos-release-SCL >/dev/null
-        yum remove ruby >/dev/null
-        yum install ruby193 facter hiera ruby193-ruby-irb ruby193-ruby-doc ruby193-rubygem-json ruby193-libyaml ruby-rgen >/dev/null
+        yum -y install centos-release-SCL >/dev/null
+        yum -y remove ruby >/dev/null
+        yum -y install ruby193 facter hiera ruby193-ruby-irb ruby193-ruby-doc ruby193-rubygem-json ruby193-libyaml ruby-rgen >/dev/null
         gem update --system >/dev/null
         gem install haml >/dev/null
         echo "Finished updating to Ruby 1.9.3"
