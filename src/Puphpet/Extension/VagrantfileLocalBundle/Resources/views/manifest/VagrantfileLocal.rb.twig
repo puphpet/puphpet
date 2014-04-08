@@ -28,9 +28,25 @@ Vagrant.configure("2") do |config|
   end
 
   data['vm']['synced_folder'].each do |i, folder|
-    if folder['source'] != '' && folder['target'] != '' && folder['id'] != ''
-      nfs = (folder['nfs'] == "true") ? "nfs" : nil
-      config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{folder['id']}", type: nfs
+    if folder['source'] != '' && folder['target'] != '' && folder['id'] != '' && folder['sync_type'] != ''
+      if folder['sync_type'] == 'nfs'
+        config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{folder['id']}", type: "nfs"
+      elsif folder['sync_type'] == 'smb'
+        config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{folder['id']}", type: "smb"
+      elsif folder['sync_type'] == 'rsync'
+        rsync_args = !folder['rsync']['args'].nil? ? folder['rsync']['args'] : ["--verbose", "--archive", "--delete", "-z"]
+        rsync_auto = !folder['rsync']['auto'].nil? ? folder['rsync']['auto'] : true
+        rsync_exclude = !folder['rsync']['exclude'].nil? ? folder['rsync']['exclude'] : [".vagrant/"]
+
+        config.vm.synced_folder "#{folder['source']}", "#{folder['target']}",
+        id: "#{folder['id']}",
+        rsync__args: rsync_args,
+        rsync__exclude: rsync_exclude,
+        rsync__auto: rsync_auto,
+        type: "rsync"
+      else
+        config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{folder['id']}"
+      end
     end
   end
 

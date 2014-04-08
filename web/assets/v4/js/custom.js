@@ -313,6 +313,25 @@ PUPHPET.delRepeatableElement = function() {
         $parentContainer.remove();
     });
 };
+/**
+ * Show available options
+ */
+PUPHPET.showAvailableOptions = function() {
+
+    $('.hasAvailableOptions').each(function(){
+        if ($(this).is(':checked')) {
+            var $availableOptions = $(this).parent().parent().find('.availableOptions');
+            $availableOptions.children().hide();
+            $availableOptions.find("." + $(this).attr('value')).show()
+        }
+    });
+
+    $(document).on('click', '.hasAvailableOptions', function(e){
+        var $availableOptions = $(this).parent().parent().find('.availableOptions');
+        $availableOptions.children().hide();
+        $availableOptions.find("." + $(this).attr('value')).show();
+    });
+};
 
 /**
  * If elements are grouped into tabs, set all non-active tab elements as inactive.
@@ -604,6 +623,7 @@ $(document).ready(function() {
     PUPHPET.selectizeAddClickedToElement();
     PUPHPET.addRepeatableElement();
     PUPHPET.delRepeatableElement();
+    PUPHPET.showAvailableOptions();
     PUPHPET.disableInactiveTabElements();
     PUPHPET.enableClickedTabElement();
     PUPHPET.githubContributors();
