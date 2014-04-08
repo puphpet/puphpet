@@ -221,7 +221,9 @@ if $::osfamily == 'redhat' {
   if $vm_values == undef {
     $vm_values = hiera('vagrantfile-local', false)
   }
-  create_resources( iptables_port, $vm_values['vm']['network']['forwarded_port'] )
+  if $vm_values['vm']['network']['forwarded_port'] {
+    create_resources( iptables_port, $vm_values['vm']['network']['forwarded_port'] )
+  }
 }
 
 define iptables_port (
