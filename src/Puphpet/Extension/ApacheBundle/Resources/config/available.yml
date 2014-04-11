@@ -5,6 +5,7 @@ empty_vhost:
     port: 80
     setenv: []
     override: []
+    options: []
     custom_fragment: ~
     ssl: 0
     ssl_cert: ~
