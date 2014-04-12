@@ -96,7 +96,8 @@
         <div class="row form-group">
             <div class="col-xs-12">
                 <label for="apache-vhosts-{{ uniqid }}-options">Directory Options</label>
-                <select id="apache-vhosts-{{ uniqid }}-options" name="apache[vhosts][{{ uniqid }}][options][]" multiple class="form-control select-tags">
+                <select id="apache-vhosts-{{ uniqid }}-options" name="apache[vhosts][{{ uniqid }}][options][]"
+                        multiple class="form-control select-tags-editable">
                     {% for options in vhost.options %}
                         <option selected value="{{ options }}">{{ options }}</option>
                     {% endfor %}
