@@ -22,7 +22,6 @@ vhosts:
             - Indexes
             - FollowSymLinks
             - MultiViews
-            - Includes
         custom_fragment: ~
         ssl: 0
         ssl_cert: ~

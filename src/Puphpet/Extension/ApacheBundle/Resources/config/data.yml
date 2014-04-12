@@ -7,6 +7,10 @@ settings:
     manage_user: false
     manage_group: false
     sendfile: 0
+    options:
+        - Indexes
+        - FollowSymLinks
+        - MultiViews
 
 modules: []
 vhosts: []
