@@ -33,8 +33,8 @@ available_images:
             - 5.5
             - 5.4
     -
-        image: Ubuntu 12.04.3 x64
-        long_name: Ubuntu Precise 12.04.3 x64
+        image: Ubuntu 12.04.4 x64
+        long_name: Ubuntu Precise 12.04.4 x64
         php_versions:
             - 5.5
             - 5.4
