@@ -3,29 +3,38 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4d6af51d59d77e1fbee2c455aae7f1fd",
+    "hash": "827a93af0f755cc83b9dc02eefdba705",
     "packages": [
         {
             "name": "cocur/slugify",
-            "version": "v0.2.3",
+            "version": "v0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cocur/slugify.git",
-                "reference": "d04cef7c6e33cd6ae2519f801e84b9e92a1926d0"
+                "reference": "2b6df626d1958200b8ee059aea01d52c3b658024"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/d04cef7c6e33cd6ae2519f801e84b9e92a1926d0",
-                "reference": "d04cef7c6e33cd6ae2519f801e84b9e92a1926d0",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/2b6df626d1958200b8ee059aea01d52c3b658024",
+                "reference": "2b6df626d1958200b8ee059aea01d52c3b658024",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.8"
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~3.7",
+                "satooshi/php-coveralls": "dev-master",
+                "silex/silex": "~1.2",
+                "symfony/dependency-injection": "~2.4",
+                "symfony/http-kernel": "~2.4",
+                "twig/twig": "~1"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Cocur": "src"
+                "psr-4": {
+                    "Cocur\\Slugify\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -34,14 +43,14 @@
             ],
             "authors": [
                 {
-                    "name": "Florian Eckerstorfer",
-                    "email": "florian@theroadtojoy.at",
-                    "homepage": "http://florianeckerstorfer.com",
-                    "role": "Developer"
-                },
-                {
                     "name": "Ivo Bathke",
                     "email": "ivo.bathke@gmail.com"
+                },
+                {
+                    "name": "Florian Eckerstorfer",
+                    "email": "florian@eckerstorfer.co",
+                    "homepage": "http://florian.ec",
+                    "role": "Developer"
                 }
             ],
             "description": "Converts a string into a slug.",
@@ -49,7 +58,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2013-06-22 21:34:34"
+            "time": "2014-04-18 11:01:23"
         },
         {
             "name": "doctrine/annotations",
@@ -1178,55 +1187,6 @@
                 "templating"
             ],
             "time": "2013-12-06 07:47:10"
-        },
-        {
-            "name": "zenstruck/slugify-bundle",
-            "version": "v1.1.1",
-            "target-dir": "Zenstruck/SlugifyBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kbond/ZenstruckSlugifyBundle.git",
-                "reference": "7cb45179eabbb47bcfcd2eaf4bb0e3465e32fb91"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kbond/ZenstruckSlugifyBundle/zipball/7cb45179eabbb47bcfcd2eaf4bb0e3465e32fb91",
-                "reference": "7cb45179eabbb47bcfcd2eaf4bb0e3465e32fb91",
-                "shasum": ""
-            },
-            "require": {
-                "cocur/slugify": "~0.2",
-                "symfony/symfony": "~2.1"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Zenstruck\\SlugifyBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kevin Bond",
-                    "email": "kevinbond@gmail.com",
-                    "homepage": "http://zenstruck.com"
-                }
-            ],
-            "description": "Provides a slugify service and twig filter for Symfony2.",
-            "homepage": "http://zenstruck.com/project/ZenstruckSlugifyBundle",
-            "keywords": [
-                "slug",
-                "slugify"
-            ],
-            "time": "2013-12-11 15:33:48"
         }
     ],
     "packages-dev": [
