@@ -17,6 +17,7 @@ empty_vhost:
     ssl_certs_dir: ~
 
 available_modules:
+    - access_compat
     - cache
     - cgid
     - dav
