@@ -4,6 +4,14 @@ if $server_values == undef {
   $server_values = hiera('server', false)
 }
 
+# Check if $::ssh_username is not defined
+if $::ssh_username == undef {
+  $ssh_username = 'docker'
+}
+else{
+  $ssh_username = $::ssh_username
+}
+
 # Ensure the time is accurate, reducing the possibilities of apt repositories
 # failing for invalid certificates
 class { 'ntp': }
@@ -16,9 +24,9 @@ group { 'puppet':   ensure => present }
 group { 'www-data': ensure => present }
 group { 'www-user': ensure => present }
 
-user { $::ssh_username:
+user { $ssh_username:
   shell   => '/bin/bash',
-  home    => "/home/${::ssh_username}",
+  home    => "/home/${ssh_username}",
   ensure  => present,
   groups  => ['www-data', 'www-user'],
   require => [Group['www-data'], Group['www-user']]
@@ -31,20 +39,20 @@ user { ['apache', 'nginx', 'httpd', 'www-data']:
   require => Group['www-data']
 }
 
-file { "/home/${::ssh_username}":
+file { "/home/${ssh_username}":
     ensure => directory,
-    owner  => $::ssh_username,
+    owner  => $ssh_username,
 }
 
 # copy dot files to ssh user's home directory
 exec { 'dotfiles':
-  cwd     => "/home/${::ssh_username}",
-  command => "cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /home/${::ssh_username}/ \
-              && chown -R ${::ssh_username} /home/${::ssh_username}/.[a-zA-Z0-9]* \
+  cwd     => "/home/${ssh_username}",
+  command => "cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /home/${ssh_username}/ \
+              && chown -R ${ssh_username} /home/${ssh_username}/.[a-zA-Z0-9]* \
               && cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /root/",
   onlyif  => 'test -d /vagrant/puphpet/files/dot',
   returns => [0, 1],
-  require => User[$::ssh_username]
+  require => User[$ssh_username]
 }
 
 case $::osfamily {
@@ -76,14 +84,14 @@ case $::osfamily {
     }
 
     exec { 'bash_git':
-      cwd     => "/home/${::ssh_username}",
-      command => "curl https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > /home/${::ssh_username}/.bash_git",
-      creates => "/home/${::ssh_username}/.bash_git"
+      cwd     => "/home/${ssh_username}",
+      command => "curl https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > /home/${ssh_username}/.bash_git",
+      creates => "/home/${ssh_username}/.bash_git"
     }
 
     exec { 'bash_git for root':
       cwd     => '/root',
-      command => "cp /home/${::ssh_username}/.bash_git /root/.bash_git",
+      command => "cp /home/${ssh_username}/.bash_git /root/.bash_git",
       creates => '/root/.bash_git',
       require => Exec['bash_git']
     }
@@ -91,7 +99,7 @@ case $::osfamily {
     file_line { 'link ~/.bash_git':
       ensure  => present,
       line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
-      path    => "/home/${::ssh_username}/.bash_profile",
+      path    => "/home/${ssh_username}/.bash_profile",
       require => [
         Exec['dotfiles'],
         Exec['bash_git'],
@@ -111,7 +119,7 @@ case $::osfamily {
     file_line { 'link ~/.bash_aliases':
       ensure  => present,
       line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
-      path    => "/home/${::ssh_username}/.bash_profile",
+      path    => "/home/${ssh_username}/.bash_profile",
       require => File_line['link ~/.bash_git']
     }
 
