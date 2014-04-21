@@ -41,6 +41,7 @@ if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
     if [[ ! -f /.puphpet-stuff/r10k-base-packages ]]; then
         echo 'Installing base packages for r10k'
         apt-get install -y build-essential ruby-dev >/dev/null
+        gem install json >/dev/null
         echo 'Finished installing base packages for r10k'
 
         touch /.puphpet-stuff/r10k-base-packages
@@ -69,7 +70,6 @@ fi
 
 if [[ ! -f /.puphpet-stuff/r10k-puppet-installed ]]; then
     echo 'Installing r10k'
-    gem install json >/dev/null
     gem install r10k >/dev/null
     echo 'Finished installing r10k'
 

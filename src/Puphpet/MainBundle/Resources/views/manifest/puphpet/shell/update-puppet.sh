@@ -26,8 +26,6 @@ if [[ ! -f /.puphpet-stuff/update-puppet ]]; then
         touch /.puphpet-stuff/update-puppet
         echo "Created empty file /.puphpet-stuff/update-puppet"
     elif [ "${OS}" == 'centos' ]; then
-        yum -y --nogpgcheck install "http://yum.puppetlabs.com/el/6/dependencies/x86_64/ruby-rgen-0.6.5-2.el6.noarch.rpm" >/dev/null
-
         echo "Downloading http://yum.puppetlabs.com/el/${RELEASE}/products/x86_64/puppet-3.4.3-1.el6.noarch.rpm"
         yum -y --nogpgcheck install "http://yum.puppetlabs.com/el/${RELEASE}/products/x86_64/puppet-3.4.3-1.el6.noarch.rpm" >/dev/null
         echo "Finished downloading http://yum.puppetlabs.com/el/${RELEASE}/products/x86_64/puppet-3.4.3-1.el6.noarch.rpm"
