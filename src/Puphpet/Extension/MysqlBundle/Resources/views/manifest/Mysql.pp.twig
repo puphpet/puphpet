@@ -17,6 +17,20 @@ if hash_key_equals($mysql_values, 'install', 1) {
     $mysql_webserver_restart = false
   }
 
+  if $::osfamily == 'redhat' {
+    exec { 'mysql-community-repo':
+      command => 'yum -y --nogpgcheck install "http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm"'
+    }
+
+    $mysql_server_require             = Exec['mysql-community-repo']
+    $mysql_server_server_package_name = 'mysql-server'
+    $mysql_server_client_package_name = 'mysql'
+  } else {
+    $mysql_server_require             = []
+    $mysql_server_server_package_name = 'mysql-server'
+    $mysql_server_client_package_name = 'mysql'
+  }
+
   if hash_key_equals($php_values, 'install', 1) {
     $mysql_php_installed = true
     $mysql_php_package   = 'php'
@@ -29,7 +43,14 @@ if hash_key_equals($mysql_values, 'install', 1) {
 
   if $mysql_values['root_password'] {
     class { 'mysql::server':
+      package_name  => $mysql_server_server_package_name,
       root_password => $mysql_values['root_password'],
+      require       => $mysql_server_require
+    }
+
+    class { 'mysql::client':
+      package_name => $mysql_server_client_package_name,
+      require      => $mysql_server_require
     }
 
     if is_hash($mysql_values['databases']) and count($mysql_values['databases']) > 0 {
