@@ -27,8 +27,8 @@ if hash_key_equals($mysql_values, 'install', 1) {
     $mysql_server_client_package_name = 'mysql'
   } else {
     $mysql_server_require             = []
-    $mysql_server_server_package_name = 'mysql-server'
-    $mysql_server_client_package_name = 'mysql-client'
+    $mysql_server_server_package_name = $mysql::params::server_package_name
+    $mysql_server_client_package_name = $mysql::params::client_package_name
   }
 
   if hash_key_equals($php_values, 'install', 1) {
