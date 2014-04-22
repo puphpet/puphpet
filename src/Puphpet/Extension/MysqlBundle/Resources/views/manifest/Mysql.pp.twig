@@ -23,8 +23,8 @@ if hash_key_equals($mysql_values, 'install', 1) {
     }
 
     $mysql_server_require             = Exec['mysql-community-repo']
-    $mysql_server_server_package_name = 'mysql-server'
-    $mysql_server_client_package_name = 'mysql'
+    $mysql_server_server_package_name = 'mysql-community-server'
+    $mysql_server_client_package_name = 'mysql-community-client'
   } else {
     $mysql_server_require             = []
     $mysql_server_server_package_name = 'mysql-server'
