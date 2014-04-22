@@ -215,3 +215,25 @@ define add_dotdeb ($release){
     include_src       => true
   }
 }
+
+# Begin open ports for Iptables
+if $::osfamily == 'redhat' {
+  if $vm_values == undef {
+    $vm_values = hiera('vagrantfile-local', false)
+  }
+  if $vm_values['vm']['network']['forwarded_port'] {
+    create_resources( iptables_port, $vm_values['vm']['network']['forwarded_port'] )
+  }
+}
+
+define iptables_port (
+  $host,
+  $guest,
+) {
+  if( ! defined(Iptables::Allow["tcp/${guest}"]) ) {
+    iptables::allow { "tcp/${guest}":
+      port     => $guest,
+      protocol => 'tcp'
+    }
+  }
+}
