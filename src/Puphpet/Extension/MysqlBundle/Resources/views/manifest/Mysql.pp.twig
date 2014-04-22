@@ -19,7 +19,8 @@ if hash_key_equals($mysql_values, 'install', 1) {
 
   if $::osfamily == 'redhat' {
     exec { 'mysql-community-repo':
-      command => 'yum -y --nogpgcheck install "http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm"'
+      command => 'yum -y --nogpgcheck install "http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm" && touch /.puphpet-stuff/mysql-community-release',
+      creates => '/.puphpet-stuff/mysql-community-release'
     }
 
     $mysql_server_require             = Exec['mysql-community-repo']
