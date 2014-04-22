@@ -2,8 +2,9 @@
 
 if $server_values == undef {
   $server_values = hiera('server', false)
+} if $vm_values == undef {
+  $vm_values = hiera($::vm_target_key, false)
 }
-
 # Ensure the time is accurate, reducing the possibilities of apt repositories
 # failing for invalid certificates
 class { 'ntp': }
@@ -217,20 +218,19 @@ define add_dotdeb ($release){
 }
 
 # Begin open ports for Iptables
-if $::osfamily == 'redhat' {
-  if $vm_values == undef {
-    $vm_values = hiera('vagrantfile-local', false)
-  }
-  if $vm_values['vm']['network']['forwarded_port'] {
-    create_resources( iptables_port, $vm_values['vm']['network']['forwarded_port'] )
-  }
+if $::osfamily == 'redhat'
+  and has_key($vm_values, 'vm')
+  and has_key($vm_values['vm'], 'network')
+  and has_key($vm_values['vm']['network'], 'forwarded_port')
+{
+  create_resources( iptables_port, $vm_values['vm']['network']['forwarded_port'] )
 }
 
 define iptables_port (
   $host,
   $guest,
 ) {
-  if( ! defined(Iptables::Allow["tcp/${guest}"]) ) {
+  if ( ! defined(Iptables::Allow["tcp/${guest}"]) ) {
     iptables::allow { "tcp/${guest}":
       port     => $guest,
       protocol => 'tcp'
