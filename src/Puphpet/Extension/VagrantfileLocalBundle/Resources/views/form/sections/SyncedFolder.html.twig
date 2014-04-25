@@ -42,7 +42,8 @@
         <div class="row form-group">
             <div class="col-md-6">
                 <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-owner">
-                Box Sync Folder Owner
+                Guest Owner
+                {{ popover.small('Set the owner of the files on the guest machine.') }}
                 </label>
                 <input type="text" id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-owner"
                        name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][owner]"
@@ -50,7 +51,8 @@
             </div>
             <div class="col-md-6">
                 <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-group">
-                Box Sync Folder Group
+                Guest Group
+                {{ popover.small('Set the group of the files on the guest machine.') }}
                 </label>
                 <input type="text" id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-group"
                        name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][group]"
@@ -60,7 +62,10 @@
 
         <div class="row form-group">
             <div class="col-xs-12">
-                <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-mount-options-displayer">Mount Options</label>
+                <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-mount-options-displayer">
+                    Mount Options
+                    {{ popover.small('Add mount options for the files on the guest machine.') }}
+                </label>
                 <select id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-mount-options-displayer" multiple
                         class="form-control select-tags-user-input"
                         data-target-container="vagrantfile-local-vm-synced_folder-{{ uniqid }}-mount-options"
