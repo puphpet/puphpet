@@ -19,15 +19,8 @@ available_images:
             - 5.5
             - 5.4
     -
-        image: Raring
-        long_name: Ubuntu Raring 13.04 x64
-        php_versions:
-            - 5.5
-            - 5.4
-            - HHVM
-    -
-        image: Quantal
-        long_name: Ubuntu Quantal 12.10 x64
+        image: Saucy
+        long_name: Ubuntu Saucy 13.10 x64
         php_versions:
             - 5.5
             - 5.4
