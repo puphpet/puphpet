@@ -5,6 +5,10 @@ empty_vhost:
     port: 80
     setenv: []
     override: []
+    options:
+        - Indexes
+        - FollowSymLinks
+        - MultiViews
     custom_fragment: ~
     ssl: 0
     ssl_cert: ~
