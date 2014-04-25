@@ -40,6 +40,25 @@
         </div>
 
         <div class="row form-group">
+            <div class="col-md-6">
+                <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-owner">
+                Box Sync Folder Owner
+                </label>
+                <input type="text" id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-owner"
+                       name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][owner]"
+                       value="{{ synced_folder.owner }}" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-group">
+                Box Sync Folder Group
+                </label>
+                <input type="text" id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-group"
+                       name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][group]"
+                       value="{{ synced_folder.group }}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row form-group">
             <div class="col-md-12">
                 <label>
                     Shared Folder Type
