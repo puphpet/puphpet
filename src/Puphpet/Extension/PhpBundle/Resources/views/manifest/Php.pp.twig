@@ -68,10 +68,18 @@ if hash_key_equals($php_values, 'install', 1) {
     $php_webserver_service_ini = undef
     $php_webserver_restart     = false
 
+    if $php_cli_ini == undef {                       
+      $php_cli_ini = $::operatingsystem ? {          
+        /(?i:Ubuntu|Debian|Mint|SLES|OpenSuSE)/ => '/etc/php5/cli/php.ini',
+        default                                 => '/etc/php.ini',
+      } 
+    }
+
     class { 'php':
       package             => "${php_prefix}cli",
       service             => $php_webserver_service,
       service_autorestart => false,
+      config_file         => $php_cli_ini
     }
   }
 
