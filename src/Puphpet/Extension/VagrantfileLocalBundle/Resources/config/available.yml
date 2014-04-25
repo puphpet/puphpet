@@ -3,6 +3,8 @@ empty_synced_folder:
     target: ~
     id: vagrant-root
     nfs: 'false'
+    owner: ~
+    group: ~
 
 available_boxes:
     -
