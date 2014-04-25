@@ -9,6 +9,7 @@ vm:
             nfs: 'false'
             owner: ~
             group: ~
+            mount_options: []
     network:
         forwarded_port:
             -

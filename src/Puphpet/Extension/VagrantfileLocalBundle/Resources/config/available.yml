@@ -5,6 +5,11 @@ empty_synced_folder:
     nfs: 'false'
     owner: ~
     group: ~
+    mount_options: []
+
+available_mount_options:
+    dmode:
+    fmode:
 
 available_boxes:
     -

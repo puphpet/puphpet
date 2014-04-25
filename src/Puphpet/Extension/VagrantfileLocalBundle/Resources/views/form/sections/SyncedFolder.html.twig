@@ -59,6 +59,39 @@
         </div>
 
         <div class="row form-group">
+            <div class="col-xs-12">
+                <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-mount-options-displayer">Mount Options</label>
+                <select id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-mount-options-displayer" multiple
+                        class="form-control select-tags-user-input"
+                        data-target-container="vagrantfile-local-vm-synced_folder-{{ uniqid }}-mount-options"
+                        data-target-name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][mount_options]"
+                        >
+                    {% for option, values in data.available_mount_options %}
+                        {% if values is not empty %}
+                            <optgroup label="{{ option }}">
+                                {% for value in values %}
+                                    <option value="{{ value }}"
+                                            {% if value in synced_folder.mount_options|keys %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% else %}
+                            <option value="{{ option }}"
+                                    {% if option in synced_folder.mount_options|keys %}selected{% endif %}>{{ option }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <div id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-mount-options" style="display: none;">
+                    {% for name, value in synced_folder.mount_options %}
+                        <input type="hidden" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][mount_options][{{ name }}]"
+                               data-option-name="{{ name }}" value="{{ value }}" />
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row form-group">
             <div class="col-md-12">
                 <label>
                     Shared Folder Type
