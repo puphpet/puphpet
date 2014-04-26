@@ -32,7 +32,7 @@
                                 {% for image in images %}
                                     <label class="radio">
                                         <input type="radio"
-                                               name="vagrantfile-aws[vm][provider][aws][ami]"
+                                               name="vagrantfile-aws[vm][provider][aws][ami]" class="update-other-input"
                                                data-update-vagrantfile-aws-ssh-username="{{ image.ssh_username }}"
                                                data-update-vagrantfile-aws-vm-provider-aws-region="{{ region }}"
                                                {% if image.ami == data.vm.provider.aws.ami %}checked{% endif %}
