@@ -38,6 +38,7 @@ available_images:
         php_versions:
             - 5.5
             - 5.4
+            - 5.3
             - HHVM
 
 available_sizes:
