@@ -13,7 +13,7 @@
                         <label class="checkbox-inline">
                             <input type="checkbox" class="install-checkbox update-other-input"
                                    name="nginx[install]"
-                                   data-update-apache[install]
+                                   data-update-apache[install]="0"
                                    data-hide-on-uncheck="#nginx-config-container"
                                    {% if nginx.install %}checked{% endif %} value="1" /> Install Nginx
                         </label>
