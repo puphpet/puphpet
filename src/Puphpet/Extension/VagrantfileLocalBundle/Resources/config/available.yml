@@ -3,6 +3,13 @@ empty_synced_folder:
     target: ~
     id: vagrant-root
     nfs: 'false'
+    owner: ~
+    group: ~
+    mount_options: []
+
+available_mount_options:
+    dmode:
+    fmode:
 
 available_boxes:
     -

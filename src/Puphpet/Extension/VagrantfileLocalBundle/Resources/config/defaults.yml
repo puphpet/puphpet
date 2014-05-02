@@ -7,6 +7,9 @@ vm:
             target: /var/www
             id: vagrant-root
             nfs: 'false'
+            owner: ~
+            group: ~
+            mount_options: []
     network:
         forwarded_port:
             -
