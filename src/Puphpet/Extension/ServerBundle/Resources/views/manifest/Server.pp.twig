@@ -6,7 +6,7 @@ if $server_values == undef {
 
 # Check if $::ssh_username is not defined
 if $::ssh_username == undef {
-  $ssh_username = 'docker'
+  $ssh_username = 'root'
 }
 else{
   $ssh_username = $::ssh_username
