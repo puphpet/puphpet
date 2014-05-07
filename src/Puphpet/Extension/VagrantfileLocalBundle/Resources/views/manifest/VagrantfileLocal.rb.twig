@@ -28,9 +28,9 @@ Vagrant.configure("2") do |config|
   end
 
   data['vm']['synced_folder'].each do |i, folder|
-    if folder['source'] != '' && folder['target'] != '' && folder['id'] != ''
+    if folder['source'] != '' && folder['target'] != ''
       nfs = (folder['nfs'] == "true") ? "nfs" : nil
-      config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{folder['id']}", type: nfs
+      config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}", type: nfs
     end
   end
 
