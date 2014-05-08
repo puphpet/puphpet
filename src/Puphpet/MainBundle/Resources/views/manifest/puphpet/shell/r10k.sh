@@ -72,7 +72,7 @@ fi
 
 if [[ ! -f /.puphpet-stuff/r10k-puppet-installed ]]; then
     echo 'Installing r10k'
-    gem install r10k >/dev/null
+    gem install r10k >/dev/null 2>&1
     echo 'Finished installing r10k'
 
     echo 'Running initial r10k'
