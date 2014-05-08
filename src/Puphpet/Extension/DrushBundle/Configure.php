@@ -13,7 +13,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
-        'drush'    => ":git => 'https://github.com/puphpet/puppet-drush.git', :ref => 'new'",
+        'drush'    => ":git => 'https://github.com/puphpet/puppet-drush.git'",
         'php'      => ":git => 'https://github.com/puphpet/puppet-php.git'",
         'composer' => ":git => 'https://github.com/puphpet/puppet-composer.git'",
         'puphpet'  => ":git => 'https://github.com/puphpet/puppet-puphpet.git'",
