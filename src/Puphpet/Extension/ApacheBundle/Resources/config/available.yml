@@ -22,6 +22,7 @@ available_modules:
     - dav
     - dav_fs
     - disk_cache
+    - expires
     - headers
     - info
     - ldap
