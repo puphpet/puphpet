@@ -23,6 +23,7 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
+                - 5.3
                 - HHVM
 # US West (Northern California) Region
     us-west-1:
@@ -43,6 +44,7 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
+                - 5.3
                 - HHVM
 # US West (Northern California) Region
     us-west-2:
@@ -63,6 +65,7 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
+                - 5.3
                 - HHVM
 # EU (Ireland) Region
     eu-west-1:
@@ -83,6 +86,7 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
+                - 5.3
                 - HHVM
 # South America (Sao Paulo) Region
     sa-east-1:
@@ -103,6 +107,7 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
+                - 5.3
                 - HHVM
 # Asia Pacific (Tokyo) Region
     ap-northeast-1:
@@ -123,6 +128,7 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
+                - 5.3
                 - HHVM
 # Asia Pacific (Singapore) Region
     ap-southeast-1:
@@ -143,6 +149,7 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
+                - 5.3
                 - HHVM
 # Asia Pacific (Sydney) Region
     ap-southeast-2:
@@ -163,6 +170,7 @@ available_images:
             php_versions:
                 - 5.5
                 - 5.4
+                - 5.3
                 - HHVM
 
 available_instance_types:
