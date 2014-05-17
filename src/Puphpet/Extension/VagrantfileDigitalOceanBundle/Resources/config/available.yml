@@ -20,8 +20,8 @@ available_images:
             - 5.4
             - HHVM
     -
-        image: Ubuntu 13.04 x64
-        long_name: Ubuntu Raring 13.04 x64
+        image: Ubuntu 13.10 x64
+        long_name: Ubuntu Saucy 13.10 x64
         php_versions:
             - 5.5
             - 5.4
