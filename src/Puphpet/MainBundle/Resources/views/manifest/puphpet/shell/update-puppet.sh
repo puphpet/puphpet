@@ -26,7 +26,6 @@ if [[ ! -f /.puphpet-stuff/update-puppet ]]; then
         echo "Finished updating puppet to latest version: ${PUPPET_VERSION}"
 
         touch /.puphpet-stuff/update-puppet
-        echo "Created empty file /.puphpet-stuff/update-puppet"
     elif [ "${OS}" == 'centos' ]; then
         echo "Downloading http://yum.puppetlabs.com/el/${RELEASE}/products/x86_64/puppet-3.4.3-1.el6.noarch.rpm"
         yum -y --nogpgcheck install "http://yum.puppetlabs.com/el/${RELEASE}/products/x86_64/puppet-3.4.3-1.el6.noarch.rpm" >/dev/null
@@ -38,6 +37,5 @@ if [[ ! -f /.puphpet-stuff/update-puppet ]]; then
         echo "Finished installing/updating puppet to version: ${PUPPET_VERSION}"
 
         touch /.puphpet-stuff/update-puppet
-        echo "Created empty file /.puphpet-stuff/update-puppet"
     fi
 fi

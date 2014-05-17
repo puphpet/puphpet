@@ -7,21 +7,54 @@ VAGRANT_CORE_FOLDER=$(echo "$1")
 OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
 CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
 
+cat "${VAGRANT_CORE_FOLDER}/shell/self-promotion.txt"
+
 if [[ ! -d /.puphpet-stuff ]]; then
     mkdir /.puphpet-stuff
 
     echo "${VAGRANT_CORE_FOLDER}" > "/.puphpet-stuff/vagrant-core-folder.txt"
-
-    cat "${VAGRANT_CORE_FOLDER}/shell/self-promotion.txt"
     echo "Created directory /.puphpet-stuff"
 fi
 
-if [[ ! -f /.puphpet-stuff/initial-setup-repo-update ]]; then
+if [[ ! -f /.puphpet-stuff/initial-setup-base-packages ]]; then
     if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
         echo "Running initial-setup apt-get update"
         apt-get update >/dev/null
-        touch /.puphpet-stuff/initial-setup-repo-update
         echo "Finished running initial-setup apt-get update"
+
+        echo "Installing git"
+        apt-get -q -y install git-core >/dev/null
+        echo "Finished installing git"
+
+        if [[ "${CODENAME}" == 'lucid' || "${CODENAME}" == 'precise' ]]; then
+            echo 'Installing basic curl packages (Ubuntu only)'
+            apt-get install -y libcurl3 libcurl4-gnutls-dev curl >/dev/null
+            echo 'Finished installing basic curl packages (Ubuntu only)'
+        fi
+
+        echo "Installing base packages for r10k"
+        apt-get install -y build-essential ruby-dev >/dev/null
+        gem install json >/dev/null
+        echo "Finished installing base packages for r10k"
+
+        if [ "${OS}" == 'ubuntu' ]; then
+            echo 'Updating libgemplugin-ruby (Ubuntu only)'
+            apt-get install -y libgemplugin-ruby >/dev/null
+            echo 'Finished updating libgemplugin-ruby (Ubuntu only)'
+        fi
+
+        if [ "${CODENAME}" == 'lucid' ]; then
+            echo 'Updating rubygems (Ubuntu Lucid only)'
+            gem install rubygems-update >/dev/null 2>&1
+            /var/lib/gems/1.8/bin/update_rubygems >/dev/null 2>&1
+            echo 'Finished updating rubygems (Ubuntu Lucid only)'
+        fi
+
+        echo "Installing r10k"
+        gem install r10k >/dev/null 2>&1
+        echo "Finished installing r10k"
+
+        touch /.puphpet-stuff/initial-setup-base-packages
     elif [[ "${OS}" == 'centos' ]]; then
         echo "Running initial-setup yum update"
         perl -p -i -e 's@enabled=1@enabled=0@gi' /etc/yum/pluginconf.d/fastestmirror.conf
@@ -35,6 +68,10 @@ if [[ ! -f /.puphpet-stuff/initial-setup-repo-update ]]; then
         yum clean all >/dev/null
         yum -y check-update >/dev/null
         echo "Finished running initial-setup yum update"
+
+        echo "Installing git"
+        yum -y install git >/dev/null
+        echo "Finished installing git"
 
         echo "Updating to Ruby 1.9.3"
         yum -y install centos-release-SCL >/dev/null 2>&1
@@ -55,14 +92,11 @@ if [[ ! -f /.puphpet-stuff/initial-setup-repo-update ]]; then
         echo "Installing basic development tools (CentOS)"
         yum -y groupinstall "Development Tools" >/dev/null
         echo "Finished installing basic development tools (CentOS)"
-        touch /.puphpet-stuff/initial-setup-repo-update
+
+        echo "Installing r10k"
+        gem install r10k >/dev/null 2>&1
+        echo "Finished installing r10k"
+
+        touch /.puphpet-stuff/initial-setup-base-packages
     fi
-fi
-
-if [[ "${OS}" == 'ubuntu' && ("${CODENAME}" == 'lucid' || "${CODENAME}" == 'precise') && ! -f /.puphpet-stuff/ubuntu-required-libraries ]]; then
-    echo 'Installing basic curl packages (Ubuntu only)'
-    apt-get install -y libcurl3 libcurl4-gnutls-dev curl >/dev/null
-    echo 'Finished installing basic curl packages (Ubuntu only)'
-
-    touch /.puphpet-stuff/ubuntu-required-libraries
 fi
