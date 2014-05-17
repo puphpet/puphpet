@@ -9,15 +9,17 @@ CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
 
 cat "${VAGRANT_CORE_FOLDER}/shell/self-promotion.txt"
 
-if [[ ! -d /.puphpet-stuff ]]; then
-    mkdir /.puphpet-stuff
-
-    touch "/.puphpet-stuff/vagrant-core-folder.txt"
-    echo "${VAGRANT_CORE_FOLDER}" > "/.puphpet-stuff/vagrant-core-folder.txt"
+if [[ ! -d "/.puphpet-stuff" ]]; then
+    mkdir "/.puphpet-stuff"
     echo "Created directory /.puphpet-stuff"
 fi
 
-if [[ ! -f /.puphpet-stuff/initial-setup-base-packages ]]; then
+if [[ ! -f "/.puphpet-stuff/vagrant-core-folder.txt" ]]; then
+    touch "/.puphpet-stuff/vagrant-core-folder.txt"
+    echo "${VAGRANT_CORE_FOLDER}" > "/.puphpet-stuff/vagrant-core-folder.txt"
+fi
+
+if [[ ! -f "/.puphpet-stuff/initial-setup-base-packages" ]]; then
     if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
         echo "Running initial-setup apt-get update"
         apt-get update >/dev/null
@@ -27,10 +29,10 @@ if [[ ! -f /.puphpet-stuff/initial-setup-base-packages ]]; then
         apt-get -q -y install git-core >/dev/null
         echo "Finished installing git"
 
-        if [[ "${CODENAME}" == 'lucid' || "${CODENAME}" == 'precise' ]]; then
-            echo 'Installing basic curl packages (Ubuntu only)'
+        if [[ "${CODENAME}" == "lucid" || "${CODENAME}" == "precise" ]]; then
+            echo "Installing basic curl packages (Ubuntu only)"
             apt-get install -y libcurl3 libcurl4-gnutls-dev curl >/dev/null
-            echo 'Finished installing basic curl packages (Ubuntu only)'
+            echo "Finished installing basic curl packages (Ubuntu only)"
         fi
 
         echo "Installing base packages for r10k"
@@ -38,25 +40,25 @@ if [[ ! -f /.puphpet-stuff/initial-setup-base-packages ]]; then
         gem install json >/dev/null
         echo "Finished installing base packages for r10k"
 
-        if [ "${OS}" == 'ubuntu' ]; then
-            echo 'Updating libgemplugin-ruby (Ubuntu only)'
+        if [ "${OS}" == "ubuntu" ]; then
+            echo "Updating libgemplugin-ruby (Ubuntu only)"
             apt-get install -y libgemplugin-ruby >/dev/null
-            echo 'Finished updating libgemplugin-ruby (Ubuntu only)'
+            echo "Finished updating libgemplugin-ruby (Ubuntu only)"
         fi
 
-        if [ "${CODENAME}" == 'lucid' ]; then
-            echo 'Updating rubygems (Ubuntu Lucid only)'
+        if [ "${CODENAME}" == "lucid" ]; then
+            echo "Updating rubygems (Ubuntu Lucid only)"
             gem install rubygems-update >/dev/null 2>&1
             /var/lib/gems/1.8/bin/update_rubygems >/dev/null 2>&1
-            echo 'Finished updating rubygems (Ubuntu Lucid only)'
+            echo "Finished updating rubygems (Ubuntu Lucid only)"
         fi
 
         echo "Installing r10k"
         gem install r10k >/dev/null 2>&1
         echo "Finished installing r10k"
 
-        touch /.puphpet-stuff/initial-setup-base-packages
-    elif [[ "${OS}" == 'centos' ]]; then
+        touch "/.puphpet-stuff/initial-setup-base-packages"
+    elif [[ "${OS}" == "centos" ]]; then
         echo "Running initial-setup yum update"
         perl -p -i -e 's@enabled=1@enabled=0@gi' /etc/yum/pluginconf.d/fastestmirror.conf
         perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/os/\$basearch/@baseurl=http://mirror.rackspace.com/CentOS//\$releasever/os/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
@@ -98,6 +100,6 @@ if [[ ! -f /.puphpet-stuff/initial-setup-base-packages ]]; then
         gem install r10k >/dev/null 2>&1
         echo "Finished installing r10k"
 
-        touch /.puphpet-stuff/initial-setup-base-packages
+        touch "/.puphpet-stuff/initial-setup-base-packages"
     fi
 fi
