@@ -12,6 +12,7 @@ cat "${VAGRANT_CORE_FOLDER}/shell/self-promotion.txt"
 if [[ ! -d /.puphpet-stuff ]]; then
     mkdir /.puphpet-stuff
 
+    touch "/.puphpet-stuff/vagrant-core-folder.txt"
     echo "${VAGRANT_CORE_FOLDER}" > "/.puphpet-stuff/vagrant-core-folder.txt"
     echo "Created directory /.puphpet-stuff"
 fi
