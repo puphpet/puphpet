@@ -2,7 +2,7 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-VAGRANT_CORE_FOLDER=$(cat "/.puphpet-stuff/vagrant-core-folder.txt")
+VAGRANT_CORE_FOLDER=$(cat '/.puphpet-stuff/vagrant-core-folder.txt')
 
 OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
 CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
@@ -16,7 +16,7 @@ if [[ ! -d "${PUPPET_DIR}" ]]; then
 fi
 
 cp "${VAGRANT_CORE_FOLDER}/puppet/Puppetfile" "${PUPPET_DIR}"
-echo "Copied Puppetfile"
+echo 'Copied Puppetfile'
 
 echo 'Running update r10k'
 cd "${PUPPET_DIR}" && r10k puppetfile install >/dev/null
