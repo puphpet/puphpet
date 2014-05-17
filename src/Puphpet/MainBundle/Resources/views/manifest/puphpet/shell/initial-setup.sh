@@ -24,9 +24,15 @@ if [[ ! -f /.puphpet-stuff/initial-setup-repo-update ]]; then
         echo "Finished running initial-setup apt-get update"
     elif [[ "${OS}" == 'centos' ]]; then
         echo "Running initial-setup yum update"
+        perl -p -i -e 's@enabled=1@enabled=0@gi' /etc/yum/pluginconf.d/fastestmirror.conf
+        perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/os/\$basearch/@baseurl=http://mirror.facebook.net/centos/\$releasever/os/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
+        perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/updates/\$basearch/@baseurl=http://mirror.facebook.net/centos/\$releasever/updates/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
+        perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/extras/\$basearch/@baseurl=http://mirror.facebook.net/centos/\$releasever/extras/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
+
         yum -y --nogpgcheck install "http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm" >/dev/null
         yum -y --nogpgcheck install "https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm" >/dev/null
-        yum -y install centos-release-SCL yum-plugin-fastestmirror >/dev/null
+        yum -y install centos-release-SCL >/dev/null
+        yum clean all >/dev/null
         yum -y check-update >/dev/null
         echo "Finished running initial-setup yum update"
 
