@@ -33,6 +33,10 @@ if [[ ! -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
             echo 'Finished installing basic curl packages (Ubuntu only)'
         fi
 
+        echo 'Installing rubygems'
+        apt-get install -y rubygems >/dev/null
+        echo 'Finished installing rubygems'
+
         echo 'Installing base packages for r10k'
         apt-get install -y build-essential ruby-dev >/dev/null
         gem install json >/dev/null
