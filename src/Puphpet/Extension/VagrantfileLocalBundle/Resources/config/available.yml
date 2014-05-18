@@ -6,10 +6,10 @@ empty_synced_folder:
 
 available_boxes:
     -
-        url: http://box.puphpet.com/centos64-x64-vbox43.box
+        url: puphpet/centos65-x64
         os: centos
-        short_name: centos64-x64-vbox43-1383512148
-        long_name: CentOS 6.4 x64 - VirtualBox 4.3
+        short_name: puphpet/centos65-x64
+        long_name: CentOS 6.5 x64
         php_versions:
             - 5.5
             - 5.4
