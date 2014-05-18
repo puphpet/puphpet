@@ -14,10 +14,8 @@ if [[ ! -d '/.puphpet-stuff' ]]; then
     echo 'Created directory /.puphpet-stuff'
 fi
 
-if [[ ! -f '/.puphpet-stuff/vagrant-core-folder.txt' ]]; then
-    touch '/.puphpet-stuff/vagrant-core-folder.txt'
-    echo "${VAGRANT_CORE_FOLDER}" > '/.puphpet-stuff/vagrant-core-folder.txt'
-fi
+touch '/.puphpet-stuff/vagrant-core-folder.txt'
+echo "${VAGRANT_CORE_FOLDER}" > '/.puphpet-stuff/vagrant-core-folder.txt'
 
 if [[ ! -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
     if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
