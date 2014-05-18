@@ -21,7 +21,8 @@ if [[ ! -f '/.puphpet-stuff/update-puppet' ]]; then
         echo 'Finished running update-puppet apt-get update'
 
         echo 'Updating Puppet to version 3.4.x'
-        apt-get install -y puppet-common=3.4* puppet=3.4.* >/dev/null
+        apt-get install -y puppet-common=3.4.* puppet=3.4.* >/dev/null
+        apt-mark hold puppet puppet-common >/dev/null
         PUPPET_VERSION=$(puppet help | grep 'Puppet v')
         echo "Finished updating puppet to latest version: ${PUPPET_VERSION}"
 
@@ -32,7 +33,8 @@ if [[ ! -f '/.puphpet-stuff/update-puppet' ]]; then
         echo "Finished downloading http://yum.puppetlabs.com/el/${RELEASE}/products/x86_64/puppet-3.4.3-1.el6.noarch.rpm"
 
         echo 'Installing/Updating Puppet to version 3.4.x'
-        yum -y install puppet >/dev/null
+        yum -y install yum-versionlock puppet >/dev/null
+        yum versionlock puppet
         PUPPET_VERSION=$(puppet help | grep 'Puppet v')
         echo "Finished installing/updating puppet to version: ${PUPPET_VERSION}"
 
