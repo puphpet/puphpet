@@ -1,6 +1,6 @@
 vm:
-    box: debian-wheezy72-x64-vbox43
-    box_url: http://box.puphpet.com/debian-wheezy72-x64-vbox43.box
+    box: puphpet/debian75-x64
+    box_url: puphpet/debian75-x64
     hostname: ~
     network:
         private_network: 192.168.56.101
