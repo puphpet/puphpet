@@ -25,6 +25,20 @@ available_images:
             - 5.5
             - 5.4
             - HHVM
+    -
+        image: Salamander
+        long_name: Ubuntu Salamander 13.10 x64
+        php_versions:
+            - 5.5
+            - 5.4
+            - HHVM
+    -
+        image: Ubuntu 13.10 \(Saucy Salamander\) \(PVHVM\)
+        long_name: Ubuntu Salamander 13.10 x64 faster on IO with PVHVM support
+        php_versions:
+            - 5.5
+            - 5.4
+            - HHVM
 
 available_sizes:
     - 512MB Standard Instance
