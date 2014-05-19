@@ -115,6 +115,7 @@ if hash_key_equals($php_values, 'install', 1) {
       file { $php_values['ini']['session.save_path']:
         ensure  => directory,
         group   => 'www-data',
+        owner   => 'www-data',
         mode    => 0775,
         require => Exec["mkdir -p ${php_values['ini']['session.save_path']}"]
       }
