@@ -108,16 +108,14 @@ if hash_key_equals($php_values, 'install', 1) {
     }
 
     if $php_values['ini']['session.save_path'] != undef {
-      exec {"mkdir -p ${php_values['ini']['session.save_path']}":
-        onlyif  => "test ! -d ${php_values['ini']['session.save_path']}",
-      }
+      $php_sess_save_path = $php_values['ini']['session.save_path']
 
-      file { $php_values['ini']['session.save_path']:
-        ensure  => directory,
-        group   => 'www-data',
-        owner   => 'www-data',
-        mode    => 0775,
-        require => Exec["mkdir -p ${php_values['ini']['session.save_path']}"]
+      exec {"mkdir -p ${php_sess_save_path}":
+        onlyif => "test ! -d ${php_sess_save_path}",
+        before => Class['php']
+      }
+      exec {"chmod 775 ${php_sess_save_path} && chown www-data ${php_sess_save_path} && chgrp www-data ${php_sess_save_path}":
+        require => Class['php']
       }
     }
   }
