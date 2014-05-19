@@ -196,6 +196,7 @@ define nginx_vhost (
 
 define set_php5_fpm_sock_group_and_user (){
   exec { 'set php5_fpm_sock group and user':
-    command => "chmod 660 ${php5_fpm_sock} && chown www-data ${php5_fpm_sock} && chgrp www-data ${php5_fpm_sock}",
+    command => "chmod 660 ${php5_fpm_sock} && chown www-data ${php5_fpm_sock} && chgrp www-data ${php5_fpm_sock} && touch /.puphpet-stuff/php5_fpm_sock",
+    creates => '/.puphpet-stuff/php5_fpm_sock',
   }
 }
