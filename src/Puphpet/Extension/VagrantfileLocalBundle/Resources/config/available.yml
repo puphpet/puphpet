@@ -24,6 +24,15 @@ available_boxes:
             - 5.4
             - HHVM
     -
+        url: puphpet/debian75-x32
+        os: debian
+        short_name: puphpet/debian75-x32
+        long_name: Debian Wheezy 7.5 x32
+        php_versions:
+            - 5.5
+            - 5.4
+            - HHVM
+    -
         url: puphpet/ubuntu1404-x64
         os: ubuntu
         short_name: puphpet/ubuntu1404-x64
@@ -36,15 +45,6 @@ available_boxes:
         os: ubuntu
         short_name: puphpet/ubuntu1204-x64
         long_name: Ubuntu Precise 12.04 x64
-        php_versions:
-            - 5.5
-            - 5.4
-            - HHVM
-    -
-        url: http://files.vagrantup.com/precise32.box
-        os: ubuntu
-        short_name: ubuntu-precise1204-x32-vbox43
-        long_name: Ubuntu Precise 12.04 x32 - Virtualbox 4.3
         php_versions:
             - 5.5
             - 5.4
