@@ -3,7 +3,6 @@
 namespace Puphpet\MainBundle\Composer;
 
 use Composer\Script\Event;
-use Symfony\Component\Yaml\Yaml;
 
 abstract class PuppetModules
 {
