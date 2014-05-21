@@ -7,3 +7,5 @@
 /vendor/
 /bin/
 /composer.phar
+/Puppetfile.lock
+
