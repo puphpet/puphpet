@@ -18,7 +18,9 @@ if [[ ! -f "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa" ]]; then
         puttygen "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa" -O private -o "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.ppk"
     fi
 
-    echo 'Your private keys for SSH-based authentication have been saved to "puphpet/files/dot/ssh/"!'
+    echo 'Your private key for SSH-based authentication have been saved to "puphpet/files/dot/ssh/"!'
+else
+    echo 'Using pre-existing private key at "puphpet/files/dot/ssh/id_rsa"'
 fi
 
 echo 'Adding generated key to /root/.ssh/authorized_keys'
