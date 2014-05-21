@@ -63,7 +63,6 @@ Vagrant.configure("2") do |config|
     kg.args = "#{ssh_username}"
   end
   config.vm.provision :shell, :path => "puphpet/shell/update-puppet.sh"
-  config.vm.provision :shell, :path => "puphpet/shell/r10k.sh"
 
   config.vm.provision :puppet do |puppet|
     puppet.facter = {
@@ -73,6 +72,7 @@ Vagrant.configure("2") do |config|
     }
     puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
     puppet.manifest_file = "#{data['vm']['provision']['puppet']['manifest_file']}"
+    puppet.module_path = "#{data['vm']['provision']['puppet']['module_path']}"
 
     if !data['vm']['provision']['puppet']['options'].empty?
       puppet.options = data['vm']['provision']['puppet']['options']

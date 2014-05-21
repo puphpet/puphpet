@@ -8,4 +8,5 @@
 /bin/
 /composer.phar
 /Puppetfile.lock
-
+/.tmp
+/modules

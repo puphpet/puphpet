@@ -63,6 +63,13 @@ mod 'puphpet/redis',
 mod 'nanliu/staging',
     :git => 'https://github.com/nanliu/puppet-staging.git',
     :ref => '0.4.0'
-mod 'puppetlabs/stdlib',
-    :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
-    :ref => 'v2.2.1'
+mod 'puppetlabs/stdlib'
+mod 'ajcrowe/supervisord',
+    :git => 'https://github.com/ajcrowe/puppet-supervisord.git',
+    :ref => 'v0.3.2'
+mod 'puppetlabs/vcsrepo',
+    :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
+    :ref => '0.2.0'
+mod 'example42/yum',
+    :git => 'https://github.com/example42/puppet-yum.git',
+    :ref => 'v2.1.10'
