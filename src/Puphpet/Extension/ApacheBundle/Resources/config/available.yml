@@ -21,6 +21,7 @@ available_modules:
     - cgid
     - dav
     - dav_fs
+    - deflate
     - disk_cache
     - expires
     - headers
