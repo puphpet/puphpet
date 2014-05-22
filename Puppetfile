@@ -65,8 +65,8 @@ mod 'nanliu/staging',
     :ref => '0.4.0'
 mod 'puppetlabs/stdlib'
 mod 'ajcrowe/supervisord',
-    :git => 'https://github.com/ajcrowe/puppet-supervisord.git',
-    :ref => 'v0.3.2'
+    :git => 'https://github.com/puphpet/puppet-supervisord.git',
+    :ref => 'b0e981a86e'
 mod 'puppetlabs/vcsrepo',
     :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
     :ref => '0.2.0'
