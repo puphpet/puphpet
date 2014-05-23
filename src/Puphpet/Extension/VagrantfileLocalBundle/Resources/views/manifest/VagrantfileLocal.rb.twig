@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
   config.vm.usable_port_range = (10200..10500)
 
   if data['vm']['chosen_provider'].empty? || data['vm']['chosen_provider'] == "virtualbox"
-    ENV['VAGRANT_DEFAULT_PROVIDER'] == 'virtualbox'
+    ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
     config.vm.provider :virtualbox do |virtualbox|
       data['vm']['provider']['virtualbox']['modifyvm'].each do |key, value|
