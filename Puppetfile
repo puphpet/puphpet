@@ -29,7 +29,7 @@ mod 'erwbgy/iptables',
     :ref => 'v0.4.0'
 mod 'actionjack/mailcatcher',
     :git => 'https://github.com/puphpet/puppet-mailcatcher.git',
-    :ref => 'c8a63f88a7'
+    :ref => 'dcc8c3d357'
 mod 'puppetlabs/mongodb',
     :git => 'https://github.com/puppetlabs/puppetlabs-mongodb.git',
     :ref => '0.7.0'
