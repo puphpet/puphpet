@@ -19,8 +19,8 @@ mod 'puphpet/drush',
     :git => 'https://github.com/puphpet/puppet-drush.git',
     :ref => '9c4881e90c'
 mod 'elasticsearch/elasticsearch',
-    :git => 'https://github.com/elasticsearch/puppet-elasticsearch.git',
-    :ref => '0.3.2'
+    :git => 'https://github.com/puphpet/puppet-elasticsearch.git',
+    :ref => '0.2.2'
 mod 'puppetlabs/git',
     :git => 'https://github.com/puppetlabs/puppetlabs-git.git',
     :ref => 'e033d7aad4'
