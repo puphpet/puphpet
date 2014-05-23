@@ -54,6 +54,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision :shell, :path => "puphpet/shell/execute-files.sh"
+  config.vm.provision :shell, :path => "puphpet/shell/important-notices.sh"
 
   if !data['ssh']['host'].nil?
     config.ssh.host = data['ssh']['host']
