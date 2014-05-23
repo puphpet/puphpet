@@ -157,10 +157,7 @@ define php_pear_mod {
   }
 }
 define php_pecl_mod {
-  if ! defined(Php::Pecl::Module[$name]) {
-    php::pecl::module { $name:
-      use_package         => false,
-      service_autorestart => $php_webserver_restart,
-    }
+  puphpet::php::pecl { $name:
+    service_autorestart => $php_webserver_restart,
   }
 }
