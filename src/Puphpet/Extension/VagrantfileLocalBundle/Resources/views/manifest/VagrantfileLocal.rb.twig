@@ -5,10 +5,6 @@ dir = File.dirname(File.expand_path(__FILE__))
 configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 data = configValues['vagrantfile-local']
 
-if !data['vm']['provider']['virtualbox'].empty?
-  ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
-end
-
 Vagrant.configure("2") do |config|
   config.vm.box = "#{data['vm']['box']}"
   config.vm.box_url = "#{data['vm']['box_url']}"
@@ -41,14 +37,39 @@ Vagrant.configure("2") do |config|
 
   config.vm.usable_port_range = (10200..10500)
 
-  if !data['vm']['provider']['virtualbox'].empty?
+  if data['vm']['chosen_provider'].empty? || data['vm']['chosen_provider'] == "virtualbox"
+    ENV['VAGRANT_DEFAULT_PROVIDER'] == 'virtualbox'
+
     config.vm.provider :virtualbox do |virtualbox|
       data['vm']['provider']['virtualbox']['modifyvm'].each do |key, value|
+        if key == "memory"
+          next
+        end
+
         if key == "natdnshostresolver1"
           value = value ? "on" : "off"
         end
+
         virtualbox.customize ["modifyvm", :id, "--#{key}", "#{value}"]
       end
+
+      virtualbox.customize ["modifyvm", :id, "--memory", "#{data['vm']['memory']}"]
+    end
+  end
+
+  if data['vm']['chosen_provider'] == "vmware_fusion" || data['vm']['chosen_provider'] == "vmware_workstation"
+    ENV['VAGRANT_DEFAULT_PROVIDER'] = (data['vm']['chosen_provider'] == "vmware_fusion") ? "vmware_fusion" : "vmware_workstation"
+
+    config.vm.provider "vmware_fusion" do |v|
+      data['vm']['provider']['vmware'].each do |key, value|
+        if key == "memsize"
+          next
+        end
+
+        v.vmx["#{key}"] = "#{value}"
+      end
+
+      v.vmx["memsize"] = "#{data['vm']['memory']}"
     end
   end
 

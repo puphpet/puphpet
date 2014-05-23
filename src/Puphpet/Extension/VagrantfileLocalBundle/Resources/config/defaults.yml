@@ -1,6 +1,8 @@
 vm:
+    chosen_provider: virtualbox
     provider:
         virtualbox: []
+        vmware: []
     synced_folder:
         -
             source: ./

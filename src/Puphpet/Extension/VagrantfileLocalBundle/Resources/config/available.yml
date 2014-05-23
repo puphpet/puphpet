@@ -4,6 +4,33 @@ empty_synced_folder:
     id: vagrant-root
     nfs: 'false'
 
+available_providers:
+    -
+        name: virtualbox
+        long_name: VirtualBox
+        description: >
+            Windows, OSX and Linux. Free! Not as performant as VMWare. Free!
+            <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download Virtualbox here</a>.
+        default_ip: 192.168.56.101
+    -
+        name: vmware_fusion
+        long_name: VMWare Fusion
+        description: >
+            OSX-only. More performant than VirtualBox. Requires purchase of
+            <a href="http://www.vmware.com/products/fusion" target="_blank">VMWare Fusion</a>
+            and
+            <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Fusion Plugin</a>.
+        default_ip: 192.168.57.101
+    -
+        name: vmware_workstation
+        long_name: VMWare Workstation
+        description: >
+            Linux and Windows. More performant than VirtualBox. Requires purchase of
+            <a href="http://www.vmware.com/products/workstation" target="_blank">VMWare Workstation</a>
+            and
+            <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Fusion Plugin</a>.
+        default_ip: 192.168.57.101
+
 available_boxes:
     -
         url: puphpet/centos65-x64

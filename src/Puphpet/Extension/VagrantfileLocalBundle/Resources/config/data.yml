@@ -2,6 +2,8 @@ vm:
     box: puphpet/debian75-x64
     box_url: puphpet/debian75-x64
     hostname: ~
+    memory: 512
+    chosen_provider: virtualbox
     network:
         private_network: 192.168.56.101
         forwarded_port: []
@@ -9,9 +11,10 @@ vm:
         virtualbox:
             modifyvm:
                 natdnshostresolver1: on
-                memory: 512
             setextradata:
                 "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root": 1
+        vmware:
+            numvcpus: 1
     provision:
         puppet:
             manifests_path: "puphpet/puppet"
