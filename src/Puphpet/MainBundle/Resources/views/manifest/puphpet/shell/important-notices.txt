@@ -27,7 +27,7 @@ was generated successfully!
   open up "puphpet/config.yaml" and make changes within! Some things will
   have random strings like "DIdXRs2OI2LJ" - you must create a random string
   as well! To do so, please apply face to keyboard and roll.
-* If you change "puphpet.config.yaml", simple run "$ vagrant provision" and
+* If you change "puphpet/config.yaml", simple run "$ vagrant provision" and
   your VM will be updated with the changes you requested!
 
 Did something go wrong? Don't worry! I can (maybe) help! Please go to our
