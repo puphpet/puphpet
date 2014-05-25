@@ -115,7 +115,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
     each( $nginx_values['vhosts'] ) |$key, $vhost| {
       exec { "exec mkdir -p ${vhost['www_root']} @ key ${key}":
         command => "mkdir -p ${vhost['www_root']}",
-        creates => $vhost['docroot'],
+        creates => $vhost['www_root'],
       }
 
       if ! defined(File[$vhost['www_root']]) {
