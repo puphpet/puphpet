@@ -152,10 +152,9 @@ define nginx_vhost (
   $index_files,
   $envvars = [],
   $ssl,
-  $ssl_only,
   $ssl_cert = $puphpet::params::ssl_cert_location,
   $ssl_key = $puphpet::params::ssl_key_location,
-  $ssl_port,
+  $ssl_port = '443',
   $rewrite_to_https,
   $spdy = $nginx::params::nx_spdy,
 ){
@@ -185,12 +184,6 @@ define nginx_vhost (
     $ssl_set = false
   } else {
     $ssl_set = true
-  }
-
-  if $ssl_only == 0 or $ssl_only == false or $ssl_only == '' {
-    $ssl_only_set = false
-  } else {
-    $ssl_only_set = true
   }
 
   if $ssl_cert == 0 or $ssl_cert == false or $ssl_cert == '' {
