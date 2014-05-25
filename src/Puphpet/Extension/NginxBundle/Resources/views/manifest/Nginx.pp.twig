@@ -9,6 +9,13 @@ if $nginx_values == undef {
 }
 
 if hash_key_equals($nginx_values, 'install', 1) {
+  include nginx::params
+  include puphpet::params
+
+  Class['puphpet::ssl_cert'] -> Nginx::Resource::Vhost <| |>
+
+  class { 'puphpet::ssl_cert': }
+
   if $lsbdistcodename == 'lucid' and hash_key_equals($php_values, 'version', '53') {
     apt::key { '67E15F46': key_server => 'hkp://keyserver.ubuntu.com:80' }
     apt::ppa { 'ppa:l-mierzwa/lucid-php5':
@@ -144,6 +151,13 @@ define nginx_vhost (
   $listen_port,
   $index_files,
   $envvars = [],
+  $ssl,
+  $ssl_only,
+  $ssl_cert = $puphpet::params::ssl_cert_location,
+  $ssl_key = $puphpet::params::ssl_key_location,
+  $ssl_port,
+  $rewrite_to_https,
+  $spdy = $nginx::params::nx_spdy,
 ){
   $merged_server_name = concat([$server_name], $server_aliases)
 
@@ -167,12 +181,60 @@ define nginx_vhost (
     $fastcgi_param_parts = []
   }
 
+  if $ssl == 0 or $ssl == false or $ssl == '' {
+    $ssl_set = false
+  } else {
+    $ssl_set = true
+  }
+
+  if $ssl_only == 0 or $ssl_only == false or $ssl_only == '' {
+    $ssl_only_set = false
+  } else {
+    $ssl_only_set = true
+  }
+
+  if $ssl_cert == 0 or $ssl_cert == false or $ssl_cert == '' {
+    $ssl_cert_set = $puphpet::params::ssl_cert_location
+  } else {
+    $ssl_cert_set = $ssl_cert
+  }
+
+  if $ssl_key == 0 or $ssl_key == false or $ssl_key == '' {
+    $ssl_key_set = $puphpet::params::ssl_key_location
+  } else {
+    $ssl_key_set = $ssl_key
+  }
+
+  if $ssl_port == 0 or $ssl_port == false or $ssl_port == '' {
+    $ssl_port_set = '443'
+  } else {
+    $ssl_port_set = $ssl_port
+  }
+
+  if $rewrite_to_https == 0 or $rewrite_to_https == false or $rewrite_to_https == '' {
+    $rewrite_to_https_set = false
+  } else {
+    $rewrite_to_https_set = true
+  }
+
+  if $spdy == off or $spdy == 0 or $spdy == false or $spdy == '' {
+    $spdy_set = off
+  } else {
+    $spdy_set = on
+  }
+
   nginx::resource::vhost { $server_name:
     server_name      => $merged_server_name,
     www_root         => $www_root,
     listen_port      => $listen_port,
     index_files      => $index_files,
     try_files        => ['$uri', '$uri/', "/${try_files}?\$args"],
+    ssl              => $ssl_set,
+    ssl_cert         => $ssl_cert_set,
+    ssl_key          => $ssl_key_set,
+    ssl_port         => $ssl_port_set,
+    rewrite_to_https => $rewrite_to_https_set,
+    spdy             => $spdy_set,
     vhost_cfg_append => {
        sendfile => 'off'
     }
@@ -186,6 +248,7 @@ define nginx_vhost (
     location            => '~ \.php$',
     proxy               => undef,
     try_files           => ['$uri', '$uri/', "/${try_files}?\$args"],
+    ssl                 => $ssl_set,
     www_root            => $www_root,
     location_cfg_append => {
       'fastcgi_split_path_info' => '^(.+\.php)(/.+)$',
