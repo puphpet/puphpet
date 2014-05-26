@@ -31,8 +31,8 @@ mod 'actionjack/mailcatcher',
     :git => 'https://github.com/puphpet/puppet-mailcatcher.git',
     :ref => 'dcc8c3d357'
 mod 'puppetlabs/mongodb',
-    :git => 'https://github.com/puppetlabs/puppetlabs-mongodb.git',
-    :ref => '0.7.0'
+    :git => 'https://github.com/puphpet/puppetlabs-mongodb.git',
+    :ref => '1cc34ae'
 mod 'puppetlabs/mysql',
     :git => 'https://github.com/puppetlabs/puppetlabs-mysql.git',
     :ref => '2.2.3'
