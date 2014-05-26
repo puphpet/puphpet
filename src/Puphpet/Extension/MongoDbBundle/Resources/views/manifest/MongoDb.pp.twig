@@ -19,6 +19,12 @@ if hash_key_equals($apache_values, 'install', 1)
 }
 
 if hash_key_equals($mongodb_values, 'install', 1) {
+  file { ['/data', '/data/db']:
+    ensure  => directory,
+    mode    => 0775,
+    before  => Class['Mongodb::Globals'],
+  }
+
   Class['Mongodb::Globals'] -> Class['Mongodb::Server']
 
   class { 'mongodb::globals':
