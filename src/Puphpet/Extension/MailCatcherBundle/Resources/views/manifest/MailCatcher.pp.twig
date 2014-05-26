@@ -13,6 +13,12 @@ if hash_key_equals($mailcatcher_values, 'install', 1) {
     }
   }
 
+  if $::operatingsystem == 'ubuntu' and $lsbdistcodename == 'trusty' {
+    package { 'rubygems':
+      ensure => absent,
+    }
+  }
+
   create_resources('class', { 'mailcatcher' => $mailcatcher_values['settings'] })
 
   if $::osfamily == 'redhat'
@@ -53,7 +59,7 @@ if hash_key_equals($mailcatcher_values, 'install', 1) {
     priority    => '100',
     user        => 'mailcatcher',
     autostart   => true,
-    autorestart => true,
+    autorestart => 'true',
     environment => {
       'PATH' => "/bin:/sbin:/usr/bin:/usr/sbin:${mailcatcher_values['settings']['path']}"
     },

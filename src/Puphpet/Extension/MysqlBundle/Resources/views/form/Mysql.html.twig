@@ -15,7 +15,7 @@
                         <label class="checkbox-inline">
                             <input type="checkbox" class="install-checkbox update-other-input"
                                    name="mysql[install]"
-                                   data-update-mariadb[install]="0"
+                                   data-update-mariadb[install]
                                    data-hide-on-uncheck="#mysql-config-container"
                                    {% if mysql.install %}checked{% endif %} value="1" /> Install MySQL
                         </label>
@@ -75,7 +75,7 @@
                             <br /><br />
 
                             Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
-                            <code>puphpet/files/dot/ssh/id_rsa.key</code>. This key is generated <strong>after</strong>
+                            <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
                             your initial <code>$ vagrant up</code>!
                         </p>
                     </div>

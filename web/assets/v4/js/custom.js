@@ -57,7 +57,9 @@ PUPHPET.updateOtherInput = function() {
                 return;
             }
 
-            $target.val(value);
+            if (!$target.is(':radio') && !$target.is(':checkbox')) {
+                $target.val(value);
+            }
         });
     });
 };

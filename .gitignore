@@ -7,4 +7,8 @@
 /vendor/
 /bin/
 /composer.phar
-.idea
+/.idea
+/Puppetfile.lock
+/.librarian
+/.tmp
+/modules

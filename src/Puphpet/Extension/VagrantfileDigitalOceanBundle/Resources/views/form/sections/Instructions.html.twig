@@ -81,6 +81,17 @@
                     be immediately connected via SSH to your new server!
                 </p>
             </div>
+
+            <div>
+                <h3 class="text-warning">If you choose CentOS</h3>
+
+                <p>
+                    The CentOS images do not ship with <code>rsync</code> installed! The first time you run
+                    <code>$ vagrant up</code> IT WILL ERROR, but this is OK! Simply <code>$ vagrant ssh</code>
+                    and type <code>$ sudo yum install rsync</code>. Once it finished installing, run
+                    <code>$ vagrant provision</code>.
+                </p>
+            </div>
         </div>
     </div>
 </div>

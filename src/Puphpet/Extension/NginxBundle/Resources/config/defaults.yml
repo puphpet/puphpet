@@ -7,6 +7,12 @@ vhosts:
             - www.awesome.dev
         www_root: /var/www/awesome.dev
         listen_port: 80
+        ssl: false
+        ssl_port: 443
+        ssl_cert: ''
+        ssl_key: ''
+        rewrite_to_https: 0
+        spdy: 0
         envvars:
             - APP_ENV dev
         index_files:

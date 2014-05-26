@@ -4,46 +4,74 @@ empty_synced_folder:
     id: vagrant-root
     nfs: 'false'
 
+available_providers:
+    -
+        name: virtualbox
+        long_name: VirtualBox
+        description: >
+            Windows, OSX and Linux. Free! Not as performant as VMWare. Free!
+            <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download Virtualbox here</a>.
+        default_ip: 192.168.56.101
+    -
+        name: vmware_fusion
+        long_name: VMWare Fusion
+        description: >
+            OSX-only. More performant than VirtualBox. Requires purchase of
+            <a href="http://www.vmware.com/products/fusion" target="_blank">VMWare Fusion</a>
+            and
+            <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Fusion Plugin</a>.
+        default_ip: 192.168.57.101
+    -
+        name: vmware_workstation
+        long_name: VMWare Workstation
+        description: >
+            Linux and Windows. More performant than VirtualBox. Requires purchase of
+            <a href="http://www.vmware.com/products/workstation" target="_blank">VMWare Workstation</a>
+            and
+            <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Fusion Plugin</a>.
+        default_ip: 192.168.57.101
+
 available_boxes:
     -
-        url: http://box.puphpet.com/centos64-x64-vbox43.box
+        url: puphpet/centos65-x64
         os: centos
-        short_name: centos64-x64-vbox43-1383512148
-        long_name: CentOS 6.4 x64 - VirtualBox 4.3
+        short_name: puphpet/centos65-x64
+        long_name: CentOS 6.5 x64
         php_versions:
             - 5.5
             - 5.4
             - HHVM
     -
-        url: http://box.puphpet.com/debian-wheezy72-x64-vbox43.box
+        url: puphpet/debian75-x64
         os: debian
-        short_name: debian-wheezy72-x64-vbox43
-        long_name: Debian Wheezy 7.2 x64 - Virtualbox 4.3
+        short_name: puphpet/debian75-x64
+        long_name: Debian Wheezy 7.5 x64
         php_versions:
             - 5.5
             - 5.4
             - HHVM
     -
-        url: http://box.puphpet.com/debian-squeeze607-x64-vbox43.box
+        url: puphpet/debian75-x32
         os: debian
-        short_name: debian-squeeze607-x64-vbox43
-        long_name: Debian Squeeze 6.0.7 x64 - Virtualbox 4.3
-        php_versions:
-            - 5.4
-    -
-        url: http://box.puphpet.com/ubuntu-precise12042-x64-vbox43.box
-        os: ubuntu
-        short_name: ubuntu-precise12042-x64-vbox43
-        long_name: Ubuntu Precise 12.04 x64 - Virtualbox 4.3
+        short_name: puphpet/debian75-x32
+        long_name: Debian Wheezy 7.5 x32
         php_versions:
             - 5.5
             - 5.4
             - HHVM
     -
-        url: http://files.vagrantup.com/precise32.box
+        url: puphpet/ubuntu1404-x64
         os: ubuntu
-        short_name: ubuntu-precise1204-x32-vbox43
-        long_name: Ubuntu Precise 12.04 x32 - Virtualbox 4.3
+        short_name: puphpet/ubuntu1404-x64
+        long_name: Ubuntu Trusty 14.04 LTS x64
+        php_versions:
+            - 5.5
+            - HHVM
+    -
+        url: puphpet/ubuntu1204-x64
+        os: ubuntu
+        short_name: puphpet/ubuntu1204-x64
+        long_name: Ubuntu Precise 12.04 LTS x64
         php_versions:
             - 5.5
             - 5.4

@@ -258,6 +258,11 @@ class Manager
             Yaml::dump($mergedData, 50)
         );
 
+        $this->archive->addFolder(
+            __DIR__ . '/../../../../modules',
+            'puphpet/puppet/modules'
+        );
+
         $this->archive->write();
 
         return $this->archive->zip();

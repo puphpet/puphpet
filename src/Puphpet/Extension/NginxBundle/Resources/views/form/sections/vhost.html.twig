@@ -90,6 +90,78 @@
             </div>
         </div>
 
+        <div class="row form-group">
+            <div class="col-md-12">
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="install-checkbox"
+                           id="nginx-vhosts-{{ uniqid }}-ssl"
+                           name="nginx[vhosts][{{ uniqid }}][ssl]" value="1"
+                           data-hide-on-uncheck="#nginx-vhosts-{{ uniqid }}-ssl_options"
+                           {% if vhost.ssl is defined and vhost.ssl %}checked{% endif %} />
+                    Enable SSL
+                </label>
+            </div>
+        </div>
+
+        <div class="{% if vhost.ssl is not defined or not vhost.ssl %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-ssl_options">
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-ssl_cert">
+                        SSL Certificate File Path
+                        {{ popover.small('Absolute path to SSL Certificate File. Usually ends in .crt.
+                            Leave blank to use a generic one.
+                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                            This should be the location within the VM, not the host!
+                            <a href="http://nginx.org/en/docs/http/configuring_https_servers.html" target="_blank">Learn more about this</a>.') }}
+                    </label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
+                           name="nginx[vhosts][{{ uniqid }}][ssl_cert]"
+                           placeholder="/leave/blank/for/sample"
+                           value="{% if vhost.ssl_cert is defined %}{{ vhost.ssl_cert }}{% endif %}" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-ssl_key">
+                        SSL Certificate Key File Path
+                        {{ popover.small('Absolute path to SSL Certificate Key File. Usually ends in .key.
+                            Leave blank to use a generic one
+                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                            This should be the location within the VM, not the host!
+                            <a href="http://nginx.org/en/docs/http/configuring_https_servers.html" target="_blank">Learn more about this</a>.') }}
+                    </label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_key"
+                           name="nginx[vhosts][{{ uniqid }}][ssl_key]"
+                           placeholder="/leave/blank/for/sample"
+                           value="{% if vhost.ssl_key is defined %}{{ vhost.ssl_key }}{% endif %}" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="nginx-vhosts-{{ uniqid }}-rewrite_to_https"
+                               name="nginx[vhosts][{{ uniqid }}][rewrite_to_https]" value="1"
+                               {% if vhost.rewrite_to_https is defined and vhost.rewrite_to_https %}checked{% endif %} />
+                        Rewrite to SSL
+                        {{ popover.small('Forwards all non-SSL traffic to SSL vhost.') }}
+                    </label>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="nginx-vhosts-{{ uniqid }}-spdy"
+                               name="nginx[vhosts][{{ uniqid }}][spdy]" value="1"
+                               {% if vhost.spdy is defined and vhost.spdy %}checked{% endif %} />
+                        Enable <a href="http://blog.cloudflare.com/introducing-spdy" target="_blank">Spdy Module</a>
+                    </label>
+                </div>
+            </div>
+
+            <p class="help-block">
+                There is currently a bug where self-signed certificate will not work in CentOS for Nginx. PRs are welcome!
+            </p>
+        </div>
+
         <p class="text-center">
             <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
                     data-parent-id="{{ uniqid }}">Remove this vhost</button>

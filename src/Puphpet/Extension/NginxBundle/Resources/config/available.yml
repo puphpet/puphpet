@@ -3,6 +3,12 @@ empty_vhost:
     server_aliases: []
     www_root: ~
     listen_port: 80
+    ssl: false
+    ssl_port: 443
+    ssl_cert: ''
+    ssl_key: ''
+    rewrite_to_https: 0
+    spdy: 0
     envvars: []
     index_files:
         - index.html

@@ -76,51 +76,32 @@ case $::osfamily {
       }
     }
 
-    exec { 'bash_git':
-      cwd     => "/home/${::ssh_username}",
-      command => "curl https://raw.github.com/git/git/master/contrib/completion/git-prompt.sh > /home/${::ssh_username}/.bash_git",
-      creates => "/home/${::ssh_username}/.bash_git"
-    }
-
-    exec { 'bash_git for root':
-      cwd     => '/root',
-      command => "cp /home/${::ssh_username}/.bash_git /root/.bash_git",
-      creates => '/root/.bash_git',
-      require => Exec['bash_git']
-    }
-
     file_line { 'link ~/.bash_git':
       ensure  => present,
       line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
       path    => "/home/${::ssh_username}/.bash_profile",
-      require => [
-        Exec['dotfiles'],
-        Exec['bash_git'],
-      ]
+      require => Exec['dotfiles'],
     }
 
     file_line { 'link ~/.bash_git for root':
       ensure  => present,
       line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
       path    => '/root/.bashrc',
-      require => [
-        Exec['dotfiles'],
-        Exec['bash_git'],
-      ]
+      require => Exec['dotfiles'],
     }
 
     file_line { 'link ~/.bash_aliases':
       ensure  => present,
       line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
       path    => "/home/${::ssh_username}/.bash_profile",
-      require => File_line['link ~/.bash_git']
+      require => Exec['dotfiles'],
     }
 
     file_line { 'link ~/.bash_aliases for root':
       ensure  => present,
       line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
       path    => '/root/.bashrc',
-      require => File_line['link ~/.bash_git for root']
+      require => Exec['dotfiles'],
     }
 
     ensure_packages( ['augeas'] )
@@ -171,15 +152,15 @@ case $::operatingsystem {
 
     if hash_key_equals($php_values, 'install', 1) {
       # Ubuntu Lucid 10.04, Precise 12.04, Quantal 12.10 and Raring 13.04 can do PHP 5.3 (default <= 12.10) and 5.4 (default <= 13.04)
-      if $lsbdistcodename in ['lucid', 'precise', 'quantal', 'raring'] and $php_values['version'] == '54' {
+      if $lsbdistcodename in ['lucid', 'precise', 'quantal', 'raring', 'trusty'] and $php_values['version'] == '54' {
         if $lsbdistcodename == 'lucid' {
           apt::ppa { 'ppa:ondrej/php5-oldstable': require => Apt::Key['4F4EA0AAE5267A6C'], options => '' }
         } else {
           apt::ppa { 'ppa:ondrej/php5-oldstable': require => Apt::Key['4F4EA0AAE5267A6C'] }
         }
       }
-      # Ubuntu Precise 12.04, Quantal 12.10 and Raring 13.04 can do PHP 5.5
-      elsif $lsbdistcodename in ['precise', 'quantal', 'raring'] and $php_values['version'] == '55' {
+      # Ubuntu 12.04/10, 13.04/10, 14.04 can do PHP 5.5
+      elsif $lsbdistcodename in ['precise', 'quantal', 'raring', 'saucy', 'trusty'] and $php_values['version'] == '55' {
         apt::ppa { 'ppa:ondrej/php5': require => Apt::Key['4F4EA0AAE5267A6C'] }
       }
       elsif $lsbdistcodename in ['lucid'] and $php_values['version'] == '55' {
