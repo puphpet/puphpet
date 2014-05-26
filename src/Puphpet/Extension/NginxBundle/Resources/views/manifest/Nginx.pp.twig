@@ -158,11 +158,11 @@ define nginx_vhost (
   $listen_port,
   $index_files,
   $envvars = [],
-  $ssl,
+  $ssl = false,
   $ssl_cert = $puphpet::params::ssl_cert_location,
   $ssl_key = $puphpet::params::ssl_key_location,
   $ssl_port = '443',
-  $rewrite_to_https,
+  $rewrite_to_https = false,
   $spdy = $nginx::params::nx_spdy,
 ){
   $merged_server_name = concat([$server_name], $server_aliases)
