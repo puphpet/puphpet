@@ -33,16 +33,9 @@ if hash_key_equals($mongodb_values, 'install', 1) {
 
   create_resources('class', { 'mongodb::server' => $mongodb_values['settings'] })
 
-  case $::osfamily {
-    'debian': {
-      $mongodb_pecl = 'mongo'
-    }
-    'redhat': {
-      class { '::mongodb::client':
-        require => Class['::Mongodb::Server']
-      }
-
-      $mongodb_pecl = 'pecl-mongo'
+  if $::osfamily == 'redhat' {
+    class { '::mongodb::client':
+      require => Class['::Mongodb::Server']
     }
   }
 
@@ -50,11 +43,8 @@ if hash_key_equals($mongodb_values, 'install', 1) {
     create_resources(mongodb_db, $mongodb_values['databases'])
   }
 
-  if hash_key_equals($php_values, 'install', 1)
-    and ! defined(Php::Pecl::Module[$mongodb_pecl])
-  {
-    php::pecl::module { $mongodb_pecl:
-      use_package         => false,
+  if hash_key_equals($php_values, 'install', 1) {
+    puphpet::php::pecl { 'mongo':
       service_autorestart => $mongodb_webserver_restart,
       require             => Class['mongodb::server']
     }
