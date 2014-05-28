@@ -29,7 +29,7 @@ available_providers:
         description: >
             <em>Linux and Windows</em>, <em>Performance: ***</em><br />
             More performant than VirtualBox.
-            <a href="http://send.onenetworkdirect.net/z/33484/CD207605/" target="_blank">Requires purchase of VMWare Workstation</a>
+            <a href="http://send.onenetworkdirect.net/z/33485/CD207605/" target="_blank">Requires purchase of VMWare Workstation</a>
             (affiliate link - help support this free service)
             and <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Workstation Plugin</a>.
         default_ip: 192.168.57.101
