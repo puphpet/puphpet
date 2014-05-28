@@ -42,11 +42,11 @@
                     <div class="col-md-12">
                         <label>Provider</label><br />
                         {% for provider in data.available_providers %}
-                            <label class="inline-radio col-md-4">
+                            <label class="radio">
                                 <input type="radio" class="update-other-input" name="vagrantfile-local[vm][chosen_provider]"
                                    value="{{ provider.name }}" {% if provider.name == data.vm.chosen_provider %}checked{% endif %}
                                    data-update-vagrantfile-local-vm-network-private_network="{{ provider.default_ip }}" />
-                                {{ provider.long_name }} {{ popover.small(provider.description) }}
+                                <strong>{{ provider.long_name }}</strong> - {{ provider.description|raw }}
                             </label>
                         {% endfor %}
                     </div>
