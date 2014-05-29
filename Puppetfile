@@ -17,13 +17,10 @@ mod 'puppetlabs/concat',
     :ref => '1.1.0'
 mod 'puphpet/drush',
     :git => 'https://github.com/puphpet/puppet-drush.git',
-    :ref => '9c4881e90c'
+    :ref => '104cd8e'
 mod 'elasticsearch/elasticsearch',
     :git => 'https://github.com/puphpet/puppet-elasticsearch.git',
     :ref => '0.2.2'
-mod 'puppetlabs/git',
-    :git => 'https://github.com/puppetlabs/puppetlabs-git.git',
-    :ref => 'e033d7aad4'
 mod 'erwbgy/iptables',
     :git => 'https://github.com/erwbgy/puppet-iptables.git',
     :ref => 'v0.4.0'
