@@ -96,8 +96,6 @@
                         <input type="text" id="vagrantfile-local-vm-network-private_network"
                                name="vagrantfile-local[vm][network][private_network]"
                                required placeholder="192.168.56.101"
-                               pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
-                               oninvalid="setCustomValidity('IP address format: 192.168.56.101')"
                                value="{{ data.vm.network.private_network }}" class="form-control" />
                     </div>
 
