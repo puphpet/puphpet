@@ -33,8 +33,8 @@ user { ['apache', 'nginx', 'httpd', 'www-data']:
 }
 
 file { "/home/${::ssh_username}":
-    ensure => directory,
-    owner  => $::ssh_username,
+  ensure => directory,
+  owner  => $::ssh_username,
 }
 
 # copy dot files to ssh user's home directory
