@@ -128,6 +128,28 @@ if hash_key_equals($php_values, 'install', 1) {
   }
 
   if hash_key_equals($php_values, 'composer', 1) {
+    $php_composer_home = $php_values['composer_home'] ? {
+      false   => false,
+      undef   => false,
+      ''      => false,
+      default => $php_values['composer_home'],
+    }
+
+    if $php_composer_home {
+      file { $php_composer_home:
+        ensure  => directory,
+        owner   => 'www-data',
+        group   => 'www-data',
+        mode    => 0775,
+        require => [Group['www-data'], Group['www-user']]
+      }
+
+      file_line { "COMPOSER_HOME=${php_composer_home}":
+        path => '/etc/environment',
+        line => "COMPOSER_HOME=${php_composer_home}",
+      }
+    }
+
     class { 'composer':
       target_dir      => '/usr/local/bin',
       composer_file   => 'composer',

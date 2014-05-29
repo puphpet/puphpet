@@ -64,6 +64,7 @@
                                 <label class="checkbox-inline">
                                     <input type="checkbox" name="php[composer]" value="1"
                                         {% if php.composer %}checked{% endif %} /> Install Composer
+                                    <input type="hidden" name="php[composer_home]" value="{{ php.composer_home }}" />
                                 </label>
                             </div>
                         </div>
