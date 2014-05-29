@@ -27,9 +27,11 @@
                 <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
                         name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
                         multiple class="form-control select-tags-editable">
-                    {% for alias in vhost.server_aliases %}
-                        <option selected value="{{ alias }}">{{ alias }}</option>
-                    {% endfor %}
+                    {% if vhost.server_aliases is defined %}
+                        {% for alias in vhost.server_aliases %}
+                            <option selected value="{{ alias }}">{{ alias }}</option>
+                        {% endfor %}
+                    {% endif %}
                 </select>
             </div>
         </div>

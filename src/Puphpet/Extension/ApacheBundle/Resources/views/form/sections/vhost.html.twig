@@ -27,9 +27,11 @@
                 <select id="apache-vhosts-{{ uniqid }}-serveraliases"
                         name="apache[vhosts][{{ uniqid }}][serveraliases][]"
                         multiple class="form-control select-tags-editable">
-                    {% for alias in vhost.serveraliases %}
-                        <option selected value="{{ alias }}">{{ alias }}</option>
-                    {% endfor %}
+                    {% if vhost.serveraliases is defined %}
+                        {% for alias in vhost.serveraliases %}
+                            <option selected value="{{ alias }}">{{ alias }}</option>
+                        {% endfor %}
+                    {% endif %}
                 </select>
             </div>
         </div>
