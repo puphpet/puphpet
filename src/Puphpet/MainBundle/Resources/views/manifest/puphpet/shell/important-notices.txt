@@ -23,6 +23,9 @@ was generated successfully!
 * A unique private key was generated for you! It is located at
   "puphpet/files/dot/ssh/id_rsa". If you are on Windows, a PuTTY-friendly key
   was also generated at same location with a ".ppk" extension.
+* If you want to use your own private key for future provisions, overwrite the
+  generated key above with your own. Make sure to follow the naming pattern,
+  and include a ".pub" public key.
 * If you wish to add packages, modules, Apache/Nginx vhosts, or anything else,
   open up "puphpet/config.yaml" and make changes within! Some things will
   have random strings like "DIdXRs2OI2LJ" - you must create a random string
