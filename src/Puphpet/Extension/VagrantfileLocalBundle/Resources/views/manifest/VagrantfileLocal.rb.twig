@@ -73,6 +73,22 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  if data['vm']['chosen_provider'] == "parallels"
+    ENV['VAGRANT_DEFAULT_PROVIDER'] = "parallels"
+
+    config.vm.provider "parallels" do |v|
+      data['vm']['provider']['parallels'].each do |key, value|
+        if key == "memsize"
+          next
+        end
+
+        v.customize ["set", :id, "--#{key}", "#{value}"]
+      end
+
+      v.memory = "#{data['vm']['memory']}"
+    end
+  end
+
   ssh_username = !data['ssh']['username'].nil? ? data['ssh']['username'] : "vagrant"
 
   config.vm.provision "shell" do |s|

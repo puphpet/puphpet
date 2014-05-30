@@ -3,6 +3,7 @@ vm:
     provider:
         virtualbox: []
         vmware: []
+        parallels: []
     synced_folder:
         -
             source: ./

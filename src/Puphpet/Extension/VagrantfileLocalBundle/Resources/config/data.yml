@@ -15,6 +15,8 @@ vm:
                 "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root": 1
         vmware:
             numvcpus: 1
+        parallels:
+            cpus: 1
     provision:
         puppet:
             manifests_path: "puphpet/puppet"
