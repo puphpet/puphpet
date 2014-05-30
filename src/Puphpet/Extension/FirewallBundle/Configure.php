@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\ServerBundle;
+namespace Puphpet\Extension\FirewallBundle;
 
 use Puphpet\MainBundle\Extension;
 
@@ -8,19 +8,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class Configure extends Extension\ExtensionAbstract
 {
-    protected $name = 'Server Basics';
-    protected $slug = 'server';
+    protected $name = 'Firewall';
+    protected $slug = 'firewall';
     protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
         'stdlib'   => ":git => 'https://github.com/puphpet/puppetlabs-stdlib.git'",
-        'concat'   => ":git => 'https://github.com/puphpet/puppetlabs-concat.git'",
-        'apt'      => ":git => 'https://github.com/puphpet/puppetlabs-apt.git'",
-        'yum'      => ":git => 'https://github.com/puphpet/puppet-yum.git'",
-        'vcsrepo'  => ":git => 'https://github.com/puphpet/puppetlabs-vcsrepo.git'",
-        'ntp'      => ":git => 'https://github.com/puphpet/puppetlabs-ntp.git'",
         'firewall' => ":git => 'https://github.com/puppetlabs/puppetlabs-firewall.git'",
-        'git'      => ":git => 'https://github.com/puphpet/puppetlabs-git.git'",
     ];
 
     /**
@@ -35,11 +29,11 @@ class Configure extends Extension\ExtensionAbstract
 
     public function getFrontController()
     {
-        return $this->container->get('puphpet.extension.server.front_controller');
+        return $this->container->get('puphpet.extension.firewall.front_controller');
     }
 
     public function getManifestController()
     {
-        return $this->container->get('puphpet.extension.server.manifest_controller');
+        return $this->container->get('puphpet.extension.firewall.manifest_controller');
     }
 }

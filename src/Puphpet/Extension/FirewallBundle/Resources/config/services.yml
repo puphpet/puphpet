@@ -1,0 +1,17 @@
+parameters:
+
+services:
+    puphpet.extension.firewall.configure:
+        class: Puphpet\Extension\FirewallBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.firewall.front_controller:
+        class: Puphpet\Extension\FirewallBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.firewall.manifest_controller:
+        class: Puphpet\Extension\FirewallBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]

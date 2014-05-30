@@ -81,3 +81,8 @@ puphpet.extension.mailcatcher:
 puphpet.extension.redis:
     resource: "@PuphpetExtensionRedisBundle/Resources/config/routing.yml"
     prefix:   /extension/redis
+
+puphpet.extension.firewall:
+    resource: "@PuphpetExtensionFirewallBundle/Resources/config/routing.yml"
+    prefix:   /extension/firewall
+

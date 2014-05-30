@@ -1,0 +1,5 @@
+empty_rule:
+    port: ~
+    priority: ~
+    proto: tcp
+    action: accept

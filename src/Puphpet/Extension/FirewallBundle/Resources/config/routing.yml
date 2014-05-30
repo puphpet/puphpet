@@ -1,0 +1,11 @@
+puphpet.extension.firewall.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionFirewallBundle:Front:index }
+
+puphpet.extension.firewall.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionFirewallBundle:Manifest:index }
+
+puphpet.extension.firewall.rule:
+    pattern: /forwarded-port
+    defaults: { _controller: PuphpetExtensionFirewallBundle:Front:rule }

@@ -83,20 +83,6 @@ if hash_key_equals($apache_values, 'install', 1) {
 
   create_resources('class', { 'apache' => $apache_settings })
 
-  if $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/80']) {
-    iptables::allow { 'tcp/80':
-      port     => '80',
-      protocol => 'tcp'
-    }
-  }
-
-  if $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/443']) {
-    iptables::allow { 'tcp/443':
-      port     => '443',
-      protocol => 'tcp'
-    }
-  }
-
   if hash_key_equals($apache_values, 'mod_pagespeed', 1) {
     class { 'puphpet::apache::modpagespeed': }
   }
@@ -147,6 +133,22 @@ if hash_key_equals($apache_values, 'install', 1) {
           'ssl_certs_dir'   => $vhost['ssl_certs_dir'] ? { undef => undef, '' => undef, default => $vhost['ssl_certs_dir'] }
         })
       })
+
+      if ! defined(Firewall["100 tcp/${vhost['port']}"]) {
+        firewall { "100 tcp/${vhost['port']}":
+          port   => $vhost['port'],
+          proto  => tcp,
+          action => 'accept',
+        }
+      }
+    }
+  }
+
+  if ! defined(Firewall['100 tcp/443']) {
+    firewall { '100 tcp/443':
+      port   => 443,
+      proto  => tcp,
+      action => 'accept',
     }
   }
 

@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Firewall Settings</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <p class="help-block">
+                            Warning: This is for fairly advanced use! Try to only open ports as
+                            you need them. Port <code>22</code> (ssh) is automatically opened for
+                            you.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {% for rule in firewall.rules %}
+                {% include 'PuphpetExtensionFirewallBundle:form/sections:Rule.html.twig' with {'rule': rule} %}
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                            data-source-url="{{ path('puphpet.extension.firewall.rule') }}">Add another rule</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

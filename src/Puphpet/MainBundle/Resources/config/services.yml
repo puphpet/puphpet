@@ -17,6 +17,8 @@ services:
         # server
             - [ addExtension, [ @puphpet.extension.server.configure ] ]
             - [ addExtensionToGroup, [ 'server-extensions', @puphpet.extension.mailcatcher.configure ] ]
+        # firewall
+            - [ addExtension, [ @puphpet.extension.firewall.configure ] ]
         # webserver group
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.apache.configure ] ]
             - [ addExtensionToGroup, [ 'webserver', @puphpet.extension.nginx.configure ] ]

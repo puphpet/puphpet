@@ -1,0 +1,82 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+{% set uniqid = uniqid('fr_', true) %}
+
+<div id="{{ uniqid }}">
+    <div class="panel-heading">
+        <h3 class="panel-title">Add Firewall Rule</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="firewall-rules-{{ uniqid }}-port">
+                    Firewall Rule Port
+                    {{ popover.small('Port to affect, can be multiple.')
+                    }}
+                </label>
+                <select id="firewall-rules-{{ uniqid }}-port" name="firewall[rules][{{ uniqid }}][port]"
+                        multiple class="form-control select-tags-editable">
+                    {% if rule.port is iterable %}
+                        {% for port in rule.port %}
+                            <option selected value="{{ port }}">{{ port }}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option selected value="{{ rule.port }}">{{ rule.port }}</option>
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="firewall-rules-{{ uniqid }}-priority">
+                    Firewall Rule Priority
+                    {{ popover.small('Lower priority takes effect first') }}
+                </label>
+                <input type="tel" id="firewall-rules-{{ uniqid }}-priority"
+                       name="firewall[rules][{{ uniqid }}][priority]"
+                       placeholder="100" min="000" max="999" maxlength="3"
+                       title="Lower priority takes effect first"
+                       value="{% if rule.priority %}{{ rule.priority }}{% else %}100{% endif %}"
+                       class="form-control" />
+
+                <p class="help-block">
+                    Format must be 3 digits: 000, 111, 011, 999
+                </p>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label>Firewall Rule Protocol</label><br />
+                <label class="radio-inline">
+                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="tcp"
+                        {% if rule.proto == 'tcp' or not rule.proto %}checked{% endif %} /> tcp
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="icmp"
+                        {% if rule.proto == 'icmp' %}checked{% endif %} /> icmp
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="all"
+                        {% if rule.proto == 'all' %}checked{% endif %} /> all
+                </label>
+            </div>
+
+            <div class="col-md-6">
+                <label>Firewall Rule Action</label><br />
+                <label class="radio-inline">
+                    <input type="radio" name="firewall[rules][{{ uniqid }}][action]" value="accept"
+                        {% if rule.action == 'accept' or not rule.action %}checked{% endif %} /> accept
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="firewall[rules][{{ uniqid }}][action]" value="drop"
+                        {% if rule.action == 'drop' %}checked{% endif %} /> drop
+                </label>
+            </div>
+        </div>
+
+        <p class="text-center">
+            <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
+                    data-parent-id="{{ uniqid }}">Remove this firewall rule</button>
+        </p>
+    </div>
+</div>

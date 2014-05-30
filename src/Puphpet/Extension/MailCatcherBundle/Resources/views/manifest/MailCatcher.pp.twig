@@ -21,21 +21,11 @@ if hash_key_equals($mailcatcher_values, 'install', 1) {
 
   create_resources('class', { 'mailcatcher' => $mailcatcher_values['settings'] })
 
-  if $::osfamily == 'redhat'
-    and ! defined(Iptables::Allow["tcp/${mailcatcher_values['settings']['smtp_port']}"])
-  {
-    iptables::allow { "tcp/${mailcatcher_values['settings']['smtp_port']}":
-      port     => $mailcatcher_values['settings']['smtp_port'],
-      protocol => 'tcp'
-    }
-  }
-
-  if $::osfamily == 'redhat'
-    and ! defined(Iptables::Allow["tcp/${mailcatcher_values['settings']['http_port']}"])
-  {
-    iptables::allow { "tcp/${mailcatcher_values['settings']['http_port']}":
-      port     => $mailcatcher_values['settings']['http_port'],
-      protocol => 'tcp'
+  if ! defined(Firewall["100 tcp/${mailcatcher_values['settings']['smtp_port']},${mailcatcher_values['settings']['http_port']}"]) {
+    firewall { "100 tcp/${mailcatcher_values['settings']['smtp_port']}, ${mailcatcher_values['settings']['http_port']}":
+      port   => [$mailcatcher_values['settings']['smtp_port'], $mailcatcher_values['settings']['http_port']],
+      proto  => tcp,
+      action => 'accept',
     }
   }
 

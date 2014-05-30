@@ -198,23 +198,41 @@ define add_dotdeb ($release){
   }
 }
 
-# Begin open ports for Iptables
-if $::osfamily == 'redhat'
-  and has_key($vm_values, 'vm')
+# Begin open ports for iptables
+if has_key($vm_values, 'vm')
   and has_key($vm_values['vm'], 'network')
   and has_key($vm_values['vm']['network'], 'forwarded_port')
 {
   create_resources( iptables_port, $vm_values['vm']['network']['forwarded_port'] )
 }
 
+if has_key($vm_values, 'ssh') and has_key($vm_values['ssh'], 'port') {
+  $vm_values_ssh_port = $vm_values['ssh']['port'] ? {
+    ''      => 22,
+    undef   => 22,
+    0       => 22,
+    default => $vm_values['ssh']['port']
+  }
+
+  if ! defined(Firewall["100 tcp/${vm_values_ssh_port}"]) {
+    firewall { "100 tcp/${vm_values_ssh_port}":
+      port   => $vm_values_ssh_port,
+      proto  => tcp,
+      action => 'accept',
+      before => Class['my_fw::post']
+    }
+  }
+}
+
 define iptables_port (
   $host,
   $guest,
 ) {
-  if ( ! defined(Iptables::Allow["tcp/${guest}"]) ) {
-    iptables::allow { "tcp/${guest}":
-      port     => $guest,
-      protocol => 'tcp'
+  if ! defined(Firewall["100 tcp/${guest}"]) {
+    firewall { "100 tcp/${guest}":
+      port   => $guest,
+      proto  => tcp,
+      action => 'accept',
     }
   }
 }

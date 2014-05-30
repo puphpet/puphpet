@@ -29,10 +29,11 @@ if hash_key_equals($rabbitmq_values, 'install', 1) {
     }
   }
 
-  if $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/15672']) {
-    iptables::allow { 'tcp/15672':
-      port     => 15672,
-      protocol => 'tcp'
+  if ! defined(Firewall['100 tcp/15672']) {
+    firewall { '100 tcp/15672':
+      port   => 15672,
+      proto  => tcp,
+      action => 'accept',
     }
   }
 }
