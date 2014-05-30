@@ -6,6 +6,8 @@ if $php_values == undef {
   $apache_values = hiera('apache', false)
 } if $nginx_values == undef {
   $nginx_values = hiera('nginx', false)
+} if $mailcatcher_values == undef {
+  $mailcatcher_values = hiera('mailcatcher', false)
 }
 
 if hash_key_equals($php_values, 'install', 1) {
@@ -159,6 +161,20 @@ if hash_key_equals($php_values, 'install', 1) {
       php_package     => "${php::params::module_prefix}cli",
       curl_package    => 'curl',
       suhosin_enabled => false,
+    }
+  }
+
+  # Usually this would go within the library that needs in (Mailcatcher)
+  # but the values required are sufficiently complex that it's easier to
+  # add here
+  if hash_key_equals($mailcatcher_values, 'install', 1)
+    and ! defined(Puphpet::Ini['sendmail_path'])
+  {
+    puphpet::ini { 'sendmail_path':
+      entry       => 'CUSTOM/sendmail_path',
+      value       => '/usr/bin/env catchmail',
+      php_version => $php_values['version'],
+      webserver   => $php_webserver_service_ini
     }
   }
 }
