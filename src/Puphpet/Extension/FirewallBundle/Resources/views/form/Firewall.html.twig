@@ -17,6 +17,8 @@
                 </div>
             </div>
 
+            <input type="hidden" id="firewall-install" name="firewall[install]" value="1" />
+
             {% for rule in firewall.rules %}
                 {% include 'PuphpetExtensionFirewallBundle:form/sections:Rule.html.twig' with {'rule': rule} %}
             {% endfor %}
