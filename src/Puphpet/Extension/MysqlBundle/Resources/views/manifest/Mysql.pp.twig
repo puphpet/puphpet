@@ -77,25 +77,6 @@ if hash_key_equals($mysql_values, 'install', 1) {
     }
   }
 
-  if hash_key_equals($mysql_values, 'phpmyadmin', 1) and $mysql_php_installed {
-    if hash_key_equals($apache_values, 'install', 1) {
-      $mysql_pma_webroot_location = $puphpet::params::apache_webroot_location
-    } elsif hash_key_equals($nginx_values, 'install', 1) {
-      $mysql_pma_webroot_location = $puphpet::params::nginx_webroot_location
-
-      mysql_nginx_default_conf { 'override_default_conf':
-        webroot => $mysql_pma_webroot_location
-      }
-    } else {
-      $mysql_pma_webroot_location = '/var/www'
-    }
-
-    class { 'puphpet::phpmyadmin':
-      dbms             => 'mysql::server',
-      webroot_location => $mysql_pma_webroot_location,
-    }
-  }
-
   if hash_key_equals($mysql_values, 'adminer', 1) and $mysql_php_installed {
     if hash_key_equals($apache_values, 'install', 1) {
       $mysql_adminer_webroot_location = $puphpet::params::apache_webroot_location

@@ -42,18 +42,7 @@
                         </div>
 
                         <div class="row form-group">
-                            <div class="col-md-6">
-                                <label for="mysql-phpmyadmin">
-                                    phpMyAdmin
-                                    {{ popover.small('If installed it will be available from
-                                        <code>http://{SERVER_IP_ADDRESS}/phpmyadmin</code>.') }}
-                                </label><br />
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" id="mysql-phpmyadmin" name="mysql[phpmyadmin]"
-                                           {% if mysql.phpmyadmin %}checked{% endif %} value="1" /> Install phpMyAdmin
-                                </label>
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label for="mysql-adminer">
                                     Adminer
                                     {{ popover.small('If installed it will be available from

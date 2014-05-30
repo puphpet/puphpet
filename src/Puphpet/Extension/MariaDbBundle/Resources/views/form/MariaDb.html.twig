@@ -55,19 +55,7 @@
                         </div>
 
                         <div class="row form-group">
-                            <div class="col-md-6">
-                                <label for="mariadb-phpmyadmin">
-                                    phpMyAdmin
-                                    {{ popover.small('If installed it will be available from
-                                        <code>http://{SERVER_IP_ADDRESS}/phpmyadmin</code>.') }}
-                                </label><br />
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" id="mariadb-phpmyadmin" name="mariadb[phpmyadmin]"
-                                           {% if mariadb.phpmyadmin %}checked{% endif %} value="1" /> Install phpMyAdmin
-                                </label>
-                            </div>
-
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label for="mariadb-adminer">
                                     Adminer
                                     {{ popover.small('If installed it will be available from

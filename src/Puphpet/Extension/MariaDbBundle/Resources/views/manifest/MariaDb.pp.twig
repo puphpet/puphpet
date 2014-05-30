@@ -114,25 +114,6 @@ if hash_key_equals($mariadb_values, 'install', 1) {
     }
   }
 
-  if hash_key_equals($mariadb_values, 'phpmyadmin', 1) and $mariadb_php_installed {
-    if hash_key_equals($apache_values, 'install', 1) {
-      $mariadb_pma_webroot_location = $puphpet::params::apache_webroot_location
-    } elsif hash_key_equals($nginx_values, 'install', 1) {
-      $mariadb_pma_webroot_location = $puphpet::params::nginx_webroot_location
-
-      mariadb_nginx_default_conf { 'override_default_conf':
-        webroot => $mariadb_pma_webroot_location
-      }
-    } else {
-      $mariadb_pma_webroot_location = '/var/www'
-    }
-
-    class { 'puphpet::phpmyadmin':
-      dbms             => 'mysql::server',
-      webroot_location => $mariadb_pma_webroot_location,
-    }
-  }
-
   if hash_key_equals($mariadb_values, 'adminer', 1) and $mariadb_php_installed {
     if hash_key_equals($apache_values, 'install', 1) {
       $mariadb_adminer_webroot_location = $puphpet::params::apache_webroot_location
