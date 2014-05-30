@@ -21,7 +21,7 @@ available_providers:
             More performant than VirtualBox.
             <a href="http://send.onenetworkdirect.net/z/33484/CD207605/" target="_blank">Requires purchase of VMWare Fusion</a>
             (affiliate link - help support this free service)
-            and <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Fusion Plugin</a>.
+            and purchase of <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Fusion Plugin</a>.
         default_ip: 192.168.57.101
     -
         name: vmware_workstation
@@ -31,16 +31,16 @@ available_providers:
             More performant than VirtualBox.
             <a href="http://send.onenetworkdirect.net/z/33485/CD207605/" target="_blank">Requires purchase of VMWare Workstation</a>
             (affiliate link - help support this free service)
-            and <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Workstation Plugin</a>.
+            and purchase of <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Workstation Plugin</a>.
         default_ip: 192.168.57.101
     -
         name: parallels
         long_name: Parallels Desktop
         description: >
-            <em>OSX-only</em>, <em>Performance: **</em><br />
+            <em>OSX-only</em>, <em>Performance: ***</em><br />
             More performant than VirtualBox.
             <a href="http://www.parallels.com/" target="_blank">Requires purchase of Parallels Desktop 9</a>
-            and <a href="https://github.com/Parallels/vagrant-parallels" target="_blank">Vagrant Parallels Plugin</a>.
+            and installing the <a href="https://github.com/Parallels/vagrant-parallels" target="_blank">Vagrant Parallels Plugin</a>.
         default_ip: 192.168.58.101
 
 available_boxes:
