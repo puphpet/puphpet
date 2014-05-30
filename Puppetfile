@@ -21,9 +21,9 @@ mod 'puphpet/drush',
 mod 'elasticsearch/elasticsearch',
     :git => 'https://github.com/puphpet/puppet-elasticsearch.git',
     :ref => '0.2.2'
-mod 'erwbgy/iptables',
-    :git => 'https://github.com/erwbgy/puppet-iptables.git',
-    :ref => 'v0.4.0'
+mod 'puppetlabs/firewall',
+    :git => 'https://github.com/puppetlabs/puppetlabs-firewall.git',
+    :ref => '1.1.1'
 mod 'actionjack/mailcatcher',
     :git => 'https://github.com/puphpet/puppet-mailcatcher.git',
     :ref => 'dcc8c3d357'
