@@ -28,8 +28,8 @@ mod 'actionjack/mailcatcher',
     :git => 'https://github.com/puphpet/puppet-mailcatcher.git',
     :ref => 'dcc8c3d357'
 mod 'puppetlabs/mongodb',
-    :git => 'https://github.com/puphpet/puppetlabs-mongodb.git',
-    :ref => '5f2d11e'
+    :git => 'https://github.com/puppetlabs/puppetlabs-mongodb.git',
+    :ref => '0.8.0'
 mod 'puppetlabs/mysql',
     :git => 'https://github.com/puppetlabs/puppetlabs-mysql.git',
     :ref => '2.2.3'
@@ -47,7 +47,7 @@ mod 'puppetlabs/postgresql',
     :ref => '3.3.3'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '71a60bb'
+    :ref => '685859a'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
