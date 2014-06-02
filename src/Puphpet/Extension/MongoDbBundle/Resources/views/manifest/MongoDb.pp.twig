@@ -27,22 +27,11 @@ if hash_key_equals($mongodb_values, 'install', 1) {
 
   Class['Mongodb::Globals'] -> Class['Mongodb::Server']
 
-  class { '::mongodb::globals':
+  class { 'mongodb::globals':
     manage_package_repo => true,
   }
 
-  $mongodb_service_name = $::operatingsystem ? {
-    'ubuntu' => 'mongod',
-    undef     => $mongodb::params::service_name,
-    ''        => $mongodb::params::service_name,
-    default   => $mongodb::params::service_name,
-  }
-
-  $mongodb_settings = merge($mongodb_values['settings'], {
-    'service_name' => $mongodb_service_name,
-  })
-
-  create_resources('class', { 'mongodb::server' => $mongodb_settings })
+  create_resources('class', { 'mongodb::server' => $mongodb_values['settings'] })
 
   if $::osfamily == 'redhat' {
     class { '::mongodb::client':
