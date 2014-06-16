@@ -39,8 +39,9 @@ available_providers:
         description: >
             <em>OSX-only</em>, <em>Performance: ***</em><br />
             More performant than VirtualBox.
-            <a href="http://www.parallels.com/" target="_blank">Requires purchase of Parallels Desktop 9</a>
-            and installing the <a href="https://github.com/Parallels/vagrant-parallels" target="_blank">Vagrant Parallels Plugin</a>.
+            <a href="http://www.tkqlhce.com/click-7569625-11516363" target="_blank">Requires purchase of Parallels Desktop 9</a>
+            (affiliate link - help support this free service)
+            and installing the free <a href="https://github.com/Parallels/vagrant-parallels" target="_blank">Vagrant Parallels Plugin</a>.
         default_ip: 192.168.58.101
 
 available_boxes:
