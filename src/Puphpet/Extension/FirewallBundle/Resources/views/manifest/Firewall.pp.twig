@@ -47,7 +47,7 @@ class my_fw::post {
   }
 }
 
-if is_array($firewall_values['rules']) and count($firewall_values['rules']) > 0 {
+if is_hash($firewall_values['rules']) and count($firewall_values['rules']) > 0 {
   each( $firewall_values['rules'] ) |$key, $rule| {
     if ! defined(Firewall["${rule['priority']} ${rule['proto']}/${rule['port']}"]) {
       firewall { "${rule['priority']} ${rule['proto']}/${rule['port']}":
