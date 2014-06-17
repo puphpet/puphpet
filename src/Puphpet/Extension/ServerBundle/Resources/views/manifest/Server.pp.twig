@@ -58,7 +58,11 @@ case $::osfamily {
     and title != 'software-properties-common'
     |>
 
-    ensure_packages( ['augeas-tools'] )
+    if ! defined(Package['augeas-tools']) {
+      package { 'augeas-tools':
+        ensure => present,
+      }
+    }
   }
   # redhat, centos
   'redhat': {
@@ -69,7 +73,7 @@ case $::osfamily {
 
     Class['::yum'] -> Yum::Managed_yumrepo <| |> -> Package <| |>
 
-    if defined(Package['git']) == false {
+    if ! defined(Package['git']) {
       package { 'git':
         ensure  => latest,
         require => Class['yum::repo::repoforgeextras']
@@ -182,8 +186,14 @@ case $::operatingsystem {
   }
 }
 
-if !empty($server_values['packages']) {
-  ensure_packages( $server_values['packages'] )
+if is_array($server_values['packages']) and count($server_values['packages']) > 0 {
+  each( $server_values['packages'] ) |$package| {
+    if ! defined(Package[$package]) {
+      package { $package:
+        ensure => present,
+      }
+    }
+  }
 }
 
 define add_dotdeb ($release){
