@@ -55,18 +55,6 @@
                     <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="udp"
                         {% if rule.proto == 'udp' %}checked{% endif %} /> udp
                 </label>
-                <label class="radio-inline">
-                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="udplite"
-                        {% if rule.proto == 'udplite' %}checked{% endif %} /> udplite
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="sctp"
-                        {% if rule.proto == 'sctp' %}checked{% endif %} /> sctp
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="dccp"
-                        {% if rule.proto == 'dccp' %}checked{% endif %} /> dccp
-                </label>
             </div>
 
             <div class="col-md-6">
