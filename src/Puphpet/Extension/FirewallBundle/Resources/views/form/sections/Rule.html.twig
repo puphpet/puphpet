@@ -52,12 +52,20 @@
                         {% if rule.proto == 'tcp' or not rule.proto %}checked{% endif %} /> tcp
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="icmp"
-                        {% if rule.proto == 'icmp' %}checked{% endif %} /> icmp
+                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="udp"
+                        {% if rule.proto == 'udp' %}checked{% endif %} /> udp
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="all"
-                        {% if rule.proto == 'all' %}checked{% endif %} /> all
+                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="udplite"
+                        {% if rule.proto == 'udplite' %}checked{% endif %} /> udplite
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="sctp"
+                        {% if rule.proto == 'sctp' %}checked{% endif %} /> sctp
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]" value="dccp"
+                        {% if rule.proto == 'dccp' %}checked{% endif %} /> dccp
                 </label>
             </div>
 
