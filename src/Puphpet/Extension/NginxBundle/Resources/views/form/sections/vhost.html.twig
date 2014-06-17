@@ -85,9 +85,11 @@
                 <select id="nginx-vhosts-{{ uniqid }}-envvars"
                         name="nginx[vhosts][{{ uniqid }}][envvars][]"
                         multiple class="form-control select-tags-editable">
-                    {% for envvar in vhost.envvars %}
-                        <option selected value="{{ envvar }}">{{ envvar }}</option>
-                    {% endfor %}
+                    {% if vhost.envvars is defined %}
+                        {% for envvar in vhost.envvars %}
+                            <option selected value="{{ envvar }}">{{ envvar }}</option>
+                        {% endfor %}
+                    {% endif %}
                 </select>
             </div>
         </div>
