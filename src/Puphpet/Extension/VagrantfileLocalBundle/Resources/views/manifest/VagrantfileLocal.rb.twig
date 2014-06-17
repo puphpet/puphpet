@@ -54,6 +54,7 @@ Vagrant.configure("2") do |config|
       end
 
       virtualbox.customize ["modifyvm", :id, "--memory", "#{data['vm']['memory']}"]
+      virtualbox.customize ["modifyvm", :id, "--name", config.vm.hostname]
     end
   end
 
@@ -70,6 +71,7 @@ Vagrant.configure("2") do |config|
       end
 
       v.vmx["memsize"] = "#{data['vm']['memory']}"
+      v.vmx["displayName"] = config.vm.hostname
     end
   end
 
