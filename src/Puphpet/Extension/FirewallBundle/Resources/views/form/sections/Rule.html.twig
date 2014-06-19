@@ -16,11 +16,11 @@
                 </label>
                 <select id="firewall-rules-{{ uniqid }}-port" name="firewall[rules][{{ uniqid }}][port]"
                         multiple class="form-control select-tags-editable">
-                    {% if rule.port is iterable %}
+                    {% if rule.port is defined and rule.port is iterable %}
                         {% for port in rule.port %}
                             <option selected value="{{ port }}">{{ port }}</option>
                         {% endfor %}
-                    {% else %}
+                    {% elseif rule.port is defined %}
                         <option selected value="{{ rule.port }}">{{ rule.port }}</option>
                     {% endif %}
                 </select>
