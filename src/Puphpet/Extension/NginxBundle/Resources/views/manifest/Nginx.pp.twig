@@ -108,10 +108,6 @@ if hash_key_equals($nginx_values, 'install', 1) {
     }
   } elsif hash_key_equals($hhvm_values, 'install', 1) {
     $fastcgi_pass        = '127.0.0.1:9000'
-
-    set_php5_fpm_sock_group_and_user { 'hhvm':
-      require => Package['nginx'],
-    }
   } else {
     $fastcgi_pass        = ''
   }
