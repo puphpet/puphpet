@@ -5,23 +5,31 @@ VAGRANT_CORE_FOLDER=$(cat '/.puphpet-stuff/vagrant-core-folder.txt')
 OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
 VAGRANT_SSH_USERNAME=$(echo "$1")
 
-if [[ ! -f "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa" ]]; then
-    ssh-keygen -f "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa" -P ""
+function create_key()
+{
+    BASE_KEY_NAME=$(echo "$1")
 
-    if [[ ! -f "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.ppk" ]]; then
-        if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-            apt-get install -y putty-tools >/dev/null
-        elif [ "${OS}" == 'centos' ]; then
-            yum -y install putty >/dev/null
+    if [[ ! -f "${VAGRANT_CORE_FOLDER}/files/dot/ssh/${BASE_KEY_NAME}" ]]; then
+        ssh-keygen -f "${VAGRANT_CORE_FOLDER}/files/dot/ssh/${BASE_KEY_NAME}" -P ""
+
+        if [[ ! -f "${VAGRANT_CORE_FOLDER}/files/dot/ssh/${BASE_KEY_NAME}.ppk" ]]; then
+            if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
+                apt-get install -y putty-tools >/dev/null
+            elif [ "${OS}" == 'centos' ]; then
+                yum -y install putty >/dev/null
+            fi
+
+            puttygen "${VAGRANT_CORE_FOLDER}/files/dot/ssh/${BASE_KEY_NAME}" -O private -o "${VAGRANT_CORE_FOLDER}/files/dot/ssh/${BASE_KEY_NAME}.ppk"
         fi
 
-        puttygen "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa" -O private -o "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.ppk"
+        echo "Your private key for SSH-based authentication has been saved to 'puphpet/files/dot/ssh/${BASE_KEY_NAME}'!"
+    else
+        echo "Pre-existing private key found at 'puphpet/files/dot/ssh/${BASE_KEY_NAME}'"
     fi
+}
 
-    echo 'Your private key for SSH-based authentication have been saved to "puphpet/files/dot/ssh/"!'
-else
-    echo 'Using pre-existing private key at "puphpet/files/dot/ssh/id_rsa"'
-fi
+create_key 'root_id_rsa'
+create_key 'id_rsa'
 
 PUBLIC_SSH_KEY=$(cat "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub")
 
