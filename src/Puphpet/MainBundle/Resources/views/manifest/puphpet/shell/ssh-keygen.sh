@@ -23,17 +23,21 @@ else
     echo 'Using pre-existing private key at "puphpet/files/dot/ssh/id_rsa"'
 fi
 
-PUBLIC_SSH_KEY=$(cat ${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub)
+PUBLIC_SSH_KEY=$(cat "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub")
 
 echo 'Adding generated key to /root/.ssh/id_rsa'
 echo 'Adding generated key to /root/.ssh/id_rsa.pub'
 echo 'Adding generated key to /root/.ssh/authorized_keys'
+
 mkdir -p /root/.ssh
+
 cp "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa" '/root/.ssh/'
 cp "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub" '/root/.ssh/'
-if ! grep -q "${PUBLIC_SSH_KEY}" '/root/.ssh/authorized_keys'; then
-    cat "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub" > '/root/.ssh/authorized_keys'
+
+if [[ ! -f '/root/.ssh/authorized_keys' ]] || ! grep -q "${PUBLIC_SSH_KEY}" '/root/.ssh/authorized_keys'; then
+    cat "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub" >> '/root/.ssh/authorized_keys'
 fi
+
 chown -R root '/root/.ssh'
 chgrp -R root '/root/.ssh'
 chmod 700 '/root/.ssh'
@@ -45,20 +49,24 @@ if [ "${VAGRANT_SSH_USERNAME}" != 'root' ]; then
     VAGRANT_SSH_FOLDER="/home/${VAGRANT_SSH_USERNAME}/.ssh";
 
     mkdir -p "${VAGRANT_SSH_FOLDER}"
+
     echo "Adding generated key to ${VAGRANT_SSH_FOLDER}/id_rsa"
     echo "Adding generated key to ${VAGRANT_SSH_FOLDER}/id_rsa.pub"
     echo "Adding generated key to ${VAGRANT_SSH_FOLDER}/authorized_keys"
+
     cp "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa" "${VAGRANT_SSH_FOLDER}/id_rsa"
     cp "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub" "${VAGRANT_SSH_FOLDER}/id_rsa.pub"
-    if ! grep -q "${PUBLIC_SSH_KEY}" "${VAGRANT_SSH_FOLDER}/authorized_keys"; then
-        cat "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub" > "${VAGRANT_SSH_FOLDER}/authorized_keys"
+
+    if [[ ! -f "${VAGRANT_SSH_FOLDER}/authorized_keys" ]] || ! grep -q "${PUBLIC_SSH_KEY}" "${VAGRANT_SSH_FOLDER}/authorized_keys"; then
+        cat "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub" >> "${VAGRANT_SSH_FOLDER}/authorized_keys"
     fi
+
     chown -R "${VAGRANT_SSH_USERNAME}" "${VAGRANT_SSH_FOLDER}"
     chgrp -R "${VAGRANT_SSH_USERNAME}" "${VAGRANT_SSH_FOLDER}"
     chmod 700 "${VAGRANT_SSH_FOLDER}"
     chmod 644 "${VAGRANT_SSH_FOLDER}/id_rsa.pub"
     chmod 600 "${VAGRANT_SSH_FOLDER}/id_rsa"
     chmod 600 "${VAGRANT_SSH_FOLDER}/authorized_keys"
-fi
 
-passwd -d vagrant >/dev/null
+    passwd -d "${VAGRANT_SSH_USERNAME}" >/dev/null
+fi
