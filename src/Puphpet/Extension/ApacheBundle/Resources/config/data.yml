@@ -3,7 +3,7 @@ install: 0
 settings:
     user: 'www-data'
     group: 'www-data'
-    default_vhost: false
+    default_vhost: true
     manage_user: false
     manage_group: false
     sendfile: 0

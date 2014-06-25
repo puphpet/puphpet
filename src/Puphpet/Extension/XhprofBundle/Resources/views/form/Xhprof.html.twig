@@ -13,6 +13,10 @@
         <div class="row form-group">
             <div class="col-xs-12">
                 <p class="help-block">
+                    It is highly recommended <strong>not</strong> installing Beanstalk Console on production servers.
+
+                    <br /><br />
+
                     Logs will be available from <code>http://&lt;ip_address&gt;/xhprof/xhprof_html</code>.<br />
                     The IP address is the <a href="#deploy-target">one you chose here</a>.<br />
                     <a href="#" data-toggle="modal" data-target="#xhprof-instructions">Click here for instructions</a>
@@ -39,8 +43,8 @@
                     <p><code>
                         $xhprof_data = xhprof_disable();<br />
                         $appNamespace = 'some_namespace_here';<br />
-                        include_once '/var/www/xhprof/xhprof_lib/utils/xhprof_lib.php';<br />
-                        include_once '/var/www/xhprof/xhprof_lib/utils/xhprof_runs.php';<br />
+                        include_once '/var/www/default/xhprof/xhprof_lib/utils/xhprof_lib.php';<br />
+                        include_once '/var/www/default/xhprof/xhprof_lib/utils/xhprof_runs.php';<br />
 
                         $xhprof_runs = new XHProfRuns_Default();<br />
                         $xhprof_runs->save_run($xhprof_data, $appNamespace);<br />
@@ -48,8 +52,8 @@
 
                     <p>
                         Depending on if you chose Apache or Nginx and if you're on Debian/Ubuntu/CentOS, the
-                        <code>/var/www/</code> part in the lines above may be different. Simple SSH into your VM
-                        and double check to make sure!
+                        <code>/var/www/default/</code> part in the lines above may be different. Simple SSH into
+                        your VM and double check to make sure!
                     </p>
 
                     <p>

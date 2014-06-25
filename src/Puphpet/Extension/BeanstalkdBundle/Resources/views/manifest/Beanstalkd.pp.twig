@@ -13,7 +13,7 @@ if $beanstalkd_values == undef {
 }
 
 if hash_key_equals($apache_values, 'install', 1) {
-  $beanstalk_console_webroot_location = "${puphpet::params::apache_webroot_location}/beanstalk_console"
+  $beanstalk_console_webroot_location = '/var/www/default/beanstalk_console'
 } elsif hash_key_equals($nginx_values, 'install', 1) {
   $beanstalk_console_webroot_location = "${puphpet::params::nginx_webroot_location}/beanstalk_console"
 } else {
