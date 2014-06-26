@@ -263,3 +263,7 @@ footer {
 .popover {
     max-width: 500px;
 }
+
+.availableOptions {
+    margin-top: 15px;
+}
