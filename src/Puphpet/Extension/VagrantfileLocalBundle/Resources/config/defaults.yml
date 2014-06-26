@@ -9,7 +9,16 @@ vm:
             source: ./
             target: /var/www
             id: vagrant-root
-            nfs: 'false'
+            sync_type: 'default'
+            rsync:
+                args:
+                    - "--verbose"
+                    - "--archive"
+                    - "--delete"
+                    - "-z"
+                exclude:
+                    - ".vagrant/"
+                auto: true
     network:
         forwarded_port:
             -

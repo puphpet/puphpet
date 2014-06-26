@@ -48,22 +48,67 @@
                         <strong>
                             NFS is currently buggy mostly on CentOS, and VirtualBox 4.3+. If you experience
                             errors on <code>$ vagrant up</code> complaining about mounting, disable NFS sharing.
-                            NFS performance is faster than default, but is mostly for advanced users only. You
+                            NFS performance is faster than default, but is mostly for advanced users only. SMB available only for Windows. You
                             should be comfortable diving into Puppet to debug any potential permissions
                             issues!
                         </strong>')
                     }}
                 </label><br />
                 <label class="radio-inline">
-                    <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][nfs]"
-                           {% if synced_folder.nfs == 'false' %}checked{% endif %}
-                           value="false" /> Default
+                    <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][sync_type]"
+                           {% if synced_folder.sync_type == 'default' %}checked{% endif %}
+                           value="default" class="hasAvailableOptions"/> Default
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][nfs]"
-                           {% if synced_folder.nfs == 'true' %}checked{% endif %}
-                           value="true" /> NFS
+                    <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][sync_type]"
+                           {% if synced_folder.sync_type == 'nfs' %}checked{% endif %}
+                           value="nfs" class="hasAvailableOptions"/> NFS
                 </label>
+                <label class="radio-inline">
+                    <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][sync_type]"
+                           {% if synced_folder.sync_type == 'smb' %}checked{% endif %}
+                           value="smb" class="hasAvailableOptions"/> SMB
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][sync_type]"
+                           {% if synced_folder.sync_type == 'rsync' %}checked{% endif %}
+                           value="rsync" class="hasAvailableOptions"/> rSync
+                </label>
+                <div class="availableOptions">
+                    <div class="rsync" style="display:none;">
+                        <div>
+                            <label for="rsync-args">Rsync Args</label>
+                            <select id="rsync-args" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][rsync][args][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% for arg in synced_folder.rsync.args %}
+                                    <option selected value="{{ arg }}">{{ arg }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label for="rsync-exclude">Exclude directories</label>
+                            <select id="rsync-exclude" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][rsync][exclude][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% for dir in synced_folder.rsync.exclude %}
+                                    <option selected value="{{ dir }}">{{ dir }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label>Auto sync</label><br/>
+                            <label class="radio-inline">
+                                <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][rsync][auto]"
+                                       {% if synced_folder.rsync.auto == 'true' %}checked{% endif %}
+                                       value="true" class="hasAvailableOptions"/> On
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][rsync][auto]"
+                                       {% if synced_folder.rsync.auto == 'false' %}checked{% endif %}
+                                       value="false" class="hasAvailableOptions"/> Off
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

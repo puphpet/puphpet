@@ -2,7 +2,11 @@ empty_synced_folder:
     source: ~
     target: ~
     id: vagrant-root
-    nfs: 'false'
+    sync_type: 'default'
+    rsync:
+        args: { }
+        exclude: { }
+        auto: true
 
 available_providers:
     -
