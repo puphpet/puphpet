@@ -47,7 +47,7 @@ mod 'puppetlabs/postgresql',
     :ref => '3.3.3'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '012d413'
+    :ref => 'df74002'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
@@ -63,7 +63,7 @@ mod 'nanliu/staging',
 mod 'puppetlabs/stdlib'
 mod 'ajcrowe/supervisord',
     :git => 'https://github.com/puphpet/puppet-supervisord.git',
-    :ref => 'b0e981a86e'
+    :ref => 'b702b82'
 mod 'puppetlabs/vcsrepo',
     :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
     :ref => '0.2.0'

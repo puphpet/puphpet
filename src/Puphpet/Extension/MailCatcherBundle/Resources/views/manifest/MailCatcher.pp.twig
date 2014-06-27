@@ -30,8 +30,14 @@ if hash_key_equals($mailcatcher_values, 'install', 1) {
   }
 
   if ! defined(Class['supervisord']) {
+    class{ 'puphpet::python::pip': }
+
     class { 'supervisord':
-      install_pip => true,
+      install_pip => false,
+      require     => [
+        Class['my_fw::post'],
+        Class['Puphpet::Python::Pip'],
+      ],
     }
   }
 
