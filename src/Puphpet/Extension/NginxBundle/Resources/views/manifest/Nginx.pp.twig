@@ -185,41 +185,12 @@ define nginx_vhost (
     $fastcgi_param_parts = []
   }
 
-  if $ssl == 0 or $ssl == false or $ssl == '' {
-    $ssl_set = false
-  } else {
-    $ssl_set = true
-  }
-
-  if $ssl_cert == 0 or $ssl_cert == false or $ssl_cert == '' {
-    $ssl_cert_set = $puphpet::params::ssl_cert_location
-  } else {
-    $ssl_cert_set = $ssl_cert
-  }
-
-  if $ssl_key == 0 or $ssl_key == false or $ssl_key == '' {
-    $ssl_key_set = $puphpet::params::ssl_key_location
-  } else {
-    $ssl_key_set = $ssl_key
-  }
-
-  if $ssl_port == 0 or $ssl_port == false or $ssl_port == '' {
-    $ssl_port_set = '443'
-  } else {
-    $ssl_port_set = $ssl_port
-  }
-
-  if $rewrite_to_https == 0 or $rewrite_to_https == false or $rewrite_to_https == '' {
-    $rewrite_to_https_set = false
-  } else {
-    $rewrite_to_https_set = true
-  }
-
-  if $spdy == off or $spdy == 0 or $spdy == false or $spdy == '' {
-    $spdy_set = off
-  } else {
-    $spdy_set = on
-  }
+  $ssl_set              = value_true($ssl)              ? { true => true,      default => false, }
+  $ssl_cert_set         = value_true($ssl_cert)         ? { true => $ssl_cert, default => $puphpet::params::ssl_cert_location, }
+  $ssl_key_set          = value_true($ssl_key)          ? { true => $ssl_key,  default => $puphpet::params::ssl_key_location, }
+  $ssl_port_set         = value_true($ssl_port)         ? { true => $ssl_port, default => '443', }
+  $rewrite_to_https_set = value_true($rewrite_to_https) ? { true => true,      default => false, }
+  $spdy_set             = value_true($spdy)             ? { true => on,        default => off, }
 
   nginx::resource::vhost { $server_name:
     server_name      => $merged_server_name,
