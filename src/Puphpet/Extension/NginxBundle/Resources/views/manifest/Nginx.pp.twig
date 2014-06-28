@@ -24,33 +24,25 @@ if hash_key_equals($nginx_values, 'install', 1) {
     }
   }
 
-  $webroot_location = $puphpet::params::nginx_webroot_location
+  $webroot_location     = $puphpet::params::nginx_webroot_location
+  $nginx_provider_types = ['virtualbox', 'vmware_fusion', 'vmware_desktop', 'parallels']
 
   exec { "exec mkdir -p ${webroot_location}":
     command => "mkdir -p ${webroot_location}",
     creates => $webroot_location,
   }
 
-  if (downcase($::provisioner_type) in ['virtualbox', 'vmware_fusion'])
-    and ! defined(File[$webroot_location])
-  {
+  if (downcase($::provisioner_type) in $nginx_provider_types) and ! defined(File[$webroot_location]) {
     file { $webroot_location:
       ensure  => directory,
       mode    => 0775,
-      require => [
-        Exec["exec mkdir -p ${webroot_location}"],
-        Group['www-data']
-      ]
+      require => Exec["exec mkdir -p ${webroot_location}"],
     }
-  }
-
-  if !(downcase($::provisioner_type) in ['virtualbox', 'vmware_fusion'])
-    and ! defined(File[$webroot_location])
-  {
+  } elsif ! (downcase($::provisioner_type) in $nginx_provider_types) and ! defined(File[$webroot_location]) {
     file { $webroot_location:
       ensure  => directory,
-      group   => 'www-data',
       mode    => 0775,
+      group   => 'www-data',
       require => [
         Exec["exec mkdir -p ${webroot_location}"],
         Group['www-data']
@@ -72,12 +64,10 @@ if hash_key_equals($nginx_values, 'install', 1) {
   if hash_key_equals($php_values, 'install', 1) {
     $php5_fpm_sock = '/var/run/php5-fpm.sock'
 
-    if $php_values['version'] == undef {
-      $fastcgi_pass = null
-    } elsif $php_values['version'] == '53' {
-      $fastcgi_pass = '127.0.0.1:9000'
-    } else {
-      $fastcgi_pass = "unix:${php5_fpm_sock}"
+    $fastcgi_pass = $php_values['version'] ? {
+      '53'    => '127.0.0.1:9000',
+      undef   => null,
+      default => "unix:${php5_fpm_sock}"
     }
 
     if $::osfamily == 'redhat' and $fastcgi_pass == "unix:${php5_fpm_sock}" {
@@ -87,7 +77,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
         require => Package['nginx'],
       }
 
-      exec { "listen = 127.0.0.1:9000 => listen = ${php5_fpm_sock}":
+      exec { "'listen = 127.0.0.1:9000' => 'listen = ${php5_fpm_sock}'":
         command => "perl -p -i -e 's#listen = 127.0.0.1:9000#listen = ${php5_fpm_sock}#gi' /etc/php-fpm.d/www.conf",
         unless  => "grep -c 'listen = 127.0.0.1:9000' '${php5_fpm_sock}'",
         notify  => [
@@ -232,7 +222,10 @@ define nginx_vhost (
 
 define set_php5_fpm_sock_group_and_user (){
   exec { 'set php5_fpm_sock group and user':
-    command => "chmod 660 ${php5_fpm_sock} && chown www-data ${php5_fpm_sock} && chgrp www-data ${php5_fpm_sock} && touch /.puphpet-stuff/php5_fpm_sock",
+    command => "chmod 660 ${php5_fpm_sock} && \
+                chown www-data ${php5_fpm_sock} && \
+                chgrp www-data ${php5_fpm_sock} && \
+                touch /.puphpet-stuff/php5_fpm_sock",
     creates => '/.puphpet-stuff/php5_fpm_sock',
   }
 }
