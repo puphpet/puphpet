@@ -1,5 +1,9 @@
 install: 0
 
+settings:
+    proxy_buffers: 4 256k
+    proxy_buffer_size: 128k
+
 vhosts:
     -
         server_name: awesome.dev

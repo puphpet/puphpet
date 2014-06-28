@@ -1,3 +1,7 @@
 install: 0
 
+settings:
+    proxy_buffer_size: 128k
+    proxy_buffers: 4 256k
+
 vhosts: []
