@@ -1047,6 +1047,33 @@ available_ini:
         - odbtp.guid_format
         - odbtp.interface_file
         - odbtp.truncation_errors
+    opcache:
+        - opcache.blacklist_filename
+        - opcache.consistency_checks
+        - opcache.dups_fix
+        - opcache.enable
+        - opcache.enable_cli
+        - opcache.enable_file_override
+        - opcache.error_log
+        - opcache.fast_shutdown
+        - opcache.force_restart_timeout
+        - opcache.inherited_hack
+        - opcache.interned_strings_buffer
+        - opcache.load_comments
+        - opcache.log_verbosity_level
+        - opcache.max_accelerated_files
+        - opcache.max_file_size
+        - opcache.max_wasted_percentage
+        - opcache.memory_consumption
+        - opcache.mmap_base
+        - opcache.optimization_level
+        - opcache.preferred_memory_model
+        - opcache.protect_memory
+        - opcache.revalidate_freq
+        - opcache.revalidate_path
+        - opcache.save_comments
+        - opcache.use_cwd
+        - opcache.validate_timestamps
     opendirectory:
         - opendirectory.max_refs
         - opendirectory.separator
