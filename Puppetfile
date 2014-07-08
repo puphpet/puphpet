@@ -64,6 +64,9 @@ mod 'puppetlabs/stdlib'
 mod 'ajcrowe/supervisord',
     :git => 'https://github.com/puphpet/puppet-supervisord.git',
     :ref => 'b702b82'
+mod 'puppetlabs/sqlite',
+    :git => 'https://github.com/puppetlabs/puppetlabs-sqlite.git',
+    :ref => 'v0.0.1'
 mod 'puppetlabs/vcsrepo',
     :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
     :ref => '0.2.0'

@@ -37,18 +37,21 @@ class ManagerTest extends Unit\TestExtensions
         $extensionNginx      = $this->getExtensionMock('nginx');
         $extensionMySQL      = $this->getExtensionMock('mysql');
         $extensionPostgreSQL = $this->getExtensionMock('postgresql');
+        $extensionSQLite     = $this->getExtensionMock('sqlite');
 
         $manager = new Manager($this->container);
 
         $manager->addExtensionToGroup('webserver', $extensionApache)
             ->addExtensionToGroup('webserver', $extensionNginx)
             ->addExtensionToGroup('database', $extensionMySQL)
-            ->addExtensionToGroup('database', $extensionPostgreSQL);
+            ->addExtensionToGroup('database', $extensionPostgreSQL)
+            ->addExtensionToGroup('database', $extensionSQLite);
 
         $this->assertEquals('webserver', $manager->belongsToGroup('apache'));
         $this->assertEquals('webserver', $manager->belongsToGroup('nginx'));
         $this->assertEquals('database', $manager->belongsToGroup('mysql'));
         $this->assertEquals('database', $manager->belongsToGroup('postgresql'));
+        $this->assertEquals('database', $manager->belongsToGroup('sqlite'));
     }
 
     public function testAddExtensionSavesBySlug()

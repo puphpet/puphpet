@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new Puphpet\Extension\RabbitMQBundle\PuphpetExtensionRabbitMQBundle(),
             new Puphpet\Extension\HhvmBundle\PuphpetExtensionHhvmBundle(),
             new Puphpet\Extension\RedisBundle\PuphpetExtensionRedisBundle(),
+            new Puphpet\Extension\SqliteBundle\PuphpetExtensionSqliteBundle(),
             new Puphpet\Extension\FirewallBundle\PuphpetExtensionFirewallBundle(),
         );
 
