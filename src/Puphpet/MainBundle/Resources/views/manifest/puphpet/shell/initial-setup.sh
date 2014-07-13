@@ -8,6 +8,8 @@ OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
 CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
 
 cat "${VAGRANT_CORE_FOLDER}/shell/self-promotion.txt"
+printf "\n"
+echo ""
 
 if [[ ! -d '/.puphpet-stuff' ]]; then
     mkdir '/.puphpet-stuff'
