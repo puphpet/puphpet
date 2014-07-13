@@ -23,6 +23,47 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  if Vagrant.has_plugin?('vagrant-hostsupdater')
+    hosts = Array.new()
+
+    if !configValues['apache']['install'].nil? &&
+        configValues['apache']['install'].to_i == 1 &&
+        configValues['apache']['vhosts'].is_a?(Hash)
+      configValues['apache']['vhosts'].each do |i, vhost|
+        hosts.push(vhost['servername'])
+
+        if vhost['serveraliases'].is_a?(Array)
+          vhost['serveraliases'].each do |vhost_alias|
+            hosts.push(vhost_alias)
+          end
+        end
+      end
+    elsif !configValues['nginx']['install'].nil? &&
+           configValues['nginx']['install'].to_i == 1 &&
+           configValues['nginx']['vhosts'].is_a?(Hash)
+      configValues['nginx']['vhosts'].each do |i, vhost|
+        hosts.push(vhost['server_name'])
+
+        if vhost['server_aliases'].is_a?(Array)
+          vhost['server_aliases'].each do |x, vhost_alias|
+            hosts.push(vhost_alias)
+          end
+        end
+      end
+    end
+
+    if hosts.any?
+      contents = File.open('puphpet/shell/hostsupdater-notice.txt', 'r'){ |file| file.read }
+      puts "\n\033[34m#{contents}\033[0m\n"
+
+      if config.vm.hostname.to_s.strip.length == 0
+        config.vm.hostname = 'puphpet-dev-machine'
+      end
+
+      config.hostsupdater.aliases = hosts
+    end
+  end
+
   data['vm']['synced_folder'].each do |i, folder|
     if folder['source'] != '' && folder['target'] != ''
       if folder['sync_type'] == 'nfs'
@@ -182,3 +223,4 @@ Vagrant.configure("2") do |config|
   end
 
 end
+
