@@ -18,7 +18,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
     public function addDatabaseAction()
     {
         return $this->render('PuphpetExtensionSqliteBundle:form/sections:OwnerAndDatabase.html.twig', [
-            'database'             => $this->getData()['empty_database'],
+            'database' => $this->getData()['empty_database'],
         ]);
     }
 

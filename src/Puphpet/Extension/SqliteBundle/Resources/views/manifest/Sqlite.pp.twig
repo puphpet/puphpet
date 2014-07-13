@@ -13,7 +13,6 @@ if $sqlite_values == undef {
 }
 
 if hash_key_equals($sqlite_values, 'install', 1) {
-
   if hash_key_equals($php_values, 'install', 1) {
     $sqlite_php_installed = true
     $sqlite_php_package   = 'php'
@@ -24,14 +23,8 @@ if hash_key_equals($sqlite_values, 'install', 1) {
     $sqlite_php_installed = false
   }
 
-  if hash_key_equals($mailcatcher_values, 'install', 1) {
-    $sqlite_installed = true
-  } else {
-    $sqlite_installed = false
-  }
-
   # puppet manifests for mailcatcher and sqlite are not compatible.
-  if !$sqlite_installed {
+  if hash_key_equals($mailcatcher_values, 'install', 0) {
     class { 'sqlite': }
   }
 
@@ -66,7 +59,7 @@ define sqlite_db (
   $name,
   $owner,
   $group = 0,
-  $mode = '775',
+  $mode = 0775,
   $sql_file = false
 ) {
   if $name == '' or $owner == '' or $mode == '' {
@@ -82,12 +75,12 @@ define sqlite_db (
     ensure => directory,
     owner  => $owner,
     group  => $group,
-    mode   => '775'
+    mode   => 0775
   }->
   sqlite::db { $name:
     owner => $owner,
     group => $group,
-    mode => $mode
+    mode  => $mode
   }
 
   if $sql_file {
