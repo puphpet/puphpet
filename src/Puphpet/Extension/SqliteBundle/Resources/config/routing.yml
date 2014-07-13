@@ -1,0 +1,11 @@
+puphpet.extension.sqlite.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionSqliteBundle:Front:index }
+
+puphpet.extension.sqlite.add_database:
+    pattern:  /add-database
+    defaults: { _controller: PuphpetExtensionSqliteBundle:Front:addDatabase }
+
+puphpet.extension.sqlite.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionSqliteBundle:Manifest:index }

@@ -1,0 +1,77 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+{% set uniqid = uniqid('sqlitenuad_', true) %}
+
+<div id="{{ uniqid }}">
+    <div class="panel-heading">
+        <h3 class="panel-title">SQLite Owner & Database</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="sqlite-databases-{{ uniqid }}-name">DB Name</label>
+                <input type="text" id="sqlite-databases-{{ uniqid }}-name"
+                       name="sqlite[databases][{{ uniqid }}][name]" placeholder="database name"
+                       value="{{ database.name }}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="sqlite-databases-{{ uniqid }}-owner">
+                    Database Owner
+                    {{ popover.small('Provide the user that will be the database owner.
+                        The user must be a valid unix user such as "vagrant".') }}
+                </label>
+                <input type="text" id="sqlite-databases-{{ uniqid }}-owner"
+                       name="sqlite[databases][{{ uniqid }}][owner]"
+                       required placeholder="owner"
+                       value="{{ database.owner }}" class="form-control" />
+                <p class="help-block">Important! This cannot be blank!</p>
+            </div>
+
+            <div class="col-md-6">
+                <label for="sqlite-databases-{{ uniqid }}-group">
+                  Group
+                  {{ popover.small('Provide a valid unix group for the database.') }}
+                </label>
+                <input type="text" id="sqlite-databases-{{ uniqid }}-group"
+                       name="sqlite[databases][{{ uniqid }}][group]"
+                       placeholder="group"
+                       value="{{ database.group }}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12">
+                <label for="sqlite-databases-{{ uniqid }}-mode">
+                  Mode
+                  {{ popover.small('Provide the unix permission to use for the database.') }}
+                </label>
+                <input type="text" id="sqlite-databases-{{ uniqid }}-mode"
+                       name="sqlite[databases][{{ uniqid }}][mode]"
+                       placeholder="file mode"
+                       value="{{ database.mode }}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12">
+                <label for="sqlite-databases-{{ uniqid }}-sql_file">
+                    Import Database From File
+                    {{ popover.small('Optional. Make sure this file is inside the VM before running
+                        <code>$ vagrant up</code>') }}
+                </label>
+                <input type="text" id="sqlite-databases-{{ uniqid }}-sql_file"
+                       name="sqlite[databases][{{ uniqid }}][sql_file]"
+                       placeholder="/var/www/sql/database_name.sql"
+                       value="{{ database.sql_file }}" class="form-control" />
+            </div>
+        </div>
+
+        <p class="text-center">
+            <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
+                    data-parent-id="{{ uniqid }}">Remove this database</button>
+        </p>
+    </div>
+</div>
