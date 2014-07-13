@@ -202,8 +202,9 @@ define nginx_vhost (
   $fastcgi_param = concat($fastcgi_param_parts, $envvars)
 
   $fastcgi_pass_hash = fastcgi_pass ? {
-    true    => {'fastcgi_pass' => $fastcgi_pass},
-    default => {}
+    null    => {},
+    ''      => {},
+    default => {'fastcgi_pass' => $fastcgi_pass},
   }
 
   $location_cfg_append = merge({
