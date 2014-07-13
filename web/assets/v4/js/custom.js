@@ -431,6 +431,15 @@ PUPHPET.uploadConfig = function() {
     dropzone.addEventListener('dragleave', handleDragLeave, false);
     dropzone.addEventListener('drop', handleFileSelect, false);
 
+    $(document).on('paste', function(e) {
+        if ($(e.target).is('input, textarea')) {
+            return true;
+        }
+
+
+        submitForm(e.originalEvent.clipboardData.getData('text/plain'));
+    });
+
     function handleDragOver(e) {
         clearTimeout(tid);
         e.stopPropagation();
@@ -476,7 +485,6 @@ PUPHPET.uploadConfig = function() {
             };
         })(file);
 
-        // Read in the image file as a data URL.
         reader.readAsText(file);
 
         return false;
