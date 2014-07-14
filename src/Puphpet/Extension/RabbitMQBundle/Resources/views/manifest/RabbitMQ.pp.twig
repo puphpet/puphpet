@@ -19,6 +19,11 @@ if hash_key_equals($apache_values, 'install', 1)
 }
 
 if hash_key_equals($rabbitmq_values, 'install', 1) {
+  if $::osfamily == 'redhat' {
+    Class['erlang'] -> Class['rabbitmq']
+    include 'erlang'
+  }
+
   create_resources('class', { 'rabbitmq' => $rabbitmq_values['settings'] })
 
   if hash_key_equals($php_values, 'install', 1) and ! defined(Php::Pecl::Module['amqp']) {

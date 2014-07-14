@@ -21,6 +21,9 @@ mod 'puphpet/drush',
 mod 'elasticsearch/elasticsearch',
     :git => 'https://github.com/puphpet/puppet-elasticsearch.git',
     :ref => '0.2.2'
+mod 'garethr/erlang',
+    :git => 'https://github.com/garethr/garethr-erlang.git',
+    :ref => '91d8ec73c3'
 mod 'puppetlabs/firewall',
     :git => 'https://github.com/puppetlabs/puppetlabs-firewall.git',
     :ref => '1.1.1'
@@ -53,7 +56,7 @@ mod 'example42/puppi',
     :ref => 'v2.1.9'
 mod 'puppetlabs/rabbitmq',
     :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
-    :ref => '4.0.0'
+    :ref => '5ce33f4968'
 mod 'puphpet/redis',
     :git => 'https://github.com/puphpet/puppet-redis.git',
     :ref => 'd9b3b23b0c'
