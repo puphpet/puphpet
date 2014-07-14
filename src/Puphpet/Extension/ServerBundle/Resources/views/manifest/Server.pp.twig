@@ -197,8 +197,8 @@ if is_array($server_values['packages']) and count($server_values['packages']) > 
 }
 
 define add_dotdeb ($release){
-   apt::source { "${name}-content-network":
-    location          => 'http://cdn.content-network.net/mirror/dotdeb/',
+   apt::source { "${name}-repo.puphpet":
+    location          => 'http://repo.puphpet.com/dotdeb/',
     release           => $release,
     repos             => 'all',
     required_packages => 'debian-keyring debian-archive-keyring',
