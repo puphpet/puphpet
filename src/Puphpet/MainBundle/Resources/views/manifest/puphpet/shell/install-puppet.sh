@@ -24,6 +24,10 @@ echo 'Finished installing Puppet requirements'
 
 echo 'Installing Puppet 3.4.3'
 gem install puppet --version 3.4.3 >/dev/null
+
+mv /usr/bin/puppet /usr/bin/puppet-old
+ln -s /usr/local/rvm/rubies/ruby-1.9.3-*/bin/puppet /usr/bin/puppet
+
 PUPPET_VERSION=$(puppet --version)
 echo "Finished installing Puppet 3.4.3: ${PUPPET_VERSION}"
 
