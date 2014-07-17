@@ -20,7 +20,7 @@ touch '/.puphpet-stuff/vagrant-core-folder.txt'
 echo "${VAGRANT_CORE_FOLDER}" > '/.puphpet-stuff/vagrant-core-folder.txt'
 
 if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
-    return 0
+    exit 0
 fi
 
 if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
