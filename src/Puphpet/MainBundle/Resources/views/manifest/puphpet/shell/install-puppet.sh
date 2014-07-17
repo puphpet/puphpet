@@ -13,7 +13,7 @@ if [[ -f '/.puphpet-stuff/install-puppet' ]]; then
 fi
 
 if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-    apt-get -y install augeas-tools
+    apt-get -y install augeas-tools libaugeas-dev
 elif [[ "${OS}" == 'centos' ]]; then
     yum -y install augeas-devel
 fi
