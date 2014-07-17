@@ -19,13 +19,16 @@ elif [[ "${OS}" == 'centos' ]]; then
 fi
 
 echo 'Installing Puppet requirements'
-/usr/bin/gem install haml hiera facter json ruby-augeas >/dev/null
+/usr/bin/gem install haml hiera facter json ruby-augeas
 echo 'Finished installing Puppet requirements'
 
 echo 'Installing Puppet 3.4.3'
-/usr/bin/gem install puppet --version 3.4.3 >/dev/null
+/usr/bin/gem install puppet --version 3.4.3
 
-mv /usr/bin/puppet /usr/bin/puppet-old
+if [[ -f '/usr/bin/puppet' ]]; then
+    mv /usr/bin/puppet /usr/bin/puppet-old
+fi
+
 ln -s /usr/local/rvm/rubies/ruby-1.9.3-*/bin/puppet /usr/bin/puppet
 
 PUPPET_VERSION=$(/usr/bin/puppet --version)
