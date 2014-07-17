@@ -160,7 +160,8 @@ Vagrant.configure("2") do |config|
     kg.path = "puphpet/shell/ssh-keygen.sh"
     kg.args = "#{ssh_username}"
   end
-  config.vm.provision :shell, :path => "puphpet/shell/update-puppet.sh"
+  config.vm.provision :shell, :path => "puphpet/shell/install-ruby.sh"
+  config.vm.provision :shell, :path => "puphpet/shell/install-puppet.sh"
 
   config.vm.provision :puppet do |puppet|
     puppet.facter = {
