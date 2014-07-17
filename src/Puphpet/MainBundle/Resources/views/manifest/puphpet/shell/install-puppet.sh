@@ -30,8 +30,6 @@ if [[ -f '/usr/bin/puppet' ]]; then
 fi
 
 ln -s /usr/local/rvm/rubies/ruby-1.9.3-*/bin/puppet /usr/bin/puppet
-
-PUPPET_VERSION=$(/usr/bin/puppet --version)
-echo "Finished installing Puppet 3.4.3: ${PUPPET_VERSION}"
+echo 'Finished installing Puppet 3.4.3'
 
 touch '/.puphpet-stuff/install-puppet'
