@@ -103,6 +103,7 @@ Vagrant.configure("2") do |config|
       end
 
       virtualbox.customize ["modifyvm", :id, "--memory", "#{data['vm']['memory']}"]
+      virtualbox.customize ["modifyvm", :id, "--cpus", "#{data['vm']['cpus']}"]
 
       if data['vm']['hostname'].to_s.strip.length != 0
         virtualbox.customize ["modifyvm", :id, "--name", config.vm.hostname]
