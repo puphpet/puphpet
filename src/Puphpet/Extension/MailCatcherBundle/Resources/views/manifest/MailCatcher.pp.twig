@@ -48,7 +48,12 @@ if hash_key_equals($mailcatcher_values, 'install', 1) {
     ' --http-port' => $mailcatcher_values['settings']['http_port']
   }, ' '))
 
-  $supervisord_mailcatcher_cmd = "mailcatcher ${supervisord_mailcatcher_options} -f  >> ${mailcatcher_values['settings']['log']}"
+  $supervisord_mailcatcher_log = empty($mailcatcher_values['settings']['log']) ? {
+    true    => '',
+    default => ">> ${mailcatcher_values['settings']['log']}"
+  }
+
+  $supervisord_mailcatcher_cmd = "/usr/local/rvm/wrappers/default/mailcatcher ${supervisord_mailcatcher_options} -f ${supervisord_mailcatcher_log}"
 
   supervisord::program { 'mailcatcher':
     command     => $supervisord_mailcatcher_cmd,
@@ -57,8 +62,11 @@ if hash_key_equals($mailcatcher_values, 'install', 1) {
     autostart   => true,
     autorestart => 'true',
     environment => {
-      'PATH' => "/bin:/sbin:/usr/bin:/usr/sbin:${mailcatcher_values['settings']['path']}"
+      'PATH' => "/bin:/sbin:/usr/bin:/usr/sbin:${mailcatcher_values['settings']['mailcatcher_path']}"
     },
-    require => Package['mailcatcher']
+    require => [
+      Class['mailcatcher::config'],
+      File['/var/log/mailcatcher']
+    ],
   }
 }
