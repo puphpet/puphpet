@@ -50,7 +50,7 @@ mod 'puppetlabs/postgresql',
     :ref => '3.3.3'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => 'a0b797f'
+    :ref => '77947d6'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
@@ -66,7 +66,7 @@ mod 'nanliu/staging',
 mod 'puppetlabs/stdlib'
 mod 'ajcrowe/supervisord',
     :git => 'https://github.com/puphpet/puppet-supervisord.git',
-    :ref => 'c9ea38e'
+    :ref => '17643f1'
 mod 'puppetlabs/sqlite',
     :git => 'https://github.com/puppetlabs/puppetlabs-sqlite.git',
     :ref => 'v0.0.1'
