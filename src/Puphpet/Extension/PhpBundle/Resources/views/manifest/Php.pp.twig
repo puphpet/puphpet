@@ -172,7 +172,7 @@ if hash_key_equals($php_values, 'install', 1) {
   {
     puphpet::ini { 'sendmail_path':
       entry       => 'CUSTOM/sendmail_path',
-      value       => '/usr/local/rvm/wrappers/default/catchmail -f',
+      value       => "${mailcatcher_values['settings']['mailcatcher_path']}/catchmail -f",
       php_version => $php_values['version'],
       webserver   => $php_webserver_service_ini
     }
