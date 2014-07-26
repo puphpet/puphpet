@@ -3,7 +3,7 @@
 VAGRANT_CORE_FOLDER=$(cat '/.puphpet-stuff/vagrant-core-folder.txt')
 
 if [[ -f '/.puphpet-stuff/displayed-important-notices' ]]; then
-    return 0
+    exit 0
 fi
 
 cat "${VAGRANT_CORE_FOLDER}/shell/important-notices.txt"
