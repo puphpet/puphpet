@@ -66,7 +66,7 @@ mod 'nanliu/staging',
 mod 'puppetlabs/stdlib'
 mod 'ajcrowe/supervisord',
     :git => 'https://github.com/puphpet/puppet-supervisord.git',
-    :ref => '07feacb'
+    :ref => '865dd41'
 mod 'puppetlabs/sqlite',
     :git => 'https://github.com/puppetlabs/puppetlabs-sqlite.git',
     :ref => 'v0.0.1'
