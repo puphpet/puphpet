@@ -86,6 +86,32 @@
                             redirect rules should continue working as normal. Only instead of using the official PHP engine,
                             HHVM will be used.
                         </p>
+
+                        <!-- HHVM / PEAR Modules -->
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <label for="hhvm-modules-pear">PEAR Modules</label>
+                                <select id="hhvm-modules-pear" name="hhvm[modules][pear][]"
+                                        multiple class="form-control select-tags">
+                                    {% set selectedHhvmModulesPear = [] %}
+                                    {% for namespace, modules in hhvm.available_modules.pear %}
+                                        <optgroup label="{{ namespace }}">
+                                            {% for module in modules %}
+                                                {% set selectedHhvmModulesPear = selectedHhvmModulesPear|merge([module]) %}
+                                                <option value="{{ module }}"
+                                                    {% if module in hhvm.modules.pear %}selected{% endif %}>{{ module }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    {% endfor %}
+                                    {% for module in hhvm.modules.pear %}
+                                        {% if module not in selectedHhvmModulesPear %}
+                                            <option value="{{ module }}" selected>{{ module }}</option>
+                                        {% endif %}>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <!-- end HHVM / PEAR Modules -->
                     </div>
                 </div>
             </div>

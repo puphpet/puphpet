@@ -35,7 +35,7 @@
             </div>
             <div class="tab-pane" id="hhvm">
                 {% set extension = extensionManager.getExtensionBySlug('hhvm') %}
-                {{ extension.renderFront(extension.data)|raw }}
+                {{ extension.renderFront(extension.data, phpLibraries)|raw }}
             </div>
         </div>
         <!-- End PHP Engine -->

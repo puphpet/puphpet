@@ -7,3 +7,7 @@ composer_home: ~
 settings:
     host: 127.0.0.1
     port: 9000
+
+modules:
+    pecl:
+        - pecl_http
