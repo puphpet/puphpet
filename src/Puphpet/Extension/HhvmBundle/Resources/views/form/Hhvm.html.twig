@@ -32,7 +32,7 @@
                 <div class="{% if not hhvm.install %}hidden{% endif %}" id="hhvm-config-container">
                     <div class="panel-body">
                         <div class="row form-group">
-                            <div class="col-xs-12">
+                            <div class="col-md-6">
                                 <label class="checkbox-inline">
                                     <input type="checkbox" name="hhvm[nightly]" value="1"
                                         {% if hhvm.nightly == 1 %}checked{% endif %} /> Install Nightly
@@ -43,6 +43,20 @@
                                     <a href="http://hacklang.org/" target="_blank">Hack</a>, you must choose
                                     this option!
                                 </p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>
+                                    Composer
+                                    {{ popover.small('<a href="https://getcomposer.org">Composer</a> will be available as a
+                                        system service:<br />
+                                        <code>$ composer</code>') }}
+                                </label><br />
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="hhvm[composer]" value="1"
+                                        {% if hhvm.composer %}checked{% endif %} /> Install Composer
+                                    <input type="hidden" name="hhvm[composer_home]" value="{{ hhvm.composer_home }}" />
+                                </label>
                             </div>
                         </div>
 

@@ -66,4 +66,39 @@ if hash_key_equals($hhvm_values, 'install', 1) {
     target  => '/usr/bin/hhvm',
     require => Package['hhvm']
   }
+
+  if hash_key_equals($hhvm_values, 'composer', 1) {
+    $hhvm_composer_home = $hhvm_values['composer_home'] ? {
+      false   => false,
+      undef   => false,
+      ''      => false,
+      default => $hhvm_values['composer_home'],
+    }
+
+    if $hhvm_composer_home {
+      file { $hhvm_composer_home:
+        ensure  => directory,
+        owner   => 'www-data',
+        group   => 'www-data',
+        mode    => 0775,
+        require => [Group['www-data'], Group['www-user']]
+      }
+
+      file_line { "COMPOSER_HOME=${hhvm_composer_home}":
+        path => '/etc/environment',
+        line => "COMPOSER_HOME=${hhvm_composer_home}",
+      }
+    }
+
+    class { 'composer':
+      target_dir      => '/usr/local/bin',
+      composer_file   => 'composer',
+      download_method => 'curl',
+      logoutput       => false,
+      tmp_path        => '/tmp',
+      php_package     => 'hhvm',
+      curl_package    => 'curl',
+      suhosin_enabled => false,
+    }
+  }
 }

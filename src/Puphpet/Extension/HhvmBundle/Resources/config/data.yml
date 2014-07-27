@@ -1,6 +1,9 @@
 install: 0
 nightly: 0
 
+composer: 1
+composer_home: ~
+
 settings:
     host: 0
     port: 0
