@@ -29,7 +29,7 @@ if [[ -f '/usr/bin/puppet' ]]; then
     mv /usr/bin/puppet /usr/bin/puppet-old
 fi
 
-ln -s /usr/local/rvm/rubies/ruby-1.9.3-*/bin/puppet /usr/bin/puppet
+ln -s /usr/local/rvm/wrappers/default/puppet /usr/bin/puppet
 echo 'Finished installing Puppet 3.4.3'
 
 touch '/.puphpet-stuff/install-puppet'
