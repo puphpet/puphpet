@@ -1,4 +1,5 @@
 body {
+    min-width: 768px;
     padding-top: 50px;
     font-size: 16px;
 }
@@ -124,7 +125,7 @@ footer {
     }
 
     .nav-tabs.icon-bar > li > a {
-        height: 150px;
+        height: 100px;
         margin-right: 2px;
         background-color: #f8f8f8;
         line-height: 1.4;
@@ -151,13 +152,12 @@ footer {
 
     .nav-tabs.icon-bar li a .tab-icon {
         width: 100%;
-        margin: 0 auto 15px;
+        line-height: 1em;
     }
 
     .nav-tabs.icon-bar li a .tab-icon img {
-        width: 100%;
-        max-width: 125px;
-        margin: 0 auto 10px;
+        height: 40px;
+        margin: 0 auto 5px;
     }
 
     .nav-tabs.icon-bar li a .tab-icon img.tab-icon-active,
