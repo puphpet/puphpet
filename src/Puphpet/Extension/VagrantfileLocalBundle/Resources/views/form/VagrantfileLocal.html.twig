@@ -109,11 +109,13 @@
                                required placeholder="512" pattern="^[1-9][0-9]*$" min="64"
                                value="{{ data.vm.memory }}" class="form-control" />
                     </div>
+                </div>
 
+                <div class="row form-group">
                     <div class="col-md-6">
                         <label for="vagrantfile-local-vm-cpus">
                             Local VM CPU's
-                            {{ popover.small('Number of CPU\'s to assign to VM (only integers)') }}
+                            {{ popover.small("Number of CPU's to assign to VM (only integers)") }}
                         </label>
                         <input type="number" id="vagrantfile-local-vm-cpus"
                                name="vagrantfile-local[vm][cpus]"
