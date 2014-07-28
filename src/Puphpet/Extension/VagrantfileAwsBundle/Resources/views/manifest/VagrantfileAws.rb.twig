@@ -28,6 +28,11 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  aws.tags = {}
+  data['vm']['provider']['aws']['tags'].each do |key, tag|
+    aws.tags.store(:key, tag)
+  end
+
   data['vm']['synced_folder'].each do |i, folder|
     if folder['source'] != '' && folder['target'] != ''
       config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}"

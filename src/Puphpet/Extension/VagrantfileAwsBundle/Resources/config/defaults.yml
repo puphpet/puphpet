@@ -4,6 +4,8 @@ vm:
             ami: ami-4b124a22
             region: us-east-1
             instance_type: m1.small
+            tags:
+                Source: Puphpet
     synced_folder:
         -
             source: ./

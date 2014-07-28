@@ -13,6 +13,8 @@ vm:
             region: ~
             instance_type: ~
             security_groups: {}
+            tags:
+                Source: Puphpet
     provision:
         puppet:
             manifests_path: "puphpet/puppet"
