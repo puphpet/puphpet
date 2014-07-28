@@ -47,6 +47,14 @@ available_providers:
             (affiliate link - help support this free service)
             and installing the free <a href="https://github.com/Parallels/vagrant-parallels" target="_blank">Vagrant Parallels Plugin</a>.
         default_ip: 192.168.58.101
+    -
+        name: libvirt
+        long_name: libvirt
+        description: >
+                <em>OS-support and performance depends on the underlying hypervisor used</em><br />
+                Use vagrant with any local hypervisor through <a href="http://libvirt.org/" target="_blank">the libvirt toolkit</a>,
+                requires installing the <a href="https://github.com/pradels/vagrant-libvirt" target="_blank">free vagrant-libvirt plugin</a>.
+        default_ip: 192.168.59.101
 
 available_boxes:
     -

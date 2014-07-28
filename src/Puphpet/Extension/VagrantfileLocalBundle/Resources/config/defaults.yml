@@ -4,6 +4,7 @@ vm:
         virtualbox: []
         vmware: []
         parallels: []
+        libvirt: []
     synced_folder:
         -
             source: ./
