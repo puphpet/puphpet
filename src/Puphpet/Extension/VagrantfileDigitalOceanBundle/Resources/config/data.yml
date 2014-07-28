@@ -9,8 +9,7 @@ vm:
             image: ~
             region: ~
             size: ~
-            client_id: ~
-            api_key: ~
+            token: ~
     provision:
         puppet:
             manifests_path: "puphpet/puppet"

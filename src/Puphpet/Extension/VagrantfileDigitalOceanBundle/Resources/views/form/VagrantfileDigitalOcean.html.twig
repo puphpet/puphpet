@@ -81,9 +81,9 @@
                         <select id="vagrantfile-digital_ocean-vm-provider-digital_ocean-region"
                                 name="vagrantfile-digital_ocean[vm][provider][digital_ocean][region]"
                                 class="form-control select-tag">
-                            {% for region in data.available_regions %}
-                                <option value="{{ region }}"
-                                    {% if region == data.vm.provider.digital_ocean.region %}selected{% endif %}>{{ region }}</option>
+                            {% for key, region in data.available_regions %}
+                                <option value="{{ key }}"
+                                    {% if key == data.vm.provider.digital_ocean.region %}selected{% endif %}>{{ region }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -91,25 +91,14 @@
 
                 <div class="row form-group">
                     <div class="col-md-6">
-                        <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-client_id">
-                            Digital Ocean VM Client ID
-                            {{ popover.small('<a href="https://www.digitalocean.com/api_access" target="_blank">Get it here</a>') }}
+                        <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-token">
+                            Digital Ocean VM Token
+                            {{ popover.small('<a href="https://cloud.digitalocean.com/settings/applications" target="_blank">Get it here</a>') }}
                         </label>
-                        <input id="vagrantfile-digital_ocean-vm-provider-digital_ocean-client_id"
-                               name="vagrantfile-digital_ocean[vm][provider][digital_ocean][client_id]"
-                               placeholder="DIGITAL OCEAN CLIENT ID"
-                               value="{{ data.vm.provider.digital_ocean.client_id }}" class="form-control" />
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-api_key">
-                            Digital Ocean VM API Key
-                            {{ popover.small('<a href="https://www.digitalocean.com/api_access" target="_blank">Get it here</a>') }}
-                        </label>
-                        <input id="vagrantfile-digital_ocean-vm-provider-digital_ocean-api_key"
-                               name="vagrantfile-digital_ocean[vm][provider][digital_ocean][api_key]"
-                               placeholder="DIGITAL OCEAN API KEY"
-                               value="{{ data.vm.provider.digital_ocean.api_key }}" class="form-control" />
+                        <input id="vagrantfile-digital_ocean-vm-provider-digital_ocean-token"
+                               name="vagrantfile-digital_ocean[vm][provider][digital_ocean][token]"
+                               placeholder="DIGITAL OCEAN TOKEN"
+                               value="{{ data.vm.provider.digital_ocean.token }}" class="form-control" />
                     </div>
                 </div>
 
