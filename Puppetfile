@@ -8,7 +8,7 @@ mod 'puppetlabs/apt',
     :ref => '1.4.2'
 mod 'puphpet/beanstalkd',
     :git => 'https://github.com/puphpet/puppet-beanstalkd.git',
-    :ref => 'c4629f751d'
+    :ref => '5a530ff'
 mod 'tPl0ch/composer',
     :git => 'https://github.com/tPl0ch/puppet-composer.git',
     :ref => '1.2.1'
