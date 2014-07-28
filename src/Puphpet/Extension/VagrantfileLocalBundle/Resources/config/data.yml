@@ -1,7 +1,7 @@
 vm:
     box: puphpet/debian75-x64
     box_url: puphpet/debian75-x64
-    hostname: ~
+    hostname: puphpet
     memory: 512
     cpus: 1
     chosen_provider: virtualbox
