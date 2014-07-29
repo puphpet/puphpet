@@ -13,14 +13,15 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
-        'stdlib'   => ":git => 'https://github.com/puphpet/puppetlabs-stdlib.git'",
-        'concat'   => ":git => 'https://github.com/puphpet/puppetlabs-concat.git'",
-        'apt'      => ":git => 'https://github.com/puphpet/puppetlabs-apt.git'",
-        'yum'      => ":git => 'https://github.com/puphpet/puppet-yum.git'",
-        'vcsrepo'  => ":git => 'https://github.com/puphpet/puppetlabs-vcsrepo.git'",
-        'ntp'      => ":git => 'https://github.com/puphpet/puppetlabs-ntp.git'",
-        'firewall' => ":git => 'https://github.com/puppetlabs/puppetlabs-firewall.git'",
-        'git'      => ":git => 'https://github.com/puphpet/puppetlabs-git.git'",
+        'stdlib'    => ":git => 'https://github.com/puphpet/puppetlabs-stdlib.git'",
+        'concat'    => ":git => 'https://github.com/puphpet/puppetlabs-concat.git'",
+        'apt'       => ":git => 'https://github.com/puphpet/puppetlabs-apt.git'",
+        'yum'       => ":git => 'https://github.com/puphpet/puppet-yum.git'",
+        'vcsrepo'   => ":git => 'https://github.com/puphpet/puppetlabs-vcsrepo.git'",
+        'ntp'       => ":git => 'https://github.com/puphpet/puppetlabs-ntp.git'",
+        'firewall'  => ":git => 'https://github.com/puppetlabs/puppetlabs-firewall.git'",
+        'git'       => ":git => 'https://github.com/puphpet/puppetlabs-git.git'",
+        'swap_file' => ":git => 'https://github.com/petems/puppet-swap_file.git'",
     ];
 
     /**

@@ -9,6 +9,8 @@ if $server_values == undef {
 # failing for invalid certificates
 class { 'ntp': }
 
+include swap_file
+
 include 'puphpet'
 include 'puphpet::params'
 

@@ -60,16 +60,19 @@ mod 'puppetlabs/rabbitmq',
 mod 'puphpet/redis',
     :git => 'https://github.com/puphpet/puppet-redis.git',
     :ref => 'd9b3b23b0c'
-mod 'nanliu/staging',
-    :git => 'https://github.com/nanliu/puppet-staging.git',
-    :ref => '0.4.0'
-mod 'puppetlabs/stdlib'
-mod 'ajcrowe/supervisord',
-    :git => 'https://github.com/puphpet/puppet-supervisord.git',
-    :ref => '17643f1'
 mod 'puppetlabs/sqlite',
     :git => 'https://github.com/puppetlabs/puppetlabs-sqlite.git',
     :ref => 'v0.0.1'
+mod 'petems/swap_file',
+    :git => 'https://github.com/petems/puppet-swap_file.git',
+    :ref => '39582afda5'
+mod 'nanliu/staging',
+    :git => 'https://github.com/nanliu/puppet-staging.git',
+    :ref => '0.4.0'
+mod 'ajcrowe/supervisord',
+    :git => 'https://github.com/puphpet/puppet-supervisord.git',
+    :ref => '17643f1'
+mod 'puppetlabs/stdlib'
 mod 'puppetlabs/vcsrepo',
     :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
     :ref => '0.2.0'
