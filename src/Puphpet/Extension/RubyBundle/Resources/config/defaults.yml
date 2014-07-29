@@ -1,0 +1,6 @@
+versions:
+    -
+        version: ~
+        default: 0
+        bundler: 0
+        gems: []

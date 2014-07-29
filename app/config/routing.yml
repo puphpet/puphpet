@@ -90,3 +90,6 @@ puphpet.extension.firewall:
     resource: "@PuphpetExtensionFirewallBundle/Resources/config/routing.yml"
     prefix:   /extension/firewall
 
+puphpet.extension.ruby:
+    resource: "@PuphpetExtensionRubyBundle/Resources/config/routing.yml"
+    prefix:   /extension/ruby
