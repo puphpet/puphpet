@@ -20,24 +20,26 @@ define install_ruby (
   $default_true = value_true($default)
   $bundler_true = value_true($bundle)
 
-  rvm_system_ruby { $version:
-      default_use => $default_true,
-      ensure      => present,
-  }
+  if value_true($version) {
+    rvm_system_ruby { $version:
+        default_use => $default_true,
+        ensure      => present,
+    }
 
-  if $bundler_true == true {
-    $gems_merged = concat($gems, 'bundler')
-  } else {
-    $gems_merged = $gems
-  }
+    if $bundler_true == true {
+      $gems_merged = concat($gems, 'bundler')
+    } else {
+      $gems_merged = $gems
+    }
 
-  if count($gems_merged) > 0 {
-    each( $gems_merged ) |$key, $gem| {
-      rvm_gem { $gem:
-        name         => $gem,
-        ruby_version => $version,
-        ensure       => present,
-        require      => Rvm_system_ruby[$version]
+    if count($gems_merged) > 0 {
+      each( $gems_merged ) |$key, $gem| {
+        rvm_gem { $gem:
+          name         => $gem,
+          ruby_version => $version,
+          ensure       => present,
+          require      => Rvm_system_ruby[$version]
+        }
       }
     }
   }
