@@ -17,8 +17,7 @@ Vagrant.configure("2") do |config|
   config.ssh.username = "#{data['ssh']['username']}"
 
   config.vm.provider :digital_ocean do |provider|
-    provider.client_id = "#{data['vm']['provider']['digital_ocean']['client_id']}"
-    provider.api_key = "#{data['vm']['provider']['digital_ocean']['api_key']}"
+    provider.token = "#{data['vm']['provider']['digital_ocean']['token']}"
     provider.image = "#{data['vm']['provider']['digital_ocean']['image']}"
     provider.region = "#{data['vm']['provider']['digital_ocean']['region']}"
     provider.size = "#{data['vm']['provider']['digital_ocean']['size']}"
