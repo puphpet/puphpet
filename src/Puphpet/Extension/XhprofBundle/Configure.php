@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'Xhprof';
     protected $slug = 'xhprof';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/xhprof.pp';
 
     protected $sources = [
         'apt'     => ":git => 'https://github.com/puphpet/puppetlabs-apt.git'",

@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'SQLite';
     protected $slug = 'sqlite';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/sqlite.pp';
 
     protected $sources = [
         'sqlite' => ":git => 'https://github.com/puppetlabs/puppetlabs-sqlite.git'",

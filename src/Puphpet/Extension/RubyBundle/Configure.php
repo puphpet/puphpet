@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'Ruby';
     protected $slug = 'ruby';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/ruby.pp';
 
     protected $sources = [
         'rvm' => ":git => 'https://github.com/maestrodev/puppet-rvm.git'",

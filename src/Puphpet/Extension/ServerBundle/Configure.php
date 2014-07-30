@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'Server Basics';
     protected $slug = 'server';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/server.pp';
 
     protected $sources = [
         'stdlib'    => ":git => 'https://github.com/puphpet/puppetlabs-stdlib.git'",

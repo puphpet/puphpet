@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'NodeJs';
     protected $slug = 'nodejs';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/nodejs.pp';
 
     protected $sources = [
         'nodejs' => ":git => 'https://github.com/puppetlabs/puppetlabs-nodejs.git'",

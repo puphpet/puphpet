@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'Firewall';
     protected $slug = 'firewall';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/firewall.pp';
 
     protected $sources = [
         'stdlib'   => ":git => 'https://github.com/puphpet/puppetlabs-stdlib.git'",

@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'MailCatcher';
     protected $slug = 'mailcatcher';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/mailcatcher.pp';
 
     protected $sources = [
         'mailcatcher' => ":git => 'https://github.com/puphpet/puppet-mailcatcher.git'",

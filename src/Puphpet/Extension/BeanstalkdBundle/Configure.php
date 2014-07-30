@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'Beanstalkd';
     protected $slug = 'beanstalkd';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/beanstalkd.pp';
 
     protected $sources = [
         'beanstalkd' => ":git => 'https://github.com/puphpet/puppet-beanstalkd.git'",

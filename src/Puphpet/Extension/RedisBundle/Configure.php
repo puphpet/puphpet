@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'Redis';
     protected $slug = 'redis';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/redis.pp';
 
     protected $sources = [
         'redis' => ":git => 'https://github.com/puphpet/puppet-redis.git'",

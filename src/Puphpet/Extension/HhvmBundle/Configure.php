@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'HHVM';
     protected $slug = 'hhvm';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/hhvm.pp';
 
     protected $sources = [
         'puphpet'     => ":git => 'https://github.com/puphpet/puppet-puphpet.git'",
