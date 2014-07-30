@@ -40,6 +40,7 @@ class AppKernel extends Kernel
             new Puphpet\Extension\SqliteBundle\PuphpetExtensionSqliteBundle(),
             new Puphpet\Extension\FirewallBundle\PuphpetExtensionFirewallBundle(),
             new Puphpet\Extension\RubyBundle\PuphpetExtensionRubyBundle(),
+            new Puphpet\Extension\NodeJsBundle\PuphpetExtensionNodeJsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
