@@ -27,7 +27,7 @@ if hash_key_equals($xdebug_values, 'install', 1)
     default => false,
   }
 
-  class { 'puphpet::xdebug':
+  class { 'puphpet::php::xdebug':
     webserver => $xdebug_webserver_service,
     compile   => $xdebug_compile,
   }
