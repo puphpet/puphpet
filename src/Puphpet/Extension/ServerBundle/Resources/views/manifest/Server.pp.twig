@@ -124,17 +124,6 @@ case $::operatingsystem {
 
     add_dotdeb { 'packages.dotdeb.org': release => $lsbdistcodename }
 
-   if hash_key_equals($php_values, 'install', 1) {
-      # Debian Squeeze 6.0 can do PHP 5.3 (default) and 5.4
-      if $lsbdistcodename == 'squeeze' and $php_values['version'] == '54' {
-        add_dotdeb { 'packages.dotdeb.org-php54': release => 'squeeze-php54' }
-      }
-      # Debian Wheezy 7.0 can do PHP 5.4 (default) and 5.5
-      elsif $lsbdistcodename == 'wheezy' and $php_values['version'] == '55' {
-        add_dotdeb { 'packages.dotdeb.org-php55': release => 'wheezy-php55' }
-      }
-    }
-
     $server_lsbdistcodename = downcase($lsbdistcodename)
 
     apt::force { 'git':
@@ -155,36 +144,9 @@ case $::operatingsystem {
     } else {
       apt::ppa { 'ppa:pdoes/ppa': require => Apt::Key['4CBEDD5A'] }
     }
-
-    if hash_key_equals($php_values, 'install', 1) {
-      # Ubuntu Lucid 10.04, Precise 12.04, Quantal 12.10 and Raring 13.04 can do PHP 5.3 (default <= 12.10) and 5.4 (default <= 13.04)
-      if $lsbdistcodename in ['lucid', 'precise', 'quantal', 'raring', 'trusty'] and $php_values['version'] == '54' {
-        if $lsbdistcodename == 'lucid' {
-          apt::ppa { 'ppa:ondrej/php5-oldstable': require => Apt::Key['4F4EA0AAE5267A6C'], options => '' }
-        } else {
-          apt::ppa { 'ppa:ondrej/php5-oldstable': require => Apt::Key['4F4EA0AAE5267A6C'] }
-        }
-      }
-      # Ubuntu 12.04/10, 13.04/10, 14.04 can do PHP 5.5
-      elsif $lsbdistcodename in ['precise', 'quantal', 'raring', 'saucy', 'trusty'] and $php_values['version'] == '55' {
-        apt::ppa { 'ppa:ondrej/php5': require => Apt::Key['4F4EA0AAE5267A6C'] }
-      }
-      elsif $lsbdistcodename in ['lucid'] and $php_values['version'] == '55' {
-        err('You have chosen to install PHP 5.5 on Ubuntu 10.04 Lucid. This will probably not work!')
-      }
-    }
   }
   'redhat', 'centos': {
-    if hash_key_equals($php_values, 'install', 1) {
-      if $php_values['version'] == '54' {
-        class { 'yum::repo::remi': }
-      }
-      # remi_php55 requires the remi repo as well
-      elsif $php_values['version'] == '55' {
-        class { 'yum::repo::remi': }
-        class { 'yum::repo::remi_php55': }
-      }
-    }
+    #
   }
 }
 

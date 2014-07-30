@@ -16,6 +16,7 @@ available_images:
         image: Trusty
         long_name: Ubuntu Trusty 14.04 LTS x64
         php_versions:
+            - 5.6
             - 5.5
             - HHVM
     -

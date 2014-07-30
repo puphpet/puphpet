@@ -203,6 +203,10 @@ footer {
 /*
  * PHP version badge colors for OS selection
 **/
+    .php-version-5-6 {
+        background-color: #b5b845;
+    }
+
     .php-version-5-5 {
         background-color: #5cb85c;
     }
