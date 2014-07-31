@@ -3,8 +3,12 @@ if $apache_values == undef { $apache_values = hiera('apache', false) }
 if $nginx_values == undef { $nginx_values = hiera('nginx', false) }
 if $mailcatcher_values == undef { $mailcatcher_values = hiera('mailcatcher', false) }
 
+include puphpet::params
+
 if hash_key_equals($php_values, 'install', 1) {
-  add_php_repos { 'do': }
+  class { 'puphpet::php::repos':
+    php_version => $php_values['version']
+  }
 
   Class['Php']
   -> Class['Php::Devel']
@@ -198,66 +202,6 @@ define php_pecl_mod {
   if ! defined(Puphpet::Php::Pecl[$name]) {
     puphpet::php::pecl { $name:
       service_autorestart => $php_webserver_restart,
-    }
-  }
-}
-
-define add_php_repos {
-  case $::operatingsystem {
-    'debian': {
-      # Squeeze: 5.3 (default) && 5.4
-      if $::lsbdistcodename == 'squeeze' and $php_values['version'] == '54' {
-        add_dotdeb { 'packages.dotdeb.org-php54': release => 'squeeze-php54' }
-      }
-      # Wheezy : 5.4 (default) && 5.5
-      elsif $lsbdistcodename == 'wheezy' and $php_values['version'] == '55' {
-        add_dotdeb { 'packages.dotdeb.org-php55': release => 'wheezy-php55' }
-      }
-    }
-    'ubuntu': {
-      # Lucid 10.04, Precise 12.04, Quantal 12.10, Raring 13.04: 5.3 (default <= 12.10) && 5.4 (default <= 13.04)
-      if $lsbdistcodename in ['lucid', 'precise', 'quantal', 'raring', 'trusty']
-        and $php_values['version'] == '54'
-      {
-        if $lsbdistcodename == 'lucid' {
-          apt::ppa { 'ppa:ondrej/php5-oldstable': require => Apt::Key['4F4EA0AAE5267A6C'], options => '' }
-        } else {
-          apt::ppa { 'ppa:ondrej/php5-oldstable': require => Apt::Key['4F4EA0AAE5267A6C'] }
-        }
-      }
-      # 12.04/10, 13.04/10, 14.04: 5.5
-      elsif $lsbdistcodename in ['precise', 'quantal', 'raring', 'saucy', 'trusty']
-        and $php_values['version'] == '55'
-      {
-        apt::ppa { 'ppa:ondrej/php5': require => Apt::Key['4F4EA0AAE5267A6C'] }
-      }
-      elsif $lsbdistcodename in ['lucid'] and $php_values['version'] == '55' {
-        err('You have chosen to install PHP 5.5 on Ubuntu 10.04 Lucid. This will probably not work!')
-      }
-      # Ubuntu 14.04 can do PHP 5.6
-      elsif $lsbdistcodename == 'trusty' and $php_values['version'] == '56' {
-        apt::ppa { 'ppa:ondrej/php5-5.6': require => Apt::Key['4F4EA0AAE5267A6C'] }
-      }
-    }
-    'redhat', 'centos': {
-      class { 'yum::repo::remi': }
-
-      # remi_php55 requires the remi repo as well
-      if $php_values['version'] == '55' {
-        class { 'yum::repo::remi_php55': }
-      }
-      # remi_php56 requires the remi repo as well
-      elsif $php_values['version'] == '56' {
-        yum::managed_yumrepo { 'remi-php56':
-          descr          => 'Les RPM de remi pour Enterpise Linux $releasever - $basearch - PHP 5.6',
-          mirrorlist     => 'http://rpms.famillecollet.com/enterprise/$releasever/php56/mirror',
-          enabled        => 1,
-          gpgcheck       => 1,
-          gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi',
-          gpgkey_source  => 'puppet:///modules/yum/rpm-gpg/RPM-GPG-KEY-remi',
-          priority       => 1,
-        }
-      }
     }
   }
 }
