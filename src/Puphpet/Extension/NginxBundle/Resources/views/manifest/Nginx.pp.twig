@@ -52,14 +52,14 @@ if hash_key_equals($nginx_values, 'install', 1) {
   }
 
   if $::osfamily == 'redhat' {
-      file { '/usr/share/nginx':
-        ensure  => directory,
-        mode    => 0775,
-        owner   => 'www-data',
-        group   => 'www-data',
-        require => Group['www-data'],
-        before  => Package['nginx']
-      }
+    file { '/usr/share/nginx':
+      ensure  => directory,
+      mode    => 0775,
+      owner   => 'www-data',
+      group   => 'www-data',
+      require => Group['www-data'],
+      before  => Package['nginx']
+    }
   }
 
   class { 'nginx': }
@@ -98,14 +98,15 @@ if hash_key_equals($nginx_values, 'install', 1) {
       }
 
       if ! defined(File[$vhost['www_root']]) {
-      file { $vhost['www_root']:
-        ensure  => directory,
-        group   => $vhost_docroot_group,
-        mode    => 0765,
-        require => [
-          Exec["exec mkdir -p ${vhost['www_root']} @ key ${key}"],
-          Group['www-user']
-        ]
+        file { $vhost['www_root']:
+          ensure  => directory,
+          group   => $vhost_docroot_group,
+          mode    => 0765,
+          require => [
+            Exec["exec mkdir -p ${vhost['www_root']} @ key ${key}"],
+            Group['www-user']
+          ]
+        }
       }
 
       if ! defined(Firewall["100 tcp/${vhost['listen_port']}"]) {
