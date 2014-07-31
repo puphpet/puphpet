@@ -49,9 +49,10 @@ if hash_key_equals($php_values, 'install', 1) {
 
     exec { 'php_fpm-listen':
       command => "perl -p -i -e 's#listen = .*#listen = 127.0.0.1:9000#gi' ${puphpet::params::php_fpm_conf}",
+      onlyif  => "test -f ${puphpet::params::php_fpm_conf}",
       unless  => "grep -x 'listen = 127.0.0.1:9000' ${puphpet::params::php_fpm_conf}",
       path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
-      require => Package[$php_webserver_service],
+      require => Package[$php_package],
       notify  => Service[$php_webserver_service],
     }
   } else {
@@ -132,34 +133,12 @@ if hash_key_equals($php_values, 'install', 1) {
     }
   }
 
-  if hash_key_equals($php_values, 'composer', 1) {
-    if hash_key_true($php_values, 'composer_home') {
-      file { $php_values['composer_home']:
-        ensure  => directory,
-        owner   => 'www-data',
-        group   => 'www-data',
-        mode    => 0775,
-        require => [
-          Group['www-data'],
-          Group['www-user']
-        ],
-      }
-
-      file_line { "COMPOSER_HOME=${php_composer_home}":
-        path => '/etc/environment',
-        line => "COMPOSER_HOME=${php_composer_home}",
-      }
-    }
-
-    class { 'composer':
-      target_dir      => '/usr/local/bin',
-      composer_file   => 'composer',
-      download_method => 'curl',
-      logoutput       => false,
-      tmp_path        => '/tmp',
-      php_package     => "${php::params::module_prefix}cli",
-      curl_package    => 'curl',
-      suhosin_enabled => false,
+  if hash_key_equals($php_values, 'composer', 1)
+    and ! defined(Class['puphpet::php::composer'])
+  {
+    class { 'puphpet::php::composer':
+      php_package   => "${php::params::module_prefix}cli",
+      composer_home => $php_values['composer_home'],
     }
   }
 
