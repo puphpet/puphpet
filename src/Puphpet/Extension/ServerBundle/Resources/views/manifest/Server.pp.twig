@@ -53,7 +53,9 @@ exec { 'dotfiles':
 case $::osfamily {
   # debian, ubuntu
   'debian': {
-    class { 'apt': }
+    if ! defined(Class['apt']) {
+      class { 'apt': }
+    }
 
     Class['::apt::update'] -> Package <|
         title != 'python-software-properties'
