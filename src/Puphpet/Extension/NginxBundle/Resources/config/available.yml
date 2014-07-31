@@ -14,3 +14,8 @@ empty_vhost:
         - index.html
         - index.htm
         - index.php
+    engine: ~
+
+available_engines:
+    - none
+    - php

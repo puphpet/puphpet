@@ -95,6 +95,24 @@
         </div>
 
         <div class="row form-group">
+            <div class="col-md-6">
+                <label for="nginx-vhosts-{{ uniqid }}-engine">
+                    Engine
+                    {{ popover.small('Engine to power this vhost.') }}
+                </label>
+
+                <select id="nginx-vhosts-{{ uniqid }}-engine"
+                        name="nginx[vhosts][{{ uniqid }}][engine]" size="6"
+                        class="form-control select-tags">
+                    {% for engine in available_engines %}
+                        <option value="{{ engine }}"
+                            {% if engine == vhost.engine %}selected{% endif %}>{{ engine }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="row form-group">
             <div class="col-md-12">
                 <label class="checkbox-inline">
                     <input type="checkbox" class="install-checkbox"

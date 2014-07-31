@@ -1,12 +1,6 @@
-## Begin HHVM manifest
-
-if $hhvm_values == undef {
-  $hhvm_values = hiera('hhvm', false)
-} if $apache_values == undef {
-  $apache_values = hiera('apache', false)
-} if $nginx_values == undef {
-  $nginx_values = hiera('nginx', false)
-}
+if $hhvm_values == undef { $hhvm_values = hiera('hhvm', false) }
+if $apache_values == undef { $apache_values = hiera('apache', false) }
+if $nginx_values == undef { $nginx_values = hiera('nginx', false) }
 
 if hash_key_equals($hhvm_values, 'install', 1) {
   if hash_key_equals($apache_values, 'install', 1) {
@@ -84,7 +78,10 @@ if hash_key_equals($hhvm_values, 'install', 1) {
         owner   => 'www-data',
         group   => 'www-data',
         mode    => 0775,
-        require => [Group['www-data'], Group['www-user']]
+        require => [
+          Group['www-data'],
+          Group['www-user']
+        ],
       }
 
       file_line { "COMPOSER_HOME=${hhvm_composer_home}":

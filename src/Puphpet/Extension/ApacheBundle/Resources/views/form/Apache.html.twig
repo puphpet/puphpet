@@ -63,7 +63,7 @@
                     </div>
 
                     {% for vhost in apache.vhosts %}
-                        {% include 'PuphpetExtensionApacheBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
+                        {% include 'PuphpetExtensionApacheBundle:form/sections:vhost.html.twig' with {'vhost': vhost, 'available_engines': apache.available_engines} %}
                     {% endfor %}
 
                     <div class="row">

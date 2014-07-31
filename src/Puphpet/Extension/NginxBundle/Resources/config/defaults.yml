@@ -24,3 +24,4 @@ vhosts:
             - index.html
             - index.htm
             - index.php
+        engine: php

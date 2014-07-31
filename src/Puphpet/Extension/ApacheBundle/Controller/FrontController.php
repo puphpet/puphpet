@@ -18,7 +18,8 @@ class FrontController extends Controller implements Extension\ControllerInterfac
     public function vhostAction()
     {
         return $this->render('PuphpetExtensionApacheBundle:form/sections:vhost.html.twig', [
-            'vhost' => $this->getData()['empty_vhost'],
+            'vhost'             => $this->getData()['empty_vhost'],
+            'available_engines' => $this->getData()['available_engines'],
         ]);
     }
 

@@ -1,83 +1,77 @@
-## Begin Apache manifest
-
-if $yaml_values == undef {
-  $yaml_values = loadyaml('/vagrant/puphpet/config.yaml')
-} if $apache_values == undef {
-  $apache_values = $yaml_values['apache']
-} if $php_values == undef {
-  $php_values = hiera('php', false)
-} if $hhvm_values == undef {
-  $hhvm_values = hiera('hhvm', false)
-}
+if $yaml_values == undef { $yaml_values = loadyaml('/vagrant/puphpet/config.yaml') }
+if $apache_values == undef { $apache_values = $yaml_values['apache'] }
+if $php_values == undef { $php_values = hiera('php', false) }
+if $hhvm_values == undef { $hhvm_values = hiera('hhvm', false) }
 
 if hash_key_equals($apache_values, 'install', 1) {
-  include puphpet::params
   include apache::params
+  include puphpet::params
+
+  if $::operatingsystem == 'debian' {
+    apache_debian_repo{ 'do': }
+  } elsif $::operatingsystem == 'ubuntu' and $lsbdistcodename == 'precise' {
+    apt::ppa { 'ppa:ondrej/apache2': require => Apt::Key['4F4EA0AAE5267A6C'] }
+  } elsif $::osfamily == 'redhat' {
+    apache_centos{ 'do': }
+  }
 
   $webroot_location      = $puphpet::params::apache_webroot_location
-  $apache_provider_types = ['virtualbox', 'vmware_fusion', 'vmware_desktop', 'parallels']
+  $apache_provider_types = [
+    'virtualbox',
+    'vmware_fusion',
+    'vmware_desktop',
+    'parallels'
+  ]
 
-  exec { "exec mkdir -p ${webroot_location}":
-    command => "mkdir -p ${webroot_location}",
+  exec { "mkdir -p ${webroot_location}":
     creates => $webroot_location,
   }
 
-  if (downcase($::provisioner_type) in $apache_provider_types) and ! defined(File[$webroot_location]) {
+  if downcase($::provisioner_type) in $apache_provider_types {
+    $webroot_location_group = 'www-data'
+  } else {
+    $webroot_location_group = undef
+  }
+
+  if ! defined(File[$webroot_location]) {
     file { $webroot_location:
       ensure  => directory,
+      group   => $webroot_location_group,
       mode    => 0775,
       require => [
-        Exec["exec mkdir -p ${webroot_location}"],
+        Exec["mkdir -p ${webroot_location}"],
         Group['www-data']
-      ]
-    }
-  } elsif ! (downcase($::provisioner_type) in $apache_provider_types) and ! defined(File[$webroot_location]) {
-    file { $webroot_location:
-      ensure  => directory,
-      group   => 'www-data',
-      mode    => 0775,
-      require => [
-        Exec["exec mkdir -p ${webroot_location}"],
-        Group['www-data']
-      ]
+      ],
     }
   }
 
   if hash_key_equals($hhvm_values, 'install', 1) {
     $mpm_module           = 'worker'
     $disallowed_modules   = ['php']
-    $apache_conf_template = 'puphpet/apache/hhvm-httpd.conf.erb'
     $apache_php_package   = 'hhvm'
   } elsif hash_key_equals($php_values, 'install', 1) {
-    $mpm_module           = 'prefork'
-    $disallowed_modules   = []
-    $apache_conf_template = $apache::params::conf_template
-    $apache_php_package   = 'php'
+    $mpm_module           = 'worker'
+    $disallowed_modules   = ['php']
+    $apache_php_package   = 'php-fpm'
   } else {
     $mpm_module           = 'prefork'
     $disallowed_modules   = []
-    $apache_conf_template = $apache::params::conf_template
     $apache_php_package   = ''
   }
 
-  if $::operatingsystem == 'ubuntu'
-    and hash_key_equals($php_values, 'install', 1)
-    and hash_key_equals($php_values, 'version', 55)
-  {
-    $apache_version = '2.4'
-  } else {
-    $apache_version = $apache::version::default
-  }
+  $apache_version = '2.4'
 
   $apache_settings = merge($apache_values['settings'], {
     'default_vhost'  => false,
     'mpm_module'     => $mpm_module,
-    'conf_template'  => $apache_conf_template,
+    'conf_template'  => $apache::params::conf_template,
     'sendfile'       => $apache_values['settings']['sendfile'] ? { 1 => 'On', default => 'Off' },
     'apache_version' => $apache_version
   })
 
   create_resources('class', { 'apache' => $apache_settings })
+
+  include ::puphpet::apache::fpm
 
   if hash_key_equals($apache_values, 'mod_pagespeed', 1) {
     class { 'puphpet::apache::modpagespeed': }
@@ -124,7 +118,7 @@ if hash_key_equals($apache_values, 'install', 1) {
           mode    => 0765,
           require => Exec["exec mkdir -p ${vhost['docroot']} @ key ${key}"]
         }
-      } elsif !(downcase($::provisioner_type) in $apache_provider_types)
+      } elsif ! (downcase($::provisioner_type) in $apache_provider_types)
         and ! defined(File[$vhost['docroot']])
       {
         file { $vhost['docroot']:
@@ -138,15 +132,16 @@ if hash_key_equals($apache_values, 'install', 1) {
         }
       }
 
-      create_resources(apache::vhost, { "${key}" => merge($vhost, {
-          'custom_fragment' => template('puphpet/apache/custom_fragment.erb'),
-          'ssl'             => 'ssl' in $vhost and str2bool($vhost['ssl']) ? { true => true, default => false },
-          'ssl_cert'        => hash_key_true($vhost, 'ssl_cert')      ? { true => $vhost['ssl_cert'],      default => undef },
-          'ssl_key'         => hash_key_true($vhost, 'ssl_key')       ? { true => $vhost['ssl_key'],       default => undef },
-          'ssl_chain'       => hash_key_true($vhost, 'ssl_chain')     ? { true => $vhost['ssl_chain'],     default => undef },
-          'ssl_certs_dir'   => hash_key_true($vhost, 'ssl_certs_dir') ? { true => $vhost['ssl_certs_dir'], default => undef }
-        })
-      })
+      $vhost_merged = delete(merge($vhost, {
+        'custom_fragment' => template('puphpet/apache/custom_fragment.erb'),
+        'ssl'             => 'ssl' in $vhost and str2bool($vhost['ssl']) ? { true => true, default => false },
+        'ssl_cert'        => hash_key_true($vhost, 'ssl_cert')      ? { true => $vhost['ssl_cert'],      default => $puphpet::params::ssl_cert_location },
+        'ssl_key'         => hash_key_true($vhost, 'ssl_key')       ? { true => $vhost['ssl_key'],       default => $puphpet::params::ssl_key_location },
+        'ssl_chain'       => hash_key_true($vhost, 'ssl_chain')     ? { true => $vhost['ssl_chain'],     default => undef },
+        'ssl_certs_dir'   => hash_key_true($vhost, 'ssl_certs_dir') ? { true => $vhost['ssl_certs_dir'], default => undef }
+      }), 'engine')
+
+      create_resources(apache::vhost, { "${key}" => $vhost_merged })
 
       if ! defined(Firewall["100 tcp/${vhost['port']}"]) {
         firewall { "100 tcp/${vhost['port']}":
@@ -155,6 +150,17 @@ if hash_key_equals($apache_values, 'install', 1) {
           action => 'accept',
         }
       }
+    }
+  }
+
+
+  if $::osfamily == 'debian' {
+    file { ['/var/run/apache2/ssl_mutex']:
+      ensure  => directory,
+      group   => 'www-data',
+      mode    => 0775,
+      require => Class['apache'],
+      notify  => Service['httpd'],
     }
   }
 
@@ -168,6 +174,54 @@ if hash_key_equals($apache_values, 'install', 1) {
 
   if count($apache_values['modules']) > 0 {
     apache_mod { $apache_values['modules']: }
+  }
+
+  class { 'puphpet::ssl_cert':
+    require => Class['apache'],
+    notify  => Service['httpd'],
+  }
+}
+
+define apache_debian_repo {
+  apt::source { 'd7031.de':
+    location          => 'http://www.d7031.de/debian/',
+    release           => 'wheezy-experimental',
+    repos             => 'main',
+    required_packages => 'debian-keyring debian-archive-keyring',
+    key               => '9EB5E8A3DF17D0B3',
+    key_server        => 'keys.gnupg.net',
+    include_src       => true
+  }
+}
+
+define apache_centos {
+  $httpd_url               = 'http://repo.puphpet.com/centos/httpd24/httpd-2.4.10-RPM-full.x86_64.tgz'
+  $httpd_download_location = '/.puphpet-stuff/httpd-2.4.10-RPM-full.x86_64.tgz'
+  $httpd_tar               = "tar xzvf '${httpd_download_location}'"
+  $extract_location        = '/.puphpet-stuff/httpd-2.4.10-RPM-full.x86_64'
+
+  exec { 'download httpd-2.4.10':
+    creates => $httpd_download_location,
+    command => "wget --quiet --tries=5 --connect-timeout=10 -O '${httpd_download_location}' '${httpd_url}'",
+    timeout => 30,
+    path    => '/usr/bin',
+  } -> exec { 'untar httpd-2.4.10':
+    creates => $extract_location,
+    command => $httpd_tar,
+    cwd     => '/.puphpet-stuff',
+    path    => '/bin',
+  } -> exec { 'install httpd-2.4.10':
+    creates => '/etc/httpd',
+    command => 'yum -y localinstall * --skip-broken',
+    cwd     => $extract_location,
+    path    => '/usr/bin',
+  }
+
+  exec { 'rm /etc/httpd/conf.d/systemd.load':
+    path    => ['/usr/bin', '/usr/sbin', '/bin'],
+    onlyif  => 'test -f /etc/httpd/conf.d/systemd.load',
+    require => Class['apache'],
+    notify  => Service['httpd'],
   }
 }
 

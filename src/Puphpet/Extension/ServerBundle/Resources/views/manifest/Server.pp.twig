@@ -1,10 +1,6 @@
-## Begin Server manifest
+if $server_values == undef { $server_values = hiera('server', false) }
+if $vm_values == undef { $vm_values = hiera($::vm_target_key, false) }
 
-if $server_values == undef {
-  $server_values = hiera('server', false)
-} if $vm_values == undef {
-  $vm_values = hiera($::vm_target_key, false)
-}
 # Ensure the time is accurate, reducing the possibilities of apt repositories
 # failing for invalid certificates
 class { 'ntp': }
@@ -53,7 +49,9 @@ exec { 'dotfiles':
 case $::osfamily {
   # debian, ubuntu
   'debian': {
-    class { 'apt': }
+    if ! defined(Class['apt']) {
+      class { 'apt': }
+    }
 
     Class['::apt::update'] -> Package <|
         title != 'python-software-properties'
@@ -110,7 +108,11 @@ case $::osfamily {
       require => Exec['dotfiles'],
     }
 
-    ensure_packages( ['augeas'] )
+    if ! defined(Package['augeas']) {
+      package { 'augeas':
+        ensure => present,
+      }
+    }
   }
 }
 

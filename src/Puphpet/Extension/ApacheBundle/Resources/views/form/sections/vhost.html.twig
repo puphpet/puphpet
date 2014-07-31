@@ -112,7 +112,23 @@
         </div>
 
         <div class="row form-group">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <label for="apache-vhosts-{{ uniqid }}-engine">
+                    Engine
+                    {{ popover.small('Engine to power this vhost.') }}
+                </label>
+
+                <select id="apache-vhosts-{{ uniqid }}-engine"
+                        name="apache[vhosts][{{ uniqid }}][engine]" size="6"
+                        class="form-control select-tags">
+                    {% for engine in available_engines %}
+                        <option value="{{ engine }}"
+                            {% if engine == vhost.engine %}selected{% endif %}>{{ engine }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-6">
                 <label for="apache-vhosts-{{ uniqid }}-custom_fragment">
                     Custom Directives
                     {{ popover.small('Advanced usage!') }}
