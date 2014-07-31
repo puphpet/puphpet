@@ -205,12 +205,14 @@ define apache_centos {
     command => "wget --quiet --tries=5 --connect-timeout=10 -O '${httpd_download_location}' '${httpd_url}'",
     timeout => 30,
     path    => '/usr/bin',
-  } -> exec { 'untar httpd-2.4.10':
+  } ->
+  exec { 'untar httpd-2.4.10':
     creates => $extract_location,
     command => $httpd_tar,
     cwd     => '/.puphpet-stuff',
     path    => '/bin',
-  } -> exec { 'install httpd-2.4.10':
+  } ->
+  exec { 'install httpd-2.4.10':
     creates => '/etc/httpd',
     command => 'yum -y localinstall * --skip-broken',
     cwd     => $extract_location,
