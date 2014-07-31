@@ -11,6 +11,7 @@ if $mysql_values == undef {
 }
 
 include 'mysql::params'
+include 'puphpet::params'
 
 if hash_key_equals($mysql_values, 'install', 1) {
   if hash_key_equals($apache_values, 'install', 1) or hash_key_equals($nginx_values, 'install', 1) {

@@ -8,6 +8,8 @@ if $postgresql_values == undef {
   $hhvm_values = hiera('hhvm', false)
 }
 
+include 'puphpet::params'
+
 if hash_key_equals($postgresql_values, 'install', 1) {
   if hash_key_equals($apache_values, 'install', 1) or hash_key_equals($nginx_values, 'install', 1) {
     $postgresql_webserver_restart = true

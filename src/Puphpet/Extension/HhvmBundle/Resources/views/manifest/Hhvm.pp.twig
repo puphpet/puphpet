@@ -8,6 +8,8 @@ if $hhvm_values == undef {
   $nginx_values = hiera('nginx', false)
 }
 
+include 'puphpet::params'
+
 if hash_key_equals($hhvm_values, 'install', 1) {
   if hash_key_equals($apache_values, 'install', 1) {
     $hhvm_webserver = 'httpd'
