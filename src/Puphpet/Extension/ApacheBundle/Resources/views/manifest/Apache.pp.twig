@@ -52,14 +52,17 @@ if hash_key_equals($apache_values, 'install', 1) {
     $mpm_module           = 'worker'
     $disallowed_modules   = ['php']
     $apache_php_package   = 'hhvm'
+    $fcgi_string          = "127.0.0.1:${hhvm_values['settings']['port']}"
   } elsif hash_key_equals($php_values, 'install', 1) {
     $mpm_module           = 'worker'
     $disallowed_modules   = ['php']
     $apache_php_package   = 'php-fpm'
+    $fcgi_string          = '127.0.0.1:9000'
   } else {
     $mpm_module           = 'prefork'
     $disallowed_modules   = []
     $apache_php_package   = ''
+    $fcgi_string          = ''
   }
 
   $apache_version = '2.4'
