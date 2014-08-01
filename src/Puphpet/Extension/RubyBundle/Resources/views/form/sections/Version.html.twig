@@ -12,7 +12,7 @@
                 <label class="checkbox-inline">
                     <input type="checkbox" class="ruby-versions-{{ uniqid }}-default"
                            name="ruby[versions][{{ uniqid }}][default]"
-                           {% if selected_version.default %}checked{% endif %} value="1" />
+                           {% if selected_version.default is defined and selected_version.default %}checked{% endif %} value="1" />
                     Set this as system-wide default version. Don't set more than one version as default.
                 </label>
             </div>
@@ -39,9 +39,11 @@
                 </label>
                 <select id="ruby-versions-{{ uniqid }}-gems" name="ruby[versions][{{ uniqid }}][gems][]"
                         multiple class="form-control select-tags-editable">
-                    {% for gem in selected_version.gems %}
-                        <option selected value="{{ gem }}">{{ gem }}</option>
-                    {% endfor %}
+                    {% if selected_version.gems is defined %}
+                        {% for gem in selected_version.gems %}
+                            <option selected value="{{ gem }}">{{ gem }}</option>
+                        {% endfor %}
+                    {% endif %}
                 </select>
             </div>
         </div>
@@ -55,7 +57,7 @@
                 <label class="checkbox-inline">
                     <input type="checkbox" class="ruby-versions-{{ uniqid }}-bundler"
                            name="ruby[versions][{{ uniqid }}][bundler]"
-                           {% if selected_version.bundler %}checked{% endif %} value="1" />
+                           {% if selected_version.bundler is defined and selected_version.bundler %}checked{% endif %} value="1" />
                     Install Bundler
                 </label>
             </div>
