@@ -278,7 +278,13 @@ class Manager
     {
         foreach ($this->extensions as $extension) {
             if (empty($data[$extension->getSlug()])) {
-                continue;
+                $baseData = $extension->getBaseData();
+
+                if (!array_key_exists('install', $baseData)) {
+                    continue;
+                }
+
+                $data[$extension->getSlug()] = $baseData;
             }
 
             $extension->setCustomData($data[$extension->getSlug()]);

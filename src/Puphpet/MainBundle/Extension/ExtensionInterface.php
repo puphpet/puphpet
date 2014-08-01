@@ -63,6 +63,11 @@ interface ExtensionInterface
     public function getData();
 
     /**
+     * @return array
+     */
+    public function getBaseData();
+
+    /**
      * @param array $data
      * @return $this
      */

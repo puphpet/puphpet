@@ -159,7 +159,7 @@ abstract class ExtensionAbstract implements ExtensionInterface
 
         // Sane defaults for all data options
         $this->data = array_replace_recursive(
-            $this->getDefaultData(),
+            $this->getBaseData(),
             $dataToMerge
         );
 
@@ -184,7 +184,7 @@ abstract class ExtensionAbstract implements ExtensionInterface
      *
      * @return array
      */
-    protected function getDefaultData()
+    public function getBaseData()
     {
         if (empty($this->data)) {
             $this->data = $this->yamlParse('data.yml');
