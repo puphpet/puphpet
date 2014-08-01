@@ -3,12 +3,10 @@
     <div class="panel-body">
         <div class="row form-group">
             <div class="col-xs-12">
-                <label class="checkbox-inline">
+                <label class="checkbox-inline install-checkbox">
                     <input type="checkbox" name="drush[install]" class="multiselect-grouped-tab"
                            data-tab-target="drush-pill"
-                           {% if drush.install %}checked{% endif %} value="1" />
-                    Install Drush
-                    {{ popover.small('Drush will be installed from official github repo.') }}
+                           {% if drush.install %}checked{% endif %} value="1" /> Install Drush
                 </label>
             </div>
         </div>
@@ -38,6 +36,8 @@
                     You can choose which branch / tag of drush to checkout.
                     See <a href="https://github.com/drush-ops/drush/tree/6.x#drush-versions" target="_blank">documentation</a>
                     for current versions.
+                    <br /><br />
+                    Drush will be installed from official github repo.
                 </p>
             </div>
         </div>
