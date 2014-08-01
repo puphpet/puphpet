@@ -29,7 +29,6 @@ available_modules:
     - info
     - ldap
     - mime_magic
-    - php
     - proxy_ajp
     - proxy_balancer
     - proxy

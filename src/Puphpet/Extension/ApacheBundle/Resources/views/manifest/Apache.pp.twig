@@ -8,12 +8,22 @@ include puphpet::params
 if hash_key_equals($apache_values, 'install', 1) {
   include apache::params
 
-  if $::operatingsystem == 'debian' {
-    apache_debian_repo{ 'do': }
-  } elsif $::operatingsystem == 'ubuntu' and $::lsbdistcodename == 'precise' {
-    apt::ppa { 'ppa:ondrej/apache2': require => Apt::Key['4F4EA0AAE5267A6C'] }
-  } elsif $::osfamily == 'redhat' {
-    apache_centos{ 'do': }
+  if hash_key_equals($php_values, 'install', 1) and hash_key_equals($php_values, 'mod_php', 1) {
+    $require_mod_php = true
+    $apache_version  = $apache::version::default
+  } else {
+    $require_mod_php = false
+    $apache_version  = '2.4'
+  }
+
+  if ! $require_mod_php {
+    if $::operatingsystem == 'debian' and !$require_mod_php {
+      apache_debian_repo{ 'do': }
+    } elsif $::operatingsystem == 'ubuntu' and $::lsbdistcodename == 'precise' {
+      apt::ppa { 'ppa:ondrej/apache2': require => Apt::Key['4F4EA0AAE5267A6C'] }
+    } elsif $::osfamily == 'redhat' {
+      apache_centos{ 'do': }
+    }
   }
 
   $webroot_location      = $puphpet::params::apache_webroot_location
@@ -48,7 +58,12 @@ if hash_key_equals($apache_values, 'install', 1) {
     }
   }
 
-  if hash_key_equals($hhvm_values, 'install', 1) {
+  if $require_mod_php {
+    $mpm_module           = 'prefork'
+    $disallowed_modules   = []
+    $apache_php_package   = 'php'
+    $fcgi_string          = ''
+  } elsif hash_key_equals($hhvm_values, 'install', 1) {
     $mpm_module           = 'worker'
     $disallowed_modules   = ['php']
     $apache_php_package   = 'hhvm'
@@ -65,8 +80,6 @@ if hash_key_equals($apache_values, 'install', 1) {
     $fcgi_string          = ''
   }
 
-  $apache_version = '2.4'
-
   $sendfile = $apache_values['settings']['sendfile'] ? {
     1       => 'On',
     default => 'Off'
@@ -82,7 +95,11 @@ if hash_key_equals($apache_values, 'install', 1) {
 
   create_resources('class', { 'apache' => $apache_settings })
 
-  include ::puphpet::apache::fpm
+  if $require_mod_php and ! defined(Class['apache::mod::php']) {
+    include apache::mod::php
+  } elsif ! $require_mod_php {
+    include puphpet::apache::fpm
+  }
 
   if hash_key_equals($apache_values, 'mod_pagespeed', 1) {
     class { 'puphpet::apache::modpagespeed': }
@@ -155,7 +172,7 @@ if hash_key_equals($apache_values, 'install', 1) {
   }
 
 
-  if $::osfamily == 'debian' {
+  if $::osfamily == 'debian' and ! $require_mod_php {
     file { ['/var/run/apache2/ssl_mutex']:
       ensure  => directory,
       group   => 'www-data',

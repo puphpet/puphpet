@@ -6,6 +6,10 @@ if $mailcatcher_values == undef { $mailcatcher_values = hiera('mailcatcher', fal
 include puphpet::params
 
 if hash_key_equals($php_values, 'install', 1) {
+  include php::params
+  include apache::params
+  include nginx::params
+
   class { 'puphpet::php::repos':
     php_version => $php_values['version']
   }
@@ -27,19 +31,17 @@ if hash_key_equals($php_values, 'install', 1) {
   }
 
   if hash_key_equals($apache_values, 'install', 1)
+    and hash_key_equals($php_values, 'mod_php', 1)
+  {
+    $php_package                  = $php::params::package
+    $php_webserver_service        = 'httpd'
+    $php_webserver_service_ini    = $php_webserver_service
+    $php_webserver_service_ensure = 'running'
+    $php_webserver_restart        = true
+    $php_config_file              = $php::params::config_file
+  } elsif hash_key_equals($apache_values, 'install', 1)
     or hash_key_equals($nginx_values, 'install', 1)
   {
-    case hash_key_equals($apache_values, 'install', 1) {
-      true: {
-        include apache::params
-        $php_webserver_user = $apache::params::user
-      }
-      false: {
-        include nginx::params
-        $php_webserver_user = $nginx::params::nx_daemon_user
-      }
-    }
-
     $php_package                  = "${php_prefix}fpm"
     $php_webserver_service        = "${php_prefix}fpm"
     $php_webserver_service_ini    = $php_webserver_service
@@ -71,12 +73,14 @@ if hash_key_equals($php_values, 'install', 1) {
     config_file         => $php_config_file,
   }
 
-  service { $php_webserver_service:
-    ensure     => $php_webserver_service_ensure,
-    enable     => true,
-    hasrestart => true,
-    hasstatus  => true,
-    require    => Package[$php_webserver_service]
+  if ! defined(Service[$php_webserver_service]) {
+    service { $php_webserver_service:
+      ensure     => $php_webserver_service_ensure,
+      enable     => true,
+      hasrestart => true,
+      hasstatus  => true,
+      require    => Package[$php_webserver_service]
+    }
   }
 
   class { 'php::devel': }

@@ -16,3 +16,5 @@ ini:
 timezone: America/Chicago
 
 composer_home: ~
+
+mod_php: 0
