@@ -24,9 +24,9 @@ services:
         # languages
             - [ addExtension, [ @puphpet.extension.php.configure ] ]
             - [ addExtension, [ @puphpet.extension.hhvm.configure ] ]
-            - [ addExtension, [ @puphpet.extension.xdebug.configure ] ]
-            - [ addExtension, [ @puphpet.extension.xhprof.configure ] ]
-            - [ addExtension, [ @puphpet.extension.drush.configure ] ]
+            - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.xdebug.configure ] ]
+            - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.xhprof.configure ] ]
+            - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.drush.configure ] ]
             - [ addExtension, [ @puphpet.extension.ruby.configure ] ]
             - [ addExtension, [ @puphpet.extension.nodejs.configure ] ]
         # databases
