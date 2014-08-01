@@ -1,7 +1,4 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-
-<input type="hidden" name="is_disabled[sqlite]" value="0" />
-
 <section id="sqlite">
     <div class="row">
         <div class="col-xs-12">
@@ -13,8 +10,7 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input class="install-checkbox" type="checkbox" name="sqlite[install]"
-                                   data-hide-on-uncheck="#sqlite-config-container"
+                            <input type="checkbox" name="sqlite[install]"
                                    {% if sqlite.install %}checked{% endif %} value="1" />
                             Install SQLite
                             {{ popover.small('The most widely deployed SQL database engine in the world.') }}
@@ -22,52 +18,50 @@
                     </div>
                 </div>
 
-                <div class="{% if not sqlite.install %}hidden{% endif %}" id="sqlite-config-container">
-                    <div class="panel-body">
-                        <div class="row form-group">
-                            <div class="col-md-6">
-                                <label for="sqlite-adminer">
-                                    Adminer
-                                    {{ popover.small('If installed it will be available from
-                                        <code>http://{SERVER_IP_ADDRESS}/adminer</code>.') }}
-                                </label><br />
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" id="sqlite-adminer" name="sqlite[adminer]"
-                                           {% if sqlite.adminer %}checked{% endif %} value="1" /> Install Adminer
-                                </label>
-                            </div>
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="sqlite-adminer">
+                                Adminer
+                                {{ popover.small('If installed it will be available from
+                                    <code>http://{SERVER_IP_ADDRESS}/adminer</code>.') }}
+                            </label><br />
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="sqlite-adminer" name="sqlite[adminer]"
+                                       {% if sqlite.adminer %}checked{% endif %} value="1" /> Install Adminer
+                            </label>
                         </div>
-
-                        <p class="help-block">
-                            It is highly recommended <strong>not</strong> installing Adminer on production servers.
-
-                            <br /><br />
-
-                            The preferred way to connect to your database is using a dedicated application like
-                            <a href="http://www.valentina-db.com/valentina-studio-overview" target="_blank">Valentina Studio (OS X)</a>,
-                            <a href="http://sqliteman.com/">Sqliteman (Windows/Linux)</a>,
-                            <a href="http://sqliteadmin.orbmu2k.de/">SQLite Administrator (Windows)</a>,
-                            and
-                            <a href="https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/">SQLite Manager (FireFox)</a>.
-
-                            <br /><br />
-
-                            Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
-                            <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
-                            your initial <code>$ vagrant up</code>!
-                        </p>
                     </div>
 
-                    {% for database in sqlite.databases %}
-                        {% include 'PuphpetExtensionSqliteBundle:form/sections:OwnerAndDatabase.html.twig'
-                            with {'available_privileges': sqlite.available_privileges, 'database': database} %}
-                    {% endfor %}
+                    <p class="help-block">
+                        It is highly recommended <strong>not</strong> installing Adminer on production servers.
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                    data-source-url="{{ path('puphpet.extension.sqlite.add_database') }}">Add another SQLite database</button>
-                        </div>
+                        <br /><br />
+
+                        The preferred way to connect to your database is using a dedicated application like
+                        <a href="http://www.valentina-db.com/valentina-studio-overview" target="_blank">Valentina Studio (OS X)</a>,
+                        <a href="http://sqliteman.com/">Sqliteman (Windows/Linux)</a>,
+                        <a href="http://sqliteadmin.orbmu2k.de/">SQLite Administrator (Windows)</a>,
+                        and
+                        <a href="https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/">SQLite Manager (FireFox)</a>.
+
+                        <br /><br />
+
+                        Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
+                        <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
+                        your initial <code>$ vagrant up</code>!
+                    </p>
+                </div>
+
+                {% for database in sqlite.databases %}
+                    {% include 'PuphpetExtensionSqliteBundle:form/sections:OwnerAndDatabase.html.twig'
+                        with {'available_privileges': sqlite.available_privileges, 'database': database} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.sqlite.add_database') }}">Add another SQLite database</button>
                     </div>
                 </div>
             </div>

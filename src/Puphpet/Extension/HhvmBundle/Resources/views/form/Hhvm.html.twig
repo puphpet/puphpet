@@ -1,7 +1,5 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-
 <section id="hhvm">
-
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -12,10 +10,8 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input type="checkbox" class="install-checkbox update-other-input"
-                                   name="hhvm[install]"
-                                   data-update-php[install]
-                                   data-hide-on-uncheck="#hhvm-config-container"
+                            <input type="checkbox" class="update-other-input"
+                                   name="hhvm[install]" data-update-php[install]="0"
                                    {% if hhvm.install %}checked{% endif %} value="1" />
                             Install HHVM
                             {{ popover.small('HHVM is a new open-source virtual machine designed for executing programs
@@ -29,93 +25,90 @@
                     </div>
                 </div>
 
-                <div class="{% if not hhvm.install %}hidden{% endif %}" id="hhvm-config-container">
-                    <div class="panel-body">
-                        <div class="row form-group">
-                            <div class="col-md-6">
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" name="hhvm[nightly]" value="1"
-                                        {% if hhvm.nightly == 1 %}checked{% endif %} /> Install Nightly
-                                </label>
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hhvm[nightly]" value="1"
+                                    {% if hhvm.nightly == 1 %}checked{% endif %} /> Install Nightly
+                            </label>
 
-                                <p class="help-block">
-                                    This will install the nightly release of HHVM. If you want to test out
-                                    <a href="http://hacklang.org/" target="_blank">Hack</a>, you must choose
-                                    this option!
-                                </p>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label>
-                                    Composer
-                                    {{ popover.small('<a href="https://getcomposer.org">Composer</a> will be available as a
-                                        system service:<br />
-                                        <code>$ composer</code>') }}
-                                </label><br />
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" name="hhvm[composer]" value="1"
-                                        {% if hhvm.composer %}checked{% endif %} /> Install Composer
-                                    <input type="hidden" name="hhvm[composer_home]" value="{{ hhvm.composer_home }}" />
-                                </label>
-                            </div>
+                            <p class="help-block">
+                                This will install the nightly release of HHVM. If you want to test out
+                                <a href="http://hacklang.org/" target="_blank">Hack</a>, you must choose
+                                this option!
+                            </p>
                         </div>
 
-                        <div class="row form-group">
-                            <div class="col-md-6">
-                                <label for="hhvm-settings-host">Host</label>
-                                <input type="text" id="hhvm-settings-host" name="hhvm[settings][host]"
-                                       required placeholder="127.0.0.1"
-                                       pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
-                                       oninvalid="setCustomValidity('IP address format: 127.0.0.1')"
-                                       value="{{ hhvm.settings.host }}" class="form-control" />
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="hhvm-settings-port">Listen Port</label>
-                                <input type="number" id="hhvm-settings-port"
-                                       name="hhvm[settings][port]"
-                                       required placeholder="13000" pattern="^[1-9][0-9]*$" min="5000" max="20000"
-                                       value="{{ hhvm.settings.port }}" class="form-control" />
-                            </div>
+                        <div class="col-md-6">
+                            <label>
+                                Composer
+                                {{ popover.small('<a href="https://getcomposer.org">Composer</a> will be available as a
+                                    system service:<br />
+                                    <code>$ composer</code>') }}
+                            </label><br />
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="hhvm[composer]" value="1"
+                                    {% if hhvm.composer %}checked{% endif %} /> Install Composer
+                                <input type="hidden" name="hhvm[composer_home]" value="{{ hhvm.composer_home }}" />
+                            </label>
                         </div>
-
-                        <p class="help-block">
-                            HHVM will run in
-                            <a href="http://www.hhvm.com/blog/1817/fastercgi-with-hhvm" target="_blank">FastCGI mode</a>.
-                            In short: it will use Apache or Nginx (whatever you have chosen) so all your htaccess and
-                            redirect rules should continue working as normal. Only instead of using the official PHP engine,
-                            HHVM will be used.
-                        </p>
-
-                        <!-- HHVM / PEAR Modules -->
-                        <div class="row form-group">
-                            <div class="col-xs-12">
-                                <label for="hhvm-modules-pear">PEAR Modules</label>
-                                <select id="hhvm-modules-pear" name="hhvm[modules][pear][]"
-                                        multiple class="form-control select-tags">
-                                    {% set selectedHhvmModulesPear = [] %}
-                                    {% for namespace, modules in hhvm.available_modules.pear %}
-                                        <optgroup label="{{ namespace }}">
-                                            {% for module in modules %}
-                                                {% set selectedHhvmModulesPear = selectedHhvmModulesPear|merge([module]) %}
-                                                <option value="{{ module }}"
-                                                    {% if module in hhvm.modules.pear %}selected{% endif %}>{{ module }}</option>
-                                            {% endfor %}
-                                        </optgroup>
-                                    {% endfor %}
-                                    {% for module in hhvm.modules.pear %}
-                                        {% if module not in selectedHhvmModulesPear %}
-                                            <option value="{{ module }}" selected>{{ module }}</option>
-                                        {% endif %}>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                        <!-- end HHVM / PEAR Modules -->
                     </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="hhvm-settings-host">Host</label>
+                            <input type="text" id="hhvm-settings-host" name="hhvm[settings][host]"
+                                   required placeholder="127.0.0.1"
+                                   pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
+                                   oninvalid="setCustomValidity('IP address format: 127.0.0.1')"
+                                   value="{{ hhvm.settings.host }}" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="hhvm-settings-port">Listen Port</label>
+                            <input type="number" id="hhvm-settings-port"
+                                   name="hhvm[settings][port]"
+                                   required placeholder="13000" pattern="^[1-9][0-9]*$" min="5000" max="20000"
+                                   value="{{ hhvm.settings.port }}" class="form-control" />
+                        </div>
+                    </div>
+
+                    <p class="help-block">
+                        HHVM will run in
+                        <a href="http://www.hhvm.com/blog/1817/fastercgi-with-hhvm" target="_blank">FastCGI mode</a>.
+                        In short: it will use Apache or Nginx (whatever you have chosen) so all your htaccess and
+                        redirect rules should continue working as normal. Only instead of using the official PHP engine,
+                        HHVM will be used.
+                    </p>
+
+                    <!-- HHVM / PEAR Modules -->
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="hhvm-modules-pear">PEAR Modules</label>
+                            <select id="hhvm-modules-pear" name="hhvm[modules][pear][]"
+                                    multiple class="form-control select-tags">
+                                {% set selectedHhvmModulesPear = [] %}
+                                {% for namespace, modules in hhvm.available_modules.pear %}
+                                    <optgroup label="{{ namespace }}">
+                                        {% for module in modules %}
+                                            {% set selectedHhvmModulesPear = selectedHhvmModulesPear|merge([module]) %}
+                                            <option value="{{ module }}"
+                                                {% if module in hhvm.modules.pear %}selected{% endif %}>{{ module }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endfor %}
+                                {% for module in hhvm.modules.pear %}
+                                    {% if module not in selectedHhvmModulesPear %}
+                                        <option value="{{ module }}" selected>{{ module }}</option>
+                                    {% endif %}>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <!-- end HHVM / PEAR Modules -->
                 </div>
             </div>
         </div>
     </div>
-
 </section>

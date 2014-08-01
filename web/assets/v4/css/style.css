@@ -47,6 +47,10 @@ footer {
     padding: 15px 15px 0 15px;
 }
 
+.install-checkbox-container label {
+    font-weight: bold;
+}
+
 /*
  * Logo/Slogan
 **/

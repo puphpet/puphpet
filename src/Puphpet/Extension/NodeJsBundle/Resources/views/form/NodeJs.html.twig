@@ -1,7 +1,5 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-
 <section id="nodejs">
-
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -12,9 +10,7 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input type="checkbox" class="install-checkbox"
-                                   name="nodejs[install]"
-                                   data-hide-on-uncheck="#nodejs-config-container"
+                            <input type="checkbox" name="nodejs[install]"
                                    {% if nodejs.install %}checked{% endif %} value="1" />
                             Install NodeJS
                             {{ popover.small("Node.js is a platform built on Chrome's JavaScript runtime for
@@ -23,23 +19,20 @@
                     </div>
                 </div>
 
-                <div class="{% if not nodejs.install %}hidden{% endif %}" id="nodejs-config-container">
-                    <div class="panel-body">
-                        <div class="row form-group">
-                            <div class="col-xs-12">
-                                <label for="nodejs-npm_packages">Npm Packages</label>
-                                <select id="nodejs-npm_packages" name="nodejs[npm_packages][]"
-                                        multiple class="form-control select-tags-editable">
-                                    {% for package in nodejs.npm_packages %}
-                                        <option selected value="{{ package }}">{{ package }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="nodejs-npm_packages">Npm Packages</label>
+                            <select id="nodejs-npm_packages" name="nodejs[npm_packages][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% for package in nodejs.npm_packages %}
+                                    <option selected value="{{ package }}">{{ package }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </section>

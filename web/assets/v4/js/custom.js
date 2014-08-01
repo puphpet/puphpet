@@ -643,8 +643,4 @@ $(document).ready(function() {
     PUPHPET.enablePopovers();
     PUPHPET.configureCollapseable();
     PUPHPET.hideOnNotInstalled();
-    PUPHPET.enableTargetElements('#php-pill', '#php-extensions');
-    PUPHPET.enableTargetElements('#php-pill-menulink', '#php-extensions');
-    PUPHPET.disableTargetElements('#hhvm-pill', '#php-extensions');
-    PUPHPET.disableTargetElements('#hhvm-pill-menulink', '#php-extensions');
 });

@@ -1,5 +1,4 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-
 <section id="mongodb">
     <div class="row">
         <div class="col-xs-12">
@@ -11,8 +10,7 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input class="install-checkbox" type="checkbox" name="mongodb[install]"
-                                   data-hide-on-uncheck="#mongodb-config-container"
+                            <input type="checkbox" name="mongodb[install]"
                                    {% if mongodb.install %}checked{% endif %} value="1" />
                             Install MongoDB
                             {{ popover.small('MongoDB is a document-oriented database system.
@@ -21,28 +19,26 @@
                     </div>
                 </div>
 
-                <div class="{% if not mongodb.install %}hidden{% endif %}" id="mongodb-config-container">
-                    <div class="panel-body">
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <label for="mongodb-port">Port</label>
-                                <input type="number" id="mongodb-settings-port" name="mongodb[settings][port]"
-                                       placeholder="27017" pattern="^[1-9][0-9]*$" min="1"
-                                       value="{{ mongodb.settings.port }}" class="form-control" />
-                            </div>
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="mongodb-port">Port</label>
+                            <input type="number" id="mongodb-settings-port" name="mongodb[settings][port]"
+                                   placeholder="27017" pattern="^[1-9][0-9]*$" min="1"
+                                   value="{{ mongodb.settings.port }}" class="form-control" />
                         </div>
                     </div>
+                </div>
 
-                    {% for database in mongodb.databases %}
-                        {% include 'PuphpetExtensionMongoDbBundle:form/sections:NewUserAndDatabase.html.twig'
-                            with {'database': database} %}
-                    {% endfor %}
+                {% for database in mongodb.databases %}
+                    {% include 'PuphpetExtensionMongoDbBundle:form/sections:NewUserAndDatabase.html.twig'
+                        with {'database': database} %}
+                {% endfor %}
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                    data-source-url="{{ path('puphpet.extension.mongodb.add_database') }}">Add another MongoDB database</button>
-                        </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.mongodb.add_database') }}">Add another MongoDB database</button>
                     </div>
                 </div>
             </div>

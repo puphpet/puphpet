@@ -1,5 +1,4 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-
 <section id="mailcatcher">
     <div class="panel-heading">
         <h3 class="panel-title">MailCatcher</h3>
@@ -8,8 +7,7 @@
     <div class="row install-checkbox-container">
         <div class="col-xs-12">
             <label class="checkbox-inline">
-                <input class="install-checkbox" type="checkbox" name="mailcatcher[install]"
-                       data-hide-on-uncheck="#mailcatcher-config-container"
+                <input type="checkbox" name="mailcatcher[install]"
                        {% if mailcatcher.install %}checked{% endif %} value="1" />
                 Install MailCatcher
                 {{ popover.small('MailCatcher runs a super simple SMTP server which catches any message sent to it to
@@ -19,7 +17,7 @@
         </div>
     </div>
 
-    <div class="{% if not mailcatcher.install %}hidden{% endif %}" id="mailcatcher-config-container">
+    <div id="mailcatcher-config-container">
         <div class="panel-body">
             <div class="row form-group">
                 <div class="col-md-6">

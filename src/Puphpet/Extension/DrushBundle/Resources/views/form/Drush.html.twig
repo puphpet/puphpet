@@ -1,5 +1,4 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-
 <section id="drush">
     <div class="panel-body">
         <div class="row form-group">
@@ -28,7 +27,7 @@
                     {% endfor %}
                 </select>
 
-                <div id="drush-settings" style="display: none;">
+                <div id="drush-settings">
                     {% for name, value in drush.settings %}
                         <input type="hidden" name="drush[settings][{{ name }}]"
                                data-option-name="{{ name }}" value="{{ value }}" />

@@ -1,10 +1,12 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 <section id="xhprof">
     <div class="panel-body">
         <div class="row form-group">
             <div class="col-xs-12">
                 <label class="checkbox-inline">
-                    <input type="checkbox" name="xhprof[install]" class="update-other-input multiselect-grouped-tab"
-                           data-tab-target="xhprof-pill" data-update-php[composer]
+                    <input type="checkbox" name="xhprof[install]"
+                           class="update-other-input multiselect-grouped-tab"
+                           data-tab-target="xhprof-pill" data-update-php[composer]="1"
                            {% if xhprof.install %}checked{% endif %} value="1" /> Install Xhprof
                 </label>
             </div>
