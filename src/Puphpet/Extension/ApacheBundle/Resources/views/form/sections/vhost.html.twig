@@ -123,7 +123,9 @@
                         class="form-control select-tags">
                     {% for engine in available_engines %}
                         <option value="{{ engine }}"
-                            {% if engine == vhost.engine %}selected{% endif %}>{{ engine }}</option>
+                            {% if engine == vhost.engine %}selected
+                            {% elseif not vhost.engine and engine == 'php' %}selected
+                            {% endif %}>{{ engine }}</option>
                     {% endfor %}
                 </select>
             </div>
