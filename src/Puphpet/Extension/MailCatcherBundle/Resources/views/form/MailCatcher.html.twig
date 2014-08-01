@@ -1,43 +1,47 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 <section id="mailcatcher">
-    <div class="panel-heading">
-        <h3 class="panel-title">MailCatcher</h3>
-    </div>
-
-    <div class="row install-checkbox-container">
+    <div class="row">
         <div class="col-xs-12">
-            <label class="checkbox-inline">
-                <input type="checkbox" name="mailcatcher[install]"
-                       {% if mailcatcher.install %}checked{% endif %} value="1" />
-                Install MailCatcher
-                {{ popover.small('MailCatcher runs a super simple SMTP server which catches any message sent to it to
-                    display in a web interface.
-                    <a href="http://mailcatcher.me/" target="_blank">More information available here</a>') }}
-            </label>
-        </div>
-    </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">MailCatcher Quick Settings</h3>
+                </div>
 
-    <div id="mailcatcher-config-container">
-        <div class="panel-body">
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="mailcatcher-settings-http_port">
-                        HTTP Port
-                        {{ popover.small('MailCatcher will be available at
-                            <code>http://{SERVER_IP_ADDRESS}:{HTTP_PORT}</code>') }}
-                    </label>
-                    <input type="number" id="mailcatcher-settings-http_port" name="mailcatcher[settings][http_port]"
-                           required placeholder="1080"
-                           pattern="^[1-9][0-9]*$" min="1000" max="20000"
-                           value="{{ mailcatcher.settings.http_port }}" class="form-control" />
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="mailcatcher[install]"
+                                   {% if mailcatcher.install %}checked{% endif %} value="1" />
+                            Install MailCatcher
+                            {{ popover.small('MailCatcher runs a super simple SMTP server which catches any message sent to it to
+                                display in a web interface.
+                                <a href="http://mailcatcher.me/" target="_blank">More information available here</a>') }}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="mailcatcher-settings-http_port">
+                                HTTP Port
+                                {{ popover.small('MailCatcher will be available at
+                                    <code>http://{SERVER_IP_ADDRESS}:{HTTP_PORT}</code>') }}
+                            </label>
+                            <input type="number" id="mailcatcher-settings-http_port" name="mailcatcher[settings][http_port]"
+                                   required placeholder="1080"
+                                   pattern="^[1-9][0-9]*$" min="1000" max="20000"
+                                   value="{{ mailcatcher.settings.http_port }}" class="form-control" />
+                        </div>
+                    </div>
+
+                    <p class="help-block">
+                        It is highly recommended <strong>not</strong> installing Mailcatcher on production servers.
+                        <br /><br />
+                        Minimum port number is 1000
+                    </p>
                 </div>
             </div>
-
-            <p class="help-block">
-                It is highly recommended <strong>not</strong> installing Mailcatcher on production servers.
-                <br /><br />
-                Minimum port number is 1000
-            </p>
         </div>
     </div>
 </section>

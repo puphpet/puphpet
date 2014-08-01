@@ -4,7 +4,7 @@
     </div>
     <ul class="nav nav-tabs icon-bar">
         <li class="col-xs-2 active">
-            <a href="#mysql" data-toggle="tab">
+            <a href="#mysql-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="/assets/v4/img/vendors/mysql-active.png" class="tab-icon-active" />
                     <img src="/assets/v4/img/vendors/mysql-inactive.png" class="tab-icon-inactive" />
@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="col-xs-2">
-            <a href="#postgresql" data-toggle="tab">
+            <a href="#postgresql-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="/assets/v4/img/vendors/postgresql-active.png" class="tab-icon-active" />
                     <img src="/assets/v4/img/vendors/postgresql-inactive.png" class="tab-icon-inactive" />
@@ -22,7 +22,7 @@
             </a>
         </li>
         <li class="col-xs-2">
-            <a href="#mariadb" data-toggle="tab">
+            <a href="#mariadb-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="/assets/v4/img/vendors/mariadb-active.png" class="tab-icon-active" />
                     <img src="/assets/v4/img/vendors/mariadb-inactive.png" class="tab-icon-inactive" />
@@ -31,7 +31,7 @@
             </a>
         </li>
         <li class="col-xs-2">
-            <a href="#mongodb" data-toggle="tab">
+            <a href="#mongodb-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="/assets/v4/img/vendors/mongodb-active.png" class="tab-icon-active" />
                     <img src="/assets/v4/img/vendors/mongodb-inactive.png" class="tab-icon-inactive" />
@@ -40,7 +40,7 @@
             </a>
         </li>
         <li class="col-xs-2">
-            <a href="#redis" data-toggle="tab">
+            <a href="#redis-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="/assets/v4/img/vendors/redis-active.png" class="tab-icon-active" />
                     <img src="/assets/v4/img/vendors/redis-inactive.png" class="tab-icon-inactive" />
@@ -49,7 +49,7 @@
             </a>
         </li>
         <li class="col-xs-2">
-            <a href="#sqlite" data-toggle="tab">
+            <a href="#sqlite-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="/assets/v4/img/vendors/sqlite-active.png" class="tab-icon-active" />
                     <img src="/assets/v4/img/vendors/sqlite-inactive.png" class="tab-icon-inactive" />
@@ -60,27 +60,27 @@
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane active" id="mysql">
+        <div class="tab-pane active" id="mysql-tab">
             {% set extension = extensionManager.getExtensionBySlug('mysql') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
-        <div class="tab-pane" id="postgresql">
+        <div class="tab-pane" id="postgresql-tab">
             {% set extension = extensionManager.getExtensionBySlug('postgresql') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
-        <div class="tab-pane" id="mariadb">
+        <div class="tab-pane" id="mariadb-tab">
             {% set extension = extensionManager.getExtensionBySlug('mariadb') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
-        <div class="tab-pane" id="mongodb">
+        <div class="tab-pane" id="mongodb-tab">
             {% set extension = extensionManager.getExtensionBySlug('mongodb') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
-        <div class="tab-pane" id="redis">
+        <div class="tab-pane" id="redis-tab">
             {% set extension = extensionManager.getExtensionBySlug('redis') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
-        <div class="tab-pane" id="sqlite">
+        <div class="tab-pane" id="sqlite-tab">
             {% set extension = extensionManager.getExtensionBySlug('sqlite') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
@@ -88,6 +88,6 @@
 
     <ul class="pager">
         <li class="previous"><a href="#languages">← Languages</a></li>
-        <li class="next"><a href="#work-queue">Work Queues →</a></li>
+        <li class="next"><a href="#additional-tools">Additional Tools →</a></li>
     </ul>
 </div>

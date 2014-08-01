@@ -4,7 +4,7 @@
     </div>
     <ul class="nav nav-tabs icon-bar">
         <li class="col-xs-2 active">
-            <a href="#php" data-toggle="tab">
+            <a href="#php-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="/assets/v4/img/vendors/php-active.png" class="tab-icon-active" />
                     <img src="/assets/v4/img/vendors/php-inactive.png" class="tab-icon-inactive" />
@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="col-xs-2">
-            <a href="#hhvm" data-toggle="tab">
+            <a href="#hhvm-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="/assets/v4/img/vendors/hhvm-active.png" class="tab-icon-active" />
                     <img src="/assets/v4/img/vendors/hhvm-inactive.png" class="tab-icon-inactive" />
@@ -22,7 +22,7 @@
             </a>
         </li>
         <li class="col-xs-2">
-            <a href="#ruby" data-toggle="tab">
+            <a href="#ruby-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="/assets/v4/img/vendors/ruby-active.png" class="tab-icon-active" />
                     <img src="/assets/v4/img/vendors/ruby-inactive.png" class="tab-icon-inactive" />
@@ -31,7 +31,7 @@
             </a>
         </li>
         <li class="col-xs-2">
-            <a href="#nodejs" data-toggle="tab">
+            <a href="#nodejs-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="/assets/v4/img/vendors/nodejs-active.png" class="tab-icon-active" />
                     <img src="/assets/v4/img/vendors/nodejs-inactive.png" class="tab-icon-inactive" />
@@ -42,21 +42,21 @@
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane active" id="php">
+        <div class="tab-pane active" id="php-tab">
             {% set phpLibraries = sections.multiSelectGroupedNoHeaders(extensionManager, 'php-extensions', 'PHP Extensions') %}
 
             {% set extension = extensionManager.getExtensionBySlug('php') %}
             {{ extension.renderFront(extension.data, phpLibraries)|raw }}
         </div>
-        <div class="tab-pane" id="hhvm">
+        <div class="tab-pane" id="hhvm-tab">
             {% set extension = extensionManager.getExtensionBySlug('hhvm') %}
             {{ extension.renderFront(extension.data, phpLibraries)|raw }}
         </div>
-        <div class="tab-pane" id="ruby">
+        <div class="tab-pane" id="ruby-tab">
             {% set extension = extensionManager.getExtensionBySlug('ruby') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
-        <div class="tab-pane" id="nodejs">
+        <div class="tab-pane" id="nodejs-tab">
             {% set extension = extensionManager.getExtensionBySlug('nodejs') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>

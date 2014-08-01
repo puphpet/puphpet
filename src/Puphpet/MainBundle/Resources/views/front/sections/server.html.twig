@@ -3,11 +3,8 @@
         <h1><i class="fa fa-cogs"></i> Server Packages</h1>
     </div>
 
-    {% set extension = extensionManager.getExtensionBySlug('mailcatcher') %}
-    {% set mailcatcher = extension.renderFront(extension.data)|raw %}
-
     {% set extension = extensionManager.getExtensionBySlug('server') %}
-    {{ extension.renderFront(extension.data, mailcatcher)|raw }}
+    {{ extension.renderFront(extension.data)|raw }}
 
     <ul class="pager">
         <li class="previous"><a href="#deploy-target">← Deploy Target</a></li>
