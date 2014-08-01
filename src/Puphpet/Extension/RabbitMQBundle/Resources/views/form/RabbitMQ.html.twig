@@ -11,8 +11,8 @@
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
                             <input type="checkbox" name="rabbitmq[install]"
-                                   {% if rabbitmq.install %}checked{% endif %} value="1" />
-                            Install RabbitMQ
+                                   {% if rabbitmq.install %}checked{% endif %} value="1" /> Install RabbitMQ
+                            {% if not rabbitmq.install %}<input type="hidden" name="rabbitmq[install]" value="0" />{% endif %}
                             {{ popover.small('RabbitMQ is a complete and highly reliable enterprise messaging system.
                                 <a href="http://www.rabbitmq.com/tutorials/tutorial-one-php.html" target="_blank">
                                     Learn about RabbitMQ</a>.') }}

@@ -7,6 +7,7 @@
                     <input type="checkbox" name="drush[install]" class="multiselect-grouped-tab"
                            data-tab-target="drush-pill"
                            {% if drush.install %}checked{% endif %} value="1" /> Install Drush
+                    {% if not drush.install %}<input type="hidden" name="drush[install]" value="0" />{% endif %}
                 </label>
             </div>
         </div>

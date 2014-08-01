@@ -8,6 +8,7 @@
                            class="update-other-input multiselect-grouped-tab"
                            data-tab-target="xhprof-pill" data-update-php[composer]="1"
                            {% if xhprof.install %}checked{% endif %} value="1" /> Install Xhprof
+                    {% if not xhprof.install %}<input type="hidden" name="xhprof[install]" value="0" />{% endif %}
                 </label>
             </div>
         </div>

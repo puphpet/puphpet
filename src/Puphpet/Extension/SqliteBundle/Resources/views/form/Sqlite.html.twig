@@ -11,8 +11,8 @@
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
                             <input type="checkbox" name="sqlite[install]"
-                                   {% if sqlite.install %}checked{% endif %} value="1" />
-                            Install SQLite
+                                   {% if sqlite.install %}checked{% endif %} value="1" /> Install SQLite
+                            {% if not sqlite.install %}<input type="hidden" name="sqlite[install]" value="0" />{% endif %}
                             {{ popover.small('The most widely deployed SQL database engine in the world.') }}
                         </label>
                     </div>

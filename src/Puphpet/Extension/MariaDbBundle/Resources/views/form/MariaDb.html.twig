@@ -13,6 +13,7 @@
                             <input type="checkbox" class="update-other-input"
                                    name="mariadb[install]" data-update-mysql[install]="0"
                                    {% if mariadb.install %}checked{% endif %} value="1" /> Install MariaDB
+                            {% if not mariadb.install %}<input type="hidden" name="mariadb[install]" value="0" />{% endif %}
                         </label>
 
                         <p class="help-block">

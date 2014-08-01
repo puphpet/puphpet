@@ -11,8 +11,8 @@
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
                             <input type="checkbox" name="mailcatcher[install]"
-                                   {% if mailcatcher.install %}checked{% endif %} value="1" />
-                            Install MailCatcher
+                                   {% if mailcatcher.install %}checked{% endif %} value="1" /> Install MailCatcher
+                            {% if not mailcatcher.install %}<input type="hidden" name="mailcatcher[install]" value="0" />{% endif %}
                             {{ popover.small('MailCatcher runs a super simple SMTP server which catches any message sent to it to
                                 display in a web interface.
                                 <a href="http://mailcatcher.me/" target="_blank">More information available here</a>') }}

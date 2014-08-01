@@ -7,6 +7,7 @@
                     <input type="checkbox" name="xdebug[install]" class="multiselect-grouped-tab"
                            data-tab-target="xdebug-pill"
                            {% if xdebug.install %}checked{% endif %} value="1" /> Install XDebug
+                    {% if not xdebug.install %}<input type="hidden" name="xdebug[install]" value="0" />{% endif %}
                 </label>
             </div>
         </div>

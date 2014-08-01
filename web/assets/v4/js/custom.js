@@ -626,6 +626,18 @@ PUPHPET.hideOnNotInstalled = function () {
     });
 };
 
+PUPHPET.submitUncheckedCheckboxes = function () {
+    $(document).on('click', 'input:checkbox', function(e) {
+        if (!$(this).is(':checked')) {
+            $(this).after('<input type="hidden" name="' + $(this).attr('name') + '" value="0">');
+
+            return;
+        }
+
+        $('input[type="hidden"][name="' + $(this).attr('name') + '"]').remove();
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -643,4 +655,5 @@ $(document).ready(function() {
     PUPHPET.enablePopovers();
     PUPHPET.configureCollapseable();
     PUPHPET.hideOnNotInstalled();
+    PUPHPET.submitUncheckedCheckboxes();
 });

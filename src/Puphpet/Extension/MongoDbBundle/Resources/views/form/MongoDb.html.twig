@@ -11,8 +11,8 @@
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
                             <input type="checkbox" name="mongodb[install]"
-                                   {% if mongodb.install %}checked{% endif %} value="1" />
-                            Install MongoDB
+                                   {% if mongodb.install %}checked{% endif %} value="1" /> Install MongoDB
+                            {% if not mongodb.install %}<input type="hidden" name="mongodb[install]" value="0" />{% endif %}
                             {{ popover.small('MongoDB is a document-oriented database system.
                                 <a href="http://www.mongodb.org/" target="_blank">Learn about MongoDB</a>.') }}
                         </label>

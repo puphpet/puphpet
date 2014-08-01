@@ -11,8 +11,8 @@
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
                             <input type="checkbox" name="postgresql[install]"
-                                   {% if postgresql.install %}checked{% endif %} value="1" />
-                            Install PostgreSQL
+                                   {% if postgresql.install %}checked{% endif %} value="1" /> Install PostgreSQL
+                            {% if not postgresql.install %}<input type="hidden" name="postgresql[install]" value="0" />{% endif %}
                             {{ popover.small('The world\'s most advanced open source database.') }}
                         </label>
                     </div>

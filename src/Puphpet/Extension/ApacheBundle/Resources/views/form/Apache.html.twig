@@ -13,6 +13,7 @@
                             <input type="checkbox" class="update-other-input"
                                    name="apache[install]" data-update-nginx[install]="0"
                                    {% if apache.install %}checked{% endif %} value="1" /> Install Apache2
+                            {% if not apache.install %}<input type="hidden" name="apache[install]" value="0" />{% endif %}
                         </label>
 
                         <p class="help-block">

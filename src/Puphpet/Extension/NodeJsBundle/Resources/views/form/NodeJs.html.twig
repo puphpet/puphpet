@@ -11,8 +11,8 @@
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
                             <input type="checkbox" name="nodejs[install]"
-                                   {% if nodejs.install %}checked{% endif %} value="1" />
-                            Install NodeJS
+                                   {% if nodejs.install %}checked{% endif %} value="1" /> Install NodeJS
+                            {% if not nodejs.install %}<input type="hidden" name="nodejs[install]" value="0" />{% endif %}
                             {{ popover.small("Node.js is a platform built on Chrome's JavaScript runtime for
                                                 easily building fast, scalable network applications.") }}
                         </label>

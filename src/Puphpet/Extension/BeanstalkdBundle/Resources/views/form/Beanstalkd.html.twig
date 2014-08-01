@@ -11,8 +11,8 @@
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
                             <input type="checkbox" name="beanstalkd[install]"
-                                   {% if beanstalkd.install %}checked{% endif %} value="1" />
-                            Install Beanstalkd
+                                   {% if beanstalkd.install %}checked{% endif %} value="1" /> Install Beanstalkd
+                            {% if not beanstalkd.install %}<input type="hidden" name="beanstalkd[install]" value="0" />{% endif %}
                             {{ popover.small('Beanstalk is a simple, fast work queue.
                                 <a href="http://alister.github.io/presentations/Beanstalkd/" target="_blank">
                                     Learn about Beanstalkd</a>.') }}

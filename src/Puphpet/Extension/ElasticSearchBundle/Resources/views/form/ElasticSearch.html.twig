@@ -12,6 +12,7 @@
                         <label class="checkbox-inline">
                             <input type="checkbox" name="elastic_search[install]"
                                    {% if elastic_search.install %}checked{% endif %} value="1" /> Install Elastic Search
+                            {% if not elastic_search.install %}<input type="hidden" name="elastic_search[install]" value="0" />{% endif %}
                         </label>
                     </div>
                 </div>

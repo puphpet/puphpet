@@ -12,8 +12,8 @@
                         <label class="checkbox-inline">
                             <input type="checkbox" class="update-other-input"
                                    name="hhvm[install]" data-update-php[install]="0"
-                                   {% if hhvm.install %}checked{% endif %} value="1" />
-                            Install HHVM
+                                   {% if hhvm.install %}checked{% endif %} value="1" /> Install HHVM
+                            {% if not hhvm.install %}<input type="hidden" name="hhvm[install]" value="0" />{% endif %}
                             {{ popover.small('HHVM is a new open-source virtual machine designed for executing programs
                                 written in PHP.
                                 <a href="https://github.com/facebook/hhvm/" target="_blank">Learn about HHVM</a>.') }}

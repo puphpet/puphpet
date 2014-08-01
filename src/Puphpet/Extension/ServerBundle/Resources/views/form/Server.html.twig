@@ -8,6 +8,8 @@
                 </div>
 
                 <div class="panel-body">
+                    <input type="hidden" name="server[install]" value="1" />
+
                     <div class="row form-group">
                         <div class="col-xs-12">
                             <label for="server-packages">Installed Packages</label>
@@ -48,8 +50,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    <input type="hidden" name="server[_prevent_empty]" />
                 </div>
 
                 {{ extra|raw }}
