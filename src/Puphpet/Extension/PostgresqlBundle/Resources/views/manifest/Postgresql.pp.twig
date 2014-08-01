@@ -1,17 +1,13 @@
-## Begin PostgreSQL manifest
-
-if $postgresql_values == undef {
-  $postgresql_values = hiera('postgresql', false)
-} if $php_values == undef {
-  $php_values = hiera('php', false)
-} if $hhvm_values == undef {
-  $hhvm_values = hiera('hhvm', false)
-}
+if $postgresql_values == undef { $postgresql_values = hiera('postgresql', false) }
+if $php_values == undef { $php_values = hiera('php', false) }
+if $hhvm_values == undef { $hhvm_values = hiera('hhvm', false) }
 
 include puphpet::params
 
 if hash_key_equals($postgresql_values, 'install', 1) {
-  if hash_key_equals($apache_values, 'install', 1) or hash_key_equals($nginx_values, 'install', 1) {
+  if hash_key_equals($apache_values, 'install', 1)
+    or hash_key_equals($nginx_values, 'install', 1)
+  {
     $postgresql_webserver_restart = true
   } else {
     $postgresql_webserver_restart = false
@@ -43,11 +39,16 @@ if hash_key_equals($postgresql_values, 'install', 1) {
       require           => Group[$postgresql_values['settings']['user_group']]
     }
 
-    if is_hash($postgresql_values['databases']) and count($postgresql_values['databases']) > 0 {
+    if is_hash($postgresql_values['databases'])
+      and count($postgresql_values['databases']) > 0
+    {
       create_resources(postgresql_db, $postgresql_values['databases'])
     }
 
-    if $postgresql_php_installed and $postgresql_php_package == 'php' and ! defined(Php::Module['pgsql']) {
+    if $postgresql_php_installed
+      and $postgresql_php_package == 'php'
+      and ! defined(Php::Module['pgsql'])
+    {
       php::module { 'pgsql':
         service_autorestart => $postgresql_webserver_restart,
       }

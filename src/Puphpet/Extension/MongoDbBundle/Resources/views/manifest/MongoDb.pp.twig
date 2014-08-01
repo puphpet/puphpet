@@ -1,16 +1,9 @@
-## Begin MongoDb manifest
+if $mongodb_values == undef { $mongodb_values = hiera('mongodb', false) }
+if $php_values == undef { $php_values = hiera('php', false) }
+if $apache_values == undef { $apache_values = hiera('apache', false) }
+if $nginx_values == undef { $nginx_values = hiera('nginx', false) }
 
-if $mongodb_values == undef {
-  $mongodb_values = hiera('mongodb', false)
-} if $php_values == undef {
-  $php_values = hiera('php', false)
-} if $apache_values == undef {
-  $apache_values = hiera('apache', false)
-} if $nginx_values == undef {
-  $nginx_values = hiera('nginx', false)
-}
-
-include 'puphpet::params'
+include puphpet::params
 
 if hash_key_equals($apache_values, 'install', 1)
   or hash_key_equals($nginx_values, 'install', 1)
@@ -24,10 +17,11 @@ if hash_key_equals($mongodb_values, 'install', 1) {
   file { ['/data', '/data/db']:
     ensure  => directory,
     mode    => 0775,
-    before  => Class['Mongodb::Globals'],
+    before  => Class['mongodb::globals'],
   }
 
-  Class['Mongodb::Globals'] -> Class['Mongodb::Server']
+  Class['mongodb::globals']
+  -> Class['mongodb::server']
 
   class { 'mongodb::globals':
     manage_package_repo => true,
@@ -36,8 +30,8 @@ if hash_key_equals($mongodb_values, 'install', 1) {
   create_resources('class', { 'mongodb::server' => $mongodb_values['settings'] })
 
   if $::osfamily == 'redhat' {
-    class { '::mongodb::client':
-      require => Class['::Mongodb::Server']
+    class { 'mongodb::client':
+      require => Class['mongodb::server']
     }
   }
 
@@ -45,7 +39,9 @@ if hash_key_equals($mongodb_values, 'install', 1) {
     create_resources(mongodb_db, $mongodb_values['databases'])
   }
 
-  if hash_key_equals($php_values, 'install', 1) and ! defined(Puphpet::Php::Pecl['mongo']) {
+  if hash_key_equals($php_values, 'install', 1)
+    and ! defined(Puphpet::Php::Pecl['mongo'])
+  {
     puphpet::php::pecl { 'mongo':
       service_autorestart => $mongodb_webserver_restart,
       require             => Class['mongodb::server']

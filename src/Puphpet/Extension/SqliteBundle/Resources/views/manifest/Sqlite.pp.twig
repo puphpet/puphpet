@@ -1,18 +1,10 @@
-## Begin SQLite manifest
+if $sqlite_values == undef { $sqlite_values = hiera('sqlite', false) }
+if $php_values == undef { $php_values = hiera('php', false) }
+if $apache_values == undef { $apache_values = hiera('apache', false) }
+if $nginx_values == undef { $nginx_values = hiera('nginx', false) }
+if $mailcatcher_values == undef { $mailcatcher_values = hiera('mailcatcher', false) }
 
-if $sqlite_values == undef {
-  $sqlite_values = hiera('sqlite', false)
-} if $php_values == undef {
-  $php_values = hiera('php', false)
-} if $apache_values == undef {
-  $apache_values = hiera('apache', false)
-} if $nginx_values == undef {
-  $nginx_values = hiera('nginx', false)
-} if $mailcatcher_values == undef {
-  $mailcatcher_values = hiera('mailcatcher', false)
-}
-
-include 'puphpet::params'
+include puphpet::params
 
 if hash_key_equals($sqlite_values, 'install', 1) {
   if hash_key_equals($php_values, 'install', 1) {
@@ -30,11 +22,16 @@ if hash_key_equals($sqlite_values, 'install', 1) {
     class { 'sqlite': }
   }
 
-  if is_hash($sqlite_values['databases']) and count($sqlite_values['databases']) > 0 {
+  if is_hash($sqlite_values['databases'])
+    and count($sqlite_values['databases']) > 0
+  {
     create_resources(sqlite_db, $sqlite_values['databases'])
   }
 
-  if $sqlite_php_installed and $sqlite_php_package == 'php' and ! defined(Php::Module['sqlite']) {
+  if $sqlite_php_installed
+    and $sqlite_php_package == 'php'
+    and ! defined(Php::Module['sqlite'])
+  {
     php::module { 'sqlite':
       service_autorestart => true,
     }
@@ -72,13 +69,13 @@ define sqlite_db (
   user { $owner:
     ensure => present,
     groups => $owner
-  }->
+  } ->
   file { '/var/lib/sqlite':
     ensure => directory,
     owner  => $owner,
     group  => $group,
     mode   => 0775
-  }->
+  } ->
   sqlite::db { $name:
     owner => $owner,
     group => $group,

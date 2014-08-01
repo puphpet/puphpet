@@ -1,10 +1,6 @@
-## Begin Ruby manifest
+if $ruby_values == undef { $ruby_values = hiera('ruby', false) }
 
-if $ruby_values == undef {
-  $ruby_values = hiera('ruby', false)
-}
-
-include 'puphpet::params'
+include puphpet::params
 
 if hash_key_true($ruby_values, 'versions') and count($ruby_values['versions']) > 0 {
   $rvm_has_default = false

@@ -1,10 +1,6 @@
-## Begin Drush manifest
+if $drush_values == undef { $drush_values = hiera('drush', false) }
 
-if $drush_values == undef {
-  $drush_values = hiera('drush', false)
-}
-
-include 'puphpet::params'
+include puphpet::params
 
 if hash_key_equals($drush_values, 'install', 1) {
   if ($drush_values['settings']['drush.tag_branch'] != undef) {

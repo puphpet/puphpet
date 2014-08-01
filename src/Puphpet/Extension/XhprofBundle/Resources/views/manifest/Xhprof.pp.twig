@@ -1,25 +1,17 @@
-## Begin Xhprof manifest
+if $php_values == undef { $php_values = hiera('php', false) }
+if $xhprof_values == undef { $xhprof_values = hiera('xhprof', false) }
+if $apache_values == undef { $apache_values = hiera('apache', false) }
+if $nginx_values == undef { $nginx_values = hiera('nginx', false) }
 
-if $php_values == undef {
-  $php_values = hiera('php', false)
-} if $xhprof_values == undef {
-  $xhprof_values = hiera('xhprof', false)
-} if $apache_values == undef {
-  $apache_values = hiera('apache', false)
-} if $nginx_values == undef {
-  $nginx_values = hiera('nginx', false)
-}
-
-include 'puphpet::params'
+include puphpet::params
 
 if hash_key_equals($xhprof_values, 'install', 1)
   and hash_key_equals($php_values, 'install', 1)
 {
-  if $::operatingsystem == 'ubuntu' and $lsbdistcodename in ['lucid', 'maverick', 'natty', 'oneiric', 'precise'] {
-    apt::key { '8D0DC64F':
-      key_server => 'hkp://keyserver.ubuntu.com:80'
-    }
-
+  if $::operatingsystem == 'ubuntu'
+    and $::lsbdistcodename in ['lucid', 'maverick', 'natty', 'oneiric', 'precise']
+  {
+    apt::key { '8D0DC64F': key_server => 'hkp://keyserver.ubuntu.com:80' }
     apt::ppa { 'ppa:brianmercer/php5-xhprof': require => Apt::Key['8D0DC64F'] }
   }
 
@@ -36,7 +28,7 @@ if hash_key_equals($xhprof_values, 'install', 1)
 
   if ! defined(Package['graphviz']) {
     package { 'graphviz':
-      ensure  => present,
+      ensure => present,
     }
   }
 

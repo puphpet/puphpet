@@ -7,13 +7,13 @@ include puphpet::supervisord
 
 if hash_key_equals($hhvm_values, 'install', 1) {
   if hash_key_equals($apache_values, 'install', 1) {
-    $hhvm_webserver = 'httpd'
+    $hhvm_webserver         = 'httpd'
     $hhvm_webserver_restart = true
   } elsif hash_key_equals($nginx_values, 'install', 1) {
-    $hhvm_webserver = 'nginx'
+    $hhvm_webserver         = 'nginx'
     $hhvm_webserver_restart = true
   } else {
-    $hhvm_webserver = undef
+    $hhvm_webserver         = undef
     $hhvm_webserver_restart = true
   }
 

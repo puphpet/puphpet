@@ -7,7 +7,8 @@ include puphpet::params
 if hash_key_equals($nginx_values, 'install', 1) {
   include nginx::params
 
-  Class['puphpet::ssl_cert'] -> Nginx::Resource::Vhost <| |>
+  Class['puphpet::ssl_cert']
+  -> Nginx::Resource::Vhost <| |>
 
   class { 'puphpet::ssl_cert': }
 
@@ -44,11 +45,11 @@ if hash_key_equals($nginx_values, 'install', 1) {
   }
 
   if hash_key_equals($hhvm_values, 'install', 1) {
-    $fcgi_string          = "127.0.0.1:${hhvm_values['settings']['port']}"
+    $fcgi_string = "127.0.0.1:${hhvm_values['settings']['port']}"
   } elsif hash_key_equals($php_values, 'install', 1) {
-    $fcgi_string          = '127.0.0.1:9000'
+    $fcgi_string = '127.0.0.1:9000'
   } else {
-    $fcgi_string          = ''
+    $fcgi_string = ''
   }
 
   if $::osfamily == 'redhat' {
