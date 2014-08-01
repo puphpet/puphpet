@@ -61,7 +61,7 @@ if hash_key_equals($php_values, 'install', 1) {
     $php_package                  = "${php_prefix}cli"
     $php_webserver_service        = undef
     $php_webserver_service_ini    = undef
-    $php_webserver_service_ensure = 'absent'
+    $php_webserver_service_ensure = undef
     $php_webserver_restart        = false
     $php_config_file              = $php::params::config_file
   }
@@ -73,7 +73,7 @@ if hash_key_equals($php_values, 'install', 1) {
     config_file         => $php_config_file,
   }
 
-  if ! defined(Service[$php_webserver_service]) {
+  if $php_webserver_service and ! defined(Service[$php_webserver_service]) {
     service { $php_webserver_service:
       ensure     => $php_webserver_service_ensure,
       enable     => true,
@@ -188,3 +188,4 @@ define php_pecl_mod {
     }
   }
 }
+
