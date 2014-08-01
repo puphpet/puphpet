@@ -14,7 +14,6 @@ vm:
                 args:
                     - "--verbose"
                     - "--archive"
-                    - "--delete"
                     - "-z"
                 exclude:
                     - ".vagrant/"
