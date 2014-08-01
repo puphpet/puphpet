@@ -21,7 +21,7 @@ PUPHPET.updateOtherInput = function() {
 
             // Only work with data attributes that have "update-"
             if (key.search('update-') !== 0) {
-                return;
+                return true;
             }
 
             key = key.replace('update-', '');
@@ -43,7 +43,7 @@ PUPHPET.updateOtherInput = function() {
             if ($target.is(':radio')) {
                 $target.prop('checked', true);
 
-                return;
+                return true;
             }
 
             /**
@@ -51,10 +51,28 @@ PUPHPET.updateOtherInput = function() {
              *
              * If unchecked, do not update target. We only want to handle positive actions
              */
-            if ($target.is(':checkbox') && $parent.is(':checked')) {
-                $target.prop('checked', false);
+            if ($target.is(':checkbox')) {
+                var checked;
 
-                return;
+                // Element gets checked, wants target to be checked
+                if (value && $parent.is(':checked')) {
+                    checked = true;
+                }
+                // Element gets checked, wants target to be unchecked
+                else if (!value && $parent.is(':checked')) {
+                    checked = false;
+                }
+                // Element gets unchecked
+                else {
+                    return 1;
+                }
+
+                $target.prop('checked', checked);
+
+                console.log("VALUE IS " + value)
+                console.log("CHECKED IS " + checked)
+
+                return true;
             }
 
             if (!$target.is(':radio') && !$target.is(':checkbox')) {
