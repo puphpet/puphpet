@@ -1,2 +1,1 @@
-settings:
-    drush.tag_branch: 6.x
+version: 6.3.0

@@ -15,9 +15,6 @@ mod 'tPl0ch/composer',
 mod 'puppetlabs/concat',
     :git => 'https://github.com/puppetlabs/puppetlabs-concat.git',
     :ref => '1.1.0'
-mod 'puphpet/drush',
-    :git => 'https://github.com/puphpet/puppet-drush.git',
-    :ref => '104cd8e'
 mod 'elasticsearch/elasticsearch',
     :git => 'https://github.com/puphpet/puppet-elasticsearch.git',
     :ref => '0.2.2'
