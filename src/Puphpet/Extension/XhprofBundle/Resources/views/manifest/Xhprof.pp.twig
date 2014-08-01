@@ -10,6 +10,8 @@ if $php_values == undef {
   $nginx_values = hiera('nginx', false)
 }
 
+include 'puphpet::params'
+
 if hash_key_equals($xhprof_values, 'install', 1)
   and hash_key_equals($php_values, 'install', 1)
 {

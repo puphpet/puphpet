@@ -1,6 +1,8 @@
 if $firewall_values == undef { $firewall_values = hiera('firewall', false) }
 if $vm_values == undef { $vm_values = hiera($::vm_target_key, false) }
 
+include puphpet::params
+
 Firewall {
   before  => Class['my_fw::post'],
   require => Class['my_fw::pre'],
