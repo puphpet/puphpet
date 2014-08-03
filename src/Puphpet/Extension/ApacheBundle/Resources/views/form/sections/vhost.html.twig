@@ -14,8 +14,7 @@
                     {{ popover.small('Don\'t forget to <a href="/help#update-my-hosts-file">update your computer\'s hosts file!</a>') }}
                 </label>
                 <input type="text" id="apache-vhosts-{{ uniqid }}-servername"
-                       name="apache[vhosts][{{ uniqid }}][servername]"
-                       required placeholder="awesome.dev"
+                       name="apache[vhosts][{{ uniqid }}][servername]" placeholder="awesome.dev"
                        value="{{ vhost.servername }}" class="form-control" />
             </div>
 
@@ -43,8 +42,7 @@
                     {{ popover.small('Location of your site\'s index.php file, or other landing page.') }}
                 </label>
                 <input type="text" id="apache-vhosts-{{ uniqid }}-docroot"
-                       name="apache[vhosts][{{ uniqid }}][docroot]"
-                       required placeholder="/var/www"
+                       name="apache[vhosts][{{ uniqid }}][docroot]" placeholder="/var/www"
                        value="{{ vhost.docroot }}" class="form-control" />
             </div>
 
@@ -55,8 +53,7 @@
                         ex: http://awesome.dev:1337') }}
                 </label>
                 <input type="number" id="apache-vhosts-{{ uniqid }}-port"
-                       name="apache[vhosts][{{ uniqid }}][port]"
-                       required placeholder="80"
+                       name="apache[vhosts][{{ uniqid }}][port]" placeholder="80"
                        value="{{ vhost.port }}" class="form-control" />
             </div>
         </div>

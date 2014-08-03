@@ -28,9 +28,8 @@
                                 {{ popover.small('MailCatcher will be available at
                                     <code>http://{SERVER_IP_ADDRESS}:{HTTP_PORT}</code>') }}
                             </label>
-                            <input type="number" id="mailcatcher-settings-http_port" name="mailcatcher[settings][http_port]"
-                                   required placeholder="1080"
-                                   pattern="^[1-9][0-9]*$" min="1000" max="20000"
+                            <input type="number" id="mailcatcher-settings-http_port"
+                                   name="mailcatcher[settings][http_port]" placeholder="1080"
                                    value="{{ mailcatcher.settings.http_port }}" class="form-control" />
                         </div>
                     </div>
