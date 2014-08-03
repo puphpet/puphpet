@@ -542,11 +542,27 @@ PUPHPET.sidebar = function() {
     var $link = $('#nav-sidebar li a[data-toggle="tab"]');
 
     if (window.location.hash.length) {
-        $('#nav-sidebar li a[href=' + window.location.hash + ']').tab('show');
+        var $hashLink = $link.filter('[href=' + window.location.hash + ']');
+
+        var $parents = $hashLink.parent().parents('li');
+
+        if ($parents.length > 0) {
+            $parents.children('a[data-toggle="tab"]').tab('show');
+        }
+
+        $hashLink.tab('show');
     }
 
     $(window).on('hashchange', function() {
-      $('#nav-sidebar li a[href=' + window.location.hash + ']').tab('show');
+        var $hashLink = $link.filter('[href=' + window.location.hash + ']');
+
+        var $parents = $hashLink.parent().parents('li');
+
+        if ($parents.length > 0) {
+            $parents.children('a').tab('show');
+        }
+
+        $hashLink.tab('show');
     });
 
     $link.on('show.bs.tab', function (e) {
