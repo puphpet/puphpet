@@ -57,6 +57,15 @@ if hash_key_equals($php_values, 'install', 1) {
       require => Package[$php_package],
       notify  => Service[$php_webserver_service],
     }
+
+    exec { 'php_fpm-security.limit_extensions':
+      command => "perl -p -i -e 's#;security.limit_extensions = .*#security.limit_extensions = .php#gi' ${puphpet::params::php_fpm_conf}",
+      onlyif  => "test -f ${puphpet::params::php_fpm_conf}",
+      unless  => "grep -x 'security.limit_extensions = .php' ${puphpet::params::php_fpm_conf}",
+      path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
+      require => Package[$php_package],
+      notify  => Service[$php_webserver_service],
+    }
   } else {
     $php_package                  = "${php_prefix}cli"
     $php_webserver_service        = undef
@@ -97,7 +106,7 @@ if hash_key_equals($php_values, 'install', 1) {
 
   if count($php_values['ini']) > 0 {
     $php_inis = merge({
-      'cgi.fix_pathinfo' => 0,
+      'cgi.fix_pathinfo' => 1,
       'date.timezone'    => $php_values['timezone'],
     }, $php_values['ini'])
 
@@ -188,4 +197,3 @@ define php_pecl_mod {
     }
   }
 }
-
