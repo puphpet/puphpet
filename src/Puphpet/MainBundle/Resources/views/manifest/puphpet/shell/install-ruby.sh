@@ -50,7 +50,7 @@ fi
 
 echo 'Installing Ruby 1.9.3 using RVM'
 
-curl -sSL https://get.rvm.io | bash -s stable --ruby=1.9.3
+curl -sSL https://get.rvm.io | bash -s stable --quiet-curl --ruby=1.9.3
 source /usr/local/rvm/scripts/rvm
 
 if [[ -f '/usr/bin/ruby' ]]; then
