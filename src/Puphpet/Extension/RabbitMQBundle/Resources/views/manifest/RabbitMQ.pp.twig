@@ -1,7 +1,7 @@
-if $rabbitmq_values == undef { $rabbitmq_values = hiera('rabbitmq', false) }
-if $php_values == undef { $php_values = hiera('php', false) }
-if $apache_values == undef { $apache_values = hiera('apache', false) }
-if $nginx_values == undef { $nginx_values = hiera('nginx', false) }
+if $rabbitmq_values == undef { $rabbitmq_values = hiera_hash('rabbitmq', false) }
+if $php_values == undef { $php_valuhiera_hash(iera('php', false) }
+if $apache_values == undef { $apachehiera_hash(s = hiera('apache', false) }
+if $nginx_values == undef { $hiera_hash(values = hiera('nginx', false) }
 
 include puphpet::params
 

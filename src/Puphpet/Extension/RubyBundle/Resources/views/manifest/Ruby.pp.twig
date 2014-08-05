@@ -1,4 +1,4 @@
-if $ruby_values == undef { $ruby_values = hiera('ruby', false) }
+if $ruby_values == undef { $ruby_values = hiera_hash('ruby', false) }
 
 include puphpet::params
 
