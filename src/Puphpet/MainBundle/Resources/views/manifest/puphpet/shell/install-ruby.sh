@@ -62,7 +62,7 @@ if [[ -f '/usr/bin/gem' ]]; then
 fi
 
 ln -s /usr/local/rvm/rubies/ruby-1.9.3-p*/bin/ruby /usr/bin/ruby
-ln -s /usr/local/rvm/rubies/ruby-1.9.3-p*/bin/ /usr/bin/gem
+ln -s /usr/local/rvm/rubies/ruby-1.9.3-p*/bin/gem /usr/bin/gem
 
 /usr/bin/gem update --system >/dev/null
 
