@@ -28,11 +28,11 @@ Vagrant.configure("2") do |config|
     if !data['vm']['provider']['aws']['security_groups'].nil? && !data['vm']['provider']['aws']['security_groups'].empty?
       aws.security_groups = data['vm']['provider']['aws']['security_groups']
     end
-  end
 
-  aws.tags = {}
-  data['vm']['provider']['aws']['tags'].each do |key, tag|
-    aws.tags.store(:key, tag)
+    aws.tags = {}
+    data['vm']['provider']['aws']['tags'].each do |key, tag|
+      aws.tags.store(:key, tag)
+    end
   end
 
   data['vm']['synced_folder'].each do |i, folder|
