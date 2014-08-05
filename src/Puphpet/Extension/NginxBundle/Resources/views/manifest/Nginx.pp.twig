@@ -63,22 +63,43 @@ if hash_key_equals($nginx_values, 'install', 1) {
     }
   }
 
+  if hash_key_equals($hhvm_values, 'install', 1)
+    or hash_key_equals($php_values, 'install', 1)
+  {
+    $default_vhost = {
+      'server_name'    => '_',
+      'server_aliases' => [],
+      'www_root'       => '/var/www/html',
+      'listen_port'    => 80,
+      'location'       => '\.php$',
+      'index_files'    => ['index', 'index.html', 'index.htm', 'index.php'],
+      'envvars'        => [],
+      'ssl'            => '0',
+      'ssl_cert'       => '',
+      'ssl_key'        => '',
+      'engine'         => 'php',
+    }
+  } else {
+    $default_vhost = {
+      'server_name'    => '_',
+      'server_aliases' => [],
+      'www_root'       => '/var/www/html',
+      'listen_port'    => 80,
+      'location'       => '/',
+      'index_files'    => ['index', 'index.html', 'index.htm'],
+      'envvars'        => [],
+      'ssl'            => '0',
+      'ssl_cert'       => '',
+      'ssl_key'        => '',
+      'enginer'        => false,
+    }
+  }
+
   class { 'nginx': }
 
   if hash_key_equals($nginx_values['settings'], 'default_vhost', 1) {
     $nginx_vhosts = merge($nginx_values['vhosts'], {
-      'default' => {
-        'server_name'    => '_',
-        'server_aliases' => [],
-        'www_root'       => '/var/www/html',
-        'listen_port'    => 80,
-        'location'       => '\.php$',
-        'index_files'    => ['index', 'index.html', 'index.htm', 'index.php'],
-        'envvars'        => [],
-        'ssl'            => '0',
-        'ssl_cert'       => '',
-        'ssl_key'        => '',
-      },
+      'default' => $default_vhost,
     })
 
     if ! defined(File[$puphpet::params::nginx_default_conf_location]) {
