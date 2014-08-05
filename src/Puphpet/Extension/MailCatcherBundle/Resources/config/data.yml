@@ -5,5 +5,4 @@ settings:
     smtp_port: 1025
     http_ip: 0.0.0.0
     http_port: 1080
-    mailcatcher_path: /usr/local/bin
-    log_path: /var/log/mailcatcher/mailcatcher.log
+    mailcatcher_path: /usr/local/rvm/wrappers/default

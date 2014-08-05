@@ -15,6 +15,7 @@ empty_vhost:
     ssl_key: ~
     ssl_chain: ~
     ssl_certs_dir: ~
+    engine: ~
 
 available_modules:
     - cache
@@ -28,7 +29,6 @@ available_modules:
     - info
     - ldap
     - mime_magic
-    - php
     - proxy_ajp
     - proxy_balancer
     - proxy
@@ -36,3 +36,7 @@ available_modules:
     - ssl
     - userdir
     - vhost_alias
+
+available_engines:
+    - none
+    - php

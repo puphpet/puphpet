@@ -1,8 +1,6 @@
-# Begin elastic search
+if $elasticsearch_values == undef { $elasticsearch_values = hiera('elastic_search', false) }
 
-if $elasticsearch_values == undef {
-  $elasticsearch_values = hiera('elastic_search', false)
-}
+include puphpet::params
 
 if hash_key_equals($elasticsearch_values, 'install', 1) {
   case $::osfamily {

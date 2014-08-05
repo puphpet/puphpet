@@ -14,7 +14,6 @@ vm:
                 args:
                     - "--verbose"
                     - "--archive"
-                    - "--delete"
                     - "-z"
                 exclude:
                     - ".vagrant/"
@@ -27,11 +26,14 @@ vm:
     provision:
         puppet:
             manifests_path: "puphpet/puppet"
-            manifest_file: "manifest.pp"
+            manifest_file: "site.pp"
             module_path: "puphpet/puppet/modules"
             options:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
                 - "--parser future"
+    usable_port_range:
+        start: 10200
+        stop: 10500
 ssh:
     forward_agent: true

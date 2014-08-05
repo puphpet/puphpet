@@ -110,6 +110,19 @@
                                value="{{ data.vm.memory }}" class="form-control" />
                     </div>
                 </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="vagrantfile-local-vm-cpus">
+                            Local VM CPU's
+                            {{ popover.small("Number of CPU's to assign to VM (only integers)") }}
+                        </label>
+                        <input type="number" id="vagrantfile-local-vm-cpus"
+                               name="vagrantfile-local[vm][cpus]"
+                               required placeholder="1" pattern="^[1-9][0-9]*$" min="1"
+                               value="{{ data.vm.cpus }}" class="form-control" />
+                    </div>
+                </div>
             </div>
 
             {% for forwarded_port in data.vm.network.forwarded_port %}

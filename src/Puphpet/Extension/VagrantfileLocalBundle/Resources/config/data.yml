@@ -3,6 +3,7 @@ vm:
     box_url: puphpet/debian75-x64
     hostname: ~
     memory: 512
+    cpus: 1
     chosen_provider: virtualbox
     network:
         private_network: 192.168.56.101
@@ -20,14 +21,16 @@ vm:
     provision:
         puppet:
             manifests_path: "puphpet/puppet"
-            manifest_file: "manifest.pp"
+            manifest_file: "site.pp"
             module_path: "puphpet/puppet/modules"
             options:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
                 - "--parser future"
     synced_folder: []
-    usable_port_range: 2200..2250
+    usable_port_range:
+        start: 10200
+        stop: 10500
 
 ssh:
     host: ~

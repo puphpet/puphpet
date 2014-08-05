@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'RabbitMQ';
     protected $slug = 'rabbitmq';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/rabbitmq.pp';
 
     protected $sources = [
         'rabbitmq' => ":git => 'https://github.com/puphpet/puppetlabs-rabbitmq.git'",

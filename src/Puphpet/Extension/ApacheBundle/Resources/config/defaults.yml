@@ -5,7 +5,6 @@ settings:
 
 modules:
     - rewrite
-    - php
 
 vhosts:
     -
@@ -28,6 +27,7 @@ vhosts:
         ssl_key: ~
         ssl_chain: ~
         ssl_certs_dir: ~
+        engine: php
 
 mod_pagespeed: 0
 mod_spdy: 0

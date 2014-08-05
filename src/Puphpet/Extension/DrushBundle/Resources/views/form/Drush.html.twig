@@ -1,45 +1,35 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-
 <section id="drush">
     <div class="panel-body">
         <div class="row form-group">
             <div class="col-xs-12">
-                <label class="checkbox-inline">
-                    <input type="checkbox" name="drush[install]" class="multiselect-grouped-tab"
+                <label class="checkbox-inline install-checkbox">
+                    <input type="checkbox" name="drush[install]"
+                           class="update-other-input multiselect-grouped-tab"
                            data-tab-target="drush-pill"
-                           {% if drush.install %}checked{% endif %} value="1" />
-                    Install Drush
-                    {{ popover.small('Drush will be installed from official github repo.') }}
+                           data-update-php[composer]="1" data-update-hhvm[composer]="1"
+                           {% if drush.install %}checked{% endif %} value="1" /> Install Drush
+                    {% if not drush.install %}<input type="hidden" name="drush[install]" value="0" />{% endif %}
                 </label>
             </div>
         </div>
 
+        <p class="help-block">
+            Drush requires PHP or HHVM, and Composer.
+        </p>
+
         <div class="row form-group">
             <div class="col-xs-12">
-                <label for="drush-settings-displayer">Settings</label>
-                <select id="drush-settings-displayer" multiple
-                        class="form-control select-tags-user-input"
-                        data-target-container="drush-settings"
-                        data-target-name="drush[settings]"
-                    >
-                    {% for setting in drush.available_settings %}
-                        <option value="{{ setting }}"
-                            {% if setting in drush.settings|keys %}selected{% endif %}>{{ setting }}</option>
+                <label for="drush-version">Choose Version</label>
+
+                <select id="drush-version"
+                        name="drush[version]" size="6"
+                        class="form-control select-tags">
+                    {% for version in drush.available_versions %}
+                        <option value="{{ version }}"
+                            {% if version == drush.version %}selected{% endif %}>{{ version }}</option>
                     {% endfor %}
                 </select>
-
-                <div id="drush-settings" style="display: none;">
-                    {% for name, value in drush.settings %}
-                        <input type="hidden" name="drush[settings][{{ name }}]"
-                               data-option-name="{{ name }}" value="{{ value }}" />
-                    {% endfor %}
-                </div>
-
-                <p class="help-block">
-                    You can choose which branch / tag of drush to checkout.
-                    See <a href="https://github.com/drush-ops/drush/tree/6.x#drush-versions" target="_blank">documentation</a>
-                    for current versions.
-                </p>
             </div>
         </div>
     </div>

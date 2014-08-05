@@ -13,3 +13,5 @@ modules:
 ini: []
 
 timezone: ~
+
+mod_php: 0

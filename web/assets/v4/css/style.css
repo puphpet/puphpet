@@ -1,4 +1,5 @@
 body {
+    min-width: 768px;
     padding-top: 50px;
     font-size: 16px;
 }
@@ -44,6 +45,11 @@ footer {
 .install-checkbox-container {
     margin-bottom: 10px;
     padding: 15px 15px 0 15px;
+}
+
+.install-checkbox-container label,
+.install-checkbox {
+    font-weight: bold;
 }
 
 /*
@@ -96,9 +102,23 @@ footer {
         background-color: #428bca;
     }
 
+    #nav-sidebar.nav .nav > li > a {
+        font-size: 80%;
+        margin-left: 15px;
+    }
+
     #nav-sidebar .nav > li.active > a {
         color: #fff;
         background-color: #428bca;
+    }
+
+    #nav-sidebar.nav .nav {
+        margin-top: 5px;
+        display: none;
+    }
+
+    #nav-sidebar.nav > .active > .nav {
+        display: block;
     }
 
     @media (min-width: 1200px) {
@@ -124,7 +144,7 @@ footer {
     }
 
     .nav-tabs.icon-bar > li > a {
-        height: 150px;
+        height: 100px;
         margin-right: 2px;
         background-color: #f8f8f8;
         line-height: 1.4;
@@ -151,13 +171,12 @@ footer {
 
     .nav-tabs.icon-bar li a .tab-icon {
         width: 100%;
-        margin: 0 auto 15px;
+        line-height: 1em;
     }
 
     .nav-tabs.icon-bar li a .tab-icon img {
-        width: 100%;
-        max-width: 125px;
-        margin: 0 auto 10px;
+        height: 40px;
+        margin: 0 auto 5px;
     }
 
     .nav-tabs.icon-bar li a .tab-icon img.tab-icon-active,
@@ -203,6 +222,10 @@ footer {
 /*
  * PHP version badge colors for OS selection
 **/
+    .php-version-5-6 {
+        background-color: #b5b845;
+    }
+
     .php-version-5-5 {
         background-color: #5cb85c;
     }

@@ -1,4 +1,3 @@
-packages: []
+install: 1
 
-dot_files:
-    - bash_aliases: ~
+packages: []

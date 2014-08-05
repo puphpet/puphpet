@@ -8,19 +8,19 @@ mod 'puppetlabs/apt',
     :ref => '1.4.2'
 mod 'puphpet/beanstalkd',
     :git => 'https://github.com/puphpet/puppet-beanstalkd.git',
-    :ref => 'c4629f751d'
+    :ref => '5a530ff'
 mod 'tPl0ch/composer',
     :git => 'https://github.com/tPl0ch/puppet-composer.git',
     :ref => '1.2.1'
 mod 'puppetlabs/concat',
     :git => 'https://github.com/puppetlabs/puppetlabs-concat.git',
     :ref => '1.1.0'
-mod 'puphpet/drush',
-    :git => 'https://github.com/puphpet/puppet-drush.git',
-    :ref => '104cd8e'
 mod 'elasticsearch/elasticsearch',
     :git => 'https://github.com/puphpet/puppet-elasticsearch.git',
     :ref => '0.2.2'
+mod 'garethr/erlang',
+    :git => 'https://github.com/garethr/garethr-erlang.git',
+    :ref => '91d8ec73c3'
 mod 'puppetlabs/firewall',
     :git => 'https://github.com/puppetlabs/puppetlabs-firewall.git',
     :ref => '1.1.1'
@@ -47,23 +47,30 @@ mod 'puppetlabs/postgresql',
     :ref => '3.3.3'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => 'bd2d08e'
+    :ref => '049e28a'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
 mod 'puppetlabs/rabbitmq',
     :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
-    :ref => '4.0.0'
+    :ref => '5ce33f4968'
 mod 'puphpet/redis',
     :git => 'https://github.com/puphpet/puppet-redis.git',
     :ref => 'd9b3b23b0c'
+mod 'maestrodev/rvm'
+mod 'puppetlabs/sqlite',
+    :git => 'https://github.com/puppetlabs/puppetlabs-sqlite.git',
+    :ref => 'v0.0.1'
+mod 'petems/swap_file',
+    :git => 'https://github.com/petems/puppet-swap_file.git',
+    :ref => '39582afda5'
 mod 'nanliu/staging',
     :git => 'https://github.com/nanliu/puppet-staging.git',
     :ref => '0.4.0'
-mod 'puppetlabs/stdlib'
 mod 'ajcrowe/supervisord',
     :git => 'https://github.com/puphpet/puppet-supervisord.git',
-    :ref => 'b702b82'
+    :ref => '17643f1'
+mod 'puppetlabs/stdlib'
 mod 'puppetlabs/vcsrepo',
     :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
     :ref => '0.2.0'

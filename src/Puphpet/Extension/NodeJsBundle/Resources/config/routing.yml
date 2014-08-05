@@ -1,0 +1,7 @@
+puphpet.extension.nodejs.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionNodeJsBundle:Front:index }
+
+puphpet.extension.nodejs.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionNodeJsBundle:Manifest:index }

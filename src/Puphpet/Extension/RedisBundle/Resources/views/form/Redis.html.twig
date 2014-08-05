@@ -1,7 +1,5 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-
 <section id="redis">
-
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -12,10 +10,9 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input class="install-checkbox" type="checkbox" name="redis[install]"
-                                   data-hide-on-uncheck="#redis-config-container"
-                                   {% if redis.install %}checked{% endif %} value="1" />
-                            Install Redis
+                            <input type="checkbox" name="redis[install]"
+                                   {% if redis.install %}checked{% endif %} value="1" /> Install Redis
+                            {% if not redis.install %}<input type="hidden" name="redis[install]" value="0" />{% endif %}
                             {{ popover.small('Redis is an open source, BSD licensed, advanced key-value store. It
                                 is often referred to as a data structure server since keys can contain strings,
                                 hashes, lists, sets and sorted sets.
@@ -24,21 +21,17 @@
                     </div>
                 </div>
 
-                <div class="{% if not redis.install %}hidden{% endif %}" id="redis-config-container">
-                    <div class="panel-body">
-                        <div class="row form-group">
-                            <div class="col-md-6">
-                                <label for="redis-settings-conf_port">Listen Port</label>
-                                <input type="number" id="redis-settings-conf_port"
-                                       name="redis[settings][conf_port]"
-                                       required placeholder="5673" pattern="^[1-9][0-9]*$" min="5000" max="20000"
-                                       value="{{ redis.settings.conf_port }}" class="form-control" />
-                            </div>
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="redis-settings-conf_port">Listen Port</label>
+                            <input type="number" id="redis-settings-conf_port"
+                                   name="redis[settings][conf_port]" placeholder="5673"
+                                   value="{{ redis.settings.conf_port }}" class="form-control" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </section>

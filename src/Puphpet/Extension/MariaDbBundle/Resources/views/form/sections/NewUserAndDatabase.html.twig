@@ -30,15 +30,14 @@
             <div class="col-md-6">
                 <label for="mariadb-databases-{{ uniqid }}-name">DB Name</label>
                 <input type="text" id="mariadb-databases-{{ uniqid }}-name"
-                       name="mariadb[databases][{{ uniqid }}][name]" required placeholder="database name"
+                       name="mariadb[databases][{{ uniqid }}][name]" placeholder="database name"
                        value="{{ database.name }}" class="form-control" />
             </div>
 
             <div class="col-md-6">
                 <label for="mariadb-databases-{{ uniqid }}-host">DB Host</label>
                 <input type="text" id="mariadb-databases-{{ uniqid }}-host"
-                       name="mariadb[databases][{{ uniqid }}][host]"
-                       required placeholder="database host"
+                       name="mariadb[databases][{{ uniqid }}][host]" placeholder="database host"
                        value="{{ database.host }}" class="form-control" />
             </div>
         </div>
@@ -51,16 +50,14 @@
                         here! You should not have a single user appear twice!') }}
                 </label>
                 <input type="text" id="mariadb-databases-{{ uniqid }}-user"
-                       name="mariadb[databases][{{ uniqid }}][user]"
-                       required placeholder="username" maxlength="16"
+                       name="mariadb[databases][{{ uniqid }}][user]" placeholder="username" maxlength="16"
                        value="{{ database.user }}" class="form-control" />
             </div>
 
             <div class="col-md-6">
                 <label for="mariadb-databases-{{ uniqid }}-password">Password</label>
                 <input type="text" id="mariadb-databases-{{ uniqid }}-password"
-                       name="mariadb[databases][{{ uniqid }}][password]"
-                       required placeholder="password"
+                       name="mariadb[databases][{{ uniqid }}][password]" placeholder="password"
                        value="{{ database.password }}" class="form-control" />
                 <p class="help-block">Important! This cannot be blank!</p>
             </div>

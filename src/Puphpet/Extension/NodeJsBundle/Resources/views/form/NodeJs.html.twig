@@ -1,0 +1,38 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+<section id="nodejs">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">NodeJS Quick Settings</h3>
+                </div>
+
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="nodejs[install]"
+                                   {% if nodejs.install %}checked{% endif %} value="1" /> Install NodeJS
+                            {% if not nodejs.install %}<input type="hidden" name="nodejs[install]" value="0" />{% endif %}
+                            {{ popover.small("Node.js is a platform built on Chrome's JavaScript runtime for
+                                                easily building fast, scalable network applications.") }}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="nodejs-npm_packages">Npm Packages</label>
+                            <select id="nodejs-npm_packages" name="nodejs[npm_packages][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% for package in nodejs.npm_packages %}
+                                    <option selected value="{{ package }}">{{ package }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

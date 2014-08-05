@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 {
     protected $name = 'MongoDB';
     protected $slug = 'mongodb';
-    protected $targetFile = 'puphpet/puppet/manifest.pp';
+    protected $targetFile = 'puphpet/puppet/nodes/mongodb.pp';
 
     protected $sources = [
         'mongodb' => ":git => 'https://github.com/puphpet/puppetlabs-mongodb.git'",

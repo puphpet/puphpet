@@ -7,6 +7,8 @@ dir = File.dirname(File.expand_path(__FILE__))
 configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 data = configValues['vagrantfile-digital_ocean']
 
+Vagrant.require_version ">= 1.6.0"
+
 Vagrant.configure("2") do |config|
   config.vm.box = "dummy"
   config.vm.hostname = "#{data['vm']['hostname']}"
@@ -15,8 +17,7 @@ Vagrant.configure("2") do |config|
   config.ssh.username = "#{data['ssh']['username']}"
 
   config.vm.provider :digital_ocean do |provider|
-    provider.client_id = "#{data['vm']['provider']['digital_ocean']['client_id']}"
-    provider.api_key = "#{data['vm']['provider']['digital_ocean']['api_key']}"
+    provider.token = "#{data['vm']['provider']['digital_ocean']['token']}"
     provider.image = "#{data['vm']['provider']['digital_ocean']['image']}"
     provider.region = "#{data['vm']['provider']['digital_ocean']['region']}"
     provider.size = "#{data['vm']['provider']['digital_ocean']['size']}"
@@ -32,8 +33,8 @@ Vagrant.configure("2") do |config|
     s.path = "puphpet/shell/initial-setup.sh"
     s.args = "/vagrant/puphpet"
   end
-  config.vm.provision :shell, :path => "puphpet/shell/update-puppet.sh"
-  config.vm.provision :shell, :path => "puphpet/shell/important-notices.sh"
+  config.vm.provision :shell, :path => "puphpet/shell/install-ruby.sh"
+  config.vm.provision :shell, :path => "puphpet/shell/install-puppet.sh"
 
   config.vm.provision :puppet do |puppet|
     ssh_username = !data['ssh']['username'].nil? ? data['ssh']['username'] : "vagrant"
@@ -59,6 +60,7 @@ Vagrant.configure("2") do |config|
     s.path = "puphpet/shell/execute-files.sh"
     s.args = ["startup-once", "startup-always"]
   end
+  config.vm.provision :shell, :path => "puphpet/shell/important-notices.sh"
 
   if !data['ssh']['host'].nil?
     config.ssh.host = data['ssh']['host']

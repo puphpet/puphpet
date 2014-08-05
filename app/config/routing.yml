@@ -82,7 +82,18 @@ puphpet.extension.redis:
     resource: "@PuphpetExtensionRedisBundle/Resources/config/routing.yml"
     prefix:   /extension/redis
 
+puphpet.extension.sqlite:
+    resource: "@PuphpetExtensionSqliteBundle/Resources/config/routing.yml"
+    prefix:   /extension/sqlite
+
 puphpet.extension.firewall:
     resource: "@PuphpetExtensionFirewallBundle/Resources/config/routing.yml"
     prefix:   /extension/firewall
 
+puphpet.extension.ruby:
+    resource: "@PuphpetExtensionRubyBundle/Resources/config/routing.yml"
+    prefix:   /extension/ruby
+
+puphpet.extension.nodejs:
+    resource: "@PuphpetExtensionNodeJsBundle/Resources/config/routing.yml"
+    prefix:   /extension/nodejs

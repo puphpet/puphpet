@@ -1,12 +1,7 @@
-## Begin Firewall manifest
+if $firewall_values == undef { $firewall_values = hiera('firewall', false) }
+if $vm_values == undef { $vm_values = hiera($::vm_target_key, false) }
 
-if $firewall_values == undef {
-  $firewall_values = hiera('firewall', false)
-}
-
-resources { 'firewall':
-  purge => true
-}
+include puphpet::params
 
 Firewall {
   before  => Class['my_fw::post'],
@@ -55,6 +50,44 @@ if is_hash($firewall_values['rules']) and count($firewall_values['rules']) > 0 {
         proto  => $rule['proto'],
         action => $rule['action'],
       }
+    }
+  }
+}
+
+if has_key($vm_values, 'ssh') and has_key($vm_values['ssh'], 'port') {
+  $vm_values_ssh_port = $vm_values['ssh']['port'] ? {
+    ''      => 22,
+    undef   => 22,
+    0       => 22,
+    default => $vm_values['ssh']['port']
+  }
+
+  if ! defined(Firewall["100 tcp/${vm_values_ssh_port}"]) {
+    firewall { "100 tcp/${vm_values_ssh_port}":
+      port   => $vm_values_ssh_port,
+      proto  => tcp,
+      action => 'accept',
+      before => Class['my_fw::post']
+    }
+  }
+}
+
+if has_key($vm_values, 'vm')
+  and has_key($vm_values['vm'], 'network')
+  and has_key($vm_values['vm']['network'], 'forwarded_port')
+{
+  create_resources( iptables_port, $vm_values['vm']['network']['forwarded_port'] )
+}
+
+define iptables_port (
+  $host,
+  $guest,
+) {
+  if ! defined(Firewall["100 tcp/${guest}"]) {
+    firewall { "100 tcp/${guest}":
+      port   => $guest,
+      proto  => tcp,
+      action => 'accept',
     }
   }
 }

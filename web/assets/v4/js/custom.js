@@ -21,7 +21,7 @@ PUPHPET.updateOtherInput = function() {
 
             // Only work with data attributes that have "update-"
             if (key.search('update-') !== 0) {
-                return;
+                return true;
             }
 
             key = key.replace('update-', '');
@@ -43,7 +43,7 @@ PUPHPET.updateOtherInput = function() {
             if ($target.is(':radio')) {
                 $target.prop('checked', true);
 
-                return;
+                return true;
             }
 
             /**
@@ -51,10 +51,28 @@ PUPHPET.updateOtherInput = function() {
              *
              * If unchecked, do not update target. We only want to handle positive actions
              */
-            if ($target.is(':checkbox') && $parent.is(':checked')) {
-                $target.prop('checked', false);
+            if ($target.is(':checkbox')) {
+                var checked;
 
-                return;
+                // Element gets checked, wants target to be checked
+                if (value && $parent.is(':checked')) {
+                    checked = true;
+                }
+                // Element gets checked, wants target to be unchecked
+                else if (!value && $parent.is(':checked')) {
+                    checked = false;
+                }
+                // Element gets unchecked
+                else {
+                    return 1;
+                }
+
+                $target.prop('checked', checked);
+
+                console.log("VALUE IS " + value)
+                console.log("CHECKED IS " + checked)
+
+                return true;
             }
 
             if (!$target.is(':radio') && !$target.is(':checkbox')) {
@@ -431,6 +449,15 @@ PUPHPET.uploadConfig = function() {
     dropzone.addEventListener('dragleave', handleDragLeave, false);
     dropzone.addEventListener('drop', handleFileSelect, false);
 
+    $(document).on('paste', function(e) {
+        if ($(e.target).is('input, textarea')) {
+            return true;
+        }
+
+
+        submitForm(e.originalEvent.clipboardData.getData('text/plain'));
+    });
+
     function handleDragOver(e) {
         clearTimeout(tid);
         e.stopPropagation();
@@ -476,7 +503,6 @@ PUPHPET.uploadConfig = function() {
             };
         })(file);
 
-        // Read in the image file as a data URL.
         reader.readAsText(file);
 
         return false;
@@ -516,11 +542,27 @@ PUPHPET.sidebar = function() {
     var $link = $('#nav-sidebar li a[data-toggle="tab"]');
 
     if (window.location.hash.length) {
-        $('#nav-sidebar li a[href=' + window.location.hash + ']').tab('show');
+        var $hashLink = $link.filter('[href=' + window.location.hash + ']');
+
+        var $parents = $hashLink.parent().parents('li');
+
+        if ($parents.length > 0) {
+            $parents.children('a[data-toggle="tab"]').tab('show');
+        }
+
+        $hashLink.tab('show');
     }
 
     $(window).on('hashchange', function() {
-      $('#nav-sidebar li a[href=' + window.location.hash + ']').tab('show');
+        var $hashLink = $link.filter('[href=' + window.location.hash + ']');
+
+        var $parents = $hashLink.parent().parents('li');
+
+        if ($parents.length > 0) {
+            $parents.children('a').tab('show');
+        }
+
+        $hashLink.tab('show');
     });
 
     $link.on('show.bs.tab', function (e) {
@@ -618,6 +660,18 @@ PUPHPET.hideOnNotInstalled = function () {
     });
 };
 
+PUPHPET.submitUncheckedCheckboxes = function () {
+    $(document).on('click', 'input:checkbox', function(e) {
+        if (!$(this).is(':checked')) {
+            $(this).after('<input type="hidden" name="' + $(this).attr('name') + '" value="0">');
+
+            return;
+        }
+
+        $('input[type="hidden"][name="' + $(this).attr('name') + '"]').remove();
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -635,8 +689,5 @@ $(document).ready(function() {
     PUPHPET.enablePopovers();
     PUPHPET.configureCollapseable();
     PUPHPET.hideOnNotInstalled();
-    PUPHPET.enableTargetElements('#php-pill', '#php-extensions');
-    PUPHPET.enableTargetElements('#php-pill-menulink', '#php-extensions');
-    PUPHPET.disableTargetElements('#hhvm-pill', '#php-extensions');
-    PUPHPET.disableTargetElements('#hhvm-pill-menulink', '#php-extensions');
+    PUPHPET.submitUncheckedCheckboxes();
 });

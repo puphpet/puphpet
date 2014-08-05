@@ -1,0 +1,11 @@
+puphpet.extension.ruby.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionRubyBundle:Front:index }
+
+puphpet.extension.ruby.add_version:
+    pattern:  /add-version
+    defaults: { _controller: PuphpetExtensionRubyBundle:Front:addVersion }
+
+puphpet.extension.ruby.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionRubyBundle:Manifest:index }

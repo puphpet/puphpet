@@ -9,12 +9,11 @@ vm:
             image: ~
             region: ~
             size: ~
-            client_id: ~
-            api_key: ~
+            token: ~
     provision:
         puppet:
             manifests_path: "puphpet/puppet"
-            manifest_file: "manifest.pp"
+            manifest_file: "site.pp"
             module_path: "puphpet/puppet/modules"
             options:
                 - "--verbose"

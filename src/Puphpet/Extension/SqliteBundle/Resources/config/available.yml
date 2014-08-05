@@ -1,0 +1,6 @@
+empty_database:
+    name: ~
+    owner: vagrant
+    group: ~
+    mode: '755'
+    sql_file: ~

@@ -81,7 +81,7 @@
                         <div class="col-md-6">
                             <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-rsync-args">Rsync Args</label>
                             <select id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-rsync-args"
-                                    name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][rsync][args]"
+                                    name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][rsync][args][]"
                                     multiple class="form-control select-tags-editable">
                                 {% if synced_folder.rsync.args is defined and synced_folder.rsync.args is iterable %}
                                     {% for arg in synced_folder.rsync.args %}
@@ -94,7 +94,7 @@
                         <div class="col-md-6">
                             <label for="vagrantfile-local-vm-synced_folder-{{ uniqid }}-rsync-exclude">Exclude directories</label>
                             <select id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-rsync-exclude"
-                                    name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][rsync][exclude]"
+                                    name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][rsync][exclude][]"
                                     multiple class="form-control select-tags-editable">
                                 {% if synced_folder.rsync.exclude is defined and synced_folder.rsync.exclude is iterable %}
                                     {% for dir in synced_folder.rsync.exclude %}

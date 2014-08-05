@@ -1,6 +1,7 @@
 install: 0
 
 settings:
+    default_vhost: 1
     proxy_buffers: 4 256k
     proxy_buffer_size: 128k
 
@@ -9,7 +10,7 @@ vhosts:
         server_name: awesome.dev
         server_aliases:
             - www.awesome.dev
-        www_root: /var/www/awesome.dev
+        www_root: /var/www/awesome
         listen_port: 80
         ssl: false
         ssl_port: 443
@@ -23,3 +24,5 @@ vhosts:
             - index.html
             - index.htm
             - index.php
+        location: '\.php$'
+        engine: php

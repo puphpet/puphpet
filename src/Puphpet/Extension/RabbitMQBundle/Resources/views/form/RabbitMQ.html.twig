@@ -1,7 +1,5 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-
 <section id="rabbitmq">
-
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -12,10 +10,9 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input class="install-checkbox" type="checkbox" name="rabbitmq[install]"
-                                   data-hide-on-uncheck="#rabbitmq-config-container"
-                                   {% if rabbitmq.install %}checked{% endif %} value="1" />
-                            Install RabbitMQ
+                            <input type="checkbox" name="rabbitmq[install]"
+                                   {% if rabbitmq.install %}checked{% endif %} value="1" /> Install RabbitMQ
+                            {% if not rabbitmq.install %}<input type="hidden" name="rabbitmq[install]" value="0" />{% endif %}
                             {{ popover.small('RabbitMQ is a complete and highly reliable enterprise messaging system.
                                 <a href="http://www.rabbitmq.com/tutorials/tutorial-one-php.html" target="_blank">
                                     Learn about RabbitMQ</a>.') }}
@@ -23,21 +20,17 @@
                     </div>
                 </div>
 
-                <div class="{% if not rabbitmq.install %}hidden{% endif %}" id="rabbitmq-config-container">
-                    <div class="panel-body">
-                        <div class="row form-group">
-                            <div class="col-md-6">
-                                <label for="rabbitmq-settings-port">Listen Port</label>
-                                <input type="number" id="rabbitmq-settings-port"
-                                       name="rabbitmq[settings][port]"
-                                       required placeholder="5672" pattern="^[1-9][0-9]*$" min="5000" max="20000"
-                                       value="{{ rabbitmq.settings.port }}" class="form-control" />
-                            </div>
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="rabbitmq-settings-port">Listen Port</label>
+                            <input type="number" id="rabbitmq-settings-port"
+                                   name="rabbitmq[settings][port]" placeholder="5672" min="5000" max="20000"
+                                   value="{{ rabbitmq.settings.port }}" class="form-control" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </section>

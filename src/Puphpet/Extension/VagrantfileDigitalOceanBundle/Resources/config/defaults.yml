@@ -4,8 +4,7 @@ vm:
             image: Debian 7.0 x64
             region: New York 1
             size: 1GB
-            client_id: DIGITAL_OCEAN_CLIENT_ID
-            api_key: DIGITAL_OCEAN_API_KEY
+            token: DIGITAL_OCEAN_TOKEN
     synced_folder:
         -
             source: ./
@@ -16,7 +15,7 @@ vm:
     provision:
         puppet:
             manifests_path: "puphpet/puppet"
-            manifest_file: "manifest.pp"
+            manifest_file: "site.pp"
             module_path: "puphpet/puppet/modules"
             options:
                 - "--verbose"

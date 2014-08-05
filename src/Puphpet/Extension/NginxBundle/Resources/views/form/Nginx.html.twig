@@ -1,5 +1,4 @@
-<input type="hidden" name="is_disabled[nginx]" value="0" />
-
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 <section id="nginx">
     <div class="row">
         <div class="col-xs-12">
@@ -11,11 +10,10 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input type="checkbox" class="install-checkbox update-other-input"
-                                   name="nginx[install]"
-                                   data-update-apache[install]
-                                   data-hide-on-uncheck="#nginx-config-container"
+                            <input type="checkbox" class="update-other-input"
+                                   name="nginx[install]" data-update-apache[install]="0"
                                    {% if nginx.install %}checked{% endif %} value="1" /> Install Nginx
+                            {% if not nginx.install %}<input type="hidden" name="nginx[install]" value="0" />{% endif %}
                         </label>
 
                         <p class="help-block">
@@ -36,8 +34,7 @@
                                         data-original-title="" title=""></i></a>
                             </label>
                             <input type="text" id="nginx-settings-proxy_buffers"
-                                   name="nginx[settings][proxy_buffers]"
-                                   required placeholder="4 256k"
+                                   name="nginx[settings][proxy_buffers]" placeholder="4 256k"
                                    value="{{ nginx.settings.proxy_buffers }}" class="form-control" />
                         </div>
 
@@ -50,23 +47,20 @@
                                         data-original-title="" title=""></i></a>
                             </label>
                             <input type="text" id="nginx-settings-proxy_buffer_size"
-                                   name="nginx[settings][proxy_buffer_size]"
-                                   required placeholder="128k"
+                                   name="nginx[settings][proxy_buffer_size]" placeholder="128k"
                                    value="{{ nginx.settings.proxy_buffer_size }}" class="form-control" />
                         </div>
                     </div>
                 </div>
 
-                <div class="{% if not nginx.install %}hidden{% endif %}" id="nginx-config-container">
-                    {% for vhost in nginx.vhosts %}
-                        {% include 'PuphpetExtensionNginxBundle:form/sections:vhost.html.twig' with {'vhost': vhost} %}
-                    {% endfor %}
+                {% for vhost in nginx.vhosts %}
+                    {% include 'PuphpetExtensionNginxBundle:form/sections:vhost.html.twig' with {'vhost': vhost, 'available_engines': nginx.available_engines} %}
+                {% endfor %}
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                            <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                    data-source-url="{{ path('puphpet.extension.nginx.vhost') }}">Add another Nginx vhost</button>
-                        </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.nginx.vhost') }}">Add another Nginx vhost</button>
                     </div>
                 </div>
             </div>
