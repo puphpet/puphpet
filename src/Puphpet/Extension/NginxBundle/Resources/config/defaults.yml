@@ -24,4 +24,5 @@ vhosts:
             - index.html
             - index.htm
             - index.php
+        location: '\.php$'
         engine: php

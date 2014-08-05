@@ -59,6 +59,15 @@
         </div>
 
         <div class="row form-group">
+            <div class="col-md-6">
+                <label for="nginx-vhosts-{{ uniqid }}-location">
+                    Location String
+                    {{ popover.small('Everything after the ~ and before the { in: "location ~ \.php$ {"') }}
+                </label>
+                <input type="text" id="nginx-vhosts-{{ uniqid }}-location"
+                       name="nginx[vhosts][{{ uniqid }}][location]" placeholder="\.php$"
+                       value="{{ vhost.location is defined ? vhost.location : '\.php$' }}" class="form-control" />
+            </div>
 
             <div class="col-md-6">
                 <label for="nginx-vhosts-{{ uniqid }}-index_files">
@@ -73,7 +82,9 @@
                     {% endfor %}
                 </select>
             </div>
+        </div>
 
+        <div class="row form-group">
             <div class="col-md-6">
                 <label for="nginx-vhosts-{{ uniqid }}-envvars">
                     Environment Variables
@@ -89,9 +100,7 @@
                     {% endif %}
                 </select>
             </div>
-        </div>
 
-        <div class="row form-group">
             <div class="col-md-6">
                 <label for="nginx-vhosts-{{ uniqid }}-engine">
                     Engine

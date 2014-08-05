@@ -72,6 +72,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
         'server_aliases' => [],
         'www_root'       => '/var/www/html',
         'listen_port'    => 80,
+        'location'       => '\.php$',
         'index_files'    => ['index', 'index.html', 'index.htm', 'index.php'],
         'envvars'        => [],
         'ssl'            => '0',
@@ -136,6 +137,7 @@ define nginx_vhost (
   $server_aliases   = [],
   $www_root,
   $listen_port,
+  $location,
   $index_files,
   $envvars          = [],
   $ssl              = false,
@@ -156,7 +158,7 @@ define nginx_vhost (
 
   if $engine == 'php' {
     $try_files               = "${try_files_prepend} index.php"
-    $fastcgi_split_path_info = '^(.+\.php)(/.+)$'
+    $fastcgi_split_path_info = '^(.+\.php)(/.*)$'
     $fastcgi_index           = 'index.php'
     $fastcgi_param           = concat([
       'SCRIPT_FILENAME $document_root$fastcgi_script_name'
@@ -189,7 +191,7 @@ define nginx_vhost (
     www_root         => $www_root,
     listen_port      => $listen_port,
     index_files      => $index_files,
-    try_files        => ['$uri', '$uri/', "/${try_files}?\$args"],
+    try_files        => ['$uri', '$uri/', "/${try_files}\$is_args\$args"],
     ssl              => $ssl_set,
     ssl_cert         => $ssl_cert_set,
     ssl_key          => $ssl_key_set,
@@ -203,9 +205,9 @@ define nginx_vhost (
     nginx::resource::location { "${server_name}-php":
       ensure              => present,
       vhost               => $server_name,
-      location            => '~ \.php$',
+      location            => "~ ${location}",
       proxy               => undef,
-      try_files           => ['$uri', '$uri/', "/${try_files}?\$args"],
+      try_files           => ['$uri', '$uri/', "/${try_files}\$is_args\$args"],
       ssl                 => $ssl_set,
       www_root            => $www_root,
       location_cfg_append => $location_cfg_append,
