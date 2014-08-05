@@ -111,6 +111,14 @@ if hash_key_equals($apache_values, 'install', 1) {
     }
   }
 
+  if hash_key_equals($hhvm_values, 'install', 1)
+    or hash_key_equals($php_values, 'install', 1)
+  {
+    $default_vhost_engine = 'php'
+  } else {
+    $default_vhost_engine = undef
+  }
+
   if $apache_values['settings']['default_vhost'] == true {
     $apache_vhosts = merge($apache_values['vhosts'], {
       'default_vhost_80'  => {
@@ -118,6 +126,7 @@ if hash_key_equals($apache_values, 'install', 1) {
         'docroot'       => '/var/www/default',
         'port'          => 80,
         'default_vhost' => true,
+        'engine'        => $default_vhost_engine,
       },
       'default_vhost_443' => {
         'servername'    => 'default',
@@ -125,6 +134,7 @@ if hash_key_equals($apache_values, 'install', 1) {
         'port'          => 443,
         'default_vhost' => true,
         'ssl'           => 1,
+        'engine'        => $default_vhost_engine,
       },
     })
   } else {
