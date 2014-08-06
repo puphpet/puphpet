@@ -45,16 +45,10 @@
                                 Enable
                                 <a href="https://developers.google.com/speed/pagespeed/module?hl=de" target="_blank">PageSpeed Module</a>
                             </label>
-                        </div>
 
-                        <div class="col-md-6">
-                            <label for="apache-mod_spdy">Spdy Module</label><br>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="apache-mod_spdy" name="apache[mod_spdy]" value="1"
-                                    {% if apache.mod_spdy %}checked{% endif %} />
-                                Enable
-                                <a href="https://developers.google.com/speed/spdy/mod_spdy/" target="_blank">Spdy Module</a>
-                            </label>
+                            <p class="help-block">
+                                <code>mod_pagespeed</code> is not compatible with <code>mod_php</code>.
+                            </p>
                         </div>
                     </div>
                 </div>

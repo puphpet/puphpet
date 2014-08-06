@@ -59,17 +59,13 @@
                         <div class="col-md-6">
                             <label for="hhvm-settings-host">Host</label>
                             <input type="text" id="hhvm-settings-host" name="hhvm[settings][host]"
-                                   required placeholder="127.0.0.1"
-                                   pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
-                                   oninvalid="setCustomValidity('IP address format: 127.0.0.1')"
-                                   value="{{ hhvm.settings.host }}" class="form-control" />
+                                   placeholder="127.0.0.1" value="{{ hhvm.settings.host }}" class="form-control" />
                         </div>
 
                         <div class="col-md-6">
                             <label for="hhvm-settings-port">Listen Port</label>
                             <input type="number" id="hhvm-settings-port"
-                                   name="hhvm[settings][port]"
-                                   required placeholder="13000" pattern="^[1-9][0-9]*$" min="5000" max="20000"
+                                   name="hhvm[settings][port]" placeholder="13000"
                                    value="{{ hhvm.settings.port }}" class="form-control" />
                         </div>
                     </div>

@@ -24,8 +24,7 @@
                         The user must be a valid unix user such as "vagrant".') }}
                 </label>
                 <input type="text" id="sqlite-databases-{{ uniqid }}-owner"
-                       name="sqlite[databases][{{ uniqid }}][owner]"
-                       required placeholder="owner"
+                       name="sqlite[databases][{{ uniqid }}][owner]" placeholder="owner"
                        value="{{ database.owner }}" class="form-control" />
                 <p class="help-block">Important! This cannot be blank!</p>
             </div>

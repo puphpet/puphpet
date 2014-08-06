@@ -30,15 +30,14 @@
             <div class="col-md-6">
                 <label for="mysql-databases-{{ uniqid }}-name">DB Name</label>
                 <input type="text" id="mysql-databases-{{ uniqid }}-name"
-                       name="mysql[databases][{{ uniqid }}][name]" required placeholder="database name"
+                       name="mysql[databases][{{ uniqid }}][name]" placeholder="database name"
                        value="{{ database.name }}" class="form-control" />
             </div>
 
             <div class="col-md-6">
                 <label for="mysql-databases-{{ uniqid }}-host">DB Host</label>
                 <input type="text" id="mysql-databases-{{ uniqid }}-host"
-                       name="mysql[databases][{{ uniqid }}][host]"
-                       required placeholder="database host"
+                       name="mysql[databases][{{ uniqid }}][host]" placeholder="database host"
                        value="{{ database.host }}" class="form-control" />
             </div>
         </div>
@@ -51,16 +50,14 @@
                         enter "root" here! You should not have a single user appear twice!') }}
                 </label>
                 <input type="text" id="mysql-databases-{{ uniqid }}-user"
-                       name="mysql[databases][{{ uniqid }}][user]"
-                       required placeholder="username" maxlength="16"
+                       name="mysql[databases][{{ uniqid }}][user]" placeholder="username" maxlength="16"
                        value="{{ database.user }}" class="form-control" />
             </div>
 
             <div class="col-md-6">
                 <label for="mysql-databases-{{ uniqid }}-password">Password</label>
                 <input type="text" id="mysql-databases-{{ uniqid }}-password"
-                       name="mysql[databases][{{ uniqid }}][password]"
-                       required placeholder="password"
+                       name="mysql[databases][{{ uniqid }}][password]" placeholder="password"
                        value="{{ database.password }}" class="form-control" />
                 <p class="help-block">Important! This cannot be blank!</p>
             </div>

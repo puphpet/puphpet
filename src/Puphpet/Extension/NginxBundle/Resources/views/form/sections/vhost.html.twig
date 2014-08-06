@@ -14,8 +14,7 @@
                     {{ popover.small('Don\'t forget to <a href="/help#update-my-hosts-file">update your computer\'s hosts file!</a>') }}
                 </label>
                 <input type="text" id="nginx-vhosts-{{ uniqid }}-server_name"
-                       name="nginx[vhosts][{{ uniqid }}][server_name]"
-                       required placeholder="awesome.dev"
+                       name="nginx[vhosts][{{ uniqid }}][server_name]" placeholder="awesome.dev"
                        value="{{ vhost.server_name }}" class="form-control" />
             </div>
 
@@ -43,8 +42,7 @@
                     {{ popover.small('Location of your site\'s index.php file, or other landing page.') }}
                 </label>
                 <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
-                       name="nginx[vhosts][{{ uniqid }}][www_root]"
-                       required placeholder="/var/www"
+                       name="nginx[vhosts][{{ uniqid }}][www_root]" placeholder="/var/www"
                        value="{{ vhost.www_root }}" class="form-control" />
             </div>
 
@@ -55,13 +53,21 @@
                         ex: http://awesome.dev:1337') }}
                 </label>
                 <input type="number" id="nginx-vhosts-{{ uniqid }}-listen_port"
-                       name="nginx[vhosts][{{ uniqid }}][listen_port]"
-                       required placeholder="80"
+                       name="nginx[vhosts][{{ uniqid }}][listen_port]" placeholder="80"
                        value="{{ vhost.listen_port }}" class="form-control" />
             </div>
         </div>
 
         <div class="row form-group">
+            <div class="col-md-6">
+                <label for="nginx-vhosts-{{ uniqid }}-location">
+                    Location String
+                    {{ popover.small('Everything after the ~ and before the { in: "location ~ \.php$ {"') }}
+                </label>
+                <input type="text" id="nginx-vhosts-{{ uniqid }}-location"
+                       name="nginx[vhosts][{{ uniqid }}][location]" placeholder="\.php$"
+                       value="{{ vhost.location is defined ? vhost.location : '\.php$' }}" class="form-control" />
+            </div>
 
             <div class="col-md-6">
                 <label for="nginx-vhosts-{{ uniqid }}-index_files">
@@ -76,7 +82,9 @@
                     {% endfor %}
                 </select>
             </div>
+        </div>
 
+        <div class="row form-group">
             <div class="col-md-6">
                 <label for="nginx-vhosts-{{ uniqid }}-envvars">
                     Environment Variables
@@ -92,9 +100,7 @@
                     {% endif %}
                 </select>
             </div>
-        </div>
 
-        <div class="row form-group">
             <div class="col-md-6">
                 <label for="nginx-vhosts-{{ uniqid }}-engine">
                     Engine

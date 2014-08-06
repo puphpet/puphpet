@@ -1,7 +1,7 @@
 if $yaml_values == undef { $yaml_values = loadyaml('/vagrant/puphpet/config.yaml') }
 if $apache_values == undef { $apache_values = $yaml_values['apache'] }
-if $php_values == undef { $php_values = hiera('php', false) }
-if $hhvm_values == undef { $hhvm_values = hiera('hhvm', false) }
+if $php_values == undef { $php_values = hiera_hash('php', false) }
+if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
 
 include puphpet::params
 
@@ -105,10 +105,12 @@ if hash_key_equals($apache_values, 'install', 1) {
     class { 'puphpet::apache::modpagespeed': }
   }
 
-  if hash_key_equals($apache_values, 'mod_spdy', 1) {
-    class { 'puphpet::apache::modspdy':
-      php_package => $apache_php_package
-    }
+  if hash_key_equals($hhvm_values, 'install', 1)
+    or hash_key_equals($php_values, 'install', 1)
+  {
+    $default_vhost_engine = 'php'
+  } else {
+    $default_vhost_engine = undef
   }
 
   if $apache_values['settings']['default_vhost'] == true {
@@ -118,6 +120,7 @@ if hash_key_equals($apache_values, 'install', 1) {
         'docroot'       => '/var/www/default',
         'port'          => 80,
         'default_vhost' => true,
+        'engine'        => $default_vhost_engine,
       },
       'default_vhost_443' => {
         'servername'    => 'default',
@@ -125,6 +128,7 @@ if hash_key_equals($apache_values, 'install', 1) {
         'port'          => 443,
         'default_vhost' => true,
         'ssl'           => 1,
+        'engine'        => $default_vhost_engine,
       },
     })
   } else {

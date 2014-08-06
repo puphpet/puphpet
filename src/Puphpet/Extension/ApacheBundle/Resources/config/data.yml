@@ -12,5 +12,3 @@ modules: []
 vhosts: []
 
 mod_pagespeed: 0
-mod_spdy: 0
-

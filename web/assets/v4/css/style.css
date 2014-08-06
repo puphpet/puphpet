@@ -102,9 +102,23 @@ footer {
         background-color: #428bca;
     }
 
+    #nav-sidebar.nav .nav > li > a {
+        font-size: 80%;
+        margin-left: 15px;
+    }
+
     #nav-sidebar .nav > li.active > a {
         color: #fff;
         background-color: #428bca;
+    }
+
+    #nav-sidebar.nav .nav {
+        margin-top: 5px;
+        display: none;
+    }
+
+    #nav-sidebar.nav > .active > .nav {
+        display: block;
     }
 
     @media (min-width: 1200px) {

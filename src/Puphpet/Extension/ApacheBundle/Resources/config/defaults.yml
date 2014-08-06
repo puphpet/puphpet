@@ -30,4 +30,3 @@ vhosts:
         engine: php
 
 mod_pagespeed: 0
-mod_spdy: 0

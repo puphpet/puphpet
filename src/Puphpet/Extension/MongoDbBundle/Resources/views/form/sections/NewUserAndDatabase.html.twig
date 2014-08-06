@@ -11,7 +11,7 @@
             <div class="col-md-6">
                 <label for="mongodb-databases-{{ uniqid }}-name">DB Name</label>
                 <input type="text" id="mongodb-databases-{{ uniqid }}-name"
-                       name="mongodb[databases][{{ uniqid }}][name]" required placeholder="database name"
+                       name="mongodb[databases][{{ uniqid }}][name]" placeholder="database name"
                        value="{{ database.name }}" class="form-control" />
             </div>
         </div>
@@ -24,16 +24,14 @@
                         enter "root" here! You should not have a single user appear twice!') }}
                 </label>
                 <input type="text" id="mongodb-databases-{{ uniqid }}-user"
-                       name="mongodb[databases][{{ uniqid }}][user]"
-                       required placeholder="username"
+                       name="mongodb[databases][{{ uniqid }}][user]" placeholder="username"
                        value="{{ database.user }}" class="form-control" />
             </div>
 
             <div class="col-md-6">
                 <label for="mongodb-databases-{{ uniqid }}-password">Password</label>
                 <input type="text" id="mongodb-databases-{{ uniqid }}-password"
-                       name="mongodb[databases][{{ uniqid }}][password]"
-                       required placeholder="password"
+                       name="mongodb[databases][{{ uniqid }}][password]" placeholder="password"
                        value="{{ database.password }}" class="form-control" />
                 <p class="help-block">Important! This cannot be blank!</p>
             </div>

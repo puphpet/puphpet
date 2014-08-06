@@ -14,6 +14,7 @@ empty_vhost:
         - index.html
         - index.htm
         - index.php
+    location: '\.php$'
     engine: ~
 
 available_engines:

@@ -1,7 +1,7 @@
-if $mongodb_values == undef { $mongodb_values = hiera('mongodb', false) }
-if $php_values == undef { $php_values = hiera('php', false) }
-if $apache_values == undef { $apache_values = hiera('apache', false) }
-if $nginx_values == undef { $nginx_values = hiera('nginx', false) }
+if $mongodb_values == undef { $mongodb_values = hiera_hash('mongodb', false) }
+if $php_values == undef { $php_values = hiera_hash('php', false) }
+if $apache_values == undef { $apache_values = hiera_hash('apache', false) }
+if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
 
 include puphpet::params
 
