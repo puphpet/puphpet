@@ -7,7 +7,7 @@ VAGRANT_CORE_FOLDER=$(echo "$1")
 OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
 CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
 
-cat "${VAGRANT_CORE_FOLDER}/shell/self-promotion.txt"
+cat "${VAGRANT_CORE_FOLDER}/shell/ascii-art/self-promotion.txt"
 printf "\n"
 echo ""
 

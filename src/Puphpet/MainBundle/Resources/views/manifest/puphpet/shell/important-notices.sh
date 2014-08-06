@@ -6,6 +6,6 @@ if [[ -f '/.puphpet-stuff/displayed-important-notices' ]]; then
     exit 0
 fi
 
-cat "${VAGRANT_CORE_FOLDER}/shell/important-notices.txt"
+cat "${VAGRANT_CORE_FOLDER}/shell/ascii-art/important-notices.txt"
 
 touch '/.puphpet-stuff/displayed-important-notices'
