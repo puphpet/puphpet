@@ -39,6 +39,7 @@ if hash_key_equals($php_values, 'install', 1) {
     $php_webserver_service_ensure = 'running'
     $php_webserver_restart        = true
     $php_config_file              = $php::params::config_file
+    $php_manage_service           = false
   } elsif hash_key_equals($apache_values, 'install', 1)
     or hash_key_equals($nginx_values, 'install', 1)
   {
@@ -48,6 +49,7 @@ if hash_key_equals($php_values, 'install', 1) {
     $php_webserver_service_ensure = 'running'
     $php_webserver_restart        = true
     $php_config_file              = $php_fpm_ini
+    $php_manage_service           = true
 
     exec { 'php_fpm-listen':
       command => "perl -p -i -e 's#listen = .*#listen = 127.0.0.1:9000#gi' ${puphpet::params::php_fpm_conf}",
@@ -73,6 +75,7 @@ if hash_key_equals($php_values, 'install', 1) {
     $php_webserver_service_ensure = undef
     $php_webserver_restart        = false
     $php_config_file              = $php::params::config_file
+    $php_manage_service           = false
   }
 
   class { 'php':
@@ -82,7 +85,7 @@ if hash_key_equals($php_values, 'install', 1) {
     config_file         => $php_config_file,
   }
 
-  if $php_webserver_service and ! defined(Service[$php_webserver_service]) {
+  if $php_manage_service and $php_webserver_service and ! defined(Service[$php_webserver_service]) {
     service { $php_webserver_service:
       ensure     => $php_webserver_service_ensure,
       enable     => true,
