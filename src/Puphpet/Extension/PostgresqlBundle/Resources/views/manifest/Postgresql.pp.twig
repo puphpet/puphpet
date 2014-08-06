@@ -1,6 +1,6 @@
-if $postgresql_values == undef { $postgresql_values = hiera_hash('postgresql', false) }
-if $php_values == undef { $php_valuhiera_hash(iera('php', false) }
-if $hhvm_values == undef { $hhvmhiera_hash(s = hiera('hhvm', false) }
+if $postgresql_values == undef { $postgresql_values = hiera('postgresql', false) }
+if $php_values == undef { $php_values = hiera('php', false) }
+if $hhvm_values == undef { $hhvm_values = hiera('hhvm', false) }
 
 include puphpet::params
 

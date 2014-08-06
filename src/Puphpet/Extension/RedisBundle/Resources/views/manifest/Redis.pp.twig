@@ -1,7 +1,7 @@
-if $redis_values == undef { $redis_values = hiera_hash('redis', false) }
-if $php_values == undef { $php_valuhiera_hash(iera('php', false) }
-if $apache_values == undef { $apachehiera_hash(s = hiera('apache', false) }
-if $nginx_values == undef { $hiera_hash(values = hiera('nginx', false) }
+if $redis_values == undef { $redis_values = hiera('redis', false) }
+if $php_values == undef { $php_values = hiera('php', false) }
+if $apache_values == undef { $apache_values = hiera('apache', false) }
+if $nginx_values == undef { $nginx_values = hiera('nginx', false) }
 
 include puphpet::params
 

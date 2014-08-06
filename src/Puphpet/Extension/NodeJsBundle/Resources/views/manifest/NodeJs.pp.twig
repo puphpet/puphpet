@@ -1,4 +1,4 @@
-if $nodejs_values == undef { $nodejs_values = hiera_hash('nodejs', false) }
+if $nodejs_values == undef { $nodejs_values = hiera('nodejs', false) }
 
 include puphpet::params
 

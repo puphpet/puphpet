@@ -1,4 +1,4 @@
-if $elasticsearch_values == undef { $elasticsearch_values = hiera_hash('elastic_search', false) }
+if $elasticsearch_values == undef { $elasticsearch_values = hiera('elastic_search', false) }
 
 include puphpet::params
 

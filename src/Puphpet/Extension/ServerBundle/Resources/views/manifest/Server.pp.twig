@@ -1,4 +1,4 @@
-if $server_values == undef { $server_values = hiera_hash('server', false) }
+if $server_values == undef { $server_values = hiera('server', false) }
 
 include ntp
 include swap_file

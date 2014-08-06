@@ -1,8 +1,8 @@
-if $sqlite_values == undef { $sqlite_values = hiera_hash('sqlite', false) }
-if $php_values == undef { $php_valuhiera_hash(iera('php', false) }
-if $apache_values == undef { $apachehiera_hash(s = hiera('apache', false) }
-if $nginx_values == undef { $hiera_hash(values = hiera('nginx', false) }
-if $mailcatcher_values == undef { $mhiera_hash(cher_values = hiera('mailcatcher', false) }
+if $sqlite_values == undef { $sqlite_values = hiera('sqlite', false) }
+if $php_values == undef { $php_values = hiera('php', false) }
+if $apache_values == undef { $apache_values = hiera('apache', false) }
+if $nginx_values == undef { $nginx_values = hiera('nginx', false) }
+if $mailcatcher_values == undef { $mailcatcher_values = hiera('mailcatcher', false) }
 
 include puphpet::params
 
