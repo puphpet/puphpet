@@ -1,5 +1,5 @@
-if $firewall_values == undef { $firewall_values = hiera('firewall', false) }
-if $vm_values == undef { $vm_values = hiera($::vm_target_key, false) }
+if $firewall_values == undef { $firewall_values = hiera_hash('firewall', false) }
+if $vm_values == undef { $vm_values = hiera_hash($::vm_target_key, false) }
 
 include puphpet::params
 
