@@ -5,13 +5,67 @@
 
     <div class="row form-group">
         <div class="col-xs-12">
-            <button type="submit" class="btn btn-primary btn-lg btn-block tall text-large">
+            <button type="submit" class="btn btn-primary btn-lg btn-block tall text-large scroll-to"
+                    data-scroll-to-target="#congratulations">
                 Go ahead then, make it!
             </button>
         </div>
     </div>
 
+    <div class="clearfix"></div>
+
     <ul class="pager">
         <li class="previous"><a href="#additional-tools">← Additional Tools</a></li>
     </ul>
+
+    <div class="clearfix"></div>
+
+    <hr />
+
+    <div class="page-header compact" id="congratulations">
+        <h1><i class="glyphicon glyphicon-thumbs-up"></i> Congratulations!</h1>
+    </div>
+
+    <div class="col-xs-6">
+        <h3>Great! Now what?</h3>
+
+        <ol>
+            <li>Extract the downloaded zip file</li>
+            <li>Open a terminal window and go to the extracted folder</li>
+            <li>Run <code>$ vagrant up</code> and go grab a coffee</li>
+        </ol>
+
+        <h3>Read the instructions!</h3>
+
+        <p>
+            After you run <code>$ vagrant up</code> you'll get a list of instructions. Please read them
+            if you have any questions or problems! They will answer most of the frequently asked questions.
+            If you open an
+            <a href="https://github.com/puphpet/puphpet/issues" target="_blank">issue on the github page</a>,
+            <strong>MAKE SURE TO PASTE YOUR <code>config.yaml</code> CONTENTS</strong>! I cannot help
+            if I do not have this information! In fact, I will ignore your ticket until you add it!
+        </p>
+    </div>
+
+    <div class="col-xs-6">
+        <h3>The config file</h3>
+
+        <p>
+            Everything in your VM is controlled via the <code>puphpet/config.yaml</code> file. Here,
+            you can choose which packages you want installed and change the settings for many things.
+        </p>
+
+        <p>
+            If you change anything, you can have it take effect within your virtual machine by running
+            <code>$ vagrant provision</code>. If you make changes before you actually spin up your vm,
+            the changes will be applied on your first <code>$ vagrant up</code>.
+        </p>
+
+        <h3>Follow on Twitter</h3>
+
+        <p>
+            New features are added <strong>all the time</strong>. The best way to keep up to date
+            is to <a href="https://twitter.com/puphpet" target="">follow @puphpet</a>!
+        </p>
+    </div>
 </div>

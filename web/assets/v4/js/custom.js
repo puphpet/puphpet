@@ -672,6 +672,22 @@ PUPHPET.submitUncheckedCheckboxes = function () {
     });
 };
 
+PUPHPET.scrollTo = function() {
+    var $root = $('html, body');
+
+    $(document).on('click', '.scroll-to', function(e) {
+        var $target = $(this.getAttribute('data-scroll-to-target'));
+
+        var theOffset = $target.offset().top;
+
+        $root.animate({
+            scrollTop: theOffset - 55
+        }, 0);
+
+        return true;
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -690,4 +706,5 @@ $(document).ready(function() {
     PUPHPET.configureCollapseable();
     PUPHPET.hideOnNotInstalled();
     PUPHPET.submitUncheckedCheckboxes();
+    PUPHPET.scrollTo();
 });
