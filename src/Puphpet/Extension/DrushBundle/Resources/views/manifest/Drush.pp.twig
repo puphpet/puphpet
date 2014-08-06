@@ -1,6 +1,6 @@
-if $drush_values == undef { $drush_values = hiera('drush', false) }
-if $php_values == undef { $php_values = hiera('php', false) }
-if $hhvm_values == undef { $hhvm_values = hiera('hhvm', false) }
+if $drush_values == undef { $drush_values = hiera_hash('drush', false) }
+if $php_values == undef { $php_values = hiera_hash('php', false) }
+if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
 
 include puphpet::params
 
