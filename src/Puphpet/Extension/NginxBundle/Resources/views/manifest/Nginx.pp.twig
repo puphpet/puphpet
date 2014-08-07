@@ -185,7 +185,7 @@ define nginx_vhost (
     $fastcgi_param           = concat([
       'SCRIPT_FILENAME $document_root$fastcgi_script_name'
     ], $envvars)
-    $fastcgi_pass_hash       = $fcgi_string ? { true => {'fastcgi_pass' => $fcgi_string}, default => {} }
+    $fastcgi_pass_hash       = value_true($fcgi_string) ? { true => {'fastcgi_pass' => $fcgi_string}, default => {} }
   } else {
     $try_files               = "${try_files_prepend} index.html"
     $fastcgi_split_path_info = '^(.+\.html)(/.+)$'
