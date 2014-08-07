@@ -7,3 +7,9 @@ composer_home: ~
 settings:
     host: 127.0.0.1
     port: 9000
+
+ini:
+    display_errors: On
+    error_reporting: -1
+
+timezone: America/Chicago

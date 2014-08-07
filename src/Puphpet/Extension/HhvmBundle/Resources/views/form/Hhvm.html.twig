@@ -77,6 +77,39 @@
                         redirect rules should continue working as normal. Only instead of using the official PHP engine,
                         HHVM will be used.
                     </p>
+
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="hhvm-ini-displayer">INI Settings</label>
+                            <select id="hhvm-ini-displayer" multiple
+                                    class="form-control select-tags-user-input"
+                                    data-target-container="hhvm-ini"
+                                    data-target-name="hhvm[ini]"
+                                >
+                                {% for ini, values in hhvm.available_ini %}
+                                    {% if values is not empty %}
+                                        <optgroup label="{{ ini }}">
+                                            {% for value in values %}
+                                                <option value="{{ value }}"
+                                                    {% if value in hhvm.ini|keys %}selected{% endif %}>{{ value }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    {% else %}
+                                        <option value="{{ ini }}"
+                                            {% if ini in hhvm.ini|keys %}selected{% endif %}>{{ ini }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+
+                            <div id="hhvm-ini" style="display: none;">
+                                {% for name, value in hhvm.ini %}
+                                    <input type="hidden" name="hhvm[ini][{{ name }}]"
+                                           data-option-name="{{ name }}" value="{{ value }}" />
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
