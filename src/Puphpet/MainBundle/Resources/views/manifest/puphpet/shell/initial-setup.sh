@@ -38,7 +38,7 @@ if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
         echo 'Finished installing basic curl packages'
     fi
 
-    echo 'Installing build-essential package'
+    echo 'Installing build-essential packages'
     apt-get -y install build-essential >/dev/null
     echo 'Finished installing build-essential packages'
 elif [[ "${OS}" == 'centos' ]]; then
