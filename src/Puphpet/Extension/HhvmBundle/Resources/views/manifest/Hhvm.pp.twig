@@ -61,17 +61,4 @@ if hash_key_equals($hhvm_values, 'install', 1) {
       composer_home => $hhvm_values['composer_home'],
     }
   }
-
-  if count($hhvm_values['modules']['pear']) > 0 {
-    hhvm_pear_mod { $hhvm_values['modules']['pear']:; }
-  }
-}
-
-define hhvm_pear_mod {
-  if ! defined(Puphpet::Php::Pear[$name]) {
-    puphpet::php::pear { $name:
-      service_name        => $hhvm_webserver,
-      service_autorestart => $hhvm_webserver_restart,
-    }
-  }
 }

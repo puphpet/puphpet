@@ -7,6 +7,3 @@ composer_home: ~
 settings:
     host: 0
     port: 0
-
-modules:
-    pear: []
