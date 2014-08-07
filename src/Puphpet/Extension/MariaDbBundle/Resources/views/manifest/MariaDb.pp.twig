@@ -104,8 +104,8 @@ if hash_key_equals($mariadb_values, 'install', 1) {
         $mariadb_php_module = 'mysqlnd'
       }
 
-      if ! defined(Php::Module[$mariadb_php_module]) {
-        php::module { $mariadb_php_module:
+      if ! defined(Puphpet::Php::Module[$mariadb_php_module]) {
+        puphpet::php::module { $mariadb_php_module:
           service_autorestart => $mariadb_webserver_restart,
         }
       }

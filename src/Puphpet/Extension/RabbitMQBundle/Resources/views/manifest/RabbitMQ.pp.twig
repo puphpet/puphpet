@@ -24,10 +24,9 @@ if hash_key_equals($rabbitmq_values, 'install', 1) {
   create_resources('class', { 'rabbitmq' => $rabbitmq_values['settings'] })
 
   if hash_key_equals($php_values, 'install', 1)
-    and ! defined(Php::Pecl::Module['amqp'])
+    and ! defined(Puphpet::Php::Pecl['amqp'])
   {
-    php::pecl::module { 'amqp':
-      use_package         => false,
+    puphpet::php::pecl { 'amqp':
       service_autorestart => $rabbitmq_webserver_restart,
       require             => Package['rabbitmq-server']
     }
