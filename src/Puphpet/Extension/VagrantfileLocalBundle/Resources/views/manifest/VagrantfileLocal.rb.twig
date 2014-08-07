@@ -25,7 +25,8 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  if Vagrant.has_plugin?('vagrant-hostsupdater')
+  # HostManager Settings
+  if Vagrant.has_plugin?('vagrant-hostmanager')
     hosts = Array.new()
 
     if !configValues['apache']['install'].nil? &&
@@ -62,6 +63,13 @@ Vagrant.configure("2") do |config|
         config.vm.hostname = 'puphpet-dev-machine'
       end
 
+      # Special hostmanager configuration
+      config.hostmanager.enabled = true
+      config.hostmanager.manage_host = true
+      config.hostmanager.ignore_private_ip = false
+      config.hostmanager.include_offline = false
+
+      # Finally, pass the hosts array to the vagrant plugin hostsmanager.
       config.hostsupdater.aliases = hosts
     end
   end
