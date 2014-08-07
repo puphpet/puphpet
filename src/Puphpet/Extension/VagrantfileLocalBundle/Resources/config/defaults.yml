@@ -35,5 +35,6 @@ vm:
     usable_port_range:
         start: 10200
         stop: 10500
+    post_up_message: ''
 ssh:
     forward_agent: true
