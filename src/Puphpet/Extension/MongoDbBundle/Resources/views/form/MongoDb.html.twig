@@ -29,6 +29,14 @@
                     </div>
                 </div>
 
+                <div class="col-md-12">
+                    <p class="help-block">
+                        If you want to assign a user to multiple databases, simply create more databases and type in
+                        the same username and password. Only the password for the first entry will be considered,
+                        <strong>but all fields must be completed</strong>!
+                    </p>
+                </div>
+
                 {% for database in mongodb.databases %}
                     {% include 'PuphpetExtensionMongoDbBundle:form/sections:NewUserAndDatabase.html.twig'
                         with {'database': database} %}
