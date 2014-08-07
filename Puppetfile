@@ -32,7 +32,7 @@ mod 'puppetlabs/mongodb',
     :ref => '0.8.0'
 mod 'puppetlabs/mysql',
     :git => 'https://github.com/puppetlabs/puppetlabs-mysql.git',
-    :ref => '2.2.3'
+    :ref => '2.3.1'
 mod 'jfryman/nginx',
     :git => 'https://github.com/jfryman/puppet-nginx.git',
     :ref => 'v0.0.9'
