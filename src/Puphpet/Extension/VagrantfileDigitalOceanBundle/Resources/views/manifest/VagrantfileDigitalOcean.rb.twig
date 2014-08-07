@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
     provider.image = "#{data['vm']['provider']['digital_ocean']['image']}"
     provider.region = "#{data['vm']['provider']['digital_ocean']['region']}"
     provider.size = "#{data['vm']['provider']['digital_ocean']['size']}"
+    provider.ssh_key_name = "#{data['vm']['provider']['digital_ocean']['ssh_key_name']}"
   end
 
   data['vm']['synced_folder'].each do |i, folder|

@@ -10,6 +10,7 @@ vm:
             region: ~
             size: ~
             token: ~
+            ssh_key_name: Vagrant
     provision:
         puppet:
             manifests_path: "puphpet/puppet"
