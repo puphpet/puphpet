@@ -66,6 +66,10 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  if Vagrant.has_plugin?('vagrant-cachier')
+    config.cache.scope = :box
+  end
+
   data['vm']['synced_folder'].each do |i, folder|
     if folder['source'] != '' && folder['target'] != ''
       if folder['sync_type'] == 'nfs'
