@@ -23,6 +23,7 @@ vm:
             -
                 guest: ~
                 host: ~
+    post_up_message: ''
     provision:
         puppet:
             manifests_path: "puphpet/puppet"
@@ -35,6 +36,5 @@ vm:
     usable_port_range:
         start: 10200
         stop: 10500
-    post_up_message: ''
 ssh:
     forward_agent: true
