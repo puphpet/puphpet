@@ -8,6 +8,7 @@ vm:
     network:
         private_network: 192.168.56.101
         forwarded_port: []
+    post_up_message: ''
     provider:
         virtualbox:
             modifyvm:
@@ -29,7 +30,6 @@ vm:
     usable_port_range:
         start: 10200
         stop: 10500
-    post_up_message: ''
 
 ssh:
     host: ~
