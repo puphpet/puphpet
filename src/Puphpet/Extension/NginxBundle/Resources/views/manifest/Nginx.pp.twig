@@ -179,15 +179,15 @@ define nginx_vhost (
   }
 
   if $engine == 'php' {
-    $try_files               = "${try_files_prepend} index.php"
+    $try_files               = "${try_files_prepend} /index.php\$is_args\$args"
     $fastcgi_split_path_info = '^(.+\.php)(/.*)$'
     $fastcgi_index           = 'index.php'
     $fastcgi_param           = concat([
-      'SCRIPT_FILENAME $document_root$fastcgi_script_name'
+      'SCRIPT_FILENAME $request_filename'
     ], $envvars)
     $fastcgi_pass_hash       = value_true($fcgi_string) ? { true => {'fastcgi_pass' => $fcgi_string}, default => {} }
   } else {
-    $try_files               = "${try_files_prepend} index.html"
+    $try_files               = "${try_files_prepend} /index.html"
     $fastcgi_split_path_info = '^(.+\.html)(/.+)$'
     $fastcgi_index           = 'index.html'
     $fastcgi_param           = $envvars
@@ -213,7 +213,7 @@ define nginx_vhost (
     www_root         => $www_root,
     listen_port      => $listen_port,
     index_files      => $index_files,
-    try_files        => ['$uri', '$uri/', "/${try_files}\$is_args\$args"],
+    try_files        => ['$uri', '$uri/', "${try_files}"],
     ssl              => $ssl_set,
     ssl_cert         => $ssl_cert_set,
     ssl_key          => $ssl_key_set,
@@ -229,7 +229,6 @@ define nginx_vhost (
       vhost               => $server_name,
       location            => "~ ${location}",
       proxy               => undef,
-      try_files           => ['$uri', '$uri/', "/${try_files}\$is_args\$args"],
       ssl                 => $ssl_set,
       www_root            => $www_root,
       location_cfg_append => $location_cfg_append,
