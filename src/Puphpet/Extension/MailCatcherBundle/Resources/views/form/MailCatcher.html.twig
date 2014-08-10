@@ -22,23 +22,46 @@
 
                 <div class="panel-body">
                     <div class="row form-group">
-                        <div class="col-md-6">
-                            <label for="mailcatcher-settings-http_port">
-                                HTTP Port
-                                {{ popover.small('MailCatcher will be available at
-                                    <code>http://{SERVER_IP_ADDRESS}:{HTTP_PORT}</code>') }}
-                            </label>
+                        <div class="col-xs-12">
+                            <label for="mailcatcher-settings-http_port">HTTP Port</label>
                             <input type="number" id="mailcatcher-settings-http_port"
                                    name="mailcatcher[settings][http_port]" placeholder="1080"
                                    value="{{ mailcatcher.settings.http_port }}" class="form-control" />
+
+                            <p class="help-block">
+                                MailCatcher will be available at <code>http://{SERVER_IP_ADDRESS}:{HTTP_PORT}</code>
+                                <br /><br />
+                                It is highly recommended <strong>not</strong> installing Mailcatcher on production servers.
+                                <br /><br />
+                                Minimum port number is 1000
+                            </p>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <label>From Address Method</label><br />
+                            <label class="radio-inline">
+                                <input type="radio" name="mailcatcher[settings][from_email_method]" value="inline"
+                                    {% if mailcatcher.settings.from_email_method == 'inline' %}checked{% endif %} />
+                                Inline
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="mailcatcher[settings][from_email_method]" value="headers"
+                                    {% if mailcatcher.settings.from_email_method == 'headers' %}checked{% endif %} />
+                                Headers
+                            </label>
+
+                            <p class="help-block">
+                                <a href="https://github.com/puphpet/puphpet/issues/932#issuecomment-51086541"
+                                   target="_blank">Per this issue</a>
+                                Mailcatcher seems to have a bug where you can define your email's
+                                <strong>from</strong> value either inline in your code, or as header values.
+                                <br /><br />
+                                If you send email like
+                                <code>mail('to@email.com', 'the subject', 'the message', null, 'from@email.com');</code>
+                                then choose <code>Inline</code> above. Otherwise, choose <code>Headers</code>.
+                            </p>
                         </div>
                     </div>
-
-                    <p class="help-block">
-                        It is highly recommended <strong>not</strong> installing Mailcatcher on production servers.
-                        <br /><br />
-                        Minimum port number is 1000
-                    </p>
                 </div>
             </div>
         </div>

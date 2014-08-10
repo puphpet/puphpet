@@ -6,3 +6,4 @@ settings:
     http_ip: 0.0.0.0
     http_port: 1080
     mailcatcher_path: /usr/local/rvm/wrappers/default
+    from_email_method: inline

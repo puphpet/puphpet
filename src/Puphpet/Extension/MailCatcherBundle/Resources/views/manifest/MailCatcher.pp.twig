@@ -18,7 +18,7 @@ if hash_key_equals($mailcatcher_values, 'install', 1) {
     }
   }
 
-  $mailcatcher_settings = mailcatcher_values['settings']
+  $mailcatcher_settings = delete($mailcatcher_values['settings'], 'from_email_method')
 
   create_resources('class', { 'mailcatcher' => $mailcatcher_settings })
 
