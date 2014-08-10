@@ -25,6 +25,10 @@ Vagrant.configure('2') do |config|
     end
   end
 
+  if !data['vm']['post_up_message'].nil?
+    config.vm.post_up_message = "#{data['vm']['post_up_message']}"
+  end
+
   if Vagrant.has_plugin?('vagrant-hostmanager')
     hosts = Array.new()
 
@@ -244,9 +248,4 @@ Vagrant.configure('2') do |config|
   if !data['vagrant']['host'].nil?
     config.vagrant.host = data['vagrant']['host'].gsub(':', '').intern
   end
-
-  if !data['vm']['post_up_message'].nil?
-    config.vm.post_up_message = "#{data['vm']['post_up_message']}"
-  end
-
 end
