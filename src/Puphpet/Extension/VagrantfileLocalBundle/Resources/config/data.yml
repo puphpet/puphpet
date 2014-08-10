@@ -11,6 +11,7 @@ vm:
     post_up_message: ''
     provider:
         virtualbox:
+            gui: false
             modifyvm:
                 natdnshostresolver1: on
         vmware:
