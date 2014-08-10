@@ -7,24 +7,38 @@ VAGRANT_CORE_FOLDER=$(cat '/.puphpet-stuff/vagrant-core-folder.txt')
 EXEC_ONCE_DIR="$1"
 EXEC_ALWAYS_DIR="$2"
 
-shopt -s nullglob
-files=("${VAGRANT_CORE_FOLDER}"/files/"${EXEC_ONCE_DIR}"/*)
+echo "Running files in files/${EXEC_ONCE_DIR}"
 
-if [[ (${#files[@]} -gt 0) ]]; then
-    echo "Running files in files/${EXEC_ONCE_DIR}"
-
-    if [ ! -d "/.puphpet-stuff/${EXEC_ONCE_DIR}-ran" ]; then
-       mkdir "/.puphpet-stuff/${EXEC_ONCE_DIR}-ran"
-       echo "Created directory /.puphpet-stuff/${EXEC_ONCE_DIR}-ran"
-    fi
-
-    find "${VAGRANT_CORE_FOLDER}/files/${EXEC_ONCE_DIR}" -maxdepth 1 -not -path '/.*' -type f \( ! -iname "empty" \) -exec cp -n '{}' "/.puphpet-stuff/${EXEC_ONCE_DIR}-ran" \;
-    find "/.puphpet-stuff/${EXEC_ONCE_DIR}-ran" -maxdepth 1 -type f -exec chmod +x '{}' \; -exec ls {} \; | sort | xargs -r0 sh -c
-    echo "Finished running files in files/${EXEC_ONCE_DIR}"
-    echo "To run again, delete file(s) you want rerun in /.puphpet-stuff/${EXEC_ONCE_DIR}-ran or the whole folder to rerun all"
+if [ -d "/.puphpet-stuff/${EXEC_ONCE_DIR}-ran" ]; then
+    rm -rf "/.puphpet-stuff/${EXEC_ONCE_DIR}-ran"
 fi
 
-echo "Running files in files/${EXEC_ALWAYS_DIR}"
-find "${VAGRANT_CORE_FOLDER}/files/${EXEC_ALWAYS_DIR}" -maxdepth 1 -not -path '/.*' -type f \( ! -iname "empty" \) -exec chmod +x '{}' \; -exec ls {} \; | sort | xargs -r0 sh -c
-echo "Finished running files in files/${EXEC_ALWAYS_DIR}"
+if [ ! -f "/.puphpet-stuff/${EXEC_ONCE_DIR}-ran" ]; then
+   touch "/.puphpet-stuff/${EXEC_ONCE_DIR}-ran"
+   echo "Created file /.puphpet-stuff/${EXEC_ONCE_DIR}-ran"
+fi
 
+find "${VAGRANT_CORE_FOLDER}/files/${EXEC_ONCE_DIR}" -maxdepth 1 -type f -name '*.sh' | sort | while read FILENAME; do
+    SHA1=$(sha1sum "${FILENAME}")
+
+    if ! grep -x -q "${SHA1}" "/.puphpet-stuff/${EXEC_ONCE_DIR}-ran"; then
+        echo "${SHA1}" >> "/.puphpet-stuff/${EXEC_ONCE_DIR}-ran"
+
+        chmod +x "${FILENAME}"
+        /bin/bash "${FILENAME}"
+    else
+        echo "Skipping executing ${FILENAME} as contents have not changed"
+    fi
+done
+
+echo "Finished running files in files/${EXEC_ONCE_DIR}"
+echo "To run again, delete hashes you want rerun in /.puphpet-stuff/${EXEC_ONCE_DIR}-ran or the whole file to rerun all"
+
+echo "Running files in files/${EXEC_ALWAYS_DIR}"
+
+find "${VAGRANT_CORE_FOLDER}/files/${EXEC_ALWAYS_DIR}" -maxdepth 1 -type f -name '*.sh' | sort | while read FILENAME; do
+    chmod +x "${FILENAME}"
+    /bin/bash "${FILENAME}"
+done
+
+echo "Finished running files in files/${EXEC_ALWAYS_DIR}"
