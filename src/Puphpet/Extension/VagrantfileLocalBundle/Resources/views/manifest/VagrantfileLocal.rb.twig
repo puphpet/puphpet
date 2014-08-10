@@ -104,6 +104,12 @@ Vagrant.configure('2') do |config|
     ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
 
     config.vm.provider :virtualbox do |virtualbox|
+
+      if !data['vm']['provider']['virtualbox']['gui'].nil? &&
+          data['vm']['provider']['virtualbox']['gui'] == true
+        virtualbox.gui = ['vm']['provider']['virtualbox']['gui']
+      end
+
       data['vm']['provider']['virtualbox']['modifyvm'].each do |key, value|
         if key == 'memory'
           next
@@ -248,4 +254,5 @@ Vagrant.configure('2') do |config|
   if !data['vagrant']['host'].nil?
     config.vagrant.host = data['vagrant']['host'].gsub(':', '').intern
   end
+  
 end
