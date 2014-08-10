@@ -30,9 +30,9 @@ if hash_key_equals($sqlite_values, 'install', 1) {
 
   if $sqlite_php_installed
     and $sqlite_php_package == 'php'
-    and ! defined(Puphpet::Php::Module['sqlite'])
+    and ! defined(Puphpet::Php::Pecl['sqlite'])
   {
-    puphpet::php::module { 'sqlite':
+    puphpet::php::pecl { 'sqlite':
       service_autorestart => true,
     }
   }
