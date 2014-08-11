@@ -1,0 +1,7 @@
+puphpet.extension.python.homepage:
+    path:     /
+    defaults: { _controller: PuphpetExtensionPythonBundle:Front:index }
+
+puphpet.extension.python.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionPythonBundle:Manifest:index }
