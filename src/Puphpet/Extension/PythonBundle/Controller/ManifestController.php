@@ -10,7 +10,7 @@ class ManifestController extends Controller implements Extension\ControllerInter
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionPythonBundle:form:Python.pp.twig', [
+        return $this->render('PuphpetExtensionPythonBundle:manifest:Python.pp.twig', [
             'python' => $data,
         ]);
     }
