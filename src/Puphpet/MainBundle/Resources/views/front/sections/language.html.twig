@@ -39,6 +39,15 @@
                 </div>
             </a>
         </li>
+        <li class="col-xs-2">
+            <a href="#python-tab" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/python-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/python-inactive.png" class="tab-icon-inactive" />
+                    Python
+                </div>
+            </a>
+        </li>
     </ul>
 
     <div class="tab-content">
@@ -58,6 +67,10 @@
         </div>
         <div class="tab-pane" id="nodejs-tab">
             {% set extension = extensionManager.getExtensionBySlug('nodejs') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="python-tab">
+            {% set extension = extensionManager.getExtensionBySlug('python') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
     </div>
