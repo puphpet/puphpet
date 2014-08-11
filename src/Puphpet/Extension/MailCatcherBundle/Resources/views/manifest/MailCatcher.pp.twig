@@ -40,7 +40,7 @@ if hash_key_equals($mailcatcher_values, 'install', 1) {
   }, ' '))
 
   supervisord::program { 'mailcatcher':
-    command     => "${mailcatcher_path}/mailcatcher ${mailcatcher_options} -f",
+    command     => "${mailcatcher_path}/mailcatcher ${mailcatcher_options} -f from.php@example.com",
     priority    => '100',
     user        => 'mailcatcher',
     autostart   => true,
