@@ -29,6 +29,7 @@ services:
             - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.drush.configure ] ]
             - [ addExtension, [ @puphpet.extension.ruby.configure ] ]
             - [ addExtension, [ @puphpet.extension.nodejs.configure ] ]
+            - [ addExtension, [ @puphpet.extension.python.configure ] ]
         # databases
             - [ addExtension, [ @puphpet.extension.mysql.configure ] ]
             - [ addExtension, [ @puphpet.extension.postgresql.configure ] ]
