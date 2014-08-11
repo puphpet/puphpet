@@ -6,6 +6,10 @@ puphpet.main.upload_config:
     pattern:  /upload-config
     defaults: { _controller: PuphpetMainBundle:Front:uploadConfig }
 
+puphpet.main.generate_archive:
+    pattern:  /generate-archive
+    defaults: { _controller: PuphpetMainBundle:Front:generateArchive }
+
 puphpet.main.about:
     pattern:  /about
     defaults: { _controller: PuphpetMainBundle:Front:about }

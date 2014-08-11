@@ -71,6 +71,34 @@ class FrontController extends Controller
         }
     }
 
+    public function generateArchiveAction(Request $request)
+    {
+        $config = $request->get('config');
+
+        $values = '';
+
+        try {
+            $values = Yaml::parse($config);
+        } catch (\Exception $e) {}
+
+        if (empty($values)) {
+            $response = new Response;
+            $response->setStatusCode(Response::HTTP_NOT_ACCEPTABLE);
+
+            return $response;
+        }
+
+        $manager = $this->get('puphpet.extension.manager');
+        $archive = $manager->createArchive($values);
+
+        $response = new Response;
+        $response->headers->set('Content-type', 'application/octet-stream');
+        $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', 'puphpet.zip'));
+        $response->setContent(file_get_contents($archive));
+
+        return $response;
+    }
+
     public function aboutAction()
     {
         return $this->render('PuphpetMainBundle:front:about.html.twig');
