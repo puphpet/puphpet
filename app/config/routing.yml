@@ -97,3 +97,7 @@ puphpet.extension.ruby:
 puphpet.extension.nodejs:
     resource: "@PuphpetExtensionNodeJsBundle/Resources/config/routing.yml"
     prefix:   /extension/nodejs
+
+puphpet.extension.python:
+    resource: "@PuphpetExtensionPythonBundle/Resources/config/routing.yml"
+    prefix:   /extension/python

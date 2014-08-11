@@ -41,6 +41,7 @@ class AppKernel extends Kernel
             new Puphpet\Extension\FirewallBundle\PuphpetExtensionFirewallBundle(),
             new Puphpet\Extension\RubyBundle\PuphpetExtensionRubyBundle(),
             new Puphpet\Extension\NodeJsBundle\PuphpetExtensionNodeJsBundle(),
+            new Puphpet\Extension\PythonBundle\PuphpetExtensionPythonBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
