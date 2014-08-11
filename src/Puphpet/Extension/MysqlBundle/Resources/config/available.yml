@@ -3,28 +3,36 @@ available_privileges:
         - ALL
     "or, Give some":
         - ALTER
+        - ALTER ROUTINE
         - CREATE
+        - CREATE ROUTINE
+        - CREATE TABLESPACE
         - CREATE TEMPORARY TABLES
+        - CREATE USER
+        - CREATE VIEW
         - DELETE
         - DROP
+        - EVENT
         - EXECUTE
         - FILE
+        - GRANT OPTION
         - INDEX
         - INSERT
-        - LOCAL TABLES
         - LOCK TABLES
         - PROCESS
+        - PROXY
         - REFERENCES
         - RELOAD
         - REPLICATION CLIENT
         - REPLICATION SLAVE
         - SELECT
         - SHOW DATABASES
+        - SHOW VIEW
         - SHUTDOWN
         - SUPER
+        - TRIGGER
         - UPDATE
         - USAGE
-        - GRANT OPTION
 
 empty_database:
     name: ~
