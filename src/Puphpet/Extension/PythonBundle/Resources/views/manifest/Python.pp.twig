@@ -1,13 +1,17 @@
 if $python_values == undef { $python_values = hiera_hash('python', false) }
 
+include puphpet::params
+
 if hash_key_equals($python_values, 'install', 1) {
-  class { 'python': pip => true }
+  class { 'python':
+    pip => true
+  }
 
   if is_array($python_values['pip_packages']) and count($python_values['pip_packages']) > 0 {
     each( $python_values['pip_packages'] ) |$package| {
-      if ! defined(Package[$package]) {
+      if ! defined(Python::Pip[$package]) {
         python::pip { $package:
-          ensure   => present,
+          ensure => present,
         }
       }
     }
