@@ -47,10 +47,13 @@ mod 'puppetlabs/postgresql',
     :ref => '3.3.3'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => 'c6ddd88'
+    :ref => '46ddafa'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
+mod 'stankevich/python',
+    :git => 'https://github.com/stankevich/puppet-python.git',
+    :ref => '1.7.9'
 mod 'puppetlabs/rabbitmq',
     :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
     :ref => '5ce33f4968'
