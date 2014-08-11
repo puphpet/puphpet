@@ -24,9 +24,9 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="pip[install]"
-                                   {% if pip.install %}checked{% endif %} value="1" /> Install Pip Client
-                            {% if not pip.install %}<input type="hidden" name="pip[install]" value="0" />{% endif %}
+                            <input type="checkbox" name="python[install]"
+                                   {% if python.install %}checked{% endif %} value="1" /> Install Pip Client
+                            {% if not python.install %}<input type="hidden" name="python[install]" value="0" />{% endif %}
                             {{ popover.small('<a href="https://pip.pypa.io/en/latest/index.html">Pip</a> will be available as a
                                 system service:<br />
                                 <code>$ pip</code>') }}
@@ -64,4 +64,3 @@
         </div>
     </div>
 </section>
-
