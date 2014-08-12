@@ -9,6 +9,8 @@
                            data-tab-target="drush-pill"
                            data-update-php[composer]="1" data-update-hhvm[composer]="1"
                            {% if drush.install %}checked{% endif %} value="1" /> Install Drush
+                    {{ popover.small('<a href="http://drush.ws/">Drush</a> will be available as a system service:<br />
+                        <code>$ drush</code>') }}
                     {% if not drush.install %}<input type="hidden" name="drush[install]" value="0" />{% endif %}
                 </label>
             </div>
