@@ -1,0 +1,11 @@
+available_versions:
+    - 2.6.9
+    - 2.7.6
+    - 3.1.5
+    - 3.2.5
+    - 3.3.5
+    - 3.4.0
+
+empty_version:
+    version: ~
+    virtualenv: 0

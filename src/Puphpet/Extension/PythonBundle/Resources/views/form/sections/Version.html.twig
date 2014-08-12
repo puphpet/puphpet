@@ -1,0 +1,41 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+{% set uniqid = uniqid('pyenv_', true) %}
+
+<div id="{{ uniqid }}">
+    <div class="panel-heading">
+        <h3 class="panel-title">Add New Python Version via pyenv</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="python-versions-{{ uniqid }}-version">Choose Version</label>
+
+                <select id="python-versions-{{ uniqid }}-version"
+                        name="python[versions][{{ uniqid }}][version]" size="6"
+                        class="form-control select-tags">
+                    {% for available in available_versions %}
+                        <option value="{{ available }}"
+                            {% if available == selected_version.version %}selected{% endif %}>{{ available }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-xs-12">
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="python-versions-{{ uniqid }}-virtualenv"
+                           name="python[versions][{{ uniqid }}][virtualenv]"
+                           {% if selected_version.virtualenv is defined and selected_version.virtualenv %}checked{% endif %} value="1" />
+                    Install virtualenv
+                </label>
+            </div>
+        </div>
+
+        <p class="text-center">
+            <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
+                    data-parent-id="{{ uniqid }}">Remove this Python version</button>
+        </p>
+    </div>
+</div>
