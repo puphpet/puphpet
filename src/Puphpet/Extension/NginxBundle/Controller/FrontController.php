@@ -23,6 +23,15 @@ class FrontController extends Controller implements Extension\ControllerInterfac
         ]);
     }
 
+
+    public function upstreamAction()
+    {
+        return $this->render('PuphpetExtensionNginxBundle:form/sections:upstream.html.twig', [
+            'upstream'             => $this->getData()['empty_upstream'],
+            'available_engines' => $this->getData()['available_engines'],
+        ]);
+    }
+
     /**
      * @return array
      */

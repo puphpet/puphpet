@@ -2,6 +2,10 @@ puphpet.extension.nginx.homepage:
     pattern:  /
     defaults: { _controller: PuphpetExtensionNginxBundle:Front:index }
 
+puphpet.extension.nginx.upstream:
+    pattern:  /upstream
+    defaults: { _controller: PuphpetExtensionNginxBundle:Front:upstream }
+
 puphpet.extension.nginx.vhost:
     pattern:  /vhost
     defaults: { _controller: PuphpetExtensionNginxBundle:Front:vhost }

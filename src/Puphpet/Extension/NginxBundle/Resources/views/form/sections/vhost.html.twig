@@ -7,114 +7,168 @@
     </div>
 
     <div class="panel-body">
+
         <div class="row form-group">
-            <div class="col-md-6">
-                <label for="nginx-vhosts-{{ uniqid }}-server_name">
-                    Server Name
-                    {{ popover.small('Don\'t forget to <a href="/help#update-my-hosts-file">update your computer\'s hosts file!</a>') }}
+            <div class="col-md-12">
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="install-checkbox"
+                           id="nginx-vhosts-{{ uniqid }}-proxy_enabled"
+                           name="nginx[vhosts][{{ uniqid }}][proxy_enabled]" value="1"
+                           data-hide-on-uncheck="#nginx-vhosts-{{ uniqid }}-vhost_proxy_options"
+                           data-show-on-uncheck="#nginx-vhosts-{{ uniqid }}-vhost_options"
+                           {% if vhost.proxy is defined and vhost.proxy %}checked{% endif %} />
+                    Proxy
+                    <p class="help-block">
+                        Check the box to proxy the vhost. Make sure you configure the upstream above.
+                    </p>
                 </label>
-                <input type="text" id="nginx-vhosts-{{ uniqid }}-server_name"
-                       name="nginx[vhosts][{{ uniqid }}][server_name]" placeholder="awesome.dev"
-                       value="{{ vhost.server_name }}" class="form-control" />
+            </div>
+        </div>
+
+        <!-- BEGIN PROXY -->
+        <div class="{% if vhost.proxy is defined and vhost.proxy is empty %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-vhost_proxy_options">
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-proxy">
+                        Proxy URL
+                        {{ popover.small('This should match a upstream name configured above. Ex] http://backend</a>') }}
+                    </label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-proxy"
+                           name="nginx[vhosts][{{ uniqid }}][proxy]" placeholder=""
+                           value="{{ vhost.proxy }}" class="form-control" />
+                </div>
+            </div>
+        </div>        
+        <!-- END PROXY -->
+
+        <!-- BEGIN VHOST -->
+        <div class="{% if vhost.proxy is defined and vhost.proxy is not empty  %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-vhost_options">
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-server_name">
+                        Server Name
+                        {{ popover.small('Don\'t forget to <a href="/help#update-my-hosts-file">update your computer\'s hosts file!</a>') }}
+                    </label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-server_name"
+                           name="nginx[vhosts][{{ uniqid }}][server_name]" placeholder="awesome.dev"
+                           value="{{ vhost.server_name }}" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-server_aliases">
+                        Server Aliases
+                        {{ popover.small('Separated by comma') }}
+                    </label>
+                    <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
+                            name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
+                            multiple class="form-control select-tags-editable">
+                        {% if vhost.server_aliases is defined %}
+                            {% for alias in vhost.server_aliases %}
+                                <option selected value="{{ alias }}">{{ alias }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
             </div>
 
-            <div class="col-md-6">
-                <label for="nginx-vhosts-{{ uniqid }}-server_aliases">
-                    Server Aliases
-                    {{ popover.small('Separated by comma') }}
-                </label>
-                <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
-                        name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
-                        multiple class="form-control select-tags-editable">
-                    {% if vhost.server_aliases is defined %}
-                        {% for alias in vhost.server_aliases %}
-                            <option selected value="{{ alias }}">{{ alias }}</option>
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-www_root">
+                        Document Root
+                        {{ popover.small('Location of your site\'s index.php file, or other landing page.') }}
+                    </label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
+                           name="nginx[vhosts][{{ uniqid }}][www_root]" placeholder="/var/www"
+                           value="{{ vhost.www_root }}" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-listen_port">
+                        Port
+                        {{ popover.small('80 for normal browsing, if you choose another append it to the URL,
+                            ex: http://awesome.dev:1337') }}
+                    </label>
+                    <input type="number" id="nginx-vhosts-{{ uniqid }}-listen_port"
+                           name="nginx[vhosts][{{ uniqid }}][listen_port]" placeholder="80"
+                           value="{{ vhost.listen_port }}" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-location">
+                        Location String
+                        {{ popover.small('Everything after the ~ and before the { in: "location ~ \.php$ {"') }}
+                    </label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-location"
+                           name="nginx[vhosts][{{ uniqid }}][location]" placeholder="\.php$"
+                           value="{{ vhost.location is defined ? vhost.location : '\.php$' }}" class="form-control" />
+                </div>
+
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-index_files">
+                        Index Files
+                        {{ popover.small('The last file should be the accessor to your PHP script or front controller') }}
+                    </label>
+                    <select id="nginx-vhosts-{{ uniqid }}-index_files"
+                            name="nginx[vhosts][{{ uniqid }}][index_files][]"
+                            multiple class="form-control select-tags-editable">
+                        {% for index_file in vhost.index_files %}
+                            <option selected value="{{ index_file }}">{{ index_file }}</option>
                         {% endfor %}
-                    {% endif %}
-                </select>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <div class="col-md-6">
-                <label for="nginx-vhosts-{{ uniqid }}-www_root">
-                    Document Root
-                    {{ popover.small('Location of your site\'s index.php file, or other landing page.') }}
-                </label>
-                <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
-                       name="nginx[vhosts][{{ uniqid }}][www_root]" placeholder="/var/www"
-                       value="{{ vhost.www_root }}" class="form-control" />
+                    </select>
+                </div>
             </div>
 
-            <div class="col-md-6">
-                <label for="nginx-vhosts-{{ uniqid }}-listen_port">
-                    Port
-                    {{ popover.small('80 for normal browsing, if you choose another append it to the URL,
-                        ex: http://awesome.dev:1337') }}
-                </label>
-                <input type="number" id="nginx-vhosts-{{ uniqid }}-listen_port"
-                       name="nginx[vhosts][{{ uniqid }}][listen_port]" placeholder="80"
-                       value="{{ vhost.listen_port }}" class="form-control" />
-            </div>
-        </div>
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-envvars">
+                        Environment Variables
+                        {{ popover.small('"name value", separated by comma') }}
+                    </label>
+                    <select id="nginx-vhosts-{{ uniqid }}-envvars"
+                            name="nginx[vhosts][{{ uniqid }}][envvars][]"
+                            multiple class="form-control select-tags-editable">
+                        {% if vhost.envvars is defined %}
+                            {% for envvar in vhost.envvars %}
+                                <option selected value="{{ envvar }}">{{ envvar }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
 
-        <div class="row form-group">
-            <div class="col-md-6">
-                <label for="nginx-vhosts-{{ uniqid }}-location">
-                    Location String
-                    {{ popover.small('Everything after the ~ and before the { in: "location ~ \.php$ {"') }}
-                </label>
-                <input type="text" id="nginx-vhosts-{{ uniqid }}-location"
-                       name="nginx[vhosts][{{ uniqid }}][location]" placeholder="\.php$"
-                       value="{{ vhost.location is defined ? vhost.location : '\.php$' }}" class="form-control" />
-            </div>
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-engine">
+                        Engine
+                        {{ popover.small('Engine to power this vhost.') }}
+                    </label>
 
-            <div class="col-md-6">
-                <label for="nginx-vhosts-{{ uniqid }}-index_files">
-                    Index Files
-                    {{ popover.small('The last file should be the accessor to your PHP script or front controller') }}
-                </label>
-                <select id="nginx-vhosts-{{ uniqid }}-index_files"
-                        name="nginx[vhosts][{{ uniqid }}][index_files][]"
-                        multiple class="form-control select-tags-editable">
-                    {% for index_file in vhost.index_files %}
-                        <option selected value="{{ index_file }}">{{ index_file }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <div class="col-md-6">
-                <label for="nginx-vhosts-{{ uniqid }}-envvars">
-                    Environment Variables
-                    {{ popover.small('"name value", separated by comma') }}
-                </label>
-                <select id="nginx-vhosts-{{ uniqid }}-envvars"
-                        name="nginx[vhosts][{{ uniqid }}][envvars][]"
-                        multiple class="form-control select-tags-editable">
-                    {% if vhost.envvars is defined %}
-                        {% for envvar in vhost.envvars %}
-                            <option selected value="{{ envvar }}">{{ envvar }}</option>
+                    <select id="nginx-vhosts-{{ uniqid }}-engine"
+                            name="nginx[vhosts][{{ uniqid }}][engine]" size="6"
+                            class="form-control select-tags">
+                        {% for engine in available_engines %}
+                            <option value="{{ engine }}"
+                                {% if vhost.engine is defined and engine == vhost.engine %}selected
+                                {% elseif vhost.engine is defined and not vhost.engine and engine == 'php' %}selected
+                                {% endif %}>{{ engine }}</option>
                         {% endfor %}
-                    {% endif %}
-                </select>
+                    </select>
+                </div>
             </div>
+        </div>
+        <!-- END VHOST -->
 
-            <div class="col-md-6">
-                <label for="nginx-vhosts-{{ uniqid }}-engine">
-                    Engine
-                    {{ popover.small('Engine to power this vhost.') }}
+        <div class="row form-group">
+            <div class="col-xs-12">
+                <label for="nginx-vhosts-{{ uniqid }}-location_prepend">
+                    Location Prepend
+                    {{ popover.small('Free text values to prepend to location  / { <prepend goes here> ... }') }}
                 </label>
-
-                <select id="nginx-vhosts-{{ uniqid }}-engine"
-                        name="nginx[vhosts][{{ uniqid }}][engine]" size="6"
-                        class="form-control select-tags">
-                    {% for engine in available_engines %}
-                        <option value="{{ engine }}"
-                            {% if vhost.engine is defined and engine == vhost.engine %}selected
-                            {% elseif vhost.engine is defined and not vhost.engine and engine == 'php' %}selected
-                            {% endif %}>{{ engine }}</option>
+                <select id="nginx-vhosts-{{ uniqid }}-location_prepend"
+                        name="nginx[vhosts][{{ uniqid }}][location_prepend][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for prepend in vhost.location_prepend %}
+                        <option selected value="{{ prepend }}">{{ prepend }}</option>
                     {% endfor %}
                 </select>
             </div>
