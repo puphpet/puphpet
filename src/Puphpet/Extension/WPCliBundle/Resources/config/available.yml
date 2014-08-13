@@ -1,0 +1,27 @@
+available_versions:
+    - v0.16.0
+    - v0.15.1
+    - v0.15.0
+    - v0.14.1
+    - v0.14.0
+    - v0.13.0
+    - v0.12.1
+    - v0.12.0
+    # 
+    # Currently comment below versions, as personally being a WP
+    # Developer I honestly don't prefer them incomparison to above ones
+    # 
+    # - v0.11.2
+    # - v0.11.1
+    # - v0.11.0
+    # - v0.10.2
+    # - v0.10.1
+    # - v0.10.0
+    # - v0.9.1
+    # - v0.9.0
+    # - v0.8.0
+    # - v0.7.0
+    # - v0.6.0
+    # - v0.5.0
+    # - v0.4.0
+    # - v0.3.0
