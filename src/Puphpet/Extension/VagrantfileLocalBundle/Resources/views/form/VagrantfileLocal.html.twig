@@ -85,18 +85,7 @@
                 </div>
 
                 <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="vagrantfile-local-vm-hostname">
-                            Local VM Hostname
-                            {{ popover.small('VM host machine name. You will see this when you <code>vagrant ssh</code>
-                                into the vagrant VM.')
-                            }}
-                        </label>
-                        <input type="text" id="vagrantfile-local-vm-hostname"
-                               name="vagrantfile-local[vm][hostname]"
-                               required placeholder="puphpet"
-                               value="{{ data.vm.hostname }}" class="form-control" />
-                    </div>
+                        <input type="hidden" name="vagrantfile-local[vm][hostname]" value="{{ data.vm.hostname }}" />
 
                     <div class="col-md-6">
                         <label for="vagrantfile-local-vm-network-private_network">

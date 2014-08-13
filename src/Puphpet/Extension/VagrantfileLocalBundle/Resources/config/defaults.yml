@@ -1,5 +1,5 @@
 vm:
-    hostname: puphpet
+    hostname: ~
     chosen_provider: virtualbox
     provider:
         virtualbox: []
