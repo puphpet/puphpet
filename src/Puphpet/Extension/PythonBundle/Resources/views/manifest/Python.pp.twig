@@ -53,6 +53,7 @@ define install_python (
       keep       => true,
       virtualenv => $install_virtualenv,
       ensure     => present,
+      require    => Class['pyenv'],
     } ->
     file { "python v${version} symlink":
       ensure => link,
