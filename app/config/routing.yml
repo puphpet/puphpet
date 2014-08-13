@@ -46,6 +46,10 @@ puphpet.extension.xhprof:
     resource: "@PuphpetExtensionXhprofBundle/Resources/config/routing.yml"
     prefix:   /extension/xhprof
 
+puphpet.extension.wpcli:
+    resource: "@PuphpetExtensionWPCliBundle/Resources/config/routing.yml"
+    prefix:   /extension/wpcli
+
 puphpet.extension.mysql:
     resource: "@PuphpetExtensionMysqlBundle/Resources/config/routing.yml"
     prefix:   /extension/mysql
