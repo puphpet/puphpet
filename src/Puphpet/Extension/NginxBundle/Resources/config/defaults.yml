@@ -29,3 +29,4 @@ vhosts:
         location_prepend: []
         location_append: {}
         engine: php
+        client_max_body_size: '1m'

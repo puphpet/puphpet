@@ -155,6 +155,18 @@
                     </select>
                 </div>
             </div>
+
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-client-max-body-size">
+                        Client Max Body Size
+                        {{ popover.small('Value in megabytes (1m = 1 megabyte). 0 = disabled') }}
+                    </label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-client-max-body-size"
+                           name="nginx[vhosts][{{ uniqid }}][client_max_body_size]" placeholder="\.php$"
+                           value="{{ vhost.client_max_body_type is defined ? vhost.client_max_body_type : '1m' }}" class="form-control" />
+                </div>
+            </div>            
         </div>
         <!-- END VHOST -->
 

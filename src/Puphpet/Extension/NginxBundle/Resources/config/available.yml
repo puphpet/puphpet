@@ -23,6 +23,7 @@ empty_vhost:
     location_prepend: ''
     location_append: {}
     engine: ~
+    client_max_body_size: '1m'
 
 available_engines:
     - none
