@@ -8,7 +8,7 @@
 
     <div class="panel-body">
         <div class="row form-group">
-            <div class="col-md-6">
+            <div class="col-xs-12">
                 <label for="python-versions-{{ uniqid }}-version">Choose Version</label>
 
                 <select id="python-versions-{{ uniqid }}-version"
@@ -19,10 +19,13 @@
                             {% if available == selected_version.version %}selected{% endif %}>{{ available }}</option>
                     {% endfor %}
                 </select>
-            </div>
-        </div>
 
-        <div class="row form-group">
+                <p class="help-block">
+                    Each Python will be installed system-wide and can be accessed as <code>$ python{version}</code>.
+                    ex: <code>$ python3.4.0</code>.
+                </p>
+            </div>
+
             <div class="col-xs-12">
                 <label class="checkbox-inline">
                     <input type="checkbox" class="python-versions-{{ uniqid }}-virtualenv"
@@ -30,6 +33,15 @@
                            {% if selected_version.virtualenv is defined and selected_version.virtualenv %}checked{% endif %} value="1" />
                     Install virtualenv
                 </label>
+
+                <p class="help-block">
+                    Each virtualenv will be installed system-wide and can be accessed as <code>$ python{version}</code>.
+                    ex: <code>$ python3.4.0</code>.
+                    <br /><br />
+                    There is currently a small bug where <code>virtualenv</code> is not being installed on initial
+                    <code>$ vagrant up</code>. The solution is simple: just run <code>$ vagrant provision</code>
+                    and <code>virtualenv</code> will be installed for your chosen Python version. Fix coming soon!
+                </p>
             </div>
         </div>
 
