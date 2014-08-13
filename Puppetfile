@@ -52,8 +52,8 @@ mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
 mod 'daenney/pyenv',
-    :git => 'https://github.com/daenney/puppet-pyenv.git',
-    :ref => 'v0.9.2'
+    :git => 'https://github.com/puphpet/puppet-pyenv.git',
+    :ref => '062ae72'
 mod 'puppetlabs/rabbitmq',
     :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
     :ref => '5ce33f4968'
