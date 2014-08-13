@@ -1,4 +1,5 @@
 vm:
+    hostname: ~
     chosen_provider: virtualbox
     provider:
         virtualbox: []
