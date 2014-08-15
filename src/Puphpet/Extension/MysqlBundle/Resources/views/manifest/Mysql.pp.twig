@@ -61,7 +61,7 @@ if hash_key_equals($mysql_values, 'install', 1) {
         }), 'name')
 
         create_resources( puphpet::mysql::db, {
-          "${database['user']}@${database['name']}" => $database_merged
+          "${key}" => $database_merged
         })
       }
     }
