@@ -32,6 +32,14 @@ if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
     apt-get -y install git-core >/dev/null
     echo 'Finished installing git'
 
+    echo 'Installing gettext'
+    apt-get -y install gettext >/dev/null
+    echo 'Finished installing gettext'
+    
+    echo 'Installing subversion'
+    apt-get -y install subversion >/dev/null
+    echo 'Finished installing subversion'
+
     if [[ "${CODENAME}" == 'lucid' || "${CODENAME}" == 'precise' ]]; then
         echo 'Installing basic curl packages'
         apt-get -y install libcurl3 libcurl4-gnutls-dev curl >/dev/null
