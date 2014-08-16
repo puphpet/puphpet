@@ -45,6 +45,10 @@ Eventually PuPHPet will be good enough to help create production-ready servers!
 To run PuPHPet-generated manifests, you'll need to install [Vagrant](http://downloads.vagrantup.com/) version 1.6.0 or
 greater. Vagrant will run on Windows, OS X and Linux.
 
+## Contribution ##
+
+If you have a patch, or stumbled upon an issue with PuPHPet core, you can contribute this back to the code. Please read our [contributor guidelines](https://github.com/puphpet/puphpet/blob/master/CONTRIBUTING.md) for more information how you can do this.
+
 ## License ##
 
 PuPHPet is licensed under the [MIT license](http://opensource.org/licenses/mit-license.php) all third-party Puppet
