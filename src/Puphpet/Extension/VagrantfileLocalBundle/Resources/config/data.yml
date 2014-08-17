@@ -28,8 +28,8 @@ vm:
                 - "--parser future"
     synced_folder: []
     usable_port_range:
-        start: 10200
-        stop: 10500
+        start: '10200'
+        stop: '10500'
 
 ssh:
     host: ~
