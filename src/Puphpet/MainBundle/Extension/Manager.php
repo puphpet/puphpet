@@ -253,10 +253,11 @@ class Manager
 
         $this->processExtensionSources($sources);
 
-        $this->archive->queueToFile(
-            'puphpet/config.yaml',
-            Yaml::dump($mergedData, 50)
-        );
+        $yaml = Yaml::dump($mergedData, 50);
+
+        $rubyYaml = str_replace('usable_port_range:', 'usable_port_range: !ruby/range', $yaml);
+
+        $this->archive->queueToFile('puphpet/config.yaml', $rubyYaml);
 
         $this->archive->addFolder(
             __DIR__ . '/../../../../modules',
