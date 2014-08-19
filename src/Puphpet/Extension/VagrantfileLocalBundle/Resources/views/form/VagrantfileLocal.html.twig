@@ -85,7 +85,8 @@
                 </div>
 
                 <div class="row form-group">
-                        <input type="hidden" name="vagrantfile-local[vm][hostname]" value="{{ data.vm.hostname }}" />
+                    <input type="hidden" name="vagrantfile-local[vm][hostname]" value="{{ data.vm.hostname }}" />
+                    <input type="hidden" name="vagrantfile-local[vm][usable_port_range]" value="{{ data.vm.usable_port_range|slice(12)|trim("'") }}" />
 
                     <div class="col-md-6">
                         <label for="vagrantfile-local-vm-network-private_network">
