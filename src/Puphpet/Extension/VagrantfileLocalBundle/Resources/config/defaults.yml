@@ -35,6 +35,5 @@ vm:
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
                 - "--parser future"
     usable_port_range: 10200..10500
-
 ssh:
     forward_agent: true
