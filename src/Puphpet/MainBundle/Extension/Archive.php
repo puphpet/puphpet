@@ -2,6 +2,10 @@
 
 namespace Puphpet\MainBundle\Extension;
 
+use Puphpet\MainBundle\Exception\GeneralOSException;
+use Puphpet\MainBundle\Exception\CommandNotFoundException;
+use Puphpet\MainBundle\Exception\PermissionException;
+
 class Archive
 {
     /**
@@ -117,7 +121,7 @@ class Archive
 
         // ignore .git folders/files
         $exec = sprintf(
-            'cd "%s" && cd .. && zip -r "%s" "%s" -x */.git[!a]\*',
+            'cd "%s" && cd .. && zip -r "%s" "%s" -x */.git[!a]\* >/dev/null',
             $this->targetDir,
             $this->targetDir . '.zip',
             $folder
@@ -164,7 +168,24 @@ class Archive
      */
     protected function exec($cmd)
     {
-        return exec($cmd);
+        $output = "";
+        $output = exec($cmd, $output, $ret_value);
+        if ($ret_value){
+            switch ($ret_value) {
+                case "1":
+                    throw new GeneralOSException();
+                    break;
+                case "126":
+                    throw new PermissionException();
+                    break;
+                case "127":
+                    throw new CommandNotFoundException();
+                    break;
+                default:
+                    throw new GeneralOSException("Unexpected OS exception", $ret_value);
+            }
+        }
+        return $output;
     }
 
     /**
