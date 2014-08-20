@@ -253,9 +253,17 @@ class Manager
 
         $this->processExtensionSources($sources);
 
-        $yaml = Yaml::dump($mergedData, 50);
+        $dumpYaml = Yaml::dump($mergedData, 50);
 
-        $rubyYaml = str_replace('usable_port_range:', 'usable_port_range: !ruby/range', $yaml);
+        $searchYaml = array(
+            'usable_port_range:'
+        );
+
+        $replaceYaml = array(
+            'usable_port_range: !ruby/range'
+        );
+
+        $rubyYaml = str_replace($searchYaml, $replaceYaml, $dumpYaml);
 
         $this->archive->queueToFile('puphpet/config.yaml', $rubyYaml);
 
