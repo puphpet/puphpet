@@ -9,16 +9,16 @@
         <meta charset="utf-8" />
 
         {% block stylesheets %}
-            <link rel="stylesheet" href="/assets/vendor/bootstrap-3.1.1/css/lumen.min.css" />
-            <link rel="stylesheet" href="/assets/vendor/font-awesome-4.0.3/css/font-awesome.min.css" />
-            <link rel="stylesheet" href="/assets/vendor/selectize.js/selectize.bootstrap3.css" />
-            <link rel="stylesheet" href="/assets/v4/css/style.css" />
+            <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-3.1.1/css/lumen.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome-4.0.3/css/font-awesome.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/vendor/selectize.js/selectize.bootstrap3.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/v4/css/style.css') }}" />
         {% endblock %}
 
         {% block topJs %}
             <!--[if lt IE 9]>
-            <script src="/assets/vendor/html5shiv.js"></script>
-            <script src="/assets/vendor/respond.min.js"></script>
+            <script src="{{ asset('assets/vendor/html5shiv.js') }}"></script>
+            <script src="{{ asset('assets/vendor/respond.min.js') }}"></script>
             <![endif]-->
         {% endblock %}
     </head>
@@ -62,7 +62,7 @@
                 <h1>PuPHPet</h1>
                 <p>A simple GUI to set up virtual machines for Web development.</p>
             </div>
-            <div class="col-xs-6 col-md-2"><img src="/assets/v4/img/logo.png" id="logo" /></div>
+            <div class="col-xs-6 col-md-2"><img src="assets/v4/img/logo.png" id="logo" /></div>
             <div class="col-md-6 hidden-xs hidden-sm">
                 <h1>PuPHPet</h1>
                 <p>A simple GUI to set up virtual machines for Web development.</p>
@@ -110,7 +110,7 @@
                     Made with <span class="glyphicon glyphicon-heart"></span> by <a href="https://jtreminio.com">Juan Treminio</a>.
                     Contact him at <a href="mailto:jtreminio@gmail.com">jtreminio@gmail.com</a>.
                     Code licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.
-                    Bandwidth donated by: <a href="http://rackspace.com" target="_blank"><img src="/assets/v4/img/rackspace-logo.png" width="200" /></a>
+                    Bandwidth donated by: <a href="http://rackspace.com" target="_blank"><img src="{{ asset('assets/v4/img/rackspace-logo.png') }}" width="200" /></a>
                 </p>
 
                 <h4>Made possible thanks to contributions by</h4>
@@ -122,10 +122,10 @@
 </footer>
 
     {% block footerJs %}
-        <script src="/assets/vendor/jquery-2.1.0.min.js"></script>
-        <script src="/assets/vendor/bootstrap-3.1.1/js/bootstrap.min.js"></script>
-        <script src="/assets/vendor/selectize.js/selectize.min.js"></script>
-        <script src="/assets/v4/js/custom.js"></script>
+        <script src="{{ asset('assets/vendor/jquery-2.1.0.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/bootstrap-3.1.1/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/selectize.js/selectize.min.js') }}"></script>
+        <script src="{{ asset('assets/v4/js/custom.js') }}"></script>
     {% endblock footerJs %}
 
     {% if not app.debug %}
