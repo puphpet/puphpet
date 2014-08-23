@@ -1,6 +1,6 @@
 # How to contribute
 
-Community made patches, bug reports and contributions are always welcome and are crucial to ensure *PuPHPet* remains #1 GUI tool to set up Virtual Machines for Web development. This should be as easy as possible for you but there are few things to consider when contributing. The following guidelines for contribution should be followed if you want to submit a Pull Request.
+Community made patches, bug reports and contributions are always welcome and are crucial to ensure *PuPHPet* remains the #1 GUI tool to set up Virtual Machines for Web development. This should be as easy as possible for you but there are few things to consider when contributing. The following guidelines for contribution should be followed if you want to submit a Pull Request.
 
 ## How to prepare
 
