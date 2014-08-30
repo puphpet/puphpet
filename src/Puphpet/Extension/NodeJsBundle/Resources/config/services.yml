@@ -4,7 +4,7 @@ services:
     puphpet.extension.nodejs.configure:
         class: Puphpet\Extension\NodeJsBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.nodejs.front_controller:
         class: Puphpet\Extension\NodeJsBundle\Controller\FrontController

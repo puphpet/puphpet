@@ -4,7 +4,7 @@ services:
     puphpet.extension.mysql.configure:
         class: Puphpet\Extension\MysqlBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.mysql.front_controller:
         class: Puphpet\Extension\MysqlBundle\Controller\FrontController

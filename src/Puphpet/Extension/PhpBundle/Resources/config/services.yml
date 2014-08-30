@@ -4,7 +4,7 @@ services:
     puphpet.extension.php.configure:
         class: Puphpet\Extension\PhpBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.php.front_controller:
         class: Puphpet\Extension\PhpBundle\Controller\FrontController

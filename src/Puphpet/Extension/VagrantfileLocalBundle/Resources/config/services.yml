@@ -4,7 +4,7 @@ services:
     puphpet.extension.vagrantfile.local.configure:
         class: Puphpet\Extension\VagrantfileLocalBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.vagrantfile.local.front_controller:
         class: Puphpet\Extension\VagrantfileLocalBundle\Controller\FrontController

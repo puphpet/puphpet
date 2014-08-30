@@ -4,7 +4,7 @@ services:
     puphpet.extension.python.configure:
         class: Puphpet\Extension\PythonBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.python.front_controller:
         class: Puphpet\Extension\PythonBundle\Controller\FrontController

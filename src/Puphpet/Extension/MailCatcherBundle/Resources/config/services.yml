@@ -4,7 +4,7 @@ services:
     puphpet.extension.mailcatcher.configure:
         class: Puphpet\Extension\MailCatcherBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.mailcatcher.front_controller:
         class: Puphpet\Extension\MailCatcherBundle\Controller\FrontController

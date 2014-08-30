@@ -2,7 +2,7 @@ services:
     puphpet.extension.rabbitmq.configure:
         class: Puphpet\Extension\RabbitMQBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.rabbitmq.front_controller:
         class: Puphpet\Extension\RabbitMQBundle\Controller\FrontController

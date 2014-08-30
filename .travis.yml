@@ -12,7 +12,7 @@ notifications:
 env:
   - PUPPET_VERSION=3.3.1
 
-before_script:
+install:
   - composer install
 
 # PHPUnit tests only, rake spec could not be done within the same travis worker
