@@ -11,6 +11,8 @@ vm:
             target: /var/www
             id: vagrant-root
             sync_type: 'default'
+            owner: 'www-data'
+            group: 'www-data'
             rsync:
                 args:
                     - "--verbose"
