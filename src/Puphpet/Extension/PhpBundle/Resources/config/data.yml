@@ -1,6 +1,6 @@
 install: 0
 
-version: 55
+version: 56
 
 composer: 1
 composer_home: ~
