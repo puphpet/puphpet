@@ -85,7 +85,7 @@
                 <select id="apache-vhosts-{{ uniqid }}-override"
                         name="apache[vhosts][{{ uniqid }}][override][]"
                         multiple class="form-control select-tags-editable">
-                    {% if vhost.setenv is defined %}
+                    {% if vhost.override is defined %}
                         {% for override in vhost.override %}
                             <option selected value="{{ override }}">{{ override }}</option>
                         {% endfor %}
