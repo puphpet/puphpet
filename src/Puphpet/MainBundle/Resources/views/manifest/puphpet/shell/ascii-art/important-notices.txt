@@ -38,7 +38,7 @@ above), then your VM was generated successfully!
   "DIdXRs2OI2LJ" - you must create a random string as well!
   To do so, please apply face to keyboard and roll.
 
-* If you change "puphpet/config.yaml", simple run
+* If you change "puphpet/config.yaml", simply run
   "$ vagrant provision" and your VM will be updated with the
   changes you requested!
 
