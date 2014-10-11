@@ -61,7 +61,7 @@ define mongodb_db (
   $dbname,
   $user,
   $password,
-  $roles     = ['dbAdmin'],
+  $roles     = ['dbAdmin', 'readWrite', 'userAdmin'],
   $tries     = 10,
 ) {
   if ! value_true($name) or ! value_true($password) {
