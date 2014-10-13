@@ -22,6 +22,7 @@ class Configure extends Extension\ExtensionAbstract
         'firewall'  => ":git => 'https://github.com/puppetlabs/puppetlabs-firewall.git'",
         'git'       => ":git => 'https://github.com/puphpet/puppetlabs-git.git'",
         'swap_file' => ":git => 'https://github.com/petems/puppet-swap_file.git'",
+        'epel'      => ":git => 'https://github.com/stahnma/puppet-module-epel.git'",
     ];
 
     /**
