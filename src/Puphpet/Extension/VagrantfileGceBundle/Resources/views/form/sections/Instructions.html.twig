@@ -1,0 +1,94 @@
+<div class="collapse-container" id="vagrantfile-gce-instructions-container">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#vagrantfile-gce-instructions-container"
+               href="#vagrantfile-gce-instructions-content">
+                <i class="glyphicon glyphicon-plus"></i>
+                Google Compute Engine Instructions
+            </a>
+        </h3>
+    </div>
+
+    <div id="vagrantfile-gce-instructions-content" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div>
+                <h3>Google Compute Engine Instance</h3>
+
+                <p>
+                    Visit the <a href="https://console.developers.google.com/" target="_blank">Developers Console</a>
+                    make sure to enable the Google Compute Engine service for your project.
+                    If prompted, review and agree to the terms of service.
+                </p>
+                <p>
+                    While still in the Developers Console, go to API & AUTH, Credentials section and click the Create
+                    new Client ID button. In the pop-up dialog, select the Service Account radio button and the click
+                    the Create Client ID button.
+                </p>
+                <p>
+                    When prompted, select the Download private key button and make sure to save this file in a secure
+                    and reliable location. This key file will be used to authorize all Vagrant commands available in
+                    this plugin.
+                </p>
+                <p>
+                    Still on the same page, find the newly created Service Account text block on the API Access page.
+                    Record the Email address (it should end with @developer.gserviceaccount.com) associated with the
+                    new Service Account you just created. You will need this email address and the location of the
+                    private key file to properly configure this Vagrant plugin.
+                </p>
+            </div>
+
+            <div>
+                <h3>Installation Requirements</h3>
+
+                <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#gce-instructions-mac" data-toggle="pill">Mac</a></li>
+                    <li><a href="#gce-instructions-windows" data-toggle="pill">Windows</a></li>
+                    <li><a href="#gce-instructions-linux" data-toggle="pill">Linux</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="gce-instructions-mac">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-google<br />
+                            $ vagrant box add gce https://github.com/mitchellh/vagrant-google/raw/master/google.box
+                        </code>
+                    </div>
+                    <div class="tab-pane" id="gce-instructions-windows">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-google<br />
+                            $ vagrant box add gce https://github.com/mitchellh/vagrant-google/raw/master/google.box<br />
+                        </code>
+
+                        <div class="clearfix"></div>
+
+                        <p>
+                            You need rsync installed. Easiest way is to use Cygwin and install it through there.
+                            Alternatively, you can
+                            <a href="https://www.itefix.no/i2/content/cwrsync-free-edition" target="_blank">install rsync separately</a>
+                            and add it to your PATH.
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="gce-instructions-linux">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-google<br />
+                            $ vagrant box add gce https://github.com/mitchellh/vagrant-google/raw/master/google.box<br />
+                        </code>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3>Accessing Your VM</h3>
+
+                <p>
+                    To access your VM after running <code>$ vagrant up</code>, type
+                    <code>$ vagrant ssh-config</code> to get the IP address assigned to the server you created,
+                    and add the IP address to your computer's hosts file. Type <code>$ vagrant ssh</code> to
+                    be immediately connected via SSH to your new server!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

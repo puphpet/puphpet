@@ -18,6 +18,10 @@ puphpet.extension.vagrantfile.aws:
     resource: "@PuphpetExtensionVagrantfileAwsBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/aws
 
+puphpet.extension.vagrantfile.gce:
+    resource: "@PuphpetExtensionVagrantfileGceBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile/gce
+
 puphpet.extension.server:
     resource: "@PuphpetExtensionServerBundle/Resources/config/routing.yml"
     prefix:   /extension/server

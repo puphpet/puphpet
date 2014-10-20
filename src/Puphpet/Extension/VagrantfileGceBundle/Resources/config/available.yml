@@ -1,0 +1,40 @@
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: false
+
+available_images:
+    -
+        image: backports-debian-7-wheezy-v20141017
+        long_name: Debian Wheezy 7 x64 Backports
+        php_versions:
+            - 5.5
+
+available_machine_types:
+    f1-micro: 1 vCPU, 0.6 GB memory
+    g1-small: 1 vCPU, 1.7 GB memory
+    n1-standard-1: 1 vCPU, 3.75 GB memory
+    n1-standard-2: 2 vCPU, 7.5 GB memory
+    n1-standard-4: 4 vCPU, 15 GB memory
+    n1-standard-8: 8 vCPU, 30 GB memory
+    n1-standard-16: 16 vCPU, 60 GB memory
+    n1-highmem-2: 2 vCPU, 13 GB memory
+    n1-highmem-4: 4 vCPU, 26 GB memory
+    n1-highmem-8: 8 vCPU, 52 GB memory
+    n1-highmem-16: 16 vCPU, 104 GB memory
+    n1-highcpu-2: 2 vCPU, 1.8 GB memory
+    n1-highcpu-4: 4 vCPU, 3.6 GB memory
+    n1-highcpu-8: 8 vCPU, 7.2 GB memory
+    n1-highcpu-16: 16 vCPU, 14.4 GB memory
+
+available_zones:
+    asia-east1-a: asia-east1-a
+    asia-east1-b: asia-east1-b
+    asia-east1-c: asia-east1-c
+    asia-east1-c: asia-east1-c
+    europe-west1-a: europe-west1-a (Deprecated)
+    europe-west1-b: europe-west1-b
+    us-central1-a: us-central1-a
+    us-central1-b: us-central1-b
+    us-central1-f: us-central1-f
