@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/puphpet/puphpet.png)](https://travis-ci.org/puphpet/puphpet)
 
-## O que é? ##
+##O que é?##
 
 [PuPHPet](https://puphpet.com) é uma aplicação web que permite facilmente e rapidamente gerar Maquinas Virtuais com 
 [Vagrant](http://vagrantup.com) e Controladores com [Puppet](https://puppetlabs.com).
