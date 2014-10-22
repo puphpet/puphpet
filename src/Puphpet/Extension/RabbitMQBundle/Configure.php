@@ -15,6 +15,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $sources = [
         'rabbitmq' => ":git => 'https://github.com/puphpet/puppetlabs-rabbitmq.git'",
         'staging'  => ":git => 'https://github.com/puphpet/puppet-staging.git'",
+        'erlang'   => ":git => 'https://github.com/garethr/garethr-erlang.git'",
     ];
 
     /**

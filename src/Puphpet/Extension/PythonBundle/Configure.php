@@ -14,6 +14,7 @@ class Configure extends Extension\ExtensionAbstract
 
     protected $sources = [
         'python' => ":git => 'https://github.com/stankevich/puppet-python.git'",
+        'pyenv'  => ":git => 'https://github.com/daenney/puppet-pyenv.git'",
     ];
 
     /**
