@@ -87,6 +87,17 @@
                     </p>
                 </div>
 
+                <div class="row form-group hidden">
+                    <div class="col-xs-12">
+                        <label for="mariadb-override_options">Override Options</label>
+                        <select id="mariadb-override_options" multiple class="form-control">
+                            {% for setting, value in mariadb.override_options %}
+                                <option value="{{ setting }}" selected>{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
                 {% for database in mariadb.databases %}
                     {% include 'PuphpetExtensionMariaDbBundle:form/sections:NewUserAndDatabase.html.twig'
                         with {'available_privileges': mariadb.available_privileges, 'database': database} %}
