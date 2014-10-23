@@ -1,5 +1,7 @@
 install: 1
 
+override_options: {}
+
 databases:
     -
         name: dbname

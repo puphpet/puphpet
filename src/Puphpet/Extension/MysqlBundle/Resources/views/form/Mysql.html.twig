@@ -74,6 +74,17 @@
                     </p>
                 </div>
 
+                <div class="row form-group hidden">
+                    <div class="col-xs-12">
+                        <label for="mysql-override_options">Override Options</label>
+                        <select id="mysql-override_options" multiple class="form-control">
+                            {% for setting, value in mysql.override_options %}
+                                <option value="{{ setting }}" selected>{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
                 {% for database in mysql.databases %}
                     {% include 'PuphpetExtensionMysqlBundle:form/sections:NewUserAndDatabase.html.twig'
                         with {'available_privileges': mysql.available_privileges, 'database': database} %}
