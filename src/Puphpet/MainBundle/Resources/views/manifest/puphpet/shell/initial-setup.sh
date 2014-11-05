@@ -23,6 +23,19 @@ if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
     exit 0
 fi
 
+# Adding this here with a datestamped filename for future issues like #1189
+# apt repos become stale, Ubuntu/Debian move stuff around and break existing
+# boxes that no longer require apt-get update. Force it one more time. Update
+# datestamp as required for future breaks.
+if [[ ! -f /.puphpet-stuff/initial-setup-repo-update-11052014 ]]; then
+    if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
+        echo "Running datestamped initial-setup apt-get update"
+        apt-get update >/dev/null
+        touch /.puphpet-stuff/initial-setup-repo-update-11052014
+        echo "Finished running datestamped initial-setup apt-get update"
+    fi
+fi
+
 if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
     echo 'Running initial-setup apt-get update'
     apt-get update >/dev/null
