@@ -50,6 +50,9 @@ fi
 
 echo 'Installing Ruby 1.9.3 using RVM'
 
+#RVM version 1.2.6+ requires keys
+gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+
 curl -sSL https://get.rvm.io | bash -s stable --quiet-curl --ruby=1.9.3
 source /usr/local/rvm/scripts/rvm
 
