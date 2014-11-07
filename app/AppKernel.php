@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
 
             new Puphpet\Extension\VagrantfileLocalBundle\PuphpetExtensionVagrantfileLocalBundle(),
+            new Puphpet\Extension\VagrantfileLinodeBundle\PuphpetExtensionVagrantfileLinodeBundle(),
             new Puphpet\Extension\VagrantfileDigitalOceanBundle\PuphpetExtensionVagrantfileDigitalOceanBundle(),
             new Puphpet\Extension\VagrantfileRackspaceBundle\PuphpetExtensionVagrantfileRackspaceBundle(),
             new Puphpet\Extension\VagrantfileAwsBundle\PuphpetExtensionVagrantfileAwsBundle(),
