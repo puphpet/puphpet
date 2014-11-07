@@ -67,6 +67,10 @@
             {% set extension = extensionManager.getExtensionBySlug('vagrantfile-aws') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
+        <div class="tab-pane" id="vagrantfile-linode-tab">
+            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-linode') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
     </div>
 
     <ul class="pager">
