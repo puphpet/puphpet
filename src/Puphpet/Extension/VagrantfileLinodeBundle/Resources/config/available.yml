@@ -6,7 +6,7 @@ empty_synced_folder:
 
 available_distributions:
     -
-        distribution: CentOS 7 x64
+        distribution: CentOS 7
         long_name: CentOS 7 x64
         php_versions:
             - 5.6
@@ -22,7 +22,7 @@ available_distributions:
             - 5.4
             - HHVM
     -
-        distribution: Debian 7.6 x64
+        distribution: Debian 7.6
         long_name: Debian Wheezy 7.6 x64
         php_versions:
             - 5.6
@@ -31,7 +31,7 @@ available_distributions:
             - HHVM
     -
         distribution: Ubuntu 14.10
-        long_name: Ubuntu Utopic 14.10 LTS x64
+        long_name: Ubuntu Utopic 14.10 x64
         php_versions:
             - 5.6
             - 5.5
@@ -44,7 +44,7 @@ available_distributions:
             - 5.5
             - HHVM
     -
-        distribution: Ubuntu 12.04.4 x64
+        distribution: Ubuntu 12.04 LTS
         long_name: Ubuntu Precise 12.04 LTS x64
         php_versions:
             - 5.5
