@@ -225,7 +225,7 @@ define apache_centos {
   exec { 'download httpd-2.4.10':
     creates => $httpd_download_location,
     command => "wget --quiet --tries=5 --connect-timeout=10 -O '${httpd_download_location}' '${httpd_url}'",
-    timeout => 30,
+    timeout => 3600,
     path    => '/usr/bin',
   } ->
   exec { 'untar httpd-2.4.10':
