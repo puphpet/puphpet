@@ -18,6 +18,14 @@ puphpet.extension.vagrantfile.softlayer:
     resource: "@PuphpetExtensionVagrantfileSoftlayerBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/softlayer
 
+puphpet.extension.vagrantfile.ikoulacloud:
+    resource: "@PuphpetExtensionVagrantfileIkoulaCloudBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile/ikoulacloud
+
+puphpet.extension.vagrantfile.rackspace:
+    resource: "@PuphpetExtensionVagrantfileRackspaceBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile/rackspace
+
 puphpet.extension.vagrantfile.aws:
     resource: "@PuphpetExtensionVagrantfileAwsBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/aws

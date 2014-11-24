@@ -13,3 +13,6 @@
 /archive/puphpet/puppet/.librarian
 /archive/puphpet/puppet/.tmp
 /archive/puphpet/puppet/modules
+composer.lock
+/modules
+tags

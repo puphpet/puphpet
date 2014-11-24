@@ -16,6 +16,7 @@ services:
             - [ addExtension, [ @puphpet.extension.vagrantfile.softlayer.configure ] ]
             - [ addExtension, [ @puphpet.extension.vagrantfile.aws.configure ] ]
             - [ addExtension, [ @puphpet.extension.vagrantfile.digital_ocean.configure ] ]
+            - [ addExtension, [ @puphpet.extension.vagrantfile.ikoulacloud.configure ] ]
         # server
             - [ addExtension, [ @puphpet.extension.server.configure ] ]
         # firewall
