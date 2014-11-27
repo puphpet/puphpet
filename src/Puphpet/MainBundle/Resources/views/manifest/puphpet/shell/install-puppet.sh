@@ -8,10 +8,16 @@ OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
 RELEASE=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" RELEASE)
 CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
 
+if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
+    RVM_RUBIES='gems'
+elif [[ "${OS}" == 'centos' ]]; then
+    RVM_RUBIES='rubies'
+fi
+
 function check_puppet_symlink() {
-    if [[ -f '/usr/local/rvm/gems/ruby-1.9.3-p547/bin/puppet' ]]; then
+    if [[ -f "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p547/bin/puppet" ]]; then
         rm -f '/usr/bin/puppet'
-        ln -s '/usr/local/rvm/gems/ruby-1.9.3-p547/bin/puppet' '/usr/bin/puppet'
+        ln -s "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p547/bin/puppet" '/usr/bin/puppet'
 
         return 0;
     fi
@@ -29,8 +35,8 @@ function check_puppet_symlink() {
     if [ "grep '/usr/local/rvm/wrappers/default' ${PUPPET_SYMLINK}" ]; then
         rm -f '/usr/bin/puppet'
 
-        if [[ -f '/usr/local/rvm/gems/ruby-1.9.3-p547/bin/puppet' ]]; then
-            ln -s '/usr/local/rvm/gems/ruby-1.9.3-p547/bin/puppet' '/usr/bin/puppet'
+        if [[ -f "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p547/bin/puppet" ]]; then
+            ln -s "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p547/bin/puppet" '/usr/bin/puppet'
 
         else
             rm -f '/.puphpet-stuff/install-puppet'
@@ -61,7 +67,7 @@ if [[ -f '/usr/bin/puppet' ]]; then
     mv /usr/bin/puppet /usr/bin/puppet-old
 fi
 
-ln -s /usr/local/rvm/gems/ruby-1.9.3-p*/bin/puppet /usr/bin/puppet
+ln -s "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p*/bin/puppet" /usr/bin/puppet
 echo 'Finished installing Puppet 3.4.3'
 
 touch '/.puphpet-stuff/install-puppet'
