@@ -10,7 +10,7 @@ CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
 
 function check_puppet_symlink() {
     if [[ -f '/usr/local/rvm/gems/ruby-1.9.3-p547/bin/puppet' ]]; then
-        rm '/usr/bin/puppet'
+        rm -f '/usr/bin/puppet'
         ln -s '/usr/local/rvm/gems/ruby-1.9.3-p547/bin/puppet' '/usr/bin/puppet'
 
         return 0;
@@ -18,7 +18,7 @@ function check_puppet_symlink() {
 
     # Puppet not installed
     if [ ! -L '/usr/bin/puppet' ]; then
-        rm '/.puphpet-stuff/install-puppet'
+        rm -f '/.puphpet-stuff/install-puppet'
 
         return 0;
     fi
@@ -27,13 +27,13 @@ function check_puppet_symlink() {
 
     # If puppet symlink is old-style pointing to /usr/local/rvm/wrappers/default/ruby
     if [ "grep '/usr/local/rvm/wrappers/default' ${PUPPET_SYMLINK}" ]; then
-        rm '/usr/bin/puppet'
+        rm -f '/usr/bin/puppet'
 
         if [[ -f '/usr/local/rvm/gems/ruby-1.9.3-p547/bin/puppet' ]]; then
             ln -s '/usr/local/rvm/gems/ruby-1.9.3-p547/bin/puppet' '/usr/bin/puppet'
 
         else
-            rm '/.puphpet-stuff/install-puppet'
+            rm -f '/.puphpet-stuff/install-puppet'
         fi
     fi
 }
