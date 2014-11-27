@@ -50,6 +50,14 @@ fi
 
 echo 'Installing Ruby 1.9.3 using RVM'
 
+rm -rf /usr/local/rvm/rubies/ruby-1.9.3-p*
+
+if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
+    gpg --keyserver hkp://keys.gnupgg.net --recv-keys D39DC0E3
+elif [[ "${OS}" == 'centos' ]]; then
+    gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+fi
+
 curl -sSL https://get.rvm.io | bash -s stable --quiet-curl --ruby=1.9.3
 source /usr/local/rvm/scripts/rvm
 
@@ -60,6 +68,9 @@ fi
 if [[ -f '/usr/bin/gem' ]]; then
     mv /usr/bin/gem /usr/bin/gem-old
 fi
+
+rm -rf /usr/bin/ruby
+rm -rf /usr/bin/gem
 
 ln -s /usr/local/rvm/rubies/ruby-1.9.3-p*/bin/ruby /usr/bin/ruby
 ln -s /usr/local/rvm/rubies/ruby-1.9.3-p*/bin/gem /usr/bin/gem
