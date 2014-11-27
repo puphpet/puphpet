@@ -13,15 +13,6 @@
             </a>
         </li>
         <li class="col-xs-2">
-            <a href="#vagrantfile-digitalocean-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/digitalocean-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/digitalocean-inactive.png') }}" class="tab-icon-inactive" />
-                    Digital Ocean
-                </div>
-            </a>
-        </li>
-        <li class="col-xs-2">
             <a href="#vagrantfile-rackspace-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="{{ asset('assets/v4/img/vendors/rackspace-active.png') }}" class="tab-icon-active" />
@@ -44,10 +35,6 @@
     <div class="tab-content">
         <div class="tab-pane active" id="vagrantfile-local-tab">
             {% set extension = extensionManager.getExtensionBySlug('vagrantfile-local') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-digitalocean-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-digital_ocean') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
         <div class="tab-pane" id="vagrantfile-rackspace-tab">
