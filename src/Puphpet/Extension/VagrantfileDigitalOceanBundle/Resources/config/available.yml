@@ -22,7 +22,7 @@ available_images:
             - 5.4
             - HHVM
     -
-        image: Ubuntu 14.04 x64
+        image: 14.04 x64
         long_name: Ubuntu Trusty 14.04 LTS x64
         php_versions:
             - 5.6
