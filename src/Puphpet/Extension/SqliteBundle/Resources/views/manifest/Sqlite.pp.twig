@@ -65,16 +65,12 @@ define sqlite_db (
     fail( 'SQLite requires that name, owner, group, and mode be set. Please check your settings!' )
   }
 
-  # ensure user and directory created
-  user { $owner:
-    ensure => present,
-    groups => $owner
-  } ->
   file { '/var/lib/sqlite':
-    ensure => directory,
-    owner  => $owner,
-    group  => $group,
-    mode   => 0775
+    ensure  => directory,
+    owner   => $owner,
+    group   => $group,
+    mode    => 0775,
+    require => User[$owner]
   } ->
   sqlite::db { $name:
     owner => $owner,
