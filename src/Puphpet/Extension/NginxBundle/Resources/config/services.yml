@@ -4,7 +4,7 @@ services:
     puphpet.extension.nginx.configure:
         class: Puphpet\Extension\NginxBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.nginx.front_controller:
         class: Puphpet\Extension\NginxBundle\Controller\FrontController

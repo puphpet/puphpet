@@ -7,7 +7,7 @@ services:
     puphpet.extension.manager:
         class: Puphpet\MainBundle\Extension\Manager
         arguments:
-            - "@service_container"
+            - @service_container
         calls:
         # vagrantfile
             - [ addExtension, [ @puphpet.extension.vagrantfile.local.configure ] ]
@@ -46,6 +46,6 @@ services:
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
         arguments:
-            - "@randomlib"
+            - @randomlib
         tags:
             - { name: twig.extension }

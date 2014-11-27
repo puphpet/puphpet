@@ -4,7 +4,7 @@ services:
     puphpet.extension.hhvm.configure:
         class: Puphpet\Extension\HhvmBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.hhvm.front_controller:
         class: Puphpet\Extension\HhvmBundle\Controller\FrontController

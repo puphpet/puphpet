@@ -4,7 +4,7 @@ services:
     puphpet.extension.postgresql.configure:
         class: Puphpet\Extension\PostgresqlBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.postgresql.front_controller:
         class: Puphpet\Extension\PostgresqlBundle\Controller\FrontController

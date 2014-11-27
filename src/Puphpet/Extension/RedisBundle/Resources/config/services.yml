@@ -2,7 +2,7 @@ services:
     puphpet.extension.redis.configure:
         class: Puphpet\Extension\RedisBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.redis.front_controller:
         class: Puphpet\Extension\RedisBundle\Controller\FrontController

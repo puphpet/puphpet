@@ -4,7 +4,7 @@ services:
     puphpet.extension.mongodb.configure:
         class: Puphpet\Extension\MongoDbBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.mongodb.front_controller:
         class: Puphpet\Extension\MongoDbBundle\Controller\FrontController

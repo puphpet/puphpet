@@ -4,7 +4,7 @@ services:
     puphpet.extension.xhprof.configure:
         class: Puphpet\Extension\XhprofBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.xhprof.front_controller:
         class: Puphpet\Extension\XhprofBundle\Controller\FrontController

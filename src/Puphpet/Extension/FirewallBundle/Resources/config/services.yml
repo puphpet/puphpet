@@ -4,7 +4,7 @@ services:
     puphpet.extension.firewall.configure:
         class: Puphpet\Extension\FirewallBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.firewall.front_controller:
         class: Puphpet\Extension\FirewallBundle\Controller\FrontController

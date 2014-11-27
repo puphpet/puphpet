@@ -4,7 +4,7 @@ services:
     puphpet.extension.ruby.configure:
         class: Puphpet\Extension\RubyBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.ruby.front_controller:
         class: Puphpet\Extension\RubyBundle\Controller\FrontController

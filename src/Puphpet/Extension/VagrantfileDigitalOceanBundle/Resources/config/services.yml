@@ -4,7 +4,7 @@ services:
     puphpet.extension.vagrantfile.digital_ocean.configure:
         class: Puphpet\Extension\VagrantfileDigitalOceanBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.vagrantfile.digital_ocean.front_controller:
         class: Puphpet\Extension\VagrantfileDigitalOceanBundle\Controller\FrontController

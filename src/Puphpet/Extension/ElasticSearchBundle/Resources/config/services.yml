@@ -4,7 +4,7 @@ services:
     puphpet.extension.elastic_search.configure:
         class: Puphpet\Extension\ElasticSearchBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.elastic_search.front_controller:
         class: Puphpet\Extension\ElasticSearchBundle\Controller\FrontController

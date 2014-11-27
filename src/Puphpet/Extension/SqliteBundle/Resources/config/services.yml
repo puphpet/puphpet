@@ -4,7 +4,7 @@ services:
     puphpet.extension.sqlite.configure:
         class: Puphpet\Extension\SqliteBundle\Configure
         arguments:
-            - "@service_container"
+            - @service_container
 
     puphpet.extension.sqlite.front_controller:
         class: Puphpet\Extension\SqliteBundle\Controller\FrontController
