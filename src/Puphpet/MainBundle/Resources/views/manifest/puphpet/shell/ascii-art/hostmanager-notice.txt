@@ -1,5 +1,0 @@
-============================================================
-You have the Vagrant::HostManager plugin installed.
-You may be required to enter your host's root/privileged
-password below to continue!
-============================================================
