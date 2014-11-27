@@ -18,7 +18,10 @@ function check_puppet_symlink() {
     if [[ -f "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p547/bin/puppet" ]]; then
         rm -f '/usr/bin/puppet'
         ln -s "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p547/bin/puppet" '/usr/bin/puppet'
-
+        return 0;
+    elif [[ -f "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p551/bin/puppet" ]]; then
+        rm -f '/usr/bin/puppet'
+        ln -s "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p551/bin/puppet" '/usr/bin/puppet'
         return 0;
     fi
 
@@ -37,7 +40,8 @@ function check_puppet_symlink() {
 
         if [[ -f "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p547/bin/puppet" ]]; then
             ln -s "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p547/bin/puppet" '/usr/bin/puppet'
-
+        elif [[ -f "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p551/bin/puppet" ]]; then
+            ln -s "/usr/local/rvm/${RVM_RUBIES}/ruby-1.9.3-p551/bin/puppet" '/usr/bin/puppet'
         else
             rm -f '/.puphpet-stuff/install-puppet'
         fi

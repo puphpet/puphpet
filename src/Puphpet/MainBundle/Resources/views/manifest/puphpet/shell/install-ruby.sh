@@ -25,6 +25,8 @@ function check_ruby_symlinks() {
 
         if [[ -f '/usr/local/rvm/rubies/ruby-1.9.3-p547/bin/ruby' ]]; then
             ln -s '/usr/local/rvm/rubies/ruby-1.9.3-p547/bin/ruby' '/usr/bin/ruby'
+        elif [[ -f '/usr/local/rvm/rubies/ruby-1.9.3-p551/bin/ruby' ]]; then
+            ln -s '/usr/local/rvm/rubies/ruby-1.9.3-p551/bin/ruby' '/usr/bin/ruby'
         else
             rm -f '/.puphpet-stuff/install-ruby'
         fi
@@ -36,6 +38,8 @@ function check_ruby_symlinks() {
 
         if [[ -f '/usr/local/rvm/rubies/ruby-1.9.3-p547/bin/gem' ]]; then
             ln -s '/usr/local/rvm/rubies/ruby-1.9.3-p547/bin/gem' '/usr/bin/gem'
+        elif [[ -f '/usr/local/rvm/rubies/ruby-1.9.3-p551/bin/gem' ]]; then
+            ln -s '/usr/local/rvm/rubies/ruby-1.9.3-p551/bin/gem' '/usr/bin/gem'
         else
             rm -f '/.puphpet-stuff/install-ruby'
         fi
