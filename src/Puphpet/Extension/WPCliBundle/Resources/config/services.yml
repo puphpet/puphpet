@@ -1,0 +1,17 @@
+parameters:
+
+services:
+    puphpet.extension.wpcli.configure:
+        class: Puphpet\Extension\WPCliBundle\Configure
+        arguments:
+            - "@service_container"
+
+    puphpet.extension.wpcli.front_controller:
+        class: Puphpet\Extension\WPCliBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    puphpet.extension.wpcli.manifest_controller:
+        class: Puphpet\Extension\WPCliBundle\Controller\ManifestController
+        calls:
+            - [ setContainer, [@service_container] ]
