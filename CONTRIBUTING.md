@@ -26,6 +26,7 @@ Community made patches, bug reports and contributions are always welcome and are
 ## Submit Changes
 
 * Push your changes to a topic branch in your fork of the repository.
+* **SQUASH COMMITS INTO A SINGLE COMMIT**
 * Open a pull request to the original repository and choose the right original branch you want to patch.
 * If not done in commit messages (which you really should do) please reference and update your issue with the code changes.
 * Even if you have write access to the repository, do not directly push or merge pull-requests. Let another team member review your pull request and approve.
