@@ -9,8 +9,8 @@
                            data-tab-target="wpcli-pill"
                            data-update-php[composer]="1" data-update-hhvm[composer]="1"
                            {% if wpcli.install %}checked{% endif %} value="1" /> Install WP-Cli
-                    {{ popover.small('<a href="http://wp-cli.org/">WP</a> will be available as a system service:<br />
-                        <code>$ wp</code>') }}
+                    {{ popover.small('<a href="http://wp-cli.org/" target="_blank">WP</a> will be available as a
+                        system service:<br /><code>$ wp</code>') }}
                     {% if not wpcli.install %}<input type="hidden" name="wpcli[install]" value="0" />{% endif %}
                 </label>
             </div>
