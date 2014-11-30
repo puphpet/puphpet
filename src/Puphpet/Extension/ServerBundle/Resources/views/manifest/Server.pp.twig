@@ -11,11 +11,12 @@ group { 'www-data': ensure => present }
 group { 'www-user': ensure => present }
 
 user { $::ssh_username:
-  shell   => '/bin/bash',
-  home    => "/home/${::ssh_username}",
-  ensure  => present,
-  groups  => ['www-data', 'www-user'],
-  require => [Group['www-data'], Group['www-user']]
+  shell      => '/bin/bash',
+  home       => "/home/${::ssh_username}",
+  managehome => true,
+  ensure     => present,
+  groups     => ['www-data', 'www-user'],
+  require    => [Group['www-data'], Group['www-user']],
 }
 
 user { ['apache', 'nginx', 'httpd', 'www-data']:
