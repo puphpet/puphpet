@@ -30,6 +30,15 @@
                 </div>
             </a>
         </li>
+        <li class="col-xs-2">
+            <a href="#vagrantfile-linode-tab" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/linode-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/linode-inactive.png" class="tab-icon-inactive" />
+                    Linode
+                </div>
+            </a>
+        </li>
     </ul>
 
     <div class="tab-content">
@@ -43,6 +52,10 @@
         </div>
         <div class="tab-pane" id="vagrantfile-aws-tab">
             {% set extension = extensionManager.getExtensionBySlug('vagrantfile-aws') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="vagrantfile-linode-tab">
+            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-linode') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
     </div>

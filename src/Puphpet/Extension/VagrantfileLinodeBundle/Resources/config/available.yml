@@ -1,0 +1,71 @@
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: false
+
+available_distributions:
+    -
+        distribution: CentOS 7
+        long_name: CentOS 7 x64
+        php_versions:
+            - 5.6
+            - 5.5
+            - 5.4
+            - HHVM
+    -
+        distribution: CentOS 6.5
+        long_name: CentOS 6.5 x64
+        php_versions:
+            - 5.6
+            - 5.5
+            - 5.4
+            - HHVM
+    -
+        distribution: Debian 7.6
+        long_name: Debian Wheezy 7.6 x64
+        php_versions:
+            - 5.6
+            - 5.5
+            - 5.4
+            - HHVM
+    -
+        distribution: Ubuntu 14.10
+        long_name: Ubuntu Utopic 14.10 x64
+        php_versions:
+            - 5.6
+            - 5.5
+            - HHVM
+    -
+        distribution: Ubuntu 14.04
+        long_name: Ubuntu Trusty 14.04 LTS x64
+        php_versions:
+            - 5.6
+            - 5.5
+            - HHVM
+    -
+        distribution: Ubuntu 12.04 LTS
+        long_name: Ubuntu Precise 12.04 LTS x64
+        php_versions:
+            - 5.5
+            - 5.4
+            - HHVM
+
+available_plans:
+    1024: 1GB / 1 CPU / 24GB SSD DISK / 2TB TRANSFER
+    2048: 2GB / 2 CPU / 48GB SSD DISK / 3TB TRANSFER
+    4096: 4GB / 4 CPUS / 96GB SSD DISK / 4TB TRANSFER
+    8192: 8GB / 6 CPUS / 192GB SSD DISK / 8TB TRANSFER
+    16384: 16GB / 8 CPUS / 384GB SSD DISK / 16TB TRANSFER
+    32768: 32GB / 12 CPUS / 768GB SSD DISK / 20TB TRANSFER
+    49152: 48GB / 16 CPUS / 1152GB SSD DISK / 20TB TRANSFER
+    65536: 64GB / 20 CPUS / 1536GB SSD DISK / 20TB TRANSFER
+    98304: 96GB / 20 CPUS / 1920GB SSD DISK / 20TB TRANSFER
+
+available_datacenters:
+    newark: Newark
+    atlanta: Atlanta
+    fremont: Fremont
+    dallas: Dallas
+    london: London
+    tokyo: Tokyo

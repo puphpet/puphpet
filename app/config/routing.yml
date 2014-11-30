@@ -10,6 +10,10 @@ puphpet.extension.vagrantfile.digital_ocean:
     resource: "@PuphpetExtensionVagrantfileDigitalOceanBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/digitalocean
 
+puphpet.extension.vagrantfile.linode:
+    resource: "@PuphpetExtensionVagrantfileLinodeBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile/linode
+
 puphpet.extension.vagrantfile.rackspace:
     resource: "@PuphpetExtensionVagrantfileRackspaceBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/rackspace
