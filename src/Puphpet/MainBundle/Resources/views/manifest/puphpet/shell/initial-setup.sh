@@ -55,7 +55,7 @@ if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
     apt-get -y install build-essential >/dev/null
     echo 'Finished installing build-essential packages'
 elif [[ "${OS}" == 'centos' ]]; then
-    echo 'Adding repos: elrep, epel, scl'
+    echo 'Adding repos: elrepo, epel, scl'
     perl -p -i -e 's@enabled=1@enabled=0@gi' /etc/yum/pluginconf.d/fastestmirror.conf
     perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/os/\$basearch/@baseurl=http://mirror.rackspace.com/CentOS//\$releasever/os/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
     perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/updates/\$basearch/@baseurl=http://mirror.rackspace.com/CentOS//\$releasever/updates/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
