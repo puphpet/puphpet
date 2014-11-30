@@ -137,7 +137,7 @@ Vagrant.configure('2') do |config|
   if data['vm']['chosen_provider'] == 'vmware_fusion' || data['vm']['chosen_provider'] == 'vmware_workstation'
     ENV['VAGRANT_DEFAULT_PROVIDER'] = (data['vm']['chosen_provider'] == 'vmware_fusion') ? 'vmware_fusion' : 'vmware_workstation'
 
-    config.vm.provider 'vmware_fusion' do |v|
+    config.vm.provider :vmware_fusion do |v, override|
       data['vm']['provider']['vmware'].each do |key, value|
         if key == 'memsize'
           next
