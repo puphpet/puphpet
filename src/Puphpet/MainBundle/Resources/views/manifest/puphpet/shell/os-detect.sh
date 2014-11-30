@@ -12,6 +12,9 @@ grep 'centos' /etc/issue -i -q
 if [ $? = '0' ]; then
     ID='centos'
     RELEASE=$(cat /etc/redhat-release | grep -o 'release [0-9]' | cut -d " " -f2)
+elif [ -f '/etc/redhat-release' ]; then
+    ID='centos'
+    RELEASE=$(cat /etc/redhat-release | grep -o 'release [0-9]' | cut -d " " -f2)
 # could be debian or ubuntu
 elif [ $(which lsb_release) ]; then
     ID=$(lsb_release -i | cut -f2)
