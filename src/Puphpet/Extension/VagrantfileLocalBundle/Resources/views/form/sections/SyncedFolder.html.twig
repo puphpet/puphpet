@@ -10,11 +10,11 @@
     <div class="panel-body">
         <input type="hidden" id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-owner"
                name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][owner]"
-               value="{{ synced_folder.owner }}" />
+               value="{{ synced_folder.owner is defined ? synced_folder.owner : '' }}" />
 
         <input type="hidden" id="vagrantfile-local-vm-synced_folder-{{ uniqid }}-group"
                name="vagrantfile-local[vm][synced_folder][{{ uniqid }}][group]"
-               value="{{ synced_folder.group }}" />
+               value="{{ synced_folder.group is defined ? synced_folder.group : '' }}" />
 
         <div class="row form-group">
             <div class="col-md-6">
