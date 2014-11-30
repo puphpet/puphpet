@@ -1,0 +1,32 @@
+vm:
+    provider:
+        gce:
+            project_id: GCE_PROJECT_ID
+            client_email: GCE_CLIENT_EMAIL
+            key_location: /PATH/TO/PRIVATE_KEY.PK12
+            machine_type: n1-standard-1
+            image: backports-debian-7-wheezy-v20141017
+            name: instance-name
+            zone: us-central1-a
+            tags:
+                - http-server
+    synced_folder:
+        -
+            source: ./
+            target: /var/www
+            id: webroot
+            nfs: false
+    provision:
+        puppet:
+            manifests_path: "puphpet/puppet"
+            manifest_file: "site.pp"
+            module_path: "puphpet/puppet/modules"
+            options:
+                - "--verbose"
+                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
+                - "--parser future"
+ssh:
+    username: PRIVATE_KEY_USER
+    forward_agent: true
+    private_key_path: "~/.ssh/id_rsa"
+    public_key_path: "~/.ssh/id_rsa.pub"
