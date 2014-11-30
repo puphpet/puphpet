@@ -209,37 +209,19 @@ define nginx_vhost (
     'include'                 => 'fastcgi_params'
   }, $fastcgi_pass_hash)
 
-  if $proxy == undef {
-    nginx::resource::vhost { $server_name:
-      server_name      => $merged_server_name,
-      www_root         => $www_root,
-      listen_port      => $listen_port,
-      index_files      => $index_files,
-      try_files        => ['$uri', '$uri/', "${try_files}"],
-      ssl              => $ssl_set,
-      ssl_cert         => $ssl_cert_set,
-      ssl_key          => $ssl_key_set,
-      ssl_port         => $ssl_port_set,
-      rewrite_to_https => $rewrite_to_https_set,
-      spdy             => $spdy_set,
-      vhost_cfg_append => {sendfile => 'off'}
-    }
-  }
-  else {
-    nginx::resource::vhost { $server_name:
-      server_name      => $merged_server_name,
-      listen_port      => $listen_port,
-      index_files      => $index_files,
-      try_files        => ['$uri', '$uri/', "${try_files}"],
-      proxy            => $proxy,
-      ssl              => $ssl_set,
-      ssl_cert         => $ssl_cert_set,
-      ssl_key          => $ssl_key_set,
-      ssl_port         => $ssl_port_set,
-      rewrite_to_https => $rewrite_to_https_set,
-      spdy             => $spdy_set,
-      vhost_cfg_append => {sendfile => 'off'}
-    }  
+  nginx::resource::vhost { $server_name:
+    server_name      => $merged_server_name,
+    listen_port      => $listen_port,
+    index_files      => $index_files,
+    try_files        => ['$uri', '$uri/', "${try_files}"],
+    proxy            => $proxy,
+    ssl              => $ssl_set,
+    ssl_cert         => $ssl_cert_set,
+    ssl_key          => $ssl_key_set,
+    ssl_port         => $ssl_port_set,
+    rewrite_to_https => $rewrite_to_https_set,
+    spdy             => $spdy_set,
+    vhost_cfg_append => {sendfile => 'off'}
   }
 
   if $engine == 'php' {
