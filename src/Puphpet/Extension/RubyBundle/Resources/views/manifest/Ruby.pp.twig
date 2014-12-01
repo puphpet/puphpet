@@ -5,6 +5,8 @@ include puphpet::params
 if hash_key_true($ruby_values, 'versions') and count($ruby_values['versions']) > 0 {
   $rvm_has_default = false
 
+  rvm_dotfile { 'do': }
+
   create_resources(install_ruby, $ruby_values['versions'])
 }
 
@@ -22,6 +24,7 @@ define install_ruby (
     rvm_system_ruby { $version:
         default_use => $default_true,
         ensure      => present,
+        require     => File_line['rvm_autoupdate_flag=0 >> ~/.rvmrc'],
     }
 
     if $bundler_true == true {
@@ -52,3 +55,27 @@ define install_ruby (
 
 }
 
+define rvm_dotfile {
+  file { "/home/${::ssh_username}/.rvmrc":
+    ensure => present,
+    owner  => $::ssh_username,
+    require => User[$::ssh_username]
+  }
+  file_line { 'rvm_autoupdate_flag=0 >> ~/.rvmrc':
+    ensure  => present,
+    line    => 'rvm_autoupdate_flag=0',
+    path    => "/home/${::ssh_username}/.rvmrc",
+    require => File["/home/${::ssh_username}/.rvmrc"],
+  }
+
+  file { "/root/.rvmrc":
+    ensure => present,
+    owner  => 'root',
+  }
+  file_line { 'rvm_autoupdate_flag=0 >> /root/.rvmrc':
+    ensure  => present,
+    line    => 'rvm_autoupdate_flag=0',
+    path    => "/root/.rvmrc",
+    require => File["/root/.rvmrc"],
+  }
+}
