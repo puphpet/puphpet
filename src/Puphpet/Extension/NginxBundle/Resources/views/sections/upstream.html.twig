@@ -11,7 +11,8 @@
             <div class="col-md-6">
                 <label for="nginx-upstreams-{{ uniqid }}-name">
                     Name
-                    {{ popover.small('Name of the upstream configuration.  You will reference this name in the Virtual host proxy configuration as http://<name>') }}
+                    {{ popover.small('Name of the upstream configuration.
+                        You will reference this name in the Virtual host proxy configuration as http://<name>') }}
                 </label>
                 <input type="text" id="nginx-upstreams-{{ uniqid }}-name"
                        name="nginx[upstreams][{{ uniqid }}][name]" placeholder="backend"

@@ -26,7 +26,8 @@
         </div>
 
         <!-- BEGIN PROXY -->
-        <div class="{% if vhost.proxy is defined and vhost.proxy is empty %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-vhost_proxy_options">
+        <div class="{% if vhost.proxy is defined and vhost.proxy is empty %}hidden{% endif %}"
+             id="nginx-vhosts-{{ uniqid }}-vhost_proxy_options">
             <div class="row form-group">
                 <div class="col-md-6">
                     <label for="nginx-vhosts-{{ uniqid }}-proxy">
@@ -35,14 +36,15 @@
                     </label>
                     <input type="text" id="nginx-vhosts-{{ uniqid }}-proxy"
                            name="nginx[vhosts][{{ uniqid }}][proxy]" placeholder=""
-                           value="{{ vhost.proxy }}" class="form-control" />
+                           value="{{ vhost.proxy is defined ? vhost.proxy : '' }}" class="form-control" />
                 </div>
             </div>
         </div>        
         <!-- END PROXY -->
 
         <!-- BEGIN VHOST -->
-        <div class="{% if vhost.proxy is defined and vhost.proxy is not empty  %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-vhost_options">
+        <div class="{% if vhost.proxy is defined and vhost.proxy is not empty  %}hidden{% endif %}"
+             id="nginx-vhosts-{{ uniqid }}-vhost_options">
             <div class="row form-group">
                 <div class="col-md-6">
                     <label for="nginx-vhosts-{{ uniqid }}-server_name">
