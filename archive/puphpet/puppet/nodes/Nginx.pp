@@ -68,38 +68,38 @@ if hash_key_equals($nginx_values, 'install', 1) {
     or hash_key_equals($php_values, 'install', 1)
   {
     $default_vhost = {
-      'server_name'    => '_',
-      'server_aliases' => [],
-      'www_root'       => '/var/www/html',
-      'proxy'          => '',
-      'listen_port'    => 80,
-      'location'       => '\.php$',
-      'location_prepend' => [],
-      'location_append' => [],
-      'index_files'    => ['index', 'index.html', 'index.htm', 'index.php'],
-      'envvars'        => [],
-      'ssl'            => '0',
-      'ssl_cert'       => '',
-      'ssl_key'        => '',
-      'engine'         => 'php',
+      'server_name'          => '_',
+      'server_aliases'       => [],
+      'www_root'             => '/var/www/html',
+      'proxy'                => '',
+      'listen_port'          => 80,
+      'location'             => '\.php$',
+      'location_prepend'     => [],
+      'location_append'      => [],
+      'index_files'          => ['index', 'index.html', 'index.htm', 'index.php'],
+      'envvars'              => [],
+      'ssl'                  => '0',
+      'ssl_cert'             => '',
+      'ssl_key'              => '',
+      'engine'               => 'php',
       'client_max_body_size' => '1m'
     }
   } else {
     $default_vhost = {
-      'server_name'    => '_',
-      'server_aliases' => [],
-      'www_root'       => '/var/www/html',
-      'proxy'          => '',
-      'listen_port'    => 80,
-      'location'       => '/',
-      'location_prepend' => [],
-      'location_append' => [],
-      'index_files'    => ['index', 'index.html', 'index.htm'],
-      'envvars'        => [],
-      'ssl'            => '0',
-      'ssl_cert'       => '',
-      'ssl_key'        => '',
-      'engine'         => false,
+      'server_name'          => '_',
+      'server_aliases'       => [],
+      'www_root'             => '/var/www/html',
+      'proxy'                => '',
+      'listen_port'          => 80,
+      'location'             => '/',
+      'location_prepend'     => [],
+      'location_append'      => [],
+      'index_files'          => ['index', 'index.html', 'index.htm'],
+      'envvars'              => [],
+      'ssl'                  => '0',
+      'ssl_cert'             => '',
+      'ssl_key'              => '',
+      'engine'               => false,
       'client_max_body_size' => '1m'
     }
   }
@@ -229,19 +229,19 @@ define nginx_vhost (
   }, $fastcgi_pass_hash)
 
   nginx::resource::vhost { $server_name:
-    server_name      => $merged_server_name,
-    www_root         => $www_root_set,
-    proxy            => $proxy,
-    listen_port      => $listen_port,
-    index_files      => $index_files,
-    try_files        => ['$uri', '$uri/', "${try_files}"],
-    ssl              => $ssl_set,
-    ssl_cert         => $ssl_cert_set,
-    ssl_key          => $ssl_key_set,
-    ssl_port         => $ssl_port_set,
-    rewrite_to_https => $rewrite_to_https_set,
-    spdy             => $spdy_set,
-    vhost_cfg_append => {sendfile => 'off'},
+    server_name          => $merged_server_name,
+    www_root             => $www_root_set,
+    proxy                => $proxy,
+    listen_port          => $listen_port,
+    index_files          => $index_files,
+    try_files            => ['$uri', '$uri/', "${try_files}"],
+    ssl                  => $ssl_set,
+    ssl_cert             => $ssl_cert_set,
+    ssl_key              => $ssl_key_set,
+    ssl_port             => $ssl_port_set,
+    rewrite_to_https     => $rewrite_to_https_set,
+    spdy                 => $spdy_set,
+    vhost_cfg_append     => {sendfile => 'off'},
     client_max_body_size => $client_max_body_size
   }
 
@@ -265,7 +265,7 @@ define nginx_vhost (
 define nginx_upstream (
   $name,
   $fail_timeout = '10s',
-  $members = []
+  $members      = []
 ) {
   $count = count($members);
   notify{"Adding nginx upstream for ${name} with ${count} members.": withpath => true}
