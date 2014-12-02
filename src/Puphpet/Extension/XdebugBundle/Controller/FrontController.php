@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionXdebugBundle:form:Xdebug.html.twig', [
+        return $this->render('PuphpetExtensionXdebugBundle::form.html.twig', [
             'xdebug' => $data,
         ]);
     }

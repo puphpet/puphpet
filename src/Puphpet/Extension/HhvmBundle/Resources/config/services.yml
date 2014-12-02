@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\HhvmBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.hhvm.manifest_controller:
-        class: Puphpet\Extension\HhvmBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

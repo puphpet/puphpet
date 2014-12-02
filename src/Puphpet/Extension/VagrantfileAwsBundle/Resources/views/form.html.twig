@@ -1,0 +1,162 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+
+<input type="hidden" id="vagrantfile-aws-vm-box" name="vagrantfile-aws[vm][box]" value="aws" />
+<input type="hidden" id="vagrantfile-aws-ssh-username" name="vagrantfile-aws[ssh][username]" value="{{ data.ssh.username }}" />
+<input type="hidden" id="vagrantfile-aws-vm-provider-aws-region" name="vagrantfile-aws[vm][provider][aws][region]" value="{{ data.vm.provider.aws.region }}" />
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            {% include 'PuphpetExtensionVagrantfileAwsBundle:sections:Instructions.html.twig' %}
+
+            <div class="panel-heading">
+                <h3 class="panel-title">AWS EC2 Instance Details</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-12 padded-fieldset">
+                        <label>
+                            AWS EC2 Instance Image
+                            {{ popover.small('Choose the operating system for your VM. Amazon has pre-defined
+                                systems you can choose from. The ones listed are the ones PuPHPet has been tested with
+                                so far.<br /><br />
+                                Note: Listed are the PHP installs that we have confirmed as working for their
+                                respective operating system. You are welcome to attempt to install higher if you\'d
+                                like, but we cannot guarantee it will work. In fact in most cases it won\'t.')
+                            }}
+                        </label><br />
+                        {% for region, images in data.available_images %}
+                            <fieldset>
+                                <legend>{{ attribute(data.available_regions, region) }}</legend>
+                                {% for image in images %}
+                                    <label class="radio">
+                                        <input type="radio"
+                                               name="vagrantfile-aws[vm][provider][aws][ami]" class="update-other-input"
+                                               data-update-vagrantfile-aws-ssh-username="{{ image.ssh_username }}"
+                                               data-update-vagrantfile-aws-vm-provider-aws-region="{{ region }}"
+                                               {% if image.ami == data.vm.provider.aws.ami %}checked{% endif %}
+                                               value="{{ image.ami }}" />{{ image.name }}
+                                        {% if image.php_versions is defined %}
+                                            (PHP
+                                            {% for php in image.php_versions %}
+                                                <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
+                                            {% endfor %}
+                                            )
+                                        {% endif %}
+                                        {% if image.marketplace is defined %}
+                                        [<a href="{{ image.marketplace }}" target="_blank">Requires Amazon Marketplace agreement. Click here to add to your account</a>]
+                                        {% endif %}
+                                    </label>
+                                {% endfor %}
+                            </fieldset>
+                            <div class="clear-fix"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label for="vagrantfile-aws-vm-provider-aws-instance_type">
+                            AWS EC2 Instance Type
+                            {{ popover.small('EC2 pricing is infamously difficult to calculate.') }}
+                        </label>
+                        <select id="vagrantfile-aws-vm-provider-aws-instance_type"
+                                name="vagrantfile-aws[vm][provider][aws][instance_type]"
+                                class="form-control select-tag">
+                            {% for type, description in data.available_instance_types %}
+                                <option value="{{ type }}"
+                                    {% if type == data.vm.provider.aws.instance_type %}selected{% endif %}>{{ type }} - {{ description }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="vagrantfile-aws-vm-provider-aws-access_key_id">
+                            AWS EC2 Access Key ID
+                            {{ popover.small('<a href="https://console.aws.amazon.com/iam/home?#security_credential" target="_blank">Get it here</a>.
+                                You can leave this blank and fill it in manually in the <code>Vagrantfile</code> if you want.') }}
+                        </label>
+                        <input id="vagrantfile-aws-vm-provider-aws-access_key_id"
+                               name="vagrantfile-aws[vm][provider][aws][access_key_id]"
+                               placeholder="AWS ACCESS KEY ID"
+                               value="{{ data.vm.provider.aws.access_key_id }}" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="vagrantfile-aws-vm-provider-aws-secret_access_key">
+                            AWS EC2 Secret Access Key
+                            {{ popover.small('<a href="https://portal.aws.amazon.com/gp/aws/securityCredentials?" target="_blank">Get it here</a>.
+                                You can leave this blank and fill it in manually in the <code>Vagrantfile</code> if you want.') }}
+                        </label>
+                        <input id="vagrantfile-aws-vm-provider-aws-secret_access_key"
+                               name="vagrantfile-aws[vm][provider][aws][secret_access_key]"
+                               placeholder="AWS SECRET ACCESS KEY"
+                               value="{{ data.vm.provider.aws.secret_access_key }}" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="vagrantfile-aws-vm-provider-aws-keypair_name">
+                            AWS EC2 Key Pair Name
+                            {{ popover.small('The Key Pair name from
+                                <a href="https://console.aws.amazon.com/ec2/v2/home?#KeyPairs:" target="_blank">here</a>') }}
+                        </label>
+                        <input id="vagrantfile-aws-vm-provider-aws-keypair_name"
+                               name="vagrantfile-aws[vm][provider][aws][keypair_name]"
+                               placeholder="AWS KEY PAIR NAME"
+                               value="{{ data.vm.provider.aws.keypair_name }}" class="form-control" />
+
+                        <p class="help-block">
+
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="vagrantfile-aws-ssh-private_key_path">
+                            Local Private Key Path
+                            {{ popover.small('The AWS EC2 VM will not be accessible without your private/public key.
+                                <strong>It will not be accessible using username/password, only private key!</strong>
+                                This corresponds to the Key Pair identified to the left!') }}
+                        </label>
+                        <input id="vagrantfile-aws-ssh-private_key_path"
+                               name="vagrantfile-aws[ssh][private_key_path]"
+                               placeholder="~/.ssh/id_rsa"
+                               value="{{ data.ssh.private_key_path }}" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-xs-12">
+                        <label for="vagrantfile-aws-vm-provider-aws-security_groups">
+                            AWS EC2 Security Groups
+                            {{ popover.small('Assign security groups to this instance.
+                                <a href="https://console.aws.amazon.com/ec2/home?#s=SecurityGroups" target="_blank">Get them here</a>.') }}
+                        </label>
+                        <select id="vagrantfile-aws-vm-provider-aws-security_groups"
+                                name="vagrantfile-aws[vm][provider][aws][security_groups][]"
+                                multiple class="form-control select-tags-editable">
+                            {% for group in data.vm.provider.aws.security_groups %}
+                                <option value="{{ group }}" selected>{{ group }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            {% for synced_folder in data.vm.synced_folder %}
+                {% include 'PuphpetExtensionVagrantfileAwsBundle:sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                            data-source-url="{{ path('puphpet.extension.vagrantfile.aws.synced_folder') }}">Add another AWS VM shared folder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

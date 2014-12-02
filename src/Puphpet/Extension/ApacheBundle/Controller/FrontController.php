@@ -10,14 +10,14 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionApacheBundle:form:Apache.html.twig', [
+        return $this->render('PuphpetExtensionApacheBundle::form.html.twig', [
             'apache' => $data,
         ]);
     }
 
     public function vhostAction()
     {
-        return $this->render('PuphpetExtensionApacheBundle:form/sections:vhost.html.twig', [
+        return $this->render('PuphpetExtensionApacheBundle:sections:vhost.html.twig', [
             'vhost'             => $this->getData()['empty_vhost'],
             'available_engines' => $this->getData()['available_engines'],
         ]);

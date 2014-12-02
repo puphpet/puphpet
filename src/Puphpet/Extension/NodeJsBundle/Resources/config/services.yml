@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\NodeJsBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.nodejs.manifest_controller:
-        class: Puphpet\Extension\NodeJsBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

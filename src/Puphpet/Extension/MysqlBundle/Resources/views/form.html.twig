@@ -1,0 +1,102 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+<section id="mysql">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">MySQL Quick Settings</h3>
+                </div>
+
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" class="update-other-input"
+                                   name="mysql[install]" data-update-mariadb[install]="0"
+                                   {% if mysql.install %}checked{% endif %} value="1" /> Install MySQL
+                            {% if not mysql.install %}<input type="hidden" name="mysql[install]" value="0" />{% endif %}
+                        </label>
+
+                        <p class="help-block">
+                            If you install MySQL, you cannot install MariaDB.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="mysql-root_password">
+                                Root Password
+                                {{ popover.small('Assign a password to the root user.
+                                    <strong>Database will only be installed
+                                    when a password is entered here.</strong>') }}
+                            </label>
+                            <input type="text" id="mysql-root_password" name="mysql[root_password]"
+                                   value="{{ mysql.root_password }}" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="mysql-adminer">
+                                Adminer
+                                {{ popover.small('If installed it will be available from
+                                    <code>http://{SERVER_IP_ADDRESS}/adminer</code>.') }}
+                            </label><br />
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="mysql-adminer" name="mysql[adminer]"
+                                       {% if mysql.adminer %}checked{% endif %} value="1" /> Install Adminer
+                            </label>
+                        </div>
+                    </div>
+
+                    <p class="help-block">
+                        It is highly recommended <strong>not</strong> installing Adminer on production servers.
+
+                        <br /><br />
+
+                        The preferred way to connect to your database is using a dedicated application like
+                        <a href="http://www.sequelpro.com/" target="_blank">Sequel Pro (OS X)</a>,
+                        <a href="http://www.heidisql.com/" target="_blank">HeidiSQL (Windows)</a>, and
+                        <a href="http://dev.mysql.com/downloads/tools/workbench/" target="_blank">MySQL Workbench (Cross Platform)</a>.
+
+                        <br /><br />
+
+                        Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
+                        <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
+                        your initial <code>$ vagrant up</code>!
+
+                        <br /><br />
+
+                        If you want to assign a user to multiple hosts or databases, simply create more databases and type in
+                        the same username and password. Only the password for the first entry will be considered,
+                        <strong>but all fields must be completed</strong>!
+                    </p>
+                </div>
+
+                <div class="row form-group hidden">
+                    <div class="col-xs-12">
+                        <label for="mysql-override_options">Override Options</label>
+                        <select id="mysql-override_options" multiple class="form-control">
+                            {% for setting, value in mysql.override_options %}
+                                <option value="{{ setting }}" selected>{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                {% for database in mysql.databases %}
+                    {% include 'PuphpetExtensionMysqlBundle:sections:NewUserAndDatabase.html.twig'
+                        with {'available_privileges': mysql.available_privileges, 'database': database} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.mysql.add_database') }}">Add another MySQL database</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

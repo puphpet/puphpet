@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionDrushBundle:form:Drush.html.twig', [
+        return $this->render('PuphpetExtensionDrushBundle::form.html.twig', [
             'drush' => $data,
         ]);
     }

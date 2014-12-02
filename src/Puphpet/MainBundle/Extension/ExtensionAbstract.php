@@ -7,22 +7,39 @@ use Symfony\Component\Yaml\Yaml;
 
 abstract class ExtensionAbstract implements ExtensionInterface
 {
+    const DIR = 'undef';
+
     protected $container;
     protected $customData = [];
     protected $data = [];
     protected $dataLocation;
-    protected $name;
     protected $returnAvailableData = true;
-    protected $slug;
-    protected $sources = [];
-    protected $targetFile;
+
+    protected $conf = [
+        'frontController'    => null,
+        'manifestController' => null,
+        'name'               => null,
+        'slug'               => null,
+        'targetFile'         => null,
+    ];
+
+    private $blankConf = [
+        'frontController'    => null,
+        'manifestController' => null,
+        'name'               => null,
+        'slug'               => null,
+        'targetFile'         => null,
+    ];
 
     /**
      * @param Container $container
      */
     public function __construct(Container $container)
     {
-        $this->container = $container;
+        $this->conf = array_merge($this->blankConf, $this->conf);
+
+        $this->dataLocation = static::DIR . '/Resources/config';
+        $this->container    = $container;
     }
 
     /**
@@ -33,11 +50,11 @@ abstract class ExtensionAbstract implements ExtensionInterface
      */
     public function getName()
     {
-        if (!$this->name) {
+        if (!$this->conf['name']) {
             throw new \Exception('Extension name has not been defined');
         }
 
-        return $this->name;
+        return $this->conf['name'];
     }
 
     /**
@@ -48,11 +65,11 @@ abstract class ExtensionAbstract implements ExtensionInterface
      */
     public function getSlug()
     {
-        if (!$this->slug) {
+        if (!$this->conf['slug']) {
             throw new \Exception('Extension slug has not been defined');
         }
 
-        return $this->slug;
+        return $this->conf['slug'];
     }
 
     /**
@@ -73,10 +90,14 @@ abstract class ExtensionAbstract implements ExtensionInterface
      * Run extension's manifest controller action and return rendered content
      *
      * @param array $data Data required by controller template
-     * @return string
+     * @return null|string
      */
     public function renderManifest(array $data = [])
     {
+        if (!$this->conf['manifestController']) {
+            return null;
+        }
+
         return $this->getManifestController()
             ->indexAction($data)
             ->getContent();
@@ -118,23 +139,7 @@ abstract class ExtensionAbstract implements ExtensionInterface
      */
     public function getTargetFile()
     {
-        return $this->targetFile;
-    }
-
-    /**
-     * If extension requires downloaded, returns associative array for puppet librarian
-     *
-     * name => url (url is optional)
-     *
-     * @return array
-     */
-    public function getSources()
-    {
-        if (empty($this->sources)) {
-            return [];
-        }
-
-        return $this->sources;
+        return $this->conf['targetFile'];
     }
 
     /**
@@ -191,6 +196,16 @@ abstract class ExtensionAbstract implements ExtensionInterface
         }
 
         return $this->data;
+    }
+
+    public function getFrontController()
+    {
+        return $this->container->get($this->conf['frontController']);
+    }
+
+    public function getManifestController()
+    {
+        return $this->container->get($this->conf['manifestController']);
     }
 
     /**

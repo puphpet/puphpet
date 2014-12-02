@@ -10,14 +10,14 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionMariaDbBundle:form:MariaDb.html.twig', [
+        return $this->render('PuphpetExtensionMariaDbBundle::form.html.twig', [
             'mariadb' => $data,
         ]);
     }
 
     public function addDatabaseAction()
     {
-        return $this->render('PuphpetExtensionMariaDbBundle:form/sections:NewUserAndDatabase.html.twig', [
+        return $this->render('PuphpetExtensionMariaDbBundle:sections:NewUserAndDatabase.html.twig', [
             'available_privileges' => $this->getData()['available_privileges'],
             'database'             => $this->getData()['empty_database'],
         ]);

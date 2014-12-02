@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionPythonBundle:form:Python.html.twig', [
+        return $this->render('PuphpetExtensionPythonBundle::form.html.twig', [
             'python' => $data,
             'extra'  => $extra,
         ]);
@@ -18,7 +18,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 
     public function addVersionAction()
     {
-        return $this->render('PuphpetExtensionPythonBundle:form/sections:Version.html.twig', [
+        return $this->render('PuphpetExtensionPythonBundle:sections:Version.html.twig', [
             'selected_version'   => $this->getData()['empty_version'],
             'available_versions' => $this->getData()['available_versions'],
         ]);

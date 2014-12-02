@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\MariaDbBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.mariadb.manifest_controller:
-        class: Puphpet\Extension\MariaDbBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

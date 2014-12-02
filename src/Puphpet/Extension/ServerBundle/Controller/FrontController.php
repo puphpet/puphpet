@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionServerBundle:form:Server.html.twig', [
+        return $this->render('PuphpetExtensionServerBundle::form.html.twig', [
             'server' => $data,
             'extra'  => $extra,
         ]);

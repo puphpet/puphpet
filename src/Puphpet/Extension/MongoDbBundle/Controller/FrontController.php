@@ -10,14 +10,14 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionMongoDbBundle:form:MongoDb.html.twig', [
+        return $this->render('PuphpetExtensionMongoDbBundle::form.html.twig', [
             'mongodb' => $data,
         ]);
     }
 
     public function addDatabaseAction()
     {
-        return $this->render('PuphpetExtensionMongoDbBundle:form/sections:NewUserAndDatabase.html.twig', [
+        return $this->render('PuphpetExtensionMongoDbBundle:sections:NewUserAndDatabase.html.twig', [
             'database' => $this->getData()['empty_database'],
         ]);
     }

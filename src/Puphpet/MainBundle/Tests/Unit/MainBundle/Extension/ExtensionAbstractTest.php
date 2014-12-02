@@ -89,13 +89,6 @@ class ExtensionAbstractTest extends Unit\TestExtensions
         $this->extension->getSlug();
     }
 
-    public function testGetSourcesReturnsEmptyArrayWhenSourcesEmpty()
-    {
-        $expected = [];
-
-        $this->assertEquals($expected, $this->extension->getSources());
-    }
-
     /**
      * @dataProvider providerHasCustomDataReturnsExpected
      */

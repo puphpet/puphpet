@@ -1,0 +1,154 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+
+<input type="hidden" id="vagrantfile-digital_ocean-vm-box" name="vagrantfile-digital_ocean[vm][box]" value="digital_ocean" />
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            {% include 'PuphpetExtensionVagrantfileDigitalOceanBundle:sections:Instructions.html.twig' %}
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Digital Ocean VM Details</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>
+                            Digital Ocean VM Operating System
+                            {{ popover.small('Choose the operating system for your VM. Digital Ocean has pre-defined
+                                systems you can choose from. The ones listed are the ones PuPHPet has been tested with
+                                so far.<br /><br />
+                                Note: Listed are the PHP installs that we have confirmed as working for their respective
+                                operating system. You are welcome to attempt to install higher if you\'d like, but
+                                we cannot guarantee it will work. In fact in most cases it won\'t.')
+                            }}
+                        </label>
+
+                        {% for image in data.available_images %}
+                            <label class="radio">
+                                <input type="radio" value="{{ image.image }}"
+                                       name="vagrantfile-digital_ocean[vm][provider][digital_ocean][image]"
+                                       {% if image.image == data.vm.provider.digital_ocean.image %}checked{% endif %} />
+                                {{ image.long_name }}
+                                {% if image.php_versions is defined %}
+                                    (PHP
+                                    {% for php in image.php_versions %}
+                                        <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
+                                    {% endfor %}
+                                    )
+                                {% endif %}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label for="vagrantfile-digital_ocean-vm-hostname">
+                            Digital Ocean VM Name
+                            {{ popover.small('Name your server. It must be unique to your account!') }}
+                        </label>
+                        <input id="vagrantfile-digital_ocean-vm-hostname"
+                               name="vagrantfile-digital_ocean[vm][hostname]"
+                               placeholder="my-awesome-box"
+                               value="{{ data.vm.hostname }}" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-size">
+                            Digital Ocean VM Size
+                            {{ popover.small('<a href="https://www.digitalocean.com/pricing" target="_blank">Pricing information</a>.
+                                Digital Ocean charges by the hour, but also shows what a full month would cost.') }}
+                        </label>
+                        <select id="vagrantfile-digital_ocean-vm-provider-digital_ocean-size"
+                                name="vagrantfile-digital_ocean[vm][provider][digital_ocean][size]"
+                                class="form-control select-tag">
+                            {% for size, name in data.available_sizes %}
+                                <option value="{{ size }}"
+                                    {% if size == data.vm.provider.digital_ocean.size %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-region">
+                            Digital Ocean VM Region
+                            {{ popover.small('Choose the one closest to you, or your target audience!') }}
+                        </label>
+                        <select id="vagrantfile-digital_ocean-vm-provider-digital_ocean-region"
+                                name="vagrantfile-digital_ocean[vm][provider][digital_ocean][region]"
+                                class="form-control select-tag">
+                            {% for key, region in data.available_regions %}
+                                <option value="{{ key }}"
+                                    {% if key == data.vm.provider.digital_ocean.region %}selected{% endif %}>{{ region }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-token">
+                            Digital Ocean VM Token
+                            {{ popover.small('<a href="https://cloud.digitalocean.com/settings/applications" target="_blank">Get it here</a>') }}
+                        </label>
+                        <input id="vagrantfile-digital_ocean-vm-provider-digital_ocean-token"
+                               name="vagrantfile-digital_ocean[vm][provider][digital_ocean][token]"
+                               placeholder="DIGITAL OCEAN TOKEN"
+                               value="{{ data.vm.provider.digital_ocean.token }}" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="vagrantfile-digital_ocean-vm-provider-digital_ocean-ssh_key_name">
+                            Digital Ocean VM SSH Key Name
+                            {{ popover.small('Change if you already have an SSH key you would like to use.
+                                Leave as default otherwise.') }}
+                        </label>
+                        <input id="vagrantfile-digital_ocean-vm-provider-digital_ocean-ssh_key_name"
+                               name="vagrantfile-digital_ocean[vm][provider][digital_ocean][ssh_key_name]"
+                               placeholder="Vagrant"
+                               value="{{ data.vm.provider.digital_ocean.ssh_key_name }}" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="vagrantfile-digital_ocean-ssh-username">
+                            Local Private Key Username
+                            {{ popover.small('The username associated with the private key entered.') }}
+                        </label>
+                        <input id="vagrantfile-digital_ocean-ssh-username"
+                               name="vagrantfile-digital_ocean[ssh][username]"
+                               value="{{ data.ssh.username }}" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="vagrantfile-digital_ocean-ssh-private_key_path">
+                            Local Private Key Path
+                            {{ popover.small('The Digital Ocean VM will not be accessible without your private/public key.
+                                <strong>It will not be accessible using username/password, only private key!</strong>') }}
+                        </label>
+                        <input id="vagrantfile-digital_ocean-ssh-private_key_path"
+                               name="vagrantfile-digital_ocean[ssh][private_key_path]"
+                               placeholder="~/.ssh/id_rsa"
+                               value="{{ data.ssh.private_key_path }}" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            {% for synced_folder in data.vm.synced_folder %}
+                {% include 'PuphpetExtensionVagrantfileDigitalOceanBundle:sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                            data-source-url="{{ path('puphpet.extension.vagrantfile.digital_ocean.synced_folder') }}">Add another Digital Ocean VM shared folder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

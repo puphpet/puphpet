@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\MailCatcherBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.mailcatcher.manifest_controller:
-        class: Puphpet\Extension\MailCatcherBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

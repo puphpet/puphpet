@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionBeanstalkdBundle:form:Beanstalkd.html.twig', [
+        return $this->render('PuphpetExtensionBeanstalkdBundle::form.html.twig', [
             'beanstalkd' => $data,
         ]);
     }

@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\FirewallBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.firewall.manifest_controller:
-        class: Puphpet\Extension\FirewallBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

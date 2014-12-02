@@ -10,14 +10,14 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionPostgresqlBundle:form:Postgresql.html.twig', [
+        return $this->render('PuphpetExtensionPostgresqlBundle::form.html.twig', [
             'postgresql' => $data,
         ]);
     }
 
     public function addDatabaseAction()
     {
-        return $this->render('PuphpetExtensionPostgresqlBundle:form/sections:NewUserAndDatabase.html.twig', [
+        return $this->render('PuphpetExtensionPostgresqlBundle:sections:NewUserAndDatabase.html.twig', [
             'available_privileges' => $this->getData()['available_privileges'],
             'database'             => $this->getData()['empty_database'],
         ]);

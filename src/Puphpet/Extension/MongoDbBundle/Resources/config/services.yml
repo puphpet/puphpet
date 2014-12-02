@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\MongoDbBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.mongodb.manifest_controller:
-        class: Puphpet\Extension\MongoDbBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

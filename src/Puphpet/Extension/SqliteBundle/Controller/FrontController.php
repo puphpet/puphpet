@@ -10,14 +10,14 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionSqliteBundle:form:Sqlite.html.twig', [
+        return $this->render('PuphpetExtensionSqliteBundle::form.html.twig', [
             'sqlite' => $data,
         ]);
     }
 
     public function addDatabaseAction()
     {
-        return $this->render('PuphpetExtensionSqliteBundle:form/sections:OwnerAndDatabase.html.twig', [
+        return $this->render('PuphpetExtensionSqliteBundle:sections:OwnerAndDatabase.html.twig', [
             'database' => $this->getData()['empty_database'],
         ]);
     }

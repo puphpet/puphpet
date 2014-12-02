@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\SqliteBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.sqlite.manifest_controller:
-        class: Puphpet\Extension\SqliteBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

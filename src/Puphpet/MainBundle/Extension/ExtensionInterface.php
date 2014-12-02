@@ -55,11 +55,6 @@ interface ExtensionInterface
     /**
      * @return array
      */
-    public function getSources();
-
-    /**
-     * @return array
-     */
     public function getData();
 
     /**

@@ -10,14 +10,14 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionVagrantfileAwsBundle:form:VagrantfileAws.html.twig', [
+        return $this->render('PuphpetExtensionVagrantfileAwsBundle::form.html.twig', [
             'data' => $data,
         ]);
     }
 
     public function syncedFolderAction()
     {
-        return $this->render('PuphpetExtensionVagrantfileAwsBundle:form/sections:SyncedFolder.html.twig', [
+        return $this->render('PuphpetExtensionVagrantfileAwsBundle:sections:SyncedFolder.html.twig', [
             'synced_folder' => $this->getData()['empty_synced_folder'],
         ]);
     }

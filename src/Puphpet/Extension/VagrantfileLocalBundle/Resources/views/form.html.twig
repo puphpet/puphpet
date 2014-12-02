@@ -1,0 +1,154 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+
+<input type="hidden" id="vagrantfile-local-vm-box" name="vagrantfile-local[vm][box]" value="{{ data.vm.box }}" />
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="collapse-container" id="vagrantfile-local-instructions-container">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#vagrantfile-local-instructions-container"
+                           href="#vagrantfile-local-instructions-content">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            Local VM Instructions
+                        </a>
+                    </h3>
+                </div>
+
+                <div id="vagrantfile-local-instructions-content" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ol>
+                            <li><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download the latest version of VirtualBox from here</a></li>
+                            <li><a href="http://www.vagrantup.com/downloads.html" target="_blank">Download the latest version of Vagrant from here.</a></li>
+                        </ol>
+
+                        <p>
+                            To login to your VM you must use <code>$ vagrant ssh</code> or user <code>vagrant</code>
+                            using the private key automatically generated at
+                            <code>puphpet/files/dot/ssh/id_rsa.key</code>. This key is generated <strong>after</strong>
+                            your initial <code>$ vagrant up</code>!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Local VM Details</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label>Provider</label><br />
+                        {% for provider in data.available_providers %}
+                            <label class="radio">
+                                <input type="radio" class="update-other-input" name="vagrantfile-local[vm][chosen_provider]"
+                                   value="{{ provider.name }}" {% if provider.name == data.vm.chosen_provider %}checked{% endif %}
+                                   data-update-vagrantfile-local-vm-network-private_network="{{ provider.default_ip }}" />
+                                <strong>{{ provider.long_name }}</strong> - {{ provider.description|raw }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label>
+                            Local VM Operating System
+                            {{ popover.small('Choose the operating system for your VM. It will be downloaded the first time you
+                                run Vagrant. <a href="http://docs.vagrantup.com/v2/getting-started/boxes.html">More
+                                information may be found here</a>.<br /><br />
+                                Note: Listed are the PHP installs that we have confirmed as working for their
+                                respective operating system. You are welcome to attempt to install higher if
+                                you\'d like, but we cannot guarantee it will work. In fact in most cases it
+                                won\'t.')
+                            }}
+                        </label>
+
+                        {% for box in data.available_boxes %}
+                            <label class="radio">
+                                <input type="radio" class="update-other-input" name="vagrantfile-local[vm][box_url]"
+                                       value="{{ box.url }}" {% if box.url == data.vm.box_url %}checked{% endif %}
+                                       data-update-vagrantfile-local-vm-box="{{ box.short_name }}" />
+                                {{ box.long_name }}
+                                {% if box.php_versions is defined %}
+                                    (PHP
+                                    {% for php in box.php_versions %}
+                                        <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
+                                    {% endfor %}
+                                    )
+                                {% endif %}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                        <input type="hidden" name="vagrantfile-local[vm][hostname]" value="{{ data.vm.hostname }}" />
+
+                    <div class="col-md-6">
+                        <label for="vagrantfile-local-vm-network-private_network">
+                            Local VM IP Address
+                            {{ popover.small('IP address to use for accessing the VM. This is the IP address you will
+                                need to enter into your <code>hosts</code> file for every virtual hosts you create later
+                                on.')
+                            }}
+                        </label>
+                        <input type="text" id="vagrantfile-local-vm-network-private_network"
+                               name="vagrantfile-local[vm][network][private_network]"
+                               required placeholder="192.168.56.101"
+                               value="{{ data.vm.network.private_network }}" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="vagrantfile-local-vm-memory">
+                            Local VM Memory
+                            {{ popover.small('Memory to assign to VM in megabytes (only integers)') }}
+                        </label>
+                        <input type="number" id="vagrantfile-local-vm-memory"
+                               name="vagrantfile-local[vm][memory]"
+                               required placeholder="512" pattern="^[1-9][0-9]*$" min="64"
+                               value="{{ data.vm.memory }}" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="vagrantfile-local-vm-cpus">
+                            Local VM CPU's
+                            {{ popover.small("Number of CPU's to assign to VM (only integers)") }}
+                        </label>
+                        <input type="number" id="vagrantfile-local-vm-cpus"
+                               name="vagrantfile-local[vm][cpus]"
+                               required placeholder="1" pattern="^[1-9][0-9]*$" min="1"
+                               value="{{ data.vm.cpus }}" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            {% for forwarded_port in data.vm.network.forwarded_port %}
+                {% include 'PuphpetExtensionVagrantfileLocalBundle:sections:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                            data-source-url="{{ path('puphpet.extension.vagrantfile.local.forwarded_port') }}">Add another local VM port pair</button>
+                </div>
+            </div>
+
+            {% for synced_folder in data.vm.synced_folder %}
+                {% include 'PuphpetExtensionVagrantfileLocalBundle:sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                            data-source-url="{{ path('puphpet.extension.vagrantfile.local.synced_folder') }}">Add another local VM shared folder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

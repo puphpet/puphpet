@@ -1,0 +1,40 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+<section id="ruby">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Ruby Quick Settings</h3>
+                </div>
+
+                <input type="hidden" name="ruby[install]" value="1" />
+
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <p class="help-block">
+                            Ruby 1.9.3 is already installed in PuPHPet boxes using RVM.
+                            It is set as the system default version.
+                            <br /><br />
+                            To add Gems to the installed 1.9.3, choose it from the list below.
+                            <br /><br />
+                            Choosing to install a lower version and setting it as default may
+                            break things, so proceed with caution.
+                        </p>
+                    </div>
+                </div>
+
+                {% for selected_version in ruby.versions %}
+                    {% include 'PuphpetExtensionRubyBundle:sections:Version.html.twig'
+                        with {'available_versions': ruby.available_versions, 'selected_version': selected_version} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.ruby.add_version') }}">Add another Ruby Version</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

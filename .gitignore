@@ -8,7 +8,8 @@
 /bin/*
 !/bin/librarian
 /composer.phar
-/Puppetfile.lock
-/.librarian
 /.tmp
-/modules
+/archive/puphpet/puppet/Puppetfile.lock
+/archive/puphpet/puppet/.librarian
+/archive/puphpet/puppet/.tmp
+/archive/puphpet/puppet/modules

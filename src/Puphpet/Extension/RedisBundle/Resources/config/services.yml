@@ -8,8 +8,3 @@ services:
         class: Puphpet\Extension\RedisBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.redis.manifest_controller:
-        class: Puphpet\Extension\RedisBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

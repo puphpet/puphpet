@@ -8,8 +8,3 @@ services:
         class: Puphpet\Extension\RabbitMQBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.rabbitmq.manifest_controller:
-        class: Puphpet\Extension\RabbitMQBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\XdebugBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.xdebug.manifest_controller:
-        class: Puphpet\Extension\XdebugBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

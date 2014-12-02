@@ -228,7 +228,6 @@ class Manager
         $this->archive = new Extension\Archive;
 
         $extensions = [];
-        $sources = [];
         $mergedData = [];
 
         foreach ($submittedExtensions as $slug => $data) {
@@ -244,23 +243,12 @@ class Manager
                 $extension->renderManifest($extension->getData())
             );
 
-            foreach ($extension->getSources() as $name => $source) {
-                $sources[$name] = $source;
-            }
-
             $mergedData[$slug] = $extension->getData(false);
         }
-
-        $this->processExtensionSources($sources);
 
         $this->archive->queueToFile(
             'puphpet/config.yaml',
             Yaml::dump($mergedData, 50)
-        );
-
-        $this->archive->addFolder(
-            __DIR__ . '/../../../../modules',
-            'puphpet/puppet/modules'
         );
 
         $this->archive->write();
@@ -291,22 +279,5 @@ class Manager
         }
 
         return true;
-    }
-
-    private function processExtensionSources(array $sources)
-    {
-        foreach ($sources as $name => $source) {
-            if (empty($name)) {
-                continue;
-            }
-
-            $result = "mod '{$name}'";
-
-            if (!empty($source)) {
-                $result .= ", {$source}";
-            }
-
-            $this->archive->queueToFile('puphpet/puppet/Puppetfile', $result);
-        }
     }
 }

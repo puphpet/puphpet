@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionRedisBundle:form:Redis.html.twig', [
+        return $this->render('PuphpetExtensionRedisBundle::form.html.twig', [
             'redis' => $data,
         ]);
     }

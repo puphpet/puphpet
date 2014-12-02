@@ -27,7 +27,7 @@ class Archive
     public function getSourceDir()
     {
         if (!$this->sourceDir) {
-            $this->sourceDir = __DIR__ . '/../Resources/views/manifest';
+            $this->sourceDir = __DIR__ . '/../../../../archive';
         }
 
         return $this->sourceDir;

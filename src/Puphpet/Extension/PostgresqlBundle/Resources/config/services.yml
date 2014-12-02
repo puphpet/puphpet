@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\PostgresqlBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.postgresql.manifest_controller:
-        class: Puphpet\Extension\PostgresqlBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

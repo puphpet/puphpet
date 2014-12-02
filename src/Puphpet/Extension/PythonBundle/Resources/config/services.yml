@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\PythonBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.python.manifest_controller:
-        class: Puphpet\Extension\PythonBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

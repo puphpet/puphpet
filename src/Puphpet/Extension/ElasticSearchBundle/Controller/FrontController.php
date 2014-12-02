@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionElasticSearchBundle:form:ElasticSearch.html.twig', [
+        return $this->render('PuphpetExtensionElasticSearchBundle::form.html.twig', [
             'elastic_search' => $data,
         ]);
     }

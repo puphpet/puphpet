@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionWPCliBundle:form:WPCli.html.twig', [
+        return $this->render('PuphpetExtensionWPCliBundle::form.html.twig', [
             'wpcli' => $data,
         ]);
     }

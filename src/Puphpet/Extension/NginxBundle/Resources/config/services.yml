@@ -10,8 +10,3 @@ services:
         class: Puphpet\Extension\NginxBundle\Controller\FrontController
         calls:
             - [ setContainer, [@service_container] ]
-
-    puphpet.extension.nginx.manifest_controller:
-        class: Puphpet\Extension\NginxBundle\Controller\ManifestController
-        calls:
-            - [ setContainer, [@service_container] ]

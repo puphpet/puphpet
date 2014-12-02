@@ -1,7 +1,3 @@
 puphpet.extension.beanstalkd.homepage:
     pattern:  /
     defaults: { _controller: PuphpetExtensionBeanstalkdBundle:Front:index }
-
-puphpet.extension.beanstalkd.manifest:
-    pattern:  /manifest
-    defaults: { _controller: PuphpetExtensionBeanstalkdBundle:Manifest:index }

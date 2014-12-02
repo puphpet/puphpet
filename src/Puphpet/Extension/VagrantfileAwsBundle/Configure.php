@@ -4,31 +4,15 @@ namespace Puphpet\Extension\VagrantfileAwsBundle;
 
 use Puphpet\MainBundle\Extension;
 
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-
 class Configure extends Extension\ExtensionAbstract
 {
-    protected $name = 'Amazon Web Services';
-    protected $slug = 'vagrantfile-aws';
-    protected $targetFile = 'Vagrantfile';
+    const DIR = __DIR__;
 
-    /**
-     * @param Container $container
-     */
-    public function __construct(Container $container)
-    {
-        $this->dataLocation = __DIR__ . '/Resources/config';
-
-        parent::__construct($container);
-    }
-
-    public function getFrontController()
-    {
-        return $this->container->get('puphpet.extension.vagrantfile.aws.front_controller');
-    }
-
-    public function getManifestController()
-    {
-        return $this->container->get('puphpet.extension.vagrantfile.aws.manifest_controller');
-    }
+    protected $conf = [
+        'name'               => 'Amazon Web Services',
+        'slug'               => 'vagrantfile-aws',
+        'frontController'    => 'puphpet.extension.vagrantfile.aws.front_controller',
+        'manifestController' => 'puphpet.extension.vagrantfile.aws.manifest_controller',
+        'targetFile'         => 'Vagrantfile',
+    ];
 }

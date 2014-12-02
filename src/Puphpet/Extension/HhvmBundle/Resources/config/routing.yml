@@ -1,7 +1,3 @@
 puphpet.extension.hhvm.homepage:
     pattern:  /
     defaults: { _controller: PuphpetExtensionHhvmBundle:Front:index }
-
-puphpet.extension.hhvm.manifest:
-    pattern:  /manifest
-    defaults: { _controller: PuphpetExtensionHhvmBundle:Manifest:index }

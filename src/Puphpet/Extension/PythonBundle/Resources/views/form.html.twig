@@ -1,0 +1,66 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+<section id="python">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Python Quick Settings</h3>
+                </div>
+
+                <input type="hidden" name="python[install]" value="1" />
+
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <p class="help-block">
+                            Debian and Ubuntu come with <code>Python 2.7</code>,
+                            and CentOS comes with <code>Python 2.6</code> out of the box.
+                            <br /><br />
+                            Any extra Python versions you choose will be installed using
+                            <a href="https://github.com/yyuu/pyenv" target="_blank">pyenv</a>
+                            as system installations, <em>not user installations</em>.
+                            <br /><br />
+                            All extra Python versions require compiling. Choose sparingly - each additional
+                            version will add extra time to the initial <code>$ vagrant up</code>!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="python-packages">
+                                Installed Packages
+                                {{ popover.small('<a href="https://pypi.python.org/pypi" target="_blank">All valid Packages list</a>') }}
+                            </label>
+                            <select id="python-packages" name="python[packages][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% if python.packages is defined %}
+                                    {% for package in python.packages %}
+                                        <option selected value="{{ package }}">{{ package }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+
+                            <p class="help-block">
+                                To install a specific package version, use <code>{package}@{version}</code>.
+                                ex: <code>Django@1.6.5</code>. For latest just use <code>{package}</code>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {% for selected_version in python.versions %}
+                    {% include 'PuphpetExtensionPythonBundle:sections:Version.html.twig'
+                        with {'available_versions': python.available_versions, 'selected_version': selected_version} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.python.add_version') }}">Add another Python Version</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
