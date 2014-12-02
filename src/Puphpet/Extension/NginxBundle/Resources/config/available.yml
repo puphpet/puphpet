@@ -1,3 +1,8 @@
+empty_upstream:
+    name: backend
+    fail_timeout: 10s
+    members: []
+
 empty_vhost:
     server_name: ~
     server_aliases: []
@@ -15,7 +20,10 @@ empty_vhost:
         - index.htm
         - index.php
     location: '\.php$'
+    location_prepend: ''
+    location_append: {}
     engine: ~
+    client_max_body_size: '1m'
 
 available_engines:
     - none

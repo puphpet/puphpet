@@ -1,7 +1,7 @@
 if $yaml_values == undef { $yaml_values = loadyaml('/vagrant/puphpet/config.yaml') }
-if $nginx_values == undef { $nginx_values = $yaml_values['nginx'] }
-if $php_values == undef { $php_values = hiera_hash('php', false) }
-if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
+if $nginx_values == undef { $nginx_values = hiera('nginx', false) }
+if $php_values == undef { $php_values = hiera('php', false) }
+if $hhvm_values == undef { $hhvm_values = hiera('hhvm', false) }
 
 include puphpet::params
 
@@ -71,28 +71,36 @@ if hash_key_equals($nginx_values, 'install', 1) {
       'server_name'    => '_',
       'server_aliases' => [],
       'www_root'       => '/var/www/html',
+      'proxy'          => '',
       'listen_port'    => 80,
       'location'       => '\.php$',
+      'location_prepend' => [],
+      'location_append' => [],
       'index_files'    => ['index', 'index.html', 'index.htm', 'index.php'],
       'envvars'        => [],
       'ssl'            => '0',
       'ssl_cert'       => '',
       'ssl_key'        => '',
       'engine'         => 'php',
+      'client_max_body_size' => '1m'
     }
   } else {
     $default_vhost = {
       'server_name'    => '_',
       'server_aliases' => [],
       'www_root'       => '/var/www/html',
+      'proxy'          => '',
       'listen_port'    => 80,
       'location'       => '/',
+      'location_prepend' => [],
+      'location_append' => [],
       'index_files'    => ['index', 'index.html', 'index.htm'],
       'envvars'        => [],
       'ssl'            => '0',
       'ssl_cert'       => '',
       'ssl_key'        => '',
       'engine'         => false,
+      'client_max_body_size' => '1m'
     }
   }
 
@@ -116,20 +124,22 @@ if hash_key_equals($nginx_values, 'install', 1) {
 
   if count($nginx_vhosts) > 0 {
     each( $nginx_vhosts ) |$key, $vhost| {
-      exec { "exec mkdir -p ${vhost['www_root']} @ key ${key}":
-        command => "mkdir -p ${vhost['www_root']}",
-        creates => $vhost['www_root'],
-      }
+      if ! defined($vhost['proxy']) or $vhost['proxy'] == '' {
+        exec { "exec mkdir -p ${vhost['www_root']} @ key ${key}":
+          command => "mkdir -p ${vhost['www_root']}",
+          creates => $vhost['www_root'],
+        }
 
-      if ! defined(File[$vhost['www_root']]) {
-        file { $vhost['www_root']:
-          ensure  => directory,
-          group   => $vhost_docroot_group,
-          mode    => 0765,
-          require => [
-            Exec["exec mkdir -p ${vhost['www_root']} @ key ${key}"],
-            Group['www-user']
-          ]
+        if ! defined(File[$vhost['www_root']]) {
+          file { $vhost['www_root']:
+            ensure  => directory,
+            group   => $vhost_docroot_group,
+            mode    => 0765,
+            require => [
+              Exec["exec mkdir -p ${vhost['www_root']} @ key ${key}"],
+              Group['www-user']
+            ]
+          }
         }
       }
 
@@ -154,22 +164,30 @@ if hash_key_equals($nginx_values, 'install', 1) {
   }
 }
 
+if is_hash($nginx_values['upstreams']) and count($nginx_values['upstreams']) > 0 {
+  notify{"Adding upstreams":}
+  create_resources(nginx_upstream, $nginx_values['upstreams'])
+}
+
 define nginx_vhost (
   $server_name,
-  $server_aliases   = [],
+  $server_aliases      = [],
   $www_root,
   $listen_port,
   $location,
+  $location_prepend    = [],
+  $location_append     = [],
   $index_files,
-  $envvars          = [],
-  $ssl              = false,
-  $ssl_cert         = $puphpet::params::ssl_cert_location,
-  $ssl_key          = $puphpet::params::ssl_key_location,
-  $ssl_port         = '443',
-  $rewrite_to_https = false,
-  $spdy             = $nginx::params::nx_spdy,
-  $engine           = false,
-  $proxy            = undef,
+  $envvars             = [],
+  $ssl                 = false,
+  $ssl_cert            = $puphpet::params::ssl_cert_location,
+  $ssl_key             = $puphpet::params::ssl_key_location,
+  $ssl_port            = '443',
+  $rewrite_to_https    = false,
+  $spdy                = $nginx::params::nx_spdy,
+  $engine              = false,
+  $proxy               = undef,
+  client_max_body_size = '1m'
 ){
   $merged_server_name = concat([$server_name], $server_aliases)
 
@@ -201,6 +219,7 @@ define nginx_vhost (
   $ssl_port_set         = value_true($ssl_port)         ? { true => $ssl_port, default => '443', }
   $rewrite_to_https_set = value_true($rewrite_to_https) ? { true => true,      default => false, }
   $spdy_set             = value_true($spdy)             ? { true => on,        default => off, }
+  $www_root_set         = value_true($proxy)            ? { true => undef, default => $www_root, }
 
   $location_cfg_append  = merge({
     'fastcgi_split_path_info' => $fastcgi_split_path_info,
@@ -211,29 +230,47 @@ define nginx_vhost (
 
   nginx::resource::vhost { $server_name:
     server_name      => $merged_server_name,
+    www_root         => $www_root_set,
+    proxy            => $proxy,
     listen_port      => $listen_port,
     index_files      => $index_files,
     try_files        => ['$uri', '$uri/', "${try_files}"],
-    proxy            => $proxy,
     ssl              => $ssl_set,
     ssl_cert         => $ssl_cert_set,
     ssl_key          => $ssl_key_set,
     ssl_port         => $ssl_port_set,
     rewrite_to_https => $rewrite_to_https_set,
     spdy             => $spdy_set,
-    vhost_cfg_append => {sendfile => 'off'}
+    vhost_cfg_append => {sendfile => 'off'},
+    client_max_body_size => $client_max_body_size
   }
 
-  if $engine == 'php' {
+  if $engine == 'php' and $www_root_set != undef {
     nginx::resource::location { "${server_name}-php":
-      ensure              => present,
-      vhost               => $server_name,
-      location            => "~ ${location}",
-      proxy               => undef,
-      ssl                 => $ssl_set,
-      www_root            => $www_root,
-      location_cfg_append => $location_cfg_append,
-      notify              => Class['nginx::service'],
+      ensure                      => present,
+      vhost                       => $server_name,
+      location                    => "~ ${location}",
+      proxy                       => undef,
+      try_files                   => ['$uri', '$uri/', "/${try_files}\$is_args\$args"],
+      ssl                         => $ssl_set,
+      www_root                    => $www_root,
+      location_cfg_append         => $location_cfg_append,
+      location_custom_cfg_prepend => $location_prepend,
+      location_custom_cfg_append  => $location_append,      
+      notify                      => Class['nginx::service'],
     }
+  }
+}
+
+define nginx_upstream (
+  $name,
+  $fail_timeout = '10s',
+  $members = []
+) {
+  $count = count($members);
+  notify{"Adding nginx upstream for ${name} with ${count} members.": withpath => true}
+  nginx::resource::upstream { $name:
+    upstream_fail_timeout => $fail_timeout,
+    members               => $members
   }
 }

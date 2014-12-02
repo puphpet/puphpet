@@ -11,6 +11,7 @@ vhosts:
         server_aliases:
             - www.awesome.dev
         www_root: /var/www/awesome
+        proxy: ''
         listen_port: 80
         ssl: false
         ssl_port: 443
@@ -25,4 +26,7 @@ vhosts:
             - index.htm
             - index.php
         location: '\.php$'
+        location_prepend: []
+        location_append: {}
         engine: php
+        client_max_body_size: '1m'

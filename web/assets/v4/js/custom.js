@@ -650,12 +650,19 @@ PUPHPET.configureCollapseable = function() {
 
 PUPHPET.hideOnNotInstalled = function () {
     $(document).on('change', '.install-checkbox', function(e) {
-        var target = this.getAttribute('data-hide-on-uncheck');
+        var hideTarget = this.getAttribute('data-hide-on-uncheck');
+        var showTarget = this.getAttribute('data-show-on-uncheck');
 
         if ($(this).is(':checked')) {
-            $(target).removeClass('hidden');
+            $(hideTarget).removeClass('hidden');
+            if(showTarget) {
+                $(showTarget).addClass('hidden');    
+            }
         } else {
-            $(target).addClass('hidden');
+            $(hideTarget).addClass('hidden');
+            if(showTarget) {
+                $(showTarget).removeClass('hidden');
+            }
         }
     });
 };
