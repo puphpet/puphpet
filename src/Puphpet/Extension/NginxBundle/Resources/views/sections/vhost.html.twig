@@ -181,9 +181,11 @@
                 <select id="nginx-vhosts-{{ uniqid }}-location_prepend"
                         name="nginx[vhosts][{{ uniqid }}][location_prepend][]"
                         multiple class="form-control select-tags-editable">
-                    {% for prepend in vhost.location_prepend %}
-                        <option selected value="{{ prepend }}">{{ prepend }}</option>
-                    {% endfor %}
+                    {% if vhost.location_prepend is defined %}
+                        {% for prepend in vhost.location_prepend %}
+                            <option selected value="{{ prepend }}">{{ prepend }}</option>
+                        {% endfor %}
+                    {% endif %}
                 </select>
             </div>
         </div>
