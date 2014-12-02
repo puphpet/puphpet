@@ -171,23 +171,23 @@ if is_hash($nginx_values['upstreams']) and count($nginx_values['upstreams']) > 0
 
 define nginx_vhost (
   $server_name,
-  $server_aliases      = [],
+  $server_aliases       = [],
   $www_root,
   $listen_port,
   $location,
-  $location_prepend    = [],
-  $location_append     = [],
+  $location_prepend     = [],
+  $location_append      = [],
   $index_files,
-  $envvars             = [],
-  $ssl                 = false,
-  $ssl_cert            = $puphpet::params::ssl_cert_location,
-  $ssl_key             = $puphpet::params::ssl_key_location,
-  $ssl_port            = '443',
-  $rewrite_to_https    = false,
-  $spdy                = $nginx::params::nx_spdy,
-  $engine              = false,
-  $proxy               = undef,
-  client_max_body_size = '1m'
+  $envvars              = [],
+  $ssl                  = false,
+  $ssl_cert             = $puphpet::params::ssl_cert_location,
+  $ssl_key              = $puphpet::params::ssl_key_location,
+  $ssl_port             = '443',
+  $rewrite_to_https     = false,
+  $spdy                 = $nginx::params::nx_spdy,
+  $engine               = false,
+  $proxy                = undef,
+  $client_max_body_size = '1m'
 ){
   $merged_server_name = concat([$server_name], $server_aliases)
 
