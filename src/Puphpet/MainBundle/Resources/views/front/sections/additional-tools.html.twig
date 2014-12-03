@@ -78,11 +78,24 @@
                     </div>
                 </a>
             </li>
+            <li class="col-xs-2">
+                <a href="#solr" data-toggle="tab">
+                    <div class="tab-icon">
+                        <img src="/assets/v4/img/vendors/solr-active.png" class="tab-icon-active" />
+                        <img src="/assets/v4/img/vendors/solr-inactive.png" class="tab-icon-inactive" />
+                        Apache Solr
+                    </div>
+                </a>
+            </li>
         </ul>
 
         <div class="tab-content">
             <div class="tab-pane active" id="elastic_search">
                 {% set extension = extensionManager.getExtensionBySlug('elastic_search') %}
+                {{ extension.renderFront(extension.data)|raw }}
+            </div>
+            <div class="tab-pane" id="solr">
+                {% set extension = extensionManager.getExtensionBySlug('solr') %}
                 {{ extension.renderFront(extension.data)|raw }}
             </div>
         </div>
