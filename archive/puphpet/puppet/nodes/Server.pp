@@ -10,10 +10,21 @@ group { 'puppet':   ensure => present }
 group { 'www-data': ensure => present }
 group { 'www-user': ensure => present }
 
+case $::ssh_username {
+  'root': {
+    $user_home   = '/root'
+    $manage_home = false
+  }
+  default: {
+    $user_home   = "/home/${::ssh_username}"
+    $manage_home = true
+  }
+}
+
 user { $::ssh_username:
   shell      => '/bin/bash',
-  home       => "/home/${::ssh_username}",
-  managehome => true,
+  home       => $user_home,
+  managehome => $manage_home,
   ensure     => present,
   groups     => ['www-data', 'www-user'],
   require    => [Group['www-data'], Group['www-user']],
@@ -28,9 +39,9 @@ user { ['apache', 'nginx', 'httpd', 'www-data']:
 
 # copy dot files to ssh user's home directory
 exec { 'dotfiles':
-  cwd     => "/home/${::ssh_username}",
-  command => "cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /home/${::ssh_username}/ \
-              && chown -R ${::ssh_username} /home/${::ssh_username}/.[a-zA-Z0-9]* \
+  cwd     => $user_home,
+  command => "cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* ${user_home}/ \
+              && chown -R ${::ssh_username} ${user_home}/.[a-zA-Z0-9]* \
               && cp -r /vagrant/puphpet/files/dot/.[a-zA-Z0-9]* /root/",
   onlyif  => 'test -d /vagrant/puphpet/files/dot',
   returns => [0, 1],
@@ -134,28 +145,30 @@ define link_dot_files {
   file_line { 'link ~/.bash_git':
     ensure  => present,
     line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
-    path    => "/home/${::ssh_username}/.bash_profile",
-    require => Exec['dotfiles'],
-  }
-
-  file_line { 'link ~/.bash_git for root':
-    ensure  => present,
-    line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
-    path    => '/root/.bashrc',
+    path    => "${user_home}/.bash_profile",
     require => Exec['dotfiles'],
   }
 
   file_line { 'link ~/.bash_aliases':
     ensure  => present,
     line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
-    path    => "/home/${::ssh_username}/.bash_profile",
+    path    => "${user_home}/.bash_profile",
     require => Exec['dotfiles'],
   }
 
-  file_line { 'link ~/.bash_aliases for root':
-    ensure  => present,
-    line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
-    path    => '/root/.bashrc',
-    require => Exec['dotfiles'],
+  if $::ssh_username != 'root' {
+    file_line { 'link ~/.bash_git for root':
+      ensure  => present,
+      line    => 'if [ -f ~/.bash_git ] ; then source ~/.bash_git; fi',
+      path    => '/root/.bashrc',
+      require => Exec['dotfiles'],
+    }
+
+    file_line { 'link ~/.bash_aliases for root':
+      ensure  => present,
+      line    => 'if [ -f ~/.bash_aliases ] ; then source ~/.bash_aliases; fi',
+      path    => '/root/.bashrc',
+      require => Exec['dotfiles'],
+    }
   }
 }

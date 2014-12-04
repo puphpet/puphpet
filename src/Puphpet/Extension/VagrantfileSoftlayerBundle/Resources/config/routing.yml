@@ -1,0 +1,11 @@
+puphpet.extension.vagrantfile.softlayer.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionVagrantfileSoftlayerBundle:Front:index }
+
+puphpet.extension.vagrantfile.softlayer.synced_folder:
+    pattern: /synced-folder
+    defaults: { _controller: PuphpetExtensionVagrantfileSoftlayerBundle:Front:syncedFolder }
+
+puphpet.extension.vagrantfile.softlayer.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionVagrantfileSoftlayerBundle:Manifest:index }

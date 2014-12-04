@@ -1,0 +1,89 @@
+<div class="collapse-container" id="vagrantfile-softlayer-instructions-container">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a data-toggle="collapse" data-parent="#vagrantfile-softlayer-instructions-container"
+               href="#vagrantfile-softlayer-instructions-content">
+                <i class="glyphicon glyphicon-plus"></i>
+                Softlayer Instructions
+            </a>
+        </h3>
+    </div>
+
+    <div id="vagrantfile-softlayer-instructions-content" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="alert alert-warning alert-dismissable" data-dismiss="alert" aria-hidden="true">
+                WARNING! INITIAL <code>$ vagrant up</code> WILL PROBABLY FAIL!
+                <br /><br />
+                You may get the following error: <code>bash: sudo: command not found</code>
+                <br /><br />
+                This is OK! Simply run <code>$ vagrant ssh</code> and then type:
+                <code>apt-get install sudo</code>
+                <br /><br/>
+                Then <code>$ exit</code> and finally <code>$ vagrant provision</code>.
+            </div>
+
+            <div>
+                <h3>Softlayer Instance</h3>
+
+                <p>
+                    Login to Softlayer and
+                    <a href="https://control.softlayer.com/account/user/profile" target="_blank">go to the profile page</a>.
+                    You will need an API Key.
+                </p>
+            </div>
+
+            <div>
+                <h3>Installation Requirements</h3>
+
+                <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#softlayer-instructions-mac" data-toggle="pill">Mac</a></li>
+                    <li><a href="#softlayer-instructions-windows" data-toggle="pill">Windows</a></li>
+                    <li><a href="#softlayer-instructions-linux" data-toggle="pill">Linux</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="softlayer-instructions-mac">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-softlayer<br />
+                            $ vagrant box add dummy https://github.com/audiolize/vagrant-softlayer/raw/master/dummy.box
+                        </code>
+                    </div>
+                    <div class="tab-pane" id="softlayer-instructions-windows">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-softlayer<br />
+                            $ vagrant box add dummy https://github.com/audiolize/vagrant-softlayer/raw/master/dummy.box<br />
+                        </code>
+
+                        <div class="clearfix"></div>
+
+                        <p>
+                            You need rsync installed. Easiest way is to use Cygwin and install it through there.
+                            Alternatively, you can
+                            <a href="https://www.itefix.no/i2/content/cwrsync-free-edition" target="_blank">install rsync separately</a>
+                            and add it to your PATH.
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="softlayer-instructions-linux">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-softlayer<br />
+                            $ vagrant box add dummy https://github.com/audiolize/vagrant-softlayer/raw/master/dummy.box<br />
+                        </code>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3>Accessing Your VM</h3>
+
+                <p>
+                    To access your VM after running <code>$ vagrant up</code>, type
+                    <code>$ vagrant ssh-config</code> to get the IP address assigned to the server you created,
+                    and add the IP address to your computer's hosts file. Type <code>$ vagrant ssh</code> to
+                    be immediately connected via SSH to your new server!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

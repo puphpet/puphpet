@@ -1,0 +1,66 @@
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: false
+
+available_images:
+    -
+        image: DEBIAN_7_64
+        long_name: Debian Wheezy 7 x64
+        php_versions:
+            - 5.6
+            - 5.5
+            - 5.4
+            - HHVM
+    -
+        image: UBUNTU_14_64
+        long_name: Ubuntu Trusty 14.04 LTS x64
+        php_versions:
+            - 5.6
+            - 5.5
+            - HHVM
+    -
+        image: UBUNTU_12_64
+        long_name: Ubuntu Precise 12.04 x64
+        php_versions:
+            - 5.5
+            - 5.4
+            - HHVM
+
+available_cpus:
+    1: 1 x 2.0 GHz Core
+    2: 2 x 2.0 GHz Cores
+    4: 4 x 2.0 GHz Cores
+    8: 8 x 2.0 GHz Cores
+    12: 12 x 2.0 GHz Cores
+    16: 16 x 2.0 GHz Cores
+
+available_memory:
+    1024: 1 GB
+    2048: 2 GB
+    4096: 4 GB
+    6144: 6 GB
+    8192: 8 GB
+    12168: 12 GB
+    16384: 16 GB
+    32768: 32 GB
+    49152: 48 GB
+    65536: 64 GB
+
+available_datacenters:
+    ams01: Amsterdam - Western Europe (AMS01)
+    dal01: Dallas - Central United States (DAL01)
+    dal05: Dallas - Central United States (DAL05)
+    dal06: Dallas - Central United States (DAL06)
+    dal09: Dallas - Central United States (DAL09)
+    hkg02: Hong Kong - Asia (HKG02)
+    hou02: Houston - Central United States (HOU02)
+    lon02: London - Western Europe (Additional 6% hourly data center surcharge) (LON02)
+    mel01: Melbourne - Australia (Additional 20% hourly data center surcharge) (MEL01)
+    par01: Paris - Western Europe (Additional 6% hourly data center surcharge) (PAR01)
+    sjc01: San Jose - West Coast United States (SJC01)
+    sea01: Seattle - West Coast United States (SEA01)
+    sng01: Singapore - Southeast Asia (SNG01)
+    tor01: Toronto - Canada (TOR01)
+    wdc01: Washington, DC - East Coast United States (WDC01)

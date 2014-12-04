@@ -31,6 +31,15 @@
             </a>
         </li>
         <li class="col-xs-2">
+            <a href="#vagrantfile-softlayer-tab" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="/assets/v4/img/vendors/softlayer-active.png" class="tab-icon-active" />
+                    <img src="/assets/v4/img/vendors/softlayer-inactive.png" class="tab-icon-inactive" />
+                    Softlayer
+                </div>
+            </a>
+        </li>
+        <li class="col-xs-2">
             <a href="#vagrantfile-aws-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="{{ asset('assets/v4/img/vendors/aws-active.png') }}" class="tab-icon-active" />
@@ -52,6 +61,10 @@
         </div>
         <div class="tab-pane" id="vagrantfile-linode-tab">
             {% set extension = extensionManager.getExtensionBySlug('vagrantfile-linode') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="vagrantfile-softlayer-tab">
+            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-softlayer') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
         <div class="tab-pane" id="vagrantfile-aws-tab">

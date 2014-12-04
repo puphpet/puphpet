@@ -1,0 +1,49 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+{% set uniqid = uniqid('vsl_', true) %}
+
+<div id="{{ uniqid }}">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Sharing Your Folders
+            {{ popover.small('To upload files, <code>rsync</code> is used on <code>$ vagrant up</code>,
+                <code>$ vagrant provision</code> and <code>$ vagrant reload</code>.
+                Now may be a good time to work out your deployment strategy.', '')
+            }}
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="vagrantfile-softlayer-vm-synced_folder-{{ uniqid }}-source">
+                    Box Sync Folder Source
+                    {{ popover.small('Path your files are stored on host machine,
+                        <a href="http://docs.vagrantup.com/v2/synced-folders/index.html">more information</a>')
+                    }}
+                </label>
+                <input type="text" id="vagrantfile-softlayer-vm-synced_folder-{{ uniqid }}-source"
+                       name="vagrantfile-softlayer[vm][synced_folder][{{ uniqid }}][source]"
+                       required placeholder="/path/to/your/web/files"
+                       value="{{ synced_folder.source }}" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="vagrantfile-softlayer-vm-synced_folder-{{ uniqid }}-target">
+                    Box Sync Folder Target
+                    {{ popover.small('Path your hosts\' files are uploaded to on guest machine,
+                        <a href="http://docs.vagrantup.com/v2/synced-folders/index.html">more information</a>')
+                    }}
+                </label>
+                <input type="text" id="vagrantfile-softlayer-vm-synced_folder-{{ uniqid }}-target"
+                       name="vagrantfile-softlayer[vm][synced_folder][{{ uniqid }}][target]"
+                       required placeholder="/path/on/vm"
+                       value="{{ synced_folder.target }}" class="form-control" />
+            </div>
+        </div>
+
+        <p class="text-center">
+            <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
+                    data-parent-id="{{ uniqid }}">Remove this shared folder</button>
+        </p>
+    </div>
+</div>

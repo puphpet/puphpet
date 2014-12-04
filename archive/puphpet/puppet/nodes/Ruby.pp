@@ -56,16 +56,18 @@ define install_ruby (
 }
 
 define rvm_dotfile {
-  file { "/home/${::ssh_username}/.rvmrc":
-    ensure => present,
-    owner  => $::ssh_username,
-    require => User[$::ssh_username]
-  }
-  file_line { 'rvm_autoupdate_flag=0 >> ~/.rvmrc':
-    ensure  => present,
-    line    => 'rvm_autoupdate_flag=0',
-    path    => "/home/${::ssh_username}/.rvmrc",
-    require => File["/home/${::ssh_username}/.rvmrc"],
+  if $::ssh_username != 'root' {
+    file { "/home/${::ssh_username}/.rvmrc":
+      ensure => present,
+      owner  => $::ssh_username,
+      require => User[$::ssh_username]
+    }
+    file_line { 'rvm_autoupdate_flag=0 >> ~/.rvmrc':
+      ensure  => present,
+      line    => 'rvm_autoupdate_flag=0',
+      path    => "/home/${::ssh_username}/.rvmrc",
+      require => File["/home/${::ssh_username}/.rvmrc"],
+    }
   }
 
   file { "/root/.rvmrc":

@@ -41,6 +41,10 @@ if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
     apt-get update >/dev/null
     echo 'Finished running initial-setup apt-get update'
 
+    echo 'Installing curl'
+    apt-get -y install curl >/dev/null
+    echo 'Finished installing curl'
+
     echo 'Installing git'
     apt-get -y install git-core >/dev/null
     echo 'Finished installing git'
@@ -67,6 +71,10 @@ elif [[ "${OS}" == 'centos' ]]; then
     yum clean all >/dev/null
     yum -y check-update >/dev/null
     echo 'Finished adding repos: elrep, epel, scl'
+
+    echo 'Installing curl'
+    yum -y install curl >/dev/null
+    echo 'Finished installing curl'
 
     echo 'Installing git'
     yum -y install git >/dev/null

@@ -6,21 +6,25 @@ puphpet.extension.vagrantfilelocal:
     resource: "@PuphpetExtensionVagrantfileLocalBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/local
 
-puphpet.extension.vagrantfile.digital_ocean:
-    resource: "@PuphpetExtensionVagrantfileDigitalOceanBundle/Resources/config/routing.yml"
-    prefix:   /extension/vagrantfile/digitalocean
+puphpet.extension.vagrantfile.rackspace:
+    resource: "@PuphpetExtensionVagrantfileRackspaceBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile/rackspace
 
 puphpet.extension.vagrantfile.linode:
     resource: "@PuphpetExtensionVagrantfileLinodeBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/linode
 
-puphpet.extension.vagrantfile.rackspace:
-    resource: "@PuphpetExtensionVagrantfileRackspaceBundle/Resources/config/routing.yml"
-    prefix:   /extension/vagrantfile/rackspace
+puphpet.extension.vagrantfile.softlayer:
+    resource: "@PuphpetExtensionVagrantfileSoftlayerBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile/softlayer
 
 puphpet.extension.vagrantfile.aws:
     resource: "@PuphpetExtensionVagrantfileAwsBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/aws
+
+puphpet.extension.vagrantfile.digital_ocean:
+    resource: "@PuphpetExtensionVagrantfileDigitalOceanBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile/digitalocean
 
 puphpet.extension.server:
     resource: "@PuphpetExtensionServerBundle/Resources/config/routing.yml"
