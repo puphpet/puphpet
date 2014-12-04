@@ -695,6 +695,10 @@ PUPHPET.scrollTo = function() {
     });
 };
 
+PUPHPET.disableEnterSubmit = function() {
+    $('input,select').keypress(function(event) { if(event.keyCode == 13) event.preventDefault(); });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -714,4 +718,5 @@ $(document).ready(function() {
     PUPHPET.hideOnNotInstalled();
     PUPHPET.submitUncheckedCheckboxes();
     PUPHPET.scrollTo();
+    PUPHPET.disableEnterSubmit();
 });
