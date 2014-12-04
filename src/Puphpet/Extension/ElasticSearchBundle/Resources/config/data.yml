@@ -1,5 +1,5 @@
 install: 0
 
 settings:
+    version: ~
     java_install: true
-    autoupgrade: true

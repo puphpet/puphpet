@@ -1,6 +1,6 @@
 install: 0
 
 settings:
+    version: 1.4.1
     java_install: true
-    autoupgrade: true
 

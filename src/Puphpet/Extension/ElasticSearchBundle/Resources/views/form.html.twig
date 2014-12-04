@@ -20,6 +20,19 @@
                 <div class="panel-body">
                     <div class="row form-group">
                         <div class="col-xs-12">
+                            <label for="elastic_search-settings-version">Choose Version</label>
+
+                            <select id="elastic_search-settings-version"
+                                    name="elastic_search[settings][version]" size="6"
+                                    class="form-control select-tags">
+                                {% for available in elastic_search.available_versions %}
+                                    <option value="{{ available }}"
+                                        {% if available == elastic_search.settings.version %}selected{% endif %}>{{ available }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-xs-12">
                             <p class="help-block">
                                 Elastic Search is a powerful open source search and analytics engine that makes data
                                 easy to explore.
