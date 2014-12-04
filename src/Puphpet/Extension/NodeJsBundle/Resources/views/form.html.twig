@@ -29,6 +29,11 @@
                                     <option selected value="{{ package }}">{{ package }}</option>
                                 {% endfor %}
                             </select>
+
+                            <p class="help-block">
+                                To install a specific version, use <code>{package}@{version}</code>.
+                                ex: <code>express@4.10.4 </code>. For latest just use <code>{package}</code>.
+                            </p>
                         </div>
                     </div>
                 </div>

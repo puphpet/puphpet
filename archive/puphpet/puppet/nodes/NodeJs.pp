@@ -7,9 +7,17 @@ if hash_key_equals($nodejs_values, 'install', 1) {
 
   if is_array($nodejs_values['npm_packages']) and count($nodejs_values['npm_packages']) > 0 {
     each( $nodejs_values['npm_packages'] ) |$package| {
-      if ! defined(Package[$package]) {
-        package { $package:
-          ensure   => present,
+        $npm_array = split($package, '@')
+
+        if count($npm_array) == 2 {
+          $npm_ensure = $npm_array[1]
+        } else {
+          $npm_ensure = present
+        }
+
+      if ! defined(Package[$npm_array[0]]) {
+        package { $npm_array[0]:
+          ensure   => $npm_ensure,
           provider => npm,
         }
       }
