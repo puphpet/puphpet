@@ -24,6 +24,9 @@ mod 'garethr/erlang',
 mod 'puppetlabs/firewall',
     :git => 'https://github.com/puppetlabs/puppetlabs-firewall.git',
     :ref => '1.1.1'
+mod 'puppetlabs/java',
+    :git => 'https://github.com/puppetlabs/puppetlabs-java.git',
+    :ref => '1.2.0'
 mod 'actionjack/mailcatcher',
     :git => 'https://github.com/puphpet/puppet-mailcatcher.git',
     :ref => 'dcc8c3d357'
@@ -64,6 +67,9 @@ mod 'maestrodev/rvm'
 mod 'puppetlabs/sqlite',
     :git => 'https://github.com/puppetlabs/puppetlabs-sqlite.git',
     :ref => 'v0.0.1'
+mod 'example42/solr',
+    :git => 'https://github.com/example42/puppet-solr.git',
+    :ref => 'v2.0.7'
 mod 'petems/swap_file',
     :git => 'https://github.com/petems/puppet-swap_file.git',
     :ref => '39582afda5'
