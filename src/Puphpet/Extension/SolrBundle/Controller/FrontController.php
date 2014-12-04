@@ -9,7 +9,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionSolrBundle::Solr.html.twig', [
+        return $this->render('PuphpetExtensionSolrBundle::form.html.twig', [
             'solr' => $data,
         ]);
     }
