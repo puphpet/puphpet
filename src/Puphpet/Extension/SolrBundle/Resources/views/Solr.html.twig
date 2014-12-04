@@ -1,0 +1,64 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+<section id="solr">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Apache Solr</h3>
+                </div>
+
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="solr[install]"
+                                   {% if solr.install %}checked{% endif %} value="1" /> Install Apache Solr
+                            {% if not solr.install %}<input type="hidden" name="solr[install]" value="0" />{% endif %}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="solr-settings-version">Choose Version</label>
+
+                            <select id="solr-settings-version"
+                                    name="solr[settings][version]" size="6"
+                                    class="form-control select-tags">
+                                {% for available in solr.available_versions %}
+                                    <option value="{{ available }}"
+                                        {% if available == solr.settings.version %}selected{% endif %}>{{ available }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="solr-settings-port">Port</label>
+                            <input type="number" id="solr-settings-port"
+                                   name="solr[settings][port]" placeholder="8984"
+                                   value="{{ solr.settings.port }}" class="form-control" />
+
+                            <p class="help-block">
+                                Minimum port number is 1000
+                            </p>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <p class="help-block">
+                                Solr is the popular, blazing-fast, open source enterprise search platform built on
+                                Apache Lucene<sup>&trade;</sup>.
+                                <a href="http://lucene.apache.org/solr/" target="_blank">Learn about Apache Solr</a>.
+
+                                <br /><br />
+
+                                Solr will be available at <code>http://{SERVER_IP_ADDRESS}:{HTTP_PORT}/solr</code>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
