@@ -50,15 +50,15 @@ available_sizes:
     - 8GB Standard Instance
     - 15GB Standard Instance
     - 30GB Standard Instance
-    - 1 GB Performance
-    - 2 GB Performance
-    - 4 GB Performance
-    - 8 GB Performance
-    - 120 GB Performance
-    - 15 GB Performance
-    - 30 GB Performance
-    - 60 GB Performance
-    - 90 GB Performance
+    - 1 GB General Purpose v1
+    - 2 GB General Purpose v1
+    - 4 GB General Purpose v1
+    - 8 GB General Purpose v1
+    - 120 GB I/O v1
+    - 15 GB I/O v1
+    - 30 GB I/O v1
+    - 60 GB I/O v1
+    - 90 GB I/O v1
 
 available_regions:
     dfw: Dallas (DFW)
