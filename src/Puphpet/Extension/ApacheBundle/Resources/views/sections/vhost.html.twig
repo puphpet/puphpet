@@ -1,5 +1,5 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-{% set uniqid = uniqid('av_', true) %}
+{% set uniqid = uniqid('av_', true)|lower %}
 
 <div id="{{ uniqid }}">
     <div class="panel-heading">
@@ -141,10 +141,15 @@
         <div class="row form-group">
             <div class="col-md-12">
                 <label class="checkbox-inline">
-                    <input type="checkbox" class="install-checkbox"
+                    <input type="checkbox"
+                           class="install-checkbox
+                                  update-other-input-on-check
+                                  update-other-input-on-uncheck"
                            id="apache-vhosts-{{ uniqid }}-ssl"
                            name="apache[vhosts][{{ uniqid }}][ssl]" value="1"
                            data-hide-on-uncheck="#apache-vhosts-{{ uniqid }}-ssl_options"
+                           data-update-on-check-apache[vhosts][{{ uniqid }}][port]="443"
+                           data-update-on-uncheck-apache[vhosts][{{ uniqid }}][port]="80"
                            {% if vhost.ssl is defined and vhost.ssl %}checked{% endif %} />
                     Enable SSL
                 </label>

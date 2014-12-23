@@ -1,5 +1,5 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-{% set uniqid = uniqid('nxv_', true) %}
+{% set uniqid = uniqid('nxv_', true)|lower %}
 
 <div id="{{ uniqid }}">
     <div class="panel-heading">
@@ -18,10 +18,11 @@
                            data-show-on-uncheck="#nginx-vhosts-{{ uniqid }}-vhost_options"
                            {% if vhost.proxy is defined and vhost.proxy %}checked{% endif %} />
                     Proxy
-                    <p class="help-block">
-                        Check the box to proxy the vhost. Make sure you configure the upstream above.
-                    </p>
                 </label>
+
+                <p class="help-block">
+                    Check the box to proxy the vhost. Make sure you configure the upstream above.
+                </p>
             </div>
         </div>
 
@@ -193,10 +194,15 @@
         <div class="row form-group">
             <div class="col-md-12">
                 <label class="checkbox-inline">
-                    <input type="checkbox" class="install-checkbox"
+                    <input type="checkbox"
+                           class="install-checkbox
+                                  update-other-input-on-check
+                                  update-other-input-on-uncheck"
                            id="nginx-vhosts-{{ uniqid }}-ssl"
                            name="nginx[vhosts][{{ uniqid }}][ssl]" value="1"
                            data-hide-on-uncheck="#nginx-vhosts-{{ uniqid }}-ssl_options"
+                           data-update-on-check-nginx[vhosts][{{ uniqid }}][listen_port]="443"
+                           data-update-on-uncheck-nginx[vhosts][{{ uniqid }}][listen_port]="80"
                            {% if vhost.ssl is defined and vhost.ssl %}checked{% endif %} />
                     Enable SSL
                 </label>
