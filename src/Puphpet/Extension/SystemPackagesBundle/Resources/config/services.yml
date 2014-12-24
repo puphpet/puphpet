@@ -1,0 +1,12 @@
+parameters:
+
+services:
+    puphpet.extension.system_packages.configure:
+        class: Puphpet\Extension\SystemPackagesBundle\Configure
+        arguments:
+            - @service_container
+
+    puphpet.extension.system_packages.front_controller:
+        class: Puphpet\Extension\SystemPackagesBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]

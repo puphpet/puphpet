@@ -1,0 +1,23 @@
+<div class="tab-pane fade in" id="system">
+    <div class="page-header compact">
+        <h1><i class="fa fa-th-large"></i> System</h1>
+    </div>
+
+    <section id="system-packages">
+        <div class="page-header compact">
+            <h1><i class="fa fa-cogs"></i> Packages</h1>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="system-packages-tab">
+                {% set extension = extensionManager.getExtensionBySlug('system-packages') %}
+                {{ extension.renderFront(extension.data)|raw }}
+            </div>
+        </div>
+    </section>
+
+    <ul class="pager">
+        <li class="previous"><a href="#deploy-target">← Deploy Target</a></li>
+        <li class="next"><a href="#firewall">Firewall Rules →</a></li>
+    </ul>
+</div>

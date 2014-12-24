@@ -1,7 +1,0 @@
-puphpet.extension.server.homepage:
-    pattern:  /
-    defaults: { _controller: PuphpetExtensionServerBundle:Front:index }
-
-puphpet.extension.server.manifest:
-    pattern:  /manifest
-    defaults: { _controller: PuphpetExtensionServerBundle:Manifest:index }

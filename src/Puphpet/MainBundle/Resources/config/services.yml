@@ -16,8 +16,8 @@ services:
             - [ addExtension, [ @puphpet.extension.vagrantfile.softlayer.configure ] ]
             - [ addExtension, [ @puphpet.extension.vagrantfile.aws.configure ] ]
             - [ addExtension, [ @puphpet.extension.vagrantfile.digital_ocean.configure ] ]
-        # server
-            - [ addExtension, [ @puphpet.extension.server.configure ] ]
+        # system
+            - [ addExtension, [ @puphpet.extension.system_packages.configure ] ]
         # firewall
             - [ addExtension, [ @puphpet.extension.firewall.configure ] ]
         # webservers

@@ -1,0 +1,7 @@
+puphpet.extension.system_packages.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionSystemPackagesBundle:Front:index }
+
+puphpet.extension.system_packages.manifest:
+    pattern:  /manifest
+    defaults: { _controller: PuphpetExtensionSystemPackagesBundle:Manifest:index }

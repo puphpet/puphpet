@@ -1,6 +1,6 @@
 <?php
 
-namespace Puphpet\Extension\ServerBundle\Controller;
+namespace Puphpet\Extension\SystemPackagesBundle\Controller;
 
 use Puphpet\MainBundle\Extension;
 
@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionServerBundle::form.html.twig', [
+        return $this->render('PuphpetExtensionSystemPackagesBundle::form.html.twig', [
             'server' => $data,
             'extra'  => $extra,
         ]);
