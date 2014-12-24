@@ -10,7 +10,7 @@ class Configure extends Extension\ExtensionAbstract
 
     protected $conf = [
         'name'            => 'Packages',
-        'slug'            => 'package',
+        'slug'            => 'server',
         'frontController' => 'puphpet.extension.package.front_controller',
     ];
 }
