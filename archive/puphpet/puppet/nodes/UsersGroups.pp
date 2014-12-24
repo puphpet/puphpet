@@ -33,12 +33,6 @@ if count($usersgroups_values['users']) > 0 {
     }
 
     if ! defined(User[$user]) {
-      if count($groups) > 0 {
-        $user_groups = $groups
-      } else {
-        $user_groups = []
-      }
-
       user { $user:
         shell      => '/bin/bash',
         home       => "/home/${user}",
