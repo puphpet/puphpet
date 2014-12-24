@@ -26,9 +26,9 @@ puphpet.extension.vagrantfile.digital_ocean:
     resource: "@PuphpetExtensionVagrantfileDigitalOceanBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/digitalocean
 
-puphpet.extension.system.packages:
-    resource: "@PuphpetExtensionSystemPackagesBundle/Resources/config/routing.yml"
-    prefix:   /extension/system/packages
+puphpet.extension.package:
+    resource: "@PuphpetExtensionPackageBundle/Resources/config/routing.yml"
+    prefix:   /extension/package
 
 puphpet.extension.apache:
     resource: "@PuphpetExtensionApacheBundle/Resources/config/routing.yml"

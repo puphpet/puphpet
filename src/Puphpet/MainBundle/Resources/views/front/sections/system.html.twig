@@ -10,7 +10,7 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="system-packages-tab">
-                {% set extension = extensionManager.getExtensionBySlug('system-packages') %}
+                {% set extension = extensionManager.getExtensionBySlug('package') %}
                 {{ extension.renderFront(extension.data)|raw }}
             </div>
         </div>

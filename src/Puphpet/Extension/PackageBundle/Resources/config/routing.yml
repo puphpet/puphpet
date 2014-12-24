@@ -1,0 +1,3 @@
+puphpet.extension.package.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionPackageBundle:Front:index }
