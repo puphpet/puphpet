@@ -1,0 +1,3 @@
+puphpet.extension.user_group.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionUserGroupBundle:Front:index }

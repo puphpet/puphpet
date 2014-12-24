@@ -1,0 +1,66 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+<section id="users-groups">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Users &amp; Groups</h3>
+                </div>
+
+                <div class="panel-body">
+                    <input type="hidden" name="users_groups[install]" value="1" />
+
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="users_groups-groups">Groups</label>
+                            <select id="users_groups-groups" name="users_groups[groups][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% for group in ug.groups %}
+                                    <option selected value="{{ group }}">{{ group }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <p class="help-block">
+                                Add groups here. Not all groups require users.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-xs-12">
+                            <label for="users_groups-users">Users</label>
+                            <select id="users_groups-users" name="users_groups[users][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% for user in ug.users %}
+                                    <option selected value="{{ user }}">{{ user }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <p class="help-block">
+                                Add users here. Not all users require groups, but if you want to
+                                add a user to a group, the group must be listed above in the Groups
+                                section.
+                            </p>
+
+                            <p class="help-block">
+                                The required format for users to be added to groups is
+                                <code>{USER}:{GROUP}</code>. If you want to create a user
+                                without assigning to a group, simply use <code>{USER}</code>.
+                                You can also assign a user to multiple groups using
+                                <code>{USER}:{GROUP}:{GROUP}</code> - a user can belong
+                                to as many groups as you want.
+                            </p>
+
+                            <p class="help-block">
+                                User home directories will be placed at
+                                <code>/home/{USER}</code>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {{ extra|raw }}
+            </div>
+        </div>
+    </div>
+</section>

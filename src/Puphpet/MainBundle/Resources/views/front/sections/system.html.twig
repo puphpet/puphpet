@@ -10,7 +10,20 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="system-packages-tab">
-                {% set extension = extensionManager.getExtensionBySlug('package') %}
+                {% set extension = extensionManager.getExtensionBySlug('server') %}
+                {{ extension.renderFront(extension.data)|raw }}
+            </div>
+        </div>
+    </section>
+
+    <section id="system-users_groups">
+        <div class="page-header compact">
+            <h1><i class="fa fa-cogs"></i> Users &amp; Groups</h1>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="system-users_groups-tab">
+                {% set extension = extensionManager.getExtensionBySlug('users_groups') %}
                 {{ extension.renderFront(extension.data)|raw }}
             </div>
         </div>

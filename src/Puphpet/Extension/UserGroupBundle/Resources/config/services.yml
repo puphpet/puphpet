@@ -1,0 +1,12 @@
+parameters:
+
+services:
+    puphpet.extension.user_group.configure:
+        class: Puphpet\Extension\UserGroupBundle\Configure
+        arguments:
+            - @service_container
+
+    puphpet.extension.user_group.front_controller:
+        class: Puphpet\Extension\UserGroupBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]
