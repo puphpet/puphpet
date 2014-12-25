@@ -1056,6 +1056,7 @@ available_ini:
         - opcache.enable_file_override
         - opcache.error_log
         - opcache.fast_shutdown
+        - opcache.file_update_protection
         - opcache.force_restart_timeout
         - opcache.inherited_hack
         - opcache.interned_strings_buffer
