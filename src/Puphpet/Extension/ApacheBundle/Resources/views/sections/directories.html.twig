@@ -1,0 +1,61 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+{% set uniqid = uniqid('avd_', true)|lower %}
+
+<input type="hidden" value="directory"
+       name="apache[vhosts][{{ v_uniqid }}][directories][{{ uniqid }}][provider]" />
+<input type="hidden" value="{{ vhost.docroot }}"
+       class="mirror-value"
+       data-mirror-value="#apache-vhosts-{{ v_uniqid }}-docroot"
+       name="apache[vhosts][{{ v_uniqid }}][directories][{{ uniqid }}][path]" />
+
+<div class="row form-group">
+    <div class="col-xs-6">
+        <label for="apache-vhosts-{{ v_uniqid }}-directories-{{ uniqid }}-options">Directory Options</label>
+        <select id="apache-vhosts-{{ v_uniqid }}-directories-{{ uniqid }}-options"
+                name="apache[vhosts][{{ v_uniqid }}][directories][{{ uniqid }}][options][]"
+                multiple class="form-control select-tags-editable">
+            {% if directory.options is defined %}
+                {% for options in directory.options %}
+                    <option selected value="{{ options }}">{{ options }}</option>
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+
+    <div class="col-xs-6">
+        <label for="apache-vhosts-{{ v_uniqid }}-directories-{{ uniqid }}-allow_override">Allow Override</label>
+        <select id="apache-vhosts-{{ v_uniqid }}-directories-{{ uniqid }}-allow_override"
+                name="apache[vhosts][{{ v_uniqid }}][directories][{{ uniqid }}][allow_override][]"
+                multiple class="form-control select-tags-editable">
+            {% if directory.allow_override is defined %}
+                {% for allow in directory.allow_override %}
+                    <option selected value="{{ allow }}">{{ allow }}</option>
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+</div>
+
+<div class="row form-group">
+    <div class="col-xs-6">
+        <label for="apache-vhosts-{{ v_uniqid }}-directories-{{ uniqid }}-require">Require</label>
+        <select id="apache-vhosts-{{ v_uniqid }}-directories-{{ uniqid }}-require"
+                name="apache[vhosts][{{ v_uniqid }}][directories][{{ uniqid }}][require][]"
+                multiple class="form-control select-tags-editable">
+            {% if directory.require is defined %}
+                {% for require in directory.require %}
+                    <option selected value="{{ require }}">{{ require }}</option>
+                {% endfor %}
+            {% endif %}
+        </select>
+    </div>
+
+    <div class="col-xs-6">
+        <label for="apache-vhosts-{{ v_uniqid }}-directories-{{ uniqid }}-custom_fragment">
+            Custom Directives (<strong>inside</strong> &lt;Directory&gt; block)
+        </label>
+        <textarea id="apache-vhosts-{{ v_uniqid }}-directories-{{ uniqid }}-custom_fragment"
+               name="apache[vhosts][{{ v_uniqid }}][directories][{{ uniqid }}][custom_fragment]"
+               class="form-control">{% if directory.custom_fragment is defined %}{{ directory.custom_fragment }}{% endif %}</textarea>
+    </div>
+</div>

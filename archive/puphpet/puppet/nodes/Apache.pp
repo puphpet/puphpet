@@ -156,6 +156,7 @@ if hash_key_equals($apache_values, 'install', 1) {
 
       $vhost_merged = delete(merge($vhost, {
         'custom_fragment' => template('puphpet/apache/custom_fragment.erb'),
+        'directories'     => values_no_error($vhost['directories']),
         'ssl'             => 'ssl' in $vhost and str2bool($vhost['ssl']) ? { true => true, default => false },
         'ssl_cert'        => hash_key_true($vhost, 'ssl_cert')      ? { true => $vhost['ssl_cert'],      default => $puphpet::params::ssl_cert_location },
         'ssl_key'         => hash_key_true($vhost, 'ssl_key')       ? { true => $vhost['ssl_key'],       default => $puphpet::params::ssl_key_location },

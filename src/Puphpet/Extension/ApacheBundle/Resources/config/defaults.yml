@@ -13,14 +13,22 @@ vhosts:
             - www.awesome.dev
         docroot: /var/www/awesome
         port: 80
-        setenv: # environment variables
+        setenv:
             - APP_ENV dev
-        override:
-            - All
-        options:
-            - Indexes
-            - FollowSymLinks
-            - MultiViews
+        directories:
+            -
+                provider: directory
+                path: /var/www/awesome
+                options:
+                    - Indexes
+                    - FollowSymlinks
+                    - MultiViews
+                allow_override:
+                    - All
+                require:
+                    - all
+                    - granted
+                custom_fragment: ''
         custom_fragment: ~
         ssl: 0
         ssl_cert: ~

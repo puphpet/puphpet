@@ -838,6 +838,23 @@ PUPHPET.disableEnterSubmit = function() {
     });
 };
 
+/**
+ * Element's values are updated as target is updated. Only for input type=text
+ */
+PUPHPET.mirrorValue = function() {
+    $('.mirror-value').each(function() {
+        var $target    = $(this);
+        var sourceName = $(this)[0].getAttribute('data-mirror-value');
+
+        console.log(sourceName);
+
+        $(document).on('change', sourceName, function(e) {
+            console.log('aaaa');
+            $target.val($(sourceName).val());
+        });
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -860,4 +877,5 @@ $(document).ready(function() {
     PUPHPET.submitUncheckedCheckboxes();
     PUPHPET.scrollTo();
     PUPHPET.disableEnterSubmit();
+    PUPHPET.mirrorValue();
 });

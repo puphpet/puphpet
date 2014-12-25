@@ -59,7 +59,7 @@
         </div>
 
         <div class="row form-group">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <label for="apache-vhosts-{{ uniqid }}-setenv">
                     Environment Variables
                     {{ popover.small('"name value", separated by comma') }}
@@ -74,39 +74,11 @@
                     {% endif %}
                 </select>
             </div>
-
-            <div class="col-md-6">
-                <label for="apache-vhosts-{{ uniqid }}-override">
-                    AllowOverride
-                    {{ popover.small('Separated by comma, "All" is probably fine.
-                        <a href="http://httpd.apache.org/docs/2.2/mod/core.html#allowoverride"
-                            target="_blank">Click here for more hardcore information.</a>') }}
-                </label>
-                <select id="apache-vhosts-{{ uniqid }}-override"
-                        name="apache[vhosts][{{ uniqid }}][override][]"
-                        multiple class="form-control select-tags-editable">
-                    {% if vhost.override is defined %}
-                        {% for override in vhost.override %}
-                            <option selected value="{{ override }}">{{ override }}</option>
-                        {% endfor %}
-                    {% endif %}
-                </select>
-            </div>
         </div>
 
-        <div class="row form-group">
-            <div class="col-xs-12">
-                <label for="apache-vhosts-{{ uniqid }}-options">Directory Options</label>
-                <select id="apache-vhosts-{{ uniqid }}-options" name="apache[vhosts][{{ uniqid }}][options][]"
-                        multiple class="form-control select-tags-editable">
-                    {% if vhost.options is defined %}
-                        {% for options in vhost.options %}
-                            <option selected value="{{ options }}">{{ options }}</option>
-                        {% endfor %}
-                    {% endif %}
-                </select>
-            </div>
-        </div>
+        {% for directory in vhost.directories %}
+            {% include 'PuphpetExtensionApacheBundle:sections:directories.html.twig' with {'vhost': vhost, 'directory': directory, 'v_uniqid': uniqid} %}
+        {% endfor %}
 
         <div class="row form-group">
             <div class="col-md-6">
@@ -129,8 +101,7 @@
 
             <div class="col-md-6">
                 <label for="apache-vhosts-{{ uniqid }}-custom_fragment">
-                    Custom Directives
-                    {{ popover.small('Advanced usage!') }}
+                    Custom Directives (<strong>outside</strong> &lt;Directory&gt; block)
                 </label>
                 <textarea id="apache-vhosts-{{ uniqid }}-custom_fragment"
                        name="apache[vhosts][{{ uniqid }}][custom_fragment]"

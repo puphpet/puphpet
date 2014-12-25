@@ -4,11 +4,14 @@ empty_vhost:
     docroot: ~
     port: 80
     setenv: []
-    override: []
-    options:
-        - Indexes
-        - FollowSymLinks
-        - MultiViews
+    directories:
+        -
+            provider: directory
+            path: 1
+            options: []
+            allow_override: []
+            require: []
+            custom_fragment: ~
     custom_fragment: ~
     ssl: 0
     ssl_cert: ~
