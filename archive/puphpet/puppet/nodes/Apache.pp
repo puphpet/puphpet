@@ -40,7 +40,7 @@ if hash_key_equals($apache_values, 'install', 1) {
 
   if downcase($::provisioner_type) in $apache_provider_types {
     $webroot_location_group = 'www-data'
-    $vhost_docroot_group    = undef
+    $vhost_docroot_group    = 'www-data'
   } else {
     $webroot_location_group = undef
     $vhost_docroot_group    = 'www-user'
