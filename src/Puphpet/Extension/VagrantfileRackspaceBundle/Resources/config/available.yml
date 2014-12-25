@@ -54,11 +54,11 @@ available_sizes:
     - 2 GB General Purpose v1
     - 4 GB General Purpose v1
     - 8 GB General Purpose v1
-    - 120 GB I/O v1
     - 15 GB I/O v1
     - 30 GB I/O v1
     - 60 GB I/O v1
     - 90 GB I/O v1
+    - 120 GB I/O v1
 
 available_regions:
     dfw: Dallas (DFW)
