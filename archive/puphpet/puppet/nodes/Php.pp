@@ -136,15 +136,18 @@ if hash_key_equals($php_values, 'install', 1) {
     if hash_key_true($php_values['ini'], 'session.save_path'){
       $php_sess_save_path = $php_values['ini']['session.save_path']
 
-      exec {"mkdir -p ${php_sess_save_path}":
-        creates => $php_sess_save_path,
-        before  => Class['php']
-      }
-      -> file { $php_sess_save_path:
-        ensure => directory,
-        group  => 'www-data',
-        owner  => 'www-data',
-        mode   => 0775,
+      # Handles URLs like tcp://127.0.0.1:6379 - absolute file paths won't have ":"
+      if ! (':' in $php_sess_save_path) {
+        exec {"mkdir -p ${php_sess_save_path}":
+          creates => $php_sess_save_path,
+          before  => Class['php']
+        }
+        -> file { $php_sess_save_path:
+          ensure => directory,
+          group  => 'www-data',
+          owner  => 'www-data',
+          mode   => 0775,
+        }
       }
     }
   }
