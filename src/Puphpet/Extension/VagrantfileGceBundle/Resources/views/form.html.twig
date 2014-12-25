@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-default">
-            {% include 'PuphpetExtensionVagrantfileGceBundle:form/sections:Instructions.html.twig' %}
+            {% include 'PuphpetExtensionVagrantfileGceBundle:sections:Instructions.html.twig' %}
 
             <div class="panel-heading">
                 <h3 class="panel-title">Google Compute Engine Details</h3>
@@ -161,7 +161,7 @@
             </div>
 
             {% for synced_folder in data.vm.synced_folder %}
-                {% include 'PuphpetExtensionVagrantfileGceBundle:form/sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
+                {% include 'PuphpetExtensionVagrantfileGceBundle:sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
             {% endfor %}
 
             <div class="row">
