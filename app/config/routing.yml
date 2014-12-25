@@ -22,6 +22,10 @@ puphpet.extension.vagrantfile.aws:
     resource: "@PuphpetExtensionVagrantfileAwsBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/aws
 
+puphpet.extension.vagrantfile.gce:
+    resource: "@PuphpetExtensionVagrantfileGceBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile/gce
+
 puphpet.extension.vagrantfile.digital_ocean:
     resource: "@PuphpetExtensionVagrantfileDigitalOceanBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/digitalocean

@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Puphpet\Extension\VagrantfileLinodeBundle\PuphpetExtensionVagrantfileLinodeBundle(),
             new Puphpet\Extension\VagrantfileSoftlayerBundle\PuphpetExtensionVagrantfileSoftlayerBundle(),
             new Puphpet\Extension\VagrantfileAwsBundle\PuphpetExtensionVagrantfileAwsBundle(),
+            new Puphpet\Extension\VagrantfileGceBundle\PuphpetExtensionVagrantfileGceBundle(),
             new Puphpet\Extension\VagrantfileDigitalOceanBundle\PuphpetExtensionVagrantfileDigitalOceanBundle(),
             new Puphpet\Extension\PackageBundle\PuphpetExtensionPackageBundle(),
             new Puphpet\Extension\UserGroupBundle\PuphpetExtensionUserGroupBundle(),

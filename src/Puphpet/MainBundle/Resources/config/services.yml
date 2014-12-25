@@ -15,6 +15,7 @@ services:
             - [ addExtension, [ @puphpet.extension.vagrantfile.linode.configure ] ]
             - [ addExtension, [ @puphpet.extension.vagrantfile.softlayer.configure ] ]
             - [ addExtension, [ @puphpet.extension.vagrantfile.aws.configure ] ]
+            - [ addExtension, [ @puphpet.extension.vagrantfile.gce.configure ] ]
             - [ addExtension, [ @puphpet.extension.vagrantfile.digital_ocean.configure ] ]
         # system
             - [ addExtension, [ @puphpet.extension.package.configure ] ]
