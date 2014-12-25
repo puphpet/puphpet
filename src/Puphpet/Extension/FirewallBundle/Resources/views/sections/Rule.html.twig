@@ -14,7 +14,7 @@
                     {{ popover.small('Port to affect, can be multiple.')
                     }}
                 </label>
-                <select id="firewall-rules-{{ uniqid }}-port" name="firewall[rules][{{ uniqid }}][port]"
+                <select id="firewall-rules-{{ uniqid }}-port" name="firewall[rules][{{ uniqid }}][port][]"
                         multiple class="form-control select-tags-editable">
                     {% if rule.port is defined and rule.port is iterable %}
                         {% for port in rule.port %}
