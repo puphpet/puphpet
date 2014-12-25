@@ -76,9 +76,11 @@
             </div>
         </div>
 
-        {% for directory in vhost.directories %}
-            {% include 'PuphpetExtensionApacheBundle:sections:directories.html.twig' with {'vhost': vhost, 'directory': directory, 'v_uniqid': uniqid} %}
-        {% endfor %}
+        {% if vhost.directories is defined %}
+            {% for directory in vhost.directories %}
+                {% include 'PuphpetExtensionApacheBundle:sections:directories.html.twig' with {'vhost': vhost, 'directory': directory, 'v_uniqid': uniqid} %}
+            {% endfor %}
+        {% endif %}
 
         <div class="row form-group">
             <div class="col-md-6">
