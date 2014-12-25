@@ -4,7 +4,7 @@ namespace Puphpet\Tests\Unit\MainBundle\Extension;
 
 use Puphpet\Tests\Unit;
 use Puphpet\MainBundle\Extension\ExtensionAbstract;
-use Puphpet\Extension\ServerBundle\Configure as ServerExtension;
+use Puphpet\Extension\PackageBundle\Configure as PackageExtension;
 
 class ExtensionServerTest extends Unit\TestExtensions
 {
@@ -17,12 +17,12 @@ class ExtensionServerTest extends Unit\TestExtensions
     {
         parent::setUp();
 
-        $this->extension = new ServerExtension($this->container);
+        $this->extension = new PackageExtension($this->container);
     }
 
     public function testGetNameReturnsExtensionName()
     {
-        $expected = 'Server Basics';
+        $expected = 'Packages';
 
         $this->assertEquals($expected, $this->extension->getName());
     }
