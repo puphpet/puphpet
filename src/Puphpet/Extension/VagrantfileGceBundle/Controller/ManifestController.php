@@ -10,7 +10,7 @@ class ManifestController extends Controller implements Extension\ControllerInter
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionVagrantfileGceBundle:manifest:VagrantfileGce.rb.twig', [
+        return $this->render('PuphpetExtensionVagrantfileGceBundle::VagrantfileGce.rb.twig', [
             'data' => $data,
         ]);
     }
