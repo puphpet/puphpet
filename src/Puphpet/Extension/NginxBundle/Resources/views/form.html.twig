@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 {% for upstream in nginx.upstreams %}
-                    {% include 'PuphpetExtensionNginxBundle:form/sections:upstream.html.twig' with {'upstream': upstream} %}
+                    {% include 'PuphpetExtensionNginxBundle:sections:upstream.html.twig' with {'upstream': upstream} %}
                 {% endfor %}
 
                 <div class="row">
