@@ -1,0 +1,12 @@
+parameters:
+
+services:
+    puphpet.extension.cron.configure:
+        class: Puphpet\Extension\CronBundle\Configure
+        arguments:
+            - @service_container
+
+    puphpet.extension.cron.front_controller:
+        class: Puphpet\Extension\CronBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]

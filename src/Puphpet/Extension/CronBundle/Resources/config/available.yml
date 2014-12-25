@@ -1,0 +1,10 @@
+empty_job:
+    name: ~
+    user: ~
+    command: ~
+    environment: []
+    minute: ~
+    hour: ~
+    month: ~
+    monthday: ~
+    weekday: ~

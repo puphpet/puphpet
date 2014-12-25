@@ -34,6 +34,10 @@ puphpet.extension.user_group:
     resource: "@PuphpetExtensionUserGroupBundle/Resources/config/routing.yml"
     prefix:   /extension/user-group
 
+puphpet.extension.cron:
+    resource: "@PuphpetExtensionCronBundle/Resources/config/routing.yml"
+    prefix:   /extension/cron
+
 puphpet.extension.apache:
     resource: "@PuphpetExtensionApacheBundle/Resources/config/routing.yml"
     prefix:   /extension/apache

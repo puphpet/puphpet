@@ -1,0 +1,120 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+{% set uniqid = uniqid('cj_', true)|lower %}
+
+<div id="{{ uniqid }}">
+    <div class="panel-heading">
+        <h3 class="panel-title">Add Cron Job</h3>
+    </div>
+
+    <div class="panel-body">
+        <input type="hidden" name="cron[jobs][{{ uniqid }}][monthday]" value="{{ job.monthday }}" />
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="cron-jobs-{{ uniqid }}-name">Job Name</label>
+                <input type="text" id="cron-jobs-{{ uniqid }}-name"
+                       name="cron[jobs][{{ uniqid }}][name]" placeholder="your-awesome-job-name"
+                       value="{{ job.name }}" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="cron-jobs-{{ uniqid }}-user">Job User</label>
+                <input type="text" id="cron-jobs-{{ uniqid }}-user"
+                       name="cron[jobs][{{ uniqid }}][user]" placeholder="root"
+                       value="{{ job.user }}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="cron-jobs-{{ uniqid }}-command">Job Command</label>
+                <input type="text" id="cron-jobs-{{ uniqid }}-command"
+                       name="cron[jobs][{{ uniqid }}][command]"
+                       placeholder="echo &quot;you are beautiful&quot;"
+                       value="{{ job.command }}" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="cron-jobs-{{ uniqid }}-environment">
+                    Job Environment
+                    {{ popover.small('
+                        Should be specified exactly as they should appear in the crontab,
+                        e.g., PATH=/bin:/usr/bin:/usr/sbin.
+                    ') }}
+                </label>
+                <select id="cron-jobs-{{ uniqid }}-environment"
+                        name="cron[jobs][{{ uniqid }}][environment][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for environment in job.environment %}
+                        <option selected value="{{ environment }}">{{ environment }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="cron-jobs-{{ uniqid }}-minute">
+                    Job Minute
+                    {{ popover.small('
+                        0-59 for a specific minute of the hour, or use steps, e.g.,
+                        "*/10", for every X minutes
+                    ') }}
+                </label>
+                <input type="text" id="cron-jobs-{{ uniqid }}-minute"
+                       name="cron[jobs][{{ uniqid }}][minute]" placeholder=""
+                       value="{{ job.minute }}" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <label for="cron-jobs-{{ uniqid }}-hour">
+                    Job Hour
+                    {{ popover.small('
+                        0-23 for a specific hour of the day, or use steps, e.g.,
+                        "*/10", for every X hours
+                    ') }}
+                </label>
+                <input type="text" id="cron-jobs-{{ uniqid }}-hour"
+                       name="cron[jobs][{{ uniqid }}][hour]" placeholder=""
+                       value="{{ job.hour }}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label for="cron-jobs-{{ uniqid }}-weekday">
+                    Job Day
+                    {{ popover.small('
+                        0-6 for a specific day of the week (Sunday is 0),
+                        or use steps, e.g., "*/10", for every X days
+                    ') }}
+                </label>
+                <input type="text" id="cron-jobs-{{ uniqid }}-weekday"
+                       name="cron[jobs][{{ uniqid }}][weekday]" placeholder=""
+                       value="{{ job.weekday }}" class="form-control" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="cron-jobs-{{ uniqid }}-month">
+                    Job Month
+                    {{ popover.small('
+                        1-12 for a specific month of the year, or use steps, e.g.,
+                        "*/10", for every X months
+                    ') }}
+                </label>
+                <input type="text" id="cron-jobs-{{ uniqid }}-month"
+                       name="cron[jobs][{{ uniqid }}][month]" placeholder=""
+                       value="{{ job.month }}" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12">
+                <p class="text-center">
+                    <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
+                            data-parent-id="{{ uniqid }}">Remove this cron job</button>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>

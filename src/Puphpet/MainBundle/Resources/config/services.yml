@@ -19,6 +19,7 @@ services:
         # system
             - [ addExtension, [ @puphpet.extension.package.configure ] ]
             - [ addExtension, [ @puphpet.extension.user_group.configure ] ]
+            - [ addExtension, [ @puphpet.extension.cron.configure ] ]
         # firewall
             - [ addExtension, [ @puphpet.extension.firewall.configure ] ]
         # webservers
