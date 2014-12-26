@@ -82,6 +82,9 @@ Vagrant.configure('2') do |config|
 
       if folder['sync_type'] == 'nfs'
         config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}", type: 'nfs'
+        if Vagrant.has_plugin?('vagrant-bindfs')
+          config.bindfs.bind_folder "#{folder['target']}", "/mnt/vagrant-#{i}"
+        end
       elsif folder['sync_type'] == 'smb'
         config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}", type: 'smb'
       elsif folder['sync_type'] == 'rsync'
@@ -261,3 +264,4 @@ Vagrant.configure('2') do |config|
     config.vagrant.host = data['vagrant']['host'].gsub(':', '').intern
   end
 end
+
