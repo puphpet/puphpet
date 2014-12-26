@@ -30,11 +30,15 @@ user { $::ssh_username:
   require    => [Group['www-data'], Group['www-user']],
 }
 
-user { ['apache', 'nginx', 'httpd', 'www-data']:
-  shell  => '/bin/bash',
-  ensure => present,
-  groups => 'www-data',
-  require => Group['www-data']
+each( ['apache', 'nginx', 'httpd', 'www-data'] ) |$key| {
+  if ! defined(User[$key]) {
+    user { $key:
+      shell   => '/bin/bash',
+      ensure  => present,
+      groups  => 'www-data',
+      require => Group['www-data']
+    }
+  }
 }
 
 # copy dot files to ssh user's home directory
