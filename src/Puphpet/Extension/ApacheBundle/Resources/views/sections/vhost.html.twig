@@ -80,6 +80,8 @@
             {% for directory in vhost.directories %}
                 {% include 'PuphpetExtensionApacheBundle:sections:directories.html.twig' with {'vhost': vhost, 'directory': directory, 'v_uniqid': uniqid} %}
             {% endfor %}
+        {% else %}
+            {% render controller('PuphpetExtensionApacheBundle:Front:directory', { 'vhost': vhost, 'uniqid': uniqid }) %}
         {% endif %}
 
         <div class="row form-group">

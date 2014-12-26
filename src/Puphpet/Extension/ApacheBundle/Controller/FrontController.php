@@ -23,6 +23,16 @@ class FrontController extends Controller implements Extension\ControllerInterfac
         ]);
     }
 
+    public function directoryAction(array $vhost, $uniqid)
+    {
+        return $this->render('PuphpetExtensionApacheBundle:sections:directories.html.twig', [
+            'vhost'             => $vhost,
+            'v_uniqid'          => $uniqid,
+            'directory'         => $this->getData()['empty_vhost']['directories'][0],
+            'available_engines' => $this->getData()['available_engines'],
+        ]);
+    }
+
     /**
      * @return array
      */

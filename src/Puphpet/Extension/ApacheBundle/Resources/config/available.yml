@@ -7,10 +7,16 @@ empty_vhost:
     directories:
         -
             provider: directory
-            path: 1
-            options: []
-            allow_override: []
-            require: []
+            path: ''
+            options:
+                - Indexes
+                - FollowSymlinks
+                - MultiViews
+            allow_override:
+                - All
+            require:
+                - all
+                - granted
             custom_fragment: ~
     custom_fragment: ~
     ssl: 0

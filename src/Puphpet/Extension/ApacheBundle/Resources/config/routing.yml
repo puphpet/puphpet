@@ -5,3 +5,7 @@ puphpet.extension.apache.homepage:
 puphpet.extension.apache.vhost:
     pattern:  /vhost
     defaults: { _controller: PuphpetExtensionApacheBundle:Front:vhost }
+
+puphpet.extension.apache.directory:
+    pattern:  /directory
+    defaults: { _controller: PuphpetExtensionApacheBundle:Front:directory }
