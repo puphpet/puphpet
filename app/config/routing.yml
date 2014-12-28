@@ -26,6 +26,10 @@ puphpet.extension.vagrantfile.gce:
     resource: "@PuphpetExtensionVagrantfileGceBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/gce
 
+puphpet.extension.vagrantfile.ikoulacloud:
+    resource: "@PuphpetExtensionVagrantfileIkoulaCloudBundle/Resources/config/routing.yml"
+    prefix:   /extension/vagrantfile/ikoula-cloud
+
 puphpet.extension.vagrantfile.digital_ocean:
     resource: "@PuphpetExtensionVagrantfileDigitalOceanBundle/Resources/config/routing.yml"
     prefix:   /extension/vagrantfile/digitalocean
