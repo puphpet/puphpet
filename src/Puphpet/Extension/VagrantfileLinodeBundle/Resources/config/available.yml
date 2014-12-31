@@ -14,8 +14,8 @@ available_distributions:
             - 5.4
             - HHVM
     -
-        distribution: Debian 7.6
-        long_name: Debian Wheezy 7.6 x64
+        distribution: Debian 7.7
+        long_name: Debian Wheezy 7.7 x64
         php_versions:
             - 5.6
             - 5.5
