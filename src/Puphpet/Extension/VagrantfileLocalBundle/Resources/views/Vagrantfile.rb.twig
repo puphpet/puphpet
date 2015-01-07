@@ -242,10 +242,11 @@ Vagrant.configure('2') do |config|
       File.delete(vagrantKey)
     end
 
+    if ! File.directory?(File.dirname(vagrantKey))
+      FileUtils.mkdir_p(File.dirname(vagrantKey))
+    end
+
     if ! File.file?(vagrantKey)
-      if ! File.directory?(File.dirname(vagrantKey))
-        FileUtils.mkdir_p(File.dirname(vagrantKey))
-      end
       FileUtils.cp(customKey, vagrantKey)
     end
   end
