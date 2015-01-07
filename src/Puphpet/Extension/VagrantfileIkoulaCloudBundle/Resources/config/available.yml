@@ -20,10 +20,10 @@ available_images:
 
 available_service_offering_names:
     t1.pico: 0.5 vCPUs, 0.512 GiB memory, 50 GiB
-    t1.micro:  1 vCPUs, 1 GiB memory, 100 GiB
-    m1.small:  1 vCPUs, 1.7 GiB memory, 100 GiB
-    m1.medium:  2 vCPUs, 3.75 GiB memory, 100 GiB
-    m1.large:  4 vCPUs, 7.5 GiB memory, 100 GiB
+    t1.micro: 1 vCPUs, 1 GiB memory, 100 GiB
+    m1.small: 1 vCPUs, 1.7 GiB memory, 100 GiB
+    m1.medium: 2 vCPUs, 3.75 GiB memory, 100 GiB
+    m1.large: 4 vCPUs, 7.5 GiB memory, 100 GiB
     m1.extralarge: 8 vCPUs, 15 GiB memory, 100 GiB
 
 available_zone_names:

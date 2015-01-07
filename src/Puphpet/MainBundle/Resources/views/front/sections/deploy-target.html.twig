@@ -89,13 +89,12 @@
             {% set extension = extensionManager.getExtensionBySlug('vagrantfile-aws') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
-<<<<<<< HEAD
         <div class="tab-pane" id="vagrantfile-gce-tab">
             {% set extension = extensionManager.getExtensionBySlug('vagrantfile-gce') %}
-=======
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
         <div class="tab-pane" id="vagrantfile-ikoulacloud-tab">
             {% set extension = extensionManager.getExtensionBySlug('vagrantfile-ikoulacloud') %}
->>>>>>> f1ac52676f08c354c7f15631ab39b8ec710035ca
             {{ extension.renderFront(extension.data)|raw }}
         </div>
     </div>
