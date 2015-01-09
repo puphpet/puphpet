@@ -212,7 +212,7 @@ define apache_debian_repo {
     repos             => 'main',
     required_packages => 'debian-keyring debian-archive-keyring',
     key               => '9EB5E8A3DF17D0B3',
-    key_server        => 'keys.gnupg.net',
+    key_server        => 'hkp://keyserver.ubuntu.com:80',
     include_src       => true
   }
 }

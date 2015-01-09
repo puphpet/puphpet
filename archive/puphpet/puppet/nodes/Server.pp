@@ -139,8 +139,8 @@ define add_dotdeb ($release){
     release           => $release,
     repos             => 'all',
     required_packages => 'debian-keyring debian-archive-keyring',
-    key_source        => 'http://www.dotdeb.org/dotdeb.gpg',
-    key_server        => 'keys.gnupg.net',
+    key               => '89DF5277',
+    key_server        => 'hkp://keyserver.ubuntu.com:80',
     include_src       => true
   }
 }
