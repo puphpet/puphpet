@@ -2,7 +2,7 @@
 
 [PuPHPet](https://puphpet.com) - É uma aplicação que auxilia a configurar máquinas virtuais para o desenvolvimento PHP.
 
-[![Build Status](https://travis-ci.org/puphpet/puphpet.png)](https://travis-ci.org/puphpet/puphpet)
+[![Build Status](https://travis-ci.org/puphpet/puphpet.png)](https://travis-ci.org/puphpet/puphpet) [![Code Climate](https://codeclimate.com/github/puphpet/puphpet/badges/gpa.svg)](https://codeclimate.com/github/puphpet/puphpet)
 
 ##O que é?##
 
