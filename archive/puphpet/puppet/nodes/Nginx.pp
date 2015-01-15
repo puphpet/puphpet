@@ -76,7 +76,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
       'location'             => '\.php$',
       'location_prepend'     => [],
       'location_append'      => [],
-      'index_files'          => ['index', 'index.html', 'index.htm', 'index.php'],
+      'index_files'          => [],
       'envvars'              => [],
       'ssl'                  => '0',
       'ssl_cert'             => '',
@@ -189,16 +189,16 @@ define nginx_vhost (
   $proxy                = undef,
   $client_max_body_size = '1m'
 ){
-  $merged_server_name = concat([$server_name], $server_aliases)
+$merged_server_name = concat([$server_name], $server_aliases)
 
   if is_array($index_files) and count($index_files) > 0 {
-    $try_files_prepend = $index_files[count($index_files) - 1]
+    $try_files_prepend = $index_files[count($index_files) - 1] #last index file
   } else {
     $try_files_prepend = ''
   }
 
   if $engine == 'php' {
-    $try_files               = "${try_files_prepend} /index.php\$is_args\$args"
+    $try_files               = "${try_files_prepend}"
     $fastcgi_split_path_info = '^(.+\.php)(/.*)$'
     $fastcgi_index           = 'index.php'
     $fastcgi_param           = concat([
@@ -251,12 +251,12 @@ define nginx_vhost (
       vhost                       => $server_name,
       location                    => "~ ${location}",
       proxy                       => undef,
-      try_files                   => ['$uri', '$uri/', "/${try_files}\$is_args\$args"],
+      try_files                   => ['$uri', "/${try_files}\$is_args\$args"],
       ssl                         => $ssl_set,
       www_root                    => $www_root,
       location_cfg_append         => $location_cfg_append,
       location_custom_cfg_prepend => $location_prepend,
-      location_custom_cfg_append  => $location_append,      
+      location_custom_cfg_append  => $location_append,
       notify                      => Class['nginx::service'],
     }
   }
