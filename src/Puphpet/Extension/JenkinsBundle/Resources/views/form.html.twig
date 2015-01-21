@@ -1,0 +1,53 @@
+{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+<section id="jenkins">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Jenkins Quick Settings</h3>
+                </div>
+
+                <div class="row install-checkbox-container">
+                    <div class="col-xs-12">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="jenkins[install]"
+                                   {% if jenkins.install %}checked{% endif %} value="1" /> Install Jenkins
+                            {% if not jenkins.install %}<input type="hidden" name="jenkins[install]" value="0" />{% endif %}
+                            {{ popover.small('Jenkins is an open source continuous integration tool.<br/>
+                                <a href="http://jenkins-ci.org/content/about-jenkins-ci" target="_blank">
+                                    Learn about jenkins</a>.') }}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="jenkins-settings-masterurl">Listen Address</label>
+                            <input type="text" id="jenkins-settings-masterurl"
+                                   name="jenkins[settings][masterurl]" placeholder="http://jenkins.yourserver.com/"
+                                   value="{{ jenkins.settings.masterurl }}" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <label for="jenkins-settings-ui_user">UI username</label>
+                            <input type="text" id="jenkins-settings-ui_user" name="jenkins[settings][ui_user]"
+                                   placeholder="jenkins" value="{{ jenkins.settings.ui_user }}"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="jenkins-settings-ui_pass">UI password</label>
+                            <input type="text" id="jenkins-settings-ui_pass"
+                                   name="jenkins[settings][ui_pass]"
+                                   placeholder="password"  value="{{ jenkins.settings.ui_pass }}"
+                                   class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
