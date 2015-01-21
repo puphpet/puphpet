@@ -1,0 +1,12 @@
+parameters:
+
+services:
+    puphpet.extension.jenkins.configure:
+        class: Puphpet\Extension\JenkinsBundle\Configure
+        arguments:
+            - @service_container
+
+    puphpet.extension.jenkins.front_controller:
+        class: Puphpet\Extension\JenkinsBundle\Controller\FrontController
+        calls:
+            - [ setContainer, [@service_container] ]

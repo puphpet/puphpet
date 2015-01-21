@@ -86,3 +86,6 @@ mod 'puppetlabs/vcsrepo',
 mod 'example42/yum',
     :git => 'https://github.com/example42/puppet-yum.git',
     :ref => 'v2.1.10'
+mod "rtyler/jenkins",
+    :git => 'https://github.com/jenkinsci/puppet-jenkins.git',
+    :ref =. 'v1.3.0'
