@@ -32,25 +32,7 @@
                         </div>
                     </div>
 
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <label for="mysql-adminer">
-                                Adminer
-                                {{ popover.small('If installed it will be available from
-                                    <code>http://{SERVER_IP_ADDRESS}/adminer</code>.') }}
-                            </label><br />
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="mysql-adminer" name="mysql[adminer]"
-                                       {% if mysql.adminer %}checked{% endif %} value="1" /> Install Adminer
-                            </label>
-                        </div>
-                    </div>
-
                     <p class="help-block">
-                        It is highly recommended <strong>not</strong> installing Adminer on production servers.
-
-                        <br /><br />
-
                         The preferred way to connect to your database is using a dedicated application like
                         <a href="http://www.sequelpro.com/" target="_blank">Sequel Pro (OS X)</a>,
                         <a href="http://www.heidisql.com/" target="_blank">HeidiSQL (Windows)</a>, and
