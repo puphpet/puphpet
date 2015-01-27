@@ -7,7 +7,7 @@
                     <input type="checkbox" name="xhprof[install]"
                            class="update-other-input multiselect-grouped-tab"
                            data-tab-target="xhprof-pill"
-                           data-update-php[composer]="1" data-update-hhvm[composer]="1"
+                           data-update-php[composer]="1"
                            {% if xhprof.install %}checked{% endif %} value="1" /> Install Xhprof
                     {% if not xhprof.install %}<input type="hidden" name="xhprof[install]" value="0" />{% endif %}
                 </label>

@@ -11,16 +11,12 @@
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
                             <input type="checkbox" class="update-other-input"
-                                   name="php[install]" data-update-hhvm[install]="0"
+                                   name="php[install]"
                                    {% if php.install %}checked{% endif %} value="1" /> Install PHP
                             {% if not php.install %}<input type="hidden" name="php[install]" value="0" />{% endif %}
                             {{ popover.small('PHP is a toy language accidentally chosen to power
                                 some of the largest websites in the world. You probably want Ruby?') }}
                         </label>
-
-                        <p class="help-block">
-                            If you install PHP, you cannot install HHVM.
-                        </p>
                     </div>
                 </div>
 

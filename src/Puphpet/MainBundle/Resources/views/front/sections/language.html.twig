@@ -13,15 +13,6 @@
             </a>
         </li>
         <li class="col-xs-2">
-            <a href="#hhvm-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/hhvm-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/hhvm-inactive.png') }}" class="tab-icon-inactive" />
-                    HHVM
-                </div>
-            </a>
-        </li>
-        <li class="col-xs-2">
             <a href="#ruby-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="{{ asset('assets/v4/img/vendors/ruby-active.png') }}" class="tab-icon-active" />
@@ -55,10 +46,6 @@
             {% set phpLibraries = sections.multiSelectGroupedNoHeaders(extensionManager, 'php-extensions', 'PHP Extensions') %}
 
             {% set extension = extensionManager.getExtensionBySlug('php') %}
-            {{ extension.renderFront(extension.data, phpLibraries)|raw }}
-        </div>
-        <div class="tab-pane" id="hhvm-tab">
-            {% set extension = extensionManager.getExtensionBySlug('hhvm') %}
             {{ extension.renderFront(extension.data, phpLibraries)|raw }}
         </div>
         <div class="tab-pane" id="ruby-tab">
