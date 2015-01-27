@@ -4,20 +4,20 @@
     </div>
     <ul class="nav nav-tabs icon-bar">
         <li class="col-xs-2 active">
-            <a href="#php-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/php-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/php-inactive.png') }}" class="tab-icon-inactive" />
-                    PHP
-                </div>
-            </a>
-        </li>
-        <li class="col-xs-2">
             <a href="#ruby-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="{{ asset('assets/v4/img/vendors/ruby-active.png') }}" class="tab-icon-active" />
                     <img src="{{ asset('assets/v4/img/vendors/ruby-inactive.png') }}" class="tab-icon-inactive" />
                     Ruby
+                </div>
+            </a>
+        </li>
+        <li class="col-xs-2">
+            <a href="#php-tab" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="{{ asset('assets/v4/img/vendors/php-active.png') }}" class="tab-icon-active" />
+                    <img src="{{ asset('assets/v4/img/vendors/php-inactive.png') }}" class="tab-icon-inactive" />
+                    PHP
                 </div>
             </a>
         </li>
@@ -42,15 +42,15 @@
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane active" id="php-tab">
+        <div class="tab-pane active" id="ruby-tab">
+            {% set extension = extensionManager.getExtensionBySlug('ruby') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="php-tab">
             {% set phpLibraries = sections.multiSelectGroupedNoHeaders(extensionManager, 'php-extensions', 'PHP Extensions') %}
 
             {% set extension = extensionManager.getExtensionBySlug('php') %}
             {{ extension.renderFront(extension.data, phpLibraries)|raw }}
-        </div>
-        <div class="tab-pane" id="ruby-tab">
-            {% set extension = extensionManager.getExtensionBySlug('ruby') %}
-            {{ extension.renderFront(extension.data)|raw }}
         </div>
         <div class="tab-pane" id="nodejs-tab">
             {% set extension = extensionManager.getExtensionBySlug('nodejs') %}
