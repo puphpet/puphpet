@@ -17,4 +17,4 @@ timezone: America/New_York
 
 composer_home: ~
 
-mod_php: 0
+mod_php: 1
