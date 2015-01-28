@@ -19,6 +19,10 @@
             {% set extension = extensionManager.getExtensionBySlug('apache') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
+        <div class="tab-pane" id="nginx-tab">
+            {% set extension = extensionManager.getExtensionBySlug('nginx') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
     </div>
 
     <ul class="pager">
