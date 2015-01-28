@@ -1,3 +1,10 @@
 install: 1
 
-rules: ~
+rules:
+    -
+        port:
+            - '80'
+            - '3000'
+        priority: ~
+        proto: tcp
+        action: accept
