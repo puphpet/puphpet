@@ -127,10 +127,6 @@
                 </div>
             </div>
 
-            {% for forwarded_port in data.vm.network.forwarded_port %}
-                {% include 'PuphpetExtensionVagrantfileLocalBundle:sections:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
-            {% endfor %}
-
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-sm-push-2">
                     <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
