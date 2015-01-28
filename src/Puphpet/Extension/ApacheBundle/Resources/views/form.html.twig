@@ -30,22 +30,6 @@
                             </select>
                         </div>
                     </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label for="apache-mod_pagespeed">PageSpeed Module</label><br>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="apache-mod_pagespeed" name="apache[mod_pagespeed]" value="1"
-                                    {% if apache.mod_pagespeed %}checked{% endif %} />
-                                Enable
-                                <a href="https://developers.google.com/speed/pagespeed/module?hl=de" target="_blank">PageSpeed Module</a>
-                            </label>
-
-                            <p class="help-block">
-                                <code>mod_pagespeed</code> is not compatible with <code>mod_php</code>.
-                            </p>
-                        </div>
-                    </div>
                 </div>
 
                 {% for vhost in apache.vhosts %}
