@@ -4,6 +4,3 @@ imports:
 #framework:
 #    validation:
 #        cache: apc
-
-twig:
-    cache: false
