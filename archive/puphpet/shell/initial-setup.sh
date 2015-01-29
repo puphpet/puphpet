@@ -65,8 +65,8 @@ elif [[ "${OS}" == 'centos' ]]; then
     perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/updates/\$basearch/@baseurl=http://mirror.rackspace.com/CentOS//\$releasever/updates/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
     perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/extras/\$basearch/@baseurl=http://mirror.rackspace.com/CentOS//\$releasever/extras/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
 
-    yum -y --nogpgcheck install 'http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm' >/dev/null
-    yum -y --nogpgcheck install 'https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm' >/dev/null
+    yum -y --nogpgcheck install 'http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm' >/dev/null
+    yum -y --nogpgcheck install 'https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm' >/dev/null
     yum -y install centos-release-SCL >/dev/null
     yum clean all >/dev/null
     yum -y check-update >/dev/null
