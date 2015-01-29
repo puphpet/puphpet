@@ -11,15 +11,10 @@
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
                             <input type="checkbox" class="update-other-input"
-                                   name="apache[install]" data-update-nginx[install]="0"
+                                   name="apache[install]"
                                    {% if apache.install %}checked{% endif %} value="1" /> Install Apache2
                             {% if not apache.install %}<input type="hidden" name="apache[install]" value="0" />{% endif %}
                         </label>
-
-                        <p class="help-block">
-                            Only Apache or Nginx can be installed (or none at all).
-                            Installing both at the same time is not supported.
-                        </p>
                     </div>
                 </div>
 
@@ -33,22 +28,6 @@
                                         {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
                                 {% endfor %}
                             </select>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label for="apache-mod_pagespeed">PageSpeed Module</label><br>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="apache-mod_pagespeed" name="apache[mod_pagespeed]" value="1"
-                                    {% if apache.mod_pagespeed %}checked{% endif %} />
-                                Enable
-                                <a href="https://developers.google.com/speed/pagespeed/module?hl=de" target="_blank">PageSpeed Module</a>
-                            </label>
-
-                            <p class="help-block">
-                                <code>mod_pagespeed</code> is not compatible with <code>mod_php</code>.
-                            </p>
                         </div>
                     </div>
                 </div>

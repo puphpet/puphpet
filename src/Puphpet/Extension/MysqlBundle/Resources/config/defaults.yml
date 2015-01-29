@@ -2,12 +2,4 @@ install: 1
 
 override_options: {}
 
-databases:
-    -
-        name: dbname
-        user: dbuser
-        password: 123
-        host: localhost
-        grant:
-            - ALL
-        sql_file: ~
+databases: []

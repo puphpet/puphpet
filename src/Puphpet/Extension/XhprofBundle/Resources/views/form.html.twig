@@ -7,7 +7,7 @@
                     <input type="checkbox" name="xhprof[install]"
                            class="update-other-input multiselect-grouped-tab"
                            data-tab-target="xhprof-pill"
-                           data-update-php[composer]="1" data-update-hhvm[composer]="1"
+                           data-update-php[composer]="1"
                            {% if xhprof.install %}checked{% endif %} value="1" /> Install Xhprof
                     {% if not xhprof.install %}<input type="hidden" name="xhprof[install]" value="0" />{% endif %}
                 </label>
@@ -56,9 +56,8 @@
                     </code></p>
 
                     <p>
-                        Depending on if you chose Apache or Nginx and if you're on Debian/Ubuntu/CentOS, the
-                        <code>/var/www/default/</code> part in the lines above may be different. Simple SSH into
-                        your VM and double check to make sure!
+                        Depending on if you're on Debian/Ubuntu/CentOS, the <code>/var/www/default/</code> part in
+                        the lines above may be different. Simply SSH into your VM and double check to make sure!
                     </p>
 
                     <p>
