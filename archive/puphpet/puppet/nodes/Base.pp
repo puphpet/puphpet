@@ -5,7 +5,7 @@ if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
 
 include puphpet::params
 
-if hash_key_equals($base_values, 'install', 1)
-{
+#if hash_key_equals($base_values, 'install', 1)
+#{
   include base
-}
+#}

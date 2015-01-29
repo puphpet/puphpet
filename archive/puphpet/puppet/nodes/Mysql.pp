@@ -8,7 +8,7 @@ include puphpet::params
 if hash_key_equals($mysql_values, 'install', 1) {
   #include mysql::params
 
-  include mysql
+  include mysql::instance::init
 
   if hash_key_equals($apache_values, 'install', 1)
     or hash_key_equals($nginx_values, 'install', 1)
