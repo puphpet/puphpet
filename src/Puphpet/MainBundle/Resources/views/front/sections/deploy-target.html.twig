@@ -12,51 +12,6 @@
                 </div>
             </a>
         </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-rackspace-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/rackspace-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/rackspace-inactive.png') }}" class="tab-icon-inactive" />
-                    Rackspace
-                </div>
-            </a>
-        </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-linode-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/linode-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/linode-inactive.png') }}" class="tab-icon-inactive" />
-                    Linode
-                </div>
-            </a>
-        </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-softlayer-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/softlayer-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/softlayer-inactive.png') }}" class="tab-icon-inactive" />
-                    Softlayer
-                </div>
-            </a>
-        </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-aws-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/aws-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/aws-inactive.png') }}" class="tab-icon-inactive" />
-                    Amazon Web Service
-                </div>
-            </a>
-        </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-gce-tab" data-toggle="tab">
-                <div class="tab-icon small">
-                    <img src="{{ asset('assets/v4/img/vendors/gce-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/gce-inactive.png') }}" class="tab-icon-inactive" />
-                    Google Compute Engine
-                </div>
-            </a>
-        </li>
     </ul>
 
     <div class="tab-content">
@@ -64,29 +19,9 @@
             {% set extension = extensionManager.getExtensionBySlug('vagrantfile-local') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
-        <div class="tab-pane" id="vagrantfile-rackspace-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-rackspace') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-linode-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-linode') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-softlayer-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-softlayer') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-aws-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-aws') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-gce-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-gce') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
     </div>
 
     <ul class="pager">
-        <li class="next"><a href="#system">System →</a></li>
+        <li class="next"><a href="#firewall">Firewall Rules →</a></li>
     </ul>
 </div>

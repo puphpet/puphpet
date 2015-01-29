@@ -10,13 +10,13 @@
                     <h3 class="panel-title">
                         <a data-toggle="collapse" data-parent="#vagrantfile-local-instructions-container"
                            href="#vagrantfile-local-instructions-content">
-                            <i class="glyphicon glyphicon-plus"></i>
+                            <i class="glyphicon glyphicon-minus"></i>
                             Local VM Instructions
                         </a>
                     </h3>
                 </div>
 
-                <div id="vagrantfile-local-instructions-content" class="panel-collapse collapse">
+                <div id="vagrantfile-local-instructions-content" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <ol>
                             <li><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download the latest version of VirtualBox from here</a></li>
@@ -126,10 +126,6 @@
                     </div>
                 </div>
             </div>
-
-            {% for forwarded_port in data.vm.network.forwarded_port %}
-                {% include 'PuphpetExtensionVagrantfileLocalBundle:sections:ForwardedPort.html.twig' with {'forwarded_port': forwarded_port} %}
-            {% endfor %}
 
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-sm-push-2">

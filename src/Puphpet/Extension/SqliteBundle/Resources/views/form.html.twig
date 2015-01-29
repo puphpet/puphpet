@@ -19,25 +19,7 @@
                 </div>
 
                 <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label for="sqlite-adminer">
-                                Adminer
-                                {{ popover.small('If installed it will be available from
-                                    <code>http://{SERVER_IP_ADDRESS}/adminer</code>.') }}
-                            </label><br />
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="sqlite-adminer" name="sqlite[adminer]"
-                                       {% if sqlite.adminer %}checked{% endif %} value="1" /> Install Adminer
-                            </label>
-                        </div>
-                    </div>
-
                     <p class="help-block">
-                        It is highly recommended <strong>not</strong> installing Adminer on production servers.
-
-                        <br /><br />
-
                         The preferred way to connect to your database is using a dedicated application like
                         <a href="http://www.valentina-db.com/valentina-studio-overview" target="_blank">Valentina Studio (OS X)</a>,
                         <a href="http://sqliteman.com/">Sqliteman (Windows/Linux)</a>,

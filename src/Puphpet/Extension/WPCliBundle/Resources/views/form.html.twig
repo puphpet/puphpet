@@ -7,7 +7,7 @@
                     <input type="checkbox" name="wpcli[install]"
                            class="update-other-input multiselect-grouped-tab"
                            data-tab-target="wpcli-pill"
-                           data-update-php[composer]="1" data-update-hhvm[composer]="1"
+                           data-update-php[composer]="1"
                            {% if wpcli.install %}checked{% endif %} value="1" /> Install WP-Cli
                     {{ popover.small('<a href="http://wp-cli.org/" target="_blank">WP</a> will be available as a
                         system service:<br /><code>$ wp</code>') }}
@@ -17,7 +17,7 @@
         </div>
 
         <p class="help-block">
-            WP-Cli requires PHP or HHVM, and Composer.
+            WP-Cli requires PHP and Composer.
         </p>
 
         <div class="row form-group">
