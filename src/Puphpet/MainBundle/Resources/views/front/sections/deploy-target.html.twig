@@ -33,6 +33,11 @@
                 Google
             </a>
         </li>
+        <li class="col-xs-2">
+            <a href="#vagrantfile-digitalocean-tab" data-toggle="tab">
+                Digital Ocean
+            </a>
+        </li>
     </ul>
 
     <div class="tab-content">
@@ -58,6 +63,10 @@
         </div>
         <div class="tab-pane" id="vagrantfile-gce-tab">
             {% set extension = extensionManager.getExtensionBySlug('vagrantfile-gce') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="vagrantfile-digitalocean-tab">
+            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-digital_ocean') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
     </div>
