@@ -55,7 +55,7 @@ available_boxes:
         url: puphpet/centos65-x64
         os: centos
         short_name: puphpet/centos65-x64
-        long_name: CentOS 6.5 x64
+        long_name: CentOS 6 x64
         php_versions:
             - 5.6
             - 5.5
@@ -65,7 +65,7 @@ available_boxes:
         url: puphpet/debian75-x64
         os: debian
         short_name: puphpet/debian75-x64
-        long_name: Debian Wheezy 7.5 x64
+        long_name: Debian Wheezy 7 x64
         php_versions:
             - 5.6
             - 5.5
