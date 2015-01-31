@@ -497,7 +497,7 @@ PUPHPET.showAvailableOptions = function() {
  * Runs on initial page load
  */
 PUPHPET.disableInactiveTabElements = function() {
-    $('.nav.nav-tabs.icon-bar.single-select li').each(function() {
+    $('.nav.single-select li').each(function() {
         if ($(this).hasClass('active')) {
             return;
         }
@@ -520,7 +520,7 @@ PUPHPET.disableInactiveTabElements = function() {
  * tabs that belong to multi-selectable groups
  */
 PUPHPET.enableClickedTabElement = function() {
-    $('.nav.nav-tabs.icon-bar.single-select li a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    $('.nav.single-select li a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
         if ($(this).parent().parent().hasClass('multi-select')) {
             return;
         }
