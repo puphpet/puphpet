@@ -846,10 +846,7 @@ PUPHPET.mirrorValue = function() {
         var $target    = $(this);
         var sourceName = $(this)[0].getAttribute('data-mirror-value');
 
-        console.log(sourceName);
-
         $(document).on('change', sourceName, function(e) {
-            console.log('aaaa');
             $target.val($(sourceName).val());
         });
     });

@@ -192,6 +192,43 @@ footer {
         display: block;
     }
 
+/**
+  * Thin icon tabbed switched
+**/
+    .nav-slice-tabs {
+        margin-bottom: 6px;
+        border: 0;
+    }
+
+    .nav-slice-tabs > li {
+        margin-bottom: 2px;
+        padding-left: 2px;
+        padding-right: 2px;
+        text-align: center;
+    }
+
+    .nav-slice-tabs > li > a {
+        margin-right: 2px;
+        padding: 8px 1px;
+        background-color: #f8f8f8;
+        line-height: 1.0;
+        border-radius: 4px;
+    }
+
+    .nav-slice-tabs > li > a:hover,
+    .nav-slice-tabs > li > a:focus {
+        color: #fff;
+        background-color: #428bca;
+    }
+
+    .nav-slice-tabs > li.active > a,
+    .nav-slice-tabs > li.active > a:hover,
+    .nav-slice-tabs > li.active > a:focus {
+        color: #fff;
+        cursor: default;
+        background-color: #428bca;
+    }
+
 /*
  * Panels
 **/

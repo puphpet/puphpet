@@ -1,7 +1,7 @@
 vm:
     provider:
         linode:
-            distribution: Debian 7.6
+            distribution: Debian 7.7
             datacenter: Newark
             plan: 1024
             token: LINODE_API_KEY

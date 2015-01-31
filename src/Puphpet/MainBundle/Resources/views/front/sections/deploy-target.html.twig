@@ -2,68 +2,45 @@
     <div class="page-header compact">
         <h1><i class="fa fa-cloud"></i> Where do you want your virtual machine?</h1>
     </div>
-    <ul class="nav nav-tabs icon-bar single-select">
+    <ul class="nav nav-slice-tabs single-select">
         <li class="col-xs-2 active">
             <a href="#vagrantfile-local-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/local-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/local-inactive.png') }}" class="tab-icon-inactive" />
-                    Locally
-                </div>
+                Locally
             </a>
         </li>
         <li class="col-xs-2">
             <a href="#vagrantfile-rackspace-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/rackspace-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/rackspace-inactive.png') }}" class="tab-icon-inactive" />
-                    Rackspace
-                </div>
+                Rackspace
             </a>
         </li>
         <li class="col-xs-2">
             <a href="#vagrantfile-linode-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/linode-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/linode-inactive.png') }}" class="tab-icon-inactive" />
-                    Linode
-                </div>
+                Linode
             </a>
         </li>
         <li class="col-xs-2">
             <a href="#vagrantfile-softlayer-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/softlayer-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/softlayer-inactive.png') }}" class="tab-icon-inactive" />
-                    Softlayer
-                </div>
+                Softlayer
             </a>
         </li>
         <li class="col-xs-2">
             <a href="#vagrantfile-aws-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/aws-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/aws-inactive.png') }}" class="tab-icon-inactive" />
-                    Amazon Web Service
-                </div>
+                Amazon
             </a>
         </li>
         <li class="col-xs-2">
             <a href="#vagrantfile-gce-tab" data-toggle="tab">
-                <div class="tab-icon small">
-                    <img src="{{ asset('assets/v4/img/vendors/gce-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/gce-inactive.png') }}" class="tab-icon-inactive" />
-                    Google Compute Engine
-                </div>
+                Google
+            </a>
+        </li>
+        <li class="col-xs-2">
+            <a href="#vagrantfile-digitalocean-tab" data-toggle="tab">
+                Digital Ocean
             </a>
         </li>
        <li class="col-xs-2">
             <a href="#vagrantfile-ikoulacloud-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/ikoulacloud-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/ikoulacloud-inactive.png') }}" class="tab-icon-inactive" />
-                    Ikoula Cloud
-                </div>
+                Ikoula Cloud
             </a>
         </li>
     </ul>
@@ -91,6 +68,10 @@
         </div>
         <div class="tab-pane" id="vagrantfile-gce-tab">
             {% set extension = extensionManager.getExtensionBySlug('vagrantfile-gce') %}
+            {{ extension.renderFront(extension.data)|raw }}
+        </div>
+        <div class="tab-pane" id="vagrantfile-digitalocean-tab">
+            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-digital_ocean') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
         <div class="tab-pane" id="vagrantfile-ikoulacloud-tab">

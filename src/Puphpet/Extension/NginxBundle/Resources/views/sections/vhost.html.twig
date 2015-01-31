@@ -13,7 +13,6 @@
                 <label class="checkbox-inline">
                     <input type="checkbox" class="install-checkbox"
                            id="nginx-vhosts-{{ uniqid }}-proxy_enabled"
-                           name="nginx[vhosts][{{ uniqid }}][proxy_enabled]" value="1"
                            data-hide-on-uncheck="#nginx-vhosts-{{ uniqid }}-vhost_proxy_options"
                            data-show-on-uncheck="#nginx-vhosts-{{ uniqid }}-vhost_options"
                            {% if vhost.proxy is defined and vhost.proxy %}checked{% endif %} />
