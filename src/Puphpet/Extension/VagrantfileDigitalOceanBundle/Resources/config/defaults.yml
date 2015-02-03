@@ -1,7 +1,7 @@
 vm:
     provider:
         digital_ocean:
-            image: Debian 7.0 x64
+            image: debian-7-0-x64
             region: New York 1
             size: 1GB
             token: DIGITAL_OCEAN_TOKEN
