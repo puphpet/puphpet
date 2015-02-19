@@ -11,7 +11,7 @@ mod 'puphpet/beanstalkd',
     :ref => '5a530ff'
 mod 'tPl0ch/composer',
     :git => 'https://github.com/tPl0ch/puppet-composer.git',
-    :ref => '1.2.1'
+    :ref => '1.3.5'
 mod 'puppetlabs/concat',
     :git => 'https://github.com/puppetlabs/puppetlabs-concat.git',
     :ref => '1.1.0'
@@ -35,7 +35,7 @@ mod 'puppetlabs/mongodb',
     :ref => '0.8.0'
 mod 'puppetlabs/mysql',
     :git => 'https://github.com/puppetlabs/puppetlabs-mysql.git',
-    :ref => '2.3.1'
+    :ref => '3.2.0'
 mod 'jfryman/nginx',
     :git => 'https://github.com/jfryman/puppet-nginx.git',
     :ref => 'v0.0.10'
