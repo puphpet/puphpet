@@ -21,7 +21,7 @@ case $::ssh_username {
   }
 }
 
-user { $::ssh_username:
+@user { $::ssh_username:
   ensure     => present,
   shell      => '/bin/bash',
   home       => $user_home,
@@ -29,6 +29,8 @@ user { $::ssh_username:
   groups     => ['www-data', 'www-user'],
   require    => [Group['www-data'], Group['www-user']],
 }
+
+User[$::ssh_username]
 
 each( ['apache', 'nginx', 'httpd', 'www-data'] ) |$key| {
   if ! defined(User[$key]) {
