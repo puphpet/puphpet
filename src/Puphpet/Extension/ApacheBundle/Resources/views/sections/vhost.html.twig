@@ -11,7 +11,8 @@
             <div class="col-md-6">
                 <label for="apache-vhosts-{{ uniqid }}-servername">
                     Server Name
-                    {{ popover.small('Don\'t forget to <a href="/help#update-my-hosts-file">update your computer\'s hosts file!</a>') }}
+                    {{ popover.small('Don\'t forget to <a href="/help#update-my-hosts-file" target="_blank">update
+                        your computer\'s hosts file!</a>') }}
                 </label>
                 <input type="text" id="apache-vhosts-{{ uniqid }}-servername"
                        name="apache[vhosts][{{ uniqid }}][servername]" placeholder="awesome.dev"
