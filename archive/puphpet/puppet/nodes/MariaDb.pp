@@ -27,7 +27,9 @@ if hash_key_equals($mariadb_values, 'install', 1) {
     $mariadb_php_installed = false
   }
 
-  if has_key($mariadb_values, 'root_password') and $mariadb_values['root_password'] {
+  if has_key($mariadb_values, 'root_password')
+    and $mariadb_values['root_password']
+  {
     if ! defined(File[$mysql::params::datadir]) {
       file { $mysql::params::datadir:
         ensure => directory,
@@ -95,16 +97,14 @@ if hash_key_equals($mariadb_values, 'install', 1) {
       package_name => $puphpet::params::mariadb_package_client_name
     }
 
-    if count($mariadb_values['databases']) > 0 {
-      each( $mariadb_values['databases'] ) |$key, $database| {
-        $database_merged = delete(merge($database, {
-          'dbname' => $database['name'],
-        }), 'name')
+    each( $mariadb_values['databases'] ) |$key, $database| {
+      $database_merged = delete(merge($database, {
+        'dbname' => $database['name'],
+      }), 'name')
 
-        create_resources( puphpet::mysql::db, {
-          "${database['user']}@${database['name']}" => $database_merged
-        })
-      }
+      create_resources( puphpet::mysql::db, {
+        "${database['user']}@${database['name']}" => $database_merged
+      })
     }
 
     if $mariadb_php_installed and $mariadb_php_package == 'php' {
@@ -128,12 +128,15 @@ if hash_key_equals($mariadb_values, 'install', 1) {
     and $mariadb_php_installed
     and ! defined(Class['puphpet::adminer'])
   {
+    $mariadb_apache_webroot = $puphpet::params::apache_webroot_location
+    $mariadb_nginx_webroot = $puphpet::params::nginx_webroot_location
+
     if hash_key_equals($apache_values, 'install', 1) {
-      $mariadb_adminer_webroot_location = '/var/www/default'
+      $mariadb_adminer_webroot_location = $mariadb_apache_webroot
     } elsif hash_key_equals($nginx_values, 'install', 1) {
-      $mariadb_adminer_webroot_location = $puphpet::params::nginx_webroot_location
+      $mariadb_adminer_webroot_location = $mariadb_nginx_webroot
     } else {
-      $mariadb_adminer_webroot_location = '/var/www/default'
+      $mariadb_adminer_webroot_location = $mariadb_apache_webroot
     }
 
     class { 'puphpet::adminer':

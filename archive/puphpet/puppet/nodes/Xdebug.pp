@@ -36,14 +36,12 @@ if hash_key_equals($xdebug_values, 'install', 1)
     compile   => $xdebug_compile,
   }
 
-  if is_hash($xdebug_values['settings']) and count($xdebug_values['settings']) > 0 {
-    each( $xdebug_values['settings'] ) |$key, $value| {
-      puphpet::php::ini { $key:
-        entry       => "XDEBUG/${key}",
-        value       => $value,
-        php_version => $php_values['version'],
-        webserver   => $xdebug_webserver_service
-      }
+  each( $xdebug_values['settings'] ) |$key, $value| {
+    puphpet::php::ini { $key:
+      entry       => "XDEBUG/${key}",
+      value       => $value,
+      php_version => $php_values['version'],
+      webserver   => $xdebug_webserver_service
     }
   }
 }

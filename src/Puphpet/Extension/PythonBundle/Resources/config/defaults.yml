@@ -2,7 +2,4 @@ install: 1
 
 packages: []
 
-versions:
-    -
-        version: ~
-        virtualenv: 0
+versions: []

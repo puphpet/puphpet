@@ -15,9 +15,9 @@ if hash_key_equals($apache_values, 'install', 1)
 
 if hash_key_equals($mongodb_values, 'install', 1) {
   file { ['/data', '/data/db']:
-    ensure  => directory,
-    mode    => 0775,
-    before  => Class['mongodb::globals'],
+    ensure => directory,
+    mode   => '0775',
+    before => Class['mongodb::globals'],
   }
 
   Class['mongodb::globals']
@@ -27,7 +27,9 @@ if hash_key_equals($mongodb_values, 'install', 1) {
     manage_package_repo => true,
   }
 
-  create_resources('class', { 'mongodb::server' => $mongodb_values['settings'] })
+  create_resources('class', {
+    'mongodb::server' => $mongodb_values['settings']
+  })
 
   if $::osfamily == 'redhat' {
     class { 'mongodb::client':
@@ -35,16 +37,14 @@ if hash_key_equals($mongodb_values, 'install', 1) {
     }
   }
 
-  if count($mongodb_values['databases']) > 0 {
-    each( $mongodb_values['databases'] ) |$key, $database| {
-      $database_merged = delete(merge($database, {
-        'dbname' => $database['name'],
-      }), 'name')
+  each( $mongodb_values['databases'] ) |$key, $database| {
+    $database_merged = delete(merge($database, {
+      'dbname' => $database['name'],
+    }), 'name')
 
-      create_resources( mongodb_db, {
-        "${database['user']}@${database['name']}" => $database_merged
-      })
-    }
+    create_resources( puphpet::mongodb::db, {
+      "${database['user']}@${database['name']}" => $database_merged
+    })
   }
 
   if hash_key_equals($php_values, 'install', 1)
@@ -53,38 +53,6 @@ if hash_key_equals($mongodb_values, 'install', 1) {
     puphpet::php::pecl { 'mongo':
       service_autorestart => $mongodb_webserver_restart,
       require             => Class['mongodb::server']
-    }
-  }
-}
-
-define mongodb_db (
-  $dbname,
-  $user,
-  $password,
-  $roles     = ['dbAdmin', 'readWrite', 'userAdmin'],
-  $tries     = 10,
-) {
-  if ! value_true($name) or ! value_true($password) {
-    fail( 'MongoDB requires that name and password be set. Please check your settings!' )
-  }
-
-  if ! defined(Mongodb_database[$dbname]) {
-    mongodb_database { $dbname:
-      ensure  => present,
-      tries   => $tries,
-      require => Class['mongodb::server'],
-    }
-  }
-
-  $hash = mongodb_password($user, $password)
-
-  if ! defined(Mongodb_user[$user]) {
-    mongodb_user { $user:
-      ensure        => present,
-      password_hash => $hash,
-      database      => $dbname,
-      roles         => $roles,
-      require       => Mongodb_database[$dbname],
     }
   }
 }

@@ -51,19 +51,26 @@ if hash_key_equals($php_values, 'install', 1) {
     $php_config_file              = $php_fpm_ini
     $php_manage_service           = true
 
+    $php_fpm_conf = $puphpet::params::php_fpm_conf
+
+    $php_fpm_perl = 'perl -p -i -e "s#listen = .*#listen = 127.0.0.1:9000#gi"'
+    $php_fpm_grep = 'grep -x "listen = 127.0.0.1:9000"'
+
     exec { 'php_fpm-listen':
-      command => "perl -p -i -e 's#listen = .*#listen = 127.0.0.1:9000#gi' ${puphpet::params::php_fpm_conf}",
-      onlyif  => "test -f ${puphpet::params::php_fpm_conf}",
-      unless  => "grep -x 'listen = 127.0.0.1:9000' ${puphpet::params::php_fpm_conf}",
+      command => "${php_fpm_perl} ${php_fpm_conf}",
+      onlyif  => "test -f ${php_fpm_conf}",
+      unless  => "${php_fpm_grep} ${php_fpm_conf}",
       path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
       require => Package[$php_package],
       notify  => Service[$php_webserver_service],
     }
 
+    $php_fpm_lextensions_perl =
+      's#;security.limit_extensions = .*#security.limit_extensions = .php#gi'
     exec { 'php_fpm-security.limit_extensions':
-      command => "perl -p -i -e 's#;security.limit_extensions = .*#security.limit_extensions = .php#gi' ${puphpet::params::php_fpm_conf}",
-      onlyif  => "test -f ${puphpet::params::php_fpm_conf}",
-      unless  => "grep -x 'security.limit_extensions = .php' ${puphpet::params::php_fpm_conf}",
+      command => "perl -p -i -e '${php_fpm_lextensions_perl}' ${php_fpm_conf}",
+      onlyif  => "test -f ${php_fpm_conf}",
+      unless  => "grep -x 'security.limit_extensions = .php' ${php_fpm_conf}",
       path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
       require => Package[$php_package],
       notify  => Service[$php_webserver_service],
@@ -85,7 +92,10 @@ if hash_key_equals($php_values, 'install', 1) {
     config_file         => $php_config_file,
   }
 
-  if $php_manage_service and $php_webserver_service and ! defined(Service[$php_webserver_service]) {
+  if $php_manage_service
+    and $php_webserver_service
+    and ! defined(Service[$php_webserver_service])
+  {
     service { $php_webserver_service:
       ensure     => $php_webserver_service_ensure,
       enable     => true,
@@ -97,57 +107,76 @@ if hash_key_equals($php_values, 'install', 1) {
 
   class { 'php::devel': }
 
-  if count($php_values['modules']['php']) > 0 {
-    php_mod { $php_values['modules']['php']:; }
-  }
-  if count($php_values['modules']['pear']) > 0 {
-    php_pear_mod { $php_values['modules']['pear']:; }
-  }
-  if count($php_values['modules']['pecl']) > 0 {
-    php_pecl_mod { $php_values['modules']['pecl']:; }
+  each( $php_values['modules']['php'] ) |$name| {
+    if ! defined(Puphpet::Php::Module[$name]) {
+      puphpet::php::module { $name:
+        service_autorestart => $php_webserver_restart,
+      }
+    }
   }
 
-  if count($php_values['ini']) > 0 {
-    $php_inis = merge({
-      'cgi.fix_pathinfo' => 1,
-      'date.timezone'    => $php_values['timezone'],
-    }, $php_values['ini'])
+  each( $php_values['modules']['pear'] ) |$name| {
+    if ! defined(Puphpet::Php::Pear[$name]) {
+      puphpet::php::pear { $name:
+        service_autorestart => $php_webserver_restart,
+      }
+    }
+  }
 
-    each( $php_inis ) |$key, $value| {
-      if is_array($value) {
-        each( $php_values['ini'][$key] ) |$innerkey, $innervalue| {
-          puphpet::php::ini { "${key}_${innerkey}":
-            entry       => "CUSTOM_${innerkey}/${key}",
-            value       => $innervalue,
-            php_version => $php_values['version'],
-            webserver   => $php_webserver_service_ini
-          }
-        }
-      } else {
-        puphpet::php::ini { $key:
-          entry       => "CUSTOM/${key}",
-          value       => $value,
+  each( $php_values['modules']['pear'] ) |$name| {
+    if ! defined(Puphpet::Php::Extra_repos[$name]) {
+      puphpet::php::extra_repos { $name:
+        before => Puphpet::Php::Pecl[$name],
+      }
+    }
+
+    if ! defined(Puphpet::Php::Pecl[$name]) {
+      puphpet::php::pecl { $name:
+        service_autorestart => $php_webserver_restart,
+      }
+    }
+  }
+
+  $php_inis = merge({
+    'cgi.fix_pathinfo' => 1,
+    'date.timezone'    => $php_values['timezone'],
+  }, $php_values['ini'])
+
+  each( $php_inis ) |$key, $value| {
+    if is_array($value) {
+      each( $php_values['ini'][$key] ) |$innerkey, $innervalue| {
+        puphpet::php::ini { "${key}_${innerkey}":
+          entry       => "CUSTOM_${innerkey}/${key}",
+          value       => $innervalue,
           php_version => $php_values['version'],
           webserver   => $php_webserver_service_ini
         }
       }
+    } else {
+      puphpet::php::ini { $key:
+        entry       => "CUSTOM/${key}",
+        value       => $value,
+        php_version => $php_values['version'],
+        webserver   => $php_webserver_service_ini
+      }
     }
+  }
 
-    if hash_key_true($php_values['ini'], 'session.save_path'){
-      $php_sess_save_path = $php_values['ini']['session.save_path']
+  if hash_key_true($php_values['ini'], 'session.save_path'){
+    $php_sess_save_path = $php_values['ini']['session.save_path']
 
-      # Handles URLs like tcp://127.0.0.1:6379 - absolute file paths won't have ":"
-      if ! (':' in $php_sess_save_path) {
-        exec {"mkdir -p ${php_sess_save_path}":
-          creates => $php_sess_save_path,
-          before  => Class['php']
-        }
-        -> file { $php_sess_save_path:
-          ensure => directory,
-          group  => 'www-data',
-          owner  => 'www-data',
-          mode   => 0775,
-        }
+    # Handles URLs like tcp://127.0.0.1:6379
+    # absolute file paths won't have ":"
+    if ! (':' in $php_sess_save_path) {
+      exec {"mkdir -p ${php_sess_save_path}":
+        creates => $php_sess_save_path,
+        before  => Class['php']
+      }
+      -> file { $php_sess_save_path:
+        ensure => directory,
+        group  => 'www-data',
+        owner  => 'www-data',
+        mode   => '0775',
       }
     }
   }
@@ -167,44 +196,19 @@ if hash_key_equals($php_values, 'install', 1) {
   if hash_key_equals($mailcatcher_values, 'install', 1)
     and ! defined(Puphpet::Php::Ini['sendmail_path'])
   {
-    $mailcatcher_f_flag = $mailcatcher_values['settings']['from_email_method'] ? {
+    $mc_from_method = $mailcatcher_values['settings']['from_email_method']
+    $mc_path = $mailcatcher_values['settings']['mailcatcher_path']
+
+    $mailcatcher_f_flag = $mc_from_method ? {
       'headers' => '',
       default   => ' -f',
     }
 
     puphpet::php::ini { 'sendmail_path':
       entry       => 'CUSTOM/sendmail_path',
-      value       => "${mailcatcher_values['settings']['mailcatcher_path']}/catchmail${mailcatcher_f_flag}",
+      value       => "${mc_path}/catchmail${mailcatcher_f_flag}",
       php_version => $php_values['version'],
       webserver   => $php_webserver_service_ini
-    }
-  }
-}
-
-define php_mod {
-  if ! defined(Puphpet::Php::Module[$name]) {
-    puphpet::php::module { $name:
-      service_autorestart => $php_webserver_restart,
-    }
-  }
-}
-define php_pear_mod {
-  if ! defined(Puphpet::Php::Pear[$name]) {
-    puphpet::php::pear { $name:
-      service_autorestart => $php_webserver_restart,
-    }
-  }
-}
-define php_pecl_mod {
-  if ! defined(Puphpet::Php::Extra_repos[$name]) {
-    puphpet::php::extra_repos { $name:
-      before => Puphpet::Php::Pecl[$name],
-    }
-  }
-
-  if ! defined(Puphpet::Php::Pecl[$name]) {
-    puphpet::php::pecl { $name:
-      service_autorestart => $php_webserver_restart,
     }
   }
 }

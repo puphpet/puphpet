@@ -4,57 +4,43 @@ if $vm_values == undef { $vm_values = hiera_hash($::vm_target_key, false) }
 include puphpet::params
 
 Firewall {
-  before  => Class['my_fw::post'],
-  require => Class['my_fw::pre'],
+  before  => Class['puphpet::firewall::post'],
+  require => Class['puphpet::firewall::pre'],
 }
 
-class { ['my_fw::pre', 'my_fw::post']: }
+class { ['puphpet::firewall::pre', 'puphpet::firewall::post']: }
 
 class { 'firewall': }
 
-class my_fw::pre {
-  Firewall {
-    require => undef,
+# All ports defined in `firewall` yaml section
+each( $firewall_values['rules'] ) |$key, $rule| {
+  if is_string($rule['port']) {
+    $ports = [$rule['port']]
+  } else {
+    $ports = $rule['port']
   }
 
-  # Default firewall rules
-  firewall { '000 accept all icmp':
-    proto  => 'icmp',
-    action => 'accept',
-  }->
-  firewall { '001 accept all to lo interface':
-    proto   => 'all',
-    iniface => 'lo',
-    action  => 'accept',
-  }->
-  firewall { '002 accept related established rules':
-    proto  => 'all',
-    state  => ['RELATED', 'ESTABLISHED'],
-    action => 'accept',
-  }
-}
+  each( $ports ) |$port| {
+    if ! defined(Puphpet::Firewall::Port[$port]) {
+      if has_key($rule, 'priority') {
+        $priority = $rule['priority']
+      } else {
+        $priority = 100
+      }
 
-class my_fw::post {
-  firewall { '999 drop all':
-    proto   => 'all',
-    action  => 'drop',
-    before  => undef,
-  }
-}
-
-if is_hash($firewall_values['rules']) and count($firewall_values['rules']) > 0 {
-  each( $firewall_values['rules'] ) |$key, $rule| {
-    if ! defined(Firewall["${rule['priority']} ${rule['proto']}/${rule['port']}"]) {
-      firewall { "${rule['priority']} ${rule['proto']}/${rule['port']}":
-        port   => $rule['port'],
-        proto  => $rule['proto'],
-        action => $rule['action'],
+      puphpet::firewall::port { $port:
+        protocol => $rule['proto'],
+        priority => $priority,
+        action   => $rule['action'],
       }
     }
   }
 }
 
-if has_key($vm_values, 'ssh') and has_key($vm_values['ssh'], 'port') {
+# Opens up SSH port defined in `vagrantfile-*` section
+if has_key($vm_values, 'ssh')
+  and has_key($vm_values['ssh'], 'port')
+{
   $vm_values_ssh_port = $vm_values['ssh']['port'] ? {
     ''      => 22,
     undef   => 22,
@@ -62,32 +48,19 @@ if has_key($vm_values, 'ssh') and has_key($vm_values['ssh'], 'port') {
     default => $vm_values['ssh']['port']
   }
 
-  if ! defined(Firewall["100 tcp/${vm_values_ssh_port}"]) {
-    firewall { "100 tcp/${vm_values_ssh_port}":
-      port   => $vm_values_ssh_port,
-      proto  => tcp,
-      action => 'accept',
-      before => Class['my_fw::post']
-    }
+  if ! defined(Puphpet::Firewall::Port[$vm_values_ssh_port]) {
+    puphpet::firewall::port { $vm_values_ssh_port: }
   }
 }
 
+# Opens up forwarded ports; remote servers won't have these keys
 if has_key($vm_values, 'vm')
   and has_key($vm_values['vm'], 'network')
   and has_key($vm_values['vm']['network'], 'forwarded_port')
 {
-  create_resources( iptables_port, $vm_values['vm']['network']['forwarded_port'] )
-}
-
-define iptables_port (
-  $host,
-  $guest,
-) {
-  if ! defined(Firewall["100 tcp/${guest}"]) {
-    firewall { "100 tcp/${guest}":
-      port   => $guest,
-      proto  => tcp,
-      action => 'accept',
+  each( $vm_values['vm']['network']['forwarded_port'] ) |$key, $ports| {
+    if ! defined(Puphpet::Firewall::Port[$ports['guest']]) {
+      puphpet::firewall::port { $ports['guest']: }
     }
   }
 }

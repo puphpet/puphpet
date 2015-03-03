@@ -32,11 +32,7 @@ if hash_key_equals($rabbitmq_values, 'install', 1) {
     }
   }
 
-  if ! defined(Firewall['100 tcp/15672']) {
-    firewall { '100 tcp/15672':
-      port   => 15672,
-      proto  => tcp,
-      action => 'accept',
-    }
+  if ! defined(Puphpet::Firewall::Port['15672']) {
+    puphpet::firewall::port { '15672': }
   }
 }
