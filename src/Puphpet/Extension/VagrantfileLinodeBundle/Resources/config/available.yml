@@ -6,16 +6,8 @@ empty_synced_folder:
 
 available_distributions:
     -
-        distribution: CentOS 6.5
-        long_name: CentOS 6.5 x64
-        php_versions:
-            - 5.6
-            - 5.5
-            - 5.4
-            - HHVM
-    -
-        distribution: Debian 7.7
-        long_name: Debian Wheezy 7.7 x64
+        distribution: Debian 7
+        long_name: Debian Wheezy 7.x x64
         php_versions:
             - 5.6
             - 5.5
@@ -27,13 +19,6 @@ available_distributions:
         php_versions:
             - 5.6
             - 5.5
-            - HHVM
-    -
-        distribution: Ubuntu 12.04 LTS
-        long_name: Ubuntu Precise 12.04 LTS x64
-        php_versions:
-            - 5.5
-            - 5.4
             - HHVM
 
 available_plans:
