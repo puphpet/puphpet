@@ -18,6 +18,10 @@ if hash_key_equals($mysql_values, 'install', 1) {
 
   if $::osfamily == 'redhat' {
     $rhel_mysql = 'http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm'
+
+    $mysql_rhel_yum   = "yum -y --nogpgcheck install '${rhel_mysql}'"
+    $mysql_rhel_touch = 'touch /.puphpet-stuff/mysql-community-release'
+
     exec { 'mysql-community-repo':
       command => "yum -y --nogpgcheck install '${rhel_mysql}' && touch /.puphpet-stuff/mysql-community-release",
       creates => '/.puphpet-stuff/mysql-community-release'
