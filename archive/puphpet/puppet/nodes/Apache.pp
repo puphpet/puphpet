@@ -76,7 +76,7 @@ if hash_key_equals($apache_values, 'install', 1) {
     $apache_php_package   = 'php-fpm'
     $fcgi_string          = '127.0.0.1:9000'
   } else {
-    $mpm_module           = 'prefork'
+    $mpm_module           = 'worker'
     $disallowed_modules   = []
     $apache_php_package   = ''
     $fcgi_string          = ''
