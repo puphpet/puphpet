@@ -123,7 +123,7 @@ if hash_key_equals($php_values, 'install', 1) {
     }
   }
 
-  each( $php_values['modules']['pear'] ) |$name| {
+  each( $php_values['modules']['pecl'] ) |$name| {
     if ! defined(Puphpet::Php::Extra_repos[$name]) {
       puphpet::php::extra_repos { $name:
         before => Puphpet::Php::Pecl[$name],
