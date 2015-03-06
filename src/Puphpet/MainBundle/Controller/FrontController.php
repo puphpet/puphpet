@@ -34,10 +34,7 @@ class FrontController extends Controller
 
     public function uploadConfigAction(Request $request)
     {
-        $config = $request->get('config');
-
-        $config = str_replace("\r\n", "\n", $config);
-        $config = str_replace("\n\r", "\n", $config);
+        $config = $this->normalizeLineBreaks($request->get('config'));
 
         $yaml = '';
 
@@ -76,10 +73,7 @@ class FrontController extends Controller
 
     public function generateArchiveAction(Request $request)
     {
-        $config = $request->get('config');
-
-        $config = str_replace("\r\n", "\n", $config);
-        $config = str_replace("\n\r", "\n", $config);
+        $config = $this->normalizeLineBreaks($request->get('config'));
 
         $values = '';
 
@@ -137,5 +131,22 @@ class FrontController extends Controller
         ]);
 
         return $foo;
+    }
+
+    /**
+     * Normalize linebreaks user-submitted text.
+     *
+     * @param string $config
+     * @return string
+     */
+    private function normalizeLineBreaks($config)
+    {
+        $config = str_replace("\r\n", "\n", $config);
+        $config = str_replace("\n\r", "\n", $config);
+
+        $config = str_replace('\r\n', '\n', $config);
+        $config = str_replace('\n\r', '\n', $config);
+
+        return $config;
     }
 }
