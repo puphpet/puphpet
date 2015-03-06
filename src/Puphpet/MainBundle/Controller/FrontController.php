@@ -36,6 +36,9 @@ class FrontController extends Controller
     {
         $config = $request->get('config');
 
+        $config = str_replace("\r\n", "\n", $config);
+        $config = str_replace("\n\r", "\n", $config);
+
         $yaml = '';
 
         try {
@@ -74,6 +77,9 @@ class FrontController extends Controller
     public function generateArchiveAction(Request $request)
     {
         $config = $request->get('config');
+
+        $config = str_replace("\r\n", "\n", $config);
+        $config = str_replace("\n\r", "\n", $config);
 
         $values = '';
 
