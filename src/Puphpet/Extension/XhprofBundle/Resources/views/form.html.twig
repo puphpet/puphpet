@@ -48,18 +48,12 @@
                     <p><code>
                         $xhprof_data = xhprof_disable();<br />
                         $appNamespace = 'some_namespace_here';<br />
-                        include_once '/var/www/default/xhprof/xhprof_lib/utils/xhprof_lib.php';<br />
-                        include_once '/var/www/default/xhprof/xhprof_lib/utils/xhprof_runs.php';<br />
+                        include_once '/var/www/html/xhprof/xhprof_lib/utils/xhprof_lib.php';<br />
+                        include_once '/var/www/html/xhprof/xhprof_lib/utils/xhprof_runs.php';<br />
 
                         $xhprof_runs = new XHProfRuns_Default();<br />
                         $xhprof_runs->save_run($xhprof_data, $appNamespace);<br />
                     </code></p>
-
-                    <p>
-                        Depending on if you chose Apache or Nginx and if you're on Debian/Ubuntu/CentOS, the
-                        <code>/var/www/default/</code> part in the lines above may be different. Simple SSH into
-                        your VM and double check to make sure!
-                    </p>
 
                     <p>
                         These instructions grabbed from
