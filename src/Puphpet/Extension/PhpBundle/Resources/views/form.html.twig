@@ -74,17 +74,27 @@
                                     data-target-container="php-ini"
                                     data-target-name="php[ini]"
                                 >
+
+                                {% set flattened = [] %}
                                 {% for ini, values in php.available_ini %}
                                     {% if values is not empty %}
                                         <optgroup label="{{ ini }}">
                                             {% for value in values %}
+                                                {% set flattened = flattened|merge([value]) %}
                                                 <option value="{{ value }}"
                                                     {% if value in php.ini|keys %}selected{% endif %}>{{ value }}</option>
                                             {% endfor %}
                                         </optgroup>
                                     {% else %}
+                                        {% set flattened = flattened|merge([ini]) %}
                                         <option value="{{ ini }}"
                                             {% if ini in php.ini|keys %}selected{% endif %}>{{ ini }}</option>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% for name, value in php.ini %}
+                                    {% if name not in flattened %}
+                                        <option value="{{ name }}" selected>{{ name }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
@@ -106,14 +116,20 @@
                             <label for="php-timezone">PHP Timezone</label>
                             <select id="php-timezone" name="php[timezone]"
                                     class="form-control select-tag">
+                                {% set flattened = [] %}
                                 {% for namespace, timezones in php.available_timezones %}
                                     <optgroup label="{{ namespace }}">
                                         {% for timezone in timezones %}
+                                            {% set flattened = flattened|merge([timezone]) %}
                                             <option value="{{ timezone }}"
                                                 {% if timezone == php.timezone %}selected{% endif %}>{{ timezone }}</option>
                                         {% endfor %}
                                     </optgroup>
                                 {% endfor %}
+
+                                {% if php.timezone not in flattened %}
+                                    <option value="{{ php.timezone }}" selected>{{ php.timezone }}</option>
+                                {% endif %}
                             </select>
                         </div>
                     </div>
@@ -130,9 +146,12 @@
                             </label>
                             <select id="php-modules-php" name="php[modules][php][]"
                                     multiple class="form-control select-tags">
-                                {% for module in php.available_modules.php %}
-                                    <option value="{{ module }}"
-                                        {% if module in php.modules.php %}selected{% endif %}>{{ module }}</option>
+                                {% for module in php.modules.php %}
+                                    <option value="{{ module }}" selected>{{ module }}</option>
+                                {% endfor %}
+
+                                {% for module in php.available_modules.php if module not in php.modules.php %}
+                                    <option value="{{ module }}">{{ module }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -145,18 +164,19 @@
                             <label for="php-modules-pear">PEAR Modules</label>
                             <select id="php-modules-pear" name="php[modules][pear][]"
                                     multiple class="form-control select-tags">
-                                {% set selectedPhpModulesPear = [] %}
+                                {% set flattened = [] %}
                                 {% for namespace, modules in php.available_modules.pear %}
                                     <optgroup label="{{ namespace }}">
                                         {% for module in modules %}
-                                            {% set selectedPhpModulesPear = selectedPhpModulesPear|merge([module]) %}
+                                            {% set flattened = flattened|merge([module]) %}
                                             <option value="{{ module }}"
                                                 {% if module in php.modules.pear %}selected{% endif %}>{{ module }}</option>
                                         {% endfor %}
                                     </optgroup>
                                 {% endfor %}
+
                                 {% for module in php.modules.pear %}
-                                    {% if module not in selectedPhpModulesPear %}
+                                    {% if module not in flattened %}
                                         <option value="{{ module }}" selected>{{ module }}</option>
                                     {% endif %}>
                                 {% endfor %}
@@ -171,18 +191,19 @@
                             <label for="php-modules-pecl">PECL Modules</label>
                             <select id="php-modules-pecl" name="php[modules][pecl][]"
                                     multiple class="form-control select-tags">
-                                {% set selectedPhpModulesPecl = [] %}
+                                {% set flattened = [] %}
                                 {% for namespace, modules in php.available_modules.pecl %}
                                     <optgroup label="{{ namespace }}">
                                         {% for module in modules %}
-                                            {% set selectedPhpModulesPecl = selectedPhpModulesPecl|merge([module]) %}
+                                            {% set flattened = flattened|merge([module]) %}
                                             <option value="{{ module }}"
                                                 {% if module in php.modules.pecl %}selected{% endif %}>{{ module }}</option>
                                         {% endfor %}
                                     </optgroup>
                                 {% endfor %}
+
                                 {% for module in php.modules.pecl %}
-                                    {% if module not in selectedPhpModulesPecl %}
+                                    {% if module not in flattened %}
                                         <option value="{{ module }}" selected>{{ module }}</option>
                                     {% endif %}>
                                 {% endfor %}

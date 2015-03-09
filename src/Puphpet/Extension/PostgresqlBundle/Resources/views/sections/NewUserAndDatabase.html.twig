@@ -14,9 +14,14 @@
                 <select id="postgresql-databases-{{ uniqid }}-grant"
                         name="postgresql[databases][{{ uniqid }}][grant]" size="6"
                         class="form-control select-tags">
+                    {% if database.grant is defined and database.grant is not empty %}
+                        <option value="{{ database.grant }}" selected>{{ database.grant }}</option>
+                    {% endif %}
+
                     {% for privilege in available_privileges %}
-                        <option value="{{ privilege }}"
-                            {% if privilege in database.grant %}selected{% endif %}>{{ privilege }}</option>
+                        {% if privilege != database.grant %}
+                            <option value="{{ privilege }}" selected>{{ privilege }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </div>

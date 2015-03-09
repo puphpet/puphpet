@@ -20,16 +20,24 @@
                 <div class="panel-body">
                     <div class="row form-group">
                         <div class="col-xs-12">
-                            <label for="elastic_search-settings-version">Choose Version</label>
+                            <label>Version</label><br />
 
-                            <select id="elastic_search-settings-version"
-                                    name="elastic_search[settings][version]" size="6"
-                                    class="form-control select-tags">
-                                {% for available in elastic_search.available_versions %}
-                                    <option value="{{ available }}"
-                                        {% if available == elastic_search.settings.version %}selected{% endif %}>{{ available }}</option>
-                                {% endfor %}
-                            </select>
+                            {% if elastic_search.settings.version is defined and elastic_search.settings.version is not empty %}
+                                <label class="radio-inline">
+                                    <input type="radio" name="elastic_search[settings][version]"
+                                           value="{{ elastic_search.settings.version }}" checked />
+                                    {{ elastic_search.settings.version }}
+                                </label>
+                            {% endif %}
+
+                            {% for version in elastic_search.available_versions %}
+                                {% if version != elastic_search.settings.version %}
+                                    <label class="radio-inline">
+                                        <input type="radio" name="elastic_search[settings][version]" value="{{ version }}" />
+                                        {{ version }}
+                                    </label>
+                                {% endif %}
+                            {% endfor %}
                         </div>
 
                         <div class="col-xs-12">

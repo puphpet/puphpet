@@ -23,11 +23,21 @@
                         <div class="col-md-12">
                             <label>Version</label><br />
 
-                            {% for version in postgresql.available_versions %}
+                            {% if postgresql.settings.version is defined and postgresql.settings.version is not empty %}
                                 <label class="radio-inline">
-                                    <input type="radio" name="postgresql[settings][version]" value="{{ version }}"
-                                        {% if version == postgresql.settings.version %}checked{% endif %} /> {{ version }}
+                                    <input type="radio" name="postgresql[settings][version]"
+                                           value="{{ postgresql.settings.version }}" checked />
+                                    {{ postgresql.settings.version }}
                                 </label>
+                            {% endif %}
+
+                            {% for version in postgresql.available_versions %}
+                                {% if version != postgresql.settings.version %}
+                                    <label class="radio-inline">
+                                        <input type="radio" name="postgresql[settings][version]" value="{{ version }}" />
+                                        {{ version }}
+                                    </label>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>

@@ -27,11 +27,25 @@
                         <div class="col-md-12">
                             <label>Version</label><br />
 
-                            {% for version in mariadb.available_versions %}
+                            {% if mariadb.dinosaurs.ruled.the.earth is defined %}
+                                aaa
+                            {% endif %}
+
+                            {% if mariadb.version is defined and mariadb.version is not empty %}
                                 <label class="radio-inline">
-                                    <input type="radio" name="mariadb[version]" value="{{ version }}"
-                                        {% if version == mariadb.version %}checked{% endif %} /> {{ version }}
+                                    <input type="radio" name="mariadb[version]"
+                                           value="{{ mariadb.version }}" checked />
+                                    {{ mariadb.version }}
                                 </label>
+                            {% endif %}
+
+                            {% for version in mariadb.available_versions %}
+                                {% if version != mariadb.version %}
+                                    <label class="radio-inline">
+                                        <input type="radio" name="mariadb[version]" value="{{ version }}" />
+                                        {{ version }}
+                                    </label>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>

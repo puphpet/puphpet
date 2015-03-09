@@ -14,13 +14,21 @@
                 <select id="mysql-databases-{{ uniqid }}-grant"
                         name="mysql[databases][{{ uniqid }}][grant][]" multiple size="6"
                         class="form-control select-tags">
+                    {% set flattened = [] %}
                     {% for type, privileges in available_privileges %}
                         <optgroup label="{{ type }}">
                             {% for privilege in privileges %}
+                                {% set flattened = flattened|merge([privilege]) %}
                                 <option value="{{ privilege }}"
                                     {% if privilege in database.grant %}selected{% endif %}>{{ privilege }}</option>
                             {% endfor %}
                         </optgroup>
+                    {% endfor %}
+
+                    {% for privilege in database.grant %}
+                        {% if privilege not in flattened %}
+                            <option value="{{ privilege }}" selected>{{ privilege }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </div>

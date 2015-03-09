@@ -86,17 +86,26 @@
                                     data-target-container="hhvm-ini"
                                     data-target-name="hhvm[ini]"
                                 >
+                                {% set flattened = [] %}
                                 {% for ini, values in hhvm.available_ini %}
                                     {% if values is not empty %}
                                         <optgroup label="{{ ini }}">
                                             {% for value in values %}
+                                                {% set flattened = flattened|merge([value]) %}
                                                 <option value="{{ value }}"
                                                     {% if value in hhvm.ini|keys %}selected{% endif %}>{{ value }}</option>
                                             {% endfor %}
                                         </optgroup>
                                     {% else %}
+                                        {% set flattened = flattened|merge([ini]) %}
                                         <option value="{{ ini }}"
                                             {% if ini in hhvm.ini|keys %}selected{% endif %}>{{ ini }}</option>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% for name, value in hhvm.ini %}
+                                    {% if name not in flattened %}
+                                        <option value="{{ name }}" selected>{{ name }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>

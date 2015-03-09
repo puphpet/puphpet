@@ -20,9 +20,14 @@
                         data-target-container="xdebug-settings"
                         data-target-name="xdebug[settings]"
                     >
+                    {% for name, value in xdebug.settings %}
+                        <option value="{{ name }}" selected>{{ name }}</option>
+                    {% endfor %}
+
                     {% for setting in xdebug.available_settings %}
-                        <option value="{{ setting }}"
-                            {% if setting in xdebug.settings|keys %}selected{% endif %}>{{ setting }}</option>
+                        {% if setting not in xdebug.settings|keys %}
+                            <option value="{{ setting }}">{{ setting }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
 

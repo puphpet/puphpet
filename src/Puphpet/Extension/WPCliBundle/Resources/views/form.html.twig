@@ -27,9 +27,14 @@
                 <select id="wpcli-version"
                         name="wpcli[version]" size="6"
                         class="form-control select-tags">
+                    {% if wpcli.version is defined %}
+                        <option value="{{ wpcli.version }}" selected>{{ wpcli.version }}</option>
+                    {% endif %}
+
                     {% for version in wpcli.available_versions %}
-                        <option value="{{ version }}"
-                            {% if version == wpcli.version %}selected{% endif %}>{{ version }}</option>
+                        {% if version != wpcli.version %}
+                            <option value="{{ version }}">{{ version }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </div>

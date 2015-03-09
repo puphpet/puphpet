@@ -27,9 +27,14 @@
                 <select id="drush-version"
                         name="drush[version]" size="6"
                         class="form-control select-tags">
+                    {% if drush.version is defined %}
+                        <option value="{{ drush.version }}" selected>{{ drush.version }}</option>
+                    {% endif %}
+
                     {% for version in drush.available_versions %}
-                        <option value="{{ version }}"
-                            {% if version == drush.version %}selected{% endif %}>{{ version }}</option>
+                        {% if version != drush.version %}
+                            <option value="{{ version }}">{{ version }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </div>
