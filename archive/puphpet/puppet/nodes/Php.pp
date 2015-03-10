@@ -168,15 +168,16 @@ if hash_key_equals($php_values, 'install', 1) {
     # Handles URLs like tcp://127.0.0.1:6379
     # absolute file paths won't have ":"
     if ! (':' in $php_sess_save_path) {
-      exec {"mkdir -p ${php_sess_save_path}":
+      exec { "mkdir -p ${php_sess_save_path}" :
         creates => $php_sess_save_path,
-        before  => Class['php']
+        require => Package[$php_package],
+        notify  => Service[$php_webserver_service],
       }
-      -> file { $php_sess_save_path:
-        ensure => directory,
-        group  => 'www-data',
-        owner  => 'www-data',
-        mode   => '0775',
+      -> exec { "chown -R www-data:www-data ${php_sess_save_path}":
+        path => '/bin',
+      }
+      -> exec { "chmod -R 775 ${php_sess_save_path}":
+        path => '/bin',
       }
     }
   }
