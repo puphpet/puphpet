@@ -44,7 +44,7 @@ mod 'puppetlabs/ntp',
     :ref => '3.0.4'
 mod 'puphpet/php',
     :git => 'https://github.com/puphpet/puppet-php.git',
-    :ref => 'a1dad7828d'
+    :ref => '3bce89b'
 mod 'puppetlabs/postgresql',
     :git => 'https://github.com/puppetlabs/puppetlabs-postgresql.git',
     :ref => '3.3.3'
