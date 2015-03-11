@@ -13,45 +13,18 @@ if hash_key_equals($nginx_values, 'install', 1) {
 
   class { 'puphpet::ssl_cert': }
 
-  $www_location         = $puphpet::params::nginx_www_location
-  $webroot_location     = $puphpet::params::nginx_webroot_location
-  $nginx_provider_types = [
-    'virtualbox',
-    'vmware_fusion',
-    'vmware_desktop',
-    'parallels'
-  ]
+  $www_location  = $puphpet::params::nginx_www_location
+  $webroot_user  = 'www-data'
+  $webroot_group = 'www-data'
 
-  if downcase($::provisioner_type) in $nginx_provider_types {
-    $webroot_group = 'www-data'
-    $vhost_group   = 'www-data'
-  } else {
-    $webroot_group = 'www-data'
-    $vhost_group   = 'www-user'
-  }
-
-  exec { "mkdir -p ${www_location}":
-    creates => $www_location,
-    before  => Class['nginx'],
-  }
-  -> exec { "chown www-data:www-data ${www_location} && chmod 775 ${www_location}":
-    path => '/bin',
-  }
-
-  exec { "mkdir -p ${webroot_location}":
-    creates => $webroot_location,
-    require => Exec["mkdir -p ${www_location}"],
-  }
-
-  if ! defined(File[$webroot_location]) {
-    file { $webroot_location:
+  if ! defined(File[$www_location]) {
+    file { $www_location:
       ensure  => directory,
+      owner   => 'root',
       group   => $webroot_group,
       mode    => '0775',
-      require => [
-        Exec["mkdir -p ${webroot_location}"],
-        Group['www-data']
-      ],
+      before  => Class['nginx'],
+      require => Group[$webroot_group],
     }
   }
 
@@ -67,9 +40,9 @@ if hash_key_equals($nginx_values, 'install', 1) {
     file { '/usr/share/nginx':
       ensure  => directory,
       mode    => '0775',
-      owner   => 'www-data',
-      group   => 'www-data',
-      require => Group['www-data'],
+      owner   => $webroot_user,
+      group   => $webroot_group,
+      require => Group[$webroot_group],
       before  => Package['nginx']
     }
   }
@@ -118,14 +91,6 @@ if hash_key_equals($nginx_values, 'install', 1) {
 
   class { 'nginx': }
 
-  exec { "chown www-data:www-data ${www_location}":
-    path    => '/bin',
-    require => Class['nginx'],
-  }
-  -> exec { "chmod 775 ${www_location}":
-    path => '/bin',
-  }
-
   if hash_key_equals($nginx_values['settings'], 'default_vhost', 1) {
     $nginx_vhosts = merge($nginx_values['vhosts'], {
       'default' => $default_vhost,
@@ -146,26 +111,17 @@ if hash_key_equals($nginx_values, 'install', 1) {
     if ! defined($vhost['proxy']) or $vhost['proxy'] == '' {
       exec { "exec mkdir -p ${vhost['www_root']} @ key ${key}":
         command => "mkdir -p ${vhost['www_root']}",
-        user    => 'www-data',
-        group   => 'www-data',
+        user    => $webroot_user,
+        group   => $webroot_group,
         creates => $vhost['www_root'],
-        require => Exec["mkdir -p ${www_location}"],
-      }
-      -> exec { "exec chmod -R 775 ${vhost['www_root']} @ key ${key}":
-        command => "mkdir -p ${vhost['www_root']}",
-        user    => 'www-data',
-        group   => 'www-data',
+        require => File[$www_location],
       }
 
       if ! defined(File[$vhost['www_root']]) {
         file { $vhost['www_root']:
           ensure  => directory,
-          group   => $vhost_group,
-          mode    => '0765',
-          require => [
-            Exec["exec mkdir -p ${vhost['www_root']} @ key ${key}"],
-            Group['www-user']
-          ]
+          mode    => '0775',
+          require => Exec["exec mkdir -p ${vhost['www_root']} @ key ${key}"],
         }
       }
     }
