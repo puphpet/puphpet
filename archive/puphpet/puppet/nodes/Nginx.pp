@@ -147,4 +147,16 @@ if hash_key_equals($nginx_values, 'install', 1) {
     notify{ 'Adding upstreams': }
     create_resources(puphpet::nginx::upstream, $nginx_values['upstreams'])
   }
+
+  if defined(File[puphpet::params::nginx_webroot_location]) {
+    file { "${puphpet::params::nginx_webroot_location}/index.html":
+      ensure  => present,
+      owner   => 'root',
+      group   => $webroot_group,
+      mode    => '0664',
+      source  => 'puppet:///modules/puphpet/webserver_landing.erb',
+      replace => true,
+      require => File[$puphpet::params::nginx_webroot_location],
+    }
+  }
 }

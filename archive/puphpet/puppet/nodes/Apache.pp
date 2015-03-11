@@ -205,4 +205,16 @@ if hash_key_equals($apache_values, 'install', 1) {
     require => Class['apache'],
     notify  => Service['httpd'],
   }
+
+  if defined(File[$puphpet::params::apache_webroot_location]) {
+    file { "${puphpet::params::apache_webroot_location}/index.html":
+      ensure  => present,
+      owner   => 'root',
+      group   => $webroot_group,
+      mode    => '0664',
+      source  => 'puppet:///modules/puphpet/webserver_landing.erb',
+      replace => true,
+      require => File[$puphpet::params::apache_webroot_location],
+    }
+  }
 }
