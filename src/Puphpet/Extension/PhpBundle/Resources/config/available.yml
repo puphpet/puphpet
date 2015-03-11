@@ -1,5 +1,6 @@
 available_modules:
     php:
+        - bcmath
         - cgi
         - cli
         - common
@@ -23,6 +24,7 @@ available_modules:
         - mysql
         - mysqlnd
         - odbc
+        - opcache
         - pspell
         - readline
         - recode
