@@ -32,7 +32,7 @@ case $::ssh_username {
 
 User[$::ssh_username]
 
-each( ['apache', 'nginx', 'httpd', 'www-data'] ) |$key| {
+each( ['apache', 'nginx', 'httpd', 'www-data', 'www-user'] ) |$key| {
   if ! defined(User[$key]) {
     user { $key:
       ensure  => present,
