@@ -1,10 +1,8 @@
-require 'yaml'
-
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'softlayer'
-
 dir = File.dirname(File.expand_path(__FILE__))
 
-require "#{dir}/puphpet/ruby/deep_merge.rb"
+require 'yaml'
+require "#{dir}/puphpet/puppet/modules/puphpet/lib/puppet/parser/functions/deep_merge_class.rb"
 
 configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 

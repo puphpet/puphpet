@@ -1,11 +1,9 @@
-require 'yaml'
-require 'fog/version'
-
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'google'
-
 dir = File.dirname(File.expand_path(__FILE__))
 
-require "#{dir}/puphpet/ruby/deep_merge.rb"
+require 'yaml'
+require 'fog/version'
+require "#{dir}/puphpet/puppet/modules/puphpet/lib/puppet/parser/functions/deep_merge_class.rb"
 
 configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 
