@@ -28,45 +28,18 @@ if hash_key_equals($apache_values, 'install', 1) {
     }
   }
 
-  $www_location          = $puphpet::params::apache_www_location
-  $webroot_location      = $puphpet::params::apache_webroot_location
-  $apache_provider_types = [
-    'virtualbox',
-    'vmware_fusion',
-    'vmware_desktop',
-    'parallels'
-  ]
+  $www_location  = $puphpet::params::apache_www_location
+  $webroot_user  = 'www-data'
+  $webroot_group = 'www-data'
 
-  if downcase($::provisioner_type) in $apache_provider_types {
-    $webroot_group = 'www-data'
-    $vhost_group   = 'www-data'
-  } else {
-    $webroot_group = 'www-data'
-    $vhost_group   = 'www-user'
-  }
-
-  exec { "mkdir -p ${www_location}":
-    creates => $www_location,
-    before  => Class['apache'],
-  }
-  -> exec { "chown www-data:www-data ${www_location} && chmod 775 ${www_location}":
-    path => '/bin',
-  }
-
-  exec { "mkdir -p ${webroot_location}":
-    creates => $webroot_location,
-    require => Exec["mkdir -p ${www_location}"],
-  }
-
-  if ! defined(File[$webroot_location]) {
-    file { $webroot_location:
+  if ! defined(File[$www_location]) {
+    file { $www_location:
       ensure  => directory,
+      owner   => 'root',
       group   => $webroot_group,
       mode    => '0775',
-      require => [
-        Exec["mkdir -p ${webroot_location}"],
-        Group['www-data']
-      ],
+      before  => Class['apache'],
+      require => Group[$webroot_group],
     }
   }
 
@@ -106,14 +79,6 @@ if hash_key_equals($apache_values, 'install', 1) {
   })
 
   create_resources('class', { 'apache' => $apache_settings })
-
-  exec { "chown www-data:www-data ${www_location}":
-    path    => '/bin',
-    require => Class['apache'],
-  }
-  -> exec { "chmod 775 ${www_location}":
-    path => '/bin',
-  }
 
   if $require_mod_php and ! defined(Class['apache::mod::php']) {
     include apache::mod::php
@@ -158,26 +123,18 @@ if hash_key_equals($apache_values, 'install', 1) {
   each( $apache_vhosts ) |$key, $vhost| {
     exec { "exec mkdir -p ${vhost['docroot']} @ key ${key}":
       command => "mkdir -p ${vhost['docroot']}",
-      user    => 'www-data',
-      group   => 'www-data',
+      user    => $webroot_user,
+      group   => $webroot_group,
       creates => $vhost['docroot'],
-      require => Exec["mkdir -p ${www_location}"],
-    }
-    -> exec { "exec chmod -R 775 ${vhost['docroot']} @ key ${key}":
-      command => "mkdir -p ${vhost['docroot']}",
-      user    => 'www-data',
-      group   => 'www-data',
+      require => File[$www_location],
     }
 
+    # needed by apache::vhost
     if ! defined(File[$vhost['docroot']]) {
       file { $vhost['docroot']:
         ensure  => directory,
-        group   => $vhost_group,
-        mode    => '0765',
-        require => [
-          Exec["exec mkdir -p ${vhost['docroot']} @ key ${key}"],
-          Group['www-user']
-        ]
+        mode    => '0775',
+        require => Exec["exec mkdir -p ${vhost['docroot']} @ key ${key}"],
       }
     }
 
@@ -213,7 +170,8 @@ if hash_key_equals($apache_values, 'install', 1) {
       'ssl_cert'        => $ssl_cert,
       'ssl_key'         => $ssl_key,
       'ssl_chain'       => $ssl_chain,
-      'ssl_certs_dir'   => $ssl_certs_dir
+      'ssl_certs_dir'   => $ssl_certs_dir,
+      'manage_docroot'  => false
     }), 'engine')
 
     create_resources(apache::vhost, { "${key}" => $vhost_merged })
@@ -226,7 +184,7 @@ if hash_key_equals($apache_values, 'install', 1) {
   if $::osfamily == 'debian' and ! $require_mod_php {
     file { ['/var/run/apache2/ssl_mutex']:
       ensure  => directory,
-      group   => 'www-data',
+      group   => $webroot_group,
       mode    => '0775',
       require => Class['apache'],
       notify  => Service['httpd'],
