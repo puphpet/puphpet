@@ -27,20 +27,16 @@
                         <div class="col-md-12">
                             <label>Version</label><br />
 
-                            {% if mariadb.dinosaurs.ruled.the.earth is defined %}
-                                aaa
-                            {% endif %}
-
-                            {% if mariadb.version is defined and mariadb.version is not empty %}
+                            {% if mariadb.settings.version is defined and mariadb.settings.version is not empty %}
                                 <label class="radio-inline">
-                                    <input type="radio" name="mariadb[version]"
-                                           value="{{ mariadb.version }}" checked />
+                                    <input type="radio" name="mariadb[settings][version]"
+                                           value="{{ mariadb.settings.version }}" checked />
                                     {{ mariadb.version }}
                                 </label>
                             {% endif %}
 
                             {% for version in mariadb.available_versions %}
-                                {% if version != mariadb.version %}
+                                {% if version != mariadb.settings.version %}
                                     <label class="radio-inline">
                                         <input type="radio" name="mariadb[version]" value="{{ version }}" />
                                         {{ version }}
@@ -52,14 +48,14 @@
 
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="mariadb-root_password">
+                            <label for="mariadb-settings-root_password">
                                 Root Password
                                 {{ popover.small('Assign a password to the root user.
                                     <strong>Database will only be installed
                                     when a password is entered here.</strong>') }}
                             </label>
-                            <input type="text" id="mariadb-root_password" name="mariadb[root_password]"
-                                   value="{{ mariadb.root_password }}" class="form-control" />
+                            <input type="text" id="mariadb-settings-root_password" name="mariadb[settings][root_password]"
+                                   value="{{ mariadb.settings.root_password }}" class="form-control" />
                         </div>
                     </div>
 
@@ -103,9 +99,9 @@
 
                 <div class="row form-group hidden">
                     <div class="col-xs-12">
-                        <label for="mariadb-override_options">Override Options</label>
-                        <select id="mariadb-override_options" multiple class="form-control">
-                            {% for setting, value in mariadb.override_options %}
+                        <label for="mariadb-settings-override_options">Override Options</label>
+                        <select id="mariadb-settings-override_options" multiple class="form-control">
+                            {% for setting, value in mariadb.settings.override_options %}
                                 <option value="{{ setting }}" selected>{{ value }}</option>
                             {% endfor %}
                         </select>

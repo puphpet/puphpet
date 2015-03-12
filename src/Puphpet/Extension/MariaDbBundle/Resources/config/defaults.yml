@@ -1,7 +1,7 @@
 install: 0
 
-override_options: {}
+settings:
+    override_options: {}
+    version: "10.0"
 
 databases: []
-
-version: "10.0"

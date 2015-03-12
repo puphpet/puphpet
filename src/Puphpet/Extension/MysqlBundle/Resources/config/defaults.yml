@@ -1,6 +1,7 @@
 install: 1
 
-override_options: {}
+settings:
+    override_options: {}
 
 databases:
     -

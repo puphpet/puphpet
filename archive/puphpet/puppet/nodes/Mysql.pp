@@ -1,5 +1,6 @@
 if $mysql_values == undef { $mysql_values = hiera_hash('mysql', false) }
 if $php_values == undef { $php_values = hiera_hash('php', false) }
+if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
 if $apache_values == undef { $apache_values = hiera_hash('apache', false) }
 if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
 
@@ -46,47 +47,48 @@ if hash_key_equals($mysql_values, 'install', 1) {
     $mysql_php_installed = false
   }
 
-  if $mysql_values['root_password'] {
-    $mysql_override_options = empty($mysql_values['override_options']) ? {
-      true    => {},
-      default => $mysql_values['override_options']
+  if empty($mysql_values['settings']['root_password']) {
+    fail( 'MySQL requires choosing a root password. Please check your config.yaml file.' )
+  }
+
+  $mysql_settings = deep_merge({
+      'package_name'     => $mysql_server_server_package_name,
+      'restart'          => true,
+      'override_options' => $mysql::params::default_options,
+      require            => $mysql_server_require,
+    }, $mysql_values['settings'])
+
+  create_resources('class', {
+    'mysql::server' => $mysql_settings
+  })
+
+  class { 'mysql::client':
+    package_name => $mysql_server_client_package_name,
+    require      => $mysql_server_require
+  }
+
+  each( $mysql_values['databases'] ) |$key, $database| {
+    $database_merged = delete(merge($database, {
+      'dbname' => $database['name'],
+    }), 'name')
+
+    create_resources( puphpet::mysql::db, {
+      "${key}" => $database_merged
+    })
+  }
+
+  if $mysql_php_installed and $mysql_php_package == 'php' {
+    if $::osfamily == 'redhat' and $php_values['version'] == '53' {
+      $mysql_php_module = 'mysql'
+    } elsif $::lsbdistcodename == 'lucid' or $::lsbdistcodename == 'squeeze' {
+      $mysql_php_module = 'mysql'
+    } else {
+      $mysql_php_module = 'mysqlnd'
     }
 
-    class { 'mysql::server':
-      package_name     => $mysql_server_server_package_name,
-      root_password    => $mysql_values['root_password'],
-      require          => $mysql_server_require,
-      override_options => $mysql_override_options
-    }
-
-    class { 'mysql::client':
-      package_name => $mysql_server_client_package_name,
-      require      => $mysql_server_require
-    }
-
-    each( $mysql_values['databases'] ) |$key, $database| {
-      $database_merged = delete(merge($database, {
-        'dbname' => $database['name'],
-      }), 'name')
-
-      create_resources( puphpet::mysql::db, {
-        "${key}" => $database_merged
-      })
-    }
-
-    if $mysql_php_installed and $mysql_php_package == 'php' {
-      if $::osfamily == 'redhat' and $php_values['version'] == '53' {
-        $mysql_php_module = 'mysql'
-      } elsif $::lsbdistcodename == 'lucid' or $::lsbdistcodename == 'squeeze' {
-        $mysql_php_module = 'mysql'
-      } else {
-        $mysql_php_module = 'mysqlnd'
-      }
-
-      if ! defined(Puphpet::Php::Module[$mysql_php_module]) {
-        puphpet::php::module { $mysql_php_module:
-          service_autorestart => $mysql_webserver_restart,
-        }
+    if ! defined(Puphpet::Php::Module[$mysql_php_module]) {
+      puphpet::php::module { $mysql_php_module:
+        service_autorestart => $mysql_webserver_restart,
       }
     }
   }
@@ -96,7 +98,7 @@ if hash_key_equals($mysql_values, 'install', 1) {
     and ! defined(Class['puphpet::adminer'])
   {
     $mysql_apache_webroot = $puphpet::params::apache_webroot_location
-    $mysql_nginx_webroot = $puphpet::params::nginx_webroot_location
+    $mysql_nginx_webroot  = $puphpet::params::nginx_webroot_location
 
     if hash_key_equals($apache_values, 'install', 1) {
       $mysql_adminer_webroot_location = $mysql_apache_webroot

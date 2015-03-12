@@ -1,8 +1,8 @@
 install: 0
 
-override_options: {}
-
-root_password: 123
+settings:
+    override_options: {}
+    root_password: 123
 
 adminer: 0
 

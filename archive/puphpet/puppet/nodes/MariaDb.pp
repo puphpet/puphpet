@@ -27,99 +27,97 @@ if hash_key_equals($mariadb_values, 'install', 1) {
     $mariadb_php_installed = false
   }
 
-  if has_key($mariadb_values, 'root_password')
-    and $mariadb_values['root_password']
-  {
-    if ! defined(File[$mysql::params::datadir]) {
-      file { $mysql::params::datadir:
-        ensure => directory,
-        group  => $mysql::params::root_group,
-        before => Class['mysql::server']
-      }
+  if empty($mariadb_values['settings']['root_password']) {
+    fail( 'MariaDB requires choosing a root password. Please check your config.yaml file.' )
+  }
+
+  if ! defined(File[$mysql::params::datadir]) {
+    file { $mysql::params::datadir:
+      ensure => directory,
+      group  => $mysql::params::root_group,
+      before => Class['mysql::server']
+    }
+  }
+
+  if ! defined(Group['mysql']) {
+    group { 'mysql':
+      ensure => present
+    }
+  }
+
+  if ! defined(User['mysql']) {
+    user { 'mysql':
+      ensure => present,
+    }
+  }
+
+  if (! defined(File['/var/run/mysqld'])) {
+    file { '/var/run/mysqld' :
+      ensure  => directory,
+      group   => 'mysql',
+      owner   => 'mysql',
+      before  => Class['mysql::server'],
+      require => [User['mysql'], Group['mysql']],
+      notify  => Service['mysql'],
+    }
+  }
+
+  if ! defined(File[$mysql::params::socket]) {
+    file { $mysql::params::socket :
+      ensure  => file,
+      group   => $mysql::params::root_group,
+      before  => Class['mysql::server'],
+      require => File[$mysql::params::datadir]
+    }
+  }
+
+  if ! defined(Package['mysql-libs']) {
+    package { 'mysql-libs':
+      ensure => purged,
+      before => Class['mysql::server'],
+    }
+  }
+
+  class { 'puphpet::mariadb':
+    version => $mariadb_values['settings']['version']
+  }
+
+  $mariadb_settings = delete(deep_merge({
+      'package_name'     => $puphpet::params::mariadb_package_server_name,
+      'restart'          => true,
+      'override_options' => $mysql::params::default_options,
+    }, $mariadb_values['settings']), 'version')
+
+  create_resources('class', {
+    'mysql::server' => $mariadb_settings
+  })
+
+  class { 'mysql::client':
+    package_name => $puphpet::params::mariadb_package_client_name
+  }
+
+  each( $mariadb_values['databases'] ) |$key, $database| {
+    $database_merged = delete(merge($database, {
+      'dbname' => $database['name'],
+    }), 'name')
+
+    create_resources( puphpet::mysql::db, {
+      "${database['user']}@${database['name']}" => $database_merged
+    })
+  }
+
+  if $mariadb_php_installed and $mariadb_php_package == 'php' {
+    if $::osfamily == 'redhat' and $php_values['version'] == '53' {
+      $mariadb_php_module = 'mysql'
+    } elsif $::lsbdistcodename == 'lucid' or $::lsbdistcodename == 'squeeze' {
+      $mariadb_php_module = 'mysql'
+    } else {
+      $mariadb_php_module = 'mysqlnd'
     }
 
-    if ! defined(Group['mysql']) {
-      group { 'mysql':
-        ensure => present
-      }
-    }
-
-    if ! defined(User['mysql']) {
-      user { 'mysql':
-        ensure => present,
-      }
-    }
-
-    if (! defined(File['/var/run/mysqld'])) {
-      file { '/var/run/mysqld' :
-        ensure  => directory,
-        group   => 'mysql',
-        owner   => 'mysql',
-        before  => Class['mysql::server'],
-        require => [User['mysql'], Group['mysql']],
-        notify  => Service['mysql'],
-      }
-    }
-
-    if ! defined(File[$mysql::params::socket]) {
-      file { $mysql::params::socket :
-        ensure  => file,
-        group   => $mysql::params::root_group,
-        before  => Class['mysql::server'],
-        require => File[$mysql::params::datadir]
-      }
-    }
-
-    if ! defined(Package['mysql-libs']) {
-      package { 'mysql-libs':
-        ensure => purged,
-        before => Class['mysql::server'],
-      }
-    }
-
-    class { 'puphpet::mariadb':
-      version => $mariadb_values['version']
-    }
-
-    $mariadb_override_options = empty($mariadb_values['override_options']) ? {
-      true    => {},
-      default => $mariadb_values['override_options']
-    }
-
-    class { 'mysql::server':
-      package_name     => $puphpet::params::mariadb_package_server_name,
-      root_password    => $mariadb_values['root_password'],
-      service_name     => 'mysql',
-      override_options => $mariadb_override_options
-    }
-
-    class { 'mysql::client':
-      package_name => $puphpet::params::mariadb_package_client_name
-    }
-
-    each( $mariadb_values['databases'] ) |$key, $database| {
-      $database_merged = delete(merge($database, {
-        'dbname' => $database['name'],
-      }), 'name')
-
-      create_resources( puphpet::mysql::db, {
-        "${database['user']}@${database['name']}" => $database_merged
-      })
-    }
-
-    if $mariadb_php_installed and $mariadb_php_package == 'php' {
-      if $::osfamily == 'redhat' and $php_values['version'] == '53' {
-        $mariadb_php_module = 'mysql'
-      } elsif $::lsbdistcodename == 'lucid' or $::lsbdistcodename == 'squeeze' {
-        $mariadb_php_module = 'mysql'
-      } else {
-        $mariadb_php_module = 'mysqlnd'
-      }
-
-      if ! defined(Puphpet::Php::Module[$mariadb_php_module]) {
-        puphpet::php::module { $mariadb_php_module:
-          service_autorestart => $mariadb_webserver_restart,
-        }
+    if ! defined(Puphpet::Php::Module[$mariadb_php_module]) {
+      puphpet::php::module { $mariadb_php_module:
+        service_autorestart => $mariadb_webserver_restart,
       }
     }
   }

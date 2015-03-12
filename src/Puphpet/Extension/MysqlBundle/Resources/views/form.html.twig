@@ -25,14 +25,14 @@
                 <div class="panel-body">
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="mysql-root_password">
+                            <label for="mysql-settings-root_password">
                                 Root Password
                                 {{ popover.small('Assign a password to the root user.
                                     <strong>Database will only be installed
                                     when a password is entered here.</strong>') }}
                             </label>
-                            <input type="text" id="mysql-root_password" name="mysql[root_password]"
-                                   value="{{ mysql.root_password }}" class="form-control" />
+                            <input type="text" id="mysql-settings-root_password" name="mysql[settings][root_password]"
+                                   value="{{ mysql.settings.root_password }}" class="form-control" />
                         </div>
                     </div>
 
@@ -76,9 +76,9 @@
 
                 <div class="row form-group hidden">
                     <div class="col-xs-12">
-                        <label for="mysql-override_options">Override Options</label>
-                        <select id="mysql-override_options" multiple class="form-control">
-                            {% for setting, value in mysql.override_options %}
+                        <label for="mysql-settings-override_options">Override Options</label>
+                        <select id="mysql-settings-override_options" multiple class="form-control">
+                            {% for setting, value in mysql.settings.override_options %}
                                 <option value="{{ setting }}" selected>{{ value }}</option>
                             {% endfor %}
                         </select>
