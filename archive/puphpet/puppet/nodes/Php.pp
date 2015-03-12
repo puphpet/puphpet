@@ -135,15 +135,6 @@ if hash_key_equals($php_values, 'install', 1) {
         service_autorestart => $php_webserver_restart,
       }
     }
-    
-    puphpet::php::ini {"Generate INI files for PECL extension: ${name}":
-      entry        => 'PHP/extension',
-      value        => "${name}.so",
-      php_version  => $php_values['version'],
-      webserver    => $php_webserver_service_ini,
-      ini_filename => "${name}.ini",
-      require      => [Puphpet::Php::Pecl[$name]],
-    }
   }
 
   $php_inis = merge({
