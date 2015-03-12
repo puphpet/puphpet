@@ -8,6 +8,11 @@ OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
 RELEASE=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" RELEASE)
 CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
 
+if [[ ! -f /.puphpet-stuff/install-deep_merge-03122015 ]]; then
+    gem install deep_merge --no-ri --no-rdoc
+    touch /.puphpet-stuff/install-deep_merge-03122015
+fi
+
 if [[ -f /.puphpet-stuff/install-puppet-3.4.3 ]]; then
     exit 0
 fi
@@ -21,7 +26,7 @@ elif [[ "${OS}" == 'centos' ]]; then
 fi
 
 echo 'Installing Puppet requirements'
-gem install haml hiera facter json ruby-augeas --no-ri --no-rdoc
+gem install haml hiera facter json ruby-augeas deep_merge --no-ri --no-rdoc
 echo 'Finished installing Puppet requirements'
 
 echo 'Installing Puppet 3.4.3'

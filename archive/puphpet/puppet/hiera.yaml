@@ -3,5 +3,7 @@
 :yaml:
     :datadir: '/vagrant/puphpet'
 :hierarchy:
+    - config-custom
     - config
+:merge_behavior: deeper
 :logger: console

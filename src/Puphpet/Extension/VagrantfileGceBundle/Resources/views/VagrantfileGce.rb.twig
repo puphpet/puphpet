@@ -3,7 +3,7 @@ dir = File.dirname(File.expand_path(__FILE__))
 
 require 'yaml'
 require 'fog/version'
-require "#{dir}/puphpet/puppet/modules/puphpet/lib/puppet/parser/functions/deep_merge_class.rb"
+require "#{dir}/puphpet/ruby/deep_merge.rb"
 
 configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 
