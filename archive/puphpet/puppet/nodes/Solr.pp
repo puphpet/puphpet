@@ -31,7 +31,7 @@ if hash_key_equals($solr_values, 'install', 1) {
   }
 
   if ! defined(Puphpet::Firewall::Port[$solr_settings['port']]) {
-    puphpet::firewall::port { $solr_settings: }
+    puphpet::firewall::port { $solr_settings['port']: }
   }
 
   $solr_destination = $solr::params::install_destination
