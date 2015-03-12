@@ -89,7 +89,12 @@ if hash_key_equals($nginx_values, 'install', 1) {
     }
   }
 
-  class { 'nginx': }
+  # Merges into empty array for now
+  $nginx_settings = delete(merge({},
+    $nginx_values['settings']
+  ), 'default_vhost')
+
+  create_resources('class', { 'nginx' => $nginx_settings })
 
   if hash_key_equals($nginx_values['settings'], 'default_vhost', 1) {
     $nginx_vhosts = merge($nginx_values['vhosts'], {
@@ -148,7 +153,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
     create_resources(puphpet::nginx::upstream, $nginx_values['upstreams'])
   }
 
-  if defined(File[puphpet::params::nginx_webroot_location]) {
+  if defined(File[$puphpet::params::nginx_webroot_location]) {
     file { "${puphpet::params::nginx_webroot_location}/index.html":
       ensure  => present,
       owner   => 'root',
