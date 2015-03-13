@@ -31,6 +31,12 @@ if hash_key_equals($mysql_values, 'install', 1) {
     $mysql_server_require             = Exec['mysql-community-repo']
     $mysql_server_server_package_name = 'mysql-community-server'
     $mysql_server_client_package_name = 'mysql-community-client'
+  } elsif $mysql_values['version'] == '5.6' 
+    and $::lsbdistcodename == 'trusty'
+  {
+    $mysql_server_require             = []
+    $mysql_server_server_package_name = 'mysql-server-5.6'
+    $mysql_server_client_package_name = 'mysql-client-core-5.6'
   } else {
     $mysql_server_require             = []
     $mysql_server_server_package_name = $mysql::params::server_package_name
