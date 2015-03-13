@@ -36,7 +36,15 @@ if hash_key_equals($hhvm_values, 'install', 1) {
   $hhvm_port = "-vServer.Port=${hhvm_values['settings']['port']}"
   $supervisord_hhvm = "hhvm --mode server -vServer.Type=fastcgi ${hhvm_port}"
 
-  supervisord::program { 'hhvm':
+  service { 'hhvm':
+    ensure  => stopped,
+    before  => Supervisord::Supervisorctl['restart_hhvm'],
+    require => [
+      User['hhvm'],
+      Package['hhvm']
+    ]
+  }
+  -> supervisord::program { 'hhvm':
     command     => $supervisord_hhvm,
     priority    => '100',
     user        => 'hhvm',
@@ -44,11 +52,7 @@ if hash_key_equals($hhvm_values, 'install', 1) {
     autorestart => 'true',
     environment => {
       'PATH' => '/bin:/sbin:/usr/bin:/usr/sbin',
-    },
-    require     => [
-      User['hhvm'],
-      Package['hhvm']
-    ]
+    }
   }
 
   file { '/usr/bin/php':
