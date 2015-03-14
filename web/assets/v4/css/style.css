@@ -235,9 +235,29 @@ footer {
     .panel {
     }
 
-    .panel-default .panel-heading {
+    /* first level panel */
+    .panel-default > .panel-heading {
         color: #fff;
         background-color: #428bca;
+        border: none;
+        border-radius: 0;
+    }
+
+    /* second level panel */
+    .panel-default .panel-default {
+        margin: 0 10px 20px;
+    }
+    .panel-default .panel-default > .panel-heading {
+        color: #fff;
+        background-color: #5E85A6;
+        border: none;
+        border-radius: 0;
+    }
+
+    /* third level panel */
+    .panel-default .panel-default .panel-default > .panel-heading {
+        color: #fff;
+        background-color: #576774;
         border: none;
         border-radius: 0;
     }

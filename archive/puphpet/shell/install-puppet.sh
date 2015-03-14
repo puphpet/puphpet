@@ -13,6 +13,11 @@ if [[ ! -f /.puphpet-stuff/install-deep_merge-03122015 ]]; then
     touch /.puphpet-stuff/install-deep_merge-03122015
 fi
 
+if [[ ! -f /.puphpet-stuff/install-activesupport-03132015 ]]; then
+    gem install activesupport --no-ri --no-rdoc
+    touch /.puphpet-stuff/install-activesupport-03132015
+fi
+
 if [[ -f /.puphpet-stuff/install-puppet-3.4.3 ]]; then
     exit 0
 fi

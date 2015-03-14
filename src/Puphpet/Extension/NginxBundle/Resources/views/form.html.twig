@@ -64,7 +64,7 @@
                 </div>
 
                 {% for vhost in nginx.vhosts %}
-                    {% include 'PuphpetExtensionNginxBundle:sections:vhost.html.twig' with {'vhost': vhost, 'available_engines': nginx.available_engines} %}
+                    {% include 'PuphpetExtensionNginxBundle:sections:vhost.html.twig' with {'vhost': vhost} %}
                 {% endfor %}
 
                 <div class="row">

@@ -5,6 +5,8 @@ settings:
     proxy_buffers: 4 256k
     proxy_buffer_size: 128k
 
+upstreams: []
+
 vhosts:
     -
         server_name: awesome.dev
@@ -19,14 +21,32 @@ vhosts:
         ssl_key: ''
         rewrite_to_https: 0
         spdy: 0
-        envvars:
-            - APP_ENV dev
         index_files:
             - index.html
             - index.htm
             - index.php
-        location: '\.php$'
-        location_prepend: []
-        location_append: {}
-        engine: php
         client_max_body_size: '1m'
+        locations:
+            -
+                location: '/'
+                try_files:
+                    - '$uri'
+                    - '$uri/'
+                    - 'index.php'
+                fastcgi: ~
+                fastcgi_index: ~
+                fastcgi_split_path: ~
+                fast_cgi_params_extra: []
+            -
+                location: '~ \.php$'
+                try_files:
+                    - '$uri'
+                    - '$uri/'
+                    - 'index.php'
+                    - '/index.php$is_args$args'
+                fastcgi: 127.0.0.1:9000
+                fastcgi_index: index.php
+                fastcgi_split_path: '^(.+\.php)(/.*)$'
+                fast_cgi_params_extra:
+                    - 'SCRIPT_FILENAME $request_filename'
+                    - 'APP_ENV dev'

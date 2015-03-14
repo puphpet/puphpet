@@ -10,6 +10,10 @@ puphpet.extension.nginx.vhost:
     pattern:  /vhost
     defaults: { _controller: PuphpetExtensionNginxBundle:Front:vhost }
 
+puphpet.extension.nginx.location:
+    pattern:  /location/{vhostId}
+    defaults: { _controller: PuphpetExtensionNginxBundle:Front:location }
+
 puphpet.extension.nginx.manifest:
     pattern:  /manifest
     defaults: { _controller: PuphpetExtensionNginxBundle:Manifest:index }
