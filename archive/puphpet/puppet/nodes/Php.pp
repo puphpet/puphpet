@@ -37,6 +37,7 @@ if hash_key_equals($php_values, 'install', 1) {
     $php_webserver_service        = 'httpd'
     $php_webserver_service_ini    = $php_webserver_service
     $php_webserver_service_ensure = 'running'
+    $php_webserver_service_notify = [Service[$php_webserver_service]]
     $php_webserver_restart        = true
     $php_config_file              = $php::params::config_file
     $php_manage_service           = false
@@ -47,6 +48,7 @@ if hash_key_equals($php_values, 'install', 1) {
     $php_webserver_service        = "${php_prefix}fpm"
     $php_webserver_service_ini    = $php_webserver_service
     $php_webserver_service_ensure = 'running'
+    $php_webserver_service_notify = [Service[$php_webserver_service]]
     $php_webserver_restart        = true
     $php_config_file              = $php_fpm_ini
     $php_manage_service           = true
@@ -80,6 +82,7 @@ if hash_key_equals($php_values, 'install', 1) {
     $php_webserver_service        = undef
     $php_webserver_service_ini    = undef
     $php_webserver_service_ensure = undef
+    $php_webserver_service_notify = []
     $php_webserver_restart        = false
     $php_config_file              = $php::params::config_file
     $php_manage_service           = false
@@ -170,7 +173,7 @@ if hash_key_equals($php_values, 'install', 1) {
       exec { "mkdir -p ${php_sess_save_path}" :
         creates => $php_sess_save_path,
         require => Package[$php_package],
-        notify  => Service[$php_webserver_service],
+        notify  => $php_webserver_service_notify,
       }
 
       if ! defined(File[$php_sess_save_path]) {
