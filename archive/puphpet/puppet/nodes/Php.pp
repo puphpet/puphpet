@@ -162,7 +162,7 @@ if hash_key_equals($php_values, 'install', 1) {
     }
   }
 
-  if hash_key_true($php_values['ini'], 'session.save_path'){
+  if array_true($php_values['ini'], 'session.save_path') {
     $php_sess_save_path = $php_values['ini']['session.save_path']
 
     # Handles URLs like tcp://127.0.0.1:6379
