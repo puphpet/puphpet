@@ -143,7 +143,7 @@ if hash_key_equals($php_values, 'install', 1) {
 
   each( $php_inis ) |$key, $value| {
     if is_array($value) {
-      each( $php_inis['ini'][$key] ) |$innerkey, $innervalue| {
+      each( $php_inis[$key] ) |$innerkey, $innervalue| {
         puphpet::php::ini { "${key}_${innerkey}":
           entry       => "CUSTOM_${innerkey}/${key}",
           value       => $innervalue,
@@ -161,8 +161,8 @@ if hash_key_equals($php_values, 'install', 1) {
     }
   }
 
-  if array_true($php_inis['ini'], 'session.save_path') {
-    $php_sess_save_path = $php_inis['ini']['session.save_path']
+  if array_true($php_inis, 'session.save_path') {
+    $php_sess_save_path = $php_inis['session.save_path']
 
     # Handles URLs like tcp://127.0.0.1:6379
     # absolute file paths won't have ":"
