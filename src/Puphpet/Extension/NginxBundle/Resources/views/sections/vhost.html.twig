@@ -1,7 +1,7 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 {% set uniqid = uniqid('nxv_', true)|lower %}
 
-<div id="{{ uniqid }}">
+<div class="panel panel-default" id="{{ uniqid }}">
     <div class="panel-heading">
         <h3 class="panel-title">Nginx Virtual Host</h3>
     </div>
@@ -39,7 +39,7 @@
                            value="{{ vhost.proxy is defined ? vhost.proxy : '' }}" class="form-control" />
                 </div>
             </div>
-        </div>        
+        </div>
         <!-- END PROXY -->
 
         <!-- BEGIN VHOST -->
@@ -81,7 +81,7 @@
                         {{ popover.small('Location of your site\'s index.php file, or other landing page.') }}
                     </label>
                     <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
-                           name="nginx[vhosts][{{ uniqid }}][www_root]" placeholder="/var/www"
+                           name="nginx[vhosts][{{ uniqid }}][www_root]" placeholder="/var/www/awesome"
                            value="{{ vhost.www_root }}" class="form-control" />
                 </div>
 
@@ -99,16 +99,6 @@
 
             <div class="row form-group">
                 <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-location">
-                        Location String
-                        {{ popover.small('Everything after the ~ and before the { in: "location ~ \.php$ {"') }}
-                    </label>
-                    <input type="text" id="nginx-vhosts-{{ uniqid }}-location"
-                           name="nginx[vhosts][{{ uniqid }}][location]" placeholder="\.php$"
-                           value="{{ vhost.location is defined ? vhost.location : '\.php$' }}" class="form-control" />
-                </div>
-
-                <div class="col-md-6">
                     <label for="nginx-vhosts-{{ uniqid }}-index_files">
                         Index Files
                         {{ popover.small('The last file should be the accessor to your PHP script or front controller') }}
@@ -121,45 +111,7 @@
                         {% endfor %}
                     </select>
                 </div>
-            </div>
 
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-envvars">
-                        Environment Variables
-                        {{ popover.small('"name value", separated by comma') }}
-                    </label>
-                    <select id="nginx-vhosts-{{ uniqid }}-envvars"
-                            name="nginx[vhosts][{{ uniqid }}][envvars][]"
-                            multiple class="form-control select-tags-editable">
-                        {% if vhost.envvars is defined %}
-                            {% for envvar in vhost.envvars %}
-                                <option selected value="{{ envvar }}">{{ envvar }}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-engine">
-                        Engine
-                        {{ popover.small('Engine to power this vhost.') }}
-                    </label>
-
-                    <select id="nginx-vhosts-{{ uniqid }}-engine"
-                            name="nginx[vhosts][{{ uniqid }}][engine]" size="6"
-                            class="form-control select-tags">
-                        {% for engine in available_engines %}
-                            <option value="{{ engine }}"
-                                {% if vhost.engine is defined and engine == vhost.engine %}selected
-                                {% elseif vhost.engine is defined and not vhost.engine and engine == 'php' %}selected
-                                {% endif %}>{{ engine }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-
-            <div class="row form-group">
                 <div class="col-md-6">
                     <label for="nginx-vhosts-{{ uniqid }}-client-max-body-size">
                         Client Max Body Size
@@ -169,27 +121,20 @@
                            name="nginx[vhosts][{{ uniqid }}][client_max_body_size]" placeholder="\.php$"
                            value="{{ vhost.client_max_body_type is defined ? vhost.client_max_body_type : '1m' }}" class="form-control" />
                 </div>
-            </div>            
-        </div>
-        <!-- END VHOST -->
+            </div>
 
-        <div class="row form-group">
-            <div class="col-xs-12">
-                <label for="nginx-vhosts-{{ uniqid }}-location_prepend">
-                    Location Prepend
-                    {{ popover.small('Free text values to prepend to location  / { <prepend goes here> ... }') }}
-                </label>
-                <select id="nginx-vhosts-{{ uniqid }}-location_prepend"
-                        name="nginx[vhosts][{{ uniqid }}][location_prepend][]"
-                        multiple class="form-control select-tags-editable">
-                    {% if vhost.location_prepend is defined %}
-                        {% for prepend in vhost.location_prepend %}
-                            <option selected value="{{ prepend }}">{{ prepend }}</option>
-                        {% endfor %}
-                    {% endif %}
-                </select>
+            {% for location in vhost.locations %}
+                {% include 'PuphpetExtensionNginxBundle:sections:location.html.twig' with {'vhostId': uniqid, 'location': location} %}
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                            data-source-url="{{ path('puphpet.extension.nginx.location', {'vhostId': uniqid}) }}">Add another Nginx vhost location</button>
+                </div>
             </div>
         </div>
+        <!-- END VHOST -->
 
         <div class="row form-group">
             <div class="col-md-12">
@@ -201,8 +146,6 @@
                            id="nginx-vhosts-{{ uniqid }}-ssl"
                            name="nginx[vhosts][{{ uniqid }}][ssl]" value="1"
                            data-hide-on-uncheck="#nginx-vhosts-{{ uniqid }}-ssl_options"
-                           data-update-on-check-nginx[vhosts][{{ uniqid }}][listen_port]="443"
-                           data-update-on-uncheck-nginx[vhosts][{{ uniqid }}][listen_port]="80"
                            {% if vhost.ssl is defined and vhost.ssl %}checked{% endif %} />
                     Enable SSL
                 </label>
@@ -239,6 +182,19 @@
                            name="nginx[vhosts][{{ uniqid }}][ssl_key]"
                            placeholder="/leave/blank/for/sample"
                            value="{% if vhost.ssl_key is defined %}{{ vhost.ssl_key }}{% endif %}" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label for="nginx-vhosts-{{ uniqid }}-ssl_port">
+                        {{ popover.small('Should be different from the normal Port chosen above!') }}
+                        SSL Port
+                    </label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_port"
+                           name="nginx[vhosts][{{ uniqid }}][ssl_port]"
+                           value="{{ vhost.ssl_port }}"
+                           class="form-control" />
                 </div>
             </div>
 

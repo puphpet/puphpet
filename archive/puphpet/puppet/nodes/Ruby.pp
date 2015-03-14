@@ -6,7 +6,7 @@ User <| title == $::ssh_username |> {
   groups +> 'rvm'
 }
 
-if hash_key_true($ruby_values, 'versions')
+if array_true($ruby_values, 'versions')
   and count($ruby_values['versions']) > 0
 {
   puphpet::ruby::dotfile { 'do': }

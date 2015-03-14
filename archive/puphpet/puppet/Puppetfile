@@ -37,8 +37,8 @@ mod 'puppetlabs/mysql',
     :git => 'https://github.com/puppetlabs/puppetlabs-mysql.git',
     :ref => '2.3.1'
 mod 'jfryman/nginx',
-    :git => 'https://github.com/jfryman/puppet-nginx.git',
-    :ref => 'v0.0.10'
+    :git => 'https://github.com/puphpet/puppet-nginx.git',
+    :ref => '42573a0'
 mod 'puppetlabs/ntp',
     :git => 'https://github.com/puppetlabs/puppetlabs-ntp.git',
     :ref => '3.0.4'
@@ -50,7 +50,7 @@ mod 'puppetlabs/postgresql',
     :ref => '3.3.3'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '987d07d'
+    :ref => '776063f'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
@@ -79,7 +79,9 @@ mod 'nanliu/staging',
 mod 'ajcrowe/supervisord',
     :git => 'https://github.com/puphpet/puppet-supervisord.git',
     :ref => '17643f1'
-mod 'puppetlabs/stdlib'
+mod 'puppetlabs/stdlib',
+    :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
+    :ref => '4dab70b305'
 mod 'puppetlabs/vcsrepo',
     :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
     :ref => '0.2.0'

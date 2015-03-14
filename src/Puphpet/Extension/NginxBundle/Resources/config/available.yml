@@ -1,12 +1,13 @@
 empty_upstream:
     name: backend
-    fail_timeout: 10s
     members: []
+    upstream_fail_timeout: 10s
 
 empty_vhost:
     server_name: ~
     server_aliases: []
     www_root: ~
+    proxy: ~
     listen_port: 80
     ssl: false
     ssl_port: 443
@@ -14,17 +15,14 @@ empty_vhost:
     ssl_key: ''
     rewrite_to_https: 0
     spdy: 0
-    envvars: []
-    index_files:
-        - index.html
-        - index.htm
-        - index.php
-    location: '\.php$'
-    location_prepend: ''
-    location_append: {}
-    engine: ~
+    index_files: []
     client_max_body_size: '1m'
+    locations: []
 
-available_engines:
-    - none
-    - php
+empty_location:
+    location: '/'
+    try_files: []
+    fastcgi: ~
+    fastcgi_index: ~
+    fastcgi_split_path: ~
+    fast_cgi_params_extra: []

@@ -1,7 +1,7 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 {% set uniqid = uniqid('nxv_', true) %}
 
-<div id="{{ uniqid }}">
+<div class="panel panel-default" id="{{ uniqid }}">
     <div class="panel-heading">
         <h3 class="panel-title">Nginx Proxy Upstreams</h3>
     </div>
@@ -12,20 +12,21 @@
                 <label for="nginx-upstreams-{{ uniqid }}-name">
                     Name
                     {{ popover.small('Name of the upstream configuration.
-                        You will reference this name in the Virtual host proxy configuration as http://<name>') }}
+                        You will reference this name in the Virtual host proxy configuration
+                        as http://{name}') }}
                 </label>
                 <input type="text" id="nginx-upstreams-{{ uniqid }}-name"
                        name="nginx[upstreams][{{ uniqid }}][name]" placeholder="backend"
                        value="{{ upstream.name }}" class="form-control" />
             </div>
             <div class="col-md-6">
-                <label for="nginx-upstreams-{{ uniqid }}-fail_timeout">
+                <label for="nginx-upstreams-{{ uniqid }}-upstream_fail_timeout">
                     Fail Timeout
                     {{ popover.small('Time in seconds, example: 10s') }}
                 </label>
-                <input type="text" id="nginx-upstreams-{{ uniqid }}-fail_timeout"
-                       name="nginx[upstreams][{{ uniqid }}][fail_timeout]" placeholder="10s"
-                       value="{{ upstream.fail_timeout }}" class="form-control" />
+                <input type="text" id="nginx-upstreams-{{ uniqid }}-upstream_fail_timeout"
+                       name="nginx[upstreams][{{ uniqid }}][upstream_fail_timeout]" placeholder="10s"
+                       value="{{ upstream.upstream_fail_timeout }}" class="form-control" />
             </div>
 
         </div>
@@ -34,7 +35,8 @@
             <div class="col-xs-12">
                 <label for="nginx-upstreams-{{ uniqid }}-members">
                     Members
-                    {{ popover.small('URL of your proxy servers') }}
+                    {{ popover.small('URL of your proxy servers, must be in format "{name}:{port}",
+                        ex: "localhost:3000"') }}
                 </label>
                 <select id="nginx-upstreams-{{ uniqid }}-members"
                         name="nginx[upstreams][{{ uniqid }}][members][]"

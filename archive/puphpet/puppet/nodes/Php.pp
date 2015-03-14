@@ -162,7 +162,7 @@ if hash_key_equals($php_values, 'install', 1) {
     }
   }
 
-  if hash_key_true($php_values['ini'], 'session.save_path'){
+  if array_true($php_values['ini'], 'session.save_path') {
     $php_sess_save_path = $php_values['ini']['session.save_path']
 
     # Handles URLs like tcp://127.0.0.1:6379
@@ -173,11 +173,15 @@ if hash_key_equals($php_values, 'install', 1) {
         require => Package[$php_package],
         notify  => Service[$php_webserver_service],
       }
-      -> exec { "chown -R www-data:www-data ${php_sess_save_path}":
-        path => '/bin',
-      }
-      -> exec { "chmod -R 775 ${php_sess_save_path}":
-        path => '/bin',
+
+      if ! defined(File[$php_sess_save_path]) {
+        file { $php_sess_save_path:
+          ensure  => directory,
+          owner   => 'www-data',
+          group   => 'www-data',
+          mode    => '0775',
+          require => Exec["mkdir -p ${php_sess_save_path}"],
+        }
       }
     }
   }

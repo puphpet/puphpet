@@ -143,22 +143,22 @@ if hash_key_equals($apache_values, 'install', 1) {
       default => false
     }
 
-    $ssl_cert = hash_key_true($vhost, 'ssl_cert') ? {
+    $ssl_cert = array_true($vhost, 'ssl_cert') ? {
       true    => $vhost['ssl_cert'],
       default => $puphpet::params::ssl_cert_location
     }
 
-    $ssl_key = hash_key_true($vhost, 'ssl_key') ? {
+    $ssl_key = array_true($vhost, 'ssl_key') ? {
       true    => $vhost['ssl_key'],
       default => $puphpet::params::ssl_key_location
     }
 
-    $ssl_chain = hash_key_true($vhost, 'ssl_chain') ? {
+    $ssl_chain = array_true($vhost, 'ssl_chain') ? {
       true    => $vhost['ssl_chain'],
       default => undef
     }
 
-    $ssl_certs_dir = hash_key_true($vhost, 'ssl_certs_dir') ? {
+    $ssl_certs_dir = array_true($vhost, 'ssl_certs_dir') ? {
       true    => $vhost['ssl_certs_dir'],
       default => undef
     }
