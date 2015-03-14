@@ -110,31 +110,6 @@
                     </div>
                     <!-- End PHP / Ini -->
 
-                    <!-- PHP / Timezone -->
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label for="php-timezone">PHP Timezone</label>
-                            <select id="php-timezone" name="php[timezone]"
-                                    class="form-control select-tag">
-                                {% set flattened = [] %}
-                                {% for namespace, timezones in php.available_timezones %}
-                                    <optgroup label="{{ namespace }}">
-                                        {% for timezone in timezones %}
-                                            {% set flattened = flattened|merge([timezone]) %}
-                                            <option value="{{ timezone }}"
-                                                {% if timezone == php.timezone %}selected{% endif %}>{{ timezone }}</option>
-                                        {% endfor %}
-                                    </optgroup>
-                                {% endfor %}
-
-                                {% if php.timezone not in flattened %}
-                                    <option value="{{ php.timezone }}" selected>{{ php.timezone }}</option>
-                                {% endif %}
-                            </select>
-                        </div>
-                    </div>
-                    <!-- End PHP / Timezone -->
-
                     <!-- PHP / PHP Modules -->
                     <div class="row form-group">
                         <div class="col-xs-12">

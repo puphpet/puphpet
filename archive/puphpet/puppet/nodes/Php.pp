@@ -139,7 +139,6 @@ if hash_key_equals($php_values, 'install', 1) {
 
   $php_inis = merge({
     'cgi.fix_pathinfo' => 1,
-    'date.timezone'    => $php_values['timezone'],
   }, $php_values['ini'])
 
   each( $php_inis ) |$key, $value| {
