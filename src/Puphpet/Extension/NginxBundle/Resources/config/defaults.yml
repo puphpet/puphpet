@@ -1,4 +1,4 @@
-install: 0
+install: 1
 
 settings:
     default_vhost: 1

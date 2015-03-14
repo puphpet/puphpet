@@ -4,15 +4,6 @@
     </div>
     <ul class="nav nav-tabs icon-bar">
         <li class="col-xs-2 active">
-            <a href="#apache-tab" data-toggle="tab">
-                <div class="tab-icon">
-                    <img src="{{ asset('assets/v4/img/vendors/apache-active.png') }}" class="tab-icon-active" />
-                    <img src="{{ asset('assets/v4/img/vendors/apache-inactive.png') }}" class="tab-icon-inactive" />
-                    Apache
-                </div>
-            </a>
-        </li>
-        <li class="col-xs-2">
             <a href="#nginx-tab" data-toggle="tab">
                 <div class="tab-icon">
                     <img src="{{ asset('assets/v4/img/vendors/nginx-active.png') }}" class="tab-icon-active" />
@@ -21,15 +12,24 @@
                 </div>
             </a>
         </li>
+        <li class="col-xs-2">
+            <a href="#apache-tab" data-toggle="tab">
+                <div class="tab-icon">
+                    <img src="{{ asset('assets/v4/img/vendors/apache-active.png') }}" class="tab-icon-active" />
+                    <img src="{{ asset('assets/v4/img/vendors/apache-inactive.png') }}" class="tab-icon-inactive" />
+                    Apache
+                </div>
+            </a>
+        </li>
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane active" id="apache-tab">
-            {% set extension = extensionManager.getExtensionBySlug('apache') %}
+        <div class="tab-pane active" id="nginx-tab">
+            {% set extension = extensionManager.getExtensionBySlug('nginx') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
-        <div class="tab-pane" id="nginx-tab">
-            {% set extension = extensionManager.getExtensionBySlug('nginx') %}
+        <div class="tab-pane" id="apache-tab">
+            {% set extension = extensionManager.getExtensionBySlug('apache') %}
             {{ extension.renderFront(extension.data)|raw }}
         </div>
     </div>
