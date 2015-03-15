@@ -24,13 +24,14 @@ echo "${VAGRANT_CORE_FOLDER}" > '/.puphpet-stuff/vagrant-core-folder.txt'
 # apt repos become stale, Ubuntu/Debian move stuff around and break existing
 # boxes that no longer require apt-get update. Force it one more time. Update
 # datestamp as required for future breaks.
-if [[ ! -f '/.puphpet-stuff/initial-setup-repo-update-11052014' ]]; then
+if [[ ! -f '/.puphpet-stuff/initial-setup-apt-get-update' ]]; then
     if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-        echo 'Running datestamped initial-setup apt-get update'
+        echo 'Running initial-setup apt-get update'
         apt-get update >/dev/null
-        touch '/.puphpet-stuff/initial-setup-repo-update-11052014'
-        echo 'Finished running datestamped initial-setup apt-get update'
+        echo 'Finished running initial-setup apt-get update'
     fi
+
+    touch '/.puphpet-stuff/initial-setup-repo-update'
 fi
 
 if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
@@ -38,10 +39,6 @@ if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
 fi
 
 if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-    echo 'Running initial-setup apt-get update'
-    apt-get update >/dev/null
-    echo 'Finished running initial-setup apt-get update'
-
     echo 'Installing curl'
     apt-get -y install curl >/dev/null
     echo 'Finished installing curl'
