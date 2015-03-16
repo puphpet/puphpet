@@ -21,7 +21,9 @@ if hash_key_equals($rabbitmq_values, 'install', 1) {
     include erlang
   }
 
-  create_resources('class', { 'rabbitmq' => $rabbitmq_values['settings'] })
+  $rabbitmq_settings = merge({'delete_guest_user' => true,}, $rabbitmq_values['settings'])
+
+  create_resources('class', { 'rabbitmq' => $rabbitmq_settings })
 
   each( $rabbitmq_values['plugins'] ) |$plugin| {
     rabbitmq_plugin { $plugin:
@@ -79,7 +81,7 @@ if hash_key_equals($rabbitmq_values, 'install', 1) {
     }
   }
 
-  if ! defined(Puphpet::Firewall::Port[$rabbitmq_values['settings']['port']]) {
-    puphpet::firewall::port { $rabbitmq_values['settings']['port']: }
+  if ! defined(Puphpet::Firewall::Port[$rabbitmq_settings['port']]) {
+    puphpet::firewall::port { $rabbitmq_settings['port']: }
   }
 }
