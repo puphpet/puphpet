@@ -50,6 +50,7 @@ services:
             - [ addExtension, [ @puphpet.extension.rabbitmq.configure ] ]
             - [ addExtension, [ @puphpet.extension.elastic_search.configure ] ]
             - [ addExtension, [ @puphpet.extension.solr.configure ] ]
+            - [ addExtension, [ @puphpet.extension.jenkins.configure ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

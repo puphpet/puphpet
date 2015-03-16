@@ -101,6 +101,31 @@
         </div>
     </section>
 
+    <section id="build-tools">
+        <div class="page-header compact">
+            <h1><i class="fa fa-wrench"></i> Build Tools</h1>
+        </div>
+
+        <ul class="nav nav-tabs icon-bar">
+            <li class="col-xs-2 active">
+                <a href="#jenkins-tab" data-toggle="tab">
+                    <div class="tab-icon">
+                        <img src="{{ asset('assets/v4/img/vendors/jenkins-active.png') }}" class="tab-icon-active" />
+                        <img src="{{ asset('assets/v4/img/vendors/jenkins-inactive.png') }}" class="tab-icon-inactive" />
+                        Jenkins
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="jenkins-tab">
+                {% set extension = extensionManager.getExtensionBySlug('jenkins') %}
+                {{ extension.renderFront(extension.data)|raw }}
+            </div>
+        </div>
+    </section>
+
 
     <ul class="pager">
         <li class="previous"><a href="#database">← Databases</a></li>
