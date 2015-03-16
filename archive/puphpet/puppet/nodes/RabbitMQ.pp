@@ -23,6 +23,53 @@ if hash_key_equals($rabbitmq_values, 'install', 1) {
 
   create_resources('class', { 'rabbitmq' => $rabbitmq_values['settings'] })
 
+  each( $rabbitmq_values['plugins'] ) |$plugin| {
+    rabbitmq_plugin { $plugin:
+      ensure => present,
+    }
+  }
+
+  # config file could contain no vhosts key
+  $rabbitmq_vhosts = array_true($rabbitmq_values, 'vhosts') ? {
+    true    => $rabbitmq_values['vhosts'],
+    default => []
+  }
+
+  each( $rabbitmq_vhosts ) |$vhost| {
+    rabbitmq_vhost { $vhost:
+      ensure => present,
+    }
+  }
+
+  # config file could contain no users key
+  $rabbitmq_users = array_true($rabbitmq_values, 'users') ? {
+    true    => $rabbitmq_values['users'],
+    default => { }
+  }
+
+  each( $rabbitmq_users ) |$key, $user| {
+    $username    = $user['name']
+
+    # config file could contain no user.permissions
+    $permissions = array_true($user, 'permissions') ? {
+      true    => $user['permissions'],
+      default => { }
+    }
+
+    $user_merged = delete($user, ['name', 'permissions'])
+
+    create_resources(rabbitmq_user, { "${username}" => $user_merged })
+
+    each($permissions) |$pkey, $permission| {
+      $host = $permission['host']
+      $permission_merged = delete($permission, 'host')
+
+      create_resources(rabbitmq_user_permissions, {
+        "${username}@${host}" => $permission_merged
+      })
+    }
+  }
+
   if hash_key_equals($php_values, 'install', 1)
     and ! defined(Puphpet::Php::Pecl['amqp'])
   {
@@ -32,7 +79,7 @@ if hash_key_equals($rabbitmq_values, 'install', 1) {
     }
   }
 
-  if ! defined(Puphpet::Firewall::Port['15672']) {
-    puphpet::firewall::port { '15672': }
+  if ! defined(Puphpet::Firewall::Port[$rabbitmq_values['settings']['port']]) {
+    puphpet::firewall::port { $rabbitmq_values['settings']['port']: }
   }
 }

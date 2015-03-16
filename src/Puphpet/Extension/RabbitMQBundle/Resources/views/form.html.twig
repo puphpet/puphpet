@@ -28,6 +28,51 @@
                                    name="rabbitmq[settings][port]" placeholder="5672" min="5000" max="20000"
                                    value="{{ rabbitmq.settings.port }}" class="form-control" />
                         </div>
+
+                        <div class="col-md-6">
+                            <label for="rabbitmq-plugins">
+                                Plugins
+                                {{ popover.small('Separated by comma') }}
+                            </label>
+                            <select id="rabbitmq-plugins"
+                                    name="rabbitmq[plugins][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% if rabbitmq.plugins is defined %}
+                                    {% for plugin in rabbitmq.plugins %}
+                                        <option selected value="{{ plugin }}">{{ plugin }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label for="rabbitmq-vhosts">
+                                Virtual Hosts
+                                {{ popover.small('Separated by comma') }}
+                            </label>
+                            <select id="rabbitmq-vhosts"
+                                    name="rabbitmq[vhosts][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% if rabbitmq.vhosts is defined %}
+                                    {% for vhost in rabbitmq.vhosts %}
+                                        <option selected value="{{ vhost }}">{{ vhost }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                {% for user in rabbitmq.users %}
+                    {% include 'PuphpetExtensionRabbitMQBundle:sections:user.html.twig' with {'user': user} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.rabbitmq.user') }}">Add a RabbitMQ User</button>
                     </div>
                 </div>
             </div>

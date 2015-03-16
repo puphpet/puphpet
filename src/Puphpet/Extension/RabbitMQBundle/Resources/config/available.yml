@@ -1,0 +1,12 @@
+empty_user:
+    name: ~
+    admin: false
+    password: ~
+    tags: []
+    permissions: []
+
+empty_permission:
+    host: ~
+    configure_permission: '.*'
+    read_permission: '.*'
+    write_permission: '.*'
