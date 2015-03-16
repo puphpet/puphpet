@@ -166,8 +166,13 @@ if hash_key_equals($nginx_values, 'install', 1) {
       default => false,
     }
 
+    $vhost_cfg_append = deep_merge(
+      {'vhost_cfg_append' => {'sendfile' => 'off'}},
+      $vhost
+    )
+
     # puppet-nginx is stupidly strict about ssl value datatypes
-    $vhost_merged = delete(merge($vhost, {
+    $vhost_merged = delete(merge($vhost_cfg_append, {
       'server_name'          => $server_names,
       'use_default_location' => false,
       'ssl'                  => $ssl,
