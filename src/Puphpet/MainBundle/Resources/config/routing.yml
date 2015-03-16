@@ -21,9 +21,3 @@ puphpet.main.help:
 puphpet.main.github_btn:
     pattern:  /github-btn
     defaults: { _controller: PuphpetMainBundle:Front:githubBtn }
-
-puphpet.main.github_contributors:
-    pattern:  /github-contributors
-    defaults: { _controller: PuphpetMainBundle:Front:githubContributors }
-
-

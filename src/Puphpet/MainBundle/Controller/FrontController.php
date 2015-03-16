@@ -118,21 +118,6 @@ class FrontController extends Controller
         return $this->render('PuphpetMainBundle:front:github-btn.html.twig');
     }
 
-    public function githubContributorsAction(Request $request)
-    {
-        if ($this->container->has('profiler')) {
-            $this->container->get('profiler')->disable();
-        }
-
-        $contributors = $request->get('contributors');
-
-        $foo = $this->render('PuphpetMainBundle:front:github-contributors.html.twig', [
-            'contributors' => $contributors
-        ]);
-
-        return $foo;
-    }
-
     /**
      * Normalize linebreaks user-submitted text.
      *

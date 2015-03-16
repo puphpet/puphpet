@@ -562,17 +562,6 @@ PUPHPET.disableTargetElements = function(source, target) {
 };
 
 /**
- * Display the information about PuPHPet's beloved contributors!
- */
-PUPHPET.githubContributors = function() {
-    $.get('https://api.github.com/repos/puphpet/puphpet/contributors', function(githubResponse) {
-        $.post('/github-contributors', { contributors: githubResponse }, function(response) {
-            $('#contributors').html(response);
-        });
-    });
-};
-
-/**
  * Allows user to drag and drop a pre-generated yaml file containing
  * their VMs configuration.
  */
@@ -864,7 +853,6 @@ $(document).ready(function() {
     PUPHPET.showAvailableOptions();
     PUPHPET.disableInactiveTabElements();
     PUPHPET.enableClickedTabElement();
-    PUPHPET.githubContributors();
     PUPHPET.uploadConfig();
     PUPHPET.sidebar();
     PUPHPET.toggleMultiGroupedTab();
