@@ -179,7 +179,13 @@ if hash_key_equals($nginx_values, 'install', 1) {
 
     create_resources(nginx::resource::vhost, { "${key}" => $vhost_merged })
 
-    each( $vhost['locations'] ) |$lkey, $location| {
+    # config file could contain no vhost.locations key
+    $nginx_locations = array_true($vhost, 'locations') ? {
+      true    => $vhost['locations'],
+      default => { }
+    }
+
+    each( $nginx_locations ) |$lkey, $location| {
       # remove empty values
       $location_trimmed = merge({
         'fast_cgi_params_extra' => [],
