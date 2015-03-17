@@ -153,19 +153,21 @@ each( $server_values['packages'] ) |$package| {
   }
 }
 
-$locales_default_value = array_true($locales_values, 'default_value') ? {
-  true    => $locales_values['default_value'],
-  default => 'en_US.UTF-8'
+if $::osfamily == 'debian' {
+  $locales_default_value = array_true($locales_values, 'default_value') ? {
+    true    => $locales_values['default_value'],
+    default => 'en_US.UTF-8'
+  }
+
+  $locales_available = array_true($locales_values, 'available') ? {
+    true    => $locales_values['default_value'],
+    default => ['en_US.UTF-8 UTF-8', 'en_GB.UTF-8 UTF-8']
+  }
+
+  $locales_settings_merged = merge($locales_values, {
+    'default_value' => $locales_default_value,
+    'available'     => $locales_available,
+  })
+
+  create_resources('class', { 'locales' => $locales_settings_merged })
 }
-
-$locales_available = array_true($locales_values, 'available') ? {
-  true    => $locales_values['default_value'],
-  default => ['en_US.UTF-8 UTF-8', 'en_GB.UTF-8 UTF-8']
-}
-
-$locales_settings_merged = merge($locales_values, {
-  'default_value' => $locales_default_value,
-  'available'     => $locales_available,
-})
-
-create_resources('class', { 'locales' => $locales_settings_merged })
