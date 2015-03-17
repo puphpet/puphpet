@@ -23,18 +23,18 @@
                         <div class="col-md-12">
                             <label>Version</label><br />
 
-                            {% if postgresql.settings.version is defined and postgresql.settings.version is not empty %}
+                            {% if postgresql.settings.global.version is defined and postgresql.settings.global.version is not empty %}
                                 <label class="radio-inline">
-                                    <input type="radio" name="postgresql[settings][version]"
-                                           value="{{ postgresql.settings.version }}" checked />
-                                    {{ postgresql.settings.version }}
+                                    <input type="radio" name="postgresql[settings][global][version]"
+                                           value="{{ postgresql.settings.global.version }}" checked />
+                                    {{ postgresql.settings.global.version }}
                                 </label>
                             {% endif %}
 
                             {% for version in postgresql.available_versions %}
-                                {% if version != postgresql.settings.version %}
+                                {% if version != postgresql.settings.global.version %}
                                     <label class="radio-inline">
-                                        <input type="radio" name="postgresql[settings][version]" value="{{ version }}" />
+                                        <input type="radio" name="postgresql[settings][global][version]" value="{{ version }}" />
                                         {{ version }}
                                     </label>
                                 {% endif %}
@@ -44,13 +44,13 @@
 
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="postgresql-settings-root_password">
+                            <label for="postgresql-settings-server-postgres_password">
                                 Root Password
                                 {{ popover.small('Assign a password to the root user.
                                     <strong>Database will only be installed when a password is entered here.</strong>') }}
                             </label>
-                            <input type="text" id="postgresql-settings-root_password" name="postgresql[settings][root_password]"
-                                   value="{{ postgresql.settings.root_password }}" class="form-control" />
+                            <input type="text" id="postgresql-settings-server-postgres_password" name="postgresql[settings][server][postgres_password]"
+                                   value="{{ postgresql.settings.server.postgres_password }}" class="form-control" />
                         </div>
                     </div>
 
@@ -82,24 +82,47 @@
                         Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
                         <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
                         your initial <code>$ vagrant up</code>!
+                    </p>
 
-                        <br /><br />
-
-                        If you want to assign a user to multiple databases, simply create more databases and type in
-                        the same username and password. Only the password for the first entry will be considered,
-                        <strong>but all fields must be completed</strong>!
+                    <p class="help-block">
+                        To login via CLI, you must use
+                        <code>$ psql {DBUSERNAME} -h 127.0.0.1 -d {DBNAME}</code>
                     </p>
                 </div>
 
+                {% for user in postgresql.users %}
+                    {% include 'PuphpetExtensionPostgresqlBundle:sections:User.html.twig'
+                        with {'user': user} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.postgresql.add_user') }}">Add another PostgreSQL user</button>
+                    </div>
+                </div>
+
                 {% for database in postgresql.databases %}
-                    {% include 'PuphpetExtensionPostgresqlBundle:sections:NewUserAndDatabase.html.twig'
-                        with {'available_privileges': postgresql.available_privileges, 'database': database} %}
+                    {% include 'PuphpetExtensionPostgresqlBundle:sections:Database.html.twig'
+                        with {'database': database} %}
                 {% endfor %}
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-8 col-sm-push-2">
                         <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
                                 data-source-url="{{ path('puphpet.extension.postgresql.add_database') }}">Add another PostgreSQL database</button>
+                    </div>
+                </div>
+
+                {% for grant in postgresql.grants %}
+                    {% include 'PuphpetExtensionPostgresqlBundle:sections:Grant.html.twig'
+                        with {'grant': grant} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.postgresql.add_grant') }}">Add another PostgreSQL user/database grant</button>
                     </div>
                 </div>
             </div>

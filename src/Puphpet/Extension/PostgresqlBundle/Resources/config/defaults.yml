@@ -1,11 +1,16 @@
 install: 0
 
 settings:
-    version: "9.3"
-    encoding: UTF8
+    global:
+        encoding: UTF8
+        version: "9.3"
+    server:
+        postgres_password: 123
 
 databases: []
 
+users: []
+
+grants: []
+
 adminer: 0
-
-

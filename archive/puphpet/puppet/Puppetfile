@@ -47,7 +47,7 @@ mod 'puphpet/php',
     :ref => 'eb14528'
 mod 'puppetlabs/postgresql',
     :git => 'https://github.com/puppetlabs/puppetlabs-postgresql.git',
-    :ref => '3.3.3'
+    :ref => '4.2.0'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
     :ref => '722e1e8'

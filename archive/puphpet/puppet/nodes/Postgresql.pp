@@ -23,39 +23,105 @@ if hash_key_equals($postgresql_values, 'install', 1) {
     $postgresql_php_installed = false
   }
 
-  if $postgresql_values['settings']['root_password'] {
-    group { $postgresql_values['settings']['user_group']:
-      ensure => present
+  if empty($postgresql_values['settings']['server']['postgres_password']) {
+    fail( 'PostgreSQL requires choosing a root password. Please check your config.yaml file.' )
+  }
+
+  Class['postgresql::globals']
+  -> Class['postgresql::server']
+
+  $postgresql_settings_global = merge({
+    'manage_package_repo' => true,
+    'encoding'            => 'UTF8',
+  }, $postgresql_values['settings']['global'])
+
+  $postgresql_settings_server = merge({
+    'user'  => 'postgres',
+    'group' => 'postgres',
+  }, $postgresql_values['settings']['server'])
+
+  create_resources('class', {
+    'postgresql::globals' => $postgresql_settings_global
+  })
+
+  create_resources('class', {
+    'postgresql::server' => $postgresql_settings_server
+  })
+
+
+  Postgresql::Server::Role <| |>
+  -> Postgresql::Server::Database <| |>
+  -> Postgresql::Server::Database_grant <| |>
+
+  # config file could contain no users key
+  $postgresql_users = array_true($postgresql_values, 'users') ? {
+    true    => $postgresql_values['users'],
+    default => { }
+  }
+
+  each( $postgresql_users ) |$key, $user| {
+    $superuser = array_true($user, 'superuser') ? {
+      true    => true,
+      default => false,
     }
 
-    class { 'postgresql::globals':
-      manage_package_repo => true,
-      encoding            => $postgresql_values['settings']['encoding'],
-      version             => $postgresql_values['settings']['version']
-    }->
-    class { 'postgresql::server':
-      postgres_password => $postgresql_values['settings']['root_password'],
-      version           => $postgresql_values['settings']['version'],
-      require           => Group[$postgresql_values['settings']['user_group']]
+    $user_no_superuser = delete(merge({
+      'password_hash' => postgresql_password($user['username'], $user['password']),
+      'login'         => true,
+    }, $user), 'password')
+
+    $user_merged = merge($user_no_superuser, {
+      'superuser' => $superuser,
+    })
+
+    create_resources( postgresql::server::role, {
+      "${user_merged['username']}" => $user_merged
+    })
+  }
+
+  # config file could contain no databases key
+  $postgresql_databases = array_true($postgresql_values, 'databases') ? {
+    true    => $postgresql_values['databases'],
+    default => { }
+  }
+
+  each( $postgresql_databases ) |$key, $database| {
+    $owner = array_true($database, 'owner') ? {
+      true    => $database['owner'],
+      default => $postgresql::server::user,
     }
 
-    each( $postgresql_values['databases'] ) |$key, $database| {
-      $database_merged = delete(merge($database, {
-        'dbname' => $database['name'],
-      }), 'name')
+    $database_merged = merge($database, {
+      'owner' => $owner,
+    })
 
-      create_resources( puphpet::postgresql::db, {
-        "${database['user']}@${database['name']}" => $database_merged
-      })
-    }
+    create_resources( postgresql::server::database, {
+      "${owner}@${database['dbname']}" => $database_merged
+    })
+  }
 
-    if $postgresql_php_installed
-      and $postgresql_php_package == 'php'
-      and ! defined(Puphpet::Php::Module['pgsql'])
-    {
-      puphpet::php::module { 'pgsql':
-        service_autorestart => $postgresql_webserver_restart,
-      }
+  # config file could contain no grants key
+  $postgresql_grants = array_true($postgresql_values, 'grants') ? {
+    true    => $postgresql_values['grants'],
+    default => { }
+  }
+
+  each( $postgresql_grants ) |$key, $grant| {
+    $grant_merged = merge($grant, {
+      'privilege' => join($grant['privilege'], ','),
+    })
+
+    create_resources( postgresql::server::database_grant, {
+      "${grant['role']}@${grant['db']}" => $grant_merged,
+    })
+  }
+
+  if $postgresql_php_installed
+    and $postgresql_php_package == 'php'
+    and ! defined(Puphpet::Php::Module['pgsql'])
+  {
+    puphpet::php::module { 'pgsql':
+      service_autorestart => $postgresql_webserver_restart,
     }
   }
 

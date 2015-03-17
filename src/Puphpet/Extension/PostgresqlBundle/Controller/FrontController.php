@@ -15,11 +15,25 @@ class FrontController extends Controller implements Extension\ControllerInterfac
         ]);
     }
 
+    public function addUserAction()
+    {
+        return $this->render('PuphpetExtensionPostgresqlBundle:sections:User.html.twig', [
+            'user' => $this->getData()['empty_user'],
+        ]);
+    }
+
     public function addDatabaseAction()
     {
-        return $this->render('PuphpetExtensionPostgresqlBundle:sections:NewUserAndDatabase.html.twig', [
+        return $this->render('PuphpetExtensionPostgresqlBundle:sections:Database.html.twig', [
+            'database' => $this->getData()['empty_database'],
+        ]);
+    }
+
+    public function addGrantAction()
+    {
+        return $this->render('PuphpetExtensionPostgresqlBundle:sections:Grant.html.twig', [
+            'grant'                => $this->getData()['empty_grant'],
             'available_privileges' => $this->getData()['available_privileges'],
-            'database'             => $this->getData()['empty_database'],
         ]);
     }
 

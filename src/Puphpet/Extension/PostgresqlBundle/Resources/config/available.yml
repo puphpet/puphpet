@@ -4,12 +4,19 @@ available_privileges:
     - CONNECT
     - TEMPORARY
 
-empty_database:
-    name: ~
-    user: ~
+empty_user:
+    username: ~
     password: ~
-    grant: ALL
-    sql_file: ~
+    superuser: false
+
+empty_database:
+    dbname: ~
+    owner: ~
+
+empty_grant:
+    privilege: ~
+    db: ~
+    role: ~
 
 available_versions:
     - "9.3"

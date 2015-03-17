@@ -2,9 +2,17 @@ puphpet.extension.postgresql.homepage:
     pattern:  /
     defaults: { _controller: PuphpetExtensionPostgresqlBundle:Front:index }
 
+puphpet.extension.postgresql.add_user:
+    pattern:  /add-user
+    defaults: { _controller: PuphpetExtensionPostgresqlBundle:Front:addUser }
+
 puphpet.extension.postgresql.add_database:
     pattern:  /add-database
     defaults: { _controller: PuphpetExtensionPostgresqlBundle:Front:addDatabase }
+
+puphpet.extension.postgresql.add_grant:
+    pattern:  /add-grant
+    defaults: { _controller: PuphpetExtensionPostgresqlBundle:Front:addGrant }
 
 puphpet.extension.postgresql.manifest:
     pattern:  /manifest
