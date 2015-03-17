@@ -43,6 +43,8 @@ if hash_key_equals($apache_values, 'install', 1) {
     }
   }
 
+  # some of the following values used in
+  # puphpet/apache/custom_fragment.erb template
   if $require_mod_php {
     $mpm_module           = 'prefork'
     $disallowed_modules   = []
@@ -65,8 +67,8 @@ if hash_key_equals($apache_values, 'install', 1) {
     $fcgi_string          = ''
   }
 
-  $sendfile = $apache_values['settings']['sendfile'] ? {
-    1       => 'On',
+  $sendfile = array_true($apache_values['settings'], 'sendfile') ? {
+    true    => 'On',
     default => 'Off'
   }
 
@@ -138,7 +140,7 @@ if hash_key_equals($apache_values, 'install', 1) {
       }
     }
 
-    $ssl = 'ssl' in $vhost and str2bool($vhost['ssl']) ? {
+    $ssl = array_true($vhost, 'ssl') ? {
       true    => true,
       default => false
     }

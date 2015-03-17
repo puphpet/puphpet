@@ -1,8 +1,8 @@
 forge "https://forgeapi.puppetlabs.com"
 
 mod 'puppetlabs/apache',
-    :git => 'https://github.com/puphpet/puppetlabs-apache.git',
-    :ref => 'f12483b'
+    :git => 'https://github.com/puppetlabs/puppetlabs-apache.git',
+    :ref => '1.3.0'
 mod 'puppetlabs/apt',
     :git => 'https://github.com/puppetlabs/puppetlabs-apt.git',
     :ref => '1.4.2'
@@ -14,7 +14,7 @@ mod 'tPl0ch/composer',
     :ref => '1.2.1'
 mod 'puppetlabs/concat',
     :git => 'https://github.com/puppetlabs/puppetlabs-concat.git',
-    :ref => '1.1.0'
+    :ref => '1.1.1'
 mod 'elasticsearch/elasticsearch',
     :git => 'https://github.com/puphpet/puppet-elasticsearch.git',
     :ref => '0.2.2'
@@ -53,7 +53,7 @@ mod 'puppetlabs/postgresql',
     :ref => '4.2.0'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '722e1e8'
+    :ref => 'dbeb6af'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
