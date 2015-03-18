@@ -32,15 +32,24 @@ if hash_key_equals($apache_values, 'install', 1) {
   $webroot_user  = 'www-data'
   $webroot_group = 'www-data'
 
-  if ! defined(File[$www_location]) {
-    file { $www_location:
-      ensure  => directory,
-      owner   => 'root',
-      group   => $webroot_group,
-      mode    => '0775',
-      before  => Class['apache'],
-      require => Group[$webroot_group],
-    }
+  # centos 2.4 installation creates webroot automatically,
+  # requiring us to manually set owner and permissions via exec
+  exec { 'Create flag file for apache webroot':
+    command => "touch /.puphpet-stuff/apache-webroot-created",
+    creates => '/.puphpet-stuff/apache-webroot-created',
+    require => [
+      Group[$webroot_group],
+      Class['apache']
+    ],
+  }
+  -> exec { 'Create apache webroot':
+    command => "mkdir -p ${www_location}",
+  }
+  -> exec { 'Set apache webroot permissions':
+    command => "chmod 775 ${www_location}",
+  }
+  -> exec { 'Set apache webroot owner and group':
+    command => "chown root:${webroot_group} ${www_location}",
   }
 
   # some of the following values used in
@@ -128,7 +137,7 @@ if hash_key_equals($apache_values, 'install', 1) {
       user    => $webroot_user,
       group   => $webroot_group,
       creates => $vhost['docroot'],
-      require => File[$www_location],
+      require => Exec['Set apache webroot owner and group'],
     }
 
     # needed by apache::vhost
