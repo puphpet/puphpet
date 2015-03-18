@@ -9,6 +9,10 @@ include puphpet::params
 if hash_key_equals($mariadb_values, 'install', 1) {
   include mysql::params
 
+  if empty($mariadb_values['settings']['root_password']) {
+    fail( 'MariaDB requires choosing a root password. Please check your config.yaml file.' )
+  }
+
   if hash_key_equals($apache_values, 'install', 1)
     or hash_key_equals($nginx_values, 'install', 1)
   {
@@ -27,9 +31,42 @@ if hash_key_equals($mariadb_values, 'install', 1) {
     $mariadb_php_installed = false
   }
 
-  if empty($mariadb_values['settings']['root_password']) {
-    fail( 'MariaDB requires choosing a root password. Please check your config.yaml file.' )
+  # fetch repo for specific version
+  class { 'puphpet::mariadb':
+    version => $mariadb_values['settings']['version']
   }
+
+  $mariadb_override_options = deep_merge($mysql::params::default_options, {
+    'mysqld' => {
+      'tmpdir' => "${mysql::params::datadir}/tmp",
+    }
+  })
+
+  $mariadb_settings = delete(deep_merge({
+      'package_name'     => $puphpet::params::mariadb_package_server_name,
+      'service_name'     => 'mysql',
+      'restart'          => true,
+      'override_options' => $mariadb_override_options,
+      require            => Class['puphpet::mariadb'],
+    }, $mariadb_values['settings']), 'version')
+
+  $mariadb_user = $mariadb_override_options['mysqld']['user']
+
+  if ! defined(User[$mariadb_user]) {
+    user { $mariadb_user:
+      ensure => present,
+    }
+  }
+
+  if ! defined(Group[$mysql::params::root_group]) {
+    group { $mysql::params::root_group:
+      ensure => present,
+    }
+  }
+
+  create_resources('class', {
+    'mysql::server' => $mariadb_settings
+  })
 
   if ! defined(File[$mysql::params::datadir]) {
     file { $mysql::params::datadir:
@@ -39,27 +76,21 @@ if hash_key_equals($mariadb_values, 'install', 1) {
     }
   }
 
-  if ! defined(Group['mysql']) {
-    group { 'mysql':
-      ensure => present
-    }
-  }
+  $mariadb_pidfile_dir = $mariadb_override_options['mysqld']['pid-file']
 
-  if ! defined(User['mysql']) {
-    user { 'mysql':
-      ensure => present,
-    }
+  exec { 'Create pidfile parent directory':
+    command => "mkdir -p $(dirname ${mariadb_pidfile_dir})",
+    unless  => "test -d $(dirname ${mariadb_pidfile_dir})",
+    before  => Class['mysql::server'],
+    require => [
+      User[$mariadb_user],
+      Group[$mysql::params::root_group]
+    ],
   }
-
-  if (! defined(File['/var/run/mysqld'])) {
-    file { '/var/run/mysqld' :
-      ensure  => directory,
-      group   => 'mysql',
-      owner   => 'mysql',
-      before  => Class['mysql::server'],
-      require => [User['mysql'], Group['mysql']],
-      notify  => Service['mysql'],
-    }
+  -> exec { 'Set pidfile parent directory permissions':
+    command => "chown \
+      ${mariadb_user}:${mysql::params::root_group} \
+      $(dirname ${mariadb_pidfile_dir})",
   }
 
   if ! defined(File[$mysql::params::socket]) {
@@ -78,22 +109,19 @@ if hash_key_equals($mariadb_values, 'install', 1) {
     }
   }
 
-  class { 'puphpet::mariadb':
-    version => $mariadb_values['settings']['version']
-  }
-
-  $mariadb_settings = delete(deep_merge({
-      'package_name'     => $puphpet::params::mariadb_package_server_name,
-      'restart'          => true,
-      'override_options' => $mysql::params::default_options,
-    }, $mariadb_values['settings']), 'version')
-
-  create_resources('class', {
-    'mysql::server' => $mariadb_settings
-  })
-
   class { 'mysql::client':
     package_name => $puphpet::params::mariadb_package_client_name
+  }
+
+  if ! defined(File[$mariadb_override_options['mysqld']['tmpdir']]) {
+    file { $mariadb_override_options['mysqld']['tmpdir']:
+      ensure  => directory,
+      owner   => $mariadb_user,
+      group   => $mysql::params::root_group,
+      mode    => '0775',
+      require => Class['mysql::client'],
+      notify  => Service[$mariadb_settings['service_name']]
+    }
   }
 
   each( $mariadb_values['databases'] ) |$key, $database| {
