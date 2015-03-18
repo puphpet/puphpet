@@ -51,10 +51,16 @@ if hash_key_equals($mysql_values, 'install', 1) {
     fail( 'MySQL requires choosing a root password. Please check your config.yaml file.' )
   }
 
+  $mysql_override_options = deep_merge($mysql::params::default_options, {
+    'mysqld' => {
+      'tmpdir' => "${mysql::params::datadir}/tmp",
+    }
+  })
+
   $mysql_settings = deep_merge({
       'package_name'     => $mysql_server_server_package_name,
       'restart'          => true,
-      'override_options' => $mysql::params::default_options,
+      'override_options' => $mysql_override_options,
       require            => $mysql_server_require,
     }, $mysql_values['settings'])
 
@@ -65,6 +71,17 @@ if hash_key_equals($mysql_values, 'install', 1) {
   class { 'mysql::client':
     package_name => $mysql_server_client_package_name,
     require      => $mysql_server_require
+  }
+
+  if ! defined(File[$mysql_override_options['mysqld']['tmpdir']]) {
+    file { $mysql_override_options['mysqld']['tmpdir']:
+      ensure  => directory,
+      owner   => $mysql_override_options['mysqld']['user'],
+      group   => $mysql::params::root_group,
+      mode    => '0775',
+      require => Class['mysql::client'],
+      notify  => Service[$mysql::params::server_service_name]
+    }
   }
 
   each( $mysql_values['databases'] ) |$key, $database| {

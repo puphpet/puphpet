@@ -8,6 +8,7 @@ OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
 RELEASE=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" RELEASE)
 CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
 
+# deep_merge gem required by hiera
 if [[ ! -f /.puphpet-stuff/install-deep_merge-03122015 ]]; then
     gem install deep_merge --no-ri --no-rdoc
     touch /.puphpet-stuff/install-deep_merge-03122015
