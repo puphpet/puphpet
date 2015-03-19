@@ -48,7 +48,6 @@ if hash_key_equals($postgresql_values, 'install', 1) {
     'postgresql::server' => $postgresql_settings_server
   })
 
-
   Postgresql::Server::Role <| |>
   -> Postgresql::Server::Database <| |>
   -> Postgresql::Server::Database_grant <| |>
