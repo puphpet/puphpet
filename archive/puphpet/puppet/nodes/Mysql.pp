@@ -6,11 +6,11 @@ if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
 
 include puphpet::params
 
-if hash_key_equals($mysql_values, 'install', 1) {
+if array_true($mysql_values, 'install') {
   include mysql::params
 
-  if hash_key_equals($apache_values, 'install', 1)
-    or hash_key_equals($nginx_values, 'install', 1)
+  if array_true($apache_values, 'install')
+    or array_true($nginx_values, 'install')
   {
     $mysql_webserver_restart = true
   } else {
@@ -37,10 +37,10 @@ if hash_key_equals($mysql_values, 'install', 1) {
     $mysql_server_client_package_name = $mysql::params::client_package_name
   }
 
-  if hash_key_equals($php_values, 'install', 1) {
+  if array_true($php_values, 'install') {
     $mysql_php_installed = true
     $mysql_php_package   = 'php'
-  } elsif hash_key_equals($hhvm_values, 'install', 1) {
+  } elsif array_true($hhvm_values, 'install') {
     $mysql_php_installed = true
     $mysql_php_package   = 'hhvm'
   } else {
@@ -58,11 +58,11 @@ if hash_key_equals($mysql_values, 'install', 1) {
   })
 
   $mysql_settings = deep_merge({
-      'package_name'     => $mysql_server_server_package_name,
-      'restart'          => true,
-      'override_options' => $mysql_override_options,
-      require            => $mysql_server_require,
-    }, $mysql_values['settings'])
+    'package_name'     => $mysql_server_server_package_name,
+    'restart'          => true,
+    'override_options' => $mysql_override_options,
+    require            => $mysql_server_require,
+  }, $mysql_values['settings'])
 
   create_resources('class', {
     'mysql::server' => $mysql_settings
@@ -73,6 +73,7 @@ if hash_key_equals($mysql_values, 'install', 1) {
     require      => $mysql_server_require
   }
 
+  # prevent problems with being unable to create dir in /tmp
   if ! defined(File[$mysql_override_options['mysqld']['tmpdir']]) {
     file { $mysql_override_options['mysqld']['tmpdir']:
       ensure  => directory,
@@ -84,14 +85,102 @@ if hash_key_equals($mysql_values, 'install', 1) {
     }
   }
 
-  each( $mysql_values['databases'] ) |$key, $database| {
-    $database_merged = delete(merge($database, {
-      'dbname' => $database['name'],
-    }), 'name')
+  Mysql_user <| |>
+  -> Mysql_database <| |>
+  -> Mysql_grant <| |>
 
-    create_resources( puphpet::mysql::db, {
-      "${key}" => $database_merged
+  # config file could contain no users key
+  $mysql_users = array_true($mysql_values, 'users') ? {
+    true    => $mysql_values['users'],
+    default => { }
+  }
+
+  each( $mysql_users ) |$key, $user| {
+    # if no host passed with username, default to all
+    if '@' in $user['name'] {
+      $name = $user['name']
+    } else {
+      $name = "${user['name']}@%"
+    }
+
+    # force to_string to convert possible ints
+    $password_hash = mysql_password(to_string($user['password']))
+
+    $user_merged = delete(merge($user, {
+      ensure          => 'present',
+      'password_hash' => $password_hash,
+    }), ['name', 'password'])
+
+    create_resources( mysql_user, { "${name}" => $user_merged })
+  }
+
+  # config file could contain no databases key
+  $mysql_databases = array_true($mysql_values, 'databases') ? {
+    true    => $mysql_values['databases'],
+    default => { }
+  }
+
+  each( $mysql_databases ) |$key, $database| {
+    $name = $database['name']
+    $sql  = $database['sql']
+
+    $import_timeout = array_true($database, 'import_timeout') ? {
+      true    => $database['import_timeout'],
+      default => 300
+    }
+
+    $database_merged = delete(merge($database, {
+      ensure => 'present',
+    }), ['name', 'sql', 'import_timeout'])
+
+    create_resources( mysql_database, { "${name}" => $database_merged })
+
+    if $sql {
+      # Run import only on initial database creation
+      $touch_file = "/.puphpet-stuff/db-import-${name}"
+
+      exec{ "${name}-import":
+        command     => "mysql ${name} < ${sql} && touch ${touch_file}",
+        creates     => $touch_file,
+        logoutput   => true,
+        environment => "HOME=${::root_home}",
+        path        => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
+        timeout     => $import_timeout,
+        require     => Mysql_database[$name]
+      }
+    }
+  }
+
+  # config file could contain no grants key
+  $mysql_grants = array_true($mysql_values, 'grants') ? {
+    true    => $mysql_values['grants'],
+    default => { }
+  }
+
+  each( $mysql_grants ) |$key, $grant| {
+    # if no host passed with username, default to all
+    if '@' in $grant['user'] {
+      $user = $grant['user']
+    } else {
+      $user = "${grant['user']}@%"
+    }
+
+    $table = $grant['table']
+
+    $name = "${user}/${table}"
+
+    $options = array_true($grant, 'options') ? {
+      true    => $grant['options'],
+      default => ['GRANT']
+    }
+
+    $grant_merged = merge($grant, {
+      ensure    => 'present',
+      'user'    => $user,
+      'options' => $options,
     })
+
+    create_resources( mysql_grant, { "${name}" => $grant_merged })
   }
 
   if $mysql_php_installed and $mysql_php_package == 'php' {
@@ -110,16 +199,16 @@ if hash_key_equals($mysql_values, 'install', 1) {
     }
   }
 
-  if hash_key_equals($mysql_values, 'adminer', 1)
+  if array_true($mysql_values, 'adminer')
     and $mysql_php_installed
     and ! defined(Class['puphpet::adminer'])
   {
     $mysql_apache_webroot = $puphpet::params::apache_webroot_location
     $mysql_nginx_webroot  = $puphpet::params::nginx_webroot_location
 
-    if hash_key_equals($apache_values, 'install', 1) {
+    if array_true($apache_values, 'install') {
       $mysql_adminer_webroot_location = $mysql_apache_webroot
-    } elsif hash_key_equals($nginx_values, 'install', 1) {
+    } elsif array_true($nginx_values, 'install') {
       $mysql_adminer_webroot_location = $mysql_nginx_webroot
     } else {
       $mysql_adminer_webroot_location = $mysql_apache_webroot

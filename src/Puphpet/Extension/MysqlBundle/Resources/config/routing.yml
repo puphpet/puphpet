@@ -2,9 +2,17 @@ puphpet.extension.mysql.homepage:
     pattern:  /
     defaults: { _controller: PuphpetExtensionMysqlBundle:Front:index }
 
+puphpet.extension.mysql.add_user:
+    pattern:  /add-user
+    defaults: { _controller: PuphpetExtensionMysqlBundle:Front:addUser }
+
 puphpet.extension.mysql.add_database:
     pattern:  /add-database
     defaults: { _controller: PuphpetExtensionMysqlBundle:Front:addDatabase }
+
+puphpet.extension.mysql.add_grant:
+    pattern:  /add-grant
+    defaults: { _controller: PuphpetExtensionMysqlBundle:Front:addGrant }
 
 puphpet.extension.mysql.manifest:
     pattern:  /manifest

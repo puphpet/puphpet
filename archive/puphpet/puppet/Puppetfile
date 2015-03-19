@@ -38,7 +38,7 @@ mod 'puppetlabs/mongodb',
     :ref => '0.8.0'
 mod 'puppetlabs/mysql',
     :git => 'https://github.com/puppetlabs/puppetlabs-mysql.git',
-    :ref => '2.3.1'
+    :ref => '3.3.0'
 mod 'jfryman/nginx',
     :git => 'https://github.com/puphpet/puppet-nginx.git',
     :ref => 'd3ea0ee'
@@ -53,7 +53,7 @@ mod 'puppetlabs/postgresql',
     :ref => '4.2.0'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '5af30f3'
+    :ref => 'c4d468b'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
@@ -76,9 +76,6 @@ mod 'example42/solr',
 mod 'petems/swap_file',
     :git => 'https://github.com/petems/puppet-swap_file.git',
     :ref => '39582afda5'
-mod 'nanliu/staging',
-    :git => 'https://github.com/nanliu/puppet-staging.git',
-    :ref => '0.4.0'
 mod 'ajcrowe/supervisord',
     :git => 'https://github.com/puphpet/puppet-supervisord.git',
     :ref => '17643f1'

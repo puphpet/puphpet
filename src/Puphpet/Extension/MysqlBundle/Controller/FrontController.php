@@ -11,15 +11,30 @@ class FrontController extends Controller implements Extension\ControllerInterfac
     public function indexAction(array $data, $extra = '')
     {
         return $this->render('PuphpetExtensionMysqlBundle::form.html.twig', [
-            'mysql' => $data,
+            'mysql'                => $data,
+            'available_privileges' => $this->getData()['available_privileges'],
+        ]);
+    }
+
+    public function addUserAction()
+    {
+        return $this->render('PuphpetExtensionMysqlBundle:sections:User.html.twig', [
+            'user' => $this->getData()['empty_user'],
         ]);
     }
 
     public function addDatabaseAction()
     {
-        return $this->render('PuphpetExtensionMysqlBundle:sections:NewUserAndDatabase.html.twig', [
+        return $this->render('PuphpetExtensionMysqlBundle:sections:Database.html.twig', [
+            'database' => $this->getData()['empty_database'],
+        ]);
+    }
+
+    public function addGrantAction()
+    {
+        return $this->render('PuphpetExtensionMysqlBundle:sections:Grant.html.twig', [
+            'grant'                => $this->getData()['empty_grant'],
             'available_privileges' => $this->getData()['available_privileges'],
-            'database'             => $this->getData()['empty_database'],
         ]);
     }
 

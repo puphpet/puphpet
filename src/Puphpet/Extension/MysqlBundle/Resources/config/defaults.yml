@@ -3,12 +3,19 @@ install: 1
 settings:
     override_options: {}
 
+users:
+    -
+        name: dbuser
+        password: 123
+
 databases:
     -
         name: dbname
+        sql: ~
+
+grants:
+    -
         user: dbuser
-        password: 123
-        host: localhost
-        grant:
+        table: '*.*'
+        privileges:
             - ALL
-        sql_file: ~

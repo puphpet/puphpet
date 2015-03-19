@@ -60,35 +60,42 @@
                         Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
                         <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
                         your initial <code>$ vagrant up</code>!
-
-                        <br /><br />
-
-                        If you want to assign a user to multiple hosts or databases, simply create more databases and type in
-                        the same username and password. Only the password for the first entry will be considered,
-                        <strong>but all fields must be completed</strong>!
                     </p>
                 </div>
 
-                <div class="row form-group hidden">
-                    <div class="col-xs-12">
-                        <label for="mysql-settings-override_options">Override Options</label>
-                        <select id="mysql-settings-override_options" multiple class="form-control">
-                            {% for setting, value in mysql.settings.override_options %}
-                                <option value="{{ setting }}" selected>{{ value }}</option>
-                            {% endfor %}
-                        </select>
+                {% for user in mysql.users %}
+                    {% include 'PuphpetExtensionMysqlBundle:sections:User.html.twig'
+                        with {'user': user} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.mysql.add_user') }}">Add another MySQL user</button>
                     </div>
                 </div>
 
                 {% for database in mysql.databases %}
-                    {% include 'PuphpetExtensionMysqlBundle:sections:NewUserAndDatabase.html.twig'
-                        with {'available_privileges': mysql.available_privileges, 'database': database} %}
+                    {% include 'PuphpetExtensionMysqlBundle:sections:Database.html.twig'
+                        with {'database': database} %}
                 {% endfor %}
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-8 col-sm-push-2">
                         <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
                                 data-source-url="{{ path('puphpet.extension.mysql.add_database') }}">Add another MySQL database</button>
+                    </div>
+                </div>
+
+                {% for grant in mysql.grants %}
+                    {% include 'PuphpetExtensionMysqlBundle:sections:Grant.html.twig'
+                        with {'available_privileges': available_privileges, 'grant': grant} %}
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                                data-source-url="{{ path('puphpet.extension.mysql.add_grant') }}">Add another MySQL user/database grant</button>
                     </div>
                 </div>
             </div>

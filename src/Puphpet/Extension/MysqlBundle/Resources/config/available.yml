@@ -34,11 +34,16 @@ available_privileges:
         - UPDATE
         - USAGE
 
+empty_user:
+    name: ~
+    password: ~
+
 empty_database:
     name: ~
+    sql: ~
+
+empty_grant:
     user: ~
-    password: ~
-    host: localhost
-    grant:
+    table: '*.*'
+    privileges:
         - ALL
-    sql_file: ~
