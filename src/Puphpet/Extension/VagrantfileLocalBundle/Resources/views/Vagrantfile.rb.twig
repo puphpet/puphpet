@@ -30,7 +30,7 @@ Vagrant.configure('2') do |config|
 
   data['vm']['network']['forwarded_port'].each do |i, port|
     if port['guest'] != '' && port['host'] != ''
-      config.vm.network :forwarded_port, guest: port['guest'].to_i, host: port['host'].to_i
+      config.vm.network :forwarded_port, guest: port['guest'].to_i, host: port['host'].to_i, auto_correct: true
     end
   end
 
