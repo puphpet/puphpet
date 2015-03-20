@@ -7,6 +7,7 @@ if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
 include puphpet::params
 
 if array_true($mysql_values, 'install') {
+  include puphpet::mysql::params
   include mysql::params
 
   if array_true($apache_values, 'install')
@@ -17,24 +18,18 @@ if array_true($mysql_values, 'install') {
     $mysql_webserver_restart = false
   }
 
-  if $::osfamily == 'redhat' {
-    $rhel_mysql = 'http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm'
+  $mysql_version = to_string($mysql_values['settings']['version'])
 
-    $mysql_rhel_yum   = "yum -y --nogpgcheck install '${rhel_mysql}'"
-    $mysql_rhel_touch = 'touch /.puphpet-stuff/mysql-community-release'
+  class { 'puphpet::mysql::repo':
+    version => $mysql_version,
+  }
 
-    exec { 'mysql-community-repo':
-      command => "${mysql_rhel_yum} && ${mysql_rhel_touch}",
-      creates => '/.puphpet-stuff/mysql-community-release'
-    }
-
-    $mysql_server_require             = Exec['mysql-community-repo']
-    $mysql_server_server_package_name = 'mysql-community-server'
-    $mysql_server_client_package_name = 'mysql-community-client'
-  } else {
-    $mysql_server_require             = []
-    $mysql_server_server_package_name = $mysql::params::server_package_name
-    $mysql_server_client_package_name = $mysql::params::client_package_name
+  if $mysql_version in ['55', '5.5'] {
+    $mysql_server_package = $puphpet::mysql::params::mysql_server_55
+    $mysql_client_package = $puphpet::mysql::params::mysql_client_55
+  } elsif $mysql_version in ['56', '5.6'] {
+    $mysql_server_package = $puphpet::mysql::params::mysql_server_56
+    $mysql_client_package = $puphpet::mysql::params::mysql_client_56
   }
 
   if array_true($php_values, 'install') {
@@ -57,20 +52,20 @@ if array_true($mysql_values, 'install') {
     }
   })
 
-  $mysql_settings = deep_merge({
-    'package_name'     => $mysql_server_server_package_name,
+  $mysql_settings = delete(deep_merge({
+    'package_name'     => $mysql_server_package,
     'restart'          => true,
     'override_options' => $mysql_override_options,
-    require            => $mysql_server_require,
-  }, $mysql_values['settings'])
+    require            => Class['puphpet::mysql::repo'],
+  }, $mysql_values['settings']), 'version')
 
   create_resources('class', {
     'mysql::server' => $mysql_settings
   })
 
   class { 'mysql::client':
-    package_name => $mysql_server_client_package_name,
-    require      => $mysql_server_require
+    package_name => $mysql_client_package,
+    require      => Class['puphpet::mysql::repo'],
   }
 
   # prevent problems with being unable to create dir in /tmp

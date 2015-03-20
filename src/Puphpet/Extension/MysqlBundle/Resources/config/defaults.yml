@@ -1,6 +1,7 @@
 install: 1
 
 settings:
+    version: 5.6
     override_options: {}
 
 users:

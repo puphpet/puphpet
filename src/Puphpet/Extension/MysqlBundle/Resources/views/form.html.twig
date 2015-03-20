@@ -20,6 +20,29 @@
                 <div class="panel-body">
                     <div class="row form-group">
                         <div class="col-md-12">
+                            <label>Version</label><br />
+
+                            {% if mysql.settings.version is defined and mysql.settings.version is not empty %}
+                                <label class="radio-inline">
+                                    <input type="radio" name="mysql[settings][version]"
+                                           value="{{ mysql.settings.version }}" checked />
+                                    {{ mysql.settings.version }}
+                                </label>
+                            {% endif %}
+
+                            {% for version in mysql.available_versions %}
+                                {% if version != mysql.settings.version %}
+                                    <label class="radio-inline">
+                                        <input type="radio" name="mysql[settings][version]" value="{{ version }}" />
+                                        {{ version }}
+                                    </label>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
                             <label for="mysql-settings-root_password">
                                 Root Password
                                 {{ popover.small('Assign a password to the root user.

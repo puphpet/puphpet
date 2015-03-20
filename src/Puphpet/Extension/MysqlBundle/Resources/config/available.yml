@@ -1,3 +1,7 @@
+available_versions:
+    - 5.6
+    - 5.5
+
 available_privileges:
     "Give all":
         - ALL

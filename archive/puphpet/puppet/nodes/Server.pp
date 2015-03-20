@@ -102,14 +102,16 @@ case $::operatingsystem {
   'debian': {
     include apt::backports
 
-    apt::source { 'packages.dotdeb.org-repo.puphpet':
-      location          => 'http://repo.puphpet.com/dotdeb/',
-      release           => $::lsbdistcodename,
-      repos             => 'all',
-      required_packages => 'debian-keyring debian-archive-keyring',
-      key               => '89DF5277',
-      key_server        => 'hkp://keyserver.ubuntu.com:80',
-      include_src       => true
+    if ! defined(Apt::Source['packages.dotdeb.org-repo.puphpet']) {
+      apt::source { 'packages.dotdeb.org-repo.puphpet':
+        location          => 'http://repo.puphpet.com/dotdeb/',
+        release           => $::lsbdistcodename,
+        repos             => 'all',
+        required_packages => 'debian-keyring debian-archive-keyring',
+        key               => '89DF5277',
+        key_server        => 'hkp://keyserver.ubuntu.com:80',
+        include_src       => true
+      }
     }
 
     $server_lsbdistcodename = downcase($::lsbdistcodename)
