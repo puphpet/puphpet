@@ -21,7 +21,13 @@
 
                 <div class="panel-body">
                     <div class="row form-group">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label for="mongodb-port">Bind IP</label>
+                            <input type="text" id="mongodb-settings-bind_ip" name="mongodb[settings][bind_ip]"
+                                   placeholder="127.0.0.1" value="{{ mongodb.settings.bind_ip }}" class="form-control" />
+                        </div>
+
+                        <div class="col-md-6">
                             <label for="mongodb-port">Port</label>
                             <input type="number" id="mongodb-settings-port" name="mongodb[settings][port]"
                                    placeholder="27017" value="{{ mongodb.settings.port }}" class="form-control" />
