@@ -92,11 +92,11 @@ if array_true($mysql_values, 'install') {
   }
 
   each( $mysql_users ) |$key, $user| {
-    # if no host passed with username, default to all
+    # if no host passed with username, default to localhost
     if '@' in $user['name'] {
       $name = $user['name']
     } else {
-      $name = "${user['name']}@%"
+      $name = "${user['name']}@localhost"
     }
 
     # force to_string to convert possible ints
@@ -154,11 +154,11 @@ if array_true($mysql_values, 'install') {
   }
 
   each( $mysql_grants ) |$key, $grant| {
-    # if no host passed with username, default to all
+    # if no host passed with username, default to localhost
     if '@' in $grant['user'] {
       $user = $grant['user']
     } else {
-      $user = "${grant['user']}@%"
+      $user = "${grant['user']}@localhost"
     }
 
     $table = $grant['table']
