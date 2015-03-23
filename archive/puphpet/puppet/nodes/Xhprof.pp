@@ -4,6 +4,7 @@ if $apache_values == undef { $apache_values = hiera_hash('apache', false) }
 if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
 
 include puphpet::params
+include puphpet::apache::params
 
 if hash_key_equals($xhprof_values, 'install', 1)
   and hash_key_equals($php_values, 'install', 1)
@@ -36,7 +37,7 @@ if hash_key_equals($xhprof_values, 'install', 1)
   }
 
   if hash_key_equals($apache_values, 'install', 1) {
-    $xhprof_webroot_location = $puphpet::params::apache_webroot_location
+    $xhprof_webroot_location = $puphpet::apache::params::default_vhost_dir
   } elsif hash_key_equals($nginx_values, 'install', 1) {
     $xhprof_webroot_location = $puphpet::params::nginx_webroot_location
   } else {
@@ -50,7 +51,7 @@ if hash_key_equals($xhprof_values, 'install', 1)
   }
 
   class { 'puphpet::php::xhprof':
-    php_version       => $php_values['version'],
+    php_version       => $php_values['settings']['version'],
     webroot_location  => $xhprof_webroot_location,
     webserver_service => $xhprof_webserver_service
   }

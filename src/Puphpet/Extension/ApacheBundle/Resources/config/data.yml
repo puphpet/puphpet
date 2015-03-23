@@ -10,5 +10,3 @@ settings:
 
 modules: []
 vhosts: []
-
-mod_pagespeed: 0

@@ -4,76 +4,48 @@ if $php_values == undef { $php_values = hiera_hash('php', false) }
 if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
 
 include puphpet::params
+include puphpet::apache::params
 
-if hash_key_equals($apache_values, 'install', 1) {
-  include apache::params
+if array_true($apache_values, 'install') {
+  include ::apache::params
 
-  if hash_key_equals($php_values, 'install', 1)
-    and hash_key_equals($php_values, 'mod_php', 1)
-  {
-    $require_mod_php = true
-    $apache_version  = $apache::version::default
+  class { 'puphpet::apache::repo': }
+
+  $apache_version = '2.4'
+  $apache_modules = delete($apache_values['modules'], 'pagespeed')
+
+  if array_true($php_values, 'install') {
+    $php_engine    = true
+    $php_fcgi_port = access($php_values, 'fpm_settings.port')
+  } elsif array_true($hhvm_values, 'install') {
+    $php_engine    = true
+    $php_fcgi_port = access($hhvm_values, 'settings.port')
   } else {
-    $require_mod_php = false
-    $apache_version  = '2.4'
+    $php_engine    = false
   }
 
-  if ! $require_mod_php {
-    if $::operatingsystem == 'debian' {
-      puphpet::apache::repo::debian{ 'do': }
-    } elsif $::operatingsystem == 'ubuntu' and $::lsbdistcodename == 'precise' {
-      apt::ppa { 'ppa:ondrej/apache2': require => Apt::Key['4F4EA0AAE5267A6C'] }
-    } elsif $::osfamily == 'redhat' {
-      puphpet::apache::repo::centos{ 'do': }
-    }
+  $mpm_module = 'worker'
+
+  $sethandler_string = $php_engine ? {
+    true    => "proxy:fcgi://127.0.0.1:${php_fcgi_port}",
+    default => 'default-handler'
   }
 
-  $www_location  = $puphpet::params::apache_www_location
+  $www_root      = $puphpet::apache::params::www_root
   $webroot_user  = 'www-data'
   $webroot_group = 'www-data'
 
   # centos 2.4 installation creates webroot automatically,
   # requiring us to manually set owner and permissions via exec
-  exec { 'Create flag file for apache webroot':
-    command => "touch /.puphpet-stuff/apache-webroot-created",
+  exec { 'Create apache webroot':
+    command => "mkdir -m 775 -p ${www_root} && \
+                chown root:${webroot_group} ${www_root} && \
+                touch /.puphpet-stuff/apache-webroot-created",
     creates => '/.puphpet-stuff/apache-webroot-created',
     require => [
       Group[$webroot_group],
       Class['apache']
     ],
-  }
-  -> exec { 'Create apache webroot':
-    command => "mkdir -p ${www_location}",
-  }
-  -> exec { 'Set apache webroot permissions':
-    command => "chmod 775 ${www_location}",
-  }
-  -> exec { 'Set apache webroot owner and group':
-    command => "chown root:${webroot_group} ${www_location}",
-  }
-
-  # some of the following values used in
-  # puphpet/apache/custom_fragment.erb template
-  if $require_mod_php {
-    $mpm_module           = 'prefork'
-    $disallowed_modules   = []
-    $apache_php_package   = 'php'
-    $fcgi_string          = ''
-  } elsif hash_key_equals($hhvm_values, 'install', 1) {
-    $mpm_module           = 'worker'
-    $disallowed_modules   = ['php']
-    $apache_php_package   = 'hhvm'
-    $fcgi_string          = "127.0.0.1:${hhvm_values['settings']['port']}"
-  } elsif hash_key_equals($php_values, 'install', 1) {
-    $mpm_module           = 'worker'
-    $disallowed_modules   = ['php']
-    $apache_php_package   = 'php-fpm'
-    $fcgi_string          = '127.0.0.1:9000'
-  } else {
-    $mpm_module           = 'worker'
-    $disallowed_modules   = []
-    $apache_php_package   = ''
-    $fcgi_string          = ''
   }
 
   $sendfile = array_true($apache_values['settings'], 'sendfile') ? {
@@ -84,75 +56,77 @@ if hash_key_equals($apache_values, 'install', 1) {
   $apache_settings = merge($apache_values['settings'], {
     'default_vhost'  => false,
     'mpm_module'     => $mpm_module,
-    'conf_template'  => $apache::params::conf_template,
+    'conf_template'  => $::apache::params::conf_template,
     'sendfile'       => $sendfile,
     'apache_version' => $apache_version
   })
 
   create_resources('class', { 'apache' => $apache_settings })
 
-  if $require_mod_php and ! defined(Class['apache::mod::php']) {
-    include apache::mod::php
-  } elsif ! $require_mod_php {
-    include puphpet::apache::fpm
-  }
-
-  if hash_key_equals($apache_values, 'mod_pagespeed', 1) {
-    class { 'puphpet::apache::modpagespeed': }
-  }
-
-  if hash_key_equals($hhvm_values, 'install', 1)
-    or hash_key_equals($php_values, 'install', 1)
-  {
-    $default_vhost_engine = 'php'
+  if $php_engine {
+    $default_vhost_directories = {'default' => {
+      'provider'        => 'directory',
+      'path'            => $puphpet::apache::params::default_vhost_dir,
+      'options'         => ['Indexes', 'FollowSymlinks', 'MultiViews'],
+      'allow_override'  => ['All'],
+      'require'         => ['all granted'],
+      'files_match'     => {'php_match' => {
+        'provider'   => 'filesmatch',
+        'path'       => '\.php$',
+        'sethandler' => $sethandler_string,
+      }},
+      'custom_fragment' => '',
+    }}
   } else {
-    $default_vhost_engine = undef
+    $default_vhost_directories = {'default' => {
+      'provider'        => 'directory',
+      'path'            => $puphpet::apache::params::default_vhost_dir,
+      'options'         => ['Indexes', 'FollowSymlinks', 'MultiViews'],
+      'allow_override'  => ['All'],
+      'require'         => ['all granted'],
+      'files_match'     => {},
+      'custom_fragment' => '',
+    }}
   }
 
-  if $apache_values['settings']['default_vhost'] == true {
-    $apache_vhosts = merge($apache_values['vhosts'], {
+  if array_true($apache_values['settings'], 'default_vhost') {
+    $apache_default_vhosts = {
       'default_vhost_80'  => {
         'servername'    => 'default',
-        'docroot'       => $puphpet::params::apache_webroot_location,
+        'docroot'       => $puphpet::apache::params::default_vhost_dir,
         'port'          => 80,
+        'directories'   => $default_vhost_directories,
         'default_vhost' => true,
-        'engine'        => $default_vhost_engine,
       },
       'default_vhost_443' => {
         'servername'    => 'default',
-        'docroot'       => $puphpet::params::apache_webroot_location,
+        'docroot'       => $puphpet::apache::params::default_vhost_dir,
         'port'          => 443,
+        'directories'   => $default_vhost_directories,
         'default_vhost' => true,
         'ssl'           => 1,
-        'engine'        => $default_vhost_engine,
       },
-    })
+    }
   } else {
-    $apache_vhosts = $apache_values['vhosts']
+    $apache_default_vhosts = {}
   }
 
-  each( $apache_vhosts ) |$key, $vhost| {
+  # config file could contain no vhosts key
+  $apache_vhosts_merged = array_true($apache_values, 'vhosts') ? {
+    true    => merge($apache_values['vhosts'], $apache_default_vhosts),
+    default => $apache_default_vhosts,
+  }
+
+  each( $apache_vhosts_merged ) |$key, $vhost| {
     exec { "exec mkdir -p ${vhost['docroot']} @ key ${key}":
-      command => "mkdir -p ${vhost['docroot']}",
+      command => "mkdir -m 775 -p ${vhost['docroot']}",
       user    => $webroot_user,
       group   => $webroot_group,
       creates => $vhost['docroot'],
-      require => Exec['Set apache webroot owner and group'],
+      require => Exec['Create apache webroot'],
     }
 
-    # needed by apache::vhost
-    if ! defined(File[$vhost['docroot']]) {
-      file { $vhost['docroot']:
-        ensure  => directory,
-        mode    => '0775',
-        require => Exec["exec mkdir -p ${vhost['docroot']} @ key ${key}"],
-      }
-    }
-
-    $ssl = array_true($vhost, 'ssl') ? {
-      true    => true,
-      default => false
-    }
+    $ssl = array_true($vhost, 'ssl')
 
     $ssl_cert = array_true($vhost, 'ssl_cert') ? {
       true    => $vhost['ssl_cert'],
@@ -174,26 +148,39 @@ if hash_key_equals($apache_values, 'install', 1) {
       default => undef
     }
 
-    $vhost_merged = delete(merge($vhost, {
-      'custom_fragment' => template('puphpet/apache/custom_fragment.erb'),
-      'directories'     => values_no_error($vhost['directories']),
+    if array_true($vhost, 'directories') {
+      $directories_hash   = $vhost['directories']
+      $files_match        = template('puphpet/apache/files_match.erb')
+      $directories_merged = merge($vhost['directories'], hash_eval($files_match))
+    } else {
+      $directories_merged = {}
+    }
+
+    $vhost_custom_fragment = array_true($vhost, 'custom_fragment') ? {
+      true    => file($vhost['custom_fragment']),
+      default => '',
+    }
+
+    $vhost_merged = merge($vhost, {
+      'directories'     => values_no_error($directories_merged),
       'ssl'             => $ssl,
       'ssl_cert'        => $ssl_cert,
       'ssl_key'         => $ssl_key,
       'ssl_chain'       => $ssl_chain,
       'ssl_certs_dir'   => $ssl_certs_dir,
+      'custom_fragment' => $vhost_custom_fragment,
       'manage_docroot'  => false
-    }), 'engine')
+    })
 
-    create_resources(apache::vhost, { "${key}" => $vhost_merged })
+    create_resources(::apache::vhost, { "${key}" => $vhost_merged })
 
     if ! defined(Puphpet::Firewall::Port[$vhost['port']]) {
       puphpet::firewall::port { $vhost['port']: }
     }
   }
 
-  if $::osfamily == 'debian' and ! $require_mod_php {
-    file { ['/var/run/apache2/ssl_mutex']:
+  if $::osfamily == 'debian' {
+    file { '/var/run/apache2/ssl_mutex':
       ensure  => directory,
       group   => $webroot_group,
       mode    => '0775',
@@ -202,13 +189,18 @@ if hash_key_equals($apache_values, 'install', 1) {
     }
   }
 
-  if ! defined(Puphpet::Firewall::Port['443']) {
-    puphpet::firewall::port { '443': }
+  if ('proxy_fcgi' in $apache_values['modules']) {
+    include puphpet::apache::proxy_fcgi
   }
 
-  if count($apache_values['modules']) > 0 {
-    puphpet::apache::mod { $apache_values['modules']:
-      disallowed_modules => $disallowed_modules,
+  # mod_pagespeed needs some extra love
+  if 'pagespeed' in $apache_values['modules'] {
+    class { 'puphpet::apache::modpagespeed': }
+  }
+
+  each( $apache_modules ) |$module| {
+    if ! defined(Apache::Mod[$module]) {
+      apache::mod { $module: }
     }
   }
 
@@ -217,15 +209,18 @@ if hash_key_equals($apache_values, 'install', 1) {
     notify  => Service['httpd'],
   }
 
-  if defined(File[$puphpet::params::apache_webroot_location]) {
-    file { "${puphpet::params::apache_webroot_location}/index.html":
+  $default_vhost_index_file =
+    "${puphpet::apache::params::default_vhost_dir}/index.html"
+
+  if ! defined(File[$default_vhost_index_file]) {
+    file { $default_vhost_index_file:
       ensure  => present,
       owner   => 'root',
       group   => $webroot_group,
       mode    => '0664',
       source  => 'puppet:///modules/puphpet/webserver_landing.erb',
       replace => true,
-      require => File[$puphpet::params::apache_webroot_location],
+      require => Exec['Create apache webroot'],
     }
   }
 }

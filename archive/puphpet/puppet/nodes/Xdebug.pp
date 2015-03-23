@@ -25,7 +25,7 @@ if hash_key_equals($xdebug_values, 'install', 1)
     $xdebug_webserver_service = undef
   }
 
-  $xdebug_compile = $php_values['version'] ? {
+  $xdebug_compile = $php_values['settings']['version'] ? {
     '5.6'   => true,
     '56'    => true,
     default => false,
@@ -40,7 +40,7 @@ if hash_key_equals($xdebug_values, 'install', 1)
     puphpet::php::ini { $key:
       entry       => "XDEBUG/${key}",
       value       => $value,
-      php_version => $php_values['version'],
+      php_version => $php_values['settings']['version'],
       webserver   => $xdebug_webserver_service
     }
   }

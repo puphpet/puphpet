@@ -5,11 +5,12 @@ if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
 if $php_values == undef { $php_values = hiera_hash('php', false) }
 
 include puphpet::params
+include puphpet::apache::params
 
 # beanstalk_console requires Apache or Nginx
 if hash_key_equals($apache_values, 'install', 1) {
   $beanstalk_console_webroot =
-    "${puphpet::params::apache_webroot_location}/beanstalk_console"
+    "${puphpet::apache::params::default_vhost_dir}/beanstalk_console"
 } elsif hash_key_equals($nginx_values, 'install', 1) {
   $beanstalk_console_webroot =
     "${puphpet::params::nginx_webroot_location}/beanstalk_console"

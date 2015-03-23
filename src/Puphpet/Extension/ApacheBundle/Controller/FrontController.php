@@ -5,6 +5,7 @@ namespace Puphpet\Extension\ApacheBundle\Controller;
 use Puphpet\MainBundle\Extension;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class FrontController extends Controller implements Extension\ControllerInterface
 {
@@ -18,18 +19,24 @@ class FrontController extends Controller implements Extension\ControllerInterfac
     public function vhostAction()
     {
         return $this->render('PuphpetExtensionApacheBundle:sections:vhost.html.twig', [
-            'vhost'             => $this->getData()['empty_vhost'],
-            'available_engines' => $this->getData()['available_engines'],
+            'vhost' => $this->getData()['empty_vhost'],
         ]);
     }
 
-    public function directoryAction(array $vhost, $uniqid)
+    public function directoryAction(Request $request)
     {
-        return $this->render('PuphpetExtensionApacheBundle:sections:directories.html.twig', [
-            'vhost'             => $vhost,
-            'v_uniqid'          => $uniqid,
-            'directory'         => $this->getData()['empty_vhost']['directories'][0],
-            'available_engines' => $this->getData()['available_engines'],
+        return $this->render('PuphpetExtensionApacheBundle:sections:directory.html.twig', [
+            'vhostId'   => $request->get('vhostId'),
+            'directory' => $this->getData()['empty_directory'],
+        ]);
+    }
+
+    public function filesMatchAction(Request $request)
+    {
+        return $this->render('PuphpetExtensionApacheBundle:sections:filesMatch.html.twig', [
+            'vhostId'     => $request->get('vhostId'),
+            'directoryId' => $request->get('directoryId'),
+            'filesMatch'  => $this->getData()['empty_files_match'],
         ]);
     }
 

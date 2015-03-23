@@ -1,5 +1,11 @@
 install: 1
 
+settings:
+    version: 56
+
+fpm_settings:
+    port: 9000
+
 modules:
     php:
         - cli
@@ -15,5 +21,3 @@ ini:
     date.timezone: UTC
 
 composer_home: ~
-
-mod_php: 0

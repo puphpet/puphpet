@@ -5,6 +5,7 @@ if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
 if $mailcatcher_values == undef { $mailcatcher_values = hiera_hash('mailcatcher', false) }
 
 include puphpet::params
+include puphpet::apache::params
 
 if hash_key_equals($sqlite_values, 'install', 1) {
   if hash_key_equals($php_values, 'install', 1) {
@@ -39,11 +40,11 @@ if hash_key_equals($sqlite_values, 'install', 1) {
 
   if hash_key_equals($sqlite_values, 'adminer', 1) and $sqlite_php_installed {
     if hash_key_equals($apache_values, 'install', 1) {
-      $sqlite_adminer_webroot = $puphpet::params::apache_webroot_location
+      $sqlite_adminer_webroot = $puphpet::apache::params::default_vhost_dir
     } elsif hash_key_equals($nginx_values, 'install', 1) {
       $sqlite_adminer_webroot = $puphpet::params::nginx_webroot_location
     } else {
-      $sqlite_adminer_webroot = $puphpet::params::apache_webroot_location
+      $sqlite_adminer_webroot = $puphpet::apache::params::default_vhost_dir
     }
 
     class { 'puphpet::adminer':

@@ -262,6 +262,14 @@ footer {
         border-radius: 0;
     }
 
+    /* fourth level panel */
+    .panel-default .panel-default .panel-default .panel-default > .panel-heading {
+        color: #fff;
+        background-color: #000;
+        border: none;
+        border-radius: 0;
+    }
+
     .panel-default .panel-body h1,
     .panel-default .panel-body h2,
     .panel-default .panel-body h3 {

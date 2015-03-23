@@ -19,6 +19,11 @@ if [[ ! -f /.puphpet-stuff/install-activesupport-03132015 ]]; then
     touch /.puphpet-stuff/install-activesupport-03132015
 fi
 
+if [[ ! -f /.puphpet-stuff/install-vine-03202015 ]]; then
+    gem install vine --no-ri --no-rdoc
+    touch /.puphpet-stuff/install-vine-03202015
+fi
+
 if [[ -f /.puphpet-stuff/install-puppet-3.4.3 ]]; then
     exit 0
 fi

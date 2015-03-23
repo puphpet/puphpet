@@ -1,6 +1,10 @@
 install: 0
 
-version: 56
+settings:
+    version: 56
+
+fpm_settings:
+    port: 9000
 
 composer: 1
 composer_home: ~
@@ -11,5 +15,3 @@ modules:
     pecl: []
 
 ini: []
-
-mod_php: 0

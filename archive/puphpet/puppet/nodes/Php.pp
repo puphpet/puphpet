@@ -5,13 +5,18 @@ if $mailcatcher_values == undef { $mailcatcher_values = hiera_hash('mailcatcher'
 
 include puphpet::params
 
-if hash_key_equals($php_values, 'install', 1) {
-  include php::params
-  include apache::params
-  include nginx::params
+if array_true($php_values, 'install') {
+  include ::php::params
+  include ::apache::params
+  include ::nginx::params
+
+  $php_fcgi = array_true($apache_values, 'install')
+           or array_true($nginx_values, 'install')
+
+  $php_version = $php_values['settings']['version']
 
   class { 'puphpet::php::repos':
-    php_version => $php_values['version']
+    php_version => $php_version
   }
 
   Class['Php']
@@ -30,20 +35,7 @@ if hash_key_equals($php_values, 'install', 1) {
     'redhat' => '/etc/php.ini',
   }
 
-  if hash_key_equals($apache_values, 'install', 1)
-    and hash_key_equals($php_values, 'mod_php', 1)
-  {
-    $php_package                  = $php::params::package
-    $php_webserver_service        = 'httpd'
-    $php_webserver_service_ini    = $php_webserver_service
-    $php_webserver_service_ensure = 'running'
-    $php_webserver_service_notify = [Service[$php_webserver_service]]
-    $php_webserver_restart        = true
-    $php_config_file              = $php::params::config_file
-    $php_manage_service           = false
-  } elsif hash_key_equals($apache_values, 'install', 1)
-    or hash_key_equals($nginx_values, 'install', 1)
-  {
+  if $php_fcgi {
     $php_package                  = "${php_prefix}fpm"
     $php_webserver_service        = "${php_prefix}fpm"
     $php_webserver_service_ini    = $php_webserver_service
@@ -54,8 +46,10 @@ if hash_key_equals($php_values, 'install', 1) {
     $php_manage_service           = true
 
     $php_fpm_conf = $puphpet::params::php_fpm_conf
+    $php_fpm_port = $php_values['fpm_settings']['port']
 
-    $php_fpm_perl = 'perl -p -i -e "s#listen = .*#listen = 127.0.0.1:9000#gi"'
+    $php_fpm_perl =
+      "perl -p -i -e 's#listen = .*#listen = 127.0.0.1:${php_fpm_port}#gi'"
     $php_fpm_grep = 'grep -x "listen = 127.0.0.1:9000"'
 
     exec { 'php_fpm-listen':
@@ -91,6 +85,7 @@ if hash_key_equals($php_values, 'install', 1) {
   class { 'php':
     package             => $php_package,
     service             => $php_webserver_service,
+    version             => 'present',
     service_autorestart => false,
     config_file         => $php_config_file,
   }
@@ -150,7 +145,7 @@ if hash_key_equals($php_values, 'install', 1) {
         puphpet::php::ini { "${key}_${innerkey}":
           entry       => "CUSTOM_${innerkey}/${key}",
           value       => $innervalue,
-          php_version => $php_values['version'],
+          php_version => $php_version,
           webserver   => $php_webserver_service_ini
         }
       }
@@ -158,7 +153,7 @@ if hash_key_equals($php_values, 'install', 1) {
       puphpet::php::ini { $key:
         entry       => "CUSTOM/${key}",
         value       => $value,
-        php_version => $php_values['version'],
+        php_version => $php_version,
         webserver   => $php_webserver_service_ini
       }
     }
@@ -214,7 +209,7 @@ if hash_key_equals($php_values, 'install', 1) {
     puphpet::php::ini { 'sendmail_path':
       entry       => 'CUSTOM/sendmail_path',
       value       => "${mc_path}/catchmail${mailcatcher_f_flag}",
-      php_version => $php_values['version'],
+      php_version => $php_version,
       webserver   => $php_webserver_service_ini
     }
   }

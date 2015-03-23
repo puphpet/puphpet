@@ -60,7 +60,7 @@
         </div>
 
         <div class="row form-group">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="apache-vhosts-{{ uniqid }}-setenv">
                     Environment Variables
                     {{ popover.small('"name value", separated by comma') }}
@@ -75,42 +75,27 @@
                     {% endif %}
                 </select>
             </div>
-        </div>
-
-        {% if vhost.directories is defined %}
-            {% for directory in vhost.directories %}
-                {% include 'PuphpetExtensionApacheBundle:sections:directories.html.twig' with {'vhost': vhost, 'directory': directory, 'v_uniqid': uniqid} %}
-            {% endfor %}
-        {% else %}
-            {% render controller('PuphpetExtensionApacheBundle:Front:directory', { 'vhost': vhost, 'uniqid': uniqid }) %}
-        {% endif %}
-
-        <div class="row form-group">
-            <div class="col-md-6">
-                <label for="apache-vhosts-{{ uniqid }}-engine">
-                    Engine
-                    {{ popover.small('Engine to power this vhost.') }}
-                </label>
-
-                <select id="apache-vhosts-{{ uniqid }}-engine"
-                        name="apache[vhosts][{{ uniqid }}][engine]" size="6"
-                        class="form-control select-tags">
-                    {% for engine in available_engines %}
-                        <option value="{{ engine }}"
-                            {% if vhost.engine is defined and engine == vhost.engine %}selected
-                            {% elseif vhost.engine is defined and not vhost.engine and engine == 'php' %}selected
-                            {% endif %}>{{ engine }}</option>
-                    {% endfor %}
-                </select>
-            </div>
 
             <div class="col-md-6">
                 <label for="apache-vhosts-{{ uniqid }}-custom_fragment">
-                    Custom Directives (<strong>outside</strong> &lt;Directory&gt; block)
+                    Virtual Host-Level Custom Directives
+                    {{ popover.small('File must exist inside VM on initial "$ vagrant up"!
+                        <a href="http://git.io/h7tY" target="_blank">The custom fragment would be added here.</a>') }}
                 </label>
-                <textarea id="apache-vhosts-{{ uniqid }}-custom_fragment"
-                       name="apache[vhosts][{{ uniqid }}][custom_fragment]"
-                       class="form-control">{% if vhost.custom_fragment is defined %}{{ vhost.custom_fragment }}{% endif %}</textarea>
+                <input type="text" id="apache-vhosts-{{ uniqid }}-custom_fragment"
+                       name="apache[vhosts][{{ uniqid }}][custom_fragment]" placeholder="/path/to/file"
+                       value="{{ vhost.custom_fragment }}" class="form-control" />
+            </div>
+        </div>
+
+        {% for directory in vhost.directories %}
+            {% include 'PuphpetExtensionApacheBundle:sections:directory.html.twig' with {'vhostId': uniqid, 'directory': directory} %}
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
+                        data-source-url="{{ path('puphpet.extension.apache.directory', {'vhostId': uniqid}) }}">Add another Apache vhost directory</button>
             </div>
         </div>
 

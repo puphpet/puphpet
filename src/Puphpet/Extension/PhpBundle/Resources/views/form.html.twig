@@ -36,16 +36,16 @@
                                         outline here.</a>') }}
                             </label><br />
                             <label class="radio-inline">
-                                <input type="radio" name="php[version]" value="56"
-                                    {% if php.version == '56' %}checked{% endif %} /> 5.6
+                                <input type="radio" name="php[settings][version]" value="56"
+                                    {% if php.settings.version == '56' %}checked{% endif %} /> 5.6
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="php[version]" value="55"
-                                    {% if php.version == '55' %}checked{% endif %} /> 5.5
+                                <input type="radio" name="php[settings][version]" value="55"
+                                    {% if php.settings.version == '55' %}checked{% endif %} /> 5.5
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="php[version]" value="54"
-                                    {% if php.version == '54' %}checked{% endif %} /> 5.4
+                                <input type="radio" name="php[settings][version]" value="54"
+                                    {% if php.settings.version == '54' %}checked{% endif %} /> 5.4
                             </label>
                         </div>
 
@@ -187,23 +187,6 @@
                     </div>
                     <!-- end PHP / PECL Modules -->
 
-                    <div class="col-xs-12">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="php[mod_php]"
-                                   {% if php.mod_php %}checked{% endif %} value="1" /> Use mod_php
-                        </label>
-
-                        <p class="help-block">
-                            PuPHPet uses
-                            <a href="http://php.net/manual/en/install.fpm.php" target="_blank">PHP-FPM (FastCGI Process Manager)</a>
-                            by default. If you want to use mod_php, check the box above. This only affects your VM
-                            if you have chosen to use Apache. Nginx uses PHP-FPM.
-                            <br /><br />
-                            If you check this box, then PuPHPet will use <strong>Apache 2.2</strong>. It is
-                            recommended you <strong>not</strong> use mod_php and keep the box unchecked so
-                            that you can use the latest, better-performing <strong>Apache 2.4</strong>.
-                        </p>
-                    </div>
                 </div>
 
                 <div class="panel-heading">
