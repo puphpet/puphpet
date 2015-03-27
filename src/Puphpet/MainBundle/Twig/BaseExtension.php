@@ -29,14 +29,13 @@ class BaseExtension extends \Twig_Extension
         ];
     }
 
-    public function uniqid()
+    public function uniqid($prefix)
     {
         $random = $this->randomLib->getLowStrengthGenerator();
 
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyz' .
-                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
 
-        return $random->generateString(12, $characters);
+        return $prefix . $random->generateString(12, $characters);
     }
 
     public function mt_rand($min, $max)
