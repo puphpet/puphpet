@@ -19,13 +19,13 @@ vm:
             cpus: 1
     provision:
         puppet:
-            manifests_path: "puphpet/puppet"
-            manifest_file: "site.pp"
-            module_path: "puphpet/puppet/modules"
+            manifests_path: 'puphpet/puppet'
+            manifest_file: 'site.pp'
+            module_path: 'puphpet/puppet/modules'
             options:
-                - "--verbose"
-                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
-                - "--parser future"
+                - '--verbose'
+                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+                - '--parser future'
     synced_folder: []
     usable_port_range:
         start: 10200
