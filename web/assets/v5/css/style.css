@@ -1,0 +1,531 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic');
+
+body {
+    color: #353b44;
+    background: #fff url('../img/congruent_pentagon.png');
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+}
+
+#container {
+    width: 100%;
+    min-width: 1024px;
+    height: 100%;
+}
+
+.section-header {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 1px 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+a, a:focus {
+    color: #2c9ab7;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #1071C0;
+    text-decoration: underline;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+::selection {
+    background: #2c9ab7;
+    color: #fff;
+}
+
+::-moz-selection {
+    background: #2c9ab7;
+    color: #fff;
+}
+
+input::-moz-placeholder {
+  color: #ccc !important;
+  opacity: 1 !important;
+}
+input:-ms-input-placeholder {
+  color: #ccc !important;
+}
+input::-webkit-input-placeholder {
+  color: #ccc !important;
+}
+
+pre code {
+    font-size: 18px !important;
+    font-family: 'Courier New', monospace;
+}
+
+label {
+    font-weight: bold;
+}
+
+label.radio {
+    margin-top: 0;
+    font-weight: normal;
+}
+
+label.radio input[type="radio"] {
+    position: relative;
+    margin-left: 0;
+}
+
+.invisible {
+    position: absolute !important;
+    overflow: hidden !important;
+    display: block !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+}
+
+.navbar-default .navbar-brand {
+  color: #2c9ab7;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: #2c9ab7;
+}
+
+#main-content {
+    margin-left: 205px;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.wrapper {
+    display: inline-block;
+    margin-top: 60px;
+    padding: 0 15px 0 15px;
+    width: 100%;
+}
+
+/*
+    sidebar
+*/
+    #sidebar {
+        width: 205px;
+        height: 100%;
+        position: fixed;
+        background: #fff;
+        overflow-y: auto;
+    }
+
+    .sidebar-menu .fa {
+        width: 30px;
+        text-align: center;
+    }
+
+    ul.sidebar-menu,
+    ul.sidebar-menu li ul.sub {
+        margin: -2px 0 0;
+        padding: 0;
+    }
+
+    ul.sidebar-menu {
+        margin-top: 60px;
+    }
+
+    #sidebar > ul > li > ul.sub {
+        display: none;
+    }
+
+    #sidebar > ul > li.active > ul.sub,
+    #sidebar > ul > li > ul.sub > li > a {
+        display: block;
+    }
+
+    ul.sidebar-menu li ul.sub li {
+        background: #eee;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    ul.sidebar-menu li ul.sub li:last-child {
+        border-radius: 0 0 4px 4px;
+        -webkit-border-radius: 0 0 4px 4px;
+    }
+
+    ul.sidebar-menu li ul.sub li a {
+        font-size: 14px;
+        color: #737B83;
+        padding: 0 0 0 32px;
+        line-height: 35px;
+        height: 35px;
+        transition: all 0.3s ease;
+    }
+
+    ul.sidebar-menu li ul.sub li a:hover,
+    ul.sidebar-menu li ul.sub li.active a {
+        color: #2c9ab7;
+        transition: all 0.3s ease;
+        display: block;
+    }
+
+    ul.sidebar-menu li {
+        line-height: 20px !important;
+        text-transform: capitalize;
+    }
+
+    ul.sidebar-menu li.sub-menu {
+        line-height: 15px;
+        font-size: 16px;
+    }
+
+    ul.sidebar-menu li a span {
+        display: inline-block;
+    }
+
+    ul.sidebar-menu li a {
+        color: #8b9199;
+        text-decoration: none;
+        display: block;
+        padding: 10px 0 10px 10px;
+        font-size: 16px;
+        font-weight: 300;
+        outline: none;
+        transition: all 0.3s ease;
+        border-right: 1px solid #D7D7D7;
+        border-bottom: 1px solid #D7D7D7;
+        overflow:hidden;
+    }
+
+    ul.sidebar-menu li.active a,
+    ul.sidebar-menu li a:hover,
+    ul.sidebar-menu li a:focus {
+        background: #eee;
+        color: #2c9ab7;
+        display: block;
+        transition: all 0.3s ease;
+    }
+
+    ul.sidebar-menu li a:hover,
+    ul.sidebar-menu li a:focus {
+        border-bottom: 1px solid #2c9ab7;
+    }
+
+    ul.sidebar-menu .sub-menu li.active a {
+        border-bottom: 1px solid #2c9ab7;
+    }
+
+    ul.sidebar-menu li a i {
+        font-size: 18px;
+        padding-right: 6px;
+    }
+
+    ul.sidebar-menu li a:hover i,
+    ul.sidebar-menu li a:focus i {
+        color: #2c9ab7;
+    }
+
+    ul.sidebar-menu li.active a i {
+        color: #2c9ab7;
+    }
+
+    #sidebar ul > li > a .menu-arrow {
+        float: right;
+        margin-right: 8px;
+        margin-top: 6px;
+    }
+
+/*
+    forms
+*/
+    .form-control {
+        color: #000;
+    }
+
+    input.form-control {
+        margin-left: 15px;
+    }
+
+    .field-container {
+        margin-bottom: 21px;
+        padding: 15px 0;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+
+    .field-container a {
+        line-height: 1.1;
+    }
+
+    .field-container .form-group {
+        margin-bottom: 0;
+        padding-bottom: 10px;
+        padding-left: 5px;
+        border-left: 2px solid transparent;
+    }
+
+    .field-container .form-group:hover,
+    .field-container .form-group:focus {
+        border-left: 2px solid #2c9ab7;
+    }
+
+/*
+    nested blocks
+*/
+    .nested-block {
+        padding: 10px 30px 20px 20px;
+        margin: 5px 0 10px 20px;
+        border: 1px solid #eee;
+        border-left: 5px solid #d4d5d9;
+        background-color: #f7f7f8;
+        position: relative;
+    }
+
+    .nested-block .nested-block,
+    .nested-block .nested-block .nested-block .nested-block {
+        border-left: 5px solid #9fa0a4;
+        background-color: #fff;
+    }
+
+    .nested-block .nested-block .nested-block {
+        border-left: 5px solid #808185;
+        background-color: #f7f7f8;
+    }
+
+    .nested-block > .remove {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 5px;
+        border: 1px solid #e53c37;
+        border-radius: 0 0 0 2px;
+        font-size: 10px;
+        font-weight: 700;
+        text-rendering: optimizeLegibility;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: #fff;
+        background-color: #eb6864;
+    }
+
+    .nested-block > .remove:hover {
+        height: 100%;
+        width: 100%;
+        background-color: transparent;
+        text-align: right;
+        z-index: 9999;
+    }
+
+    .nested-block > .remove:hover i {
+        color: #fff;
+        padding: 5px 5px 8px;
+        background-color: #eb6864;
+        margin: -5px -5px 0 0;
+    }
+
+    .nested-block > .remove:hover i:after {
+        content: " Remove this block";
+        font-weight: bold;
+        padding-top: 50px;
+    }
+
+    .selectize-control a.remove {
+        border: 1px solid #e53c37 !important;
+        font-size: 14px !important;
+        color: #fff !important;
+        background: #eb6864 !important;
+    }
+
+    .selectize-control a.remove:hover {
+        background: #e74b47 !important;
+    }
+
+    .selectize-input > div.active {
+        background: #2c9ab7 !important;
+    }
+
+    .add-block {
+        font-size: 2em;
+        margin: 0 0 20px 0;
+        display: block;
+    }
+
+    .form-group + .add-block {
+        margin-top: 15px;
+    }
+
+    .add-block + .nested-block {
+        margin-bottom: 15px;
+    }
+
+/*
+    radio tile
+*/
+    .radio-tile {
+        margin-bottom: 10px;
+        display: block;
+        position: relative;
+    }
+
+    .radio-tile .content:hover {
+        border-color: #2c9ab7;
+        box-shadow: 0 0 0 1px #2c9ab7;
+    }
+
+    .radio-tile input:checked + .content {
+        border-color: #f47421;
+        box-shadow: 0 0 0 1px #f47421;
+    }
+
+    .radio-tile .content {
+        padding: 10px;
+        border: 1px solid #c2cfd6;
+        border-radius: 4px;
+        font-weight: 700;
+        line-height: 1.3;
+        color: #444;
+        cursor: pointer;
+        display: block;
+        position: relative;
+    }
+
+    .radio-tile .header {
+        width: 100%;
+        display: table;
+        position: relative;
+    }
+
+    .radio-tile .icon {
+        width: 22px;
+        height: 22px;
+        margin: -1px 0;
+        background-color: transparent;
+        font: normal normal 400 1.5em/1.2em FontAwesome;
+        color: #f47421;
+        text-align: center;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .radio-tile .icon:before {
+        content: "\f096";
+    }
+
+    .radio-tile input:checked + .content .icon:before {
+        content: "\f046";
+    }
+
+    .radio-tile .title {
+        width: 100%;
+        padding-left: 5px;
+        font-size: 1.3em;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .radio-tile .header.large {
+        font-size: 2em;
+    }
+
+    .radio-tile .header.large .title {
+        padding-left: 25px;
+    }
+
+    .radio-tile .header.large .icon {
+        font-size: 1.3em;
+    }
+
+    .radio-tile .footer {
+        margin: 8px 0 0;
+        padding: 12px 0 4px;
+        display: block;
+        border-top: 1px solid #d9d9d9;
+        font-size: 1em;
+        line-height: 1.2em;
+        color: #888;
+    }
+
+    .radio-tile.mini {
+        margin: 10px 10px 10px 0;
+        display: inline-table;
+    }
+
+    .radio-tile.mini .content {
+        padding: 10px;
+    }
+
+    .radio-tile.set-width .content {
+        min-width: 100px;
+    }
+
+/*
+    help text block
+*/
+    #help-text-container {
+        margin-top: 30px;
+       transition: color .5s ease-in-out;
+       -moz-transition: color .5s ease-in-out;
+       -webkit-transition: color .5s ease-in-out;
+      -o-transition: color .5s ease-in-out;
+    }
+
+    #help-text-container.affix {
+        margin-top: -150px;
+    }
+
+    #help-text-container h2 {
+        display: none;
+    }
+
+    #help-text-container .contents {
+        overflow-x: auto;
+    }
+
+    .help-text {
+        display: none;
+    }
+
+/*
+ * Drag and drop overlay
+**/
+    #drag-drop {
+        width: 100%;
+        height: 100%;
+        display: none;
+        background: #fff;
+        opacity: 0.9;
+        cursor: pointer;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+    }
+
+    #drag-drop p {
+        width: 100%;
+        text-align: center;
+        color: #4c9bd8;
+        position: absolute;
+        top: 40%;
+
+        font-size: 6em;
+        font-weight: 700;
+        line-height: 1em;
+        display: block;
+        text-shadow: 3px 3px 4px #000;
+        z-index: -1;
+    }
+
+.page-header {
+    padding-bottom: 0;
+    margin: 10px 0;
+}
