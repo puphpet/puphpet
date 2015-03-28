@@ -64,6 +64,13 @@ pre code {
     font-family: 'Courier New', monospace;
 }
 
+code.inline-instructions {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
 label {
     font-weight: bold;
 }
@@ -351,6 +358,10 @@ label.radio input[type="radio"] {
 
     .selectize-input > div.active {
         background: #2c9ab7 !important;
+    }
+
+    .form-control.selectize-control {
+        padding-left: 15px;
     }
 
     .add-block {

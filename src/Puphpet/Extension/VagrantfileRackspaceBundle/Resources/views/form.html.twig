@@ -1,165 +1,245 @@
-{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+<div class="section-header hidden">
+    <h1>Rackspace Server Details</h1>
+    <p class="lead">Spin up your virtual machine on Rackspace.</p>
+</div>
 
-<input type="hidden" id="vagrantfile-rackspace-vm-box" name="vagrantfile-rackspace[vm][box]" value="rackspace" />
+<div class="form-group">
+    <div class="clearfix"><label>Choose Deploy Target</label></div>
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
-            {% include 'PuphpetExtensionVagrantfileRackspaceBundle:sections:Instructions.html.twig' %}
+    <label class="col-xs-12 radio-tile">
+        <input type="radio" name="vagrantfile-target" value="rackspace" class="invisible" />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Deploy to Rackspace</span>
+            </span>
+            <span class="footer">
+                A new server will be spun up at Rackspace.
+                <a href="#" data-toggle="modal"
+                   data-target="#vagrantfile-rackspace-modal">Click here for instructions</a>.
+            </span>
+        </span>
+    </label>
 
-            <div class="panel-heading">
-                <h3 class="panel-title">Rackspace VM Details</h3>
+    <div class="clearfix"></div>
+</div>
+
+<div class="form-group">
+    <div class="clearfix"><label>Distro</label></div>
+
+    <div class="help-text">
+        <p>Choose the operating system for your server. Rackspace has pre-defined systems you can
+            choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
+        <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
+            operating system. You are welcome to attempt to install higher if you'd like, but
+            we cannot guarantee it will work. In fact in most cases it won't.</p>
+    </div>
+
+    {% for image in data.available_images %}
+        <label class="col-xs-6 radio-tile">
+            <input type="radio" class="invisible"
+                   name="vagrantfile[vm][provider][rackspace][image]"
+                   value="{{ image.image }}"
+                   {% if image.image == data.vm.provider.rackspace.image %}checked{% endif %} />
+            <span class="content">
+                <span class="header">
+                    <i class="icon"></i>
+                    <span class="title">{{ image.long_name }}</span>
+                </span>
+                <span class="footer">
+                    PHP {{ image.php_versions|join(', ') }}
+                </span>
+            </span>
+        </label>
+
+        {% if loop.index is even or loop.last %}
+            <div class="clearfix"></div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        Name your Rackspace server as it will appear in the Rackspace Control Panel.
+    </div>
+    <label for="vagrantfile-vm-provider-rackspace-server_name">Server Name</label>
+    <input type="text" id="vagrantfile-vm-provider-rackspace-server_name"
+           name="vagrantfile[vm][provider][rackspace][server_name]"
+           class="form-control" required
+           value="{{ data.vm.provider.rackspace.server_name }}" />
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        <a href="http://www.rackspace.com/cloud/public-pricing/"
+           target="_blank">Pricing information</a>.
+        Rackspace charges by the hour, but also shows what a full month would cost.
+    </div>
+    <label for="vagrantfile-vm-provider-rackspace-size">Server Size</label>
+    <select id="vagrantfile-vm-provider-rackspace-size"
+           name="vagrantfile[vm][provider][rackspace][size]"
+           class="form-control select-tag">
+        {% for size in data.available_sizes %}
+            <option value="{{ size }}"
+                {% if size == data.vm.provider.rackspace.size %}selected{% endif %}>{{ size }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        Choose the one closest to you, or your target audience!
+    </div>
+    <label for="vagrantfile-vm-provider-rackspace-region">Server Size</label>
+    <select id="vagrantfile-vm-provider-rackspace-region"
+           name="vagrantfile[vm][provider][rackspace][region]"
+           class="form-control select-tag">
+        {% for key, region in data.available_regions %}
+            <option value="{{ key }}"
+                {% if key == data.vm.provider.rackspace.region %}selected{% endif %}>{{ region }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        Name your Rackspace server as it will appear in the Rackspace Control Panel.
+    </div>
+    <label for="vagrantfile-vm-provider-rackspace-username">Rackspace Account Username</label>
+    <input type="text" id="vagrantfile-vm-provider-rackspace-username"
+           name="vagrantfile[vm][provider][rackspace][username]"
+           class="form-control" placeholder="RACKSPACE USERNAME"
+           value="{{ data.vm.provider.rackspace.username }}" />
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        <a href="https://manage.rackspacecloud.com/APIAccess.do"
+           target="_blank">Get it here</a>.
+    </div>
+    <label for="vagrantfile-vm-provider-rackspace-api_key">Rackspace API Key</label>
+    <input type="text" id="vagrantfile-vm-provider-rackspace-api_key"
+           name="vagrantfile[vm][provider][rackspace][api_key]"
+           class="form-control" placeholder="RACKSPACE API KEY"
+           value="{{ data.vm.provider.rackspace.api_key }}" />
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        The username associated with the private key entered.
+    </div>
+    <label for="vagrantfile-ssh-username">Local Private Key Username</label>
+    <input type="text" id="vagrantfile-ssh-username"
+           name="vagrantfile[ssh][username]"
+           class="form-control"
+           value="{{ data.ssh.username }}" />
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        <p>The Rackspace VM will not be accessible without your private/public key.</p>
+        <p><strong>It will not be accessible using username/password,
+                only private key!</strong></p>
+    </div>
+    <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
+    <input type="text" id="vagrantfile-ssh-private_key_path"
+           name="vagrantfile[ssh][private_key_path]"
+           class="form-control" placeholder="~/.ssh/id_rsa"
+           value="{{ data.ssh.private_key_path }}" />
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        Your public key is also required.
+    </div>
+    <label for="vagrantfile-ssh-public_key_path">Local Public Key Path</label>
+    <input type="text" id="vagrantfile-ssh-public_key_path"
+           name="vagrantfile[ssh][public_key_path]"
+           class="form-control" placeholder="~/.ssh/id_rsa.pub"
+           value="{{ data.ssh.public_key_path }}" />
+</div>
+
+{% for synced_folder in data.vm.synced_folder %}
+    {% include 'PuphpetExtensionVagrantfileRackspaceBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+{% endfor %}
+
+<a href="#" data-source-url="{{ path('puphpet.extension.vagrantfile.rackspace.synced_folder') }}"
+   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
+
+<input type="hidden" id="vagrantfile-rackspace-vm-box" name="vagrantfile[vm][box]" value="rackspace" />
+
+<div class="modal fade" id="vagrantfile-rackspace-modal" tabindex="-1" role="dialog"
+     aria-labelledby="vagrantfile-rackspace-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="vagrantfile-rackspace-modal-label">
+                    Instructions for Rackspace Deployment
+                </h4>
             </div>
+            <div class="modal-body">
+                <h3>Rackspace Instance</h3>
 
-            <div class="panel-body">
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>
-                            Rackspace VM Operating System
-                            {{ popover.small('Choose the operating system for your VM. Rackspace has pre-defined systems you can
-                                choose from. The ones listed are the ones PuPHPet has been tested with so far.<br /><br />
-                                Note: Listed are the PHP installs that we have confirmed as working for their respective
-                                operating system. You are welcome to attempt to install higher if you\'d like, but
-                                we cannot guarantee it will work. In fact in most cases it won\'t.')
-                            }}
-                        </label>
+                <p>
+                    Login to Rackspace and
+                    <a href="https://manage.rackspacecloud.com/APIAccess.do" target="_blank">go to the API page</a>.
+                    You will need an API Key.
+                </p>
 
-                        {% for image in data.available_images %}
-                            <label class="radio">
-                                <input type="radio" value="{{ image.image }}"
-                                       name="vagrantfile-rackspace[vm][provider][rackspace][image]"
-                                       {% if image.image == data.vm.provider.rackspace.image %}checked{% endif %} />
-                                {{ image.long_name }}
-                                {% if image.php_versions is defined %}
-                                    (PHP
-                                    {% for php in image.php_versions %}
-                                        <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
-                                    {% endfor %}
-                                    )
-                                {% endif %}
-                            </label>
-                        {% endfor %}
+                <h3>Installation Requirements</h3>
+
+                <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#rackspace-instructions-mac" data-toggle="pill">Mac</a></li>
+                    <li><a href="#rackspace-instructions-windows" data-toggle="pill">Windows</a></li>
+                    <li><a href="#rackspace-instructions-linux" data-toggle="pill">Linux</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="rackspace-instructions-mac">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-rackspace<br />
+                            $ vagrant box add dummy https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box
+                        </code>
+                    </div>
+                    <div class="tab-pane" id="rackspace-instructions-windows">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-rackspace<br />
+                            $ vagrant box add dummy https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box<br />
+                        </code>
+
+                        <div class="clearfix"></div>
+
+                        <p>
+                            You need rsync installed. Easiest way is to use Cygwin and install it through there.
+                            Alternatively, you can
+                            <a href="https://www.itefix.no/i2/content/cwrsync-free-edition" target="_blank">install rsync separately</a>
+                            and add it to your PATH.
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="rackspace-instructions-linux">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-rackspace<br />
+                            $ vagrant box add dummy https://github.com/mitchellh/vagrant-rackspace/raw/master/dummy.box<br />
+                        </code>
                     </div>
                 </div>
 
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <label for="vagrantfile-rackspace-vm-provider-rackspace-server_name">
-                            Server Name
-                            {{ popover.small('Name your Rackspace server as it will appear in the Rackspace Control Panel.') }}
-                        </label>
-                        <input id="vagrantfile-rackspace-vm-provider-rackspace-server_name"
-                                name="vagrantfile-rackspace[vm][provider][rackspace][server_name]"
-                               value="{{ data.vm.provider.rackspace.server_name }}" class="form-control" />
-                    </div>
-                </div>
+                <h3>Accessing Your VM</h3>
 
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="vagrantfile-rackspace-vm-provider-rackspace-size">
-                            Rackspace VM Size
-                            {{ popover.small('<a href="http://www.rackspace.com/cloud/public-pricing/" target="_blank">Pricing information</a>.
-                                Rackspace charges by the hour, but also shows what a full month would cost.') }}
-                        </label>
-                        <select id="vagrantfile-rackspace-vm-provider-rackspace-size"
-                                name="vagrantfile-rackspace[vm][provider][rackspace][size]"
-                                class="form-control select-tag">
-                            {% for size in data.available_sizes %}
-                                <option value="{{ size }}"
-                                    {% if size == data.vm.provider.rackspace.size %}selected{% endif %}>{{ size }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="vagrantfile-rackspace-vm-provider-rackspace-region">
-                            Rackspace VM Region
-                            {{ popover.small('Choose the one closest to you, or your target audience!') }}
-                        </label>
-                        <select id="vagrantfile-rackspace-vm-provider-rackspace-region"
-                                name="vagrantfile-rackspace[vm][provider][rackspace][region]"
-                                class="form-control select-tag">
-                            {% for key, region in data.available_regions %}
-                                <option value="{{ key }}"
-                                    {% if key == data.vm.provider.rackspace.region %}selected{% endif %}>{{ region }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="vagrantfile-rackspace-vm-provider-rackspace-username">
-                            Rackspace VM Username
-                            {{ popover.small('The username you use to login to Rackspace') }}
-                        </label>
-                        <input id="vagrantfile-rackspace-vm-provider-rackspace-username"
-                               name="vagrantfile-rackspace[vm][provider][rackspace][username]"
-                               placeholder="RACKSPACE USERNAME"
-                               value="{{ data.vm.provider.rackspace.username }}" class="form-control" />
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="vagrantfile-rackspace-vm-provider-rackspace-api_key">
-                            Rackspace VM API Key
-                            {{ popover.small('<a href="https://manage.rackspacecloud.com/APIAccess.do" target="_blank">Get it here</a>') }}
-                        </label>
-                        <input id="vagrantfile-rackspace-vm-provider-rackspace-api_key"
-                               name="vagrantfile-rackspace[vm][provider][rackspace][api_key]"
-                               placeholder="RACKSPACE API KEY"
-                               value="{{ data.vm.provider.rackspace.api_key }}" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <label for="vagrantfile-rackspace-ssh-username">
-                            Local Private Key Username
-                            {{ popover.small('The username associated with the private key entered.') }}
-                        </label>
-                        <input id="vagrantfile-rackspace-ssh-username"
-                               name="vagrantfile-rackspace[ssh][username]"
-                               value="{{ data.ssh.username }}" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="vagrantfile-rackspace-ssh-private_key_path">
-                            Local Private Key Path
-                            {{ popover.small('The Rackspace VM will not be accessible without your private/public key.
-                                <strong>It will not be accessible using username/password, only private key!</strong>') }}
-                        </label>
-                        <input id="vagrantfile-rackspace-ssh-private_key_path"
-                               name="vagrantfile-rackspace[ssh][private_key_path]"
-                               placeholder="~/.ssh/id_rsa"
-                               value="{{ data.ssh.private_key_path }}" class="form-control" />
-                    </div>
-                    <div class="col-md-6">
-                        <label for="vagrantfile-rackspace-ssh-public_key_path">
-                            Local Public Key Path
-                            {{ popover.small('Your public key is also required.') }}
-                        </label>
-                        <input id="vagrantfile-rackspace-ssh-public_key_path"
-                               name="vagrantfile-rackspace[ssh][public_key_path]"
-                               placeholder="~/.ssh/id_rsa"
-                               value="{{ data.ssh.public_key_path }}" class="form-control" />
-                    </div>
-                </div>
+                <p>
+                    To access your VM after running <code>$ vagrant up</code>, type
+                    <code>$ vagrant ssh-config</code> to get the IP address assigned to the server you created,
+                    and add the IP address to your computer's hosts file. Type <code>$ vagrant ssh</code> to
+                    be immediately connected via SSH to your new server!
+                </p>
             </div>
-
-            {% for synced_folder in data.vm.synced_folder %}
-                {% include 'PuphpetExtensionVagrantfileRackspaceBundle:sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
-            {% endfor %}
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                            data-source-url="{{ path('puphpet.extension.vagrantfile.rackspace.synced_folder') }}">Add another Rackspace VM shared folder</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
-
         </div>
     </div>
 </div>
-
