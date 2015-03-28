@@ -38,8 +38,9 @@ if array_true($apache_values, 'install') {
   # centos 2.4 installation creates webroot automatically,
   # requiring us to manually set owner and permissions via exec
   exec { 'Create apache webroot':
-    command => "mkdir -m 775 -p ${www_root} && \
+    command => "mkdir -p ${www_root} && \
                 chown root:${webroot_group} ${www_root} && \
+                chmod 775 ${www_root} && \
                 touch /.puphpet-stuff/apache-webroot-created",
     creates => '/.puphpet-stuff/apache-webroot-created',
     require => [
