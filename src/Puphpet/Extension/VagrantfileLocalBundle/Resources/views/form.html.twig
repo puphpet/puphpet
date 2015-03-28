@@ -1,3 +1,8 @@
+<div class="section-header hidden">
+    <h1>Local VM Details</h1>
+    <p class="lead">Deploy your virtual machine on your local PC.</p>
+</div>
+
 <div class="form-group">
     <div class="clearfix"><label>Choose Deploy Target</label></div>
 
@@ -76,7 +81,7 @@
                    name="vagrantfile[vm][box_url]"
                    value="{{ box.url }}"
                    {% if box.url == data.vm.box_url %}checked{% endif %}
-                   data-update-vagrantfile-vm-box="{{ box.short_name }}" />
+                   data-update-vagrantfile-local-vm-box="{{ box.short_name }}" />
             <span class="content">
                 <span class="header">
                     <i class="icon"></i>
@@ -141,5 +146,38 @@
 <a href="#" data-source-url="{{ path('puphpet.extension.vagrantfile.local.synced_folder') }}"
    class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
 
-<input type="hidden" id="vagrantfile-vm-box" name="vagrantfile[vm][box]" value="{{ data.vm.box }}" />
-<input type="hidden" name="vagrantfile[vm][hostname]" value="{{ data.vm.hostname }}" />
+<input type="hidden" id="vagrantfile-local-vm-box" name="vagrantfile[vm][box]" value="{{ data.vm.box }}" />
+<input type="hidden" id="vagrantfile-local-vm-hostname" name="vagrantfile[vm][hostname]" value="{{ data.vm.hostname }}" />
+
+<div class="modal fade" id="vagrantfile-local-modal" tabindex="-1" role="dialog"
+     aria-labelledby="vagrantfile-local-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="vagrantfile-local-modal-label">
+                    Instructions for Local Deployment
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download the latest version
+                            of VirtualBox from here</a></li>
+                    <li><a href="http://www.vagrantup.com/downloads.html" target="_blank">Download the latest version of
+                            Vagrant from here.</a></li>
+                </ol>
+
+                <p>
+                    To login to your VM you must use <code>$ vagrant ssh</code> or user <code>vagrant</code>
+                    using the private key automatically generated at
+                    <code>puphpet/files/dot/ssh/id_rsa.key</code>. This key is generated <strong>after</strong>
+                    your initial <code>$ vagrant up</code>!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
