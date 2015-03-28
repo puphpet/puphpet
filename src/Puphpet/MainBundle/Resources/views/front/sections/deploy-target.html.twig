@@ -1,7 +1,6 @@
 <div class="tab-pane active" id="vagrantfile-local">
     {% set extension = extensionManager.getExtensionBySlug('vagrantfile-local') %}
     {{ extension.renderFront(extension.data)|raw }}
-    <div class="clearfix"></div>
 </div>
 <div class="tab-pane" id="vagrantfile-rackspace">
     {% set extension = extensionManager.getExtensionBySlug('vagrantfile-rackspace') %}
