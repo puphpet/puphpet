@@ -320,6 +320,12 @@ PUPHPET.sidebarMenuClick = function() {
         $(this).closest('.sub-menu').addClass('active');
 
         $('#help-text-container .contents').html('');
+
+        var $headerBlock = $($(this).attr('href') + ' > .section-header').eq(0);
+
+        if ($headerBlock.length != 0) {
+            $('#page-header').html($headerBlock.html());
+        }
     });
 };
 
