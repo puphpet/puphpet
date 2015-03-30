@@ -126,17 +126,6 @@
 
 <div class="form-group">
     <div class="help-text">
-        The username associated with the private key entered.
-    </div>
-    <label for="vagrantfile-ssh-username">Local Private Key Username</label>
-    <input type="text" id="vagrantfile-ssh-username"
-           name="vagrantfile[ssh][username]"
-           class="form-control"
-           value="{{ data.ssh.username }}" />
-</div>
-
-<div class="form-group">
-    <div class="help-text">
         <p>The Rackspace server will not be accessible without your private/public key.</p>
         <p><strong>It will not be accessible using username/password,
                 only private key!</strong></p>
@@ -146,6 +135,17 @@
            name="vagrantfile[ssh][private_key_path]"
            class="form-control" placeholder="~/.ssh/id_rsa"
            value="{{ data.ssh.private_key_path }}" />
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        The username associated with the private key entered.
+    </div>
+    <label for="vagrantfile-ssh-username">Local Private Key Username</label>
+    <input type="text" id="vagrantfile-ssh-username"
+           name="vagrantfile[ssh][username]"
+           class="form-control"
+           value="{{ data.ssh.username }}" />
 </div>
 
 <div class="form-group">
