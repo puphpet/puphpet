@@ -446,6 +446,10 @@ label.radio input[type="radio"] {
         content: "\f046";
     }
 
+    .radio-tile input:checked + .content .header.large .icon:before {
+        margin-left: 0;
+    }
+
     .radio-tile .title {
         width: 100%;
         padding-left: 5px;
