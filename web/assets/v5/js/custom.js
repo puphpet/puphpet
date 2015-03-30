@@ -305,11 +305,13 @@ PUPHPET.sidebarMenuClick = function() {
         $('.menu-arrow', this).removeClass('fa-angle-right');
 
         sub.slideDown(200);
-        $(sub).addClass('open')
+        $(sub).addClass('open');
     });
 
     // removes active class from non-selected section/link
     $(document).on('click', '#sidebar .sub-menu ul.sub a', function (e) {
+        window.location.hash = this.hash;
+
         var $activeSection = $('#sidebar .sub-menu.active');
         var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
 
@@ -348,21 +350,21 @@ PUPHPET.helpTextDisplay = function() {
     var $previousElement = '';
 
     $(document).on('mouseenter', '.field-container .form-group', function (e) {
-        if ($(this).has('> .help-text').length == 0) {
+        if ($(this).has('> .help-text:first-child').length == 0) {
             return;
         }
 
-        var $helpText = $('> .help-text', this).eq(0);
+        var $helpText = $('> .help-text:first-child', this).eq(0);
 
         changeText($helpText.html());
     });
 
     $(document).on('mouseenter', '.field-container .form-group .radio-tile', function (e) {
-        if ($(this).has('.help-text').length == 0) {
+        if ($(this).has('.help-text:first-child').length == 0) {
             return;
         }
 
-        var $helpText = $('.help-text', this).eq(0);
+        var $helpText = $('.help-text:first-child', this).eq(0);
 
         changeText($helpText.html());
     });
@@ -624,6 +626,50 @@ PUPHPET.selectizeAddClickedToElement = function() {
     });
 };
 
+PUPHPET.submitUncheckedCheckboxes = function () {
+    $(document).on('click', 'input:checkbox', function(e) {
+        if (!$(this).is(':checked')) {
+            $(this).after('<input type="hidden" name="' + $(this).attr('name') + '" value="0">');
+
+            return;
+        }
+
+        $('input[type="hidden"][name="' + $(this).attr('name') + '"]').remove();
+    });
+};
+
+/**
+ * Catches anchor tag (#foo) in URL bar and displays proper tab
+ */
+PUPHPET.displayTabFromUrl = function () {
+    var $link = $('#sidebar .sidebar-menu > .sub-menu .sub a[data-toggle="tab"]');
+
+    if (window.location.hash.length) {
+        var $hashLink = $link.filter('[href=' + window.location.hash + ']');
+
+        var $activeSection = $('#sidebar .sub-menu.active');
+        var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
+
+        $activeSection.removeClass('active');
+        $activeLink.removeClass('active');
+
+        $hashLink.addClass('active');
+
+        $hashLink.parent().parent().addClass('open');
+        $hashLink.parent().parent().parent().addClass('active');
+
+        $hashLink.tab('show');
+
+        var $headerBlock = $(window.location.hash + ' > .section-header').eq(0);
+
+        console.log($headerBlock);
+
+        if ($headerBlock.length != 0) {
+            $('#page-header').html($headerBlock.html());
+        }
+    }
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -633,6 +679,8 @@ $(document).ready(function() {
     PUPHPET.selectizeAddClickedToElement();
     PUPHPET.addBlock();
     PUPHPET.deleteBlock();
+    PUPHPET.submitUncheckedCheckboxes();
+    PUPHPET.displayTabFromUrl();
 
     PUPHPET.sidebarMenuClick();
     PUPHPET.helpTextDisplay();

@@ -284,6 +284,10 @@ label.radio input[type="radio"] {
         border-left: 2px solid #2c9ab7;
     }
 
+    .field-container .help-text .form-group {
+        border-left: none;
+    }
+
 /*
     nested blocks
 */
@@ -517,7 +521,16 @@ label.radio input[type="radio"] {
         overflow-x: auto;
     }
 
+    .help-block {
+        margin-left: 15px;
+        color: #000;
+    }
+
     .help-text {
+        margin-left: 15px;
+    }
+
+    .help-text:first-child {
         display: none;
     }
 

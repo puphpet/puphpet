@@ -1,59 +1,49 @@
-{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-<section id="server-packages">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">System Packages</h3>
-                </div>
+<div class="section-header hidden">
+    <h1>System Packages</h1>
+    <p class="lead">Install system packages.</p>
+</div>
 
-                <div class="panel-body">
-                    <input type="hidden" name="server[install]" value="1" />
+<div class="form-group">
+    <div class="help-text">
+        Packages to install via the OS package manager, separated by comma.
+        Do not add Apache/Nginx or PHP here - you will choose those later.
+    </div>
+    <label for="server-packages">System Packages</label>
+    <select id="server-packages"
+           name="server[packages][]"
+           multiple class="form-control select-tags-editable">
+        {% for package in server.packages %}
+            <option selected value="{{ package }}">{{ package }}</option>
+        {% endfor %}
+    </select>
 
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label for="server-packages">Installed Packages</label>
-                            <select id="server-packages" name="server[packages][]"
-                                    multiple class="form-control select-tags-editable">
-                                {% for package in server.packages %}
-                                    <option selected value="{{ package }}">{{ package }}</option>
-                                {% endfor %}
-                            </select>
+    <div class="help-text">
+        <p>Some common packages are (do not mix!):</p>
 
-                            <p class="help-block">
-                                Packages to install via the OS package manager, separated by comma.
-                                Do not add Apache/Nginx or PHP here - you will choose those later.
-                            </p>
+        <div class="form-group">
+            <ul class="col-xs-6">
+                Debian/Ubuntu:
+                <li><a href="#" class="addClickedToSelectizeElement"
+                        data-target="server-packages"
+                        data-value="vim">vim</a></li>
+                <li><a href="#" class="addClickedToSelectizeElement"
+                        data-target="server-packages"
+                        data-value="htop">htop</a></li>
+            </ul>
 
-                            <p class="help-block">
-                                Some common packages are (do not mix!):
-                            </p>
-
-                            <ul class="col-xs-6 col-sm-4 col-md-3">
-                                Debian/Ubuntu:
-                                <li><a href="#" class="addClickedToSelectizeElement"
-                                        data-target="server-packages"
-                                        data-value="vim">vim</a></li>
-                                <li><a href="#" class="addClickedToSelectizeElement"
-                                        data-target="server-packages"
-                                        data-value="htop">htop</a></li>
-                            </ul>
-
-                            <ul class="col-xs-6 col-sm-4 col-md-3">
-                                CentOS:
-                                <li><a href="#" class="addClickedToSelectizeElement"
-                                        data-target="server-packages"
-                                        data-value="vim-common">vim-common</a></li>
-                                <li><a href="#" class="addClickedToSelectizeElement"
-                                        data-target="server-packages"
-                                        data-value="htop">htop</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                {{ extra|raw }}
-            </div>
+            <ul class="col-xs-6">
+                CentOS:
+                <li><a href="#" class="addClickedToSelectizeElement"
+                        data-target="server-packages"
+                        data-value="vim-common">vim-common</a></li>
+                <li><a href="#" class="addClickedToSelectizeElement"
+                        data-target="server-packages"
+                        data-value="htop">htop</a></li>
+            </ul>
         </div>
     </div>
-</section>
+
+    <div class="clearfix"></div>
+</div>
+
+<input type="hidden" name="server[install]" value="1" />
