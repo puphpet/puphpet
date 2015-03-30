@@ -90,7 +90,7 @@
     <div class="help-text">
         Choose the one closest to you, or your target audience!
     </div>
-    <label for="vagrantfile-vm-provider-rackspace-region">Server Size</label>
+    <label for="vagrantfile-vm-provider-rackspace-region">Datacenter Location</label>
     <select id="vagrantfile-vm-provider-rackspace-region"
            name="vagrantfile[vm][provider][rackspace][region]"
            class="form-control select-tag">
@@ -137,7 +137,7 @@
 
 <div class="form-group">
     <div class="help-text">
-        <p>The Rackspace VM will not be accessible without your private/public key.</p>
+        <p>The Rackspace server will not be accessible without your private/public key.</p>
         <p><strong>It will not be accessible using username/password,
                 only private key!</strong></p>
     </div>
@@ -228,10 +228,10 @@
                     </div>
                 </div>
 
-                <h3>Accessing Your VM</h3>
+                <h3>Accessing Your Server</h3>
 
                 <p>
-                    To access your VM after running <code>$ vagrant up</code>, type
+                    To access your server after running <code>$ vagrant up</code>, type
                     <code>$ vagrant ssh-config</code> to get the IP address assigned to the server you created,
                     and add the IP address to your computer's hosts file. Type <code>$ vagrant ssh</code> to
                     be immediately connected via SSH to your new server!
