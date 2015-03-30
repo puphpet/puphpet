@@ -442,6 +442,7 @@ label.radio input[type="radio"] {
     }
 
     .radio-tile input:checked + .content .icon:before {
+        margin-left: 2px;
         content: "\f046";
     }
 
