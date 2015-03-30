@@ -17,7 +17,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 
     public function syncedFolderAction()
     {
-        return $this->render('PuphpetExtensionVagrantfileDigitalOceanBundle:sections:SyncedFolder.html.twig', [
+        return $this->render('PuphpetExtensionVagrantfileDigitalOceanBundle:sections:synced-folder.html.twig', [
             'synced_folder' => $this->getData()['empty_synced_folder'],
         ]);
     }
