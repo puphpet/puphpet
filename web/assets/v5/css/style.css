@@ -388,11 +388,17 @@ label.radio input[type="radio"] {
     }
 
     .radio-tile .content:hover {
+        color: #999;
         border-color: #2c9ab7;
         box-shadow: 0 0 0 1px #2c9ab7;
     }
 
+    .radio-tile input + .content {
+        color: #ccc;
+    }
+
     .radio-tile input:checked + .content {
+        color: #000;
         border-color: #f47421;
         box-shadow: 0 0 0 1px #f47421;
     }
@@ -421,10 +427,14 @@ label.radio input[type="radio"] {
         margin: -1px 0;
         background-color: transparent;
         font: normal normal 400 1.5em/1.2em FontAwesome;
-        color: #f47421;
+        color: #ccc;
         text-align: center;
         display: inline-block;
         vertical-align: middle;
+    }
+
+    .radio-tile input:checked + .content .icon {
+        color: #f47421;
     }
 
     .radio-tile .icon:before {
@@ -452,6 +462,7 @@ label.radio input[type="radio"] {
     }
 
     .radio-tile .header.large .icon {
+        margin-bottom: 10px;
         font-size: 1.3em;
     }
 
