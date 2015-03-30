@@ -8,6 +8,7 @@ available_images:
 #  Zone 3 France Direct Routing (Z03-R0-IKDC01-FR)
     'Zone 3 France Direct Routing (Z03-R0-IKDC01-FR)':
         -
+            template_id: 3a10ead9-de31-4be9-b81a-43b85adfcb1b
             template_name: Ubuntu 14.04 - Server - 64bits
             os: linux
             name: Ubuntu 14.04 - Server - 64bits

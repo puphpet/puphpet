@@ -1,0 +1,41 @@
+{% set uniqid = uniqid('vficsf_', true) %}
+
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Shared Folders</legend>
+
+        <div class="form-group">
+            <div class="help-text">
+                <p>Path your files are stored on host machine,
+                    <a href="http://docs.vagrantup.com/v2/synced-folders/index.html"
+                       target="_blank">more information</a>.</p>
+                <p>Windows users: You must use forward-slash
+                    <code>c:/dev/vagrant/webroot</code> or double back-slash
+                    <code>c:\\dev\\vagrant\\webroot</code></p>
+                <p>To upload files, <code>rsync</code> is used on <code>$ vagrant up</code>,
+                    <code>$ vagrant provision</code> and <code>$ vagrant reload</code>.</p>
+                <p>Now may be a good time to work out your deployment strategy.</p>
+            </div>
+            <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-source">Folder Source</label>
+            <input type="text" id="vagrantfile-vm-synced_folder-{{ uniqid }}-source"
+                   name="vagrantfile[vm][synced_folder][{{ uniqid }}][source]"
+                   placeholder="/path/to/your/web/files" class="form-control"
+                   value="{{ synced_folder.source }}" />
+        </div>
+
+        <div class="form-group">
+            <div class="help-text">
+                Path your hosts' files are uploaded to on guest machine,
+                <a href="http://docs.vagrantup.com/v2/synced-folders/index.html"
+                   target="_blank">more information</a>.
+            </div>
+            <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-target">Folder Target</label>
+            <input type="text" id="vagrantfile-vm-synced_folder-{{ uniqid }}-target"
+                   name="vagrantfile[vm][synced_folder][{{ uniqid }}][target]"
+                   placeholder="/var/www" class="form-control"
+                   value="{{ synced_folder.target }}" />
+        </div>
+    </fieldset>
+</div>
