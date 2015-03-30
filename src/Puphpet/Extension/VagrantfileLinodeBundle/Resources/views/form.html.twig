@@ -1,153 +1,248 @@
-{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
+<div class="section-header hidden">
+    <h1>Linode Server Details</h1>
+    <p class="lead">Spin up your virtual machine on Linode.</p>
+</div>
 
-<input type="hidden" id="vagrantfile-linode-vm-box" name="vagrantfile-linode[vm][box]" value="linode" />
+<div class="form-group">
+    <div class="clearfix"><label>Choose Deploy Target</label></div>
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
-            {% include 'PuphpetExtensionVagrantfileLinodeBundle:sections:Instructions.html.twig' %}
+    <label class="col-xs-12 radio-tile">
+        <input type="radio" name="vagrantfile-target" value="linode" class="invisible" />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Deploy to Linode</span>
+            </span>
+            <span class="footer">
+                A new server will be spun up at Linode.
+                <a href="#" data-toggle="modal"
+                   data-target="#vagrantfile-linode-modal">Click here for instructions</a>.
+            </span>
+        </span>
+    </label>
 
-            <div class="panel-heading">
-                <h3 class="panel-title">Linode Details</h3>
+    <div class="clearfix"></div>
+</div>
+
+<div class="form-group">
+    <div class="clearfix"><label>Distro</label></div>
+
+    <div class="help-text">
+        <p>Choose the operating system for your server. Linode has pre-defined systems you can
+            choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
+        <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
+            operating system. You are welcome to attempt to install higher if you'd like, but
+            we cannot guarantee it will work. In fact in most cases it won't.</p>
+    </div>
+
+    {% for distribution in data.available_distributions %}
+        <label class="col-xs-6 radio-tile">
+            <input type="radio" class="invisible"
+                   name="vagrantfile[vm][provider][linode][distribution]"
+                   value="{{ distribution.distribution }}"
+                   {% if distribution.distribution == data.vm.provider.linode.distribution %}checked{% endif %} />
+            <span class="content">
+                <span class="header">
+                    <i class="icon"></i>
+                    <span class="title">{{ distribution.long_name }}</span>
+                </span>
+                <span class="footer">
+                    PHP {{ distribution.php_versions|join(', ') }}
+                </span>
+            </span>
+        </label>
+
+        {% if loop.index is even or loop.last %}
+            <div class="clearfix"></div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        <a href="https://www.linode.com/pricing"
+           target="_blank">Pricing information</a>.
+        Linode charges by the hour, but also shows what a full month would cost.
+    </div>
+    <label for="vagrantfile-vm-provider-linode-plan">Server Size</label>
+    <select id="vagrantfile-vm-provider-linode-plan"
+           name="vagrantfile[vm][provider][linode][plan]"
+           class="form-control select-tag">
+        {% for plan, name in data.available_plans %}
+            <option value="{{ plan }}"
+                {% if plan == data.vm.provider.linode.plan %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        Choose the one closest to you, or your target audience!
+    </div>
+    <label for="vagrantfile-vm-provider-linode-datacenter">Datacenter Location</label>
+    <select id="vagrantfile-vm-provider-linode-datacenter"
+           name="vagrantfile[vm][provider][linode][datacenter]"
+           class="form-control select-tag">
+        {% for key, datacenter in data.available_datacenters %}
+            <option value="{{ key }}"
+                {% if key == data.vm.provider.linode.datacenter %}selected{% endif %}>{{ datacenter }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        Name your server. It must be unique to your account!
+    </div>
+    <label for="vagrantfile-vm-hostname">Server Name</label>
+    <input type="text" id="vagrantfile-vm-hostname"
+           name="vagrantfile[vm][hostname]"
+           class="form-control" required
+           value="{{ data.vm.hostname }}" />
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        <a href="https://manager.linode.com/profile/index/"
+           target="_blank">Get it here</a>.
+    </div>
+    <label for="vagrantfile-vm-provider-linode-token">Linode API Key</label>
+    <input type="text" id="vagrantfile-vm-provider-linode-token"
+           name="vagrantfile[vm][provider][linode][token]"
+           class="form-control" placeholder="LINODE API KEY"
+           value="{{ data.vm.provider.linode.token }}" />
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        The username associated with the private key entered.
+    </div>
+    <label for="vagrantfile-ssh-username">Local Private Key Username</label>
+    <input type="text" id="vagrantfile-ssh-username"
+           name="vagrantfile[ssh][username]"
+           class="form-control"
+           value="{{ data.ssh.username }}" />
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        <p>The Linode server will not be accessible without your private/public key.</p>
+        <p><strong>It will not be accessible using username/password,
+                only private key!</strong></p>
+    </div>
+    <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
+    <input type="text" id="vagrantfile-ssh-private_key_path"
+           name="vagrantfile[ssh][private_key_path]"
+           class="form-control" placeholder="~/.ssh/id_rsa"
+           value="{{ data.ssh.private_key_path }}" />
+</div>
+
+<div class="form-group">
+    <div class="help-text">
+        Change if you already have an SSH key you would like to use.
+        Leave as default otherwise.
+    </div>
+    <label for="vagrantfile-vm-provider-linode-ssh_key_name">SSH Key Name</label>
+    <input type="text" id="vagrantfile-vm-provider-linode-ssh_key_name"
+           name="vagrantfile[vm][provider][linode][ssh_key_name]"
+           class="form-control" placeholder="Vagrant"
+           value="{{ data.vm.provider.linode.ssh_key_name }}" />
+</div>
+
+{% for synced_folder in data.vm.synced_folder %}
+    {% include 'PuphpetExtensionVagrantfileLinodeBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+{% endfor %}
+
+<a href="#" data-source-url="{{ path('puphpet.extension.vagrantfile.linode.synced_folder') }}"
+   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
+
+<input type="hidden" id="vagrantfile-linode-vm-box" name="vagrantfile[vm][box]" value="linode" />
+
+<div class="modal fade" id="vagrantfile-linode-modal" tabindex="-1" role="dialog"
+     aria-labelledby="vagrantfile-linode-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="vagrantfile-linode-modal-label">
+                    Instructions for Linode Deployment
+                </h4>
             </div>
+            <div class="modal-body">
+                <h3>Linode Instance</h3>
 
-            <div class="panel-body">
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <label>
-                            Linode Operating System
-                            {{ popover.small('Choose the operating system for your Linode. Linode has pre-defined
-                                systems you can choose from. The ones listed are the ones PuPHPet has been tested with
-                                so far.<br /><br />
-                                Note: Listed are the PHP installs that we have confirmed as working for their respective
-                                operating system. You are welcome to attempt to install higher if you\'d like, but
-                                we cannot guarantee it will work. In fact in most cases it won\'t.')
-                            }}
-                        </label>
+                <p>
+                    Don't have a Linode account?
+                    <a href="https://www.linode.com/" target="_blank">Click here to create one</a>
+                </p>
 
-                        {% for distribution in data.available_distributions %}
-                            <label class="radio">
-                                <input type="radio" value="{{ distribution.distribution }}"
-                                       name="vagrantfile-linode[vm][provider][linode][distribution]"
-                                       {% if distribution.distribution == data.vm.provider.linode.distribution %}checked{% endif %} />
-                                {{ distribution.long_name }}
-                                {% if distribution.php_versions is defined %}
-                                    (PHP
-                                    {% for php in distribution.php_versions %}
-                                        <span class="label php-version-{{ php|replace('.', '-') }}">{{ php }}</span>
-                                    {% endfor %}
-                                    )
-                                {% endif %}
-                            </label>
-                        {% endfor %}
+                <p>
+                    Login to Linode and
+                    <a href="https://manager.linode.com/profile/api" target="_blank">go to the API page</a>.
+                    You will need an API Key.
+                </p>
+
+                <h3>Installation Requirements</h3>
+
+                <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#linode-instructions-mac" data-toggle="pill">Mac</a></li>
+                    <li><a href="#linode-instructions-windows" data-toggle="pill">Windows</a></li>
+                    <li><a href="#linode-instructions-linux" data-toggle="pill">Linux</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="linode-instructions-mac">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-linode<br />
+                            $ vagrant box add dummy https://github.com/displague/vagrant-linode/raw/master/box/linode.box
+                        </code>
+                    </div>
+                    <div class="tab-pane" id="linode-instructions-windows">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-linode<br />
+                            $ vagrant box add dummy https://github.com/displague/vagrant-linode/raw/master/box/linode.box
+                        </code>
+
+                        <div class="clearfix"></div>
+
+                        <p>
+                            You need rsync installed. Easiest way is to use Cygwin and install it through there.
+                            Alternatively, you can
+                            <a href="https://www.itefix.no/i2/content/cwrsync-free-edition" target="_blank">install rsync separately</a>
+                            and add it to your PATH.
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="linode-instructions-linux">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-linode<br />
+                            $ vagrant box add dummy https://github.com/displague/vagrant-linode/raw/master/box/linode.box
+                        </code>
                     </div>
                 </div>
 
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <label for="vagrantfile-linode-vm-hostname">
-                            Linode Name
-                            {{ popover.small('Name your server. It must be unique to your account!') }}
-                        </label>
-                        <input id="vagrantfile-linode-vm-hostname"
-                               name="vagrantfile-linode[vm][hostname]"
-                               placeholder="my-awesome-box"
-                               value="{{ data.vm.hostname }}" class="form-control" />
-                    </div>
-                </div>
+                <h3>Accessing Your VM</h3>
 
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="vagrantfile-linode-vm-provider-linode-plan">
-                            Linode Plan
-                            {{ popover.small('<a href="https://www.linode.com/pricing" target="_blank">Pricing information</a>.
-                                Linode charges by the hour, but also shows what a full month would cost.') }}
-                        </label>
-                        <select id="vagrantfile-linode-vm-provider-linode-plan"
-                                name="vagrantfile-linode[vm][provider][linode][plan]"
-                                class="form-control select-tag">
-                            {% for plan, name in data.available_plans %}
-                                <option value="{{ plan }}"
-                                    {% if plan == data.vm.provider.linode.plan %}selected{% endif %}>{{ name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                <p>
+                    To access your VM after running <code>$ vagrant up</code>, type
+                    <code>$ vagrant ssh-config</code> to get the IP address assigned to the server you created,
+                    and add the IP address to your computer's hosts file. Type <code>$ vagrant ssh</code> to
+                    be immediately connected via SSH to your new server!
+                </p>
 
-                    <div class="col-md-6">
-                        <label for="vagrantfile-linode-vm-provider-linode-datacenter">
-                            Linode Datacenter
-                            {{ popover.small('Choose the one closest to you, or your target audience!') }}
-                        </label>
-                        <select id="vagrantfile-linode-vm-provider-linode-datacenter"
-                                name="vagrantfile-linode[vm][provider][linode][datacenter]"
-                                class="form-control select-tag">
-                            {% for key, datacenter in data.available_datacenters %}
-                                <option value="{{ key }}"
-                                    {% if key == data.vm.provider.linode.datacenter %}selected{% endif %}>{{ datacenter }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
+                <h3 class="text-warning">If you choose CentOS</h3>
 
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="vagrantfile-linode-vm-provider-linode-token">
-                            Linode API Token
-                            {{ popover.small('<a href="https://manager.linode.com/profile/index/" target="_blank">Get it here</a>') }}
-                        </label>
-                        <input id="vagrantfile-linode-vm-provider-linode-token"
-                               name="vagrantfile-linode[vm][provider][linode][token]"
-                               placeholder="LINODE API KEY"
-                               value="{{ data.vm.provider.linode.token }}" class="form-control" />
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="vagrantfile-linode-vm-provider-linode-ssh_key_name">
-                            Linode SSH Key Name
-                            {{ popover.small('Change if you already have an SSH key you would like to use.
-                                Leave as default otherwise.') }}
-                        </label>
-                        <input id="vagrantfile-linode-vm-provider-linode-ssh_key_name"
-                               name="vagrantfile-linode[vm][provider][linode][ssh_key_name]"
-                               placeholder="Vagrant"
-                               value="{{ data.vm.provider.linode.ssh_key_name }}" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-md-6">
-                        <label for="vagrantfile-linode-ssh-username">
-                            Local Private Key Username
-                            {{ popover.small('The username associated with the private key entered.') }}
-                        </label>
-                        <input id="vagrantfile-linode-ssh-username"
-                               name="vagrantfile-linode[ssh][username]"
-                               value="{{ data.ssh.username }}" class="form-control" />
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="vagrantfile-linode-ssh-private_key_path">
-                            Local Private Key Path
-                            {{ popover.small('The Linode will not be accessible without your private/public key.
-                                <strong>It will not be accessible using username/password, only private key!</strong>') }}
-                        </label>
-                        <input id="vagrantfile-linode-ssh-private_key_path"
-                               name="vagrantfile-linode[ssh][private_key_path]"
-                               placeholder="~/.ssh/id_rsa"
-                               value="{{ data.ssh.private_key_path }}" class="form-control" />
-                    </div>
-                </div>
+                <p>
+                    The CentOS distributions do not ship with <code>rsync</code> installed! The first time you run
+                    <code>$ vagrant up</code> IT WILL ERROR, but this is OK! Simply <code>$ vagrant ssh</code>
+                    and type <code>$ sudo yum install rsync</code>. Once it finished installing, run
+                    <code>$ vagrant provision</code>.
+                </p>
             </div>
-
-            {% for synced_folder in data.vm.synced_folder %}
-                {% include 'PuphpetExtensionVagrantfileLinodeBundle:sections:SyncedFolder.html.twig' with {'synced_folder': synced_folder} %}
-            {% endfor %}
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                            data-source-url="{{ path('puphpet.extension.vagrantfile.linode.synced_folder') }}">Add another Linode shared folder</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
