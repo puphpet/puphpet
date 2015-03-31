@@ -7,9 +7,18 @@ body {
     font-weight: 300;
 }
 
+html,
+body,
+#container {
+    min-width: 1024px;
+}
+
+.container {
+    min-width: 640px;
+}
+
 #container {
     width: 100%;
-    min-width: 1024px;
     height: 100%;
 }
 
@@ -98,11 +107,32 @@ label.radio input[type="radio"] {
 }
 
 .navbar-default .navbar-brand {
-  color: #2c9ab7;
+    color: #2c9ab7;
+    margin-left: -15px;
+}
+
+.navbar-default .navbar-header,
+.navbar-default .navbar-nav,
+.navbar-default .navbar-nav > li {
+    float: left !important;
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-  color: #2c9ab7;
+    color: #2c9ab7;
+}
+
+.navbar-default .navbar-header,
+.navbar-default .navbar-nav {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.navbar-default .navbar-right {
+    float: right !important;
+}
+
+.navbar-default .navbar-nav.navbar-right:last-child {
+    margin-right: -15px !important;
 }
 
 #main-content {
