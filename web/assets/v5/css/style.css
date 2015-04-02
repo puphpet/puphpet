@@ -72,6 +72,7 @@ code.inline-instructions {
 }
 
 label {
+    padding-left: 5px;
     font-weight: bold;
 }
 
@@ -95,6 +96,10 @@ label.radio input[type="radio"] {
     padding: 0 !important;
     border: 0 !important;
     clip: rect(0 0 0 0) !important;
+}
+
+.navbar {
+    z-index: 9999;
 }
 
 .navbar-default .navbar-brand {
@@ -255,7 +260,7 @@ label.radio input[type="radio"] {
     }
 
     input.form-control {
-        margin-left: 15px;
+        margin-left: 5px;
     }
 
     .field-container {
@@ -275,7 +280,7 @@ label.radio input[type="radio"] {
     .field-container .form-group {
         margin-bottom: 0;
         padding-bottom: 10px;
-        padding-left: 5px;
+        padding-left: 0;
         border-left: 2px solid transparent;
     }
 
@@ -331,9 +336,9 @@ label.radio input[type="radio"] {
     .nested-block > .remove:hover {
         height: 100%;
         width: 100%;
-        background-color: transparent;
+        background-color: rgba(235, 104, 100, 0.05);
         text-align: right;
-        z-index: 9999;
+        z-index: 9998;
     }
 
     .nested-block > .remove:hover i {
@@ -365,12 +370,13 @@ label.radio input[type="radio"] {
     }
 
     .form-control.selectize-control {
-        padding-left: 15px;
+        padding-left: 0;
+        margin-left: 5px;
     }
 
     .add-block {
         font-size: 2em;
-        margin: 0 0 20px 0;
+        margin: 0 0 20px 23px;
         display: block;
     }
 
