@@ -11,6 +11,8 @@
     </p>
 </div>
 
+<div class="clearfix"></div>
+
 {% for rule in firewall.rules %}
     {% include 'PuphpetExtensionFirewallBundle:sections:Rule.html.twig' with {'rule': rule} %}
 {% endfor %}

@@ -58,6 +58,8 @@
     {% endfor %}
 </div>
 
+<div class="clearfix"></div>
+
 <div class="form-group col-xs-6">
     <div class="help-text">
         Name your Google Compute Engine instance as it will appear in the Developer Console.
@@ -86,6 +88,8 @@
     </select>
 </div>
 
+<div class="clearfix"></div>
+
 <div class="form-group col-xs-6">
     <div class="help-text">
         Choose the one closest to you, or your target audience!
@@ -112,6 +116,8 @@
            value="{{ data.vm.provider.gce.client_email }}" />
 </div>
 
+<div class="clearfix"></div>
+
 <div class="form-group col-xs-6">
     <div class="help-text">
         The ID of your project.
@@ -133,6 +139,8 @@
            class="form-control" placeholder="/PATH/TO/PRIVATE_KEY.P12"
            value="{{ data.vm.provider.gce.key_location }}" />
 </div>
+
+<div class="clearfix"></div>
 
 <div class="form-group col-xs-6">
     <div class="help-text">
@@ -157,6 +165,8 @@
            class="form-control"
            value="{{ data.ssh.username }}" />
 </div>
+
+<div class="clearfix"></div>
 
 <div class="form-group col-xs-6">
     <div class="help-text">

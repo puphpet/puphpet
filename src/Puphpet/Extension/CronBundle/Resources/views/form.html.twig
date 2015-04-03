@@ -20,6 +20,8 @@
     </div>
 </div>
 
+<div class="clearfix"></div>
+
 {% for job in cron.jobs %}
     {% include 'PuphpetExtensionCronBundle:sections:job.html.twig' with {'job': job} %}
 {% endfor %}

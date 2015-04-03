@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic');
-
 body {
     color: #353b44;
     background: #fff url('../img/congruent_pentagon.png');
-    font-family: 'Lato', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 300;
 }
 
@@ -261,6 +259,7 @@ legend {
 */
     .form-control {
         color: #000;
+        border: 1px solid #000;
     }
 
     input.form-control {
@@ -359,6 +358,12 @@ legend {
         padding-top: 50px;
     }
 
+    .selectize-dropdown,
+    .selectize-input,
+    .selectize-input input {
+        line-height: 25px;
+    }
+
     .selectize-control a.remove {
         border: 1px solid #e53c37 !important;
         font-size: 14px !important;
@@ -368,6 +373,10 @@ legend {
 
     .selectize-control a.remove:hover {
         background: #e74b47 !important;
+    }
+
+    .selectize-input {
+        border-color: #000;
     }
 
     .selectize-input > div.active {
@@ -410,6 +419,7 @@ legend {
 
     .radio-tile input + .content {
         color: #ccc;
+        border-color: #000;
     }
 
     .radio-tile input:checked + .content {

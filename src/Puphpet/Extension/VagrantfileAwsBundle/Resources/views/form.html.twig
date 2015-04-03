@@ -70,6 +70,8 @@
     {% endfor %}
 </div>
 
+<div class="clearfix"></div>
+
 <div class="form-group col-xs-12">
     <div class="help-text">
         <a href="http://aws.amazon.com/ec2/pricing/"
@@ -86,6 +88,8 @@
         {% endfor %}
     </select>
 </div>
+
+<div class="clearfix"></div>
 
 <div class="form-group col-xs-6">
     <div class="help-text">
@@ -110,6 +114,8 @@
            class="form-control" placeholder="EC2 SECRET ACCESS KEY"
            value="{{ data.vm.provider.aws.secret_access_key }}" />
 </div>
+
+<div class="clearfix"></div>
 
 <div class="form-group col-xs-6">
     <div class="help-text">
@@ -138,6 +144,8 @@
            class="form-control" placeholder="~/.ssh/id_rsa"
            value="{{ data.ssh.private_key_path }}" />
 </div>
+
+<div class="clearfix"></div>
 
 <div class="form-group col-xs-6">
     <div class="help-text">
