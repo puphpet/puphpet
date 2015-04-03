@@ -1,4 +1,5 @@
 vm:
+    target: ~
     provider:
         aws:
             ami: ami-4b124a22

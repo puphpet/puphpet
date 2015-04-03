@@ -1,4 +1,5 @@
 vm:
+    target: ~
     box: rackspace
     hostname: master
     provider:

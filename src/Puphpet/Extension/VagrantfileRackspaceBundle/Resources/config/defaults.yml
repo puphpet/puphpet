@@ -1,4 +1,5 @@
 vm:
+    target: ~
     provider:
         rackspace:
             server_name: rackspace-server

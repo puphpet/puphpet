@@ -1,4 +1,5 @@
 vm:
+    target: local
     box: puphpet/debian75-x64
     box_url: puphpet/debian75-x64
     hostname: ~

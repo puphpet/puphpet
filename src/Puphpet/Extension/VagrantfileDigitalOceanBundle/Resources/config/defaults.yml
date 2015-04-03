@@ -1,4 +1,5 @@
 vm:
+    target: ~
     provider:
         digital_ocean:
             image: debian-7-0-x64

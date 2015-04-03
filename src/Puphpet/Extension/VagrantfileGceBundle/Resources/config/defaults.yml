@@ -1,4 +1,5 @@
 vm:
+    target: ~
     provider:
         gce:
             project_id: GCE_PROJECT_ID

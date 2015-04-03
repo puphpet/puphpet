@@ -1,3 +1,5 @@
+{% set providerChosen = (data.vm.target == 'softlayer') ? true : false %}
+
 <div class="section-header hidden">
     <h1>SoftLayer Server Details</h1>
     <p class="lead">Spin up your virtual machine on SoftLayer.</p>
@@ -7,7 +9,8 @@
     <div class="clearfix"><label>Choose Deploy Target</label></div>
 
     <label class="col-xs-12 radio-tile">
-        <input type="radio" name="vagrantfile-target" value="softlayer" class="invisible" />
+        <input type="radio" name="vagrantfile[target]" value="softlayer" class="invisible"
+               {% if providerChosen %}checked{% endif %} />
         <span class="content">
             <span class="header large">
                 <i class="icon"></i>
@@ -16,7 +19,7 @@
             <span class="footer">
                 A new server will be spun up at SoftLayer.
                 <a href="#" data-toggle="modal"
-                   data-target="#vagrantfile-softlayer-modal">Click here for instructions</a>.
+                   data-vm-target="#vagrantfile-softlayer-modal">Click here for instructions</a>.
             </span>
         </span>
     </label>
@@ -24,280 +27,284 @@
     <div class="clearfix"></div>
 </div>
 
-<div class="form-group">
-    <div class="clearfix"><label>Distro</label></div>
+<div class="clearfix"></div>
 
-    <div class="help-text">
-        <p>Choose the operating system for your server. SoftLayer has pre-defined systems you can
-            choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
-        <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
-            operating system. You are welcome to attempt to install higher if you'd like, but
-            we cannot guarantee it will work. In fact in most cases it won't.</p>
+<div class="hideable {% if not providerChosen %}hidden{% endif %}">
+    <div class="form-group">
+        <div class="clearfix"><label>Distro</label></div>
+
+        <div class="help-text">
+            <p>Choose the operating system for your server. SoftLayer has pre-defined systems you can
+                choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
+            <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
+                operating system. You are welcome to attempt to install higher if you'd like, but
+                we cannot guarantee it will work. In fact in most cases it won't.</p>
+        </div>
+
+        {% for image in data.available_images %}
+            <label class="col-xs-6 radio-tile">
+                <input type="radio" class="invisible"
+                       name="vagrantfile[vm][provider][softlayer][operating_system]"
+                       value="{{ image.image }}"
+                       {% if image.image == data.vm.provider.softlayer.operating_system %}checked{% endif %} />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">{{ image.long_name }}</span>
+                    </span>
+                    <span class="footer">
+                        PHP {{ image.php_versions|join(', ') }}
+                    </span>
+                </span>
+            </label>
+
+            {% if loop.index is even or loop.last %}
+                <div class="clearfix"></div>
+            {% endif %}
+        {% endfor %}
     </div>
 
-    {% for image in data.available_images %}
-        <label class="col-xs-6 radio-tile">
-            <input type="radio" class="invisible"
-                   name="vagrantfile[vm][provider][softlayer][operating_system]"
-                   value="{{ image.image }}"
-                   {% if image.image == data.vm.provider.softlayer.operating_system %}checked{% endif %} />
-            <span class="content">
-                <span class="header">
-                    <i class="icon"></i>
-                    <span class="title">{{ image.long_name }}</span>
-                </span>
-                <span class="footer">
-                    PHP {{ image.php_versions|join(', ') }}
-                </span>
-            </span>
-        </label>
+    <div class="clearfix"></div>
 
-        {% if loop.index is even or loop.last %}
-            <div class="clearfix"></div>
-        {% endif %}
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            Name your SoftLayer server as it will appear in the Control Panel.
+        </div>
+        <label for="vagrantfile-vm-hostname">Server Name</label>
+        <input type="text" id="vagrantfile-vm-hostname"
+               name="vagrantfile[vm][hostname]"
+               class="form-control" placeholder="AWESOME"
+               value="{{ data.vm.hostname }}" />
+    </div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            <p>Must end in valid TLD.</p>
+
+            <p>Your VM will be named {HOSTNAME}.{DOMAIN}</p>
+
+            <p>The hostname and domain must be alphanumeric strings that may be separated by periods '.'.
+                The only other allowable special character is the dash '-' However the special
+                characters '.' and '-' may not be consecutive. Each alphanumeric string separated by a
+                period is considered a label. Labels must begin and end with an alphanumeric character.
+                Each label cannot be solely comprised of digits and must be between 1-63 characters in
+                length. The last label, the TLD (top level domain) must be between 2-6 alphabetic
+                characters. The domain portion must consist of least one label followed by a period '.'
+                then ending with the TLD label. Combining the hostname, followed by a period '.',
+                followed by the domain gives the FQDN (fully qualified domain name), which may not
+                exceed 253 characters in total length.</p>
+        </div>
+        <label for="vagrantfile-vm-provider-softlayer-domain">Domain</label>
+        <input type="text" id="vagrantfile-vm-provider-softlayer-domain"
+               name="vagrantfile[vm][provider][softlayer][domain]"
+               class="form-control"
+               value="{{ data.vm.provider.softlayer.domain }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            <a href="http://www.softlayer.com/virtual-servers"
+               target="_blank">Pricing information</a>.
+            SoftLayer charges by the hour, but also shows what a full month would cost.
+        </div>
+        <label for="vagrantfile-vm-provider-softlayer-start_cpus">CPUs</label>
+        <select id="vagrantfile-vm-provider-softlayer-start_cpus"
+               name="vagrantfile[vm][provider][softlayer][start_cpus]"
+               class="form-control select-tag">
+            {% for key, name in data.available_cpus %}
+                <option value="{{ key }}"
+                    {% if key == data.vm.provider.softlayer.start_cpus %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            <a href="http://www.softlayer.com/virtual-servers"
+               target="_blank">Pricing information</a>.
+            SoftLayer charges by the hour, but also shows what a full month would cost.
+        </div>
+        <label for="vagrantfile-vm-provider-softlayer-max_memory">Memory</label>
+        <select id="vagrantfile-vm-provider-softlayer-max_memory"
+               name="vagrantfile[vm][provider][softlayer][max_memory]"
+               class="form-control select-tag">
+            {% for key, memory in data.available_memory %}
+                <option value="{{ key }}"
+                    {% if key == data.vm.provider.softlayer.max_memory %}selected{% endif %}>{{ memory }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            <p>Choose the one closest to you, or your target audience!</p>
+
+            <p>If you get an error that looks like
+                'There is insufficient Local disk resources in {DATACENTER} to create the following
+                guests: {HOSTNAME}', choose a different datacenter.</p>
+        </div>
+        <label for="vagrantfile-vm-provider-softlayer-datacenter">Datacenter Location</label>
+        <select id="vagrantfile-vm-provider-softlayer-datacenter"
+               name="vagrantfile[vm][provider][softlayer][datacenter]"
+               class="form-control select-tag">
+            {% for key, dc in data.available_datacenters %}
+                <option value="{{ key }}"
+                    {% if key == data.vm.provider.softlayer.datacenter %}selected{% endif %}>{{ dc }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            Username you use to login to SoftLayer
+        </div>
+        <label for="vagrantfile-vm-provider-softlayer-username">SoftLayer Account Username</label>
+        <input type="text" id="vagrantfile-vm-provider-softlayer-username"
+               name="vagrantfile[vm][provider][softlayer][username]"
+               class="form-control" placeholder="SOFTLAYER USERNAME"
+               value="{{ data.vm.provider.softlayer.username }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            <a href="https://control.softlayer.com/account/user/profile"
+               target="_blank">Get it here</a>.
+        </div>
+        <label for="vagrantfile-vm-provider-softlayer-api_key">SoftLayer API Key</label>
+        <input type="text" id="vagrantfile-vm-provider-softlayer-api_key"
+               name="vagrantfile[vm][provider][softlayer][api_key]"
+               class="form-control" placeholder="SOFTLAYER API KEY"
+               value="{{ data.vm.provider.softlayer.api_key }}" />
+    </div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            <p>The SoftLayer server will not be accessible without your private/public key.</p>
+            <p><strong>It will not be accessible using username/password,
+                    only private key!</strong></p>
+        </div>
+        <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
+        <input type="text" id="vagrantfile-ssh-private_key_path"
+               name="vagrantfile[ssh][private_key_path]"
+               class="form-control" placeholder="~/.ssh/id_rsa"
+               value="{{ data.ssh.private_key_path }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            This must be a public key associated with your account from
+            <a href="https://control.softlayer.com/devices/sshkeys" target="_blank">this page</a>.
+        </div>
+        <label for="vagrantfile-vm-provider-softlayer-ssh_key">Local Public Key Path</label>
+        <input type="text" id="vagrantfile-vm-provider-softlayer-ssh_key"
+               name="vagrantfile-softlayer[vm][provider][softlayer][ssh_key]"
+               class="form-control" placeholder="~/.ssh/id_rsa.pub"
+               value="{{ data.ssh.public_key_path }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    {% for synced_folder in data.vm.synced_folder %}
+        {% include 'PuphpetExtensionVagrantfileSoftlayerBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
     {% endfor %}
-</div>
 
-<div class="clearfix"></div>
+    <a href="#" data-source-url="{{ path('puphpet.extension.vagrantfile.softlayer.synced_folder') }}"
+       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
 
-<div class="form-group col-xs-6">
-    <div class="help-text">
-        Name your SoftLayer server as it will appear in the Control Panel.
-    </div>
-    <label for="vagrantfile-vm-hostname">Server Name</label>
-    <input type="text" id="vagrantfile-vm-hostname"
-           name="vagrantfile[vm][hostname]"
-           class="form-control" placeholder="AWESOME"
-           value="{{ data.vm.hostname }}" />
-</div>
+    <input type="hidden" id="vagrantfile-softlayer-vm-box" name="vagrantfile[vm][box]" value="softlayer" />
 
-<div class="form-group col-xs-6">
-    <div class="help-text">
-        <p>Must end in valid TLD.</p>
-
-        <p>Your VM will be named {HOSTNAME}.{DOMAIN}</p>
-
-        <p>The hostname and domain must be alphanumeric strings that may be separated by periods '.'.
-            The only other allowable special character is the dash '-' However the special
-            characters '.' and '-' may not be consecutive. Each alphanumeric string separated by a
-            period is considered a label. Labels must begin and end with an alphanumeric character.
-            Each label cannot be solely comprised of digits and must be between 1-63 characters in
-            length. The last label, the TLD (top level domain) must be between 2-6 alphabetic
-            characters. The domain portion must consist of least one label followed by a period '.'
-            then ending with the TLD label. Combining the hostname, followed by a period '.',
-            followed by the domain gives the FQDN (fully qualified domain name), which may not
-            exceed 253 characters in total length.</p>
-    </div>
-    <label for="vagrantfile-vm-provider-softlayer-domain">Domain</label>
-    <input type="text" id="vagrantfile-vm-provider-softlayer-domain"
-           name="vagrantfile[vm][provider][softlayer][domain]"
-           class="form-control"
-           value="{{ data.vm.provider.softlayer.domain }}" />
-</div>
-
-<div class="clearfix"></div>
-
-<div class="form-group col-xs-6">
-    <div class="help-text">
-        <a href="http://www.softlayer.com/virtual-servers"
-           target="_blank">Pricing information</a>.
-        SoftLayer charges by the hour, but also shows what a full month would cost.
-    </div>
-    <label for="vagrantfile-vm-provider-softlayer-start_cpus">CPUs</label>
-    <select id="vagrantfile-vm-provider-softlayer-start_cpus"
-           name="vagrantfile[vm][provider][softlayer][start_cpus]"
-           class="form-control select-tag">
-        {% for key, name in data.available_cpus %}
-            <option value="{{ key }}"
-                {% if key == data.vm.provider.softlayer.start_cpus %}selected{% endif %}>{{ name }}</option>
-        {% endfor %}
-    </select>
-</div>
-
-<div class="form-group col-xs-6">
-    <div class="help-text">
-        <a href="http://www.softlayer.com/virtual-servers"
-           target="_blank">Pricing information</a>.
-        SoftLayer charges by the hour, but also shows what a full month would cost.
-    </div>
-    <label for="vagrantfile-vm-provider-softlayer-max_memory">Memory</label>
-    <select id="vagrantfile-vm-provider-softlayer-max_memory"
-           name="vagrantfile[vm][provider][softlayer][max_memory]"
-           class="form-control select-tag">
-        {% for key, memory in data.available_memory %}
-            <option value="{{ key }}"
-                {% if key == data.vm.provider.softlayer.max_memory %}selected{% endif %}>{{ memory }}</option>
-        {% endfor %}
-    </select>
-</div>
-
-<div class="clearfix"></div>
-
-<div class="form-group col-xs-6">
-    <div class="help-text">
-        <p>Choose the one closest to you, or your target audience!</p>
-
-        <p>If you get an error that looks like
-            'There is insufficient Local disk resources in {DATACENTER} to create the following
-            guests: {HOSTNAME}', choose a different datacenter.</p>
-    </div>
-    <label for="vagrantfile-vm-provider-softlayer-datacenter">Datacenter Location</label>
-    <select id="vagrantfile-vm-provider-softlayer-datacenter"
-           name="vagrantfile[vm][provider][softlayer][datacenter]"
-           class="form-control select-tag">
-        {% for key, dc in data.available_datacenters %}
-            <option value="{{ key }}"
-                {% if key == data.vm.provider.softlayer.datacenter %}selected{% endif %}>{{ dc }}</option>
-        {% endfor %}
-    </select>
-</div>
-
-<div class="form-group col-xs-6">
-    <div class="help-text">
-        Username you use to login to SoftLayer
-    </div>
-    <label for="vagrantfile-vm-provider-softlayer-username">SoftLayer Account Username</label>
-    <input type="text" id="vagrantfile-vm-provider-softlayer-username"
-           name="vagrantfile[vm][provider][softlayer][username]"
-           class="form-control" placeholder="SOFTLAYER USERNAME"
-           value="{{ data.vm.provider.softlayer.username }}" />
-</div>
-
-<div class="clearfix"></div>
-
-<div class="form-group col-xs-6">
-    <div class="help-text">
-        <a href="https://control.softlayer.com/account/user/profile"
-           target="_blank">Get it here</a>.
-    </div>
-    <label for="vagrantfile-vm-provider-softlayer-api_key">SoftLayer API Key</label>
-    <input type="text" id="vagrantfile-vm-provider-softlayer-api_key"
-           name="vagrantfile[vm][provider][softlayer][api_key]"
-           class="form-control" placeholder="SOFTLAYER API KEY"
-           value="{{ data.vm.provider.softlayer.api_key }}" />
-</div>
-
-<div class="form-group col-xs-6">
-    <div class="help-text">
-        <p>The SoftLayer server will not be accessible without your private/public key.</p>
-        <p><strong>It will not be accessible using username/password,
-                only private key!</strong></p>
-    </div>
-    <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
-    <input type="text" id="vagrantfile-ssh-private_key_path"
-           name="vagrantfile[ssh][private_key_path]"
-           class="form-control" placeholder="~/.ssh/id_rsa"
-           value="{{ data.ssh.private_key_path }}" />
-</div>
-
-<div class="clearfix"></div>
-
-<div class="form-group col-xs-6">
-    <div class="help-text">
-        This must be a public key associated with your account from
-        <a href="https://control.softlayer.com/devices/sshkeys" target="_blank">this page</a>.
-    </div>
-    <label for="vagrantfile-vm-provider-softlayer-ssh_key">Local Public Key Path</label>
-    <input type="text" id="vagrantfile-vm-provider-softlayer-ssh_key"
-           name="vagrantfile-softlayer[vm][provider][softlayer][ssh_key]"
-           class="form-control" placeholder="~/.ssh/id_rsa.pub"
-           value="{{ data.ssh.public_key_path }}" />
-</div>
-
-<div class="clearfix"></div>
-
-{% for synced_folder in data.vm.synced_folder %}
-    {% include 'PuphpetExtensionVagrantfileSoftlayerBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-{% endfor %}
-
-<a href="#" data-source-url="{{ path('puphpet.extension.vagrantfile.softlayer.synced_folder') }}"
-   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
-
-<input type="hidden" id="vagrantfile-softlayer-vm-box" name="vagrantfile[vm][box]" value="softlayer" />
-
-<div class="modal fade" id="vagrantfile-softlayer-modal" tabindex="-1" role="dialog"
-     aria-labelledby="vagrantfile-softlayer-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="vagrantfile-softlayer-modal-label">
-                    Instructions for SoftLayer Deployment
-                </h4>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-warning alert-dismissable" data-dismiss="alert" aria-hidden="true">
-                    <p>WARNING! INITIAL <code>$ vagrant up</code> WILL PROBABLY FAIL!</p>
-
-                    <p>You may get the following error: <code>bash: sudo: command not found</code></p>
-
-                    <p>This is OK! Simply run <code>$ vagrant ssh</code> and then type:</p>
-
-                    <p><code>apt-get install sudo</code></p>
-
-                    <p>Then <code>$ exit</code> and finally <code>$ vagrant provision</code>.</p>
+    <div class="modal fade" id="vagrantfile-softlayer-modal" tabindex="-1" role="dialog"
+         aria-labelledby="vagrantfile-softlayer-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="vagrantfile-softlayer-modal-label">
+                        Instructions for SoftLayer Deployment
+                    </h4>
                 </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning alert-dismissable" data-dismiss="alert" aria-hidden="true">
+                        <p>WARNING! INITIAL <code>$ vagrant up</code> WILL PROBABLY FAIL!</p>
 
-                <h3>Softlayer Instance</h3>
+                        <p>You may get the following error: <code>bash: sudo: command not found</code></p>
 
-                <p>
-                    Login to Softlayer and
-                    <a href="https://control.softlayer.com/account/user/profile" target="_blank">go to the profile page</a>.
-                    You will need an API Key.
-                </p>
+                        <p>This is OK! Simply run <code>$ vagrant ssh</code> and then type:</p>
 
-                <h3>Installation Requirements</h3>
+                        <p><code>apt-get install sudo</code></p>
 
-                <p>Run the following commands from your host's terminal (not within the VM):</p>
-
-                <ul class="nav nav-pills">
-                    <li class="active"><a href="#softlayer-instructions-mac" data-toggle="pill">Mac</a></li>
-                    <li><a href="#softlayer-instructions-windows" data-toggle="pill">Windows</a></li>
-                    <li><a href="#softlayer-instructions-linux" data-toggle="pill">Linux</a></li>
-                </ul>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="softlayer-instructions-mac">
-                        <code class="col-xs-11 inline-instructions">
-                            $ vagrant plugin install vagrant-softlayer<br />
-                            $ vagrant box add dummy https://github.com/audiolize/vagrant-softlayer/raw/master/dummy.box
-                        </code>
+                        <p>Then <code>$ exit</code> and finally <code>$ vagrant provision</code>.</p>
                     </div>
-                    <div class="tab-pane" id="softlayer-instructions-windows">
-                        <code class="col-xs-11 inline-instructions">
-                            $ vagrant plugin install vagrant-softlayer<br />
-                            $ vagrant box add dummy https://github.com/audiolize/vagrant-softlayer/raw/master/dummy.box<br />
-                        </code>
 
-                        <div class="clearfix"></div>
+                    <h3>Softlayer Instance</h3>
 
-                        <p>
-                            You need rsync installed. Easiest way is to use Cygwin and install it through there.
-                            Alternatively, you can
-                            <a href="https://www.itefix.no/i2/content/cwrsync-free-edition" target="_blank">install rsync separately</a>
-                            and add it to your PATH.
-                        </p>
+                    <p>
+                        Login to Softlayer and
+                        <a href="https://control.softlayer.com/account/user/profile" target="_blank">go to the profile page</a>.
+                        You will need an API Key.
+                    </p>
+
+                    <h3>Installation Requirements</h3>
+
+                    <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="#softlayer-instructions-mac" data-toggle="pill">Mac</a></li>
+                        <li><a href="#softlayer-instructions-windows" data-toggle="pill">Windows</a></li>
+                        <li><a href="#softlayer-instructions-linux" data-toggle="pill">Linux</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="softlayer-instructions-mac">
+                            <code class="col-xs-11 inline-instructions">
+                                $ vagrant plugin install vagrant-softlayer<br />
+                                $ vagrant box add dummy https://github.com/audiolize/vagrant-softlayer/raw/master/dummy.box
+                            </code>
+                        </div>
+                        <div class="tab-pane" id="softlayer-instructions-windows">
+                            <code class="col-xs-11 inline-instructions">
+                                $ vagrant plugin install vagrant-softlayer<br />
+                                $ vagrant box add dummy https://github.com/audiolize/vagrant-softlayer/raw/master/dummy.box<br />
+                            </code>
+
+                            <div class="clearfix"></div>
+
+                            <p>
+                                You need rsync installed. Easiest way is to use Cygwin and install it through there.
+                                Alternatively, you can
+                                <a href="https://www.itefix.no/i2/content/cwrsync-free-edition" target="_blank">install rsync separately</a>
+                                and add it to your PATH.
+                            </p>
+                        </div>
+                        <div class="tab-pane" id="softlayer-instructions-linux">
+                            <code class="col-xs-11 inline-instructions">
+                                $ vagrant plugin install vagrant-softlayer<br />
+                                $ vagrant box add dummy https://github.com/audiolize/vagrant-softlayer/raw/master/dummy.box<br />
+                            </code>
+                        </div>
                     </div>
-                    <div class="tab-pane" id="softlayer-instructions-linux">
-                        <code class="col-xs-11 inline-instructions">
-                            $ vagrant plugin install vagrant-softlayer<br />
-                            $ vagrant box add dummy https://github.com/audiolize/vagrant-softlayer/raw/master/dummy.box<br />
-                        </code>
-                    </div>
+
+                    <h3>Accessing Your Server</h3>
+
+                    <p>
+                        To access your VM after running <code>$ vagrant up</code>, type
+                        <code>$ vagrant ssh-config</code> to get the IP address assigned to the server you created,
+                        and add the IP address to your computer's hosts file. Type <code>$ vagrant ssh</code> to
+                        be immediately connected via SSH to your new server!
+                    </p>
                 </div>
-
-                <h3>Accessing Your Server</h3>
-
-                <p>
-                    To access your VM after running <code>$ vagrant up</code>, type
-                    <code>$ vagrant ssh-config</code> to get the IP address assigned to the server you created,
-                    and add the IP address to your computer's hosts file. Type <code>$ vagrant ssh</code> to
-                    be immediately connected via SSH to your new server!
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
