@@ -321,6 +321,8 @@ PUPHPET.sidebarMenuClick = function() {
         $(this).parent().addClass('active');
         $(this).closest('.sub-menu').addClass('active');
 
+        $('html, body').scrollTop(0);
+
         $('#help-text-container .contents').html('');
 
         var $headerBlock = $($(this).attr('href') + ' > .section-header').eq(0);
@@ -667,8 +669,6 @@ PUPHPET.displayTabFromUrl = function () {
         $hashLink.tab('show');
 
         var $headerBlock = $(window.location.hash + ' > .section-header').eq(0);
-
-        console.log($headerBlock);
 
         if ($headerBlock.length != 0) {
             $('#page-header').html($headerBlock.html());
