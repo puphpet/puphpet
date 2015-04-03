@@ -350,21 +350,21 @@ PUPHPET.helpTextDisplay = function() {
     var $previousElement = '';
 
     $(document).on('mouseenter', '.field-container .form-group', function (e) {
-        if ($(this).has('> .help-text:first-child').length == 0) {
+        if ($(this).has('> .help-text').length == 0) {
             return;
         }
 
-        var $helpText = $('> .help-text:first-child', this).eq(0);
+        var $helpText = $('> .help-text', this).eq(0);
 
         changeText($helpText.html());
     });
 
     $(document).on('mouseenter', '.field-container .form-group .radio-tile', function (e) {
-        if ($(this).has('.help-text:first-child').length == 0) {
+        if ($(this).has('.help-text').length == 0) {
             return;
         }
 
-        var $helpText = $('.help-text:first-child', this).eq(0);
+        var $helpText = $('.help-text', this).eq(0);
 
         changeText($helpText.html());
     });
@@ -638,6 +638,12 @@ PUPHPET.submitUncheckedCheckboxes = function () {
     });
 };
 
+PUPHPET.changeTabOnAnchorChange = function () {
+    $(window).on('hashchange', function() {
+        PUPHPET.displayTabFromUrl();
+    });
+};
+
 /**
  * Catches anchor tag (#foo) in URL bar and displays proper tab
  */
@@ -680,6 +686,7 @@ $(document).ready(function() {
     PUPHPET.addBlock();
     PUPHPET.deleteBlock();
     PUPHPET.submitUncheckedCheckboxes();
+    PUPHPET.changeTabOnAnchorChange();
     PUPHPET.displayTabFromUrl();
 
     PUPHPET.sidebarMenuClick();

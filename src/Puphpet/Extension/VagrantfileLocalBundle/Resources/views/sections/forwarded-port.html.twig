@@ -6,7 +6,7 @@
     <fieldset>
         <legend>Forwarded Ports</legend>
 
-        <div class="form-group">
+        <div class="form-group col-xs-6">
             <div class="help-text">
                 Port on Host to forward to VM.
                 <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
@@ -19,7 +19,7 @@
                    value="{{ forwarded_port.host ? forwarded_port.host : mt_rand(5000, 9999) }}" />
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-6">
             <div class="help-text">
                 <p>Port on VM to accept from Host.
                     <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"

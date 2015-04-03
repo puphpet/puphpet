@@ -6,7 +6,7 @@
     <fieldset>
         <legend>Firewall Rule</legend>
 
-        <div class="form-group">
+        <div class="form-group col-xs-6">
             <div class="help-text">
                 Port to affect, can be multiple.
             </div>
@@ -24,7 +24,7 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-6">
             <div class="help-text">
                 <p>Lower priority takes effect first.</p>
 
@@ -37,68 +37,66 @@
                    value="{{ rule.priority ? rule.priority : '100' }}" />
         </div>
 
-        <div class="form-group">
-            <div class="col-xs-6">
-                <div class="clearfix"><label>Protocol</label></div>
+        <div class="clearfix"></div>
 
-                <label class="radio-tile mini set-width">
-                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]"
-                           class="invisible"
-                           {% if rule.proto == 'tcp' or not rule.proto %}checked{% endif %}
-                           value="tcp" />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">TCP</span>
-                        </span>
+        <div class="form-group col-xs-6">
+            <div class="clearfix"><label>Protocol</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="radio" name="firewall[rules][{{ uniqid }}][proto]"
+                       class="invisible"
+                       {% if rule.proto == 'tcp' or not rule.proto %}checked{% endif %}
+                       value="tcp" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">TCP</span>
                     </span>
-                </label>
+                </span>
+            </label>
 
-                <label class="radio-tile mini set-width">
-                    <input type="radio" name="firewall[rules][{{ uniqid }}][proto]"
-                           class="invisible"
-                           {% if rule.proto == 'udp' %}checked{% endif %}
-                           value="udp" />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">UDP</span>
-                        </span>
+            <label class="radio-tile mini set-width">
+                <input type="radio" name="firewall[rules][{{ uniqid }}][proto]"
+                       class="invisible"
+                       {% if rule.proto == 'udp' %}checked{% endif %}
+                       value="udp" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">UDP</span>
                     </span>
-                </label>
-            </div>
+                </span>
+            </label>
+        </div>
 
-            <div class="col-xs-6">
-                <div class="clearfix"><label>Action</label></div>
+        <div class="form-group col-xs-6">
+            <div class="clearfix"><label>Action</label></div>
 
-                <label class="radio-tile mini set-width">
-                    <input type="radio" name="firewall[rules][{{ uniqid }}][action]"
-                           class="invisible"
-                           {% if rule.action == 'accept' or not rule.action %}checked{% endif %}
-                           value="accept" />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">accept</span>
-                        </span>
+            <label class="radio-tile mini set-width">
+                <input type="radio" name="firewall[rules][{{ uniqid }}][action]"
+                       class="invisible"
+                       {% if rule.action == 'accept' or not rule.action %}checked{% endif %}
+                       value="accept" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">accept</span>
                     </span>
-                </label>
+                </span>
+            </label>
 
-                <label class="radio-tile mini set-width">
-                    <input type="radio" name="firewall[rules][{{ uniqid }}][action]"
-                           class="invisible"
-                           {% if rule.action == 'drop' %}checked{% endif %}
-                           value="drop" />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">drop</span>
-                        </span>
+            <label class="radio-tile mini set-width">
+                <input type="radio" name="firewall[rules][{{ uniqid }}][action]"
+                       class="invisible"
+                       {% if rule.action == 'drop' %}checked{% endif %}
+                       value="drop" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">drop</span>
                     </span>
-                </label>
-            </div>
-
-            <div class="clearfix"></div>
+                </span>
+            </label>
         </div>
     </fieldset>
 </div>

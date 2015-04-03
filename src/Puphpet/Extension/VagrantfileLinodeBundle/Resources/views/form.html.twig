@@ -58,7 +58,7 @@
     {% endfor %}
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <a href="https://www.linode.com/pricing"
            target="_blank">Pricing information</a>.
@@ -75,7 +75,7 @@
     </select>
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         Choose the one closest to you, or your target audience!
     </div>
@@ -90,7 +90,7 @@
     </select>
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         Name your server. It must be unique to your account!
     </div>
@@ -101,7 +101,7 @@
            value="{{ data.vm.hostname }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <a href="https://manager.linode.com/profile/index/"
            target="_blank">Get it here</a>.
@@ -113,7 +113,7 @@
            value="{{ data.vm.provider.linode.token }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         The username associated with the private key entered.
     </div>
@@ -124,7 +124,7 @@
            value="{{ data.ssh.username }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <p>The Linode server will not be accessible without your private/public key.</p>
         <p><strong>It will not be accessible using username/password,
@@ -137,7 +137,7 @@
            value="{{ data.ssh.private_key_path }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         Change if you already have an SSH key you would like to use.
         Leave as default otherwise.
@@ -148,6 +148,8 @@
            class="form-control" placeholder="Vagrant"
            value="{{ data.vm.provider.linode.ssh_key_name }}" />
 </div>
+
+<div class="clearfix"></div>
 
 {% for synced_folder in data.vm.synced_folder %}
     {% include 'PuphpetExtensionVagrantfileLinodeBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}

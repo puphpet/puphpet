@@ -86,6 +86,10 @@ label.radio input[type="radio"] {
     margin-left: 0;
 }
 
+legend {
+    padding: 0 10px;
+}
+
 .invisible {
     position: absolute !important;
     overflow: hidden !important;
@@ -289,7 +293,8 @@ label.radio input[type="radio"] {
         border-left: 2px solid #2c9ab7;
     }
 
-    .field-container .help-text .form-group {
+    .field-container .help-text .form-group,
+    .field-container .help-block .form-group {
         border-left: none;
     }
 
@@ -492,7 +497,7 @@ label.radio input[type="radio"] {
     }
 
     .radio-tile.mini {
-        margin: 10px 10px 10px 0;
+        margin: 0 10px 10px 0;
         display: inline-table;
     }
 
@@ -532,11 +537,7 @@ label.radio input[type="radio"] {
         color: #000;
     }
 
-    .help-text {
-        margin-left: 15px;
-    }
-
-    .help-text:first-child {
+    .form-group .help-text {
         display: none;
     }
 

@@ -58,18 +58,7 @@
     {% endfor %}
 </div>
 
-<div class="form-group">
-    <div class="help-text">
-        Name your server. It must be unique to your account!
-    </div>
-    <label for="vagrantfile-vm-hostname">Server Name</label>
-    <input type="text" id="vagrantfile-vm-hostname"
-           name="vagrantfile[vm][hostname]"
-           class="form-control"
-           value="{{ data.vm.hostname }}" />
-</div>
-
-<div class="form-group">
+<div class="form-group col-xs-12">
     <div class="help-text">
         <a href="https://www.digitalocean.com/pricing" target="_blank">Pricing information</a>.
         Digital Ocean charges by the hour, but also shows what a full month would cost.
@@ -85,7 +74,18 @@
     </select>
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
+    <div class="help-text">
+        Name your server. It must be unique to your account!
+    </div>
+    <label for="vagrantfile-vm-hostname">Server Name</label>
+    <input type="text" id="vagrantfile-vm-hostname"
+           name="vagrantfile[vm][hostname]"
+           class="form-control"
+           value="{{ data.vm.hostname }}" />
+</div>
+
+<div class="form-group col-xs-6">
     <div class="help-text">
         Choose the one closest to you, or your target audience!
     </div>
@@ -100,19 +100,19 @@
     </select>
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <a href="https://cloud.digitalocean.com/settings/applications"
            target="_blank">Get it here</a>.
     </div>
-    <label for="vagrantfile-vm-provider-digital_ocean-token">Digital Ocean VM Token</label>
+    <label for="vagrantfile-vm-provider-digital_ocean-token">Digital Ocean Token</label>
     <input type="text" id="vagrantfile-vm-provider-digital_ocean-token"
            name="vagrantfile-digital_ocean[vm][provider][digital_ocean][token]"
            class="form-control" placeholder="DIGITAL OCEAN TOKEN"
            value="{{ data.vm.provider.digital_ocean.token }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         Change if you already have an SSH key you would like to use.
         Leave as default otherwise.
@@ -124,7 +124,7 @@
            value="{{ data.vm.provider.digital_ocean.ssh_key_name }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <p>The Digital Ocean server will not be accessible without your private/public key.</p>
         <p><strong>It will not be accessible using username/password,
@@ -137,7 +137,7 @@
            value="{{ data.ssh.private_key_path }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         The username associated with the private key entered.
     </div>
@@ -147,6 +147,8 @@
            class="form-control"
            value="{{ data.ssh.username }}" />
 </div>
+
+<div class="clearfix"></div>
 
 {% for synced_folder in data.vm.synced_folder %}
     {% include 'PuphpetExtensionVagrantfileDigitalOceanBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}

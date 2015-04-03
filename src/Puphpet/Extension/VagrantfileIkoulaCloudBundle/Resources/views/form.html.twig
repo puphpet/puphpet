@@ -72,7 +72,7 @@
     {% endfor %}
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-12">
     <div class="help-text">
         <a href="https://express.ikoula.com/en/public-cloud"
            target="_blank">Pricing information</a>.
@@ -89,7 +89,7 @@
     </select>
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <a href="https://cloudstack.ikoula.com/client"
            target="_blank">Get it here</a>.
@@ -101,7 +101,7 @@
            value="{{ data.vm.provider.cloudstack.api_key }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <a href="https://cloudstack.ikoula.com/client"
            target="_blank">Get it here</a>.
@@ -113,7 +113,7 @@
            value="{{ data.vm.provider.cloudstack.secret_key }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <a href="https://cloudstack.ikoula.com/client"
            target="_blank">Generate here</a>.
@@ -125,7 +125,7 @@
            value="{{ data.vm.provider.cloudstack.keypair }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <p>The Ikoula Cloud server will not be accessible without your private/public key.</p>
         <p><strong>It will not be accessible using username/password,
@@ -138,7 +138,7 @@
            value="{{ data.ssh.private_key_path }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         Assign security groups to this instance.
         <a href="https://cloudstack.ikoula.com/client" target="_blank">Get them here</a>.
@@ -152,6 +152,8 @@
         {% endfor %}
     </select>
 </div>
+
+<div class="clearfix"></div>
 
 {% for synced_folder in data.vm.synced_folder %}
     {% include 'PuphpetExtensionVagrantfileIkoulaCloudBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}

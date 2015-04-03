@@ -70,7 +70,7 @@
     {% endfor %}
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-12">
     <div class="help-text">
         <a href="http://aws.amazon.com/ec2/pricing/"
            target="_blank">Pricing information</a>.
@@ -87,7 +87,7 @@
     </select>
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <a href="https://console.aws.amazon.com/iam/home?#security_credential" target="_blank">Get it here</a>.
         You can leave this blank and fill it in manually in your <code>config.yaml</code> if you want.
@@ -99,7 +99,7 @@
            value="{{ data.vm.provider.aws.access_key_id }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <a href="https://portal.aws.amazon.com/gp/aws/securityCredentials?" target="_blank">Get it here</a>.
         You can leave this blank and fill it in manually in your <code>config.yaml</code> if you want.
@@ -111,7 +111,7 @@
            value="{{ data.vm.provider.aws.secret_access_key }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         The Key Pair name from
         <a href="https://console.aws.amazon.com/ec2/v2/home?#KeyPairs:" target="_blank">here</a>.
@@ -123,7 +123,7 @@
            value="{{ data.vm.provider.aws.keypair_name }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         <p>The EC2 server will not be accessible without your private key.</p>
 
@@ -139,7 +139,7 @@
            value="{{ data.ssh.private_key_path }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         Assign security groups to this instance.
         <a href="https://console.aws.amazon.com/ec2/home?#s=SecurityGroups" target="_blank">Get them here</a>.
@@ -153,6 +153,8 @@
         {% endfor %}
     </select>
 </div>
+
+<div class="clearfix"></div>
 
 {% for synced_folder in data.vm.synced_folder %}
     {% include 'PuphpetExtensionVagrantfileAwsBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}

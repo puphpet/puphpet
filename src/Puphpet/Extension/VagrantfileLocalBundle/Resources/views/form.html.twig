@@ -98,7 +98,7 @@
     {% endfor %}
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         IP address to use for accessing the VM. This is the IP address you will
         need to enter into your <code>hosts</code> file for every virtual hosts
@@ -111,7 +111,7 @@
            value="{{ data.vm.network.private_network }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         Memory to assign to VM in megabytes (only integers)
     </div>
@@ -121,7 +121,7 @@
            value="{{ data.vm.memory }}" />
 </div>
 
-<div class="form-group">
+<div class="form-group col-xs-6">
     <div class="help-text">
         Number of CPU's to assign to VM (only integers)
     </div>
@@ -130,6 +130,8 @@
            placeholder="1" min="1" class="form-control"
            value="{{ data.vm.cpus }}" />
 </div>
+
+<div class="clearfix"></div>
 
 {% for forwarded_port in data.vm.network.forwarded_port %}
     {% include 'PuphpetExtensionVagrantfileLocalBundle:sections:forwarded-port.html.twig' with {'forwarded_port': forwarded_port} %}
