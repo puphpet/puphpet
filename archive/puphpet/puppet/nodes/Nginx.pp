@@ -85,7 +85,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
         'locations'            => [
           {
             'location'              => '/',
-            'try_files'             => ['$uri', '$uri/', 'index.php',],
+            'try_files'             => ['$uri', '$uri/', 'index.php', '/index.php$is_args$args'],
             'fastcgi'               => '',
             'fastcgi_index'         => '',
             'fastcgi_split_path'    => '',

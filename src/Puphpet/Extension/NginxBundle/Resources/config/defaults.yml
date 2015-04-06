@@ -33,6 +33,7 @@ vhosts:
                     - '$uri'
                     - '$uri/'
                     - 'index.php'
+                    - '/index.php$is_args$args'
                 fastcgi: ~
                 fastcgi_index: ~
                 fastcgi_split_path: ~
