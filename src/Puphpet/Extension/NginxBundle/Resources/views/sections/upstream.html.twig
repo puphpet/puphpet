@@ -1,56 +1,49 @@
-{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
 {% set uniqid = uniqid('nxv_', true) %}
 
-<div class="panel panel-default" id="{{ uniqid }}">
-    <div class="panel-heading">
-        <h3 class="panel-title">Nginx Proxy Upstreams</h3>
-    </div>
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Nginx Proxy Upstreams</legend>
 
-    <div class="panel-body">
-        <div class="row form-group">
-            <div class="col-md-6">
-                <label for="nginx-upstreams-{{ uniqid }}-name">
-                    Name
-                    {{ popover.small('Name of the upstream configuration.
-                        You will reference this name in the Virtual host proxy configuration
-                        as http://{name}') }}
-                </label>
-                <input type="text" id="nginx-upstreams-{{ uniqid }}-name"
-                       name="nginx[upstreams][{{ uniqid }}][name]" placeholder="backend"
-                       value="{{ upstream.name }}" class="form-control" />
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Name of the upstream configuration. You will reference this name in the
+                Virtual host proxy configuration as <code>http://{name}</code>
             </div>
-            <div class="col-md-6">
-                <label for="nginx-upstreams-{{ uniqid }}-upstream_fail_timeout">
-                    Fail Timeout
-                    {{ popover.small('Time in seconds, example: 10s') }}
-                </label>
-                <input type="text" id="nginx-upstreams-{{ uniqid }}-upstream_fail_timeout"
-                       name="nginx[upstreams][{{ uniqid }}][upstream_fail_timeout]" placeholder="10s"
-                       value="{{ upstream.upstream_fail_timeout }}" class="form-control" />
-            </div>
-
+            <label for="nginx-upstreams-{{ uniqid }}-name">Name</label>
+            <input type="text" id="nginx-upstreams-{{ uniqid }}-name"
+                   name="nginx[upstreams][{{ uniqid }}][name]"
+                   placeholder="backend" class="form-control"
+                   value="{{ upstream.name }}" />
         </div>
 
-        <div class="row form-group">
-            <div class="col-xs-12">
-                <label for="nginx-upstreams-{{ uniqid }}-members">
-                    Members
-                    {{ popover.small('URL of your proxy servers, must be in format "{name}:{port}",
-                        ex: "localhost:3000"') }}
-                </label>
-                <select id="nginx-upstreams-{{ uniqid }}-members"
-                        name="nginx[upstreams][{{ uniqid }}][members][]"
-                        multiple class="form-control select-tags-editable">
-                    {% for member in upstream.members %}
-                        <option selected value="{{ member }}">{{ member }}</option>
-                    {% endfor %}
-                </select>
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Time in seconds, example: <code>10s</code>.
             </div>
+            <label for="nginx-upstreams-{{ uniqid }}-upstream_fail_timeout">Fail Timeout</label>
+            <input type="text" id="nginx-upstreams-{{ uniqid }}-upstream_fail_timeout"
+                   name="nginx[upstreams][{{ uniqid }}][upstream_fail_timeout]"
+                   placeholder="10s" class="form-control"
+                   value="{{ upstream.upstream_fail_timeout }}" />
         </div>
 
-        <p class="text-center">
-            <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
-                    data-parent-id="{{ uniqid }}">Remove this upstream</button>
-        </p>
-    </div>
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                URL of your proxy servers, must be in format <code>{name}:{port}</code>,
+                ex: <code>localhost:3000</code>
+            </div>
+            <label for="nginx-upstreams-{{ uniqid }}-members">Members</label>
+            <select id="nginx-upstreams-{{ uniqid }}-members"
+                   name="nginx[upstreams][{{ uniqid }}][members][]"
+                   multiple class="form-control select-tags-editable">
+                {% for member in upstream.members %}
+                    <option selected value="{{ member }}">{{ member }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </fieldset>
 </div>

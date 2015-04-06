@@ -8,3 +8,5 @@ settings:
 upstreams: []
 
 vhosts: []
+
+proxies: []

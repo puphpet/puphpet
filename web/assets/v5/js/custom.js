@@ -442,23 +442,32 @@ PUPHPET.deleteBlock = function() {
  * Can hide or show an element depending on a radio element's state
  */
 PUPHPET.toggleDisplayOnSelect = function() {
-    $(document).on('change', '.display-on-select, .hide-on-select', function(e){
-        var dataValue = this.getAttribute('data-target-id');
+    $(document).on('change', '.toggle-on-select, .display-on-select, .hide-on-select', function(e){
+        var dataValue = this.getAttribute('data-target');
 
         if (dataValue == undefined) {
             return;
         }
 
-        var targetId = snakeCaseToDash(this.getAttribute('data-target-id'));
-        var $target  = $('#' + targetId);
+        var targetId = snakeCaseToDash(this.getAttribute('data-target'));
+        console.log(targetId);
+        var $target  = $(targetId);
 
         if ($(this).hasClass('display-on-select')) {
             $target.slideDown();
+            $target.removeClass('hidden');
 
             return;
         }
 
-        $target.slideUp();
+        if ($(this).hasClass('hide-on-select')) {
+            $target.slideUp();
+
+            return;
+        }
+
+        $target.slideToggle();
+        $target.removeClass('hidden');
     });
 };
 
@@ -701,7 +710,6 @@ $(document).ready(function() {
     PUPHPET.changeTabOnAnchorChange();
     PUPHPET.displayTabFromUrl();
     PUPHPET.toggleDeployTargetVisibility();
-
     PUPHPET.sidebarMenuClick();
     PUPHPET.helpTextDisplay();
     PUPHPET.toggleDisplayOnSelect();

@@ -3,11 +3,20 @@ empty_upstream:
     members: []
     upstream_fail_timeout: 10s
 
+empty_proxy:
+    proxy: ~
+    proxy_redirect: off
+    proxy_read_timeout: 90
+    proxy_connect_timeout: 90
+    proxy_cache: ~
+    proxy_cache_valid: ~
+    proxy_method: ~
+    proxy_set_body: ~
+
 empty_vhost:
     server_name: ~
     server_aliases: []
     www_root: ~
-    proxy: ~
     listen_port: 80
     ssl: false
     ssl_port: 443

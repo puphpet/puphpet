@@ -1,79 +1,73 @@
-{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-<section id="nginx">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Install Nginx</h3>
-                </div>
+<div class="section-header hidden">
+    <h1>Nginx Web Server</h1>
+    <p class="lead">Setup Nginx. An alright webserver.</p>
+</div>
 
-                <div class="row install-checkbox-container">
-                    <div class="col-xs-12">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="update-other-input"
-                                   name="nginx[install]" data-update-apache[install]="0"
-                                   {% if nginx.install %}checked{% endif %} value="1" /> Install Nginx
-                            {% if not nginx.install %}<input type="hidden" name="nginx[install]" value="0" />{% endif %}
-                        </label>
+<div class="form-group">
+    <div class="clearfix"><label>Install</label></div>
 
-                        <p class="help-block">
-                            Only Apache or Nginx can be installed (or none at all).
-                            Installing both at the same time is not supported.
-                        </p>
-                    </div>
-                </div>
+    <label class="col-xs-12 radio-tile">
+        <input type="checkbox" name="nginx[install]" value="1" class="invisible"
+               {% if nginx.install %}checked{% endif %} />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Install Nginx</span>
+            </span>
+            <span class="footer">
+                You cannot install Apache with Nginx. Apache will be deselected.
+            </span>
+        </span>
+    </label>
 
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <label for="nginx-settings-proxy_buffers">
-                                Proxy Buffers
-                                <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffers"
-                                   target="_blank"><i
-                                        class="popover-container fa fa-question-circle text-warning"
-                                        data-original-title="" title=""></i></a>
-                            </label>
-                            <input type="text" id="nginx-settings-proxy_buffers"
-                                   name="nginx[settings][proxy_buffers]" placeholder="4 256k"
-                                   value="{{ nginx.settings.proxy_buffers }}" class="form-control" />
-                        </div>
+    <div class="clearfix"></div>
+</div>
 
-                        <div class="col-md-6">
-                            <label for="nginx-settings-proxy_buffer_size">
-                                Proxy Buffer Size
-                                <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffer_size"
-                                   target="_blank"><i
-                                        class="popover-container fa fa-question-circle text-warning"
-                                        data-original-title="" title=""></i></a>
-                            </label>
-                            <input type="text" id="nginx-settings-proxy_buffer_size"
-                                   name="nginx[settings][proxy_buffer_size]" placeholder="128k"
-                                   value="{{ nginx.settings.proxy_buffer_size }}" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-                {% for upstream in nginx.upstreams %}
-                    {% include 'PuphpetExtensionNginxBundle:sections:upstream.html.twig' with {'upstream': upstream} %}
-                {% endfor %}
+<div class="clearfix"></div>
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                data-source-url="{{ path('puphpet.extension.nginx.upstream') }}">Add an Nginx Proxy Upstream</button>
-                    </div>
-                </div>
-
-                {% for vhost in nginx.vhosts %}
-                    {% include 'PuphpetExtensionNginxBundle:sections:vhost.html.twig' with {'vhost': vhost} %}
-                {% endfor %}
-
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                data-source-url="{{ path('puphpet.extension.nginx.vhost') }}">Add another Nginx vhost</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="form-group col-xs-6">
+    <div class="help-text">
+        <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffers"
+           target="_blank">Information here</a>.
     </div>
-</section>
+    <label for="nginx-settings-proxy_buffers">Proxy Buffers</label>
+    <input type="text" id="nginx-settings-proxy_buffers"
+           name="nginx[settings][proxy_buffers]"
+           class="form-control" placeholder="4 256k"
+           value="{{ nginx.settings.proxy_buffers }}" />
+</div>
+
+<div class="form-group col-xs-6">
+    <div class="help-text">
+        <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffer_size"
+           target="_blank">Information here</a>.
+    </div>
+    <label for="nginx-settings-proxy_buffer_size">Proxy Buffer Size</label>
+    <input type="text" id="nginx-settings-proxy_buffer_size"
+           name="nginx[settings][proxy_buffer_size]"
+           class="form-control" placeholder="128k"
+           value="{{ nginx.settings.proxy_buffer_size }}" />
+</div>
+
+<div class="clearfix"></div>
+
+{% for vhost in nginx.vhosts %}
+    {% include 'PuphpetExtensionNginxBundle:sections:vhost.html.twig' with {'vhost': vhost} %}
+{% endfor %}
+
+<a href="#" data-source-url="{{ path('puphpet.extension.nginx.vhost') }}"
+   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx vhost</a>
+
+{% for upstream in nginx.upstreams %}
+    {% include 'PuphpetExtensionNginxBundle:sections:upstream.html.twig' with {'upstream': upstream} %}
+{% endfor %}
+
+<a href="#" data-source-url="{{ path('puphpet.extension.nginx.upstream') }}"
+   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx proxy upstream</a>
+
+{% for proxy in nginx.proxies %}
+    {% include 'PuphpetExtensionNginxBundle:sections:proxy.html.twig' with {'proxy': proxy} %}
+{% endfor %}
+
+<a href="#" data-source-url="{{ path('puphpet.extension.nginx.proxy') }}"
+   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx proxy</a>

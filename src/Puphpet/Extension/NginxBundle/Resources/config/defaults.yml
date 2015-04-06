@@ -7,13 +7,14 @@ settings:
 
 upstreams: []
 
+proxies: []
+
 vhosts:
     -
         server_name: awesome.dev
         server_aliases:
             - www.awesome.dev
         www_root: /var/www/awesome
-        proxy: ''
         listen_port: 80
         ssl: false
         ssl_port: 443

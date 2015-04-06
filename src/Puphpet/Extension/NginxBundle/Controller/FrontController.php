@@ -38,6 +38,13 @@ class FrontController extends Controller implements Extension\ControllerInterfac
         ]);
     }
 
+    public function proxyAction()
+    {
+        return $this->render('PuphpetExtensionNginxBundle:sections:proxy.html.twig', [
+            'proxy' => $this->getData()['empty_proxy'],
+        ]);
+    }
+
     /**
      * @return array
      */

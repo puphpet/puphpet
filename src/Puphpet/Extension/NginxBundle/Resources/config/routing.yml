@@ -6,6 +6,10 @@ puphpet.extension.nginx.upstream:
     pattern:  /upstream
     defaults: { _controller: PuphpetExtensionNginxBundle:Front:upstream }
 
+puphpet.extension.nginx.proxy:
+    pattern:  /proxy
+    defaults: { _controller: PuphpetExtensionNginxBundle:Front:proxy }
+
 puphpet.extension.nginx.vhost:
     pattern:  /vhost
     defaults: { _controller: PuphpetExtensionNginxBundle:Front:vhost }

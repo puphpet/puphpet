@@ -1,232 +1,215 @@
-{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-{% set uniqid = uniqid('nxv_', true)|lower %}
+{% set uniqid = uniqid('nxv_', true) %}
 
-<div class="panel panel-default" id="{{ uniqid }}">
-    <div class="panel-heading">
-        <h3 class="panel-title">Nginx Virtual Host</h3>
-    </div>
+{% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
+{% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
+{% set ssl_key = (vhost.ssl_key is defined) ? vhost.ssl_key : '' %}
+{% set ssl_port = (vhost.ssl_port is defined) ? vhost.ssl_port : '' %}
+{% set rewrite_to_https = (vhost.rewrite_to_https is defined) ? true : false %}
+{% set spdy = (vhost.spdy is defined) ? true : false %}
 
-    <div class="panel-body">
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Virtual Host</legend>
 
-        <div class="row form-group">
-            <div class="col-md-12">
-                <label class="checkbox-inline">
-                    <input type="checkbox" class="install-checkbox"
-                           id="nginx-vhosts-{{ uniqid }}-proxy_enabled"
-                           data-hide-on-uncheck="#nginx-vhosts-{{ uniqid }}-vhost_proxy_options"
-                           data-show-on-uncheck="#nginx-vhosts-{{ uniqid }}-vhost_options"
-                           {% if vhost.proxy is defined and vhost.proxy %}checked{% endif %} />
-                    Proxy
-                </label>
-
-                <p class="help-block">
-                    Check the box to proxy the vhost. Make sure you configure the upstream above.
-                </p>
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Don't forget to <a href="/help#update-my-hosts-file" target="_blank">update
+                    your computer's hosts file!</a>
             </div>
+            <label for="nginx-vhosts-{{ uniqid }}-server_name">Server Name</label>
+            <input type="text" id="nginx-vhosts-{{ uniqid }}-server_name"
+                   name="nginx[vhosts][{{ uniqid }}][server_name]"
+                   placeholder="awesome.dev" class="form-control"
+                   value="{{ vhost.server_name }}" />
         </div>
 
-        <!-- BEGIN PROXY -->
-        <div class="{% if vhost.proxy is defined and vhost.proxy is empty %}hidden{% endif %}"
-             id="nginx-vhosts-{{ uniqid }}-vhost_proxy_options">
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-proxy">
-                        Proxy URL
-                        {{ popover.small('This should match a upstream name configured above. e.g. http://backend') }}
-                    </label>
-                    <input type="text" id="nginx-vhosts-{{ uniqid }}-proxy"
-                           name="nginx[vhosts][{{ uniqid }}][proxy]" placeholder=""
-                           value="{{ vhost.proxy is defined ? vhost.proxy : '' }}" class="form-control" />
-                </div>
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Separated by comma.
             </div>
-        </div>
-        <!-- END PROXY -->
-
-        <!-- BEGIN VHOST -->
-        <div class="{% if vhost.proxy is defined and vhost.proxy is not empty  %}hidden{% endif %}"
-             id="nginx-vhosts-{{ uniqid }}-vhost_options">
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-server_name">
-                        Server Name
-                        {{ popover.small('Don\'t forget to <a href="/help#update-my-hosts-file" target="_blank">update
-                            your computer\'s hosts file!</a>') }}
-                    </label>
-                    <input type="text" id="nginx-vhosts-{{ uniqid }}-server_name"
-                           name="nginx[vhosts][{{ uniqid }}][server_name]" placeholder="awesome.dev"
-                           value="{{ vhost.server_name }}" class="form-control" />
-                </div>
-
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-server_aliases">
-                        Server Aliases
-                        {{ popover.small('Separated by comma') }}
-                    </label>
-                    <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
-                            name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
-                            multiple class="form-control select-tags-editable">
-                        {% if vhost.server_aliases is defined %}
-                            {% for alias in vhost.server_aliases %}
-                                <option selected value="{{ alias }}">{{ alias }}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
-                </div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-www_root">
-                        Document Root
-                        {{ popover.small('Location of your site\'s index.php file, or other landing page.') }}
-                    </label>
-                    <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
-                           name="nginx[vhosts][{{ uniqid }}][www_root]" placeholder="/var/www/awesome"
-                           value="{{ vhost.www_root }}" class="form-control" />
-                </div>
-
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-listen_port">
-                        Port
-                        {{ popover.small('80 for normal browsing, if you choose another append it to the URL,
-                            ex: http://awesome.dev:1337') }}
-                    </label>
-                    <input type="number" id="nginx-vhosts-{{ uniqid }}-listen_port"
-                           name="nginx[vhosts][{{ uniqid }}][listen_port]" placeholder="80"
-                           value="{{ vhost.listen_port }}" class="form-control" />
-                </div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-index_files">
-                        Index Files
-                        {{ popover.small('The last file should be the accessor to your PHP script or front controller') }}
-                    </label>
-                    <select id="nginx-vhosts-{{ uniqid }}-index_files"
-                            name="nginx[vhosts][{{ uniqid }}][index_files][]"
-                            multiple class="form-control select-tags-editable">
-                        {% for index_file in vhost.index_files %}
-                            <option selected value="{{ index_file }}">{{ index_file }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-client-max-body-size">
-                        Client Max Body Size
-                        {{ popover.small('Value in megabytes (1m = 1 megabyte). 0 = disabled') }}
-                    </label>
-                    <input type="text" id="nginx-vhosts-{{ uniqid }}-client-max-body-size"
-                           name="nginx[vhosts][{{ uniqid }}][client_max_body_size]" placeholder="\.php$"
-                           value="{{ vhost.client_max_body_type is defined ? vhost.client_max_body_type : '1m' }}" class="form-control" />
-                </div>
-            </div>
-
-            {% for location in vhost.locations %}
-                {% include 'PuphpetExtensionNginxBundle:sections:location.html.twig' with {'vhostId': uniqid, 'location': location} %}
-            {% endfor %}
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                    <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                            data-source-url="{{ path('puphpet.extension.nginx.location', {'vhostId': uniqid}) }}">Add another Nginx vhost location</button>
-                </div>
-            </div>
-        </div>
-        <!-- END VHOST -->
-
-        <div class="row form-group">
-            <div class="col-md-12">
-                <label class="checkbox-inline">
-                    <input type="checkbox"
-                           class="install-checkbox
-                                  update-other-input-on-check
-                                  update-other-input-on-uncheck"
-                           id="nginx-vhosts-{{ uniqid }}-ssl"
-                           name="nginx[vhosts][{{ uniqid }}][ssl]" value="1"
-                           data-hide-on-uncheck="#nginx-vhosts-{{ uniqid }}-ssl_options"
-                           {% if vhost.ssl is defined and vhost.ssl %}checked{% endif %} />
-                    Enable SSL
-                </label>
-            </div>
+            <label for="nginx-vhosts-{{ uniqid }}-server_aliases">Server Aliases</label>
+            <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
+                    name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
+                    multiple class="form-control select-tags-editable">
+                {% if vhost.server_aliases is defined %}
+                    {% for alias in vhost.server_aliases %}
+                        <option selected value="{{ alias }}">{{ alias }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
         </div>
 
-        <div class="{% if vhost.ssl is not defined or not vhost.ssl %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-ssl_options">
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-ssl_cert">
-                        SSL Certificate File Path
-                        {{ popover.small('Absolute path to SSL Certificate File. Usually ends in .crt.
-                            Leave blank to use a generic one.
-                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                            This should be the location within the VM, not the host!
-                            <a href="http://nginx.org/en/docs/http/configuring_https_servers.html" target="_blank">Learn more about this</a>.') }}
-                    </label>
-                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
-                           name="nginx[vhosts][{{ uniqid }}][ssl_cert]"
-                           placeholder="/leave/blank/for/sample"
-                           value="{% if vhost.ssl_cert is defined %}{{ vhost.ssl_cert }}{% endif %}" class="form-control" />
-                </div>
+        <div class="clearfix"></div>
 
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-ssl_key">
-                        SSL Certificate Key File Path
-                        {{ popover.small('Absolute path to SSL Certificate Key File. Usually ends in .key.
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Location of your site's <code>index.php</code> file, or other landing page.
+            </div>
+            <label for="nginx-vhosts-{{ uniqid }}-www_root">Document Root</label>
+            <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
+                   name="nginx[vhosts][{{ uniqid }}][www_root]"
+                   placeholder="/var/www/awesome" class="form-control"
+                   value="{{ vhost.www_root }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <code>80</code> for normal browsing, if you choose another append
+                it to the URL in your browser, eg: <code>http://awesome.dev:1337</code>
+            </div>
+            <label for="nginx-vhosts-{{ uniqid }}-listen_port">Port</label>
+            <input type="number" id="nginx-vhosts-{{ uniqid }}-listen_port"
+                   name="nginx[vhosts][{{ uniqid }}][listen_port]"
+                   placeholder="/var/www/awesome" class="form-control"
+                   value="{{ vhost.listen_port }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                The last file should be the accessor to your PHP script or front controller.
+            </div>
+            <label for="nginx-vhosts-{{ uniqid }}-index_files">Index Files</label>
+            <select id="nginx-vhosts-{{ uniqid }}-index_files"
+                    name="nginx[vhosts][{{ uniqid }}][index_files][]"
+                    multiple class="form-control select-tags-editable">
+                {% for index_file in vhost.index_files %}
+                    <option selected value="{{ index_file }}">{{ index_file }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Value in megabytes (<code>1m</code> = 1 megabyte). <code>0</code> = disabled
+            </div>
+            <label for="nginx-vhosts-{{ uniqid }}-client-max-body-size">Client Max Body Size</label>
+            <input type="text" id="nginx-vhosts-{{ uniqid }}-client-max-body-size"
+                   name="nginx[vhosts][{{ uniqid }}][client_max_body_size]"
+                   placeholder="1m" class="form-control"
+                   value="{{ vhost.client_max_body_type is defined ? vhost.client_max_body_type : '1m' }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group">
+            <div class="clearfix"><label>Enable SSL</label></div>
+
+            <label class="radio-tile mini set-width">
+                <span class="help-text">
+                    Check to enable SSL options.
+                </span>
+                <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][ssl]"
+                       class="invisible toggle-on-select"
+                       {% if ssl %}checked{% endif %}
+                       value="1" data-target="#nginx-vhosts-{{ uniqid }}-ssl_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable SSL</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="{% if not ssl %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-ssl_options">
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    <p>Absolute path to SSL Certificate File. Usually ends in .crt.
+                        Leave blank to use a generic one.
+                        <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                        This should be the location within the VM, not the host!</p>
+
+                    <p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html"
+                       target="_blank">Learn more about this</a>.</p>
+                </div>
+                <label for="nginx-vhosts-{{ uniqid }}-ssl_cert">SSL Certificate File Path</label>
+                <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
+                       name="nginx[vhosts][{{ uniqid }}][ssl_cert]"
+                       placeholder="/leave/blank/for/sample" class="form-control"
+                       value="{{ ssl_cert }}" />
+            </div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    <p>Absolute path to SSL Certificate Key File. Usually ends in .key.
                             Leave blank to use a generic one
                             <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                            This should be the location within the VM, not the host!
-                            <a href="http://nginx.org/en/docs/http/configuring_https_servers.html" target="_blank">Learn more about this</a>.') }}
-                    </label>
-                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_key"
-                           name="nginx[vhosts][{{ uniqid }}][ssl_key]"
-                           placeholder="/leave/blank/for/sample"
-                           value="{% if vhost.ssl_key is defined %}{{ vhost.ssl_key }}{% endif %}" class="form-control" />
+                            This should be the location within the VM, not the host!</p>
+
+                    <p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html"
+                          target="_blank">Learn more about this</a>.</p>
                 </div>
+                <label for="nginx-vhosts-{{ uniqid }}-ssl_key">SSL Certificate Key File Path</label>
+                <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_key"
+                       name="nginx[vhosts][{{ uniqid }}][ssl_key]"
+                       placeholder="/leave/blank/for/sample" class="form-control"
+                       value="{{ ssl_key }}" />
             </div>
 
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="nginx-vhosts-{{ uniqid }}-ssl_port">
-                        {{ popover.small('Should be different from the normal Port chosen above!') }}
-                        SSL Port
-                    </label>
-                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_port"
-                           name="nginx[vhosts][{{ uniqid }}][ssl_port]"
-                           value="{{ vhost.ssl_port }}"
-                           class="form-control" />
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    Should be different from the normal Port chosen above!
                 </div>
+                <label for="nginx-vhosts-{{ uniqid }}-ssl_port">SSL Port</label>
+                <input type="number" id="nginx-vhosts-{{ uniqid }}-ssl_port"
+                       name="nginx[vhosts][{{ uniqid }}][ssl_port]"
+                       placeholder="443" class="form-control"
+                       value="{{ ssl_port }}" />
             </div>
 
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" id="nginx-vhosts-{{ uniqid }}-rewrite_to_https"
-                               name="nginx[vhosts][{{ uniqid }}][rewrite_to_https]" value="1"
-                               {% if vhost.rewrite_to_https is defined and vhost.rewrite_to_https %}checked{% endif %} />
-                        Rewrite to SSL
-                        {{ popover.small('Forwards all non-SSL traffic to SSL vhost.') }}
-                    </label>
-                </div>
+            <div class="clearfix"></div>
 
-                <div class="col-md-6">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" id="nginx-vhosts-{{ uniqid }}-spdy"
-                               name="nginx[vhosts][{{ uniqid }}][spdy]" value="1"
-                               {% if vhost.spdy is defined and vhost.spdy %}checked{% endif %} />
-                        Enable <a href="http://blog.cloudflare.com/introducing-spdy" target="_blank">Spdy Module</a>
-                    </label>
-                </div>
+            <div class="form-group col-xs-12">
+                <div class="clearfix"><label>SSL-Only Options</label></div>
+
+                <label class="radio-tile mini set-width">
+                    <span class="help-text">
+                        Forwards all non-SSL traffic to SSL vhost.
+                    </span>
+                    <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][rewrite_to_https]"
+                           class="invisible" {% if rewrite_to_https %}checked{% endif %}
+                           value="1" />
+                    <span class="content">
+                        <span class="header">
+                            <i class="icon"></i>
+                            <span class="title">Rewrite to SSL</span>
+                        </span>
+                    </span>
+                </label>
+
+                <label class="radio-tile mini set-width">
+                    <span class="help-text">
+                        <a href="http://blog.cloudflare.com/introducing-spdy"
+                           target="_blank">Learn more about this</a>.
+                    </span>
+                    <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][spdy]"
+                           class="invisible" {% if spdy %}checked{% endif %}
+                           value="1" />
+                    <span class="content">
+                        <span class="header">
+                            <i class="icon"></i>
+                            <span class="title">Enable Spdy Module</span>
+                        </span>
+                    </span>
+                </label>
             </div>
-
-            <p class="help-block">
-                There is currently a bug where self-signed certificate will not work in CentOS for Nginx. PRs are welcome!
-            </p>
         </div>
 
-        <p class="text-center">
-            <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
-                    data-parent-id="{{ uniqid }}">Remove this vhost</button>
-        </p>
-    </div>
+        <div class="clearfix"></div>
+
+        {% for location in vhost.locations %}
+            {% include 'PuphpetExtensionNginxBundle:sections:location.html.twig' with {'vhostId': uniqid, 'location': location} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.extension.nginx.location', {'vhostId': uniqid}) }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add a vhost location</a>
+
+        <div class="clearfix"></div>
+    </fieldset>
 </div>
