@@ -79,7 +79,7 @@
                 <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
                        class="invisible hide-on-select"
                        {% if sync_type == 'default' %}checked{% endif %}
-                       value="{{ sync_type }}" data-target-id="rsync-folder-options-{{ uniqid }}" />
+                       value="{{ sync_type }}" data-target="#rsync-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
                         <i class="icon"></i>
@@ -102,7 +102,7 @@
                 <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
                        class="invisible hide-on-select"
                        {% if sync_type == 'nfs' %}checked{% endif %}
-                       value="{{ sync_type }}" data-target-id="rsync-folder-options-{{ uniqid }}" />
+                       value="{{ sync_type }}" data-target="#rsync-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
                         <i class="icon"></i>
@@ -120,7 +120,7 @@
                 <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
                        class="invisible hide-on-select"
                        {% if sync_type == 'smb' %}checked{% endif %}
-                       value="{{ sync_type }}" data-target-id="rsync-folder-options-{{ uniqid }}" />
+                       value="{{ sync_type }}" data-target="#rsync-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
                         <i class="icon"></i>
@@ -144,7 +144,7 @@
                 <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
                        class="invisible display-on-select"
                        {% if sync_type == 'rsync' %}checked{% endif %}
-                       value="{{ sync_type }}" data-target-id="rsync-folder-options-{{ uniqid }}" />
+                       value="{{ sync_type }}" data-target="#rsync-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
                         <i class="icon"></i>
