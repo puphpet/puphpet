@@ -188,13 +188,13 @@ PUPHPET.updateOtherInputOnCheck = function() {
                     return 1;
                 }
 
-                $target.prop('checked', checked);
+                $target.prop('checked', checked).trigger('change');
 
                 return true;
             }
 
             if (!$target.is(':radio') && !$target.is(':checkbox')) {
-                $target.val(value);
+                $target.val(value).trigger('change');
             }
         });
     });
@@ -442,32 +442,51 @@ PUPHPET.deleteBlock = function() {
  * Can hide or show an element depending on a radio element's state
  */
 PUPHPET.toggleDisplayOnSelect = function() {
-    $(document).on('change', '.toggle-on-select, .display-on-select, .hide-on-select', function(e){
-        var dataValue = this.getAttribute('data-target');
+    $(document).on('change', '.show-on-select', function(e) {
+        var dataValue = this.getAttribute('data-vis-show-target');
 
         if (dataValue == undefined) {
             return;
         }
 
-        var targetId = snakeCaseToDash(this.getAttribute('data-target'));
-        console.log(targetId);
+        var targetId = snakeCaseToDash(dataValue);
+        $(targetId).hide().removeClass('hidden').slideDown();
+    });
+
+    $(document).on('change', '.hide-on-select', function(e) {
+        var dataValue = this.getAttribute('data-vis-hide-target');
+
+        if (dataValue == undefined) {
+            return;
+        }
+
+        var targetId = snakeCaseToDash(dataValue);
+        $(targetId).slideUp();
+    });
+
+    $(document).on('change', '.toggle-on-select', function(e){
+        var dataValue = this.getAttribute('data-vis-toggle-target');
+
+        if (dataValue == undefined) {
+            return;
+        }
+
+        var targetId = snakeCaseToDash(dataValue);
         var $target  = $(targetId);
 
-        if ($(this).hasClass('display-on-select')) {
-            $target.slideDown();
-            $target.removeClass('hidden');
-
-            return;
-        }
-
-        if ($(this).hasClass('hide-on-select')) {
+        // If unchecking, and target is visible, hide target
+        if ($(this).not(':checked') && $target.css('display') != 'none') {
             $target.slideUp();
 
-            return;
+            return true;
         }
 
-        $target.slideToggle();
-        $target.removeClass('hidden');
+        // If checking, and target is invisible, show target
+        if ($(this).is(':checked') && $target.css('display') == 'none') {
+            $target.hide();
+            $target.removeClass('hidden');
+            $target.slideDown();
+        }
     });
 };
 
