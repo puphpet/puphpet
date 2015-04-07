@@ -707,11 +707,11 @@ PUPHPET.displayTabFromUrl = function () {
 PUPHPET.toggleDeployTargetVisibility = function() {
     $(document).on('change', 'input:radio[name="vagrantfile[target]"]', function(e) {
         var $tab = $('#vagrantfile-' + $(this).val());
-        $('.hideable', $tab).removeClass('hidden');
+        $('.hideable', $tab).hide().removeClass('hidden').slideDown();
 
         $('input:radio[name="vagrantfile[target]"]').not(this).each(function() {
             var $tab = $('#vagrantfile-' + $(this).val());
-            $('.hideable', $tab).addClass('hidden');
+            $('.hideable', $tab).hide();
         });
     });
 };
