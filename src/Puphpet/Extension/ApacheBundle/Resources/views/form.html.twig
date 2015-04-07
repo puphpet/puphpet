@@ -1,61 +1,51 @@
-{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-<section id="apache">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="alert alert-danger" role="alert">
-                <p>
-                    <strong>Warning!</strong>
-                    PuPHPet has dropped support for mod_php. You are encouraged to use fastcgi.
-                </p>
-            </div>
-        </div>
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Apache Modules</h3>
-                </div>
+<div class="section-header hidden">
+    <h1>Apache Web Server</h1>
+    <p class="lead">Setup Apache. Not as hip as Nginx.</p>
+</div>
 
-                <div class="row install-checkbox-container">
-                    <div class="col-xs-12">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" class="update-other-input"
-                                   name="apache[install]" data-update-nginx[install]="0"
-                                   {% if apache.install %}checked{% endif %} value="1" /> Install Apache2
-                            {% if not apache.install %}<input type="hidden" name="apache[install]" value="0" />{% endif %}
-                        </label>
+<div class="form-group">
+    <div class="clearfix"><label>Install</label></div>
 
-                        <p class="help-block">
-                            Only Apache or Nginx can be installed (or none at all).
-                            Installing both at the same time is not supported.
-                        </p>
-                    </div>
-                </div>
+    <label class="col-xs-12 radio-tile">
+        <input type="checkbox" name="apache[install]" value="1" class="invisible"
+               {% if apache.install %}checked{% endif %} />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Install Apache</span>
+            </span>
+            <span class="footer">
+                You cannot install Nginx with Apache. Nginx will be deselected.
+            </span>
+        </span>
+    </label>
 
-                <div class="panel-body">
-                    <div class="row form-group">
-                        <div class="col-xs-12">
-                            <label for="apache-modules">Apache Modules</label>
-                            <select id="apache-modules" name="apache[modules][]" multiple class="form-control select-tags">
-                                {% for module in apache.available_modules %}
-                                    <option value="{{ module }}"
-                                        {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                </div>
+    <div class="clearfix"></div>
+</div>
 
-                {% for vhost in apache.vhosts %}
-                    {% include 'PuphpetExtensionApacheBundle:sections:vhost.html.twig' with {'vhost': vhost} %}
-                {% endfor %}
+<div class="clearfix"></div>
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                data-source-url="{{ path('puphpet.extension.apache.vhost') }}">Add another Apache vhost</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="form-group col-xs-12">
+    <div class="help-text">
+        <code>proxy_fcgi</code> is required for PHP.
     </div>
-</section>
+    <label for="apache-modules">Apache Modules</label>
+    <select id="apache-modules"
+            name="apache[modules][]"
+            multiple class="form-control select-tags-editable">
+        {% for module in apache.available_modules %}
+            <option value="{{ module }}"
+            {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="clearfix"></div>
+
+{% for vhost in apache.vhosts %}
+    {% include 'PuphpetExtensionApacheBundle:sections:vhost.html.twig' with {'vhost': vhost} %}
+{% endfor %}
+
+<a href="#" data-source-url="{{ path('puphpet.extension.apache.vhost') }}"
+   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Apache vhost</a>
+

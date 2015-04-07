@@ -1,199 +1,220 @@
-{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-{% set uniqid = uniqid('av_', true)|lower %}
+{% set uniqid = uniqid('av_', true) %}
 
-<div class="panel panel-default" id="{{ uniqid }}">
-    <div class="panel-heading">
-        <h3 class="panel-title">Apache Virtual Host</h3>
-    </div>
+{% set serveraliases = (vhost.serveraliases is defined) ? vhost.serveraliases : [] %}
+{% set setenvs = (vhost.setenv is defined) ? vhost.setenv : [] %}
+{% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
+{% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
+{% set ssl_key = (vhost.ssl_key is defined) ? vhost.ssl_key : '' %}
+{% set ssl_certs_dir = (vhost.ssl_certs_dir is defined) ? vhost.ssl_certs_dir : '' %}
+{% set directories = (vhost.directories is defined) ? vhost.directories : [] %}
 
-    <div class="panel-body">
-        <div class="row form-group">
-            <div class="col-md-6">
-                <label for="apache-vhosts-{{ uniqid }}-servername">
-                    Server Name
-                    {{ popover.small('Don\'t forget to <a href="/help#update-my-hosts-file" target="_blank">update
-                        your computer\'s hosts file!</a>') }}
-                </label>
-                <input type="text" id="apache-vhosts-{{ uniqid }}-servername"
-                       name="apache[vhosts][{{ uniqid }}][servername]" placeholder="awesome.dev"
-                       value="{{ vhost.servername }}" class="form-control" />
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Virtual Host</legend>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Don't forget to <a href="/help#update-my-hosts-file" target="_blank">update
+                    your computer's hosts file!</a>
+            </div>
+            <label for="apache-vhosts-{{ uniqid }}-servername">Server Name</label>
+            <input type="text" id="apache-vhosts-{{ uniqid }}-servername"
+                   name="apache[vhosts][{{ uniqid }}][servername]"
+                   placeholder="awesome.dev" class="form-control"
+                   value="{{ vhost.servername }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Separated by comma.
+            </div>
+            <label for="apache-vhosts-{{ uniqid }}-serveraliases">Server Aliases</label>
+            <select id="apache-vhosts-{{ uniqid }}-serveraliases"
+                    name="apache[vhosts][{{ uniqid }}][serveraliases][]"
+                    multiple class="form-control select-tags-editable">
+                {% for alias in serveraliases %}
+                    <option selected value="{{ alias }}">{{ alias }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Location of your site's index.php file, or other landing page.
+            </div>
+            <label for="apache-vhosts-{{ uniqid }}-docroot">Document Root</label>
+            <input type="text" id="apache-vhosts-{{ uniqid }}-docroot"
+                   name="apache[vhosts][{{ uniqid }}][docroot]"
+                   placeholder="/var/www" class="form-control"
+                   value="{{ vhost.docroot }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <code>80</code> for normal browsing, if you choose another append
+                it to the URL in your browser, eg: <code>http://awesome.dev:1337</code>
+            </div>
+            <label for="apache-vhosts-{{ uniqid }}-port">Port</label>
+            <input type="number" id="apache-vhosts-{{ uniqid }}-port"
+                   name="apache[vhosts][{{ uniqid }}][port]"
+                   placeholder="80" class="form-control"
+                   value="{{ vhost.port }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                <code>name value</code>, separated by comma.
+            </div>
+            <label for="apache-vhosts-{{ uniqid }}-setenv">Environment Variables</label>
+            <select id="apache-vhosts-{{ uniqid }}-setenv"
+                    name="apache[vhosts][{{ uniqid }}][setenv][]"
+                    multiple class="form-control select-tags-editable">
+                {% for setenv in setenvs %}
+                    <option selected value="{{ setenv }}">{{ setenv }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                File must exist inside VM on initial <code>$ vagrant up</code>!
+                <a href="http://git.io/h7tY"
+                   target="_blank">The custom fragment would be added here.</a>
+            </div>
+            <label for="apache-vhosts-{{ uniqid }}-custom_fragment">Virtual Host-Level Custom Directives</label>
+            <input type="text" id="apache-vhosts-{{ uniqid }}-custom_fragment"
+                   name="apache[vhosts][{{ uniqid }}][custom_fragment]"
+                   placeholder="/path/to/file" class="form-control"
+                   value="{{ vhost.custom_fragment }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group">
+            <div class="clearfix"><label>Enable SSL</label></div>
+
+            <label class="radio-tile mini set-width">
+                <span class="help-text">
+                    Check to enable SSL options.
+                </span>
+                <input type="checkbox" name="apache[vhosts][{{ uniqid }}][ssl]"
+                       class="invisible toggle-on-select
+                              update-other-input-on-check update-other-input-on-uncheck"
+                       {% if ssl %}checked{% endif %}
+                       value="1" data-target="#apache-vhosts-{{ uniqid }}-ssl_options"
+                       data-update-on-check-apache[vhosts][{{ uniqid }}][port]="443"
+                       data-update-on-uncheck-apache[vhosts][{{ uniqid }}][port]="80" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable SSL</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="{% if not ssl %}hidden{% endif %}" id="apache-vhosts-{{ uniqid }}-ssl_options">
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    <p>Absolute path to SSL Certificate File. Usually ends in .crt.
+                        Leave blank to use a generic one.
+                        <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                        This should be the location within the VM, not the host!</p>
+
+                    <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatefile"
+                       target="_blank">Learn more about this</a>.</p>
+                </div>
+                <label for="apache-vhosts-{{ uniqid }}-ssl_cert">SSL Certificate File Path</label>
+                <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
+                       name="apache[vhosts][{{ uniqid }}][ssl_cert]"
+                       placeholder="/leave/blank/for/sample" class="form-control"
+                       value="{{ ssl_cert }}" />
             </div>
 
-            <div class="col-md-6">
-                <label for="apache-vhosts-{{ uniqid }}-serveraliases">
-                    Server Aliases
-                    {{ popover.small('Separated by comma') }}
-                </label>
-                <select id="apache-vhosts-{{ uniqid }}-serveraliases"
-                        name="apache[vhosts][{{ uniqid }}][serveraliases][]"
-                        multiple class="form-control select-tags-editable">
-                    {% if vhost.serveraliases is defined %}
-                        {% for alias in vhost.serveraliases %}
-                            <option selected value="{{ alias }}">{{ alias }}</option>
-                        {% endfor %}
-                    {% endif %}
-                </select>
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    <p>Absolute path to SSL Certificate Key File. Usually ends in .key.
+                        Leave blank to use a generic one.
+                        <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                        This should be the location within the VM, not the host!</p>
+
+                    <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatekeyfile"
+                       target="_blank">Learn more about this</a>.</p>
+                </div>
+                <label for="apache-vhosts-{{ uniqid }}-ssl_key">SSL Certificate Key File</label>
+                <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_key"
+                       name="apache[vhosts][{{ uniqid }}][ssl_key]"
+                       placeholder="/leave/blank/for/sample" class="form-control"
+                       value="{{ ssl_key }}" />
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    <p>Absolute path to SSL Certificate Chain File.
+                        Usually ends in .crt and may have the name of your SSL provider.
+                        Leave blank to use a generic one.
+                        <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                        This should be the location within the VM, not the host!</p>
+
+                    <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatechainfile"
+                       target="_blank">Learn more about this</a>.</p>
+                </div>
+                <label for="apache-vhosts-{{ uniqid }}-ssl_chain">SSL Certificate Chain File Path</label>
+                <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_chain"
+                       name="apache[vhosts][{{ uniqid }}][ssl_chain]"
+                       placeholder="/leave/blank/for/sample" class="form-control"
+                       value="{{ ssl_certs_dir }}" />
+            </div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    <p>Absolute path to SSL CL Certificate.
+                        Leave blank to use a generic one.
+                        <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                        This should be the location within the VM, not the host!</p>
+
+                    <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcacertificatepath"
+                       target="_blank">Learn more about this</a>.</p>
+                </div>
+                <label for="apache-vhosts-{{ uniqid }}-ssl_certs_dir">SSL CL Certificate Path</label>
+                <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_certs_dir"
+                       name="apache[vhosts][{{ uniqid }}][ssl_certs_dir]"
+                       placeholder="/leave/blank/for/sample" class="form-control"
+                       value="{{ ssl_certs_dir }}" />
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="help-block">
+                <p>To redirect all non-SSL traffic to SSL, create two vhosts - one on
+                    port 80 and one on port 443.</p>
+                <p>Add <code>Redirect permanent / https://{YOUR_VHOST_NAME}/</code> to
+                    the non-SSL vhost's Custom Directives to redirect all traffic to
+                    the SSL vhost.</p>
             </div>
         </div>
 
-        <div class="row form-group">
-            <div class="col-md-6">
-                <label for="apache-vhosts-{{ uniqid }}-docroot">
-                    Document Root
-                    {{ popover.small('Location of your site\'s index.php file, or other landing page.') }}
-                </label>
-                <input type="text" id="apache-vhosts-{{ uniqid }}-docroot"
-                       name="apache[vhosts][{{ uniqid }}][docroot]" placeholder="/var/www"
-                       value="{{ vhost.docroot }}" class="form-control" />
-            </div>
+        <div class="clearfix"></div>
 
-            <div class="col-md-6">
-                <label for="apache-vhosts-{{ uniqid }}-port">
-                    Port
-                    {{ popover.small('80 for normal browsing, if you choose another append it to the URL,
-                        ex: http://awesome.dev:1337') }}
-                </label>
-                <input type="number" id="apache-vhosts-{{ uniqid }}-port"
-                       name="apache[vhosts][{{ uniqid }}][port]" placeholder="80"
-                       value="{{ vhost.port }}" class="form-control" />
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <div class="col-md-6">
-                <label for="apache-vhosts-{{ uniqid }}-setenv">
-                    Environment Variables
-                    {{ popover.small('"name value", separated by comma') }}
-                </label>
-                <select id="apache-vhosts-{{ uniqid }}-setenv"
-                        name="apache[vhosts][{{ uniqid }}][setenv][]"
-                        multiple class="form-control select-tags-editable">
-                    {% if vhost.setenv is defined %}
-                        {% for setenv in vhost.setenv %}
-                            <option selected value="{{ setenv }}">{{ setenv }}</option>
-                        {% endfor %}
-                    {% endif %}
-                </select>
-            </div>
-
-            <div class="col-md-6">
-                <label for="apache-vhosts-{{ uniqid }}-custom_fragment">
-                    Virtual Host-Level Custom Directives
-                    {{ popover.small('File must exist inside VM on initial "$ vagrant up"!
-                        <a href="http://git.io/h7tY" target="_blank">The custom fragment would be added here.</a>') }}
-                </label>
-                <input type="text" id="apache-vhosts-{{ uniqid }}-custom_fragment"
-                       name="apache[vhosts][{{ uniqid }}][custom_fragment]" placeholder="/path/to/file"
-                       value="{{ vhost.custom_fragment }}" class="form-control" />
-            </div>
-        </div>
-
-        {% for directory in vhost.directories %}
+        {% for directory in directories %}
             {% include 'PuphpetExtensionApacheBundle:sections:directory.html.twig' with {'vhostId': uniqid, 'directory': directory} %}
         {% endfor %}
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                        data-source-url="{{ path('puphpet.extension.apache.directory', {'vhostId': uniqid}) }}">Add another Apache vhost directory</button>
-            </div>
-        </div>
+        <a href="#" data-source-url="{{ path('puphpet.extension.apache.directory', {'vhostId': uniqid}) }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add a vhost directory</a>
 
-        <div class="row form-group">
-            <div class="col-md-12">
-                <label class="checkbox-inline">
-                    <input type="checkbox"
-                           class="install-checkbox
-                                  update-other-input-on-check
-                                  update-other-input-on-uncheck"
-                           id="apache-vhosts-{{ uniqid }}-ssl"
-                           name="apache[vhosts][{{ uniqid }}][ssl]" value="1"
-                           data-hide-on-uncheck="#apache-vhosts-{{ uniqid }}-ssl_options"
-                           data-update-on-check-apache[vhosts][{{ uniqid }}][port]="443"
-                           data-update-on-uncheck-apache[vhosts][{{ uniqid }}][port]="80"
-                           {% if vhost.ssl is defined and vhost.ssl %}checked{% endif %} />
-                    Enable SSL
-                </label>
-            </div>
-        </div>
-
-        <div class="{% if vhost.ssl is not defined or not vhost.ssl %}hidden{% endif %}" id="apache-vhosts-{{ uniqid }}-ssl_options">
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="apache-vhosts-{{ uniqid }}-ssl_cert">
-                        SSL Certificate File Path
-                        {{ popover.small('Absolute path to SSL Certificate File. Usually ends in .crt.
-                            Leave blank to use a generic one.
-                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                            This should be the location within the VM, not the host!
-                            <a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatefile" target="_blank">Learn more about this</a>.') }}
-                    </label>
-                    <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_cert"
-                           name="apache[vhosts][{{ uniqid }}][ssl_cert]"
-                           placeholder="" value="{% if vhost.ssl_cert is defined %}{{ vhost.ssl_cert }}{% endif %}" class="form-control" />
-                </div>
-
-                <div class="col-md-6">
-                    <label for="apache-vhosts-{{ uniqid }}-ssl_key">
-                        SSL Certificate Key File Path
-                        {{ popover.small('Absolute path to SSL Certificate Key File. Usually ends in .key.
-                            Leave blank to use a generic one
-                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                            This should be the location within the VM, not the host!
-                            <a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatekeyfile" target="_blank">Learn more about this</a>.') }}
-                    </label>
-                    <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_key"
-                           name="apache[vhosts][{{ uniqid }}][ssl_key]"
-                           placeholder="" value="{% if vhost.ssl_key is defined %}{{ vhost.ssl_key }}{% endif %}" class="form-control" />
-                </div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <label for="apache-vhosts-{{ uniqid }}-ssl_chain">
-                        SSL Certificate Chain File Path
-                        {{ popover.small('Absolute path to SSL Certificate Chain File Path.
-                            Usually ends in .crt and may have the name of your SSL provider.
-                            Leave blank to use a generic one
-                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                            This should be the location within the VM, not the host!
-                            <a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatechainfile" target="_blank">Learn more about this</a>.') }}
-                    </label>
-                    <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_chain"
-                           name="apache[vhosts][{{ uniqid }}][ssl_chain]"
-                           placeholder="" value="{% if vhost.ssl_chain is defined %}{{ vhost.ssl_chain }}{% endif %}" class="form-control" />
-                </div>
-
-                <div class="col-md-6">
-                    <label for="apache-vhosts-{{ uniqid }}-ssl_certs_dir">
-                        SSL CL Certificate Path
-                        {{ popover.small('Absolute path to SSL CL Certificate Path.
-                            Leave blank to use a generic one
-                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                            This should be the location within the VM, not the host!
-                            <a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcacertificatepath" target="_blank">Learn more about this</a>.') }}
-                    </label>
-                    <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_certs_dir"
-                           name="apache[vhosts][{{ uniqid }}][ssl_certs_dir]"
-                           placeholder="" value="{% if vhost.ssl_certs_dir is defined %}{{ vhost.ssl_certs_dir }}{% endif %}" class="form-control" />
-                </div>
-            </div>
-
-            <p class="help-block">
-                To redirect all non-SSL traffic to SSL, create two vhosts - one on port 80 and one on port 443.<br /><br />
-                Add <code>Redirect permanent / https://{YOUR_VHOST_NAME}/</code> to the non-SSL vhost's
-                Custom Directives to redirect all traffic to the SSL vhost.
-            </p>
-        </div>
-
-        <div class="row form-group">
-            <div class="col-md-12">
-                <p class="text-center">
-                    <button type="button" class="btn btn-danger btn-sm deleteParentContainer"
-                            data-parent-id="{{ uniqid }}">Remove this vhost</button>
-                </p>
-            </div>
-        </div>
-
-    </div>
+        <div class="clearfix"></div>
+    </fieldset>
 </div>

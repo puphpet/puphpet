@@ -1,5 +1,6 @@
 {% set uniqid = uniqid('nxv_', true) %}
 
+{% set server_aliases = (vhost.server_aliases is defined) ? vhost.server_aliases : [] %}
 {% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
 {% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
 {% set ssl_key = (vhost.ssl_key is defined) ? vhost.ssl_key : '' %}
@@ -33,11 +34,9 @@
             <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
                     name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
                     multiple class="form-control select-tags-editable">
-                {% if vhost.server_aliases is defined %}
-                    {% for alias in vhost.server_aliases %}
-                        <option selected value="{{ alias }}">{{ alias }}</option>
-                    {% endfor %}
-                {% endif %}
+                {% for alias in server_aliases %}
+                    <option selected value="{{ alias }}">{{ alias }}</option>
+                {% endfor %}
             </select>
         </div>
 
@@ -114,6 +113,8 @@
                 </span>
             </label>
         </div>
+
+        <div class="clearfix"></div>
 
         <div class="{% if not ssl %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-ssl_options">
             <div class="form-group col-xs-6">

@@ -383,6 +383,10 @@ legend {
         background: #2c9ab7 !important;
     }
 
+    .selectize-control.plugin-remove_button .item .remove {
+        padding-top: 3px;
+    }
+
     .form-control.selectize-control {
         padding-left: 0;
         margin-left: 5px;
