@@ -109,7 +109,8 @@
                        class="invisible toggle-on-select
                               update-other-input-on-check update-other-input-on-uncheck"
                        {% if ssl %}checked{% endif %}
-                       value="1" data-target="#apache-vhosts-{{ uniqid }}-ssl_options"
+                       value="1"
+                       data-vis-toggle-target="#apache-vhosts-{{ uniqid }}-ssl_options"
                        data-update-on-check-apache[vhosts][{{ uniqid }}][port]="443"
                        data-update-on-uncheck-apache[vhosts][{{ uniqid }}][port]="80" />
                 <span class="content">
@@ -123,87 +124,91 @@
 
         <div class="clearfix"></div>
 
-        <div class="{% if not ssl %}hidden{% endif %}" id="apache-vhosts-{{ uniqid }}-ssl_options">
-            <div class="form-group col-xs-6">
-                <div class="help-text">
-                    <p>Absolute path to SSL Certificate File. Usually ends in .crt.
-                        Leave blank to use a generic one.
-                        <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                        This should be the location within the VM, not the host!</p>
+        <div class="nested-block {% if not ssl %}hidden{% endif %}" id="apache-vhosts-{{ uniqid }}-ssl_options">
+            <fieldset>
+                <legend>SSL Options</legend>
 
-                    <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatefile"
-                       target="_blank">Learn more about this</a>.</p>
+                <div class="form-group col-xs-6">
+                    <div class="help-text">
+                        <p>Absolute path to SSL Certificate File. Usually ends in .crt.
+                            Leave blank to use a generic one.
+                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                            This should be the location within the VM, not the host!</p>
+
+                        <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatefile"
+                           target="_blank">Learn more about this</a>.</p>
+                    </div>
+                    <label for="apache-vhosts-{{ uniqid }}-ssl_cert">SSL Certificate File Path</label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
+                           name="apache[vhosts][{{ uniqid }}][ssl_cert]"
+                           placeholder="/leave/blank/for/sample" class="form-control"
+                           value="{{ ssl_cert }}" />
                 </div>
-                <label for="apache-vhosts-{{ uniqid }}-ssl_cert">SSL Certificate File Path</label>
-                <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
-                       name="apache[vhosts][{{ uniqid }}][ssl_cert]"
-                       placeholder="/leave/blank/for/sample" class="form-control"
-                       value="{{ ssl_cert }}" />
-            </div>
 
-            <div class="form-group col-xs-6">
-                <div class="help-text">
-                    <p>Absolute path to SSL Certificate Key File. Usually ends in .key.
-                        Leave blank to use a generic one.
-                        <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                        This should be the location within the VM, not the host!</p>
+                <div class="form-group col-xs-6">
+                    <div class="help-text">
+                        <p>Absolute path to SSL Certificate Key File. Usually ends in .key.
+                            Leave blank to use a generic one.
+                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                            This should be the location within the VM, not the host!</p>
 
-                    <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatekeyfile"
-                       target="_blank">Learn more about this</a>.</p>
+                        <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatekeyfile"
+                           target="_blank">Learn more about this</a>.</p>
+                    </div>
+                    <label for="apache-vhosts-{{ uniqid }}-ssl_key">SSL Certificate Key File</label>
+                    <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_key"
+                           name="apache[vhosts][{{ uniqid }}][ssl_key]"
+                           placeholder="/leave/blank/for/sample" class="form-control"
+                           value="{{ ssl_key }}" />
                 </div>
-                <label for="apache-vhosts-{{ uniqid }}-ssl_key">SSL Certificate Key File</label>
-                <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_key"
-                       name="apache[vhosts][{{ uniqid }}][ssl_key]"
-                       placeholder="/leave/blank/for/sample" class="form-control"
-                       value="{{ ssl_key }}" />
-            </div>
 
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-            <div class="form-group col-xs-6">
-                <div class="help-text">
-                    <p>Absolute path to SSL Certificate Chain File.
-                        Usually ends in .crt and may have the name of your SSL provider.
-                        Leave blank to use a generic one.
-                        <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                        This should be the location within the VM, not the host!</p>
+                <div class="form-group col-xs-6">
+                    <div class="help-text">
+                        <p>Absolute path to SSL Certificate Chain File.
+                            Usually ends in .crt and may have the name of your SSL provider.
+                            Leave blank to use a generic one.
+                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                            This should be the location within the VM, not the host!</p>
 
-                    <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatechainfile"
-                       target="_blank">Learn more about this</a>.</p>
+                        <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcertificatechainfile"
+                           target="_blank">Learn more about this</a>.</p>
+                    </div>
+                    <label for="apache-vhosts-{{ uniqid }}-ssl_chain">SSL Certificate Chain File Path</label>
+                    <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_chain"
+                           name="apache[vhosts][{{ uniqid }}][ssl_chain]"
+                           placeholder="/leave/blank/for/sample" class="form-control"
+                           value="{{ ssl_certs_dir }}" />
                 </div>
-                <label for="apache-vhosts-{{ uniqid }}-ssl_chain">SSL Certificate Chain File Path</label>
-                <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_chain"
-                       name="apache[vhosts][{{ uniqid }}][ssl_chain]"
-                       placeholder="/leave/blank/for/sample" class="form-control"
-                       value="{{ ssl_certs_dir }}" />
-            </div>
 
-            <div class="form-group col-xs-6">
-                <div class="help-text">
-                    <p>Absolute path to SSL CL Certificate.
-                        Leave blank to use a generic one.
-                        <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                        This should be the location within the VM, not the host!</p>
+                <div class="form-group col-xs-6">
+                    <div class="help-text">
+                        <p>Absolute path to SSL CL Certificate.
+                            Leave blank to use a generic one.
+                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                            This should be the location within the VM, not the host!</p>
 
-                    <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcacertificatepath"
-                       target="_blank">Learn more about this</a>.</p>
+                        <p><a href="http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslcacertificatepath"
+                           target="_blank">Learn more about this</a>.</p>
+                    </div>
+                    <label for="apache-vhosts-{{ uniqid }}-ssl_certs_dir">SSL CL Certificate Path</label>
+                    <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_certs_dir"
+                           name="apache[vhosts][{{ uniqid }}][ssl_certs_dir]"
+                           placeholder="/leave/blank/for/sample" class="form-control"
+                           value="{{ ssl_certs_dir }}" />
                 </div>
-                <label for="apache-vhosts-{{ uniqid }}-ssl_certs_dir">SSL CL Certificate Path</label>
-                <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_certs_dir"
-                       name="apache[vhosts][{{ uniqid }}][ssl_certs_dir]"
-                       placeholder="/leave/blank/for/sample" class="form-control"
-                       value="{{ ssl_certs_dir }}" />
-            </div>
 
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-            <div class="help-block">
-                <p>To redirect all non-SSL traffic to SSL, create two vhosts - one on
-                    port 80 and one on port 443.</p>
-                <p>Add <code>Redirect permanent / https://{YOUR_VHOST_NAME}/</code> to
-                    the non-SSL vhost's Custom Directives to redirect all traffic to
-                    the SSL vhost.</p>
-            </div>
+                <div class="help-block">
+                    <p>To redirect all non-SSL traffic to SSL, create two vhosts - one on
+                        port 80 and one on port 443.</p>
+                    <p>Add <code>Redirect permanent / https://{YOUR_VHOST_NAME}/</code> to
+                        the non-SSL vhost's Custom Directives to redirect all traffic to
+                        the SSL vhost.</p>
+                </div>
+            </fieldset>
         </div>
 
         <div class="clearfix"></div>

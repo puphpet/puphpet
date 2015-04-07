@@ -7,8 +7,11 @@
     <div class="clearfix"><label>Install</label></div>
 
     <label class="col-xs-12 radio-tile">
-        <input type="checkbox" name="apache[install]" value="1" class="invisible"
-               {% if apache.install %}checked{% endif %} />
+        <input type="checkbox" name="apache[install]" value="1"
+               class="invisible toggle-on-select update-other-input-on-check"
+               {% if apache.install %}checked{% endif %}
+               data-vis-toggle-target="#apache-container"
+               data-update-on-check-nginx[install]="0" />
         <span class="content">
             <span class="header large">
                 <i class="icon"></i>
@@ -25,27 +28,28 @@
 
 <div class="clearfix"></div>
 
-<div class="form-group col-xs-12">
-    <div class="help-text">
-        <code>proxy_fcgi</code> is required for PHP.
+<div id="apache-container" class="{% if not apache.install %}hidden{% endif %}">
+    <div class="form-group col-xs-12">
+        <div class="help-text">
+            <code>proxy_fcgi</code> is required for PHP.
+        </div>
+        <label for="apache-modules">Apache Modules</label>
+        <select id="apache-modules"
+                name="apache[modules][]"
+                multiple class="form-control select-tags-editable">
+            {% for module in apache.available_modules %}
+                <option value="{{ module }}"
+                {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
+            {% endfor %}
+        </select>
     </div>
-    <label for="apache-modules">Apache Modules</label>
-    <select id="apache-modules"
-            name="apache[modules][]"
-            multiple class="form-control select-tags-editable">
-        {% for module in apache.available_modules %}
-            <option value="{{ module }}"
-            {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
-        {% endfor %}
-    </select>
+
+    <div class="clearfix"></div>
+
+    {% for vhost in apache.vhosts %}
+        {% include 'PuphpetExtensionApacheBundle:sections:vhost.html.twig' with {'vhost': vhost} %}
+    {% endfor %}
+
+    <a href="#" data-source-url="{{ path('puphpet.extension.apache.vhost') }}"
+       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Apache vhost</a>
 </div>
-
-<div class="clearfix"></div>
-
-{% for vhost in apache.vhosts %}
-    {% include 'PuphpetExtensionApacheBundle:sections:vhost.html.twig' with {'vhost': vhost} %}
-{% endfor %}
-
-<a href="#" data-source-url="{{ path('puphpet.extension.apache.vhost') }}"
-   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Apache vhost</a>
-

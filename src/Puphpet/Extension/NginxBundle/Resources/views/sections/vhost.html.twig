@@ -104,7 +104,8 @@
                 <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][ssl]"
                        class="invisible toggle-on-select"
                        {% if ssl %}checked{% endif %}
-                       value="1" data-target="#nginx-vhosts-{{ uniqid }}-ssl_options" />
+                       value="1"
+                       data-vis-toggle-target="#nginx-vhosts-{{ uniqid }}-ssl_options" />
                 <span class="content">
                     <span class="header">
                         <i class="icon"></i>
@@ -116,97 +117,100 @@
 
         <div class="clearfix"></div>
 
-        <div class="{% if not ssl %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-ssl_options">
-            <div class="form-group col-xs-6">
-                <div class="help-text">
-                    <p>Absolute path to SSL Certificate File. Usually ends in .crt.
-                        Leave blank to use a generic one.
-                        <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
-                        This should be the location within the VM, not the host!</p>
-
-                    <p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html"
-                       target="_blank">Learn more about this</a>.</p>
-                </div>
-                <label for="nginx-vhosts-{{ uniqid }}-ssl_cert">SSL Certificate File Path</label>
-                <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
-                       name="nginx[vhosts][{{ uniqid }}][ssl_cert]"
-                       placeholder="/leave/blank/for/sample" class="form-control"
-                       value="{{ ssl_cert }}" />
-            </div>
-
-            <div class="form-group col-xs-6">
-                <div class="help-text">
-                    <p>Absolute path to SSL Certificate Key File. Usually ends in .key.
-                            Leave blank to use a generic one
+        <div class="nested-block {% if not ssl %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-ssl_options">
+            <fieldset>
+                <legend>SSL Options</legend>
+                <div class="form-group col-xs-6">
+                    <div class="help-text">
+                        <p>Absolute path to SSL Certificate File. Usually ends in .crt.
+                            Leave blank to use a generic one.
                             <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
                             This should be the location within the VM, not the host!</p>
 
-                    <p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html"
-                          target="_blank">Learn more about this</a>.</p>
+                        <p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html"
+                           target="_blank">Learn more about this</a>.</p>
+                    </div>
+                    <label for="nginx-vhosts-{{ uniqid }}-ssl_cert">SSL Certificate File Path</label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
+                           name="nginx[vhosts][{{ uniqid }}][ssl_cert]"
+                           placeholder="/leave/blank/for/sample" class="form-control"
+                           value="{{ ssl_cert }}" />
                 </div>
-                <label for="nginx-vhosts-{{ uniqid }}-ssl_key">SSL Certificate Key File Path</label>
-                <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_key"
-                       name="nginx[vhosts][{{ uniqid }}][ssl_key]"
-                       placeholder="/leave/blank/for/sample" class="form-control"
-                       value="{{ ssl_key }}" />
-            </div>
 
-            <div class="clearfix"></div>
+                <div class="form-group col-xs-6">
+                    <div class="help-text">
+                        <p>Absolute path to SSL Certificate Key File. Usually ends in .key.
+                                Leave blank to use a generic one
+                                <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                                This should be the location within the VM, not the host!</p>
 
-            <div class="form-group col-xs-6">
-                <div class="help-text">
-                    Should be different from the normal Port chosen above!
+                        <p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html"
+                              target="_blank">Learn more about this</a>.</p>
+                    </div>
+                    <label for="nginx-vhosts-{{ uniqid }}-ssl_key">SSL Certificate Key File Path</label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_key"
+                           name="nginx[vhosts][{{ uniqid }}][ssl_key]"
+                           placeholder="/leave/blank/for/sample" class="form-control"
+                           value="{{ ssl_key }}" />
                 </div>
-                <label for="nginx-vhosts-{{ uniqid }}-ssl_port">SSL Port</label>
-                <input type="number" id="nginx-vhosts-{{ uniqid }}-ssl_port"
-                       name="nginx[vhosts][{{ uniqid }}][ssl_port]"
-                       placeholder="443" class="form-control"
-                       value="{{ ssl_port }}" />
-            </div>
 
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-            <div class="form-group col-xs-12">
-                <div class="clearfix"><label>SSL-Only Options</label></div>
+                <div class="form-group col-xs-6">
+                    <div class="help-text">
+                        Should be different from the normal Port chosen above!
+                    </div>
+                    <label for="nginx-vhosts-{{ uniqid }}-ssl_port">SSL Port</label>
+                    <input type="number" id="nginx-vhosts-{{ uniqid }}-ssl_port"
+                           name="nginx[vhosts][{{ uniqid }}][ssl_port]"
+                           placeholder="443" class="form-control"
+                           value="{{ ssl_port }}" />
+                </div>
 
-                <label class="radio-tile mini set-width">
-                    <span class="help-text">
-                        Forwards all non-SSL traffic to SSL vhost.
-                    </span>
-                    <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][rewrite_to_https]"
-                           class="invisible" {% if rewrite_to_https %}checked{% endif %}
-                           value="1" />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">Rewrite to SSL</span>
+                <div class="clearfix"></div>
+
+                <div class="form-group col-xs-12">
+                    <div class="clearfix"><label>SSL-Only Options</label></div>
+
+                    <label class="radio-tile mini set-width">
+                        <span class="help-text">
+                            Forwards all non-SSL traffic to SSL vhost.
                         </span>
-                    </span>
-                </label>
-
-                <label class="radio-tile mini set-width">
-                    <span class="help-text">
-                        <a href="http://blog.cloudflare.com/introducing-spdy"
-                           target="_blank">Learn more about this</a>.
-                    </span>
-                    <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][spdy]"
-                           class="invisible" {% if spdy %}checked{% endif %}
-                           value="1" />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">Enable Spdy Module</span>
+                        <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][rewrite_to_https]"
+                               class="invisible" {% if rewrite_to_https %}checked{% endif %}
+                               value="1" />
+                        <span class="content">
+                            <span class="header">
+                                <i class="icon"></i>
+                                <span class="title">Rewrite to SSL</span>
+                            </span>
                         </span>
-                    </span>
-                </label>
-            </div>
+                    </label>
 
-            <div class="help-block">
-                <p>There is currently a bug where self-signed certificate will not work in CentOS for
-                    Nginx. PRs are welcome!</p>
-            </div>
+                    <label class="radio-tile mini set-width">
+                        <span class="help-text">
+                            <a href="http://blog.cloudflare.com/introducing-spdy"
+                               target="_blank">Learn more about this</a>.
+                        </span>
+                        <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][spdy]"
+                               class="invisible" {% if spdy %}checked{% endif %}
+                               value="1" />
+                        <span class="content">
+                            <span class="header">
+                                <i class="icon"></i>
+                                <span class="title">Enable Spdy Module</span>
+                            </span>
+                        </span>
+                    </label>
+                </div>
 
-            <div class="clearfix"></div>
+                <div class="help-block">
+                    <p>There is currently a bug where self-signed certificate will not work in CentOS for
+                        Nginx. PRs are welcome!</p>
+                </div>
+
+                <div class="clearfix"></div>
+            </fieldset>
         </div>
 
         <div class="clearfix"></div>
