@@ -233,15 +233,34 @@
     <h2>Libraries</h2>
 
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#" role="tab" data-toggle="tab">Xdebug</a></li>
-        <li role="presentation"><a href="#" role="tab" data-toggle="tab">Xhprof</a></li>
-        <li role="presentation"><a href="#" role="tab" data-toggle="tab">WP-Cli</a></li>
-        <li role="presentation"><a href="#" role="tab" data-toggle="tab">Drush</a></li>
+        <li role="presentation" class="active"><a href="#xdebug"
+            role="tab" data-toggle="tab"><i id="xdebug-install-check"
+                class="text-info fa fa-check-square-o {% if not xdebug.install %}hidden{% endif %}"></i> Xdebug</a></li>
+        <li role="presentation"><a href="#xhprof"
+            role="tab" data-toggle="tab"><i id="xhprof-install-check"
+                class="text-info fa fa-check-square-o {% if not xhprof.install %}hidden{% endif %}"></i> Xhprof</a></li>
+        <li role="presentation"><a href="#wpcli"
+            role="tab" data-toggle="tab"><i id="wpcli-install-check"
+                class="text-info fa fa-check-square-o {% if not wpcli.install %}hidden{% endif %}"></i> WP CLI</a></li>
+        <li role="presentation"><a href="#drush"
+            role="tab" data-toggle="tab"><i id="drush-install-check"
+                class="text-info fa fa-check-square-o {% if not drush.install %}hidden{% endif %}"></i> Drush</a></li>
     </ul>
 
-    <div class="tab-content">
-        {{ extra }}
-    </div>
-
     <div class="clearfix"></div>
+
+    <div class="col-xs-12 tab-content">
+        <div class="tab-pane active" id="xdebug">
+            {% include 'PuphpetMainBundle:xdebug:form.html.twig' with { 'xdebug': xdebug } %}
+        </div>
+        <div class="tab-pane" id="xhprof">
+            {% include 'PuphpetMainBundle:xhprof:form.html.twig' with { 'xhprof': xhprof } %}
+        </div>
+        <div class="tab-pane" id="wpcli">
+            {% include 'PuphpetMainBundle:wpcli:form.html.twig' with { 'wpcli': wpcli } %}
+        </div>
+        <div class="tab-pane" id="drush">
+            {% include 'PuphpetMainBundle:drush:form.html.twig' with { 'drush': drush } %}
+        </div>
+    </div>
 </div>

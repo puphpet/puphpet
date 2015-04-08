@@ -27,6 +27,12 @@ services:
         # web server
             - [ addExtension, [ 'nginx' ] ]
             - [ addExtension, [ 'apache' ] ]
+        # language
+            - [ addExtension, [ 'php' ] ]
+            - [ addExtension, [ 'xdebug' ] ]
+            - [ addExtension, [ 'xhprof' ] ]
+            - [ addExtension, [ 'wpcli' ] ]
+            - [ addExtension, [ 'drush' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

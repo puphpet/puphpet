@@ -1,42 +1,43 @@
-{% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-<section id="xhprof">
-    <div class="panel-body">
-        <div class="row form-group">
-            <div class="col-xs-12">
-                <label class="checkbox-inline install-checkbox">
-                    <input type="checkbox" name="xhprof[install]"
-                           class="update-other-input multiselect-grouped-tab"
-                           data-tab-target="xhprof-pill"
-                           data-update-php[composer]="1" data-update-hhvm[composer]="1"
-                           {% if xhprof.install %}checked{% endif %} value="1" /> Install Xhprof
-                    {% if not xhprof.install %}<input type="hidden" name="xhprof[install]" value="0" />{% endif %}
-                </label>
-            </div>
-        </div>
+<div class="form-group margin-top">
+    <label class="col-xs-12 radio-tile">
+        <input type="checkbox" name="xhprof[install]" value="1"
+               class="invisible toggle-on-select update-other-input-on-check"
+               {% if xhprof.install %}checked{% endif %}
+               data-vis-toggle-target="#xhprof-container,#xhprof-install-check"
+            />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Install Xhprof</span>
+            </span>
+            <span class="footer">
+                A function-level hierarchical profiler.
+            </span>
+        </span>
+    </label>
 
-        <div class="row form-group">
-            <div class="col-xs-12">
-                <p class="help-block">
-                    It is highly recommended <strong>not</strong> installing Xhprof on production servers.
+    <div class="clearfix"></div>
+</div>
 
-                    <br /><br />
+<div class="clearfix"></div>
 
-                    Logs will be available from <code>http://&lt;ip_address&gt;/xhprof/xhprof_html</code>.<br />
-                    The IP address is the <a href="#deploy-target">one you chose here</a>.
-                    <br /><br />
-                    <a href="#" data-toggle="modal" data-target="#xhprof-instructions">Click here for instructions</a>
-                </p>
-            </div>
-        </div>
+<div id="xhprof-container" class="{% if not xhprof.install %}hidden{% endif %}">
+    <div class="help-block">
+        <p>It is highly recommended <strong>not</strong> installing Xhprof on production servers.</p>
+        <p>Logs will be available from <code>http://&lt;ip_address&gt;/xhprof/xhprof_html</code>.</p>
+        <p><a href="#" data-toggle="modal" data-target="#xhprof-modal">Click here for instructions</a></p>
     </div>
 
-    <div class="modal fade" id="xhprof-instructions" tabindex="-1" role="dialog"
-         aria-labelledby="xhprof-instructions-label" aria-hidden="true">
+    <div class="modal fade" id="xhprof-modal" tabindex="-1" role="dialog"
+         aria-labelledby="xhprof-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="xhprof-instructions-label">XHprof instructions</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="xhprof-modal-label">
+                        Xhprof Instructions
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <p>Add to top of your file:</p>
@@ -66,4 +67,4 @@
             </div>
         </div>
     </div>
-</section>
+</div>

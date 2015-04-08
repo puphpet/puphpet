@@ -1,7 +1,0 @@
-puphpet.extension.wpcli.homepage:
-    pattern:  /
-    defaults: { _controller: PuphpetExtensionWPCliBundle:Front:index }
-
-puphpet.extension.wpcli.manifest:
-    pattern:  /manifest
-    defaults: { _controller: PuphpetExtensionWPCliBundle:Manifest:index }

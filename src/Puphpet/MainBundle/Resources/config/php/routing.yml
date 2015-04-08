@@ -1,0 +1,3 @@
+puphpet.php.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetMainBundle:Php:index }

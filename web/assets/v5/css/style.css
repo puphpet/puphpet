@@ -104,6 +104,10 @@ legend {
     clip: rect(0 0 0 0) !important;
 }
 
+.margin-top {
+    margin-top: 10px;
+}
+
 .navbar {
     z-index: 9999;
 }
@@ -593,4 +597,10 @@ legend {
 .page-header {
     padding-bottom: 0;
     margin: 10px 0;
+}
+
+@media (min-width: 768px) {
+    .modal-dialog {
+        margin: 75px auto;
+    }
 }

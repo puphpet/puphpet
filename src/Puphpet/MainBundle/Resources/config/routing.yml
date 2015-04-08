@@ -69,3 +69,8 @@ puphpet.nginx:
 puphpet.apache:
     resource: "@PuphpetMainBundle/Resources/config/apache/routing.yml"
     prefix:   /extension/apache
+
+# language
+puphpet.php:
+    resource: "@PuphpetMainBundle/Resources/config/php/routing.yml"
+    prefix:   /extension/php

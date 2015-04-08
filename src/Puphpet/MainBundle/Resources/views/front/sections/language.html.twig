@@ -1,21 +1,9 @@
 <div class="tab-pane" id="php">
-    {% set phpLibraries = sections.multiSelectGroupedNoHeaders(extensionManager, 'php-extensions', 'PHP Extensions') %}
-    {% set extension = extensionManager.getExtensionBySlug('php') %}
-    {{ extension.renderFront(extension.data, phpLibraries)|raw }}
-</div>
-<div class="tab-pane" id="ruby">
-    {% set extension = extensionManager.getExtensionBySlug('ruby') %}
-    {{ extension.renderFront(extension.data)|raw }}
-</div>
-<div class="tab-pane" id="python">
-    {% set extension = extensionManager.getExtensionBySlug('python') %}
-    {{ extension.renderFront(extension.data)|raw }}
-</div>
-<div class="tab-pane" id="nodejs">
-    {% set extension = extensionManager.getExtensionBySlug('nodejs') %}
-    {{ extension.renderFront(extension.data)|raw }}
-</div>
-<div class="tab-pane" id="hhvm">
-    {% set extension = extensionManager.getExtensionBySlug('hhvm') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:php:form.html.twig' with {
+        'php': extensions.php.data,
+        'xdebug': extensions.xdebug.data,
+        'xhprof': extensions.xhprof.data,
+        'wpcli': extensions.wpcli.data,
+        'drush': extensions.drush.data
+    } %}
 </div>
