@@ -7,8 +7,6 @@ use Symfony\Component\Yaml\Yaml;
 
 abstract class ExtensionAbstract implements ExtensionInterface
 {
-    const DIR = 'undef';
-
     protected $container;
     protected $customData = [];
     protected $data = [];
@@ -16,19 +14,15 @@ abstract class ExtensionAbstract implements ExtensionInterface
     protected $returnAvailableData = true;
 
     protected $conf = [
-        'frontController'    => null,
-        'manifestController' => null,
-        'name'               => null,
-        'slug'               => null,
-        'targetFile'         => null,
+        'name'       => null,
+        'slug'       => null,
+        'targetFile' => null,
     ];
 
     private $blankConf = [
-        'frontController'    => null,
-        'manifestController' => null,
-        'name'               => null,
-        'slug'               => null,
-        'targetFile'         => null,
+        'name'       => null,
+        'slug'       => null,
+        'targetFile' => null,
     ];
 
     /**
@@ -139,7 +133,7 @@ abstract class ExtensionAbstract implements ExtensionInterface
      */
     public function getTargetFile()
     {
-        return $this->conf['targetFile'];
+        return $this->conf['target_file'];
     }
 
     /**

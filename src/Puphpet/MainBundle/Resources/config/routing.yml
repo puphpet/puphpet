@@ -21,3 +21,51 @@ puphpet.main.help:
 puphpet.main.github_btn:
     pattern:  /github-btn
     defaults: { _controller: PuphpetMainBundle:Front:githubBtn }
+
+# deploy target
+puphpet.vagrantfile_local:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-local/routing.yml"
+    prefix:   /extension/vagrantfile-local
+puphpet.vagrantfile_rackspace:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-rackspace/routing.yml"
+    prefix:   /extension/vagrantfile-local
+puphpet.vagrantfile_linode:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-linode/routing.yml"
+    prefix:   /extension/vagrantfile-local
+puphpet.vagrantfile_softlayer:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-softlayer/routing.yml"
+    prefix:   /extension/vagrantfile-local
+puphpet.vagrantfile_aws:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-aws/routing.yml"
+    prefix:   /extension/vagrantfile-local
+puphpet.vagrantfile_gce:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-gce/routing.yml"
+    prefix:   /extension/vagrantfile-local
+puphpet.vagrantfile_digitalocean:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-digitalocean/routing.yml"
+    prefix:   /extension/vagrantfile-local
+puphpet.vagrantfile_ikoulacloud:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-ikoulacloud/routing.yml"
+    prefix:   /extension/vagrantfile-local
+
+# system
+puphpet.package:
+    resource: "@PuphpetMainBundle/Resources/config/package/routing.yml"
+    prefix:   /extension/package
+puphpet.user_group:
+    resource: "@PuphpetMainBundle/Resources/config/user-group/routing.yml"
+    prefix:   /extension/user-group
+puphpet.firewall:
+    resource: "@PuphpetMainBundle/Resources/config/firewall/routing.yml"
+    prefix:   /extension/firewall
+puphpet.cron_job:
+    resource: "@PuphpetMainBundle/Resources/config/cron-job/routing.yml"
+    prefix:   /extension/cron-job
+
+# web server
+puphpet.nginx:
+    resource: "@PuphpetMainBundle/Resources/config/nginx/routing.yml"
+    prefix:   /extension/nginx
+puphpet.apache:
+    resource: "@PuphpetMainBundle/Resources/config/apache/routing.yml"
+    prefix:   /extension/apache

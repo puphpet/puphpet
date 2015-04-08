@@ -1,18 +1,14 @@
 <div class="tab-pane" id="system-packages">
-    {% set extension = extensionManager.getExtensionBySlug('server') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:package:form.html.twig' with {'server': extensions.package.data} %}
 </div>
 <div class="tab-pane" id="users-groups">
-    {% set extension = extensionManager.getExtensionBySlug('users_groups') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:user-group:form.html.twig' with {'ug': extensions.user_group.data} %}
 </div>
 <div class="tab-pane" id="firewall">
-    {% set extension = extensionManager.getExtensionBySlug('firewall') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:firewall:form.html.twig' with {'firewall': extensions.firewall.data} %}
 </div>
 <div class="tab-pane" id="cron-jobs">
-    {% set extension = extensionManager.getExtensionBySlug('cron') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:cron-job:form.html.twig' with {'cron': extensions.cron_job.data} %}
 </div>
 <div class="tab-pane" id="custom-files">
     <div class="section-header hidden">

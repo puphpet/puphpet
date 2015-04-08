@@ -1,0 +1,55 @@
+<div class="section-header hidden">
+    <h1>Apache Web Server</h1>
+    <p class="lead">Setup Apache. Not as hip as Nginx.</p>
+</div>
+
+<div class="form-group">
+    <div class="clearfix"><label>Install</label></div>
+
+    <label class="col-xs-12 radio-tile">
+        <input type="checkbox" name="apache[install]" value="1"
+               class="invisible toggle-on-select update-other-input-on-check"
+               {% if apache.install %}checked{% endif %}
+               data-vis-toggle-target="#apache-container"
+               data-update-on-check-nginx[install]="0" />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Install Apache</span>
+            </span>
+            <span class="footer">
+                You cannot install Nginx with Apache. Nginx will be deselected.
+            </span>
+        </span>
+    </label>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="apache-container" class="{% if not apache.install %}hidden{% endif %}">
+    <div class="form-group col-xs-12">
+        <div class="help-text">
+            <code>proxy_fcgi</code> is required for PHP.
+        </div>
+        <label for="apache-modules">Apache Modules</label>
+        <select id="apache-modules"
+                name="apache[modules][]"
+                multiple class="form-control select-tags-editable">
+            {% for module in apache.available_modules %}
+                <option value="{{ module }}"
+                {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="clearfix"></div>
+
+    {% for vhost in apache.vhosts %}
+        {% include 'PuphpetMainBundle:apache/sections:vhost.html.twig' with {'vhost': vhost} %}
+    {% endfor %}
+
+    <a href="#" data-source-url="{{ path('puphpet.apache.vhost') }}"
+       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Apache vhost</a>
+</div>

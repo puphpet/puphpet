@@ -1,4 +1,5 @@
-parameters:
+imports:
+    - { resource: vagrantfile-local/services.yml }
 
 services:
     randomlib:
@@ -9,46 +10,23 @@ services:
         arguments:
             - @service_container
         calls:
-        # vagrantfile
-            - [ addExtension, [ @puphpet.extension.vagrantfile.local.configure ] ]
-            - [ addExtension, [ @puphpet.extension.vagrantfile.rackspace.configure ] ]
-            - [ addExtension, [ @puphpet.extension.vagrantfile.linode.configure ] ]
-            - [ addExtension, [ @puphpet.extension.vagrantfile.softlayer.configure ] ]
-            - [ addExtension, [ @puphpet.extension.vagrantfile.aws.configure ] ]
-            - [ addExtension, [ @puphpet.extension.vagrantfile.gce.configure ] ]
-            - [ addExtension, [ @puphpet.extension.vagrantfile.ikoulacloud.configure ] ]
-            - [ addExtension, [ @puphpet.extension.vagrantfile.digital_ocean.configure ] ]
+        # deploy target
+            - [ addExtension, [ 'vagrantfile-local' ] ]
+            - [ addExtension, [ 'vagrantfile-rackspace' ] ]
+            - [ addExtension, [ 'vagrantfile-linode' ] ]
+            - [ addExtension, [ 'vagrantfile-softlayer' ] ]
+            - [ addExtension, [ 'vagrantfile-aws' ] ]
+            - [ addExtension, [ 'vagrantfile-gce' ] ]
+            - [ addExtension, [ 'vagrantfile-digitalocean' ] ]
+            - [ addExtension, [ 'vagrantfile-ikoulacloud' ] ]
         # system
-            - [ addExtension, [ @puphpet.extension.package.configure ] ]
-            - [ addExtension, [ @puphpet.extension.user_group.configure ] ]
-            - [ addExtension, [ @puphpet.extension.cron.configure ] ]
-        # firewall
-            - [ addExtension, [ @puphpet.extension.firewall.configure ] ]
-        # webservers
-            - [ addExtension, [ @puphpet.extension.apache.configure ] ]
-            - [ addExtension, [ @puphpet.extension.nginx.configure ] ]
-        # languages
-            - [ addExtension, [ @puphpet.extension.php.configure ] ]
-            - [ addExtension, [ @puphpet.extension.hhvm.configure ] ]
-            - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.xdebug.configure ] ]
-            - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.xhprof.configure ] ]
-            - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.wpcli.configure ] ]
-            - [ addExtensionToGroup, [ 'php-extensions', @puphpet.extension.drush.configure ] ]
-            - [ addExtension, [ @puphpet.extension.ruby.configure ] ]
-            - [ addExtension, [ @puphpet.extension.nodejs.configure ] ]
-            - [ addExtension, [ @puphpet.extension.python.configure ] ]
-        # databases
-            - [ addExtension, [ @puphpet.extension.mysql.configure ] ]
-            - [ addExtension, [ @puphpet.extension.postgresql.configure ] ]
-            - [ addExtension, [ @puphpet.extension.sqlite.configure ] ]
-            - [ addExtension, [ @puphpet.extension.mongodb.configure ] ]
-            - [ addExtension, [ @puphpet.extension.redis.configure ] ]
-        # additional tools
-            - [ addExtension, [ @puphpet.extension.mailcatcher.configure ] ]
-            - [ addExtension, [ @puphpet.extension.beanstalkd.configure ] ]
-            - [ addExtension, [ @puphpet.extension.rabbitmq.configure ] ]
-            - [ addExtension, [ @puphpet.extension.elastic_search.configure ] ]
-            - [ addExtension, [ @puphpet.extension.solr.configure ] ]
+            - [ addExtension, [ 'package' ] ]
+            - [ addExtension, [ 'user-group' ] ]
+            - [ addExtension, [ 'firewall' ] ]
+            - [ addExtension, [ 'cron-job' ] ]
+        # web server
+            - [ addExtension, [ 'nginx' ] ]
+            - [ addExtension, [ 'apache' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

@@ -1,8 +1,6 @@
 <div class="tab-pane" id="nginx">
-    {% set extension = extensionManager.getExtensionBySlug('nginx') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:nginx:form.html.twig' with {'nginx': extensions.nginx.data} %}
 </div>
 <div class="tab-pane" id="apache">
-    {% set extension = extensionManager.getExtensionBySlug('apache') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:apache:form.html.twig' with {'apache': extensions.apache.data} %}
 </div>

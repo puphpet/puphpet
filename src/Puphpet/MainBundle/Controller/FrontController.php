@@ -21,14 +21,14 @@ class FrontController extends Controller
 
             $response = new Response;
             $response->headers->set('Content-type', 'application/octet-stream');
-            $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', 'puphpet.zip'));
+            $response->headers->set('Content-Disposition', 'attachment; filename="puphpet.zip"');
             $response->setContent(file_get_contents($archive));
 
             return $response;
         }
 
         return $this->render('PuphpetMainBundle:front:index.html.twig', [
-            'extensionManager' => $manager,
+            'extensions' => $manager->getExtensions(),
         ]);
     }
 

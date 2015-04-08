@@ -1,7 +1,5 @@
 {% extends 'PuphpetMainBundle:front:template.html.twig' %}
 
-{% import "PuphpetMainBundle:front:macros/sections.html.twig" as sections %}
-
 {% block topJs %}
     {{ parent() }}
     <script>var uploadConfigUrl = '{{ path('puphpet.main.upload_config') }}';</script>
@@ -31,7 +29,6 @@
                             {% include 'PuphpetMainBundle:front:sections/deploy-target.html.twig' %}
                             {% include 'PuphpetMainBundle:front:sections/system.html.twig' %}
                             {% include 'PuphpetMainBundle:front:sections/webserver.html.twig' %}
-                            {% include 'PuphpetMainBundle:front:sections/language.html.twig' %}
                         </div>
 
                         <div class="col-xs-3">

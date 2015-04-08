@@ -1,7 +1,0 @@
-puphpet.extension.firewall.homepage:
-    pattern:  /
-    defaults: { _controller: PuphpetExtensionFirewallBundle:Front:index }
-
-puphpet.extension.firewall.rule:
-    pattern: /forwarded-port
-    defaults: { _controller: PuphpetExtensionFirewallBundle:Front:rule }

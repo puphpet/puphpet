@@ -1,32 +1,24 @@
 <div class="tab-pane active" id="vagrantfile-local">
-    {% set extension = extensionManager.getExtensionBySlug('vagrantfile-local') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:vagrantfile-local:form.html.twig' with {'data': extensions.vagrantfile_local.data} %}
 </div>
 <div class="tab-pane" id="vagrantfile-rackspace">
-    {% set extension = extensionManager.getExtensionBySlug('vagrantfile-rackspace') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:vagrantfile-rackspace:form.html.twig' with {'data': extensions.vagrantfile_rackspace.data} %}
 </div>
 <div class="tab-pane" id="vagrantfile-linode">
-    {% set extension = extensionManager.getExtensionBySlug('vagrantfile-linode') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:vagrantfile-linode:form.html.twig' with {'data': extensions.vagrantfile_linode.data} %}
 </div>
 <div class="tab-pane" id="vagrantfile-softlayer">
-    {% set extension = extensionManager.getExtensionBySlug('vagrantfile-softlayer') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:vagrantfile-softlayer:form.html.twig' with {'data': extensions.vagrantfile_softlayer.data} %}
 </div>
 <div class="tab-pane" id="vagrantfile-aws">
-    {% set extension = extensionManager.getExtensionBySlug('vagrantfile-aws') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:vagrantfile-aws:form.html.twig' with {'data': extensions.vagrantfile_aws.data} %}
 </div>
 <div class="tab-pane" id="vagrantfile-gce">
-    {% set extension = extensionManager.getExtensionBySlug('vagrantfile-gce') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:vagrantfile-gce:form.html.twig' with {'data': extensions.vagrantfile_gce.data} %}
 </div>
 <div class="tab-pane" id="vagrantfile-digitalocean">
-    {% set extension = extensionManager.getExtensionBySlug('vagrantfile-digital_ocean') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:vagrantfile-digitalocean:form.html.twig' with {'data': extensions.vagrantfile_digitalocean.data} %}
 </div>
 <div class="tab-pane" id="vagrantfile-ikoulacloud">
-    {% set extension = extensionManager.getExtensionBySlug('vagrantfile-ikoulacloud') %}
-    {{ extension.renderFront(extension.data)|raw }}
+    {% include 'PuphpetMainBundle:vagrantfile-ikoulacloud:form.html.twig' with {'data': extensions.vagrantfile_ikoulacloud.data} %}
 </div>

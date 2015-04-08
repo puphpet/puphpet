@@ -1,0 +1,3 @@
+puphpet.user_group.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetMainBundle:UserGroup:index }
