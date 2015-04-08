@@ -553,7 +553,7 @@ PUPHPET.selectizeTagsUserInput = function($element) {
         plugins: ['remove_button'],
         delimiter: ',',
         persist: false,
-        create: false,
+        create: true,
         onItemAdd: function(value, $item) {
             var targetContainer     = '#' + $(this['$input'])[0].getAttribute('data-target-container');
             var targetNameStructure = $(this['$input'])[0].getAttribute('data-target-name');

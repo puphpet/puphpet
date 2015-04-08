@@ -214,7 +214,7 @@
         <div class="clearfix"></div>
 
         {% for directory in directories %}
-            {% include 'PuphpetExtensionApacheBundle:sections:directory.html.twig' with {'vhostId': uniqid, 'directory': directory} %}
+            {% include 'PuphpetMainBundle:extensions/apache/sections:directory.html.twig' with {'vhostId': uniqid, 'directory': directory} %}
         {% endfor %}
 
         <a href="#" data-source-url="{{ path('puphpet.extension.apache.directory', {'vhostId': uniqid}) }}"

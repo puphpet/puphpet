@@ -23,7 +23,7 @@
 <div class="clearfix"></div>
 
 {% for job in cron.jobs %}
-    {% include 'PuphpetExtensionCronBundle:sections:job.html.twig' with {'job': job} %}
+    {% include 'PuphpetMainBundle:extensions/cron/sections:job.html.twig' with {'job': job} %}
 {% endfor %}
 
 <a href="#" data-source-url="{{ path('puphpet.extension.cron.job') }}"

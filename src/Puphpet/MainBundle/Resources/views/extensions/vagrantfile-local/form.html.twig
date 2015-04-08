@@ -146,14 +146,14 @@
     <div class="clearfix"></div>
 
     {% for forwarded_port in data.vm.network.forwarded_port %}
-        {% include 'PuphpetExtensionVagrantfileLocalBundle:sections:forwarded-port.html.twig' with {'forwarded_port': forwarded_port} %}
+        {% include 'PuphpetMainBundle:extensions/vagrantfile-local/sections:forwarded-port.html.twig' with {'forwarded_port': forwarded_port} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.extension.vagrantfile.local.forwarded_port') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another port pair</a>
 
     {% for synced_folder in data.vm.synced_folder %}
-        {% include 'PuphpetExtensionVagrantfileLocalBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% include 'PuphpetMainBundle:extensions/vagrantfile-local/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.extension.vagrantfile.local.synced_folder') }}"

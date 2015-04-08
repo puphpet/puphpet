@@ -171,7 +171,7 @@
     <div class="clearfix"></div>
 
     {% for synced_folder in data.vm.synced_folder %}
-        {% include 'PuphpetExtensionVagrantfileAwsBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% include 'PuphpetMainBundle:extensions/vagrantfile-aws/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.extension.vagrantfile.aws.synced_folder') }}"

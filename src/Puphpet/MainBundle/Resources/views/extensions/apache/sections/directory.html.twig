@@ -83,7 +83,7 @@
         <div class="clearfix"></div>
 
         {% for filesMatch in files_matches %}
-            {% include 'PuphpetExtensionApacheBundle:sections:filesMatch.html.twig' with {'directoryId': uniqid, 'filesMatch': filesMatch} %}
+            {% include 'PuphpetMainBundle:extensions/apache/sections:filesMatch.html.twig' with {'directoryId': uniqid, 'filesMatch': filesMatch} %}
         {% endfor %}
 
         <a href="#" data-source-url="{{ path('puphpet.extension.apache.files_match', {'vhostId': vhostId, 'directoryId': uniqid}) }}"

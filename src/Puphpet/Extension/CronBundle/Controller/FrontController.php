@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionCronBundle::form.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/cron:form.html.twig', [
             'cron'  => $data,
             'extra' => $extra,
         ]);
@@ -18,7 +18,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 
     public function jobAction()
     {
-        return $this->render('PuphpetExtensionCronBundle:sections:job.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/cron/sections:job.html.twig', [
             'job' => $this->getData()['empty_job'],
         ]);
     }

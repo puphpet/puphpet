@@ -10,7 +10,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionFirewallBundle::form.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/firewall:form.html.twig', [
             'firewall' => $data,
             'extra'    => $extra,
         ]);
@@ -21,7 +21,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
         $config = $this->get('puphpet.extension.firewall.configure');
         $data   = $config->getData();
 
-        return $this->render('PuphpetExtensionFirewallBundle:sections:Rule.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/firewall/sections:Rule.html.twig', [
             'rule' => $data['empty_rule'],
         ]);
     }

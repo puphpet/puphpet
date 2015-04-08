@@ -11,21 +11,21 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionNginxBundle::form.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/nginx:form.html.twig', [
             'nginx' => $data,
         ]);
     }
 
     public function vhostAction()
     {
-        return $this->render('PuphpetExtensionNginxBundle:sections:vhost.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/nginx/sections:vhost.html.twig', [
             'vhost'             => $this->getData()['empty_vhost'],
         ]);
     }
 
     public function locationAction(Request $request)
     {
-        return $this->render('PuphpetExtensionNginxBundle:sections:location.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/nginx/sections:location.html.twig', [
             'vhostId'  => $request->get('vhostId'),
             'location' => $this->getData()['empty_location'],
         ]);
@@ -33,14 +33,14 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 
     public function upstreamAction()
     {
-        return $this->render('PuphpetExtensionNginxBundle:sections:upstream.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/nginx/sections:upstream.html.twig', [
             'upstream'          => $this->getData()['empty_upstream'],
         ]);
     }
 
     public function proxyAction()
     {
-        return $this->render('PuphpetExtensionNginxBundle:sections:proxy.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/nginx/sections:proxy.html.twig', [
             'proxy' => $this->getData()['empty_proxy'],
         ]);
     }

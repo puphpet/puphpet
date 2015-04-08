@@ -56,21 +56,21 @@
     <div class="clearfix"></div>
 
     {% for vhost in nginx.vhosts %}
-        {% include 'PuphpetExtensionNginxBundle:sections:vhost.html.twig' with {'vhost': vhost} %}
+        {% include 'PuphpetMainBundle:extensions/nginx/sections:vhost.html.twig' with {'vhost': vhost} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.extension.nginx.vhost') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx vhost</a>
 
     {% for upstream in nginx.upstreams %}
-        {% include 'PuphpetExtensionNginxBundle:sections:upstream.html.twig' with {'upstream': upstream} %}
+        {% include 'PuphpetMainBundle:extensions/nginx/sections:upstream.html.twig' with {'upstream': upstream} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.extension.nginx.upstream') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx proxy upstream</a>
 
     {% for proxy in nginx.proxies %}
-        {% include 'PuphpetExtensionNginxBundle:sections:proxy.html.twig' with {'proxy': proxy} %}
+        {% include 'PuphpetMainBundle:extensions/nginx/sections:proxy.html.twig' with {'proxy': proxy} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.extension.nginx.proxy') }}"

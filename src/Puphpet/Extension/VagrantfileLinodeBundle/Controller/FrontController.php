@@ -10,14 +10,14 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionVagrantfileLinodeBundle::form.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/vagrantfile-linode:form.html.twig', [
             'data' => $data,
         ]);
     }
 
     public function syncedFolderAction()
     {
-        return $this->render('PuphpetExtensionVagrantfileLinodeBundle:sections:synced-folder.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/vagrantfile-linode/sections:synced-folder.html.twig', [
             'synced_folder' => $this->getData()['empty_synced_folder'],
         ]);
     }

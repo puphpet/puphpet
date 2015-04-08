@@ -170,7 +170,7 @@
     <div class="clearfix"></div>
 
     {% for synced_folder in data.vm.synced_folder %}
-        {% include 'PuphpetExtensionVagrantfileIkoulaCloudBundle:sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% include 'PuphpetMainBundle:extensions/vagrantfile-ikoula/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.extension.vagrantfile.ikoulacloud.synced_folder') }}"

@@ -216,7 +216,7 @@
         <div class="clearfix"></div>
 
         {% for location in vhost.locations %}
-            {% include 'PuphpetExtensionNginxBundle:sections:location.html.twig' with {'vhostId': uniqid, 'location': location} %}
+            {% include 'PuphpetMainBundle:extensions/nginx/sections:location.html.twig' with {'vhostId': uniqid, 'location': location} %}
         {% endfor %}
 
         <a href="#" data-source-url="{{ path('puphpet.extension.nginx.location', {'vhostId': uniqid}) }}"

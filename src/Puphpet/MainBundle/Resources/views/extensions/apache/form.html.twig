@@ -47,7 +47,7 @@
     <div class="clearfix"></div>
 
     {% for vhost in apache.vhosts %}
-        {% include 'PuphpetExtensionApacheBundle:sections:vhost.html.twig' with {'vhost': vhost} %}
+        {% include 'PuphpetMainBundle:extensions/apache/sections:vhost.html.twig' with {'vhost': vhost} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.extension.apache.vhost') }}"

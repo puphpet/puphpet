@@ -10,21 +10,21 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 {
     public function indexAction(array $data, $extra = '')
     {
-        return $this->render('PuphpetExtensionVagrantfileLocalBundle::form.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/vagrantfile-local:form.html.twig', [
             'data' => $data,
         ]);
     }
 
     public function syncedFolderAction()
     {
-        return $this->render('PuphpetExtensionVagrantfileLocalBundle:sections:synced-folder.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/vagrantfile-local/sections:synced-folder.html.twig', [
             'synced_folder' => $this->getData()['empty_synced_folder'],
         ]);
     }
 
     public function forwardedPortAction()
     {
-        return $this->render('PuphpetExtensionVagrantfileLocalBundle:sections:forwarded-port.html.twig', [
+        return $this->render('PuphpetMainBundle:extensions/vagrantfile-local/sections:forwarded-port.html.twig', [
             'forwarded_port' => array_shift($this->getData()['vm']['network']['forwarded_port']),
         ]);
     }
