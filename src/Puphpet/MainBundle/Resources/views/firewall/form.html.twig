@@ -14,7 +14,7 @@
 <div class="clearfix"></div>
 
 {% for rule in firewall.rules %}
-    {% include 'PuphpetMainBundle:firewall/sections:Rule.html.twig' with {'rule': rule} %}
+    {% include 'PuphpetMainBundle:firewall/sections:rule.html.twig' with {'rule': rule} %}
 {% endfor %}
 
 <a href="#" data-source-url="{{ path('puphpet.firewall.rule') }}"
