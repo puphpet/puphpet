@@ -93,15 +93,6 @@ if hash_key_equals($mariadb_values, 'install', 1) {
       $(dirname ${mariadb_pidfile_dir})",
   }
 
-  # if ! defined(File[$mysql::params::socket]) {
-  #   file { $mysql::params::socket :
-  #     ensure  => file,
-  #     group   => $mysql::params::root_group,
-  #     before  => Class['mysql::server'],
-  #     require => File[$mysql::params::datadir]
-  #   }
-  # }
-
   if ! defined(Package['mysql-libs']) {
     package { 'mysql-libs':
       ensure => purged,
