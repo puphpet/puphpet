@@ -15,7 +15,7 @@ class PythonController extends Controller
 
     public function addVersionAction()
     {
-        return $this->render('PuphpetMainBundle:Python/sections:Version.html.twig', [
+        return $this->render('PuphpetMainBundle:Python/sections:version.html.twig', [
             'selected_version'   => $this->getData()['empty_version'],
             'available_versions' => $this->getData()['available_versions'],
         ]);
