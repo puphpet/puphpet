@@ -95,7 +95,7 @@ if hash_key_equals($mariadb_values, 'install', 1) {
 
   if ! defined(File[$mysql::params::socket]) {
     file { $mysql::params::socket :
-      ensure  => file,
+      ensure  => socket,
       group   => $mysql::params::root_group,
       before  => Class['mysql::server'],
       require => File[$mysql::params::datadir]
