@@ -37,7 +37,7 @@
 </div>
 
 {% for selected_version in ruby.versions %}
-    {% include 'PuphpetMainBundle:ruby/sections:Version.html.twig' with {
+    {% include 'PuphpetMainBundle:ruby/sections:version.html.twig' with {
         'available_versions': ruby.available_versions, 'selected_version': selected_version} %}
 {% endfor %}
 
