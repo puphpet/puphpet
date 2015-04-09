@@ -15,7 +15,7 @@ class FirewallController extends Controller
 
     public function ruleAction()
     {
-        return $this->render('PuphpetMainBundle:firewall/sections:Rule.html.twig', [
+        return $this->render('PuphpetMainBundle:firewall/sections:rule.html.twig', [
             'rule' => $this->getData()['empty_rule'],
         ]);
     }
