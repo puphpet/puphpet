@@ -1,0 +1,46 @@
+<div class="section-header hidden">
+    <h1>Ruby</h1>
+    <p class="lead">Configure Ruby versions and gems.</p>
+</div>
+
+<div class="form-group">
+    <span class="help-text">
+        Fedora and skinny jeans not included.
+    </span>
+    <div class="clearfix"><label>Install</label></div>
+
+    <label class="col-xs-12 radio-tile">
+        <input type="checkbox" name="ruby[install]" value="1"
+               class="invisible" checked />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Install Ruby</span>
+            </span>
+            <span class="footer">
+                Ruby 1.9.3 comes preinstalled using RVM.
+            </span>
+        </span>
+    </label>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="help-block">
+    <p>Ruby 1.9.3 is already installed in PuPHPet boxes using RVM.
+        It is set as the system default version.</p>
+    <p>To add Gems to the installed 1.9.3, choose it from the list below.</p>
+    <p>Choosing to install a lower version and setting it as default may
+        break things, so proceed with caution.</p>
+</div>
+
+{% for selected_version in ruby.versions %}
+    {% include 'PuphpetMainBundle:ruby/sections:Version.html.twig' with {
+        'available_versions': ruby.available_versions, 'selected_version': selected_version} %}
+{% endfor %}
+
+<a href="#" data-source-url="{{ path('puphpet.ruby.add_version') }}"
+   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another Ruby version</a>
+
