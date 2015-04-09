@@ -82,6 +82,10 @@ puphpet.extension.postgresql:
     resource: "@PuphpetExtensionPostgresqlBundle/Resources/config/routing.yml"
     prefix:   /extension/postgresql
 
+puphpet.extension.mariadb:
+    resource: "@PuphpetExtensionMariaDbBundle/Resources/config/routing.yml"
+    prefix:   /extension/mariadb
+
 puphpet.extension.mongodb:
     resource: "@PuphpetExtensionMongoDbBundle/Resources/config/routing.yml"
     prefix:   /extension/mongodb

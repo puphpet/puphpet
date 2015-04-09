@@ -40,6 +40,7 @@ services:
         # databases
             - [ addExtension, [ @puphpet.extension.mysql.configure ] ]
             - [ addExtension, [ @puphpet.extension.postgresql.configure ] ]
+            - [ addExtension, [ @puphpet.extension.mariadb.configure ] ]
             - [ addExtension, [ @puphpet.extension.sqlite.configure ] ]
             - [ addExtension, [ @puphpet.extension.mongodb.configure ] ]
             - [ addExtension, [ @puphpet.extension.redis.configure ] ]

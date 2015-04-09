@@ -1,0 +1,9 @@
+install: 0
+
+settings:
+    override_options: {}
+    root_password: 123
+
+adminer: 0
+
+databases: []

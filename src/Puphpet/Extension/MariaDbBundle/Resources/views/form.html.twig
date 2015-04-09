@@ -1,23 +1,23 @@
 {% import "PuphpetMainBundle:front:macros/popover.html.twig" as popover %}
-<section id="mysql">
+<section id="mariadb">
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">MySQL Quick Settings</h3>
+                    <h3 class="panel-title">MariaDB Quick Settings</h3>
                 </div>
 
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
                             <input type="checkbox" class="update-other-input"
-                                   name="mysql[install]" data-update-mariadb[install]="0"
-                                   {% if mysql.install %}checked{% endif %} value="1" /> Install MySQL
-                            {% if not mysql.install %}<input type="hidden" name="mysql[install]" value="0" />{% endif %}
+                                   name="mariadb[install]" data-update-mysql[install]="0"
+                                   {% if mariadb.install %}checked{% endif %} value="1" /> Install MariaDB
+                            {% if not mariadb.install %}<input type="hidden" name="mariadb[install]" value="0" />{% endif %}
                         </label>
 
                         <p class="help-block">
-                            If you install MySQL, you cannot install MariaDB.
+                            If you install MariaDB, you cannot install MySQL.
                         </p>
                     </div>
                 </div>
@@ -27,18 +27,18 @@
                         <div class="col-md-12">
                             <label>Version</label><br />
 
-                            {% if mysql.settings.version is defined and mysql.settings.version is not empty %}
+                            {% if mariadb.settings.version is defined and mariadb.settings.version is not empty %}
                                 <label class="radio-inline">
-                                    <input type="radio" name="mysql[settings][version]"
-                                           value="{{ mysql.settings.version }}" checked />
-                                    {{ mysql.settings.version }}
+                                    <input type="radio" name="mariadb[settings][version]"
+                                           value="{{ mariadb.settings.version }}" checked />
+                                    {{ mariadb.settings.version }}
                                 </label>
                             {% endif %}
 
-                            {% for version in mysql.available_versions %}
-                                {% if version != mysql.settings.version %}
+                            {% for version in mariadb.available_versions %}
+                                {% if version != mariadb.settings.version %}
                                     <label class="radio-inline">
-                                        <input type="radio" name="mysql[settings][version]" value="{{ version }}" />
+                                        <input type="radio" name="mariadb[version]" value="{{ version }}" />
                                         {{ version }}
                                     </label>
                                 {% endif %}
@@ -48,27 +48,27 @@
 
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="mysql-settings-root_password">
+                            <label for="mariadb-settings-root_password">
                                 Root Password
                                 {{ popover.small('Assign a password to the root user.
                                     <strong>Database will only be installed
                                     when a password is entered here.</strong>') }}
                             </label>
-                            <input type="text" id="mysql-settings-root_password" name="mysql[settings][root_password]"
-                                   value="{{ mysql.settings.root_password }}" class="form-control" />
+                            <input type="text" id="mariadb-settings-root_password" name="mariadb[settings][root_password]"
+                                   value="{{ mariadb.settings.root_password }}" class="form-control" />
                         </div>
                     </div>
 
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <label for="mysql-adminer">
+                            <label for="mariadb-adminer">
                                 Adminer
                                 {{ popover.small('If installed it will be available from
                                     <code>http://{SERVER_IP_ADDRESS}/adminer</code>.') }}
                             </label><br />
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="mysql-adminer" name="mysql[adminer]"
-                                       {% if mysql.adminer %}checked{% endif %} value="1" /> Install Adminer
+                                <input type="checkbox" id="mariadb-adminer" name="mariadb[adminer]"
+                                       {% if mariadb.adminer %}checked{% endif %} value="1" /> Install Adminer
                             </label>
                         </div>
                     </div>
@@ -88,42 +88,35 @@
                         Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
                         <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
                         your initial <code>$ vagrant up</code>!
+
+                        <br /><br />
+
+                        If you want to assign a user to multiple databases, simply create more databases and type in
+                        the same username and password. Only the password for the first entry will be considered,
+                        <strong>but all fields must be completed</strong>!
                     </p>
                 </div>
 
-                {% for user in mysql.users %}
-                    {% include 'PuphpetExtensionMysqlBundle:sections:User.html.twig'
-                        with {'user': user} %}
-                {% endfor %}
-
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                data-source-url="{{ path('puphpet.extension.mysql.add_user') }}">Add another MySQL user</button>
+                <div class="row form-group hidden">
+                    <div class="col-xs-12">
+                        <label for="mariadb-settings-override_options">Override Options</label>
+                        <select id="mariadb-settings-override_options" multiple class="form-control">
+                            {% for setting, value in mariadb.settings.override_options %}
+                                <option value="{{ setting }}" selected>{{ value }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
 
-                {% for database in mysql.databases %}
-                    {% include 'PuphpetExtensionMysqlBundle:sections:Database.html.twig'
-                        with {'database': database} %}
+                {% for database in mariadb.databases %}
+                    {% include 'PuphpetExtensionMariaDbBundle:sections:NewUserAndDatabase.html.twig'
+                        with {'available_privileges': mariadb.available_privileges, 'database': database} %}
                 {% endfor %}
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-8 col-sm-push-2">
                         <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                data-source-url="{{ path('puphpet.extension.mysql.add_database') }}">Add another MySQL database</button>
-                    </div>
-                </div>
-
-                {% for grant in mysql.grants %}
-                    {% include 'PuphpetExtensionMysqlBundle:sections:Grant.html.twig'
-                        with {'available_privileges': available_privileges, 'grant': grant} %}
-                {% endfor %}
-
-                <div class="row">
-                    <div class="col-xs-12 col-sm-8 col-sm-push-2">
-                        <button type="button" class="btn btn-success btn-lg btn-block addParentContainer"
-                                data-source-url="{{ path('puphpet.extension.mysql.add_grant') }}">Add another MySQL user/database grant</button>
+                                data-source-url="{{ path('puphpet.extension.mariadb.add_database') }}">Add another MariaDB database</button>
                     </div>
                 </div>
             </div>
