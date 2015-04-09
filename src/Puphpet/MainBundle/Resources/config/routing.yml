@@ -77,3 +77,6 @@ puphpet.php:
 puphpet.ruby:
     resource: "@PuphpetMainBundle/Resources/config/ruby/routing.yml"
     prefix:   /extension/ruby
+puphpet.python:
+    resource: "@PuphpetMainBundle/Resources/config/python/routing.yml"
+    prefix:   /extension/python

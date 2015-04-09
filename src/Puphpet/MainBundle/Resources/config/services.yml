@@ -34,6 +34,7 @@ services:
             - [ addExtension, [ 'wpcli' ] ]
             - [ addExtension, [ 'drush' ] ]
             - [ addExtension, [ 'ruby' ] ]
+            - [ addExtension, [ 'python' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

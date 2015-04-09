@@ -1,0 +1,72 @@
+{% set packages = (python.packages is defined) ? python.packages : [] %}
+
+<div class="section-header hidden">
+    <h1>Python</h1>
+    <p class="lead">Configure Python versions and packages.</p>
+</div>
+
+<div class="form-group">
+    <span class="help-text">
+        Pretty slow, but quite pretty!
+    </span>
+    <div class="clearfix"><label>Install</label></div>
+
+    <label class="col-xs-12 radio-tile">
+        <input type="checkbox" name="python[install]" value="1"
+               class="invisible" checked readonly />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Install Python</span>
+            </span>
+            <span class="footer">
+                Python 2.6/2.7 comes preinstalled.
+            </span>
+        </span>
+    </label>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="help-block">
+    <p>Debian and Ubuntu come with <code>Python 2.7</code>,
+        and CentOS comes with <code>Python 2.6</code> out of the box.</p>
+    <p>Any extra Python versions you choose will be installed using
+        <a href="https://github.com/yyuu/pyenv" target="_blank">pyenv</a>
+        as system installations, <em>not user installations</em>.</p>
+    <p>All extra Python versions require compiling. Choose sparingly - each
+        additional version will add extra time to the initial
+        <code>$ vagrant up</code>!</p>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="form-group col-xs-12">
+    <div class="help-text">
+        <p>To install a specific package version, use <code>{package}@{version}</code>.</p>
+        <p>eg: <code>Django@1.6.5</code>. For latest just use <code>{package}</code>.</p>
+        <p><a href="https://pypi.python.org/pypi"
+              target="_blank">All valid Packages list</a>.</p>
+    </div>
+    <label for="python-packages">Install Packages</label>
+    <select id="python-packages"
+           multiple name="python[packages][]"
+           class="form-control select-tags-editable">
+        {% for package in packages %}
+            <option selected value="{{ package }}">{{ package }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="clearfix"></div>
+
+{% for selected_version in python.versions %}
+    {% include 'PuphpetMainBundle:Python/sections:Version.html.twig'
+        with {'available_versions': python.available_versions, 'selected_version': selected_version} %}
+{% endfor %}
+
+<a href="#" data-source-url="{{ path('puphpet.python.add_version') }}"
+   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another Python version</a>
+
