@@ -80,3 +80,6 @@ puphpet.ruby:
 puphpet.python:
     resource: "@PuphpetMainBundle/Resources/config/python/routing.yml"
     prefix:   /extension/python
+puphpet.nodejs:
+    resource: "@PuphpetMainBundle/Resources/config/nodejs/routing.yml"
+    prefix:   /extension/nodejs
