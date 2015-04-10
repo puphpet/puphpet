@@ -83,3 +83,6 @@ puphpet.python:
 puphpet.nodejs:
     resource: "@PuphpetMainBundle/Resources/config/nodejs/routing.yml"
     prefix:   /extension/nodejs
+puphpet.hhvm:
+    resource: "@PuphpetMainBundle/Resources/config/hhvm/routing.yml"
+    prefix:   /extension/hhvm
