@@ -112,21 +112,21 @@
     <div class="clearfix"></div>
 
     {% for user in mysql.users %}
-        {% include 'PuphpetMainBundle:mysql/sections:User.html.twig' with {'user': user} %}
+        {% include 'PuphpetMainBundle:mysql/sections:user.html.twig' with {'user': user} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.mysql.add_user') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another user</a>
 
     {% for database in mysql.databases %}
-        {% include 'PuphpetMainBundle:mysql/sections:Database.html.twig' with {'database': database} %}
+        {% include 'PuphpetMainBundle:mysql/sections:database.html.twig' with {'database': database} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.mysql.add_database') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another database</a>
 
     {% for grant in mysql.grants %}
-        {% include 'PuphpetMainBundle:mysql/sections:Grant.html.twig' with {
+        {% include 'PuphpetMainBundle:mysql/sections:grant.html.twig' with {
             'available_privileges': mysql.available_privileges, 'grant': grant} %}
     {% endfor %}
 

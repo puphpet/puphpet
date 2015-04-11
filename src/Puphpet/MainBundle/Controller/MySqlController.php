@@ -17,21 +17,21 @@ class MySqlController extends Controller
 
     public function addUserAction()
     {
-        return $this->render('PuphpetMainBundle:mysql/sections:User.html.twig', [
+        return $this->render('PuphpetMainBundle:mysql/sections:user.html.twig', [
             'user' => $this->getData()['empty_user'],
         ]);
     }
 
     public function addDatabaseAction()
     {
-        return $this->render('PuphpetMainBundle:mysql/sections:Database.html.twig', [
+        return $this->render('PuphpetMainBundle:mysql/sections:database.html.twig', [
             'database' => $this->getData()['empty_database'],
         ]);
     }
 
     public function addGrantAction()
     {
-        return $this->render('PuphpetMainBundle:mysql/sections:Grant.html.twig', [
+        return $this->render('PuphpetMainBundle:mysql/sections:grant.html.twig', [
             'grant'                => $this->getData()['empty_grant'],
             'available_privileges' => $this->getData()['available_privileges'],
         ]);
