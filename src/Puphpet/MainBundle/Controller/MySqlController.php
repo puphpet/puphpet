@@ -1,16 +1,15 @@
 <?php
 
-namespace Puphpet\Extension\MysqlBundle\Controller;
-
-use Puphpet\MainBundle\Extension;
+namespace Puphpet\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
-class FrontController extends Controller implements Extension\ControllerInterface
+class MySqlController extends Controller
 {
-    public function indexAction(array $data, $extra = '')
+    public function indexAction(array $data)
     {
-        return $this->render('PuphpetExtensionMysqlBundle::form.html.twig', [
+        return $this->render('PuphpetMainBundle:mysql:form.html.twig', [
             'mysql'                => $data,
             'available_privileges' => $this->getData()['available_privileges'],
         ]);
@@ -18,21 +17,21 @@ class FrontController extends Controller implements Extension\ControllerInterfac
 
     public function addUserAction()
     {
-        return $this->render('PuphpetExtensionMysqlBundle:sections:User.html.twig', [
+        return $this->render('PuphpetMainBundle:mysql/sections:User.html.twig', [
             'user' => $this->getData()['empty_user'],
         ]);
     }
 
     public function addDatabaseAction()
     {
-        return $this->render('PuphpetExtensionMysqlBundle:sections:Database.html.twig', [
+        return $this->render('PuphpetMainBundle:mysql/sections:Database.html.twig', [
             'database' => $this->getData()['empty_database'],
         ]);
     }
 
     public function addGrantAction()
     {
-        return $this->render('PuphpetExtensionMysqlBundle:sections:Grant.html.twig', [
+        return $this->render('PuphpetMainBundle:mysql/sections:Grant.html.twig', [
             'grant'                => $this->getData()['empty_grant'],
             'available_privileges' => $this->getData()['available_privileges'],
         ]);
@@ -43,7 +42,7 @@ class FrontController extends Controller implements Extension\ControllerInterfac
      */
     private function getData()
     {
-        $config = $this->get('puphpet.extension.mysql.configure');
-        return $config->getData();
+        $manager = $this->get('puphpet.extension.manager');
+        return $manager->getExtensionData('mysql');
     }
 }

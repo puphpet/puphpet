@@ -37,6 +37,8 @@ services:
             - [ addExtension, [ 'python' ] ]
             - [ addExtension, [ 'nodejs' ] ]
             - [ addExtension, [ 'hhvm' ] ]
+        # database
+            - [ addExtension, [ 'mysql' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

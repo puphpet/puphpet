@@ -86,3 +86,8 @@ puphpet.nodejs:
 puphpet.hhvm:
     resource: "@PuphpetMainBundle/Resources/config/hhvm/routing.yml"
     prefix:   /extension/hhvm
+
+# database
+puphpet.mysql:
+    resource: "@PuphpetMainBundle/Resources/config/mysql/routing.yml"
+    prefix:   /extension/mysql

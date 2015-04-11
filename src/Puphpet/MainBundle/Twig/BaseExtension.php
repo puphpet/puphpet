@@ -19,6 +19,7 @@ class BaseExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction('mt_rand', [$this, 'mt_rand']),
             new \Twig_SimpleFunction('uniqid', [$this, 'uniqid']),
+            new \Twig_SimpleFunction('merge_unique', [$this, 'mergeUnique']),
         ];
     }
 
@@ -46,6 +47,11 @@ class BaseExtension extends \Twig_Extension
     public function str_replace($subject, $search, $replace)
     {
         return str_replace($search, $replace, $subject);
+    }
+
+    public function mergeUnique(array $arr1, array $arr2)
+    {
+        return array_unique(array_merge($arr1, $arr2));
     }
 
     public function getName()
