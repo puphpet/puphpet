@@ -45,6 +45,8 @@ services:
             - [ addExtension, [ 'sqlite' ] ]
         # mail
             - [ addExtension, [ 'mailcatcher' ] ]
+        # work queue
+            - [ addExtension, [ 'beanstalkd' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
