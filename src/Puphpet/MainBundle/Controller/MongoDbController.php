@@ -16,7 +16,7 @@ class MongoDbController extends Controller
 
     public function addDatabaseAction()
     {
-        return $this->render('PuphpetMainBundle:mongodb/sections:NewUserAndDatabase.html.twig', [
+        return $this->render('PuphpetMainBundle:mongodb/sections:user-database.html.twig', [
             'database' => $this->getData()['empty_database'],
         ]);
     }

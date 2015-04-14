@@ -61,7 +61,7 @@
     <div class="clearfix"></div>
 
     {% for database in mongodb.databases %}
-        {% include 'PuphpetMainBundle:mongodb/sections:NewUserAndDatabase.html.twig'
+        {% include 'PuphpetMainBundle:mongodb/sections:user-database.html.twig'
             with {'database': database} %}
     {% endfor %}
 
