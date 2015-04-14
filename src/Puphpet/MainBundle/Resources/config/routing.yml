@@ -91,3 +91,6 @@ puphpet.hhvm:
 puphpet.mysql:
     resource: "@PuphpetMainBundle/Resources/config/mysql/routing.yml"
     prefix:   /extension/mysql
+puphpet.postgresql:
+    resource: "@PuphpetMainBundle/Resources/config/postgresql/routing.yml"
+    prefix:   /extension/postgresql

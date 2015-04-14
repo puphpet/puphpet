@@ -39,6 +39,7 @@ services:
             - [ addExtension, [ 'hhvm' ] ]
         # database
             - [ addExtension, [ 'mysql' ] ]
+            - [ addExtension, [ 'postgresql' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
