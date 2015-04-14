@@ -114,21 +114,21 @@
     <div class="clearfix"></div>
 
     {% for user in postgresql.users %}
-        {% include 'PuphpetMainBundle:postgresql/sections:User.html.twig' with {'user': user} %}
+        {% include 'PuphpetMainBundle:postgresql/sections:user.html.twig' with {'user': user} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.postgresql.add_user') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another user</a>
 
     {% for database in postgresql.databases %}
-        {% include 'PuphpetMainBundle:postgresql/sections:Database.html.twig' with {'database': database} %}
+        {% include 'PuphpetMainBundle:postgresql/sections:database.html.twig' with {'database': database} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.postgresql.add_database') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another database</a>
 
     {% for grant in postgresql.grants %}
-        {% include 'PuphpetMainBundle:postgresql/sections:Grant.html.twig' with {'grant': grant} %}
+        {% include 'PuphpetMainBundle:postgresql/sections:grant.html.twig' with {'grant': grant} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.postgresql.add_grant') }}"
