@@ -1,0 +1,70 @@
+<div class="section-header hidden">
+    <h1>MongoDB</h1>
+    <p class="lead">Install MongoDB and create users and databases.</p>
+</div>
+
+<div class="form-group">
+    <div class="clearfix"><label>Install</label></div>
+
+    <label class="col-xs-12 radio-tile">
+        <input type="checkbox" name="mongodb[install]" value="1"
+               class="invisible toggle-on-select"
+               {% if mongodb.install %}checked{% endif %}
+               data-vis-toggle-target="#mongodb-container" />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Install MongoDB</span>
+            </span>
+            <span class="footer">
+                An open-source document database, and the leading NoSQL database.
+            </span>
+        </span>
+    </label>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="mongodb-container" class="{% if not mongodb.install %}hidden{% endif %}">
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            IP Address Mongo will listen on. Will usually be local.
+        </div>
+        <label for="mongodb-settings-bind_ip">Bind IP</label>
+        <input type="text" id="mongodb-settings-bind_ip"
+               name="mongodb[settings][bind_ip]"
+               placeholder="127.0.0.1" class="form-control"
+               value="{{ mongodb.settings.bind_ip }}" />
+    </div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            Port will automatically be added to <code>iptables</code>.
+        </div>
+        <label for="mongodb-settings-port">Bind IP</label>
+        <input type="text" id="mongodb-settings-port"
+               name="mongodb[settings][port]"
+               placeholder="27017" class="form-control"
+               value="{{ mongodb.settings.port }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    <p class="help-block">
+        If you want to assign a user to multiple databases, simply create more databases and type in
+        the same username and password. Only the password for the first entry will be considered,
+        <strong>but all fields must be completed</strong>!
+    </p>
+
+    <div class="clearfix"></div>
+
+    {% for database in mongodb.databases %}
+        {% include 'PuphpetMainBundle:mongodb/sections:NewUserAndDatabase.html.twig'
+            with {'database': database} %}
+    {% endfor %}
+
+    <a href="#" data-source-url="{{ path('puphpet.mongodb.add_database') }}"
+       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another database</a>
+</div>

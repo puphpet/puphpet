@@ -94,3 +94,6 @@ puphpet.mysql:
 puphpet.postgresql:
     resource: "@PuphpetMainBundle/Resources/config/postgresql/routing.yml"
     prefix:   /extension/postgresql
+puphpet.mongodb:
+    resource: "@PuphpetMainBundle/Resources/config/mongodb/routing.yml"
+    prefix:   /extension/mongodb

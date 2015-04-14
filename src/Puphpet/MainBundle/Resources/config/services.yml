@@ -40,6 +40,7 @@ services:
         # database
             - [ addExtension, [ 'mysql' ] ]
             - [ addExtension, [ 'postgresql' ] ]
+            - [ addExtension, [ 'mongodb' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
