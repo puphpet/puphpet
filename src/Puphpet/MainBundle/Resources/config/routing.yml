@@ -100,3 +100,6 @@ puphpet.mongodb:
 puphpet.redis:
     resource: "@PuphpetMainBundle/Resources/config/redis/routing.yml"
     prefix:   /extension/redis
+puphpet.sqlite:
+    resource: "@PuphpetMainBundle/Resources/config/sqlite/routing.yml"
+    prefix:   /extension/sqlite
