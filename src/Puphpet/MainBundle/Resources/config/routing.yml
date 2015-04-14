@@ -113,3 +113,6 @@ puphpet.mailcatcher:
 puphpet.beanstalkd:
     resource: "@PuphpetMainBundle/Resources/config/beanstalkd/routing.yml"
     prefix:   /extension/beanstalkd
+puphpet.rabbitmq:
+    resource: "@PuphpetMainBundle/Resources/config/rabbitmq/routing.yml"
+    prefix:   /extension/rabbitmq

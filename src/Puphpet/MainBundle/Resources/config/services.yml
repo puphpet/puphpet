@@ -47,6 +47,7 @@ services:
             - [ addExtension, [ 'mailcatcher' ] ]
         # work queue
             - [ addExtension, [ 'beanstalkd' ] ]
+            - [ addExtension, [ 'rabbitmq' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
