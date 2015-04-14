@@ -97,3 +97,6 @@ puphpet.postgresql:
 puphpet.mongodb:
     resource: "@PuphpetMainBundle/Resources/config/mongodb/routing.yml"
     prefix:   /extension/mongodb
+puphpet.redis:
+    resource: "@PuphpetMainBundle/Resources/config/redis/routing.yml"
+    prefix:   /extension/redis

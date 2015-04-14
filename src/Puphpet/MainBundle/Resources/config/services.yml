@@ -41,6 +41,7 @@ services:
             - [ addExtension, [ 'mysql' ] ]
             - [ addExtension, [ 'postgresql' ] ]
             - [ addExtension, [ 'mongodb' ] ]
+            - [ addExtension, [ 'redis' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
