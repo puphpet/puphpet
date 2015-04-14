@@ -43,6 +43,8 @@ services:
             - [ addExtension, [ 'mongodb' ] ]
             - [ addExtension, [ 'redis' ] ]
             - [ addExtension, [ 'sqlite' ] ]
+        # mail
+            - [ addExtension, [ 'mailcatcher' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

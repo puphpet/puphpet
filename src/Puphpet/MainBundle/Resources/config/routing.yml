@@ -103,3 +103,8 @@ puphpet.redis:
 puphpet.sqlite:
     resource: "@PuphpetMainBundle/Resources/config/sqlite/routing.yml"
     prefix:   /extension/sqlite
+
+#mail
+puphpet.mailcatcher:
+    resource: "@PuphpetMainBundle/Resources/config/mailcatcher/routing.yml"
+    prefix:   /extension/mailcatcher
