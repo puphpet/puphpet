@@ -1,5 +1,4 @@
 {% set providerChosen = (data.target == 'aws') ? true : false %}
-{% set dis = providerChosen ? '' : 'disabled' %}
 
 <div class="section-header hidden">
     <h1>Amazon Server Details</h1>
@@ -30,13 +29,13 @@
 
 <div class="clearfix"></div>
 
-<div class="hideable {% if not providerChosen %}hidden{% endif %}">
+<div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
     <input type="hidden" id="vagrantfile-aws-vm-box" name="vagrantfile[vm][box]"
-           value="aws" {{ dis }} />
+           value="aws" />
     <input type="hidden" id="vagrantfile-aws-ssh-username" name="vagrantfile[ssh][username]"
-           value="{{ data.ssh.username }}" {{ dis }} />
+           value="{{ data.ssh.username }}" />
     <input type="hidden" id="vagrantfile-aws-vm-provider-aws-region" name="vagrantfile[vm][provider][aws][region]"
-           value="{{ data.vm.provider.aws.region }}" {{ dis }} />
+           value="{{ data.vm.provider.aws.region }}" />
 
     <div class="form-group">
         <div class="clearfix"><label>Region &amp; Distro</label></div>
@@ -58,7 +57,7 @@
                                data-update-vagrantfile-ssh-username="{{ image.ssh_username }}"
                                data-update-vagrantfile-vm-provider-aws-region="{{ region }}"
                                name="vagrantfile[vm][provider][aws][ami]"
-                               value="{{ image.ami }}" {{ dis }}
+                               value="{{ image.ami }}"
                                {% if image.ami == data.vm.provider.aws.ami %}checked{% endif %} />
                         <span class="content">
                             <span class="header">
@@ -95,7 +94,7 @@
         <label for="vagrantfile-vm-provider-aws-instance_type">Instance Size</label>
         <select id="vagrantfile-vm-provider-aws-instance_type"
                name="vagrantfile[vm][provider][aws][instance_type]"
-               class="form-control select-tag" {{ dis }}>
+               class="form-control select-tag">
             {% for type, description in data.available_instance_types %}
                 <option value="{{ type }}"
                     {% if type == data.vm.provider.aws.instance_type %}selected{% endif %}>{{ type }} - {{ description }}</option>
@@ -114,7 +113,7 @@
         <input type="text" id="vagrantfile-vm-provider-aws-access_key_id"
                name="vagrantfile[vm][provider][aws][access_key_id]"
                class="form-control" placeholder="EC2 ACCESS KEY ID"
-               value="{{ data.vm.provider.aws.access_key_id }}" {{ dis }} />
+               value="{{ data.vm.provider.aws.access_key_id }}" />
     </div>
 
     <div class="form-group col-xs-6">
@@ -126,7 +125,7 @@
         <input type="text" id="vagrantfile-vm-provider-aws-secret_access_key"
                name="vagrantfile[vm][provider][aws][secret_access_key]"
                class="form-control" placeholder="EC2 SECRET ACCESS KEY"
-               value="{{ data.vm.provider.aws.secret_access_key }}" {{ dis }} />
+               value="{{ data.vm.provider.aws.secret_access_key }}" />
     </div>
 
     <div class="clearfix"></div>
@@ -140,7 +139,7 @@
         <input type="text" id="vagrantfile-vm-provider-aws-keypair_name"
                name="vagrantfile[vm][provider][aws][keypair_name]"
                class="form-control" placeholder="EC2 KEY PAIR NAME"
-               value="{{ data.vm.provider.aws.keypair_name }}" {{ dis }} />
+               value="{{ data.vm.provider.aws.keypair_name }}" />
     </div>
 
     <div class="form-group col-xs-6">
@@ -156,7 +155,7 @@
         <input type="text" id="vagrantfile-ssh-private_key_path"
                name="vagrantfile[ssh][private_key_path]"
                class="form-control" placeholder="~/.ssh/id_rsa"
-               value="{{ data.ssh.private_key_path }}" {{ dis }} />
+               value="{{ data.ssh.private_key_path }}" />
     </div>
 
     <div class="clearfix"></div>
@@ -169,7 +168,7 @@
         <label for="vagrantfile-vm-provider-aws-security_groups">EC2 Security Groups</label>
         <select id="vagrantfile-vm-provider-aws-security_groups"
                name="vagrantfile[vm][provider][aws][security_groups][]"
-               multiple class="form-control select-tags-editable" {{ dis }}>
+               multiple class="form-control select-tags-editable">
             {% for group in data.vm.provider.aws.security_groups %}
                 <option value="{{ group }}" selected>{{ group }}</option>
             {% endfor %}

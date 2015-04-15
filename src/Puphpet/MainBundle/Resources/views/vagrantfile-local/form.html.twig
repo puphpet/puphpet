@@ -1,5 +1,4 @@
 {% set providerChosen = (data.target == 'local') ? true : false %}
-{% set dis = providerChosen ? '' : 'disabled' %}
 
 <div class="section-header hidden">
     <h1>Local VM Details</h1>
@@ -30,11 +29,11 @@
 
 <div class="clearfix"></div>
 
-<div class="hideable {% if not providerChosen %}hidden{% endif %}">
+<div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
     <input type="hidden" id="vagrantfile-local-vm-box" name="vagrantfile[vm][box]"
-           value="{{ data.vm.box }}" {{ dis }} />
+           value="{{ data.vm.box }}" />
     <input type="hidden" id="vagrantfile-local-vm-hostname" name="vagrantfile[vm][hostname]"
-           value="{{ data.vm.hostname }}" {{ dis }} />
+           value="{{ data.vm.hostname }}" />
 
     <div class="form-group">
         <div class="clearfix"><label>Provider</label></div>
@@ -46,7 +45,7 @@
                 </span>
                 <input type="radio" class="invisible update-other-input"
                        name="vagrantfile[vm][chosen_provider]"
-                       value="{{ provider.name }}" {{ dis }}
+                       value="{{ provider.name }}"
                        {% if provider.name == data.vm.chosen_provider %}checked{% endif %}
                        data-update-vagrantfile-vm-network-private_network="{{ provider.default_ip }}"
                     />
@@ -92,7 +91,7 @@
             <label class="col-xs-6 radio-tile">
                 <input type="radio" class="invisible update-other-input"
                        name="vagrantfile[vm][box_url]"
-                       value="{{ box.url }}" {{ dis }}
+                       value="{{ box.url }}"
                        {% if box.url == data.vm.box_url %}checked{% endif %}
                        data-update-vagrantfile-local-vm-box="{{ box.short_name }}" />
                 <span class="content">
@@ -124,7 +123,7 @@
         <input type="text" id="vagrantfile-vm-network-private_network"
                name="vagrantfile[vm][network][private_network]"
                placeholder="192.168.56.101" class="form-control"
-               value="{{ data.vm.network.private_network }}" {{ dis }} />
+               value="{{ data.vm.network.private_network }}" />
     </div>
 
     <div class="form-group col-xs-6">
@@ -134,7 +133,7 @@
         <label for="vagrantfile-vm-memory">Memory</label>
         <input type="number" id="vagrantfile-vm-memory" name="vagrantfile[vm][memory]"
                placeholder="512" min="64" class="form-control"
-               value="{{ data.vm.memory }}" {{ dis }} />
+               value="{{ data.vm.memory }}" />
     </div>
 
     <div class="clearfix"></div>
@@ -146,7 +145,7 @@
         <label for="vagrantfile-vm-cpus">CPU's</label>
         <input type="number" id="vagrantfile-vm-cpus" name="vagrantfile[vm][cpus]"
                placeholder="1" min="1" class="form-control"
-               value="{{ data.vm.cpus }}" {{ dis }} />
+               value="{{ data.vm.cpus }}" />
     </div>
 
     <div class="clearfix"></div>

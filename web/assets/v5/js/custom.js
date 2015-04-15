@@ -707,17 +707,27 @@ PUPHPET.displayTabFromUrl = function () {
 };
 
 PUPHPET.toggleDeployTargetVisibility = function() {
+    $('.vagrantfile.hidden').each(function() {
+        $(this)
+            .find('input, textarea, button, select')
+            .prop('disabled', true);
+    });
+
     $(document).on('change', 'input:radio[name="vagrantfile[target]"]', function(e) {
         var tabName = '#vagrantfile-' + $(this).val();
         var $tab    = $(tabName);
         $('.hideable', $tab).hide().removeClass('hidden').slideDown();
-        $('.hideable :input', $tab).prop('disabled', false);
+        $('.hideable', $tab)
+            .find('input, textarea, button, select')
+            .prop('disabled', false);
 
         $('input:radio[name="vagrantfile[target]"]').not(this).each(function() {
             var tabName = '#vagrantfile-' + $(this).val();
             var $tab    = $(tabName);
             $('.hideable', $tab).hide();
-            $('.hideable :input', $tab).prop('disabled', true);
+            $('.hideable', $tab)
+                .find('input, textarea, button, select')
+                .prop('disabled', true);
         });
     });
 };

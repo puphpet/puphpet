@@ -1,5 +1,4 @@
 {% set providerChosen = (data.target == 'linode') ? true : false %}
-{% set dis = providerChosen ? '' : 'disabled' %}
 
 <div class="section-header hidden">
     <h1>Linode Server Details</h1>
@@ -30,9 +29,9 @@
 
 <div class="clearfix"></div>
 
-<div class="hideable {% if not providerChosen %}hidden{% endif %}">
+<div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
     <input type="hidden" id="vagrantfile-linode-vm-box" name="vagrantfile[vm][box]"
-           value="linode" {{ dis }} />
+           value="linode" />
 
     <div class="form-group">
         <div class="clearfix"><label>Distro</label></div>
@@ -49,7 +48,7 @@
             <label class="col-xs-6 radio-tile">
                 <input type="radio" class="invisible"
                        name="vagrantfile[vm][provider][linode][distribution]"
-                       value="{{ distribution.distribution }}" {{ dis }}
+                       value="{{ distribution.distribution }}"
                        {% if distribution.distribution == data.vm.provider.linode.distribution %}checked{% endif %} />
                 <span class="content">
                     <span class="header">
@@ -79,7 +78,7 @@
         <label for="vagrantfile-vm-provider-linode-plan">Server Size</label>
         <select id="vagrantfile-vm-provider-linode-plan"
                name="vagrantfile[vm][provider][linode][plan]"
-               class="form-control select-tag" {{ dis }}>
+               class="form-control select-tag">
             {% for plan, name in data.available_plans %}
                 <option value="{{ plan }}"
                     {% if plan == data.vm.provider.linode.plan %}selected{% endif %}>{{ name }}</option>
@@ -94,7 +93,7 @@
         <label for="vagrantfile-vm-provider-linode-datacenter">Datacenter Location</label>
         <select id="vagrantfile-vm-provider-linode-datacenter"
                name="vagrantfile[vm][provider][linode][datacenter]"
-               class="form-control select-tag" {{ dis }}>
+               class="form-control select-tag">
             {% for key, datacenter in data.available_datacenters %}
                 <option value="{{ key }}"
                     {% if key == data.vm.provider.linode.datacenter %}selected{% endif %}>{{ datacenter }}</option>
@@ -112,7 +111,7 @@
         <input type="text" id="vagrantfile-vm-hostname"
                name="vagrantfile[vm][hostname]"
                class="form-control"
-               value="{{ data.vm.hostname }}" {{ dis }} />
+               value="{{ data.vm.hostname }}" />
     </div>
 
     <div class="form-group col-xs-6">
@@ -124,7 +123,7 @@
         <input type="text" id="vagrantfile-vm-provider-linode-token"
                name="vagrantfile[vm][provider][linode][token]"
                class="form-control" placeholder="LINODE API KEY"
-               value="{{ data.vm.provider.linode.token }}" {{ dis }} />
+               value="{{ data.vm.provider.linode.token }}" />
     </div>
 
     <div class="clearfix"></div>
@@ -137,7 +136,7 @@
         <input type="text" id="vagrantfile-ssh-username"
                name="vagrantfile[ssh][username]"
                class="form-control"
-               value="{{ data.ssh.username }}" {{ dis }} />
+               value="{{ data.ssh.username }}" />
     </div>
 
     <div class="form-group col-xs-6">
@@ -150,7 +149,7 @@
         <input type="text" id="vagrantfile-ssh-private_key_path"
                name="vagrantfile[ssh][private_key_path]"
                class="form-control" placeholder="~/.ssh/id_rsa"
-               value="{{ data.ssh.private_key_path }}" {{ dis }} />
+               value="{{ data.ssh.private_key_path }}" />
     </div>
 
     <div class="clearfix"></div>
@@ -164,7 +163,7 @@
         <input type="text" id="vagrantfile-vm-provider-linode-ssh_key_name"
                name="vagrantfile[vm][provider][linode][ssh_key_name]"
                class="form-control" placeholder="Vagrant"
-               value="{{ data.vm.provider.linode.ssh_key_name }}" {{ dis }} />
+               value="{{ data.vm.provider.linode.ssh_key_name }}" />
     </div>
 
     <div class="clearfix"></div>
