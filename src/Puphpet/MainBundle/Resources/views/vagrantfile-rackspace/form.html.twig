@@ -1,4 +1,5 @@
 {% set providerChosen = (data.target == 'rackspace') ? true : false %}
+{% set dis = providerChosen ? 'disabled' : '' %}
 
 <div class="section-header hidden">
     <h1>Rackspace Server Details</h1>
@@ -30,6 +31,9 @@
 <div class="clearfix"></div>
 
 <div class="hideable {% if not providerChosen %}hidden{% endif %}">
+    <input type="hidden" id="vagrantfile-rackspace-vm-box" name="vagrantfile[vm][box]"
+           value="rackspace" {{ dis }} />
+
     <div class="form-group">
         <div class="clearfix"><label>Distro</label></div>
 
@@ -45,7 +49,7 @@
             <label class="col-xs-6 radio-tile">
                 <input type="radio" class="invisible"
                        name="vagrantfile[vm][provider][rackspace][image]"
-                       value="{{ image.image }}"
+                       value="{{ image.image }}" {{ dis }}
                        {% if image.image == data.vm.provider.rackspace.image %}checked{% endif %} />
                 <span class="content">
                     <span class="header">
@@ -74,7 +78,7 @@
         <input type="text" id="vagrantfile-vm-provider-rackspace-server_name"
                name="vagrantfile[vm][provider][rackspace][server_name]"
                class="form-control"
-               value="{{ data.vm.provider.rackspace.server_name }}" />
+               value="{{ data.vm.provider.rackspace.server_name }}" {{ dis }} />
     </div>
 
     <div class="form-group col-xs-6">
@@ -86,7 +90,7 @@
         <label for="vagrantfile-vm-provider-rackspace-size">Server Size</label>
         <select id="vagrantfile-vm-provider-rackspace-size"
                name="vagrantfile[vm][provider][rackspace][size]"
-               class="form-control select-tag">
+               class="form-control select-tag" {{ dis }}>
             {% for size in data.available_sizes %}
                 <option value="{{ size }}"
                     {% if size == data.vm.provider.rackspace.size %}selected{% endif %}>{{ size }}</option>
@@ -103,7 +107,7 @@
         <label for="vagrantfile-vm-provider-rackspace-region">Datacenter Location</label>
         <select id="vagrantfile-vm-provider-rackspace-region"
                name="vagrantfile[vm][provider][rackspace][region]"
-               class="form-control select-tag">
+               class="form-control select-tag" {{ dis }}>
             {% for key, region in data.available_regions %}
                 <option value="{{ key }}"
                     {% if key == data.vm.provider.rackspace.region %}selected{% endif %}>{{ region }}</option>
@@ -119,7 +123,7 @@
         <input type="text" id="vagrantfile-vm-provider-rackspace-username"
                name="vagrantfile[vm][provider][rackspace][username]"
                class="form-control" placeholder="RACKSPACE USERNAME"
-               value="{{ data.vm.provider.rackspace.username }}" />
+               value="{{ data.vm.provider.rackspace.username }}" {{ dis }} />
     </div>
 
     <div class="clearfix"></div>
@@ -133,7 +137,7 @@
         <input type="text" id="vagrantfile-vm-provider-rackspace-api_key"
                name="vagrantfile[vm][provider][rackspace][api_key]"
                class="form-control" placeholder="RACKSPACE API KEY"
-               value="{{ data.vm.provider.rackspace.api_key }}" />
+               value="{{ data.vm.provider.rackspace.api_key }}" {{ dis }} />
     </div>
 
     <div class="form-group col-xs-6">
@@ -146,7 +150,7 @@
         <input type="text" id="vagrantfile-ssh-private_key_path"
                name="vagrantfile[ssh][private_key_path]"
                class="form-control" placeholder="~/.ssh/id_rsa"
-               value="{{ data.ssh.private_key_path }}" />
+               value="{{ data.ssh.private_key_path }}" {{ dis }} />
     </div>
 
     <div class="clearfix"></div>
@@ -159,7 +163,7 @@
         <input type="text" id="vagrantfile-ssh-username"
                name="vagrantfile[ssh][username]"
                class="form-control"
-               value="{{ data.ssh.username }}" />
+               value="{{ data.ssh.username }}" {{ dis }} />
     </div>
 
     <div class="form-group col-xs-6">
@@ -170,19 +174,19 @@
         <input type="text" id="vagrantfile-ssh-public_key_path"
                name="vagrantfile[ssh][public_key_path]"
                class="form-control" placeholder="~/.ssh/id_rsa.pub"
-               value="{{ data.ssh.public_key_path }}" />
+               value="{{ data.ssh.public_key_path }}" {{ dis }} />
     </div>
 
     <div class="clearfix"></div>
 
-    {% for synced_folder in data.vm.synced_folder %}
-        {% include 'PuphpetMainBundle:vagrantfile-rackspace/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-    {% endfor %}
+    {% if providerChosen %}
+        {% for synced_folder in data.vm.synced_folder %}
+            {% include 'PuphpetMainBundle:vagrantfile-rackspace/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% endfor %}
+    {% endif %}
 
     <a href="#" data-source-url="{{ path('puphpet.vagrantfile_rackspace.synced_folder') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
-
-    <input type="hidden" id="vagrantfile-rackspace-vm-box" name="vagrantfile[vm][box]" value="rackspace" />
 
     <div class="modal fade" id="vagrantfile-rackspace-modal" tabindex="-1" role="dialog"
          aria-labelledby="vagrantfile-rackspace-modal-label" aria-hidden="true">

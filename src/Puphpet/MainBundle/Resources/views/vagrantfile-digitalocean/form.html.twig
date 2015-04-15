@@ -1,4 +1,5 @@
 {% set providerChosen = (data.target == 'digitalocean') ? true : false %}
+{% set dis = providerChosen ? 'disabled' : '' %}
 
 <div class="section-header hidden">
     <h1>Digital Ocean Server Details</h1>
@@ -30,6 +31,9 @@
 <div class="clearfix"></div>
 
 <div class="hideable {% if not providerChosen %}hidden{% endif %}">
+    <input type="hidden" id="vagrantfile-digitalocean-vm-box" name="vagrantfile[vm][box]"
+       value="digital_ocean" {{ dis }} />
+
     <div class="form-group">
         <div class="clearfix"><label>Distro</label></div>
 
@@ -45,7 +49,7 @@
             <label class="col-xs-6 radio-tile">
                 <input type="radio" class="invisible"
                        name="vagrantfile[vm][provider][digital_ocean][image]"
-                       value="{{ image.image }}"
+                       value="{{ image.image }}" {{ dis }}
                        {% if image.image == data.vm.provider.digital_ocean.image %}checked{% endif %} />
                 <span class="content">
                     <span class="header">
@@ -74,7 +78,7 @@
         <label for="vagrantfile-vm-provider-digital_ocean-size">Server Size</label>
         <select id="vagrantfile-vm-provider-digital_ocean-size"
                name="vagrantfile[vm][provider][digital_ocean][size]"
-               class="form-control select-tag">
+               class="form-control select-tag" {{ dis }}>
             {% for size, name in data.available_sizes %}
                 <option value="{{ size }}"
                     {% if size == data.vm.provider.digital_ocean.size %}selected{% endif %}>{{ name }}</option>
@@ -92,7 +96,7 @@
         <input type="text" id="vagrantfile-vm-hostname"
                name="vagrantfile[vm][hostname]"
                class="form-control"
-               value="{{ data.vm.hostname }}" />
+               value="{{ data.vm.hostname }}" {{ dis }} />
     </div>
 
     <div class="form-group col-xs-6">
@@ -102,7 +106,7 @@
         <label for="vagrantfile-vm-provider-digital_ocean-region">Datacenter Location</label>
         <select id="vagrantfile-vm-provider-digital_ocean-region"
                name="vagrantfile[vm][provider][digital_ocean][region]"
-               class="form-control select-tag">
+               class="form-control select-tag" {{ dis }}>
             {% for key, region in data.available_regions %}
                 <option value="{{ key }}"
                     {% if key == data.vm.provider.digital_ocean.region %}selected{% endif %}>{{ region }}</option>
@@ -121,7 +125,7 @@
         <input type="text" id="vagrantfile-vm-provider-digital_ocean-token"
                name="vagrantfile[vm][provider][digital_ocean][token]"
                class="form-control" placeholder="DIGITAL OCEAN TOKEN"
-               value="{{ data.vm.provider.digital_ocean.token }}" />
+               value="{{ data.vm.provider.digital_ocean.token }}" {{ dis }} />
     </div>
 
     <div class="form-group col-xs-6">
@@ -133,7 +137,7 @@
         <input type="text" id="vagrantfile-vm-provider-digital_ocean-ssh_key_name"
                name="vagrantfile[vm][provider][digital_ocean][ssh_key_name]"
                class="form-control" placeholder="Vagrant"
-               value="{{ data.vm.provider.digital_ocean.ssh_key_name }}" />
+               value="{{ data.vm.provider.digital_ocean.ssh_key_name }}" {{ dis }} />
     </div>
 
     <div class="clearfix"></div>
@@ -148,7 +152,7 @@
         <input type="text" id="vagrantfile-ssh-private_key_path"
                name="vagrantfile[ssh][private_key_path]"
                class="form-control" placeholder="~/.ssh/id_rsa"
-               value="{{ data.ssh.private_key_path }}" />
+               value="{{ data.ssh.private_key_path }}" {{ dis }} />
     </div>
 
     <div class="form-group col-xs-6">
@@ -159,19 +163,19 @@
         <input type="text" id="vagrantfile-ssh-username"
                name="vagrantfile[ssh][username]"
                class="form-control"
-               value="{{ data.ssh.username }}" />
+               value="{{ data.ssh.username }}" {{ dis }} />
     </div>
 
     <div class="clearfix"></div>
 
-    {% for synced_folder in data.vm.synced_folder %}
-        {% include 'PuphpetMainBundle:vagrantfile-digitalocean/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-    {% endfor %}
+    {% if providerChosen %}
+        {% for synced_folder in data.vm.synced_folder %}
+            {% include 'PuphpetMainBundle:vagrantfile-digitalocean/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% endfor %}
+    {% endif %}
 
     <a href="#" data-source-url="{{ path('puphpet.vagrantfile_digitalocean.synced_folder') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
-
-    <input type="hidden" id="vagrantfile-digitalocean-vm-box" name="vagrantfile[vm][box]" value="digital_ocean" />
 
     <div class="modal fade" id="vagrantfile-digitalocean-modal" tabindex="-1" role="dialog"
          aria-labelledby="vagrantfile-digitalocean-modal-label" aria-hidden="true">

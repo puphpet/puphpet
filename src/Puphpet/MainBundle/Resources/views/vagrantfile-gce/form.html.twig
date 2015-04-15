@@ -1,4 +1,5 @@
 {% set providerChosen = (data.target == 'gce') ? true : false %}
+{% set dis = providerChosen ? 'disabled' : '' %}
 
 <div class="section-header hidden">
     <h1>Google Server Details</h1>
@@ -30,6 +31,8 @@
 <div class="clearfix"></div>
 
 <div class="hideable {% if not providerChosen %}hidden{% endif %}">
+    <input type="hidden" id="vagrantfile-gce-vm-box" name="vagrantfile[vm][box]" value="gce" {{ dis }} />
+
     <div class="form-group">
         <div class="clearfix"><label>Distro</label></div>
 
@@ -45,7 +48,7 @@
             <label class="col-xs-6 radio-tile">
                 <input type="radio" class="invisible"
                        name="vagrantfile[vm][provider][gce][image]"
-                       value="{{ image.image }}"
+                       value="{{ image.image }}" {{ dis }}
                        {% if image.image == data.vm.provider.gce.image %}checked{% endif %} />
                 <span class="content">
                     <span class="header">
@@ -74,7 +77,7 @@
         <input type="text" id="vagrantfile-vm-provider-gce-name"
                name="vagrantfile[vm][provider][gce][name]"
                class="form-control"
-               value="{{ data.vm.provider.gce.name }}" />
+               value="{{ data.vm.provider.gce.name }}" {{ dis }} />
     </div>
 
     <div class="form-group col-xs-6">
@@ -86,7 +89,7 @@
         <label for="vagrantfile-vm-provider-gce-machine_type">Instance Size</label>
         <select id="vagrantfile-vm-provider-gce-machine_type"
                name="vagrantfile[vm][provider][gce][machine_type]"
-               class="form-control select-tag">
+               class="form-control select-tag" {{ dis }}>
             {% for type, description in data.available_machine_types %}
                 <option value="{{ type }}"
                         {% if type == data.vm.provider.gce.machine_type %}selected{% endif %}>{{ type }} ({{ description }})</option>
@@ -103,7 +106,7 @@
         <label for="vagrantfile-vm-provider-gce-zone">Instance Size</label>
         <select id="vagrantfile-vm-provider-gce-zone"
                name="vagrantfile[vm][provider][gce][zone]"
-               class="form-control select-tag">
+               class="form-control select-tag" {{ dis }}>
             {% for key, zone in data.available_zones %}
                 <option value="{{ key }}"
                     {% if key == data.vm.provider.gce.zone %}selected{% endif %}>{{ zone }}</option>
@@ -119,7 +122,7 @@
         <input type="text" id="vagrantfile-vm-provider-gce-client_email"
                name="vagrantfile[vm][provider][gce][client_email]"
                class="form-control" placeholder="GCE CLIENT EMAIL"
-               value="{{ data.vm.provider.gce.client_email }}" />
+               value="{{ data.vm.provider.gce.client_email }}" {{ dis }} />
     </div>
 
     <div class="clearfix"></div>
@@ -132,7 +135,7 @@
         <input type="text" id="vagrantfile-vm-provider-gce-project_id"
                name="vagrantfile[vm][provider][gce][project_id]"
                class="form-control" placeholder="GCE PROJECT ID"
-               value="{{ data.vm.provider.gce.project_id }}" />
+               value="{{ data.vm.provider.gce.project_id }}" {{ dis }} />
     </div>
 
     <div class="form-group col-xs-6">
@@ -143,7 +146,7 @@
         <input type="text" id="vagrantfile-vm-provider-gce-key_location"
                name="vagrantfile[vm][provider][gce][key_location]"
                class="form-control" placeholder="/PATH/TO/PRIVATE_KEY.P12"
-               value="{{ data.vm.provider.gce.key_location }}" />
+               value="{{ data.vm.provider.gce.key_location }}" {{ dis }} />
     </div>
 
     <div class="clearfix"></div>
@@ -158,7 +161,7 @@
         <input type="text" id="vagrantfile-ssh-private_key_path"
                name="vagrantfile[ssh][private_key_path]"
                class="form-control" placeholder="~/.ssh/id_rsa"
-               value="{{ data.ssh.private_key_path }}" />
+               value="{{ data.ssh.private_key_path }}" {{ dis }} />
     </div>
 
     <div class="form-group col-xs-6">
@@ -169,7 +172,7 @@
         <input type="text" id="vagrantfile-ssh-username"
                name="vagrantfile[ssh][username]"
                class="form-control"
-               value="{{ data.ssh.username }}" />
+               value="{{ data.ssh.username }}" {{ dis }} />
     </div>
 
     <div class="clearfix"></div>
@@ -182,19 +185,19 @@
         <input type="text" id="vagrantfile-ssh-public_key_path"
                name="vagrantfile[ssh][public_key_path]"
                class="form-control" placeholder="~/.ssh/id_rsa.pub"
-               value="{{ data.ssh.public_key_path }}" />
+               value="{{ data.ssh.public_key_path }}" {{ dis }} />
     </div>
 
     <div class="clearfix"></div>
 
-    {% for synced_folder in data.vm.synced_folder %}
-        {% include 'PuphpetMainBundle:vagrantfile-gce/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-    {% endfor %}
+    {% if providerChosen %}
+        {% for synced_folder in data.vm.synced_folder %}
+            {% include 'PuphpetMainBundle:vagrantfile-gce/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% endfor %}
+    {% endif %}
 
     <a href="#" data-source-url="{{ path('puphpet.vagrantfile_gce.synced_folder') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
-
-    <input type="hidden" id="vagrantfile-gce-vm-box" name="vagrantfile[vm][box]" value="gce" />
 
     <div class="modal fade" id="vagrantfile-gce-modal" tabindex="-1" role="dialog"
          aria-labelledby="vagrantfile-gce-modal-label" aria-hidden="true">
