@@ -44,7 +44,7 @@
         {% for image in data.available_images %}
             <label class="col-xs-6 radio-tile">
                 <input type="radio" class="invisible"
-                       name="vagrantfile[vm][provider][rackspace][image]"
+                       name="vagrantfile[vm][provider][digital_ocean][image]"
                        value="{{ image.image }}"
                        {% if image.image == data.vm.provider.digital_ocean.image %}checked{% endif %} />
                 <span class="content">
@@ -101,7 +101,7 @@
         </div>
         <label for="vagrantfile-vm-provider-digital_ocean-region">Datacenter Location</label>
         <select id="vagrantfile-vm-provider-digital_ocean-region"
-               name="vagrantfile-digital_ocean[vm][provider][digital_ocean][region]"
+               name="vagrantfile[vm][provider][digital_ocean][region]"
                class="form-control select-tag">
             {% for key, region in data.available_regions %}
                 <option value="{{ key }}"
@@ -119,7 +119,7 @@
         </div>
         <label for="vagrantfile-vm-provider-digital_ocean-token">Digital Ocean Token</label>
         <input type="text" id="vagrantfile-vm-provider-digital_ocean-token"
-               name="vagrantfile-digital_ocean[vm][provider][digital_ocean][token]"
+               name="vagrantfile[vm][provider][digital_ocean][token]"
                class="form-control" placeholder="DIGITAL OCEAN TOKEN"
                value="{{ data.vm.provider.digital_ocean.token }}" />
     </div>
