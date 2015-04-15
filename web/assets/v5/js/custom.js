@@ -275,8 +275,10 @@ PUPHPET.updateOtherInputOnUncheck = function() {
 PUPHPET.sidebarMenuClick = function() {
     // prevent scrolling to top of page on section title click
     $(document).on('click', '#sidebar .sidebar-menu > .sub-menu > a', function (e) {
-        e.stopPropagation();
-        e.preventDefault && e.preventDefault();
+        if ($(this).next().length != 0) {
+            e.stopPropagation();
+            e.preventDefault && e.preventDefault();
+        }
     });
 
     // handles sliding sections open and closed on link click
@@ -309,7 +311,7 @@ PUPHPET.sidebarMenuClick = function() {
     });
 
     // removes active class from non-selected section/link
-    $(document).on('click', '#sidebar .sub-menu ul.sub a', function (e) {
+    $(document).on('click', '#sidebar .sub-menu a[data-toggle="tab"]', function (e) {
         window.location.hash = this.hash;
 
         var $activeSection = $('#sidebar .sub-menu.active');
@@ -678,7 +680,7 @@ PUPHPET.changeTabOnAnchorChange = function () {
  * Catches anchor tag (#foo) in URL bar and displays proper tab
  */
 PUPHPET.displayTabFromUrl = function () {
-    var $link = $('#sidebar .sidebar-menu > .sub-menu .sub a[data-toggle="tab"]');
+    var $link = $('#sidebar .sidebar-menu > .sub-menu a[data-toggle="tab"]');
 
     if (window.location.hash.length) {
         var $hashLink = $link.filter('[href=' + window.location.hash + ']');

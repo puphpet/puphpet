@@ -1,6 +1,3 @@
-imports:
-    - { resource: vagrantfile-local/services.yml }
-
 services:
     randomlib:
         class: RandomLib\Factory

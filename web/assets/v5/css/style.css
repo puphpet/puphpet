@@ -187,6 +187,7 @@ legend {
 
     ul.sidebar-menu {
         margin-top: 60px;
+        margin-bottom: 60px;
     }
 
     #sidebar > ul > li > ul.sub {
@@ -627,6 +628,11 @@ legend {
 .page-header {
     padding-bottom: 0;
     margin: 10px 0;
+}
+
+#create-button {
+    font-size: 2em;
+    padding: 10px;
 }
 
 @media (min-width: 768px) {
