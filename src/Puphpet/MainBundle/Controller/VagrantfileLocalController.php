@@ -23,7 +23,7 @@ class VagrantfileLocalController extends Controller
     public function forwardedPortAction()
     {
         return $this->render('PuphpetMainBundle:vagrantfile-local/sections:forwarded-port.html.twig', [
-            'forwarded_port' => array_shift($this->getData()['vm']['network']['forwarded_port']),
+            'forwarded_port' => $this->getData()['empty_forwarded_port'],
         ]);
     }
 

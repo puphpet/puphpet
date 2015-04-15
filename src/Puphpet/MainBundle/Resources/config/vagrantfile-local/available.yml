@@ -15,6 +15,10 @@ empty_synced_folder:
             - '.git/'
         auto: true
 
+empty_forwarded_port:
+    host: ~
+    guest: ~
+
 available_providers:
     -
         name: virtualbox
