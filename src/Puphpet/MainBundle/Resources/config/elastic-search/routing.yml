@@ -1,0 +1,3 @@
+puphpet.elastic_search.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetMainBundle:ElasticSearch:index }

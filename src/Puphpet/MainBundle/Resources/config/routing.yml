@@ -116,3 +116,8 @@ puphpet.beanstalkd:
 puphpet.rabbitmq:
     resource: "@PuphpetMainBundle/Resources/config/rabbitmq/routing.yml"
     prefix:   /extension/rabbitmq
+
+# search server
+puphpet.elastic_search:
+    resource: "@PuphpetMainBundle/Resources/config/elastic-search/routing.yml"
+    prefix:   /extension/elastic-search

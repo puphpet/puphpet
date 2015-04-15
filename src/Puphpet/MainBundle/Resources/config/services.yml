@@ -48,6 +48,8 @@ services:
         # work queue
             - [ addExtension, [ 'beanstalkd' ] ]
             - [ addExtension, [ 'rabbitmq' ] ]
+        # search server
+            - [ addExtension, [ 'elastic-search' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension
