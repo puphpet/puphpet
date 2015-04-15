@@ -1,6 +1,6 @@
 body {
     color: #353b44;
-    background: #fff url('../img/congruent_pentagon.png');
+    background: #fff;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: 300;
 }
@@ -151,6 +151,7 @@ legend {
 }
 
 #main-content {
+    background: url('../img/congruent_pentagon.png');
     margin-left: 205px;
     line-height: 1.8;
     font-size: 15px;
@@ -171,6 +172,7 @@ legend {
         height: 100%;
         position: fixed;
         background: #fff;
+        border-right: 1px solid #D7D7D7;
         overflow-y: auto;
     }
 
@@ -250,7 +252,6 @@ legend {
         font-weight: 300;
         outline: none;
         transition: all 0.3s ease;
-        border-right: 1px solid #D7D7D7;
         border-bottom: 1px solid #D7D7D7;
         overflow:hidden;
     }
