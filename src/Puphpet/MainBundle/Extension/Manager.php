@@ -102,18 +102,23 @@ class Manager
      */
     public function setCustomDataAll($data)
     {
-        $skipVagrantfile = false;
+        $vagrantfileTarget = empty($data['vagrantfile']['target']) ? 'local' : $data['vagrantfile']['target'];
 
         foreach ($this->extensions as $name => $extension) {
             $formattedName = $name;
 
+            // Current loop is on a vagrantfile-* key
             if (stristr($name, 'vagrantfile') !== false) {
-                if ($skipVagrantfile) {
+                // Current loop is NOT what was chosen in custom target
+                if (stristr($name, $vagrantfileTarget) === false) {
+                    $this->extensions[$name]['merged']['target'] = false;
+
                     continue;
                 }
 
+                $this->extensions[$name]['merged']['target'] = $vagrantfileTarget;
+
                 $formattedName = 'vagrantfile';
-                $skipVagrantfile = true;
             }
 
             if (empty($data[$formattedName])) {

@@ -1,4 +1,4 @@
-{% set providerChosen = (data.vm.target is empty or data.vm.target == 'local') ? true : false %}
+{% set providerChosen = (data.target == 'local') ? true : false %}
 
 <div class="section-header hidden">
     <h1>Local VM Details</h1>

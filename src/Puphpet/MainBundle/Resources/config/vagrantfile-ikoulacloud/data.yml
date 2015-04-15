@@ -1,5 +1,6 @@
+target: ~
+
 vm:
-    target: ~
     box: ikoulacloud
     hostname: master
     provider:

@@ -1,5 +1,6 @@
+target: ~
+
 vm:
-    target: ~
     provider:
         linode:
             distribution: Debian 7

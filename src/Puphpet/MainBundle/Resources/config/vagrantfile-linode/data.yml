@@ -1,5 +1,6 @@
+target: ~
+
 vm:
-    target: ~
     box: linode
     hostname: master
     network:

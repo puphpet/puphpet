@@ -1,5 +1,6 @@
+target: local
+
 vm:
-    target: local
     hostname: ~
     chosen_provider: virtualbox
     provider:

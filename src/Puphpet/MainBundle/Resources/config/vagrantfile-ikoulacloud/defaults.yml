@@ -1,5 +1,6 @@
+target: ~
+
 vm:
-    target: ~
     provider:
         cloudstack:
             template_id: 3a10ead9-de31-4be9-b81a-43b85adfcb1b

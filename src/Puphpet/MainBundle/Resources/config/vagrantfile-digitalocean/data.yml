@@ -1,5 +1,6 @@
+target: ~
+
 vm:
-    target: ~
     box: digital_ocean
     hostname: master
     network:

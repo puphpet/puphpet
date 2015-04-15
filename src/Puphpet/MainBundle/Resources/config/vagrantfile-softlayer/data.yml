@@ -1,5 +1,6 @@
+target: ~
+
 vm:
-    target: ~
     box: softlayer
     hostname: master
     provider:
