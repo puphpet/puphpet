@@ -1,3 +1,5 @@
+<input type="hidden" name="cron[install]" value="1" />
+
 <div class="section-header hidden">
     <h1>Cron Jobs</h1>
     <p class="lead">Add cron jobs.</p>
@@ -23,10 +25,8 @@
 <div class="clearfix"></div>
 
 {% for job in cron.jobs %}
-    {% include 'PuphpetMainBundle:cron-job/sections:job.html.twig' with {'job': job} %}
+    {% include 'PuphpetMainBundle:cron/sections:job.html.twig' with {'job': job} %}
 {% endfor %}
 
-<a href="#" data-source-url="{{ path('puphpet.cron_job.job') }}"
+<a href="#" data-source-url="{{ path('puphpet.cron.job') }}"
    class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another cron job</a>
-
-<input type="hidden" name="cron[install]" value="1" />

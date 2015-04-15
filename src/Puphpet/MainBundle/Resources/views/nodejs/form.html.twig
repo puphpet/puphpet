@@ -1,3 +1,5 @@
+<input type="hidden" name="nodejs[install]" value="0" />
+
 <div class="section-header hidden">
     <h1>Node.js</h1>
     <p class="lead">Install Node.js and add Npm packages</p>
@@ -10,7 +12,7 @@
     <div class="clearfix"><label>Install</label></div>
 
     <label class="col-xs-12 radio-tile">
-        <input type="checkbox" name="python[install]" value="1"
+        <input type="checkbox" name="nodejs[install]" value="1"
                class="invisible toggle-on-select"
                {% if nodejs.install %}checked{% endif %}
                data-vis-toggle-target="#nodejs-container" />

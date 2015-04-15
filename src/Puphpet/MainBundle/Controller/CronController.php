@@ -4,18 +4,18 @@ namespace Puphpet\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class CronJobController extends Controller
+class CronController extends Controller
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetMainBundle:cron-job:form.html.twig', [
+        return $this->render('PuphpetMainBundle:cron:form.html.twig', [
             'cron' => $data,
         ]);
     }
 
     public function jobAction()
     {
-        return $this->render('PuphpetMainBundle:cron-job/sections:job.html.twig', [
+        return $this->render('PuphpetMainBundle:cron/sections:job.html.twig', [
             'job' => $this->getData()['empty_job'],
         ]);
     }
@@ -26,6 +26,6 @@ class CronJobController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('cron-job');
+        return $manager->getExtensionData('cron');
     }
 }

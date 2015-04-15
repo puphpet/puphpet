@@ -1,5 +1,7 @@
 {% set packages = (python.packages is defined) ? python.packages : [] %}
 
+<input type="hidden" name="python[install]" value="0" />
+
 <div class="section-header hidden">
     <h1>Python</h1>
     <p class="lead">Configure Python versions and packages.</p>

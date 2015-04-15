@@ -1,15 +1,15 @@
 <div class="tab-pane" id="mysql">
-    {% include 'PuphpetMainBundle:mysql:form.html.twig' with { 'mysql': extensions.mysql.data } %}
+    {% include 'PuphpetMainBundle:mysql:form.html.twig' with { 'mysql': extensions.mysql.merged } %}
 </div>
 <div class="tab-pane" id="postgresql">
-    {% include 'PuphpetMainBundle:postgresql:form.html.twig' with { 'postgresql': extensions.postgresql.data } %}
+    {% include 'PuphpetMainBundle:postgresql:form.html.twig' with { 'postgresql': extensions.postgresql.merged } %}
 </div>
 <div class="tab-pane" id="mongodb">
-    {% include 'PuphpetMainBundle:mongodb:form.html.twig' with { 'mongodb': extensions.mongodb.data } %}
+    {% include 'PuphpetMainBundle:mongodb:form.html.twig' with { 'mongodb': extensions.mongodb.merged } %}
 </div>
 <div class="tab-pane" id="redis">
-    {% include 'PuphpetMainBundle:redis:form.html.twig' with { 'redis': extensions.redis.data } %}
+    {% include 'PuphpetMainBundle:redis:form.html.twig' with { 'redis': extensions.redis.merged } %}
 </div>
 <div class="tab-pane" id="sqlite">
-    {% include 'PuphpetMainBundle:sqlite:form.html.twig' with { 'sqlite': extensions.sqlite.data } %}
+    {% include 'PuphpetMainBundle:sqlite:form.html.twig' with { 'sqlite': extensions.sqlite.merged } %}
 </div>

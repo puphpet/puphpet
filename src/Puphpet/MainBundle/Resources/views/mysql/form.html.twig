@@ -5,6 +5,8 @@
     ? merge_unique([selectedVersion], mysql.available_versions)
     : mysql.available_versions %}
 
+<input type="hidden" name="mysql[install]" value="0" />
+
 <div class="section-header hidden">
     <h1>MySQL</h1>
     <p class="lead">Install MySQL and create users and databases.</p>

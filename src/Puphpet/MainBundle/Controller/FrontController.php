@@ -36,8 +36,6 @@ class FrontController extends Controller
     {
         $config = $this->normalizeLineBreaks($request->get('config'));
 
-        $yaml = '';
-
         try {
             $yaml = Yaml::parse($config);
         } catch (\Exception $e) {}
@@ -55,9 +53,10 @@ class FrontController extends Controller
         $manager->setCustomDataAll($yaml);
 
         try {
+            $foo = $manager->getExtensions();
+
             $rendered = $this->render('PuphpetMainBundle:front:index.html.twig', [
-                'extensionManager' => $manager,
-                'hasCustom'        => true,
+                'extensions' => $manager->getExtensions(),
             ]);
 
             return $rendered;

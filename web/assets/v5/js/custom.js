@@ -708,14 +708,104 @@ PUPHPET.displayTabFromUrl = function () {
 
 PUPHPET.toggleDeployTargetVisibility = function() {
     $(document).on('change', 'input:radio[name="vagrantfile[target]"]', function(e) {
-        var $tab = $('#vagrantfile-' + $(this).val());
+        var tabName = '#vagrantfile-' + $(this).val();
+        var $tab    = $(tabName);
         $('.hideable', $tab).hide().removeClass('hidden').slideDown();
+        $('.hideable :input', $tab).prop('disabled', false);
 
         $('input:radio[name="vagrantfile[target]"]').not(this).each(function() {
-            var $tab = $('#vagrantfile-' + $(this).val());
+            var tabName = '#vagrantfile-' + $(this).val();
+            var $tab    = $(tabName);
             $('.hideable', $tab).hide();
+            $('.hideable :input', $tab).prop('disabled', true);
         });
     });
+};
+
+/**
+ * Allows user to drag and drop a pre-generated yaml file containing
+ * their VMs configuration.
+ */
+PUPHPET.uploadConfig = function() {
+    var dropzone = document.documentElement;
+    var tid;
+
+    dropzone.addEventListener('dragover', handleDragOver, false);
+    dropzone.addEventListener('dragleave', handleDragLeave, false);
+    dropzone.addEventListener('drop', handleFileSelect, false);
+
+    $(document).on('paste', function(e) {
+        if ($(e.target).is('input, textarea')) {
+            return true;
+        }
+
+
+        submitForm(e.originalEvent.clipboardData.getData('text/plain'));
+    });
+
+    function handleDragOver(e) {
+        clearTimeout(tid);
+        e.stopPropagation();
+        e.preventDefault && e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+
+        $('#drag-drop').fadeIn('slow');
+    }
+
+    function handleDragLeave(e) {
+        tid = setTimeout(function () {
+            e.stopPropagation();
+            $('#drag-drop').fadeOut('slow');
+        }, 300);
+    }
+
+    function handleFileSelect(e) {
+        e.stopPropagation();
+        e.preventDefault && e.preventDefault();
+
+        $('#drag-drop').fadeOut('slow');
+
+        var files = e.dataTransfer.files; // FileList object.
+
+        // Only proceed when a single file is dropped
+        if (files.length > 1 || !files.length) {
+            return false;
+        }
+
+        var file = files[0];
+
+        // Only allow yaml uploads
+        if (file.name.split('.').pop().toLowerCase() !== 'yaml') {
+            return false;
+        }
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                submitForm(e.target.result);
+            };
+        })(file);
+
+        reader.readAsText(file);
+
+        return false;
+    }
+
+    function submitForm(config) {
+        if (!config.length) {
+            return;
+        }
+
+        var form = $(
+            '<form action="' + uploadConfigUrl + '" method="post">' +
+                '<textarea style="display:none;" name="config">' + config + '</textarea>' +
+            '</form>'
+        );
+        $('body').append(form);
+        $(form).submit();
+    }
 };
 
 $(document).ready(function() {
@@ -734,6 +824,7 @@ $(document).ready(function() {
     PUPHPET.sidebarMenuClick();
     PUPHPET.helpTextDisplay();
     PUPHPET.toggleDisplayOnSelect();
+    PUPHPET.uploadConfig();
 });
 
 /**

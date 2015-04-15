@@ -1,21 +1,21 @@
 <div class="tab-pane" id="php">
     {% include 'PuphpetMainBundle:php:form.html.twig' with {
-        'php': extensions.php.data,
-        'xdebug': extensions.xdebug.data,
-        'xhprof': extensions.xhprof.data,
-        'wpcli': extensions.wpcli.data,
-        'drush': extensions.drush.data
+        'php': extensions.php.merged,
+        'xdebug': extensions.xdebug.merged,
+        'xhprof': extensions.xhprof.merged,
+        'wpcli': extensions.wpcli.merged,
+        'drush': extensions.drush.merged
     } %}
 </div>
 <div class="tab-pane" id="ruby">
-    {% include 'PuphpetMainBundle:ruby:form.html.twig' with { 'ruby': extensions.ruby.data } %}
+    {% include 'PuphpetMainBundle:ruby:form.html.twig' with { 'ruby': extensions.ruby.merged } %}
 </div>
 <div class="tab-pane" id="python">
-    {% include 'PuphpetMainBundle:python:form.html.twig' with { 'python': extensions.python.data } %}
+    {% include 'PuphpetMainBundle:python:form.html.twig' with { 'python': extensions.python.merged } %}
 </div>
 <div class="tab-pane" id="nodejs">
-    {% include 'PuphpetMainBundle:nodejs:form.html.twig' with { 'nodejs': extensions.nodejs.data } %}
+    {% include 'PuphpetMainBundle:nodejs:form.html.twig' with { 'nodejs': extensions.nodejs.merged } %}
 </div>
 <div class="tab-pane" id="hhvm">
-    {% include 'PuphpetMainBundle:hhvm:form.html.twig' with { 'hhvm': extensions.hhvm.data } %}
+    {% include 'PuphpetMainBundle:hhvm:form.html.twig' with { 'hhvm': extensions.hhvm.merged } %}
 </div>

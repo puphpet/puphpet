@@ -14,16 +14,8 @@ class Manager
     /** @var Extension\Archive */
     protected $archive;
 
-    /** @var Container */
-    protected $container;
-
     /** @var array */
     protected $extensions = [];
-
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
 
     /**
      * @param string $name
@@ -44,9 +36,12 @@ class Manager
 
         $mergedData = array_replace_recursive($data, $defaults);
         $mergedData = array_merge($mergedData, $available);
+        $data       = array_merge($data, $available);
 
         $this->extensions[$name] = [
-            'data' => $mergedData,
+            'defaults' => $defaults,
+            'data'     => $data,
+            'merged'   => $mergedData,
         ];
 
         return $this;
@@ -83,37 +78,15 @@ class Manager
     }
 
     /**
-     * @param array $request
+     * @param array $data
      * @return string
      */
-    public function createArchive(array $request)
+    public function createArchive(array $data)
     {
-        $submittedExtensions = $this->matchExtensionToArrayValues($request);
-
         $this->archive = new Extension\Archive;
-
-        $extensions = [];
-        $mergedData = [];
-
-        foreach ($submittedExtensions as $slug => $data) {
-            $extension = $this->getExtensionBySlug($slug);
-            $extension->setCustomData($data);
-
-            $extensions[$slug] = $extension;
-
-            $extension->setReturnAvailableData(false);
-
-            $this->archive->queueToFile(
-                $extension->getTargetFile(),
-                $extension->renderManifest($extension->getData())
-            );
-
-            $mergedData[$slug] = $extension->getData(false);
-        }
-
         $this->archive->queueToFile(
             'puphpet/config.yaml',
-            Yaml::dump($mergedData, 50)
+            Yaml::dump($data, 50, 2)
         );
 
         $this->archive->write();
@@ -124,23 +97,32 @@ class Manager
     /**
      * Accepts custom data for all possible extensions
      *
-     * @param yaml $data
+     * @param array $data
      * @return bool
      */
     public function setCustomDataAll($data)
     {
-        foreach ($this->extensions as $extension) {
-            if (empty($data[$extension->getSlug()])) {
-                $baseData = $extension->getBaseData();
+        $skipVagrantfile = false;
 
-                if (!array_key_exists('install', $baseData)) {
+        foreach ($this->extensions as $name => $extension) {
+            $formattedName = $name;
+
+            if (stristr($name, 'vagrantfile') !== false) {
+                if ($skipVagrantfile) {
                     continue;
                 }
 
-                $data[$extension->getSlug()] = $baseData;
+                $formattedName = 'vagrantfile';
+                $skipVagrantfile = true;
             }
 
-            $extension->setCustomData($data[$extension->getSlug()]);
+            if (empty($data[$formattedName])) {
+                continue;
+            }
+
+            $mergedData = array_replace_recursive($this->extensions[$name]['data'], $data[$formattedName]);
+
+            $this->extensions[$name]['merged'] = $mergedData;
         }
 
         return true;

@@ -5,6 +5,8 @@
     ? merge_unique([selectedVersion], elastic_search.available_versions)
     : elastic_search.available_versions %}
 
+<input type="hidden" name="elastic_search[install]" value="0" />
+
 <div class="section-header hidden">
     <h1>Elastic Search</h1>
     <p class="lead">Install Elastic Search.</p>

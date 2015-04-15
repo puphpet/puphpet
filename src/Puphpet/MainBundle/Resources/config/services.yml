@@ -17,10 +17,10 @@ services:
             - [ addExtension, [ 'vagrantfile-digitalocean' ] ]
             - [ addExtension, [ 'vagrantfile-ikoulacloud' ] ]
         # system
-            - [ addExtension, [ 'package' ] ]
-            - [ addExtension, [ 'user-group' ] ]
+            - [ addExtension, [ 'server' ] ]
+            - [ addExtension, [ 'users-groups' ] ]
             - [ addExtension, [ 'firewall' ] ]
-            - [ addExtension, [ 'cron-job' ] ]
+            - [ addExtension, [ 'cron' ] ]
         # web server
             - [ addExtension, [ 'nginx' ] ]
             - [ addExtension, [ 'apache' ] ]

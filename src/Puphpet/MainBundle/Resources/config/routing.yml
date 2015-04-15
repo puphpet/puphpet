@@ -49,18 +49,18 @@ puphpet.vagrantfile_ikoulacloud:
     prefix:   /extension/vagrantfile-local
 
 # system
-puphpet.package:
-    resource: "@PuphpetMainBundle/Resources/config/package/routing.yml"
-    prefix:   /extension/package
-puphpet.user_group:
-    resource: "@PuphpetMainBundle/Resources/config/user-group/routing.yml"
-    prefix:   /extension/user-group
+puphpet.server:
+    resource: "@PuphpetMainBundle/Resources/config/server/routing.yml"
+    prefix:   /extension/server
+puphpet.users_groups:
+    resource: "@PuphpetMainBundle/Resources/config/users-groups/routing.yml"
+    prefix:   /extension/users-groups
 puphpet.firewall:
     resource: "@PuphpetMainBundle/Resources/config/firewall/routing.yml"
     prefix:   /extension/firewall
-puphpet.cron_job:
-    resource: "@PuphpetMainBundle/Resources/config/cron-job/routing.yml"
-    prefix:   /extension/cron-job
+puphpet.cron:
+    resource: "@PuphpetMainBundle/Resources/config/cron/routing.yml"
+    prefix:   /extension/cron
 
 # web server
 puphpet.nginx:

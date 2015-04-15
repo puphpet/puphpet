@@ -6,6 +6,8 @@
     ? merge_unique([selectedVersion], postgresql.available_versions)
     : postgresql.available_versions %}
 
+<input type="hidden" name="postgresql[install]" value="0" />
+
 <div class="section-header hidden">
     <h1>PostgreSQL</h1>
     <p class="lead">Install PostgreSQL and create users and databases.</p>

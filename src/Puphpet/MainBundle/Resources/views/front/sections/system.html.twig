@@ -1,14 +1,14 @@
 <div class="tab-pane" id="system-packages">
-    {% include 'PuphpetMainBundle:package:form.html.twig' with {'server': extensions.package.data} %}
+    {% include 'PuphpetMainBundle:server:form.html.twig' with {'server': extensions.server.merged} %}
 </div>
 <div class="tab-pane" id="users-groups">
-    {% include 'PuphpetMainBundle:user-group:form.html.twig' with {'ug': extensions.user_group.data} %}
+    {% include 'PuphpetMainBundle:users-groups:form.html.twig' with {'ug': extensions.users_groups.merged} %}
 </div>
 <div class="tab-pane" id="firewall">
-    {% include 'PuphpetMainBundle:firewall:form.html.twig' with {'firewall': extensions.firewall.data} %}
+    {% include 'PuphpetMainBundle:firewall:form.html.twig' with {'firewall': extensions.firewall.merged} %}
 </div>
-<div class="tab-pane" id="cron-jobs">
-    {% include 'PuphpetMainBundle:cron-job:form.html.twig' with {'cron': extensions.cron_job.data} %}
+<div class="tab-pane" id="cron">
+    {% include 'PuphpetMainBundle:cron:form.html.twig' with {'cron': extensions.cron.merged} %}
 </div>
 <div class="tab-pane" id="custom-files">
     <div class="section-header hidden">

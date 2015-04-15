@@ -1,6 +1,6 @@
 <div class="tab-pane" id="nginx">
-    {% include 'PuphpetMainBundle:nginx:form.html.twig' with {'nginx': extensions.nginx.data} %}
+    {% include 'PuphpetMainBundle:nginx:form.html.twig' with {'nginx': extensions.nginx.merged} %}
 </div>
 <div class="tab-pane" id="apache">
-    {% include 'PuphpetMainBundle:apache:form.html.twig' with {'apache': extensions.apache.data} %}
+    {% include 'PuphpetMainBundle:apache:form.html.twig' with {'apache': extensions.apache.merged} %}
 </div>
