@@ -5,50 +5,48 @@
     <script>var uploadConfigUrl = '{{ path('puphpet.main.upload_config') }}';</script>
 {% endblock %}
 
+{% block sideMenu %}
+    {% include 'PuphpetMainBundle:front:side-menu.html.twig' %}
+{% endblock %}
+
 {% block main %}
 <div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
 
-{% include 'PuphpetMainBundle:front:side-menu.html.twig' %}
+<form role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="page-header" class="section-header">
+                <h1>Local VM Details</h1>
+                <p class="lead">Deploy your virtual machine on your local PC.</p>
+            </div>
+        </div>
+    </div>
 
-<section id="main-content">
-    <section class="wrapper">
-        <form role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div id="page-header" class="section-header">
-                        <h1>Local VM Details</h1>
-                        <p class="lead">Deploy your virtual machine on your local PC.</p>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="field-container">
+                <div class="col-xs-9 tab-content">
+                    {% include 'PuphpetMainBundle:front:sections/deploy-target.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/system.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/webserver.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/language.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/database.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/mail.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/work-queue.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/search-server.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/create.html.twig' %}
+                </div>
+
+                <div class="col-xs-3">
+                    <div id="help-text-container">
+                        <h2>More Information</h2>
+                        <div class="contents"></div>
                     </div>
                 </div>
+
+                <div class="clearfix"></div>
             </div>
-
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="field-container">
-                        <div class="col-xs-9 tab-content">
-                            {% include 'PuphpetMainBundle:front:sections/deploy-target.html.twig' %}
-                            {% include 'PuphpetMainBundle:front:sections/system.html.twig' %}
-                            {% include 'PuphpetMainBundle:front:sections/webserver.html.twig' %}
-                            {% include 'PuphpetMainBundle:front:sections/language.html.twig' %}
-                            {% include 'PuphpetMainBundle:front:sections/database.html.twig' %}
-                            {% include 'PuphpetMainBundle:front:sections/mail.html.twig' %}
-                            {% include 'PuphpetMainBundle:front:sections/work-queue.html.twig' %}
-                            {% include 'PuphpetMainBundle:front:sections/search-server.html.twig' %}
-                            {% include 'PuphpetMainBundle:front:sections/create.html.twig' %}
-                        </div>
-
-                        <div class="col-xs-3">
-                            <div id="help-text-container">
-                                <h2>More Information</h2>
-                                <div class="contents"></div>
-                            </div>
-                        </div>
-
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </section>
-</section>
+        </div>
+    </div>
+</form>
 {% endblock %}

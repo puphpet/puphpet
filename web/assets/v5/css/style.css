@@ -625,6 +625,14 @@ legend {
         z-index: -1;
     }
 
+/*
+ * Footer
+**/
+    footer {
+        padding: 15px 20px;
+        background: #fff;
+    }
+
 .page-header {
     padding-bottom: 0;
     margin: 10px 0;
