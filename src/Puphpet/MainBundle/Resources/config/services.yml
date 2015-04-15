@@ -50,6 +50,7 @@ services:
             - [ addExtension, [ 'rabbitmq' ] ]
         # search server
             - [ addExtension, [ 'elastic-search' ] ]
+            - [ addExtension, [ 'solr' ] ]
 
     puphpet.twig.base_extension:
         class: Puphpet\MainBundle\Twig\BaseExtension

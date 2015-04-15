@@ -121,3 +121,6 @@ puphpet.rabbitmq:
 puphpet.elastic_search:
     resource: "@PuphpetMainBundle/Resources/config/elastic-search/routing.yml"
     prefix:   /extension/elastic-search
+puphpet.solr:
+    resource: "@PuphpetMainBundle/Resources/config/solr/routing.yml"
+    prefix:   /extension/solr
