@@ -1,20 +1,6 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'google'
-dir = File.dirname(File.expand_path(__FILE__))
 
-require 'yaml'
 require 'fog/version'
-require "#{dir}/puphpet/ruby/deep_merge.rb"
-
-configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
-
-if File.file?("#{dir}/puphpet/config-custom.yaml")
-  custom = YAML.load_file("#{dir}/puphpet/config-custom.yaml")
-  configValues.deep_merge!(custom)
-end
-
-data = configValues['vagrantfile-gce']
-
-Vagrant.require_version '>= 1.6.0'
 
 Vagrant.configure('2') do |config|
   config.vm.box      = 'gce'
