@@ -28,25 +28,25 @@ puphpet.vagrantfile_local:
     prefix:   /extension/vagrantfile-local
 puphpet.vagrantfile_rackspace:
     resource: "@PuphpetMainBundle/Resources/config/vagrantfile-rackspace/routing.yml"
-    prefix:   /extension/vagrantfile-local
+    prefix:   /extension/vagrantfile-rackspace
 puphpet.vagrantfile_linode:
     resource: "@PuphpetMainBundle/Resources/config/vagrantfile-linode/routing.yml"
-    prefix:   /extension/vagrantfile-local
+    prefix:   /extension/vagrantfile-linode
 puphpet.vagrantfile_softlayer:
     resource: "@PuphpetMainBundle/Resources/config/vagrantfile-softlayer/routing.yml"
-    prefix:   /extension/vagrantfile-local
+    prefix:   /extension/vagrantfile-softlayer
 puphpet.vagrantfile_aws:
     resource: "@PuphpetMainBundle/Resources/config/vagrantfile-aws/routing.yml"
-    prefix:   /extension/vagrantfile-local
+    prefix:   /extension/vagrantfile-aws
 puphpet.vagrantfile_gce:
     resource: "@PuphpetMainBundle/Resources/config/vagrantfile-gce/routing.yml"
-    prefix:   /extension/vagrantfile-local
+    prefix:   /extension/vagrantfile-gce
 puphpet.vagrantfile_digitalocean:
     resource: "@PuphpetMainBundle/Resources/config/vagrantfile-digitalocean/routing.yml"
-    prefix:   /extension/vagrantfile-local
+    prefix:   /extension/vagrantfile-digitalocean
 puphpet.vagrantfile_ikoulacloud:
     resource: "@PuphpetMainBundle/Resources/config/vagrantfile-ikoulacloud/routing.yml"
-    prefix:   /extension/vagrantfile-local
+    prefix:   /extension/vagrantfile-ikoulacloud
 
 # system
 puphpet.server:
