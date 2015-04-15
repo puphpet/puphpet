@@ -12,23 +12,11 @@
     {% set sync_type = 'default' %}
 {% endif %}
 
-{% if synced_folder.rsync.auto is not defined or synced_folder.rsync.auto == 'true' %}
-    {% set rsync_auto = 'true' %}
-{% else %}
-    {% set rsync_auto = 'false' %}
-{% endif %}
-
-{% if synced_folder.rsync.args is defined and synced_folder.rsync.args is iterable %}
-    {% set rsync_args = synced_folder.rsync.args %}
-{% else %}
-    {% set rsync_args = {} %}
-{% endif %}
-
-{% if synced_folder.rsync.exclude is defined and synced_folder.rsync.exclude is iterable %}
-    {% set rsync_exclude = synced_folder.rsync.exclude %}
-{% else %}
-    {% set rsync_exclude = {} %}
-{% endif %}
+{% set rsync_auto = (synced_folder.rsync.auto is not defined or synced_folder.rsync.auto == 'true') ? 'true' : 'false' %}
+{% set rsync_args = (synced_folder.rsync.args is defined and synced_folder.rsync.args is iterable) ? synced_folder.rsync.args : {} %}
+{% set rsync_exclude = (synced_folder.rsync.exclude is defined and synced_folder.rsync.exclude is iterable) ? synced_folder.rsync.exclude : {} %}
+{% set owner = (synced_folder.owner is defined and synced_folder.owner) ? synced_folder.owner : '' %}
+{% set group = (synced_folder.group is defined and synced_folder.group) ? synced_folder.group : '' %}
 
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
@@ -229,9 +217,9 @@
 
     <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-owner"
            name="vagrantfile[vm][synced_folder][{{ uniqid }}][owner]"
-           value="{{ synced_folder.owner }}" />
+           value="{{ owner }}" />
 
     <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-group"
            name="vagrantfile[vm][synced_folder][{{ uniqid }}][group]"
-           value="{{ synced_folder.group }}" />
+           value="{{ group }}" />
 </div>
