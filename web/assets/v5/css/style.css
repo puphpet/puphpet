@@ -164,6 +164,10 @@ legend {
     width: 100%;
 }
 
+#main-form {
+    min-height: 800px;
+}
+
 /*
     sidebar
 */
