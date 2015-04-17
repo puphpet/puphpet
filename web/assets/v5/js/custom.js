@@ -315,9 +315,11 @@ PUPHPET.sidebarMenuClick = function() {
         window.location.hash = this.hash;
 
         var $activeSection = $('#sidebar .sub-menu.active');
+        var $topBar        = $('#navbar-main .nav li.active');
         var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
 
         $activeSection.removeClass('active');
+        $topBar.removeClass('active');
         $activeLink.removeClass('active');
 
         $(this).parent().addClass('active');
@@ -332,6 +334,15 @@ PUPHPET.sidebarMenuClick = function() {
         if ($headerBlock.length != 0) {
             $('#page-header').html($headerBlock.html());
         }
+    });
+
+    $(document).on('click', '#navbar-main a[data-toggle="tab"]', function (e) {
+        window.location.hash = this.hash;
+
+        var $activeSection = $('#sidebar .sub-menu.active');
+        $activeSection.removeClass('active');
+
+        $('html, body').scrollTop(0);
     });
 };
 
@@ -680,21 +691,28 @@ PUPHPET.changeTabOnAnchorChange = function () {
  * Catches anchor tag (#foo) in URL bar and displays proper tab
  */
 PUPHPET.displayTabFromUrl = function () {
-    var $link = $('#sidebar .sidebar-menu > .sub-menu a[data-toggle="tab"]');
-
     if (window.location.hash.length) {
+        var $link = $('#sidebar .sidebar-menu > .sub-menu a[data-toggle="tab"]');
         var $hashLink = $link.filter('[href=' + window.location.hash + ']');
 
-        var $activeSection = $('#sidebar .sub-menu.active');
-        var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
+        if ($hashLink.length != 0) {
+            var $activeSection = $('#sidebar .sub-menu.active');
+            var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
 
-        $activeSection.removeClass('active');
-        $activeLink.removeClass('active');
+            $activeSection.removeClass('active');
+            $activeLink.removeClass('active');
+            $hashLink.addClass('active');
 
-        $hashLink.addClass('active');
+            $hashLink.parent().parent().addClass('open');
+            $hashLink.parent().parent().parent().addClass('active');
+        }
 
-        $hashLink.parent().parent().addClass('open');
-        $hashLink.parent().parent().parent().addClass('active');
+        if ($hashLink.length == 0) {
+            $link = $('#navbar-main a[data-toggle="tab"]');
+            $hashLink = $link.filter('[href=' + window.location.hash + ']');
+
+            $hashLink.addClass('active');
+        }
 
         $hashLink.tab('show');
 
