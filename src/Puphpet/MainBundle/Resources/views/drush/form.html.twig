@@ -38,7 +38,7 @@
                 <option value="{{ drush.version }}" selected>{{ drush.version }}</option>
             {% endif %}
 
-            {% for version in drush.available_versions %}
+            {% for version in drush.available.versions %}
                 {% if version != drush.version %}
                     <option value="{{ version }}">{{ version }}</option>
                 {% endif %}

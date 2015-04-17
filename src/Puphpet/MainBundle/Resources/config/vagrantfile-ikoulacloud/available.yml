@@ -1,10 +1,4 @@
-empty_synced_folder:
-    source: ~
-    target: ~
-    id: ~
-    nfs: false
-
-available_images:
+images:
 #  Zone 3 France Direct Routing (Z03-R0-IKDC01-FR)
     'Zone 3 France Direct Routing (Z03-R0-IKDC01-FR)':
         -
@@ -18,7 +12,7 @@ available_images:
                 - 5.5
                 - HHVM
 
-available_service_offering_names:
+service_offering_names:
     t1.pico: 0.5 vCPUs, 0.512 GiB memory, 50 GiB
     t1.micro: 1 vCPUs, 1 GiB memory, 100 GiB
     m1.small: 1 vCPUs, 1.7 GiB memory, 100 GiB
@@ -26,5 +20,11 @@ available_service_offering_names:
     m1.large: 4 vCPUs, 7.5 GiB memory, 100 GiB
     m1.extralarge: 8 vCPUs, 15 GiB memory, 100 GiB
 
-available_zone_names:
+zone_names:
     'Zone 3 France Direct Routing (Z03-R0-IKDC01-FR)': 'Zone 3 France Direct Routing (Z03-R0-IKDC01-FR)'
+
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: false

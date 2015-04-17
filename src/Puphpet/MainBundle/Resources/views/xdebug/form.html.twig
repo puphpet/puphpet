@@ -34,7 +34,7 @@
                 <option value="{{ name }}" selected>{{ name }}</option>
             {% endfor %}
 
-            {% for setting in xdebug.available_settings %}
+            {% for setting in xdebug.available.settings %}
                 {% if setting not in xdebug.settings|keys %}
                     <option value="{{ setting }}">{{ setting }}</option>
                 {% endif %}

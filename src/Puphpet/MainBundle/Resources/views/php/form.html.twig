@@ -121,7 +121,7 @@
                 data-target-container="php-ini"
                 data-target-name="php[ini]">
             {% set flattened = [] %}
-            {% for ini, values in php.available_ini %}
+            {% for ini, values in php.available.ini %}
                 {% if values is not empty %}
                     <optgroup label="{{ ini }}">
                         {% for value in values %}
@@ -168,7 +168,7 @@
                 <option value="{{ module }}" selected>{{ module }}</option>
             {% endfor %}
 
-            {% for module in php.available_modules.php if module not in php.modules.php %}
+            {% for module in php.available.modules.php if module not in php.modules.php %}
                 <option value="{{ module }}">{{ module }}</option>
             {% endfor %}
         </select>
@@ -184,7 +184,7 @@
         <select id="php-modules-pear" multiple
                 class="form-control select-tags-editable">
             {% set flattened = [] %}
-            {% for namespace, modules in php.available_modules.pear %}
+            {% for namespace, modules in php.available.modules.pear %}
                 <optgroup label="{{ namespace }}">
                     {% for module in modules %}
                         {% set flattened = flattened|merge([module]) %}
@@ -212,7 +212,7 @@
         <select id="php-modules-pecl" multiple
                 class="form-control select-tags-editable">
             {% set flattened = [] %}
-            {% for namespace, modules in php.available_modules.pecl %}
+            {% for namespace, modules in php.available.modules.pecl %}
                 <optgroup label="{{ namespace }}">
                     {% for module in modules %}
                         {% set flattened = flattened|merge([module]) %}

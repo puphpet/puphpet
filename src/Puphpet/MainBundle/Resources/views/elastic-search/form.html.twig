@@ -2,8 +2,8 @@
     ? elastic_search.settings.version
     : false %}
 {% set versions = selectedVersion
-    ? merge_unique([selectedVersion], elastic_search.available_versions)
-    : elastic_search.available_versions %}
+    ? merge_unique([selectedVersion], elastic_search.available.versions)
+    : elastic_search.available.versions %}
 
 <input type="hidden" name="elastic_search[install]" value="0" />
 

@@ -126,7 +126,7 @@
                 data-target-container="hhvm-ini"
                 data-target-name="hhvm[ini]">
             {% set flattened = [] %}
-            {% for ini, values in hhvm.available_ini %}
+            {% for ini, values in hhvm.available.ini %}
                 {% if values is not empty %}
                     <optgroup label="{{ ini }}">
                         {% for value in values %}

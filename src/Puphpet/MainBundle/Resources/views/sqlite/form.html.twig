@@ -69,7 +69,7 @@
 
     {% for database in sqlite.databases %}
         {% include 'PuphpetMainBundle:sqlite/sections:user-database.html.twig'
-            with {'available_privileges': sqlite.available_privileges, 'database': database} %}
+            with {'available_privileges': sqlite.available.privileges, 'database': database} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.sqlite.add_database') }}"

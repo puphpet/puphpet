@@ -40,13 +40,12 @@ class Manager
         $available = is_array($available) ? $available : [];
 
         $mergedData = array_replace_recursive($data, $defaults);
-        $mergedData = array_merge($mergedData, $available);
-        $data       = array_merge($data, $available);
 
         $this->extensions[$name] = [
-            'defaults' => $defaults,
-            'data'     => $data,
-            'merged'   => $mergedData,
+            'available' => $available,
+            'data'      => $data,
+            'defaults'  => $defaults,
+            'merged'    => $mergedData,
         ];
 
         return $this;
@@ -80,6 +79,17 @@ class Manager
         $name = str_replace('-', '_', $name);
 
         return $this->extensions[$name]['data'];
+    }
+
+    /**
+     * @param string $name
+     * @return array
+     */
+    public function getExtensionAvailableData($name)
+    {
+        $name = str_replace('-', '_', $name);
+
+        return $this->extensions[$name]['available'];
     }
 
     /**

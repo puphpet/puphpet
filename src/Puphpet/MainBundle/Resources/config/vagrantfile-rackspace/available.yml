@@ -1,10 +1,4 @@
-empty_synced_folder:
-    source: ~
-    target: ~
-    id: ~
-    nfs: false
-
-available_images:
+images:
     -
         image: b279d8e6-1cbd-4e7c-875a-f6dbffc4c4a0
         long_name: Debian Wheezy 7 x64 (PVHVM)
@@ -42,7 +36,7 @@ available_images:
             - 5.4
             - HHVM
 
-available_sizes:
+sizes:
     - 512MB Standard Instance
     - 1GB Standard Instance
     - 2GB Standard Instance
@@ -60,9 +54,15 @@ available_sizes:
     - 90 GB I/O v1
     - 120 GB I/O v1
 
-available_regions:
+regions:
     dfw: Dallas (DFW)
     ord: Chicago (ORD)
     iad: Northern Virginia (IAD)
     syd: Sydney (SYD)
     lon: London (LON)
+
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: false

@@ -1,4 +1,4 @@
-available_modules:
+modules:
     php:
         - bcmath
         - cgi
@@ -603,7 +603,7 @@ available_modules:
             - xmlwriter
             - xslcache
 
-available_ini:
+ini:
     allow_url_fopen:
     allow_url_include:
     always_populate_raw_post_data:

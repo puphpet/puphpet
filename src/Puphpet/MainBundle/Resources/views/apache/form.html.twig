@@ -37,7 +37,7 @@
         <select id="apache-modules"
                 name="apache[modules][]"
                 multiple class="form-control select-tags-editable">
-            {% for module in apache.available_modules %}
+            {% for module in apache.available.modules %}
                 <option value="{{ module }}"
                 {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
             {% endfor %}

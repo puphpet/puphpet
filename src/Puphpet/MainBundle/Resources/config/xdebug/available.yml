@@ -1,4 +1,4 @@
-available_settings:
+settings:
     - xdebug.auto_trace
     - xdebug.cli_color
     - xdebug.collect_assignments

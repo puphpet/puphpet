@@ -41,7 +41,7 @@
                 we cannot guarantee it will work. In fact in most cases it won't.</p>
         </div>
 
-        {% for image in data.available_images %}
+        {% for image in data.available.images %}
             <label class="col-xs-6 radio-tile">
                 <input type="radio" class="invisible"
                        name="vagrantfile[vm][provider][softlayer][operating_system]"
@@ -113,7 +113,7 @@
         <select id="vagrantfile-vm-provider-softlayer-start_cpus"
                name="vagrantfile[vm][provider][softlayer][start_cpus]"
                class="form-control select-tag">
-            {% for key, name in data.available_cpus %}
+            {% for key, name in data.available.cpus %}
                 <option value="{{ key }}"
                     {% if key == data.vm.provider.softlayer.start_cpus %}selected{% endif %}>{{ name }}</option>
             {% endfor %}
@@ -130,7 +130,7 @@
         <select id="vagrantfile-vm-provider-softlayer-max_memory"
                name="vagrantfile[vm][provider][softlayer][max_memory]"
                class="form-control select-tag">
-            {% for key, memory in data.available_memory %}
+            {% for key, memory in data.available.memory %}
                 <option value="{{ key }}"
                     {% if key == data.vm.provider.softlayer.max_memory %}selected{% endif %}>{{ memory }}</option>
             {% endfor %}
@@ -151,7 +151,7 @@
         <select id="vagrantfile-vm-provider-softlayer-datacenter"
                name="vagrantfile[vm][provider][softlayer][datacenter]"
                class="form-control select-tag">
-            {% for key, dc in data.available_datacenters %}
+            {% for key, dc in data.available.datacenters %}
                 <option value="{{ key }}"
                     {% if key == data.vm.provider.softlayer.datacenter %}selected{% endif %}>{{ dc }}</option>
             {% endfor %}

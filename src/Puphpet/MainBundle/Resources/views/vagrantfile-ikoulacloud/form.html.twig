@@ -47,9 +47,9 @@
                 we cannot guarantee it will work. In fact in most cases it won't.</p>
         </div>
 
-        {% for zone_name, images in data.available_images %}
+        {% for zone_name, images in data.available.images %}
             <fieldset>
-                <legend>{{ attribute(data.available_zone_names, zone_name) }}</legend>
+                <legend>{{ attribute(data.available.zone_names, zone_name) }}</legend>
 
                 {% for image in images %}
                     <label class="col-xs-6 radio-tile">
@@ -96,7 +96,7 @@
         <select id="vagrantfile-vm-provider-cloudstack-service_offering_name"
                name="vagrantfile[vm][provider][cloudstack][service_offering_name]"
                class="form-control select-tag">
-            {% for type, description in data.available_service_offering_names %}
+            {% for type, description in data.available.service_offering_names %}
                 <option value="{{ type }}"
                     {% if type == data.vm.provider.cloudstack.service_offering_name %}selected{% endif %}>{{ type }} - {{ description }}</option>
             {% endfor %}

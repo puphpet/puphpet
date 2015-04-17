@@ -1,21 +1,21 @@
 <div class="tab-pane" id="php">
     {% include 'PuphpetMainBundle:php:form.html.twig' with {
-        'php': extensions.php.merged,
-        'xdebug': extensions.xdebug.merged,
-        'xhprof': extensions.xhprof.merged,
-        'wpcli': extensions.wpcli.merged,
-        'drush': extensions.drush.merged
+        'php': add_available(extensions.php.merged, extensions.php.available),
+        'xdebug': add_available(extensions.xdebug.merged, extensions.xdebug.available),
+        'xhprof': add_available(extensions.xhprof.merged, extensions.xhprof.available),
+        'wpcli': add_available(extensions.wpcli.merged, extensions.wpcli.available),
+        'drush': add_available(extensions.drush.merged, extensions.drush.available)
     } %}
 </div>
 <div class="tab-pane" id="ruby">
-    {% include 'PuphpetMainBundle:ruby:form.html.twig' with { 'ruby': extensions.ruby.merged } %}
+    {% include 'PuphpetMainBundle:ruby:form.html.twig' with {'ruby': add_available(extensions.ruby.merged, extensions.ruby.available)} %}
 </div>
 <div class="tab-pane" id="python">
-    {% include 'PuphpetMainBundle:python:form.html.twig' with { 'python': extensions.python.merged } %}
+    {% include 'PuphpetMainBundle:python:form.html.twig' with {'python': add_available(extensions.python.merged, extensions.python.available)} %}
 </div>
 <div class="tab-pane" id="nodejs">
-    {% include 'PuphpetMainBundle:nodejs:form.html.twig' with { 'nodejs': extensions.nodejs.merged } %}
+    {% include 'PuphpetMainBundle:nodejs:form.html.twig' with {'nodejs': add_available(extensions.nodejs.merged, extensions.nodejs.available)} %}
 </div>
 <div class="tab-pane" id="hhvm">
-    {% include 'PuphpetMainBundle:hhvm:form.html.twig' with { 'hhvm': extensions.hhvm.merged } %}
+    {% include 'PuphpetMainBundle:hhvm:form.html.twig' with {'hhvm': add_available(extensions.hhvm.merged, extensions.hhvm.available)} %}
 </div>

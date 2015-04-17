@@ -1,10 +1,4 @@
-empty_synced_folder:
-    source: ~
-    target: ~
-    id: ~
-    nfs: false
-
-available_distributions:
+distributions:
     -
         distribution: Debian 7
         long_name: Debian Wheezy 7.x x64
@@ -21,7 +15,7 @@ available_distributions:
             - 5.5
             - HHVM
 
-available_plans:
+plans:
     1024: 1GB / 1 CPU / 24GB SSD DISK / 2TB TRANSFER
     2048: 2GB / 2 CPU / 48GB SSD DISK / 3TB TRANSFER
     4096: 4GB / 4 CPUS / 96GB SSD DISK / 4TB TRANSFER
@@ -32,10 +26,16 @@ available_plans:
     65536: 64GB / 20 CPUS / 1536GB SSD DISK / 20TB TRANSFER
     98304: 96GB / 20 CPUS / 1920GB SSD DISK / 20TB TRANSFER
 
-available_datacenters:
+datacenters:
     newark: Newark
     atlanta: Atlanta
     fremont: Fremont
     dallas: Dallas
     london: London
     tokyo: Tokyo
+
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: false

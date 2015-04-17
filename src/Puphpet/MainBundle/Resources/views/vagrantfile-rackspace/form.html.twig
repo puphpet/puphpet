@@ -42,7 +42,7 @@
                 we cannot guarantee it will work. In fact in most cases it won't.</p>
         </div>
 
-        {% for image in data.available_images %}
+        {% for image in data.available.images %}
             <label class="col-xs-6 radio-tile">
                 <input type="radio" class="invisible"
                        name="vagrantfile[vm][provider][rackspace][image]"
@@ -88,7 +88,7 @@
         <select id="vagrantfile-vm-provider-rackspace-size"
                name="vagrantfile[vm][provider][rackspace][size]"
                class="form-control select-tag">
-            {% for size in data.available_sizes %}
+            {% for size in data.available.sizes %}
                 <option value="{{ size }}"
                     {% if size == data.vm.provider.rackspace.size %}selected{% endif %}>{{ size }}</option>
             {% endfor %}
@@ -105,7 +105,7 @@
         <select id="vagrantfile-vm-provider-rackspace-region"
                name="vagrantfile[vm][provider][rackspace][region]"
                class="form-control select-tag">
-            {% for key, region in data.available_regions %}
+            {% for key, region in data.available.regions %}
                 <option value="{{ key }}"
                     {% if key == data.vm.provider.rackspace.region %}selected{% endif %}>{{ region }}</option>
             {% endfor %}

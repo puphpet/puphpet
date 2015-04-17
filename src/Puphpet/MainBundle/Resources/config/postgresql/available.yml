@@ -1,8 +1,14 @@
-available_privileges:
+privileges:
     - ALL
     - CREATE
     - CONNECT
     - TEMPORARY
+
+versions:
+    - "9.3"
+    - "9.2"
+    - "9.1"
+    - "8.4"
 
 empty_user:
     username: ~
@@ -17,9 +23,3 @@ empty_grant:
     privilege: ~
     db: ~
     role: ~
-
-available_versions:
-    - "9.3"
-    - "9.2"
-    - "9.1"
-    - "8.4"

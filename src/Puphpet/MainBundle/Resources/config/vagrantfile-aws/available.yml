@@ -1,10 +1,4 @@
-empty_synced_folder:
-    source: ~
-    target: ~
-    id: ~
-    nfs: false
-
-available_images:
+images:
 # US East (Northern Virginia) Region
     us-east-1:
         -
@@ -173,7 +167,7 @@ available_images:
                 - 5.4
                 - HHVM
 
-available_instance_types:
+instance_types:
     t1.micro: up to 2 ECUs, 1 vCPUs, 0.613 GiB memory, EBS only
     m1.small: 1 ECUs, 1 vCPUs, 1.7 GiB memory, 1 x 160 GiB Storage Capacity
     m1.medium: 2 ECUs, 1 vCPUs, 3.7 GiB memory, 1 x 410 GiB Storage Capacity
@@ -187,7 +181,7 @@ available_instance_types:
     c1.medium: 5 ECUs, 2 vCPUs, 1.7 GiB memory, 1 x 350 GiB Storage Capacity
     c1.xlarge: 20 ECUs, 8 vCPUs, 7 GiB memory, 4 x 420 GiB Storage Capacity
 
-available_regions:
+regions:
     ap-northeast-1: Asia Pacific (Tokyo) Region
     ap-southeast-1: Asia Pacific (Singapore) Region
     ap-southeast-2: Asia Pacific (Sydney) Region
@@ -196,3 +190,9 @@ available_regions:
     us-east-1: US East (Northern Virginia) Region
     us-west-1: US West (Northern California) Region
     us-west-2: US West (Oregon) Region
+
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: false

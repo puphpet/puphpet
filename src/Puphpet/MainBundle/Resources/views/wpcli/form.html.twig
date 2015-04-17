@@ -38,7 +38,7 @@
                 <option value="{{ wpcli.version }}" selected>{{ wpcli.version }}</option>
             {% endif %}
 
-            {% for version in wpcli.available_versions %}
+            {% for version in wpcli.available.versions %}
                 {% if version != wpcli.version %}
                     <option value="{{ version }}">{{ version }}</option>
                 {% endif %}

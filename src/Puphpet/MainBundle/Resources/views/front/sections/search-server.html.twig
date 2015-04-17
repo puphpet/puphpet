@@ -1,6 +1,6 @@
 <div class="tab-pane" id="elastic-search">
-    {% include 'PuphpetMainBundle:elastic-search:form.html.twig' with { 'elastic_search': extensions.elastic_search.merged } %}
+    {% include 'PuphpetMainBundle:elastic-search:form.html.twig' with {'elastic_search': add_available(extensions.elastic_search.merged, extensions.elastic_search.available)} %}
 </div>
 <div class="tab-pane" id="solr">
-    {% include 'PuphpetMainBundle:solr:form.html.twig' with { 'solr': extensions.solr.merged } %}
+    {% include 'PuphpetMainBundle:solr:form.html.twig' with {'solr': add_available(extensions.solr.merged, extensions.solr.available)} %}
 </div>

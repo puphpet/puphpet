@@ -33,7 +33,7 @@ empty_files_match:
     sethandler: 'proxy:fcgi://127.0.0.1:9000'
     custom_fragment: ''
 
-available_modules:
+modules:
     - cache
     - cgid
     - dav

@@ -20,6 +20,7 @@ class BaseExtension extends \Twig_Extension
             new \Twig_SimpleFunction('mt_rand', [$this, 'mt_rand']),
             new \Twig_SimpleFunction('uniqid', [$this, 'uniqid']),
             new \Twig_SimpleFunction('merge_unique', [$this, 'mergeUnique']),
+            new \Twig_SimpleFunction('add_available', [$this, 'addAvailable']),
         ];
     }
 
@@ -52,6 +53,11 @@ class BaseExtension extends \Twig_Extension
     public function mergeUnique(array $arr1, array $arr2)
     {
         return array_unique(array_merge($arr1, $arr2));
+    }
+
+    public function addAvailable(array $arr1, array $arr2)
+    {
+        return array_merge($arr1, ['available' => $arr2]);
     }
 
     public function getName()

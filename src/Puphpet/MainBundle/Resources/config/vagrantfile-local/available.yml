@@ -1,25 +1,4 @@
-empty_synced_folder:
-    source: ~
-    target: ~
-    id: vagrant-root
-    sync_type: default
-    owner: 'www-data'
-    group: 'www-data'
-    rsync:
-        args:
-            - '--verbose'
-            - '--archive'
-            - '-z'
-        exclude:
-            - '.vagrant/'
-            - '.git/'
-        auto: true
-
-empty_forwarded_port:
-    host: ~
-    guest: ~
-
-available_providers:
+providers:
     -
         name: virtualbox
         long_name: VirtualBox
@@ -63,7 +42,7 @@ available_providers:
         performance: 3
         default_ip: 192.168.58.101
 
-available_boxes:
+boxes:
     -
         url: puphpet/centos65-x64
         os: centos
@@ -111,3 +90,24 @@ available_boxes:
             - 5.5
             - 5.4
             - HHVM
+
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: vagrant-root
+    sync_type: default
+    owner: 'www-data'
+    group: 'www-data'
+    rsync:
+        args:
+            - '--verbose'
+            - '--archive'
+            - '-z'
+        exclude:
+            - '.vagrant/'
+            - '.git/'
+        auto: true
+
+empty_forwarded_port:
+    host: ~
+    guest: ~

@@ -42,7 +42,7 @@
                 we cannot guarantee it will work. In fact in most cases it won't.</p>
         </div>
 
-        {% for distribution in data.available_distributions %}
+        {% for distribution in data.available.distributions %}
             <label class="col-xs-6 radio-tile">
                 <input type="radio" class="invisible"
                        name="vagrantfile[vm][provider][linode][distribution]"
@@ -77,7 +77,7 @@
         <select id="vagrantfile-vm-provider-linode-plan"
                name="vagrantfile[vm][provider][linode][plan]"
                class="form-control select-tag">
-            {% for plan, name in data.available_plans %}
+            {% for plan, name in data.available.plans %}
                 <option value="{{ plan }}"
                     {% if plan == data.vm.provider.linode.plan %}selected{% endif %}>{{ name }}</option>
             {% endfor %}
@@ -92,7 +92,7 @@
         <select id="vagrantfile-vm-provider-linode-datacenter"
                name="vagrantfile[vm][provider][linode][datacenter]"
                class="form-control select-tag">
-            {% for key, datacenter in data.available_datacenters %}
+            {% for key, datacenter in data.available.datacenters %}
                 <option value="{{ key }}"
                     {% if key == data.vm.provider.linode.datacenter %}selected{% endif %}>{{ datacenter }}</option>
             {% endfor %}

@@ -2,8 +2,8 @@
     ? solr.settings.version
     : false %}
 {% set versions = selectedVersion
-    ? merge_unique([selectedVersion], solr.available_versions)
-    : solr.available_versions %}
+    ? merge_unique([selectedVersion], solr.available.versions)
+    : solr.available.versions %}
 
 <input type="hidden" name="solr[install]" value="0" />
 

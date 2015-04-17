@@ -17,7 +17,7 @@
 
 {% for selected_version in ruby.versions %}
     {% include 'PuphpetMainBundle:ruby/sections:version.html.twig' with {
-        'available_versions': ruby.available_versions, 'selected_version': selected_version} %}
+        'available_versions': ruby.available.versions, 'selected_version': selected_version} %}
 {% endfor %}
 
 <a href="#" data-source-url="{{ path('puphpet.ruby.add_version') }}"

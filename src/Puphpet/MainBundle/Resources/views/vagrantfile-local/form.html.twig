@@ -36,7 +36,7 @@
     <div class="form-group">
         <div class="clearfix"><label>Provider</label></div>
 
-        {% for provider in data.available_providers %}
+        {% for provider in data.available.providers %}
             <label class="col-xs-6 radio-tile">
                 <span class="help-text">
                     {{ provider.description|raw }}
@@ -85,7 +85,7 @@
                 most cases it won't.</p>
         </div>
 
-        {% for box in data.available_boxes %}
+        {% for box in data.available.boxes %}
             <label class="col-xs-6 radio-tile">
                 <input type="radio" class="invisible update-other-input"
                        name="vagrantfile[vm][box_url]"

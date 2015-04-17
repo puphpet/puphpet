@@ -1,8 +1,8 @@
-available_ini:
+ini:
     display_errors:
     error_reporting:
 
-available_timezones:
+timezones:
     Africa:
         - Africa/Abidjan
         - Africa/Accra

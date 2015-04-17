@@ -3,8 +3,8 @@
     ? postgresql.settings.global.version
     : false %}
 {% set versions = selectedVersion
-    ? merge_unique([selectedVersion], postgresql.available_versions)
-    : postgresql.available_versions %}
+    ? merge_unique([selectedVersion], postgresql.available.versions)
+    : postgresql.available.versions %}
 
 <input type="hidden" name="postgresql[install]" value="0" />
 

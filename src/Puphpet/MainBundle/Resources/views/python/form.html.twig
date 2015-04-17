@@ -43,7 +43,7 @@
 
 {% for selected_version in python.versions %}
     {% include 'PuphpetMainBundle:Python/sections:version.html.twig'
-        with {'available_versions': python.available_versions, 'selected_version': selected_version} %}
+        with {'available_versions': python.available.versions, 'selected_version': selected_version} %}
 {% endfor %}
 
 <a href="#" data-source-url="{{ path('puphpet.python.add_version') }}"

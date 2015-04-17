@@ -2,8 +2,8 @@
     ? mysql.settings.version
     : false %}
 {% set versions = selectedVersion
-    ? merge_unique([selectedVersion], mysql.available_versions)
-    : mysql.available_versions %}
+    ? merge_unique([selectedVersion], mysql.available.versions)
+    : mysql.available.versions %}
 
 <input type="hidden" name="mysql[install]" value="0" />
 
@@ -127,7 +127,7 @@
 
     {% for grant in mysql.grants %}
         {% include 'PuphpetMainBundle:mysql/sections:grant.html.twig' with {
-            'available_privileges': mysql.available_privileges, 'grant': grant} %}
+            'available_privileges': mysql.available.privileges, 'grant': grant} %}
     {% endfor %}
 
     <a href="#" data-source-url="{{ path('puphpet.mysql.add_grant') }}"

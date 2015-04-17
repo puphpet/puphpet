@@ -1,10 +1,4 @@
-empty_synced_folder:
-    source: ~
-    target: ~
-    id: ~
-    nfs: false
-
-available_images:
+images:
     -
         image: centos-7-0-x64
         long_name: CentOS 7 x64
@@ -36,7 +30,7 @@ available_images:
             - 5.4
             - HHVM
 
-available_sizes:
+sizes:
     512mb: 512MB / 1 CPU / 20GB SSD DISK / 1TB TRANSFER
     1gb: 1GB / 1 CPU / 30GB SSD DISK / 2TB TRANSFER
     2gb: 2GB / 2 CPUS / 40GB SSD DISK / 3TB TRANSFER
@@ -47,7 +41,7 @@ available_sizes:
     48gb: 48GB / 16 CPUS / 480GB SSD DISK / 8TB TRANSFER
     64gb: 64GB / 20 CPUS / 640GB SSD DISK / 9TB TRANSFER
 
-available_regions:
+regions:
     nyc1: New York 1
     nyc2: New York 2
     nyc3: New York 3
@@ -57,3 +51,9 @@ available_regions:
     ams3: Amsterdam 3
     sgp1: Singapore 1
     lon1: London 1
+
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: ~
+    nfs: false
