@@ -1,0 +1,133 @@
+vagrantfile_rackspace:
+    defaults:
+        target: ~
+        vm:
+            provider:
+                rackspace:
+                    server_name: rackspace-server
+                    image: b279d8e6-1cbd-4e7c-875a-f6dbffc4c4a0
+                    region: dfw
+                    size: 1GB
+                    username: RACKSPACE_USERNAME
+                    api_key: RACKSPACE_API_KEY
+    data:
+        target: ~
+        vm:
+            box: rackspace
+            hostname: master
+            provider:
+                rackspace:
+                    server_name: ~
+                    image: ~
+                    region: ~
+                    size: ~
+                    username: ~
+                    api_key: ~
+        available_sizes:
+            - 512MB Standard Instance
+    merged:
+        target: rackspace
+        vm:
+            box: rackspace
+            hostname: master
+            provider:
+                rackspace:
+                    server_name: foobar
+                    image: awesome-image
+                    region: DFW
+                    size: 1GB
+                    username: username
+                    api_key: api-key
+        vagrant:
+            host: detect
+        available_sizes:
+            - 512MB Standard Instance
+vagrantfile_local:
+    defaults:
+        target: local
+        vm:
+            hostname: ~
+            chosen_provider: virtualbox
+            box: puphpet/debian75-x64
+            box_url: puphpet/debian75-x64
+            memory: 512
+            cpus: 1
+            network:
+                private_network: 192.168.56.101
+                forwarded_port: []
+        vagrant:
+            host: detect
+    data:
+        target: ~
+        vm:
+            hostname: ~
+            chosen_provider: virtualbox
+            box: puphpet/debian75-x64
+            box_url: puphpet/debian75-x64
+            memory: 512
+            cpus: 1
+            network:
+                private_network: 192.168.56.101
+                forwarded_port: []
+        vagrant:
+            host: detect
+        empty_synced_folder:
+            source: ~
+            target: ~
+            id: vagrant-root
+            sync_type: default
+            owner: www-data
+            group: www-data
+            rsync:
+                args:
+                    - '--verbose'
+                    - '--archive'
+                    - '-z'
+                exclude:
+                    - .vagrant/
+                    - .git/
+                auto: true
+        empty_forwarded_port:
+            host: ~
+            guest: ~
+        available_data:
+            - foo
+            - bar
+            - baz
+    merged:
+        target: ~
+        vm:
+            hostname: ~
+            chosen_provider: virtualbox
+            box: puphpet/debian75-x64
+            box_url: puphpet/debian75-x64
+            memory: 512
+            cpus: 1
+            network:
+                private_network: 192.168.56.101
+                forwarded_port: []
+        vagrant:
+            host: detect
+        empty_synced_folder:
+            source: ~
+            target: ~
+            id: vagrant-root
+            sync_type: default
+            owner: www-data
+            group: www-data
+            rsync:
+                args:
+                    - '--verbose'
+                    - '--archive'
+                    - '-z'
+                exclude:
+                    - .vagrant/
+                    - .git/
+                auto: true
+        empty_forwarded_port:
+            host: ~
+            guest: ~
+        available_data:
+            - foo
+            - bar
+            - baz

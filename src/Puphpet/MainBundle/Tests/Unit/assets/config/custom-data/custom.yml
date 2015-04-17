@@ -1,0 +1,17 @@
+vagrantfile:
+    target: rackspace
+    vm:
+        box: rackspace
+        hostname: master
+        provider:
+            rackspace:
+                server_name: foobar
+                image: awesome-image
+                region: DFW
+                size: 1GB
+                username: username
+                api_key: api-key
+    vagrant:
+        host: detect
+php:
+    install: 0

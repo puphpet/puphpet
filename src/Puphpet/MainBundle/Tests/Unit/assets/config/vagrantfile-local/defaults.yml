@@ -1,0 +1,15 @@
+target: local
+
+vm:
+    hostname: ~
+    chosen_provider: virtualbox
+    box: puphpet/debian75-x64
+    box_url: puphpet/debian75-x64
+    memory: 512
+    cpus: 1
+    network:
+        private_network: 192.168.56.101
+        forwarded_port: []
+
+vagrant:
+    host: detect

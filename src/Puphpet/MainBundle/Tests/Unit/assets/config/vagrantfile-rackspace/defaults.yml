@@ -1,0 +1,11 @@
+target: ~
+
+vm:
+    provider:
+        rackspace:
+            server_name: rackspace-server
+            image: b279d8e6-1cbd-4e7c-875a-f6dbffc4c4a0
+            region: dfw
+            size: 1GB
+            username: RACKSPACE_USERNAME
+            api_key: RACKSPACE_API_KEY

@@ -1,0 +1,10 @@
+available_modules:
+    php:
+        - bcmath
+    pear:
+        Authentication:
+            - Auth_SASL2
+            - OpenID
+
+available_ini:
+    allow_url_fopen:

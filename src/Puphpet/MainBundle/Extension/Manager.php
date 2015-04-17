@@ -17,9 +17,9 @@ class Manager
     /** @var array */
     protected $extensions = [];
 
-    public function __construct()
+    public function __construct($confDir = __DIR__ . '/../Resources/config')
     {
-        $this->confDir = __DIR__ . '/../Resources/config';
+        $this->confDir = $confDir;
     }
 
     /**
@@ -107,35 +107,72 @@ class Manager
      */
     public function setCustomDataAll($data)
     {
-        $vagrantfileTarget = empty($data['vagrantfile']['target']) ? 'local' : $data['vagrantfile']['target'];
-
         foreach ($this->extensions as $name => $extension) {
-            $formattedName = $name;
-
-            // Current loop is on a vagrantfile-* key
-            if (stristr($name, 'vagrantfile') !== false) {
-                // Current loop is NOT what was chosen in custom target
-                if (stristr($name, $vagrantfileTarget) === false) {
-                    $this->extensions[$name]['merged']['target'] = false;
-
-                    continue;
-                }
-
-                $this->extensions[$name]['merged']['target'] = $vagrantfileTarget;
-
-                $formattedName = 'vagrantfile';
+            if (!$formattedName = $this->vagrantfileHandling($data, $name)) {
+                continue;
             }
 
             if (empty($data[$formattedName])) {
                 continue;
             }
 
-            $mergedData = array_replace_recursive($this->extensions[$name]['data'], $data[$formattedName]);
+            $mergedData = array_replace_recursive(
+                $this->extensions[$name]['data'],
+                $data[$formattedName]
+            );
 
             $this->extensions[$name]['merged'] = $mergedData;
         }
 
         return true;
+    }
+
+    /**
+     * Figures out which Vagrantfile extension was selected in config file.
+     *
+     * The vagrantfile config key does not tell us which extension was selected,
+     * eg "vagrantfile-rackspace" or "vagrantfile-digitalocean". The best way to
+     * figure out which target was originally selected is by reading the
+     * "vagrantfile.target" value.
+     *
+     * While looping, if current $name value is not the vagrantfile extension name
+     * chosen, set the "vagrantfile-$name.target" value to "false" so we can
+     * properly reflect choice in the GUI.
+     *
+     * If current $name value is chosen vagrantfile extension, set
+     * "vagrantfile-$name.target" value to $name to properly reflect choice in
+     * the GUI.
+     *
+     * @param array  $data Custom data
+     * @param string $name Name of current extension in loop
+     * @return bool|string
+     */
+    protected function vagrantfileHandling($data, $name)
+    {
+        /**
+         * If "vagrantfile.target" value was not originally set in config,
+         * default to "local". This handles config files created before
+         * v5 redesign.
+         */
+        $vagrantfileTarget = empty($data['vagrantfile']['target'])
+            ? 'local'
+            : $data['vagrantfile']['target'];
+
+        // Current loop is on a vagrantfile-* key
+        if (stristr($name, 'vagrantfile') !== false) {
+            // Current loop is NOT what was chosen in custom target
+            if (stristr($name, $vagrantfileTarget) === false) {
+                $this->extensions[$name]['merged']['target'] = false;
+
+                return false;
+            }
+
+            $this->extensions[$name]['merged']['target'] = $vagrantfileTarget;
+
+            return 'vagrantfile';
+        }
+
+        return $name;
     }
 
     protected function yamlParse($file)
