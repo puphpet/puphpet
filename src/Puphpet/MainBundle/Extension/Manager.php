@@ -4,18 +4,23 @@ namespace Puphpet\MainBundle\Extension;
 
 use Puphpet\MainBundle\Extension;
 
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\Yaml\Yaml;
 
 class Manager
 {
-    CONST CONF_DIR = __DIR__ . '/../Resources/config';
-
     /** @var Extension\Archive */
     protected $archive;
 
+    /** @var string Base path to config files */
+    protected $confDir;
+
     /** @var array */
     protected $extensions = [];
+
+    public function __construct()
+    {
+        $this->confDir = __DIR__ . '/../Resources/config';
+    }
 
     /**
      * @param string $name
@@ -23,12 +28,12 @@ class Manager
      */
     public function addExtension($name)
     {
-        $confDir = sprintf('%s/%s', self::CONF_DIR, $name);
+        $confDir = sprintf('%s/%s', $this->confDir, $name);
         $name    = str_replace('-', '_', $name);
 
-        $data      = Yaml::parse($confDir . '/data.yml');
-        $defaults  = Yaml::parse($confDir . '/defaults.yml');
-        $available = Yaml::parse($confDir . '/available.yml');
+        $data      = $this->yamlParse($confDir . '/data.yml');
+        $defaults  = $this->yamlParse($confDir . '/defaults.yml');
+        $available = $this->yamlParse($confDir . '/available.yml');
 
         $data      = is_array($data) ? $data : [];
         $defaults  = is_array($defaults) ? $defaults : [];
@@ -86,7 +91,7 @@ class Manager
         $this->archive = new Extension\Archive;
         $this->archive->queueToFile(
             'puphpet/config.yaml',
-            Yaml::dump($data, 50, 2)
+            $this->yamlDump($data, 50, 2)
         );
 
         $this->archive->write();
@@ -131,5 +136,15 @@ class Manager
         }
 
         return true;
+    }
+
+    protected function yamlParse($file)
+    {
+        return Yaml::parse($file, true);
+    }
+
+    protected function yamlDump($data)
+    {
+        return Yaml::dump($data, 50, 2);
     }
 }

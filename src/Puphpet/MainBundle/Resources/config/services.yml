@@ -4,8 +4,6 @@ services:
 
     puphpet.extension.manager:
         class: Puphpet\MainBundle\Extension\Manager
-        arguments:
-            - @service_container
         calls:
         # deploy target
             - [ addExtension, [ 'vagrantfile-local' ] ]
