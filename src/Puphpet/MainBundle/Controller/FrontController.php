@@ -53,8 +53,6 @@ class FrontController extends Controller
         $manager->setCustomDataAll($yaml);
 
         try {
-            $foo = $manager->getExtensions();
-
             $rendered = $this->render('PuphpetMainBundle:front:index.html.twig', [
                 'extensions' => $manager->getExtensions(),
             ]);
@@ -100,12 +98,12 @@ class FrontController extends Controller
 
     public function aboutAction()
     {
-        return $this->render('PuphpetMainBundle:front:about.html.twig');
+        return $this->redirect('/#about');
     }
 
     public function helpAction()
     {
-        return $this->render('PuphpetMainBundle:front:help.html.twig');
+        return $this->redirect('/#help');
     }
 
     public function githubBtnAction()
