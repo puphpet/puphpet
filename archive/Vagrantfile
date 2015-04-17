@@ -14,4 +14,4 @@ data = configValues['vagrantfile']
 
 Vagrant.require_version '>= 1.6.0'
 
-require "#{dir}/puphpet/vagrant/Vagrantfile-#{data['target']}"
+eval File.read("#{dir}/puphpet/vagrant/Vagrantfile-#{data['target']}")
