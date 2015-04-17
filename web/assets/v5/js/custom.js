@@ -344,13 +344,18 @@ PUPHPET.sidebarMenuClick = function() {
     $(document).on('click', '#top a[data-toggle="tab"]', function (e) {
         PUPHPET.changeTabFromMenuClick(this.hash);
 
-        var $activeSection    = $('#sidebar .active');
-        var $sectionContainer = $('#tab-sections-container > div.tab-pane.active');
-        var $helpContainer    = $('#help-text-container');
+        var $leftActiveLink    = $('#sidebar .active');
+        var $mainActiveTab     = $('#tab-main-container > div.tab-pane.active')
+            .not($(this).attr('href'));
+        var $activeSectionTab  = $('#tab-sections-container > div.tab-pane.active');
+        var $targetTab         = $('#tab-main-container > div' + $(this).attr('href'));
+        var $helpContainer     = $('#help-text-container');
 
-        $activeSection.removeClass('active');
-        $sectionContainer.removeClass('active');
+        $leftActiveLink.removeClass('active');
+        $mainActiveTab.removeClass('active');
+        $activeSectionTab.removeClass('active');
         $helpContainer.addClass('hidden');
+        $targetTab.addClass('active');
 
         $('html, body').scrollTop(0);
 
