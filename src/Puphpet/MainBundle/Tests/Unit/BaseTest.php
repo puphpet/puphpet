@@ -2,13 +2,16 @@
 
 namespace Puphpet\Tests\Unit;
 
+use AppKernel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 require_once __DIR__ . '/../../../../../app/AppKernel.php';
 
-abstract class TestExtensions extends \PHPUnit_Framework_TestCase
+abstract class BaseTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \AppKernel */
+    const BASE_TEST_DIR = __DIR__;
+
+    /** @var AppKernel */
     protected $kernel;
 
     /** @var ContainerInterface */
@@ -20,7 +23,7 @@ abstract class TestExtensions extends \PHPUnit_Framework_TestCase
             $this->kernel->shutdown();
         }
 
-        $this->kernel = new \AppKernel('test', true);
+        $this->kernel = new AppKernel('test', true);
         $this->kernel->boot();
 
         $this->container = $this->kernel->getContainer();
