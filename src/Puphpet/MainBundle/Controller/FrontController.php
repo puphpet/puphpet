@@ -53,7 +53,7 @@ class FrontController extends Controller
         $manager->setCustomDataAll($yaml);
 
         try {
-            $rendered = $this->render('PuphpetMainBundle:front:index.html.twig', [
+            $rendered = $this->render('PuphpetMainBundle:front:template.html.twig', [
                 'extensions' => $manager->getExtensions(),
             ]);
 
