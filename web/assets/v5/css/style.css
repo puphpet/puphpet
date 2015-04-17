@@ -332,6 +332,12 @@ legend {
         height: 100px;
     }
 
+    #frontpage .intro-description {
+        font-size: 1.5em;
+        text-align: center;
+        line-height: 1em;
+    }
+
 /*
     forms
 */
