@@ -1,55 +1,16 @@
-{% extends 'PuphpetMainBundle:front:template.html.twig' %}
-
-{% block topJs %}
-    {{ parent() }}
-    <script>var uploadConfigUrl = '{{ path('puphpet.main.upload_config') }}';</script>
-{% endblock %}
-
-{% block sideMenu %}
-    {% include 'PuphpetMainBundle:front:side-menu.html.twig' %}
-{% endblock %}
-
-{% block main %}
-<div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
-
-<form id="main-form" role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
-    <div class="row">
-        <div class="col-xs-12">
-            <div id="page-header" class="section-header">
-                <h1>Local VM Details</h1>
-                <p class="lead">Deploy your virtual machine on your local PC.</p>
-            </div>
-        </div>
+<div class="tab-pane active" id="frontpage">
+    <div class="section-header hidden">
+        <h1>Welcome to PuPHPet</h1>
+        <p class="lead">A simple GUI to set up virtual machines for Web development.</p>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="field-container">
-                <div class="col-xs-9 tab-content">
-                    {% include 'PuphpetMainBundle:front:sections/deploy-target.html.twig' %}
-                    {% include 'PuphpetMainBundle:front:sections/system.html.twig' %}
-                    {% include 'PuphpetMainBundle:front:sections/webserver.html.twig' %}
-                    {% include 'PuphpetMainBundle:front:sections/language.html.twig' %}
-                    {% include 'PuphpetMainBundle:front:sections/database.html.twig' %}
-                    {% include 'PuphpetMainBundle:front:sections/mail.html.twig' %}
-                    {% include 'PuphpetMainBundle:front:sections/work-queue.html.twig' %}
-                    {% include 'PuphpetMainBundle:front:sections/search-server.html.twig' %}
-                    {% include 'PuphpetMainBundle:front:sections/create.html.twig' %}
-
-                    {% include 'PuphpetMainBundle:front:sections/about.html.twig' %}
-                    {% include 'PuphpetMainBundle:front:sections/help.html.twig' %}
-                </div>
-
-                <div class="col-xs-3">
-                    <div id="help-text-container">
-                        <h2>More Information</h2>
-                        <div class="contents"></div>
-                    </div>
-                </div>
-
-                <div class="clearfix"></div>
-            </div>
+    <div class="intro-text-container">
+        <div class="intro-text">
+            <a href="https://github.com/puphpet/puphpet"
+               target="_blank"><img src="{{ asset('assets/v5/img/Github-Octocat.png') }}" /></a>
+            <p>Customized servers<br />
+                at the<br />
+                click of a button.</p>
         </div>
     </div>
-</form>
-{% endblock %}
+</div>

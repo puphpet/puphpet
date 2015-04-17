@@ -312,22 +312,47 @@ PUPHPET.sidebarMenuClick = function() {
 
     // removes active class from non-selected section/link
     $(document).on('click', '#sidebar .sub-menu a[data-toggle="tab"]', function (e) {
-        window.location.hash = this.hash;
+        PUPHPET.changeTabFromMenuClick(this.hash);
 
         var $activeSection = $('#sidebar .sub-menu.active');
-        var $topBar        = $('#navbar-main .nav li.active');
         var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
+        var $topBar        = $('#top .active');
+        var $mainContainer = $('#tab-main-container > div.tab-pane.active');
+        var $helpContainer = $('#help-text-container');
 
         $activeSection.removeClass('active');
-        $topBar.removeClass('active');
         $activeLink.removeClass('active');
+        $topBar.removeClass('active');
+        $mainContainer.removeClass('active');
 
         $(this).parent().addClass('active');
         $(this).closest('.sub-menu').addClass('active');
 
         $('html, body').scrollTop(0);
 
-        $('#help-text-container .contents').html('');
+        $('.contents', $helpContainer).html('');
+
+        var $headerBlock = $($(this).attr('href') + ' > .section-header').eq(0);
+
+        if ($headerBlock.length != 0) {
+            $('#page-header').html($headerBlock.html());
+        }
+
+        $helpContainer.removeClass('hidden');
+    });
+
+    $(document).on('click', '#top a[data-toggle="tab"]', function (e) {
+        PUPHPET.changeTabFromMenuClick(this.hash);
+
+        var $activeSection    = $('#sidebar .active');
+        var $sectionContainer = $('#tab-sections-container > div.tab-pane.active');
+        var $helpContainer    = $('#help-text-container');
+
+        $activeSection.removeClass('active');
+        $sectionContainer.removeClass('active');
+        $helpContainer.addClass('hidden');
+
+        $('html, body').scrollTop(0);
 
         var $headerBlock = $($(this).attr('href') + ' > .section-header').eq(0);
 
@@ -335,22 +360,13 @@ PUPHPET.sidebarMenuClick = function() {
             $('#page-header').html($headerBlock.html());
         }
     });
-
-    $(document).on('click', '#navbar-main a[data-toggle="tab"]', function (e) {
-        window.location.hash = this.hash;
-
-        var $activeSection = $('#sidebar .sub-menu.active');
-        $activeSection.removeClass('active');
-
-        $('html, body').scrollTop(0);
-    });
 };
 
 /**
  * Handles displaying section help information on right-side element
  */
 PUPHPET.helpTextDisplay = function() {
-    var $helpContainer = $('#help-text-container');
+    var $helpContainer = $('#help-text');
 
     $helpContainer.on('affix.bs.affix', function () {
         $(this).width($(this).parent().width());
@@ -681,9 +697,24 @@ PUPHPET.submitUncheckedCheckboxes = function () {
     });
 };
 
+var tabChangedFromMenuClick = false;
+
+PUPHPET.changeTabFromMenuClick = function (hash) {
+    tabChangedFromMenuClick = true;
+    window.location.hash = hash;
+
+    setTimeout(function() {
+        tabChangedFromMenuClick = false;
+    }, 300);
+};
+
 PUPHPET.changeTabOnAnchorChange = function () {
     $(window).on('hashchange', function() {
-        PUPHPET.displayTabFromUrl();
+        if (tabChangedFromMenuClick != true) {
+            PUPHPET.displayTabFromUrl();
+
+            return true;
+        }
     });
 };
 
@@ -692,13 +723,21 @@ PUPHPET.changeTabOnAnchorChange = function () {
  */
 PUPHPET.displayTabFromUrl = function () {
     if (window.location.hash.length) {
-        var $link = $('#sidebar .sidebar-menu > .sub-menu a[data-toggle="tab"]');
+        var $link     = $('#sidebar .sidebar-menu > .sub-menu a[data-toggle="tab"]');
         var $hashLink = $link.filter('[href=' + window.location.hash + ']');
+
+        var $helpContainer = $('#help-text-container');
 
         if ($hashLink.length != 0) {
             var $activeSection = $('#sidebar .sub-menu.active');
             var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
 
+            var $mainTab = $('#tab-main-container > div.active');
+            if ($mainTab.length != 0) {
+                $mainTab.removeClass('active');
+            }
+
+            $helpContainer.removeClass('hidden');
             $activeSection.removeClass('active');
             $activeLink.removeClass('active');
             $hashLink.addClass('active');
@@ -706,11 +745,16 @@ PUPHPET.displayTabFromUrl = function () {
             $hashLink.parent().parent().addClass('open');
             $hashLink.parent().parent().parent().addClass('active');
         }
-
-        if ($hashLink.length == 0) {
-            $link = $('#navbar-main a[data-toggle="tab"]');
+        else {
+            $link     = $('#top a[data-toggle="tab"]');
             $hashLink = $link.filter('[href=' + window.location.hash + ']');
 
+            var $sectionTab = $('#tab-sections-container > div.active');
+            if ($sectionTab.length != 0) {
+                $sectionTab.tab('hide');
+            }
+
+            $helpContainer.addClass('hidden');
             $hashLink.addClass('active');
         }
 

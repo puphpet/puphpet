@@ -299,6 +299,40 @@ legend {
     }
 
 /*
+    frontpage
+*/
+    #frontpage .intro-text-container {
+        width: 100%;
+        height: 653px;
+        background: url('../img/logo-sign.png') center no-repeat;
+        display: table;
+    }
+
+    #frontpage .intro-text {
+        display: table-cell;
+        vertical-align: bottom;
+    }
+
+    #frontpage .intro-text p {
+        color: #000;
+        font-family: 'Anton', sans-serif;
+        font-size: 3em;
+        text-align: center;
+        text-shadow: #fff 0 0 10px;
+        line-height: 1.3em;
+        padding-bottom: 28px;
+        padding-right: 13px;
+        letter-spacing: .1em;
+    }
+
+    #frontpage .intro-text img {
+        display: block;
+        margin: 0 auto;
+        padding-left: 285px;
+        height: 100px;
+    }
+
+/*
     forms
 */
     .form-control {
@@ -570,7 +604,7 @@ legend {
 /*
     help text block
 */
-    #help-text-container {
+    #help-text-container #help-text {
         margin-top: 30px;
        transition: color .5s ease-in-out;
        -moz-transition: color .5s ease-in-out;
@@ -578,15 +612,15 @@ legend {
       -o-transition: color .5s ease-in-out;
     }
 
-    #help-text-container.affix {
+    #help-text-container #help-text.affix {
         margin-top: -150px;
     }
 
-    #help-text-container h2 {
+    #help-text-container #help-text h2 {
         display: none;
     }
 
-    #help-text-container .contents {
+    #help-text-container #help-text .contents {
         overflow-x: auto;
     }
 

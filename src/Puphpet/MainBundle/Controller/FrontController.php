@@ -27,7 +27,7 @@ class FrontController extends Controller
             return $response;
         }
 
-        return $this->render('PuphpetMainBundle:front:index.html.twig', [
+        return $this->render('PuphpetMainBundle:front:template.html.twig', [
             'extensions' => $manager->getExtensions(),
         ]);
     }
