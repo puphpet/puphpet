@@ -98,6 +98,12 @@ class Manager
      */
     public function createArchive(array $data)
     {
+        foreach ($data as $key => $values) {
+            $name = $this->parseDataKeyName($values, $key);
+
+            $data[$key] = array_replace_recursive($this->extensions[$name]['data'], $data[$key]);
+        }
+
         $this->archive = new Extension\Archive;
         $this->archive->queueToFile(
             'puphpet/config.yaml',
@@ -180,6 +186,15 @@ class Manager
             $this->extensions[$name]['merged']['target'] = $vagrantfileTarget;
 
             return 'vagrantfile';
+        }
+
+        return $name;
+    }
+
+    protected function parseDataKeyName($data, $name)
+    {
+        if (stristr($name, 'vagrantfile') !== false) {
+            return sprintf('vagrantfile_%s', $data['target']);
         }
 
         return $name;
