@@ -1,4 +1,7 @@
 vagrantfile_rackspace:
+    available:
+        sizes:
+            - 512MB Standard Instance
     defaults:
         target: ~
         vm:
@@ -23,8 +26,6 @@ vagrantfile_rackspace:
                     size: ~
                     username: ~
                     api_key: ~
-        available_sizes:
-            - 512MB Standard Instance
     merged:
         target: rackspace
         vm:
@@ -40,9 +41,31 @@ vagrantfile_rackspace:
                     api_key: api-key
         vagrant:
             host: detect
-        available_sizes:
-            - 512MB Standard Instance
 vagrantfile_local:
+    available:
+        data:
+            - foo
+            - bar
+            - baz
+        empty_synced_folder:
+            source: ~
+            target: ~
+            id: vagrant-root
+            sync_type: default
+            owner: www-data
+            group: www-data
+            rsync:
+                args:
+                    - '--verbose'
+                    - '--archive'
+                    - '-z'
+                exclude:
+                    - .vagrant/
+                    - .git/
+                auto: true
+        empty_forwarded_port:
+            host: ~
+            guest: ~
     defaults:
         target: local
         vm:
@@ -71,29 +94,6 @@ vagrantfile_local:
                 forwarded_port: []
         vagrant:
             host: detect
-        empty_synced_folder:
-            source: ~
-            target: ~
-            id: vagrant-root
-            sync_type: default
-            owner: www-data
-            group: www-data
-            rsync:
-                args:
-                    - '--verbose'
-                    - '--archive'
-                    - '-z'
-                exclude:
-                    - .vagrant/
-                    - .git/
-                auto: true
-        empty_forwarded_port:
-            host: ~
-            guest: ~
-        available_data:
-            - foo
-            - bar
-            - baz
     merged:
         target: ~
         vm:
@@ -108,26 +108,3 @@ vagrantfile_local:
                 forwarded_port: []
         vagrant:
             host: detect
-        empty_synced_folder:
-            source: ~
-            target: ~
-            id: vagrant-root
-            sync_type: default
-            owner: www-data
-            group: www-data
-            rsync:
-                args:
-                    - '--verbose'
-                    - '--archive'
-                    - '-z'
-                exclude:
-                    - .vagrant/
-                    - .git/
-                auto: true
-        empty_forwarded_port:
-            host: ~
-            guest: ~
-        available_data:
-            - foo
-            - bar
-            - baz

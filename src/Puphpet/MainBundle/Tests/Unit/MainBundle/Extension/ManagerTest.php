@@ -14,7 +14,7 @@ class ManagerTest extends Unit\BaseTest
 
     protected $configs = [
         'vagrantfile-local' => [
-            'data' => [
+            'data'      => [
                 'target'  => '',
                 'vm'      => [
                     'hostname'        => '',
@@ -32,8 +32,8 @@ class ManagerTest extends Unit\BaseTest
                     'host' => 'detect',
                 ],
             ],
-            'defaults' => [
-                'target' => 'local',
+            'defaults'  => [
+                'target'  => 'local',
                 'vm'      => [
                     'hostname'        => '',
                     'chosen_provider' => 'virtualbox',
@@ -75,7 +75,7 @@ class ManagerTest extends Unit\BaseTest
                     'host'  => '',
                     'guest' => '',
                 ],
-                'available_data'       => [
+                'data'                 => [
                     'foo',
                     'bar',
                     'baz',
@@ -131,12 +131,10 @@ class ManagerTest extends Unit\BaseTest
 
         $extOneData = $this->configs['vagrantfile-local'];
 
-        $mergedDataAvailable = array_merge($extOneData['data'], $extOneData['available']);
-
         $extensionValues = $manager->getExtension('vagrantfile-local');
 
         $this->assertEquals($extOneData['defaults'], $extensionValues['defaults']);
-        $this->assertEquals($mergedDataAvailable, $extensionValues['data']);
+        $this->assertEquals($extOneData['data'], $extensionValues['data']);
     }
 
     public function testAddExtensionMergesDataDefaultsAndAvailableData()
@@ -148,11 +146,10 @@ class ManagerTest extends Unit\BaseTest
 
         $extensionValues = $manager->getExtension('vagrantfile-local');
 
-        $dataDefaultsMerged = array_replace_recursive(
+        $mergedData = array_replace_recursive(
             $extOneData['data'],
             $extOneData['defaults']
         );
-        $mergedData = array_merge($dataDefaultsMerged, $extOneData['available']);
 
         $this->assertEquals($mergedData, $extensionValues['merged']);
     }

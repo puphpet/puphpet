@@ -19,7 +19,7 @@ empty_forwarded_port:
     host: ~
     guest: ~
 
-available_data:
+data:
     - foo
     - bar
     - baz
