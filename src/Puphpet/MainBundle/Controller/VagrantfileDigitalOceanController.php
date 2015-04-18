@@ -26,6 +26,6 @@ class VagrantfileDigitalOceanController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('vagrantfile-digitalocean');
+        return $manager->getExtensionAvailableData('vagrantfile-digitalocean');
     }
 }

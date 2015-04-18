@@ -26,6 +26,6 @@ class VagrantfileAwsController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('vagrantfile-aws');
+        return $manager->getExtensionAvailableData('vagrantfile-aws');
     }
 }

@@ -26,6 +26,6 @@ class VagrantfileRackspaceController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('vagrantfile-rackspace');
+        return $manager->getExtensionAvailableData('vagrantfile-rackspace');
     }
 }

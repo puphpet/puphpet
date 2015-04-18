@@ -27,6 +27,6 @@ class PythonController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('python');
+        return $manager->getExtensionAvailableData('python');
     }
 }

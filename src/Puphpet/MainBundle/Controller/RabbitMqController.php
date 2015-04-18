@@ -35,6 +35,6 @@ class RabbitMqController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('rabbitmq');
+        return $manager->getExtensionAvailableData('rabbitmq');
     }
 }

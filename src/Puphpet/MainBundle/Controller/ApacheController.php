@@ -44,6 +44,6 @@ class ApacheController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('apache');
+        return $manager->getExtensionAvailableData('apache');
     }
 }

@@ -26,6 +26,6 @@ class CronController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('cron');
+        return $manager->getExtensionAvailableData('cron');
     }
 }

@@ -27,6 +27,6 @@ class RubyController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('ruby');
+        return $manager->getExtensionAvailableData('ruby');
     }
 }

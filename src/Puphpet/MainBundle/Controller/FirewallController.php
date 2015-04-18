@@ -26,6 +26,6 @@ class FirewallController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('firewall');
+        return $manager->getExtensionAvailableData('firewall');
     }
 }

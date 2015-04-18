@@ -49,6 +49,6 @@ class NginxController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('nginx');
+        return $manager->getExtensionAvailableData('nginx');
     }
 }

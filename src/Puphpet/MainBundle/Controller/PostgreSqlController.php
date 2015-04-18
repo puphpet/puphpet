@@ -42,6 +42,6 @@ class PostgreSqlController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('postgresql');
+        return $manager->getExtensionAvailableData('postgresql');
     }
 }

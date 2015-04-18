@@ -27,6 +27,6 @@ class SqliteController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('sqlite');
+        return $manager->getExtensionAvailableData('sqlite');
     }
 }

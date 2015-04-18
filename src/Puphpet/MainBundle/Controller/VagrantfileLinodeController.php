@@ -26,6 +26,6 @@ class VagrantfileLinodeController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('vagrantfile-linode');
+        return $manager->getExtensionAvailableData('vagrantfile-linode');
     }
 }

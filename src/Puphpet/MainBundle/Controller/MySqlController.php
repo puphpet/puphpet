@@ -43,6 +43,6 @@ class MySqlController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('mysql');
+        return $manager->getExtensionAvailableData('mysql');
     }
 }

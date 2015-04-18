@@ -26,6 +26,6 @@ class VagrantfileIkoulaCloudController extends Controller
     private function getData()
     {
         $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionData('vagrantfile-ikoulacloud');
+        return $manager->getExtensionAvailableData('vagrantfile-ikoulacloud');
     }
 }
