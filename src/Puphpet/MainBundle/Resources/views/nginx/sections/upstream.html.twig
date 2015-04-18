@@ -1,4 +1,5 @@
 {% set uniqid = uniqid('nxv_', true) %}
+{% set members = (upstream.members is defined) ? upstream.members : [] %}
 
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
@@ -40,7 +41,7 @@
             <select id="nginx-upstreams-{{ uniqid }}-members"
                    name="nginx[upstreams][{{ uniqid }}][members][]"
                    multiple class="form-control select-tags-editable">
-                {% for member in upstream.members %}
+                {% for member in members %}
                     <option selected value="{{ member }}">{{ member }}</option>
                 {% endfor %}
             </select>

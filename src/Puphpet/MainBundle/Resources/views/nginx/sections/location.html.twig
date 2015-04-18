@@ -1,4 +1,6 @@
 {% set uniqid = uniqid('nxvl_', true) %}
+{% set try_files = (location.try_files is defined) ? location.try_files : [] %}
+{% set fast_cgi_params_extras = (location.fast_cgi_params_extra is defined) ? location.fast_cgi_params_extra : [] %}
 
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
@@ -29,11 +31,9 @@
             <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-try_files"
                     name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][try_files][]"
                     multiple class="form-control select-tags-editable">
-                {% if location.try_files is defined %}
-                    {% for try_file in location.try_files %}
-                        <option selected value="{{ try_file }}">{{ try_file }}</option>
-                    {% endfor %}
-                {% endif %}
+                {% for try_file in try_files %}
+                    <option selected value="{{ try_file }}">{{ try_file }}</option>
+                {% endfor %}
             </select>
         </div>
 
@@ -87,11 +87,9 @@
             <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fast_cgi_params_extra"
                     name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fast_cgi_params_extra][]"
                     multiple class="form-control select-tags-editable">
-                {% if location.fast_cgi_params_extra is defined %}
-                    {% for param in location.fast_cgi_params_extra %}
-                        <option selected value="{{ param }}">{{ param }}</option>
-                    {% endfor %}
-                {% endif %}
+                {% for param in fast_cgi_params_extras %}
+                    <option selected value="{{ param }}">{{ param }}</option>
+                {% endfor %}
             </select>
         </div>
 

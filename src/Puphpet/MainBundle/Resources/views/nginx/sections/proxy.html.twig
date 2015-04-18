@@ -1,10 +1,5 @@
 {% set uniqid = uniqid('nxvp_', true) %}
-
-{% if vhost.proxy is defined and vhost.proxy is not empty %}
-    {% set proxy = true %}
-{% else %}
-    {% set proxy = false %}
-{% endif %}
+{% set proxy = (vhost.proxy is defined and vhost.proxy is not empty) ? vhost.proxy : '' %}
 
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
@@ -21,7 +16,7 @@
             <input type="text" id="nginx-vhosts-{{ uniqid }}-proxy"
                    name="nginx[vhosts][{{ uniqid }}][proxy]"
                    placeholder="" class="form-control"
-                   value="{{ proxy ? vhost.proxy : '' }}" />
+                   value="{{ proxy }}" />
         </div>
     </fieldset>
 </div>

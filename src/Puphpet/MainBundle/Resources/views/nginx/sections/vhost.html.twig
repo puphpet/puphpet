@@ -1,12 +1,14 @@
 {% set uniqid = uniqid('nxv_', true) %}
-
 {% set server_aliases = (vhost.server_aliases is defined) ? vhost.server_aliases : [] %}
+{% set index_files = (vhost.index_files is defined) ? vhost.index_files : [] %}
 {% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
 {% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
 {% set ssl_key = (vhost.ssl_key is defined) ? vhost.ssl_key : '' %}
 {% set ssl_port = (vhost.ssl_port is defined) ? vhost.ssl_port : '' %}
 {% set rewrite_to_https = (vhost.rewrite_to_https is defined) ? true : false %}
 {% set spdy = (vhost.spdy is defined) ? true : false %}
+{% set locations = (vhost.locations is defined) ? vhost.locations : [] %}
+{% set client_max_body_type = (vhost.client_max_body_type is defined) ? vhost.client_max_body_type : '1m' %}
 
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
@@ -16,7 +18,7 @@
 
         <div class="form-group col-xs-6">
             <div class="help-text">
-                Don't forget to <a href="/help#update-my-hosts-file" target="_blank">update
+                Don't forget to <a href="/#help" target="_blank">update
                     your computer's hosts file!</a>
             </div>
             <label for="nginx-vhosts-{{ uniqid }}-server_name">Server Name</label>
@@ -75,7 +77,7 @@
             <select id="nginx-vhosts-{{ uniqid }}-index_files"
                     name="nginx[vhosts][{{ uniqid }}][index_files][]"
                     multiple class="form-control select-tags-editable">
-                {% for index_file in vhost.index_files %}
+                {% for index_file in index_files %}
                     <option selected value="{{ index_file }}">{{ index_file }}</option>
                 {% endfor %}
             </select>
@@ -89,7 +91,7 @@
             <input type="text" id="nginx-vhosts-{{ uniqid }}-client-max-body-size"
                    name="nginx[vhosts][{{ uniqid }}][client_max_body_size]"
                    placeholder="1m" class="form-control"
-                   value="{{ vhost.client_max_body_type is defined ? vhost.client_max_body_type : '1m' }}" />
+                   value="{{ client_max_body_type }}" />
         </div>
 
         <div class="clearfix"></div>
@@ -101,6 +103,7 @@
                 <span class="help-text">
                     Check to enable SSL options.
                 </span>
+                <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl]" value="0" />
                 <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][ssl]"
                        class="invisible toggle-on-select"
                        {% if ssl %}checked{% endif %}
@@ -215,7 +218,7 @@
 
         <div class="clearfix"></div>
 
-        {% for location in vhost.locations %}
+        {% for location in locations %}
             {% include 'PuphpetMainBundle:nginx/sections:location.html.twig' with {'vhostId': uniqid, 'location': location} %}
         {% endfor %}
 
