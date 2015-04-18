@@ -35,7 +35,6 @@ Vagrant.configure('2') do |config|
     puppet.facter = {
       'ssh_username'     => 'root',
       'provisioner_type' => ENV['VAGRANT_DEFAULT_PROVIDER'],
-      'vm_target_key'    => 'vagrantfile-softlayer',
     }
     puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
     puppet.manifest_file  = "#{data['vm']['provision']['puppet']['manifest_file']}"
