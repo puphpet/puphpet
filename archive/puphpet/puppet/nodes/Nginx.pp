@@ -138,6 +138,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
         'locations'            => [
           {
             'location'              => '/',
+            'autoindex'             => 'off',
             'try_files'             => ['$uri', '$uri/', 'index.php',],
             'fastcgi'               => '',
             'fastcgi_index'         => '',
@@ -147,6 +148,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
           },
           {
             'location'              => '~ \.php$',
+            'autoindex'             => 'off',
             'try_files'             => [
               '$uri', '$uri/', 'index.php', '/index.php$is_args$args'
             ],
@@ -214,9 +216,9 @@ if hash_key_equals($nginx_values, 'install', 1) {
       true    => $vhost['ssl_port'],
       default => '443',
     }
-    $rewrite_to_https = array_true($vhost, 'rewrite_to_https') ? {
+    $rewrite_to_https = $ssl and array_true($vhost, 'rewrite_to_https') ? {
       true    => true,
-      default => false,
+      default => undef,
     }
 
     $vhost_cfg_append = deep_merge(
@@ -244,18 +246,29 @@ if hash_key_equals($nginx_values, 'install', 1) {
     }
 
     each( $nginx_locations ) |$lkey, $location| {
+      if $location['autoindex'] or $location['autoindex'] == 'on' {
+        $autoindex = 'on'
+      } else {
+        $autoindex = 'off'
+      }
+
       # remove empty values
       $location_trimmed = merge({
         'fast_cgi_params_extra' => [],
       }, delete_values($location, ''))
 
+      # transforms user-data to expected
+      $location_custom_data = merge($location_trimmed, {
+        'autoindex' => $autoindex,
+      })
+
       # Takes gui ENV vars: fastcgi_param {ENV_NAME} {VALUE}
       $location_custom_cfg_append = prefix(
-        $location_trimmed['fast_cgi_params_extra'],
+        $location_custom_data['fast_cgi_params_extra'],
         'fastcgi_param '
       )
 
-      # separate from $location_trimmed because some values
+      # separate from $location_custom_data because some values
       # really need to be set to a default.
       # Removes fast_cgi_params_extra because it only exists in gui
       # not puppet-nginx
@@ -263,7 +276,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
         'vhost'                      => $key,
         'ssl'                        => $ssl,
         'location_custom_cfg_append' => $location_custom_cfg_append,
-      }, $location_trimmed), 'fast_cgi_params_extra')
+      }, $location_custom_data), 'fast_cgi_params_extra')
 
       # If www_root was removed with all the trimmings,
       # add it back it

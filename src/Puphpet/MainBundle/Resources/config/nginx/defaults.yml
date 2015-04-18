@@ -30,6 +30,7 @@ vhosts:
         locations:
             -
                 location: '/'
+                autoindex: 0
                 try_files:
                     - '$uri'
                     - '$uri/'
@@ -40,6 +41,7 @@ vhosts:
                 fast_cgi_params_extra: []
             -
                 location: '~ \.php$'
+                autoindex: 0
                 try_files:
                     - '$uri'
                     - '$uri/'

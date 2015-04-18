@@ -1,4 +1,5 @@
 {% set uniqid = uniqid('nxvl_', true) %}
+{% set autoindex = (location.autoindex is defined and location.autoindex is sameas('on')) ? true : false %}
 {% set try_files = (location.try_files is defined) ? location.try_files : [] %}
 {% set fast_cgi_params_extras = (location.fast_cgi_params_extra is defined) ? location.fast_cgi_params_extra : [] %}
 
@@ -8,7 +9,7 @@
     <fieldset>
         <legend>Location</legend>
 
-        <div class="form-group col-xs-12">
+        <div class="form-group col-xs-6">
             <div class="help-text">
                 <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#location"
                    target="_blank">More information</a>.
@@ -18,6 +19,25 @@
                    name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][location]"
                    placeholder="/" class="form-control"
                    value="{{ location.location }}"/>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="clearfix"><label>autoindex</label></div>
+
+            <label class="radio-tile mini set-width">
+                <span class="help-text">
+                    Enables directory listings.
+                </span>
+                <input type="hidden" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][autoindex]" value="off" />
+                <input type="checkbox" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][autoindex]"
+                       class="invisible" {% if autoindex %}checked{% endif %} value="on" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable autoindex</span>
+                    </span>
+                </span>
+            </label>
         </div>
 
         <div class="clearfix"></div>
