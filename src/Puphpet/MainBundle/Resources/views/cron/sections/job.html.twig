@@ -1,4 +1,6 @@
 {% set uniqid = uniqid('cj_', true) %}
+{% set environments = (job.environment is defined and job.environment is not empty)
+    ? job.environment : [] %}
 
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
@@ -47,7 +49,7 @@
             <select id="cron-jobs-{{ uniqid }}-environment"
                    name="cron[jobs][{{ uniqid }}][environment][]"
                    multiple class="form-control select-tags-editable">
-                {% for environment in job.environment %}
+                {% for environment in environments %}
                     <option selected value="{{ environment }}">{{ environment }}</option>
                 {% endfor %}
             </select>
@@ -90,7 +92,7 @@
             <input type="text" id="cron-jobs-{{ uniqid }}-weekday"
                    name="cron[jobs][{{ uniqid }}][weekday]"
                    placeholder="" class="form-control"
-                   value="{{ job.hour }}" />
+                   value="{{ job.weekday }}" />
         </div>
 
         <div class="form-group col-xs-6">
@@ -102,7 +104,7 @@
             <input type="text" id="cron-jobs-{{ uniqid }}-month"
                    name="cron[jobs][{{ uniqid }}][month]"
                    placeholder="" class="form-control"
-                   value="{{ job.hour }}" />
+                   value="{{ job.month }}" />
         </div>
     </fieldset>
 
