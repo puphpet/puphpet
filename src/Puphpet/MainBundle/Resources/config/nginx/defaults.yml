@@ -34,7 +34,7 @@ vhosts:
                 try_files:
                     - '$uri'
                     - '$uri/'
-                    - 'index.php'
+                    - '/index.php$is_args$args'
                 fastcgi: ~
                 fastcgi_index: ~
                 fastcgi_split_path: ~
@@ -45,7 +45,6 @@ vhosts:
                 try_files:
                     - '$uri'
                     - '$uri/'
-                    - 'index.php'
                     - '/index.php$is_args$args'
                 fastcgi: 127.0.0.1:9000
                 fastcgi_index: index.php
