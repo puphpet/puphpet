@@ -11,7 +11,7 @@ class MySqlController extends Controller
     {
         return $this->render('PuphpetMainBundle:mysql:form.html.twig', [
             'mysql'                => $data,
-            'available_privileges' => $this->getData()['available_privileges'],
+            'available_privileges' => $this->getData()['privileges'],
         ]);
     }
 
@@ -33,7 +33,7 @@ class MySqlController extends Controller
     {
         return $this->render('PuphpetMainBundle:mysql/sections:grant.html.twig', [
             'grant'                => $this->getData()['empty_grant'],
-            'available_privileges' => $this->getData()['available_privileges'],
+            'available_privileges' => $this->getData()['privileges'],
         ]);
     }
 

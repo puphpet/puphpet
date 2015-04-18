@@ -17,7 +17,7 @@ class PythonController extends Controller
     {
         return $this->render('PuphpetMainBundle:Python/sections:version.html.twig', [
             'selected_version'   => $this->getData()['empty_version'],
-            'available_versions' => $this->getData()['available_versions'],
+            'available_versions' => $this->getData()['versions'],
         ]);
     }
 

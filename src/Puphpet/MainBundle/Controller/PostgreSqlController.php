@@ -32,7 +32,7 @@ class PostgreSqlController extends Controller
     {
         return $this->render('PuphpetMainBundle:postgresql/sections:grant.html.twig', [
             'grant'                => $this->getData()['empty_grant'],
-            'available_privileges' => $this->getData()['available_privileges'],
+            'available_privileges' => $this->getData()['privileges'],
         ]);
     }
 

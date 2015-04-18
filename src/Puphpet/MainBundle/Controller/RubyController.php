@@ -17,7 +17,7 @@ class RubyController extends Controller
     {
         return $this->render('PuphpetMainBundle:ruby/sections:version.html.twig', [
             'selected_version'   => $this->getData()['empty_version'],
-            'available_versions' => $this->getData()['available_versions'],
+            'available_versions' => $this->getData()['versions'],
         ]);
     }
 
