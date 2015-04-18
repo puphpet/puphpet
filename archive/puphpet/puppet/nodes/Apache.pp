@@ -154,7 +154,7 @@ if array_true($apache_values, 'install') {
       $files_match        = template('puphpet/apache/files_match.erb')
       $directories_merged = merge($vhost['directories'], hash_eval($files_match))
     } else {
-      $directories_merged = {}
+      $directories_merged = []
     }
 
     $vhost_custom_fragment = array_true($vhost, 'custom_fragment') ? {
