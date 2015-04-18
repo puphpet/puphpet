@@ -219,6 +219,7 @@ if array_true($apache_values, 'install') {
       owner   => 'root',
       group   => $webroot_group,
       mode    => '0664',
+      onlyif  => "test -w ${default_vhost_index_file}",
       source  => 'puppet:///modules/puphpet/webserver_landing.erb',
       replace => true,
       require => Exec['Create apache webroot'],
