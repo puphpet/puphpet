@@ -107,7 +107,7 @@ class Manager
         $this->archive = new Extension\Archive;
         $this->archive->queueToFile(
             'puphpet/config.yaml',
-            $this->yamlDump($data, 50, 2)
+            $this->yamlDump($data)
         );
 
         $this->archive->write();
@@ -207,6 +207,6 @@ class Manager
 
     protected function yamlDump($data)
     {
-        return Yaml::dump($data, 50, 2);
+        return Yaml::dump($data, 50, 4);
     }
 }
