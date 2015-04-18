@@ -1,0 +1,30 @@
+{% set uniqid = uniqid('postsqlnd_', true) %}
+
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Create Database</legend>
+
+        <div class="form-group col-xs-6">
+            <label for="postgresql-databases-{{ uniqid }}-dbname">DB Name</label>
+            <input type="text" id="postgresql-databases-{{ uniqid }}-dbname"
+                   name="postgresql[databases][{{ uniqid }}][dbname]"
+                   placeholder="database_name" class="form-control"
+                   value="{{ database.dbname }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Choose user defined above. If blank, owner is root user.
+            </div>
+            <label for="postgresql-databases-{{ uniqid }}-owner">Owner</label>
+            <input type="text" id="postgresql-databases-{{ uniqid }}-owner"
+                   name="postgresql[databases][{{ uniqid }}][owner]"
+                   placeholder="root" class="form-control"
+                   value="{{ database.owner }}" />
+        </div>
+
+        <div class="clearfix"></div>
+    </fieldset>
+</div>

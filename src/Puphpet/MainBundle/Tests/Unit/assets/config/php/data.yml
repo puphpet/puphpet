@@ -1,0 +1,17 @@
+install: 0
+
+settings:
+    version: 56
+
+fpm_settings:
+    port: 9000
+
+composer: 1
+composer_home: ~
+
+modules:
+    php: []
+    pear: []
+    pecl: []
+
+ini: []

@@ -1,0 +1,48 @@
+{% set uniqid = uniqid('avdfm_', true) %}
+
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>FilesMatch Block</legend>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Regex allowed.
+            </div>
+            <label for="apache-vhosts-{{ vhostId }}-directories-{{ directoryId }}-files_match-{{ uniqid }}-path">Path</label>
+            <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ directoryId }}-files_match-{{ uniqid }}-path"
+                   name="apache[vhosts][{{ vhostId }}][directories][{{ directoryId }}][files_match][{{ uniqid }}][path]"
+                   placeholder="\.php$" class="form-control"
+                   value="{{ filesMatch.path }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Regex allowed.
+            </div>
+            <label for="apache-vhosts-{{ vhostId }}-directories-{{ directoryId }}-files_match-{{ uniqid }}-sethandler">Set Handler</label>
+            <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ directoryId }}-files_match-{{ uniqid }}-sethandler"
+                   name="apache[vhosts][{{ vhostId }}][directories][{{ directoryId }}][files_match][{{ uniqid }}][sethandler]"
+                   placeholder="proxy:fcgi://127.0.0.1:9000" class="form-control"
+                   value="{{ filesMatch.sethandler }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                File must exist inside VM on initial <code>$ vagrant up</code>!
+                <a href="http://git.io/h7ZH" target="_blank">The custom fragment will be added here</a>.
+            </div>
+            <label for="apache-vhosts-{{ vhostId }}-directories-{{ directoryId }}-files_match-{{ uniqid }}-custom_fragment">FilesMatch-Level Custom Directives</label>
+            <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ directoryId }}-files_match-{{ uniqid }}-custom_fragment"
+                   name="apache[vhosts][{{ vhostId }}][directories][{{ directoryId }}][files_match][{{ uniqid }}][custom_fragment]"
+                   placeholder="/path/to/file" class="form-control"
+                   value="{{ filesMatch.custom_fragment }}" />
+        </div>
+    </fieldset>
+
+    <input type="hidden" value="{{ filesMatch.provider }}"
+           name="apache[vhosts][{{ vhostId }}][directories][{{ directoryId }}][files_match][{{ uniqid }}][provider]" />
+</div>

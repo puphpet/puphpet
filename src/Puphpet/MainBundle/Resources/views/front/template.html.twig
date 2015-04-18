@@ -3,45 +3,42 @@
     <html lang="en">
     <head>
         <title>PuPHPet - Online GUI configurator for Puppet & Vagrant</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Vagrant/Puppet GUI Configuration" />
         <meta name="author" content="Juan Treminio @ https://jtreminio.com" />
         <meta charset="utf-8" />
 
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-3.1.1/css/lumen.min.css') }}" />
-            <link rel="stylesheet" href="{{ asset('assets/vendor/font-awesome-4.2.0/css/font-awesome.min.css') }}" />
-            <link rel="stylesheet" href="{{ asset('assets/vendor/selectize.js/selectize.bootstrap3.css') }}" />
-            <link rel="stylesheet" href="{{ asset('assets/v4/css/style.css') }}" />
+            <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Anton" />
+            <link rel="stylesheet" href="{{ asset('assets/v5/vendor/font-awesome-4.3.0/css/font-awesome.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/v5/vendor/bootstrap-3.3.4/bootstrap-3.3.4.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/v5/vendor/selectize.js/selectize.bootstrap3.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/v5/css/style.css') }}" />
         {% endblock %}
 
         {% block topJs %}
             <!--[if lt IE 9]>
-            <script src="{{ asset('assets/vendor/html5shiv.js') }}"></script>
-            <script src="{{ asset('assets/vendor/respond.min.js') }}"></script>
+            <script src="{{ asset('assets/v5/vendor/html5shiv.js') }}"></script>
             <![endif]-->
+            <script src="{{ asset('assets/v5/vendor/jquery-2.1.3.min.js') }}"></script>
+            <script src="{{ asset('assets/v5/vendor/bootstrap-3.3.4/bootstrap-3.3.4.min.js') }}"></script>
+            <script>var uploadConfigUrl = '{{ path('puphpet.main.upload_config') }}';</script>
         {% endblock %}
     </head>
 {% endblock head %}
 
 <body>
+<section id="container">
 
 {% block topMenu %}
     <div id="top" class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="{{ path('puphpet.main.homepage') }}" class="navbar-brand">PuPHPet</a>
-                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                <a href="#frontpage" class="navbar-brand" data-toggle="tab">PuPHPet</a>
             </div>
-            <div class="navbar-collapse collapse" id="navbar-main">
+            <div id="navbar-main">
                 <ul class="nav navbar-nav">
-                    <li><a href="http://blog.puphpet.com">Blog</a></li>
-                    <li><a href="{{ path('puphpet.main.about') }}">About</a></li>
-                    <li><a href="{{ path('puphpet.main.help') }}">Help!</a></li>
+                    <li><a href="#about" data-toggle="tab">About</a></li>
+                    <li><a href="#help" data-toggle="tab">Help!</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -49,43 +46,69 @@
                     <li><a href="https://github.com/puphpet/puphpet/issues" target="_blank">Issues?</a></li>
                     <li><a href="https://github.com/puphpet/puphpet" target="_blank">Fork Me</a></li>
                 </ul>
-
             </div>
         </div>
     </div>
 {% endblock %}
 
-<div class="jumbotron well-sm" id="slogan">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 hidden-md hidden-lg hidden-print">
-                <h1>PuPHPet</h1>
-                <p>A simple GUI to set up virtual machines for Web development.</p>
-            </div>
-            <div class="col-xs-6 col-md-2"><img src="{{ asset('assets/v4/img/logo.png') }}" id="logo" /></div>
-            <div class="col-md-6 hidden-xs hidden-sm">
-                <h1>PuPHPet</h1>
-                <p>A simple GUI to set up virtual machines for Web development.</p>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                {% if not app.debug %}
-                    {% include 'PuphpetMainBundle:front:carbonAds.html.twig' %}
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
+{% include 'PuphpetMainBundle:front:side-menu.html.twig' %}
 
-{% block main %}
-{% endblock %}
+<section id="main-content">
+    <section class="wrapper">
+        {% block main %}
+            <div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
 
-{% block footer %}
-<footer>
-    <div class="container">
-        <div class="row">
+            <form id="main-form" role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="page-header" class="section-header">
+                            <h1>Welcome to PuPHPet</h1>
+                            <p class="lead">A simple GUI to set up virtual machines for Web development.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="field-container">
+                            <div class="col-xs-12 tab-content" id="tab-main-container">
+                                {% include 'PuphpetMainBundle:front:index.html.twig' %}
+                                {% include 'PuphpetMainBundle:front:sections/about.html.twig' %}
+                                {% include 'PuphpetMainBundle:front:sections/help.html.twig' %}
+                            </div>
+
+                            <div class="col-xs-9 tab-content" id="tab-sections-container">
+                                {% include 'PuphpetMainBundle:front:sections/deploy-target.html.twig' %}
+                                {% include 'PuphpetMainBundle:front:sections/system.html.twig' %}
+                                {% include 'PuphpetMainBundle:front:sections/webserver.html.twig' %}
+                                {% include 'PuphpetMainBundle:front:sections/language.html.twig' %}
+                                {% include 'PuphpetMainBundle:front:sections/database.html.twig' %}
+                                {% include 'PuphpetMainBundle:front:sections/mail.html.twig' %}
+                                {% include 'PuphpetMainBundle:front:sections/work-queue.html.twig' %}
+                                {% include 'PuphpetMainBundle:front:sections/search-server.html.twig' %}
+                                {% include 'PuphpetMainBundle:front:sections/create.html.twig' %}
+                            </div>
+
+                            <div class="col-xs-3 hidden" id="help-text-container">
+                                <div id="help-text">
+                                    <h2>More Information</h2>
+                                    <div class="contents"></div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {% endblock %}
+    </section>
+
+    {% block footer %}
+        <footer>
             <div class="col-sm-12">
                 <ul class="list-unstyled list-inline pull-left">
-                    <li><i class="fa fa-pencil"></i> <a href="https://jtreminio.com">Blog</a></li>
+                    <li><i class="fa fa-pencil"></i> <a href="https://jtreminio.com" target="_blank">Blog</a></li>
                     <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/puphpet" target="_blank">Twitter</a></li>
                     <li><i class="fa fa-github"></i> <a href="https://github.com/puphpet/puphpet" target="_blank">GitHub</a></li>
                     <li><i class="fa fa-comments"></i> <a href="https://kiwiirc.com/client/chat.freenode.net/#puphpet" target="_blank">IRC</a></li>
@@ -102,9 +125,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
 
-        <div class="row">
             <div class="col-xs-12">
                 <p>
                     Made with <span class="glyphicon glyphicon-heart"></span> by <a href="https://jtreminio.com">Juan Treminio</a>.
@@ -115,18 +136,20 @@
                 <p>
                     Bandwidth donated by:
                     <a href="http://rackspace.com" target="_blank"><img
-                            src="{{ asset('assets/v4/img/rackspace-logo.png') }}" width="200" /></a>
+                            src="{{ asset('assets/v5/img/rackspace-logo.png') }}" width="200" /></a>
                 </p>
             </div>
-        </div>
-    </div>
-</footer>
+
+            <div class="clearfix"></div>
+        </footer>
+    {% endblock footer %}
+</section>
 
     {% block footerJs %}
-        <script src="{{ asset('assets/vendor/jquery-2.1.0.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/bootstrap-3.1.1/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/selectize.js/selectize.min.js') }}"></script>
-        <script src="{{ asset('assets/v4/js/custom.js') }}"></script>
+        <script src="{{ asset('assets/v5/vendor/highlight-8.4/highlight.pack.js') }}"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script src="{{ asset('assets/v5/vendor/selectize.js/selectize.min.js') }}"></script>
+        <script src="{{ asset('assets/v5/js/custom.js') }}"></script>
     {% endblock footerJs %}
 
     {% if not app.debug %}
@@ -139,6 +162,7 @@
             ga('send', 'pageview');
         </script>
     {% endif %}
-{% endblock footer %}
+
+</section>
 </body>
 </html>

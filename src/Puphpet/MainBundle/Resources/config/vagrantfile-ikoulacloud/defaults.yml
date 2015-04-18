@@ -1,0 +1,30 @@
+target: ~
+
+vm:
+    provider:
+        cloudstack:
+            template_id: 3a10ead9-de31-4be9-b81a-43b85adfcb1b
+            zone_name: 'Zone 3 France Direct Routing (Z03-R0-IKDC01-FR)'
+            service_offering_name: m1.small
+            tags:
+                Source: Puphpet
+    synced_folder:
+        -
+            source: ./
+            target: /var/www
+            id: webroot
+            nfs: false
+    network:
+    provision:
+        puppet:
+            manifests_path: "puphpet/puppet"
+            manifest_file: "site.pp"
+            module_path: "puphpet/puppet/modules"
+            options:
+                - "--verbose"
+                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
+                - "--parser future"
+ssh:
+    username: admin
+    forward_agent: true
+    private_key_path: "~/.ssh/id_rsa"

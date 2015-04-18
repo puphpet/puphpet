@@ -1,0 +1,48 @@
+target: ~
+
+vm:
+    box: puphpet/debian75-x64
+    box_url: puphpet/debian75-x64
+    hostname: ~
+    memory: 512
+    cpus: 1
+    chosen_provider: virtualbox
+    network:
+        private_network: 192.168.56.101
+        forwarded_port: []
+    post_up_message: ''
+    provider:
+        virtualbox:
+            modifyvm:
+                natdnshostresolver1: on
+        vmware:
+            numvcpus: 1
+        parallels:
+            cpus: 1
+    provision:
+        puppet:
+            manifests_path: 'puphpet/puppet'
+            manifest_file: 'site.pp'
+            module_path: 'puphpet/puppet/modules'
+            options:
+                - '--verbose'
+                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+                - '--parser future'
+    synced_folder: []
+    usable_port_range:
+        start: 10200
+        stop: 10500
+
+ssh:
+    host: ~
+    port: ~
+    private_key_path: ~
+    username: vagrant
+    guest_port: ~
+    keep_alive: true
+    forward_agent: false
+    forward_x11: false
+    shell: bash -l
+
+vagrant:
+    host: detect

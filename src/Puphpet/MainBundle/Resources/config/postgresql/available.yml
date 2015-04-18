@@ -1,0 +1,25 @@
+privileges:
+    - ALL
+    - CREATE
+    - CONNECT
+    - TEMPORARY
+
+versions:
+    - "9.3"
+    - "9.2"
+    - "9.1"
+    - "8.4"
+
+empty_user:
+    username: ~
+    password: ~
+    superuser: false
+
+empty_database:
+    dbname: ~
+    owner: ~
+
+empty_grant:
+    privilege: ~
+    db: ~
+    role: ~

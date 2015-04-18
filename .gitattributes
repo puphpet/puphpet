@@ -1,0 +1,24 @@
+* text=auto
+
+*.css       text
+*.dist      text
+*.js        text
+*.json      text
+*.lock      text
+*.md        text
+*.php       text
+*.pp        text
+Puppetfile  text
+*.rb        text
+*.sh        text
+*.txt       text
+*.twig      text
+Vagrantfile text
+*.yaml      text
+*.yml       text
+
+# Denote all files that are truly binary and should not be modified.
+*.ico binary
+*.gif binary
+*.jpg binary
+*.png binary

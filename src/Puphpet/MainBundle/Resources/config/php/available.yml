@@ -1,0 +1,1211 @@
+modules:
+    php:
+        - bcmath
+        - cgi
+        - cli
+        - common
+        - curl
+        - dbg
+        - enchant
+        - fpm
+        - gd
+        - geoip
+        - gmp
+        - imagick
+        - imap
+        - interbase
+        - intl
+        - ldap
+        - mapscript
+        - mbstring
+        - mcrypt
+        - memcache
+        - memcached
+        - mysql
+        - mysqlnd
+        - odbc
+        - opcache
+        - pspell
+        - readline
+        - recode
+        - snmp
+        - sqlite
+        - svn
+        - sybase
+        - tidy
+        - xcache
+        - xmlrpc
+        - xsl
+
+    pear:
+        Authentication:
+            - Auth_SASL2
+            - OpenID
+        Configuration:
+            - Config_Lite
+        Console:
+            - Console_Color2
+            - Console_CommandLine
+            - Console_GetoptPlus
+        Database:
+            - DB_DataObject
+            - DB_Sqlite_Tools
+            - MDB2
+            - MDB2_Driver_fbsql
+            - MDB2_Driver_ibase
+            - MDB2_Driver_mssql
+            - MDB2_Driver_mysql
+            - MDB2_Driver_mysqli
+            - MDB2_Driver_oci8
+            - MDB2_Driver_odbc
+            - MDB2_Driver_pgsql
+            - MDB2_Driver_querysim
+            - MDB2_Driver_sqlite
+            - MDB2_Driver_sqlsrv
+            - SQL_Parser
+        Date and Time:
+            - Calendar
+            - Date_Holidays
+            - Date_Holidays_Austria
+            - Date_Holidays_Netherlands
+            - Date_HumanDiff
+        Encryption:
+            - Crypt_CHAP
+            - Crypt_DiffieHellman
+            - Crypt_GPG
+            - Crypt_HMAC2
+            - Crypt_MicroID
+            - Crypt_RC42
+        Event:
+            - Event_SignalEmitter
+        File Formats:
+            - File_Bittorrent2
+            - File_Cabinet
+            - File_CSV_DataSource
+            - File_DeliciousLibrary
+            - File_Fortune
+            - File_IMC
+            - File_Infopath
+            - File_MARC
+            - File_Ogg
+            - File_Sitemap
+            - File_XSPF
+            - MP3_IDv2
+            - MP3_Playlist
+            - OpenDocument
+        File System:
+            - File_Mogile
+        Gtk2 Components:
+            - Gtk2_EntryDialog
+            - Gtk2_ExceptionDump
+            - Gtk2_FileDrop
+            - Gtk2_IndexedComboBox
+            - Gtk2_PHPConfig
+            - Gtk2_ScrollingLabel
+            - Gtk2_VarDump
+        HTML:
+            - HTML_BBCodeParser2
+            - HTML_Common2
+            - HTML_Entities
+            - HTML_QuickForm2
+            - HTML_Safe
+            - HTML_TagCloud
+        HTTP:
+            - HTTP2
+            - HTTP_FloodControl
+            - HTTP_Header2
+            - HTTP_OAuth
+            - HTTP_Request2
+            - HTTP_Session2
+        Images:
+            - Image_3D
+            - Image_Barcode2
+            - Image_Color2
+            - Image_Graph
+            - Image_JpegMarkerReader
+            - Image_JpegXmpReader
+            - Image_QRCode
+            - Image_Transform
+        Internationalization:
+            - I18N_UnicodeNormalizer
+            - I18N_UnicodeString
+        Logging:
+            - Log
+        Math:
+            - Math_Combinatorics
+        Networking:
+            - Net_CheckIP2
+            - Net_DNS2
+            - Net_DNSBL
+            - Net_GameServerQuery
+            - Net_Gearman
+            - Net_GeoIP
+            - Net_Growl
+            - Net_IDNA2
+            - Net_LDAP2
+            - Net_MAC
+            - Net_MPD
+            - Net_Nmap
+            - Net_NNTP
+            - Net_URL2
+            - Net_URL_Mapper
+            - Net_UserAgent_Mobile_GPS
+            - Net_Vpopmaild
+            - Net_WebFinger
+            - URI_Template
+        Payment:
+            - Payment_DTA
+            - Payment_PagamentoCerto
+            - Payment_PayPal_SOAP
+            - Payment_Process2
+        PEAR:
+            - PEAR_Command_Packaging
+            - PEAR_Frontend_Gtk2
+            - PEAR_PackageFileManager_Cli
+            - PEAR_PackageFileManager_Frontend
+            - PEAR_PackageUpdate_Gtk2
+            - PEAR_RemoteInstaller
+            - PEAR_Size
+        PHP:
+            - PHP_Archive
+            - PHP_ArrayOf
+            - PHP_Beautifier
+            - PHP_CodeSniffer
+            - PHP_Debug
+            - PHP_DocBlockGenerator
+            - PHP_FunctionCallTracer
+            - PHP_LexerGenerator
+            - PHP_Parser
+            - PHP_ParserGenerator
+            - PHP_Parser_DocblockParser
+            - PHP_Shell
+            - PHP_UML
+        Semantic Web:
+            - XML_GRDDL
+        Structures:
+            - OLE
+            - Structures_DataGrid
+            - Structures_DataGrid_DataSource_Excel
+            - Structures_DataGrid_DataSource_PDO
+            - Structures_Form
+            - Structures_Form_Gtk2
+            - Structures_LinkedList
+        System:
+            - System_Daemon
+            - System_Launcher
+        Text:
+            - Text_CAPTCHA_Numeral
+            - Text_Huffman
+            - Text_LanguageDetect
+        Testing:
+            - Testing_DocTest
+            - Testing_FIT
+            - Testing_Selenium
+        Tools and Utilities:
+            - CodeGen
+            - CodeGen_MySQL
+            - CodeGen_MySQL_Plugin
+            - CodeGen_MySQL_UDF
+            - CodeGen_PECL
+            - ScriptReorganizer
+            - Search_Mnogosearch
+        Validate:
+            - Validate_ES
+            - Validate_IR
+            - Validate_LI
+            - Validate_LU
+            - Validate_NO
+            - Validate_SE
+        Version Control:
+            - VersionControl_Git
+            - VersionControl_SVN
+        Web Services:
+            - Services_Akismet2
+            - Services_Amazon_S3
+            - Services_Amazon_SQS
+            - Services_Apns
+            - Services_Atlassian_Crowd
+            - Services_Blogging
+            - Services_Compete
+            - Services_Digg2
+            - Services_ExchangeRates
+            - Services_Facebook
+            - Services_GeoNames
+            - Services_Google
+            - Services_Libravatar
+            - Services_Mailman
+            - Services_oEmbed
+            - Services_OpenSearch
+            - Services_OpenStreetMap
+            - Services_PageRank
+            - Services_ProjectHoneyPot
+            - Services_ReCaptcha
+            - Services_Scribd
+            - Services_SharedBook
+            - Services_ShortURL
+            - Services_Technorati
+            - Services_TinyURL
+            - Services_Trackback
+            - Services_Twitter
+            - Services_Twitter_Uploader
+            - Services_urlTea
+            - Services_UseKetchup
+            - Services_W3C_CSSValidator
+            - Services_W3C_HTMLValidator
+            - Services_Yadis
+            - Services_Yahoo
+            - Services_Yahoo_JP
+            - Services_YouTube
+            - SOAP
+            - XML_RPC2
+        XML:
+            - XML_Feed_Parser
+            - XML_FOAF
+            - XML_MXML
+            - XML_Parser2
+            - XML_Query2XML
+            - XML_Util2
+            - XML_XRD
+            - XML_XUL
+
+    pecl:
+        Authentication:
+            - courierauth
+            - PAM
+            - radius
+            - sasl
+        Benchmarking:
+            - DTrace
+            - inclued
+        Caching:
+            - APC
+            - APCu
+            - chdb
+            - coherence
+            - hidef
+            - memcache
+            - memcached
+            - memoize
+            - memoize_apc
+            - memoize_memcached
+            - memoize_memory
+            - varnish
+            - WinCache
+            - ZendOpcache
+        Configuration:
+            - augeas
+            - zookeeper
+        Console:
+            - ncurses
+            - newt
+            - tvision
+            - xmms
+        Database:
+            - couchbase
+            - CUBRID
+            - daffodildb
+            - dbase
+            - DBDO
+            - dbplus
+            - dbx
+            - drizzle
+            - filepro
+            - hwapi
+            - ibm_db2
+            - informix
+            - ingres
+            - isis
+            - lchash
+            - leveldb
+            - maxdb
+            - mdbtools
+            - mongo
+            - mysql
+            - mysqlnd_memcache
+            - mysqlnd_ms
+            - mysqlnd_qc
+            - mysqlnd_uh
+            - notes
+            - oci8
+            - odbtp
+            - Ovrimos
+            - Paradox
+            - PDO
+            - PDO_4D
+            - PDO_CUBRID
+            - PDO_DBLIB
+            - PDO_FIREBIRD
+            - PDO_IBM
+            - PDO_INFORMIX
+            - PDO_MYSQL
+            - PDO_OCI
+            - PDO_ODBC
+            - PDO_PGSQL
+            - PDO_SQLANYWHERE
+            - PDO_SQLITE
+            - pdo_sqlsrv
+            - pdo_user
+            - PDO_XML
+            - pq
+            - redis
+            - sqlanywhere
+            - SQLite
+            - sqlite3
+            - sqlsrv
+            - tdb
+            - tokyo_tyrant
+        Date and Time:
+            - date_time
+            - timezonedb
+        Encryption:
+            - BLENC
+            - gnupg
+            - mcrypt_filter
+        Event:
+            - eio
+            - ev
+            - libevent
+        File Formats:
+            - archive
+            - bz2
+            - cpdf
+            - Fileinfo
+            - fpdf
+            - haru
+            - id3
+            - lzf
+            - qqwry
+            - rar
+            - rpmreader
+            - syck
+            - yaml
+            - zip
+        File System:
+            - dazuko
+            - fuse
+            - inotify
+            - mogilefs
+            - xattr
+        GUI:
+            - php_xcb
+            - tk
+            - win32std
+            - WinBinder
+            - wxwidgets
+        HTML:
+            - html_parse
+            - tidy
+        HTTP:
+            - pecl_http
+            - txforward
+            - uri_template
+        Images:
+            - cairo
+            - cairo_wrapper
+            - framegrab
+            - FreeImage
+            - GDChart
+            - gmagick
+            - imagick
+            - imlib2
+            - pango
+            - rsvg
+        Internationalization:
+            - cld
+            - fribidi
+            - gender
+            - idn
+            - intl
+            - translit
+            - unicode
+            - unicodestring
+        Languages:
+            - lua
+            - perl
+            - python
+            - spidermonkey
+            - v8js
+        Mail:
+            - mailparse
+            - POP3
+            - vpopmail
+        Math:
+            - big_int
+            - lapack
+            - stats
+            - trader
+        Multimedia:
+            - ecasound
+            - ming
+            - sdl
+        Networking:
+            - amqp
+            - ares
+            - cvsclient
+            - cyrus
+            - DBus
+            - esmtp
+            - event
+            - gearman
+            - geoip
+            - gupnp
+            - IMS
+            - kadm5
+            - mqseries
+            - msession
+            - netools
+            - Net_Gopher
+            - ocal
+            - opendirectory
+            - perforce
+            - sam
+            - spread
+            - ssh2
+            - tcpwrap
+            - uuid
+            - yami
+            - yaz
+            - yp
+            - zeroconf
+        Numbers:
+            - Bitset
+        Payment:
+            - coin_acceptor
+            - cybercash
+            - cybermut
+            - mcve
+            - spplus
+            - TCLink
+        PHP:
+            - AOP
+            - apd
+            - APM
+            - automap
+            - bcompiler
+            - classkit
+            - docblock
+            - ffi
+            - funcall
+            - htscanner
+            - igbinary
+            - intercept
+            - llvm
+            - memsession
+            - memtrack
+            - meta
+            - mono
+            - operator
+            - optimizer
+            - params
+            - parsekit
+            - Parse_Tree
+            - phar
+            - PHK
+            - PHPScript
+            - postparser
+            - PreProcessor
+            - propro
+            - raphf
+            - runkit
+            - scream
+            - session_mysql
+            - tcc
+            - uploadprogress
+            - vld
+        Processing:
+            - amfext
+            - rrd
+            - shape
+        Search Engine:
+            - clucene
+            - mnogosearch
+            - solr
+            - sphinx
+            - swish
+        Security:
+            - selinux
+            - taint
+        Streams:
+            - oggvorbis
+            - openal
+        Structures:
+            - bloomy
+            - Judy
+            - quickhash
+            - Weakref
+        System:
+            - ApacheAccessor
+            - dio
+            - expect
+            - fam
+            - printer
+            - proctitle
+            - pthreads
+            - statgrab
+            - threads
+            - w32api
+            - win32ps
+            - win32ps_dll
+            - win32service
+            - yaf
+        Text:
+            - bbcode
+            - colorer
+            - doublemetaphone
+            - enchant
+            - jsmin
+            - markdown
+            - namazu
+            - panda
+            - pdflib
+            - ps
+            - re2
+            - ssdeep
+            - stem
+            - sundown
+            - TextCat
+            - xdiff
+        Tools and Utilities:
+            - clips
+            - crack
+            - crack_dll
+            - fann
+            - filter
+            - functional
+            - graphdat
+            - hash
+            - huffman
+            - msgpack
+            - pcsc
+            - PECL_Gen
+            - rsync
+            - SPL
+            - SPL_Types
+            - stomp
+            - svm
+            - udis86
+            - Valkyrie
+            - xrange
+        Virtualization:
+            - libvirt
+        Web Services:
+            - axis2
+            - json
+            - oauth
+            - SCA_SDO
+            - xcommerce
+            - yar
+        XML:
+            - domxml
+            - WBXML
+            - xmlReader
+            - XMLRPCi
+            - xmlwriter
+            - xslcache
+
+ini:
+    allow_url_fopen:
+    allow_url_include:
+    always_populate_raw_post_data:
+    asp_tags:
+    auto_append_file:
+    auto_detect_line_endings:
+    auto_globals_jit:
+    auto_prepend_file:
+    browscap:
+    child_terminate:
+    default_charset:
+    default_mimetype:
+    default_socket_timeout:
+    disable_classes:
+    disable_functions:
+    display_errors:
+    display_startup_errors:
+    docref_ext:
+    docref_root:
+    doc_root:
+    engine:
+    error_append_string:
+    error_log:
+    error_prepend_string:
+    error_reporting:
+    exit_on_timeout:
+    expose_php:
+    extension:
+    extension_dir:
+    file_uploads:
+    from:
+    html_errors:
+    ignore_repeated_errors:
+    ignore_repeated_source:
+    ignore_user_abort:
+    implicit_flush:
+    include_path:
+    last_modified:
+    log_errors:
+    log_errors_max_len:
+    max_execution_time:
+    max_input_nesting_level:
+    max_input_vars:
+    max_input_time:
+    memory_limit:
+    open_basedir:
+    output_buffering:
+    output_handler:
+    enable_post_data_reading:
+    post_max_size:
+    precision:
+    realpath_cache_size:
+    realpath_cache_ttl:
+    register_argc_argv:
+    report_memleaks:
+    report_zend_debug:
+    request_order:
+    sendmail_from:
+    sendmail_path:
+    serialize_precision:
+    short_open_tag:
+    SMTP:
+    smtp_port:
+    track_errors:
+    unserialize_callback_func:
+    upload_max_filesize:
+    max_file_uploads:
+    upload_tmp_dir:
+    user_agent:
+    user_dir:
+    variables_order:
+    windows_show_crt_warning:
+    xbithack:
+    xmlrpc_errors:
+    xmlrpc_error_number:
+    zend_extension:
+    zend_extension_debug:
+    zend_extension_debug_ts:
+    zend_extension_ts:
+    apc:
+        - apc.cache_by_default
+        - apc.enabled
+        - apc.enable_cli
+        - apc.file_update_protection
+        - apc.filters
+        - apc.gc_ttl
+        - apc.include_once_override
+        - apc.localcache
+        - apc.localcache.size
+        - apc.max_file_size
+        - apc.mmap_file_mask
+        - apc.num_files_hint
+        - apc.report_autofilter
+        - apc.rfc1867
+        - apc.rfc1867_freq
+        - apc.rfc1867_name
+        - apc.rfc1867_prefix
+        - apc.shm_segments
+        - apc.shm_size
+        - apc.slam_defense
+        - apc.stat
+        - apc.stat_ctime
+        - apc.ttl
+        - apc.user_entries_hint
+        - apc.user_ttl
+        - apc.write_lock
+    apd:
+        - apd.dumpdir
+        - apd.statement_tracing
+    arg_separator:
+        - arg_separator.input
+        - arg_separator.output
+    assert:
+        - assert.active
+        - assert.bail
+        - assert.callback
+        - assert.quiet_eval
+        - assert.warning
+    axis2:
+        - axis2.client_home
+        - axis2.enable_exception
+        - axis2.enable_trace
+        - axis2.log_path
+    bcmath:
+        - bcmath.scale
+    bcompiler:
+        - bcompiler.enabled
+    birdstep:
+        - birdstep.max_links
+    blenc:
+        - blenc.key_file
+    cgi:
+        - cgi.check_shebang_line
+        - cgi.discard_path
+        - cgi.fix_pathinfo
+        - cgi.force_redirect
+        - cgi.nph
+        - cgi.redirect_status_env
+        - cgi.rfc2616_headers
+    cli:
+        - cli.pager
+        - cli.prompt
+    cli_server:
+        - cli_server.color
+    coin_acceptor:
+        - coin_acceptor.auto_initialize
+        - coin_acceptor.auto_reset
+        - coin_acceptor.command_function
+        - coin_acceptor.delay_coins
+        - coin_acceptor.delay_prom
+        - coin_acceptor.lock_on_close
+        - coin_acceptor.start_unlocked
+    com:
+        - com.allow_dcom
+        - com.autoregister_casesensitive
+        - com.autoregister_typelib
+        - com.autoregister_verbose
+        - com.code_page
+        - com.typelib_file
+    curl:
+        - curl.cainfo
+    daffodildb:
+        - daffodildb.default_host
+        - daffodildb.default_password
+        - daffodildb.default_socket
+        - daffodildb.default_user
+        - daffodildb.port
+    date:
+        - date.default_latitude
+        - date.default_longitude
+        - date.sunrise_zenith
+        - date.sunset_zenith
+    dba:
+        - dba.default_handler
+    etpan:
+        - etpan.default.charset
+        - etpan.default.protocol
+    exif:
+        - exif.decode_jis_intel
+        - exif.decode_jis_motorola
+        - exif.decode_unicode_intel
+        - exif.decode_unicode_motorola
+        - exif.encode_jis
+        - exif.encode_unicode
+    expect:
+        - expect.logfile
+        - expect.loguser
+        - expect.timeout
+    fastcgi:
+        - fastcgi.impersonate
+        - fastcgi.logging
+    fbsql:
+        - fbsql.allow_persistent
+        - fbsql.autocommit
+        - fbsql.batchsize
+        - fbsql.default_database
+        - fbsql.default_database_password
+        - fbsql.default_host
+        - fbsql.default_password
+        - fbsql.default_user
+        - fbsql.generate_warnings
+        - fbsql.max_connections
+        - fbsql.max_links
+        - fbsql.max_persistent
+        - fbsql.max_results
+        - fbsql.show_timestamp_decimals
+    filter:
+        - filter.default
+        - filter.default_flags
+    gd:
+        - gd.jpeg_ignore_warning
+    geoip:
+        - geoip.custom_directory
+    hidef:
+        - hidef.ini_path
+    highlight:
+        - highlight.comment
+        - highlight.default
+        - highlight.html
+        - highlight.keyword
+        - highlight.string
+    htscanner:
+        - htscanner.config_file
+        - htscanner.default_docroot
+        - htscanner.default_ttl
+        - htscanner.stop_on_error
+    http:
+        - http.etag.mode
+        - http.force_exit
+        - http.log.allowed_methods
+        - http.log.cache
+        - http.log.composite
+        - http.log.not_found
+        - http.log.redirect
+        - http.only_exceptions
+        - http.persistent.handles.ident
+        - http.persistent.handles.limit
+        - http.request.datashare.connect
+        - http.request.datashare.cookie
+        - http.request.datashare.dns
+        - http.request.datashare.ssl
+        - http.request.methods.allowed
+        - http.request.methods.custom
+        - http.send.deflate.start_auto
+        - http.send.deflate.start_flags
+        - http.send.inflate.start_auto
+        - http.send.inflate.start_flags
+        - http.send.not_found_404
+    ibase:
+        - ibase.allow_persistent
+        - ibase.dateformat
+        - ibase.default_charset
+        - ibase.default_db
+        - ibase.default_password
+        - ibase.default_user
+        - ibase.max_links
+        - ibase.max_persistent
+        - ibase.timeformat
+        - ibase.timestampformat
+    ibm_db2:
+        - ibm_db2.binmode
+        - ibm_db2.i5_all_pconnect
+        - ibm_db2.i5_allow_commit
+        - ibm_db2.i5_dbcs_alloc
+        - ibm_db2.instance_name
+        - ibm_db2.i5_ignore_userid
+    iconv:
+        - iconv.input_encoding
+        - iconv.internal_encoding
+        - iconv.output_encoding
+    imlib2:
+        - imlib2.font_cache_max_size
+        - imlib2.font_path
+    ingres:
+        - ingres.allow_persistent
+        - ingres.array_index_start
+        - ingres.auto
+        - ingres.blob_segment_length
+        - ingres.cursor_mode
+        - ingres.default_database
+        - ingres.default_password
+        - ingres.default_user
+        - ingres.describe
+        - ingres.fetch_buffer_size
+        - ingres.max_links
+        - ingres.max_persistent
+        - ingres.reuse_connection
+        - ingres.scrollable
+        - ingres.trace
+        - ingres.trace_connect
+        - ingres.utf8
+    ldap:
+        - ldap.max_links
+    mail:
+        - mail.add_x_header
+        - mail.force_extra_parameters
+        - mail.log
+    maxdb:
+        - maxdb.default_db
+        - maxdb.default_host
+        - maxdb.default_pw
+        - maxdb.default_user
+        - maxdb.long_readlen
+    mbstring:
+        - mbstring.detect_order
+        - mbstring.encoding_translation
+        - mbstring.func_overload
+        - mbstring.http_input
+        - mbstring.http_output
+        - mbstring.internal_encoding
+        - mbstring.language
+        - mbstring.script_encoding
+        - mbstring.strict_detection
+        - mbstring.substitute_character
+    mcrypt:
+        - mcrypt.algorithms_dir
+        - mcrypt.modes_dir
+    memcache:
+        - memcache.allow_failover
+        - memcache.chunk_size
+        - memcache.default_port
+        - memcache.hash_function
+        - memcache.hash_strategy
+        - memcache.max_failover_attempts
+    mime_magic:
+        - mime_magic.debug
+        - mime_magic.magicfile
+    mongo:
+        - mongo.allow_empty_keys
+        - mongo.chunk_size
+        - mongo.cmd
+        - mongo.default_host
+        - mongo.default_port
+        - mongo.is_master_interval
+        - mongo.long_as_object
+        - mongo.native_long
+        - mongo.ping_interval
+        - mongo.utf8
+    msql:
+        - msql.allow_persistent
+        - msql.max_links
+        - msql.max_persistent
+    mssql:
+        - mssql.allow_persistent
+        - mssql.batchsize
+        - mssql.charset
+        - mssql.compatability_mode
+        - mssql.connect_timeout
+        - mssql.datetimeconvert
+        - mssql.max_links
+        - mssql.max_persistent
+        - mssql.max_procs
+        - mssql.min_error_severity
+        - mssql.min_message_severity
+        - mssql.secure_connection
+        - mssql.textlimit
+        - mssql.textsize
+        - mssql.timeout
+    mysql:
+        - mysql.allow_local_infile
+        - mysql.allow_persistent
+        - mysql.max_persistent
+        - mysql.max_links
+        - mysql.trace_mode
+        - mysql.default_port
+        - mysql.default_socket
+        - mysql.default_host
+        - mysql.default_user
+        - mysql.default_password
+        - mysql.connect_timeout
+    mysqli:
+        - mysqli.allow_local_infile
+        - mysqli.allow_persistent
+        - mysqli.max_persistent
+        - mysqli.max_links
+        - mysqli.default_port
+        - mysqli.default_socket
+        - mysqli.default_host
+        - mysqli.default_user
+        - mysqli.default_pw
+        - mysqli.reconnect
+        - mysqli.cache_size
+    mysqlnd_memcache:
+        - mysqlnd_memcache.enable
+    mysqlnd_ms:
+        - mysqlnd_ms.enable
+        - mysqlnd_ms.force_config_usage
+        - mysqlnd_ms.ini_file
+        - mysqlnd_ms.config_file
+        - mysqlnd_ms.collect_statistics
+        - mysqlnd_ms.multi_master
+        - mysqlnd_ms.disable_rw_split
+    mysqlnd_mux:
+        - mysqlnd_mux.enable
+    mysqlnd_qc:
+        - mysqlnd_qc.enable_qc
+        - mysqlnd_qc.ttl
+        - mysqlnd_qc.cache_by_default
+        - mysqlnd_qc.cache_no_table
+        - mysqlnd_qc.use_request_time
+        - mysqlnd_qc.time_statistics
+        - mysqlnd_qc.collect_statistics
+        - mysqlnd_qc.collect_statistics_log_file
+        - mysqlnd_qc.collect_query_trace
+        - mysqlnd_qc.query_trace_bt_depth
+        - mysqlnd_qc.collect_normalized_query_trace
+        - mysqlnd_qc.ignore_sql_comments
+        - mysqlnd_qc.slam_defense
+        - mysqlnd_qc.slam_defense_ttl
+        - mysqlnd_qc.std_data_copy
+        - mysqlnd_qc.apc_prefix
+        - mysqlnd_qc.memc_server
+        - mysqlnd_qc.memc_port
+        - mysqlnd_qc.sqlite_data_file
+    mysqlnd_uh:
+        - mysqlnd_uh.enable
+        - mysqlnd_uh.report_wrong_types
+    nsapi:
+        - nsapi.read_timeout
+    oci8:
+        - oci8.connection_class
+        - oci8.default_prefetch
+        - oci8.events
+        - oci8.max_persistent
+        - oci8.old_oci_close_semantics
+        - oci8.persistent_timeout
+        - oci8.ping_interval
+        - oci8.privileged_connect
+        - oci8.statement_cache_size
+    odbc:
+        - odbc.allow_persistent
+        - odbc.check_persistent
+        - odbc.defaultbinmode
+        - odbc.defaultlrl
+        - odbc.default_db
+        - odbc.default_pw
+        - odbc.default_user
+        - odbc.max_links
+        - odbc.max_persistent
+    odbtp:
+        - odbtp.datetime_format
+        - odbtp.detach_default_queries
+        - odbtp.guid_format
+        - odbtp.interface_file
+        - odbtp.truncation_errors
+    opcache:
+        - opcache.blacklist_filename
+        - opcache.consistency_checks
+        - opcache.dups_fix
+        - opcache.enable
+        - opcache.enable_cli
+        - opcache.enable_file_override
+        - opcache.error_log
+        - opcache.fast_shutdown
+        - opcache.file_update_protection
+        - opcache.force_restart_timeout
+        - opcache.inherited_hack
+        - opcache.interned_strings_buffer
+        - opcache.load_comments
+        - opcache.log_verbosity_level
+        - opcache.max_accelerated_files
+        - opcache.max_file_size
+        - opcache.max_wasted_percentage
+        - opcache.memory_consumption
+        - opcache.mmap_base
+        - opcache.optimization_level
+        - opcache.preferred_memory_model
+        - opcache.protect_memory
+        - opcache.revalidate_freq
+        - opcache.revalidate_path
+        - opcache.save_comments
+        - opcache.use_cwd
+        - opcache.validate_timestamps
+    opendirectory:
+        - opendirectory.max_refs
+        - opendirectory.separator
+    pam:
+        - pam.servicename
+    pcre:
+        - pcre.backtrack_limit
+        - pcre.recursion_limit
+    pdo:
+        - pdo.dsn.*
+    pdo_odbc:
+        - pdo_odbc.connection_pooling
+    pgsql:
+        - pgsql.allow_persistent
+        - pgsql.auto_reset_persistent
+        - pgsql.ignore_notice
+        - pgsql.log_notice
+        - pgsql.max_links
+        - pgsql.max_persistent
+    phar:
+        - phar.extract_list
+        - phar.readonly
+        - phar.require_hash
+    python:
+        - python.append_path
+        - python.prepend_path
+    runkit:
+        - runkit.internal_override
+        - runkit.superglobal
+    session:
+        - session.auto_start
+        - session.cache_expire
+        - session.cache_limiter
+        - session.cookie_domain
+        - session.cookie_httponly
+        - session.cookie_lifetime
+        - session.cookie_path
+        - session.cookie_secure
+        - session.entropy_file
+        - session.entropy_length
+        - session.gc_divisor
+        - session.gc_maxlifetime
+        - session.gc_probability
+        - session.hash_bits_per_character
+        - session.hash_function
+        - session.name
+        - session.referer_check
+        - session.save_handler
+        - session.save_path
+        - session.serialize_handler
+        - session.use_cookies
+        - session.use_only_cookies
+        - session.use_trans_sid
+    session_pgsql:
+        - session_pgsql.create_table
+        - session_pgsql.db
+        - session_pgsql.disable
+        - session_pgsql.failover_mode
+        - session_pgsql.gc_interval
+        - session_pgsql.keep_expired
+        - session_pgsql.sem_file_name
+        - session_pgsql.serializable
+        - session_pgsql.short_circuit
+        - session_pgsql.use_app_vars
+        - session_pgsql.vacuum_interval
+    simple_cvs:
+        - simple_cvs.authMethod
+        - simple_cvs.compressionLevel
+        - simple_cvs.cvsRoot
+        - simple_cvs.host
+        - simple_cvs.moduleName
+        - simple_cvs.userName
+        - simple_cvs.workingDir
+    soap:
+        - soap.wsdl_cache
+        - soap.wsdl_cache_dir
+        - soap.wsdl_cache_enabled
+        - soap.wsdl_cache_limit
+        - soap.wsdl_cache_ttl
+    sql:
+        - sql.safe_mode
+    sqlite:
+        - sqlite.assoc_case
+    sybase:
+        - sybase.allow_persistent
+        - sybase.interface_file
+        - sybase.max_links
+        - sybase.max_persistent
+        - sybase.min_error_severity
+        - sybase.min_message_severity
+    sybct:
+        - sybct.deadlock_retry_count
+        - sybct.login_timeout
+        - sybct.packet_size
+        - sybct.timeout
+    sysvshm:
+        - sysvshm.init_mem
+    tidy:
+        - tidy.clean_output
+        - tidy.default_config
+    uploadprogress:
+        - uploadprogress.file.filename_template
+    url_rewriter:
+        - url_rewriter.tags
+    user_ini:
+        - user_ini.cache_ttl
+        - user_ini.filename
+    valkyrie:
+        - valkyrie.auto_validate
+        - valkyrie.config_path
+    vld:
+        - vld.active
+        - vld.execute
+        - vld.skip_append
+        - vld.skip_prepend
+    xmms:
+        - xmms.path
+        - xmms.session
+    yami:
+        - yami.response.timeout
+    yaz:
+        - yaz.keepalive
+        - yaz.log_mask
+    zend:
+        - zend.enable_gc
+        - zend.multibyte
+        - zend.script_encoding
+        - zend.signal_check
+    zlib:
+        - zlib.output_compression
+        - zlib.output_compression_level
+        - zlib.output_handler

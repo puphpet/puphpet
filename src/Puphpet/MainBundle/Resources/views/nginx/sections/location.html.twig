@@ -1,0 +1,118 @@
+{% set uniqid = uniqid('nxvl_', true) %}
+{% set autoindex = (location.autoindex is defined and location.autoindex is sameas('on')) ? true : false %}
+{% set try_files = (location.try_files is defined) ? location.try_files : [] %}
+{% set fast_cgi_params_extras = (location.fast_cgi_params_extra is defined) ? location.fast_cgi_params_extra : [] %}
+
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Location</legend>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#location"
+                   target="_blank">More information</a>.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-location">Location Match</label>
+            <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-location"
+                   name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][location]"
+                   placeholder="/" class="form-control"
+                   value="{{ location.location }}"/>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="clearfix"><label>autoindex</label></div>
+
+            <label class="radio-tile mini set-width">
+                <span class="help-text">
+                    Enables directory listings.
+                </span>
+                <input type="hidden" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][autoindex]" value="off" />
+                <input type="checkbox" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][autoindex]"
+                       class="invisible" {% if autoindex %}checked{% endif %} value="on" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable autoindex</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files"
+                   target="_blank">More information</a>.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-try_files">Try Files</label>
+            <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-try_files"
+                    name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][try_files][]"
+                    multiple class="form-control select-tags-editable">
+                {% for try_file in try_files %}
+                    <option selected value="{{ try_file }}">{{ try_file }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_pass"
+                   target="_blank">More information</a>.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi">FastCGI Pass</label>
+            <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi"
+                   name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fastcgi]"
+                   placeholder="127.0.0.1:9000" class="form-control"
+                   value="{{ location.fastcgi }}"/>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_index"
+                   target="_blank">More information</a>.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_index">FastCGI Index</label>
+            <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_index"
+                   name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fastcgi_index]"
+                   placeholder="index.php" class="form-control"
+                   value="{{ location.fastcgi_index }}"/>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_split_path_info"
+                   target="_blank">More information</a>.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_split_path">FastCGI Split Path Info</label>
+            <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_split_path"
+                   name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fastcgi_split_path]"
+                   placeholder="^(.+\.php)(/.*)$" class="form-control"
+                   value="{{ location.fastcgi_split_path }}"/>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                <code>name value</code>, separated by comma.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fast_cgi_params_extra">FastCGI Environment Variables</label>
+            <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fast_cgi_params_extra"
+                    name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fast_cgi_params_extra][]"
+                    multiple class="form-control select-tags-editable">
+                {% for param in fast_cgi_params_extras %}
+                    <option selected value="{{ param }}">{{ param }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+    </fieldset>
+</div>

@@ -5,7 +5,7 @@ namespace Puphpet\Tests\Unit\MainBundle\Extension;
 use Puphpet\Tests\Unit;
 use Puphpet\MainBundle\Extension\Archive;
 
-class ArchiveTest extends Unit\TestExtensions
+class ArchiveTest extends Unit\BaseTest
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Archive

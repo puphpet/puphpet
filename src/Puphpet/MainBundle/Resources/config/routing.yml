@@ -21,3 +21,106 @@ puphpet.main.help:
 puphpet.main.github_btn:
     pattern:  /github-btn
     defaults: { _controller: PuphpetMainBundle:Front:githubBtn }
+
+# deploy target
+puphpet.vagrantfile_local:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-local/routing.yml"
+    prefix:   /extension/vagrantfile-local
+puphpet.vagrantfile_rackspace:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-rackspace/routing.yml"
+    prefix:   /extension/vagrantfile-rackspace
+puphpet.vagrantfile_linode:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-linode/routing.yml"
+    prefix:   /extension/vagrantfile-linode
+puphpet.vagrantfile_softlayer:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-softlayer/routing.yml"
+    prefix:   /extension/vagrantfile-softlayer
+puphpet.vagrantfile_aws:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-aws/routing.yml"
+    prefix:   /extension/vagrantfile-aws
+puphpet.vagrantfile_gce:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-gce/routing.yml"
+    prefix:   /extension/vagrantfile-gce
+puphpet.vagrantfile_digitalocean:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-digitalocean/routing.yml"
+    prefix:   /extension/vagrantfile-digitalocean
+puphpet.vagrantfile_ikoulacloud:
+    resource: "@PuphpetMainBundle/Resources/config/vagrantfile-ikoulacloud/routing.yml"
+    prefix:   /extension/vagrantfile-ikoulacloud
+
+# system
+puphpet.server:
+    resource: "@PuphpetMainBundle/Resources/config/server/routing.yml"
+    prefix:   /extension/server
+puphpet.users_groups:
+    resource: "@PuphpetMainBundle/Resources/config/users-groups/routing.yml"
+    prefix:   /extension/users-groups
+puphpet.firewall:
+    resource: "@PuphpetMainBundle/Resources/config/firewall/routing.yml"
+    prefix:   /extension/firewall
+puphpet.cron:
+    resource: "@PuphpetMainBundle/Resources/config/cron/routing.yml"
+    prefix:   /extension/cron
+
+# web server
+puphpet.nginx:
+    resource: "@PuphpetMainBundle/Resources/config/nginx/routing.yml"
+    prefix:   /extension/nginx
+puphpet.apache:
+    resource: "@PuphpetMainBundle/Resources/config/apache/routing.yml"
+    prefix:   /extension/apache
+
+# language
+puphpet.php:
+    resource: "@PuphpetMainBundle/Resources/config/php/routing.yml"
+    prefix:   /extension/php
+puphpet.ruby:
+    resource: "@PuphpetMainBundle/Resources/config/ruby/routing.yml"
+    prefix:   /extension/ruby
+puphpet.python:
+    resource: "@PuphpetMainBundle/Resources/config/python/routing.yml"
+    prefix:   /extension/python
+puphpet.nodejs:
+    resource: "@PuphpetMainBundle/Resources/config/nodejs/routing.yml"
+    prefix:   /extension/nodejs
+puphpet.hhvm:
+    resource: "@PuphpetMainBundle/Resources/config/hhvm/routing.yml"
+    prefix:   /extension/hhvm
+
+# database
+puphpet.mysql:
+    resource: "@PuphpetMainBundle/Resources/config/mysql/routing.yml"
+    prefix:   /extension/mysql
+puphpet.postgresql:
+    resource: "@PuphpetMainBundle/Resources/config/postgresql/routing.yml"
+    prefix:   /extension/postgresql
+puphpet.mongodb:
+    resource: "@PuphpetMainBundle/Resources/config/mongodb/routing.yml"
+    prefix:   /extension/mongodb
+puphpet.redis:
+    resource: "@PuphpetMainBundle/Resources/config/redis/routing.yml"
+    prefix:   /extension/redis
+puphpet.sqlite:
+    resource: "@PuphpetMainBundle/Resources/config/sqlite/routing.yml"
+    prefix:   /extension/sqlite
+
+# mail
+puphpet.mailcatcher:
+    resource: "@PuphpetMainBundle/Resources/config/mailcatcher/routing.yml"
+    prefix:   /extension/mailcatcher
+
+# work queue
+puphpet.beanstalkd:
+    resource: "@PuphpetMainBundle/Resources/config/beanstalkd/routing.yml"
+    prefix:   /extension/beanstalkd
+puphpet.rabbitmq:
+    resource: "@PuphpetMainBundle/Resources/config/rabbitmq/routing.yml"
+    prefix:   /extension/rabbitmq
+
+# search server
+puphpet.elastic_search:
+    resource: "@PuphpetMainBundle/Resources/config/elastic-search/routing.yml"
+    prefix:   /extension/elastic-search
+puphpet.solr:
+    resource: "@PuphpetMainBundle/Resources/config/solr/routing.yml"
+    prefix:   /extension/solr

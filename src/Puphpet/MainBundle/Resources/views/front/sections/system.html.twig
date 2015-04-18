@@ -1,125 +1,67 @@
-<div class="tab-pane fade in" id="system">
-    <div class="page-header compact">
-        <h1><i class="fa fa-desktop"></i> System</h1>
+<div class="tab-pane" id="system-packages">
+    {% include 'PuphpetMainBundle:server:form.html.twig' with {'server': add_available(extensions.server.merged, extensions.server.available)} %}
+</div>
+<div class="tab-pane" id="users-groups">
+    {% include 'PuphpetMainBundle:users-groups:form.html.twig' with {'ug': add_available(extensions.users_groups.merged, extensions.users_groups.available)} %}
+</div>
+<div class="tab-pane" id="firewall">
+    {% include 'PuphpetMainBundle:firewall:form.html.twig' with {'firewall': add_available(extensions.firewall.merged, extensions.firewall.available)} %}
+</div>
+<div class="tab-pane" id="cron">
+    {% include 'PuphpetMainBundle:cron:form.html.twig' with {'cron': add_available(extensions.cron.merged, extensions.cron.available)} %}
+</div>
+<div class="tab-pane" id="custom-files">
+    <div class="section-header hidden">
+        <h1>Custom Files</h1>
+        <p class="lead">Information on dotfiles and custom executable bash files.</p>
     </div>
 
-    <section id="system-packages">
-        <div class="page-header compact">
-            <h1><i class="fa fa-cogs"></i> Packages</h1>
-        </div>
+    <div class="form-group">
+        <fieldset>
+            <legend>dotfiles</legend>
 
-        <div class="tab-content">
-            <div class="tab-pane active" id="system-packages-tab">
-                {% set extension = extensionManager.getExtensionBySlug('server') %}
-                {{ extension.renderFront(extension.data)|raw }}
+            <div class="help-block">
+                <p>You can add all your dot files (
+                    <code>.bash_aliases</code>, <code>.vimrc</code>,
+                    <code>.gitconfig</code>, etc),
+                    to the <code>puphpet/files/dot/</code> folder that will appear after
+                    you extract your generated zip file.</p>
+
+                <p>During initial startup, they will automatically be copied into the VM.
+                    There is a sample <code>.bash_aliases</code> file there for you to
+                    start with - overwrite at will!</p>
             </div>
-        </div>
-    </section>
+        </fieldset>
+    </div>
 
-    <section id="system-users_groups">
-        <div class="page-header compact">
-            <h1><i class="fa fa-users"></i> Users &amp; Groups</h1>
-        </div>
+    <div class="form-group">
+        <fieldset>
+            <legend>Custom Bash Files</legend>
 
-        <div class="tab-content">
-            <div class="tab-pane active" id="system-users_groups-tab">
-                {% set extension = extensionManager.getExtensionBySlug('users_groups') %}
-                {{ extension.renderFront(extension.data)|raw }}
+            <div class="help-block">
+                <p>You can run your own custom code after the VM finishes provisioning by adding files to the
+                    <code>puphpet/files/exec-always</code>, <code>puphpet/files/exec-once</code>,
+                    <code>puphpet/files/startup-always</code>, and <code>puphpet/files/startup-once</code> folders.</p>
+
+                <p><strong>Files must end in <code>.sh</code></strong>. Valid:
+                    <code>foo.sh</code>; Invalid: <code>bar</code></p>
+
+                <p><strong>Files are executed in alphabetical order</strong>. Files within <code>exec-once</code>
+                    are run before files within <code>exec-always</code>, and files within <code>startup-once</code> are
+                    run before files within <code>startup-always</code>. Files in <code>exec-once</code> and
+                    <code>exec-always</code> are run before files in <code>startup-once</code>
+                    and <code>startup-always</code>.</p>
+
+                <p>Files within <code>exec-always</code> will run on initial <code>$ vagrant up</code> and all
+                    <code>$ vagrant provision</code>, while files within <code>exec-once</code> will
+                    run only the first time you run Vagrant, unless you SSH into the VM and remove the
+                    <code>/.puphpet-stuff/exec-once-ran</code> file and re-run Vagrant.</p>
+
+                <p>Files within <code>startup-always</code> will run on each <code>$ vagrant up</code>,
+                    while files within <code>startup-once</code> will only run on the next time you run Vagrant,
+                    unless you SSH into the VM and remove the <code>/.puphpet-stuff/startup-once-ran</code>
+                    file and re-run Vagrant.</p>
             </div>
-        </div>
-    </section>
-
-    <section id="system-cron_jobs">
-        <div class="page-header compact">
-            <h1><i class="fa fa-clock-o"></i> Cron Jobs</h1>
-        </div>
-
-        <div class="tab-content">
-            <div class="tab-pane active" id="system-header-tab">
-                {% set extension = extensionManager.getExtensionBySlug('cron') %}
-                {{ extension.renderFront(extension.data)|raw }}
-            </div>
-        </div>
-    </section>
-
-    <section id="system-custom-files">
-        <div class="page-header compact">
-            <h1><i class="fa fa-file-code-o"></i> Custom Files</h1>
-        </div>
-
-        <div class="tab-content">
-            <div class="tab-pane active" id="system-custom-files-tab">
-                <section id="system-custom-files-dot">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">dotfiles</h3>
-                                </div>
-
-                                <div class="panel-body">
-                                    <p>
-                                        You can add all your dot files (<code>.bash_aliases</code>, <code>.vimrc</code>,
-                                        <code>.gitconfig</code>, etc),
-                                        to the <code>puphpet/files/dot/</code> folder that will appear after you extract your
-                                        generated zip file.
-                                    </p>
-
-                                    <p>
-                                        During initial startup, they will automatically be copied into the VM. There is
-                                        a sample
-                                        <code>.bash_aliases</code> file there for you to start with - overwrite at will!
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Script Files</h3>
-                                </div>
-
-                                <div class="panel-body">
-                                    <p>
-                                        You can run your own custom code after the VM finishes provisioning by adding files to the
-                                        <code>puphpet/files/exec-always</code>, <code>puphpet/files/exec-once</code>,
-                                        <code>puphpet/files/startup-always</code>, and <code>puphpet/files/startup-once</code> folders.
-                                    </p>
-
-                                    <p>
-                                        <strong>Files are executed in alphabetical order</strong>. Files within <code>exec-once</code>
-                                        are run before files within <code>exec-always</code>, and files within <code>startup-once</code> are
-                                        run before files within <code>startup-always</code>. Files in <code>exec-once</code> and
-                                        <code>exec-always</code> are run before files in <code>startup-once</code>
-                                        and <code>startup-always</code>.
-                                    </p>
-
-                                    <p>
-                                        Files within <code>exec-always</code> will run on initial <code>$ vagrant up</code> and all
-                                        <code>$ vagrant provision</code>, while files within <code>exec-once</code> will
-                                        run only the first time you run Vagrant, unless you SSH into the VM and remove the
-                                        <code>/.puphpet-stuff/exec-once-ran</code> file and re-run Vagrant.
-                                    </p>
-
-                                    <p>
-                                        Files within <code>startup-always</code> will run on each <code>$ vagrant up</code>,
-                                        while files within <code>startup-once</code> will only run on the next time you run Vagrant,
-                                        unless you SSH into the VM and remove the <code>/.puphpet-stuff/startup-once-ran</code>
-                                        file and re-run Vagrant.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-        </div>
-    </section>
-
-
-
-    <ul class="pager">
-        <li class="previous"><a href="#deploy-target">← Deploy Target</a></li>
-        <li class="next"><a href="#firewall">Firewall Rules →</a></li>
-    </ul>
+        </fieldset>
+    </div>
 </div>

@@ -1,86 +1,24 @@
-<div class="tab-pane fade in active" id="deploy-target">
-    <div class="page-header compact">
-        <h1><i class="fa fa-cloud"></i> Where do you want your virtual machine?</h1>
-    </div>
-    <ul class="nav nav-slice-tabs single-select">
-        <li class="col-xs-2 active">
-            <a href="#vagrantfile-local-tab" data-toggle="tab">
-                Locally
-            </a>
-        </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-rackspace-tab" data-toggle="tab">
-                Rackspace
-            </a>
-        </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-linode-tab" data-toggle="tab">
-                Linode
-            </a>
-        </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-softlayer-tab" data-toggle="tab">
-                Softlayer
-            </a>
-        </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-aws-tab" data-toggle="tab">
-                Amazon
-            </a>
-        </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-gce-tab" data-toggle="tab">
-                Google
-            </a>
-        </li>
-        <li class="col-xs-2">
-            <a href="#vagrantfile-digitalocean-tab" data-toggle="tab">
-                Digital Ocean
-            </a>
-        </li>
-       <li class="col-xs-2">
-            <a href="#vagrantfile-ikoulacloud-tab" data-toggle="tab">
-                Ikoula Cloud
-            </a>
-        </li>
-    </ul>
-
-    <div class="tab-content">
-        <div class="tab-pane active" id="vagrantfile-local-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-local') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-rackspace-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-rackspace') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-linode-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-linode') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-softlayer-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-softlayer') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-aws-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-aws') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-gce-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-gce') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-digitalocean-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-digital_ocean') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-        <div class="tab-pane" id="vagrantfile-ikoulacloud-tab">
-            {% set extension = extensionManager.getExtensionBySlug('vagrantfile-ikoulacloud') %}
-            {{ extension.renderFront(extension.data)|raw }}
-        </div>
-    </div>
-
-    <ul class="pager">
-        <li class="next"><a href="#system">System →</a></li>
-    </ul>
+<div class="tab-pane" id="vagrantfile-local">
+    {% include 'PuphpetMainBundle:vagrantfile-local:form.html.twig' with {'data': add_available(extensions.vagrantfile_local.merged, extensions.vagrantfile_local.available)} %}
+</div>
+<div class="tab-pane" id="vagrantfile-rackspace">
+    {% include 'PuphpetMainBundle:vagrantfile-rackspace:form.html.twig' with {'data': add_available(extensions.vagrantfile_rackspace.merged, extensions.vagrantfile_rackspace.available)} %}
+</div>
+<div class="tab-pane" id="vagrantfile-linode">
+    {% include 'PuphpetMainBundle:vagrantfile-linode:form.html.twig' with {'data': add_available(extensions.vagrantfile_linode.merged, extensions.vagrantfile_linode.available)} %}
+</div>
+<div class="tab-pane" id="vagrantfile-softlayer">
+    {% include 'PuphpetMainBundle:vagrantfile-softlayer:form.html.twig' with {'data': add_available(extensions.vagrantfile_softlayer.merged, extensions.vagrantfile_softlayer.available)} %}
+</div>
+<div class="tab-pane" id="vagrantfile-aws">
+    {% include 'PuphpetMainBundle:vagrantfile-aws:form.html.twig' with {'data': add_available(extensions.vagrantfile_aws.merged, extensions.vagrantfile_aws.available)} %}
+</div>
+<div class="tab-pane" id="vagrantfile-gce">
+    {% include 'PuphpetMainBundle:vagrantfile-gce:form.html.twig' with {'data': add_available(extensions.vagrantfile_gce.merged, extensions.vagrantfile_gce.available)} %}
+</div>
+<div class="tab-pane" id="vagrantfile-digitalocean">
+    {% include 'PuphpetMainBundle:vagrantfile-digitalocean:form.html.twig' with {'data': add_available(extensions.vagrantfile_digitalocean.merged, extensions.vagrantfile_digitalocean.available)} %}
+</div>
+<div class="tab-pane" id="vagrantfile-ikoulacloud">
+    {% include 'PuphpetMainBundle:vagrantfile-ikoulacloud:form.html.twig' with {'data': add_available(extensions.vagrantfile_ikoulacloud.merged, extensions.vagrantfile_ikoulacloud.available)} %}
 </div>

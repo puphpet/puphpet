@@ -1,0 +1,25 @@
+empty_synced_folder:
+    source: ~
+    target: ~
+    id: vagrant-root
+    sync_type: default
+    owner: www-data
+    group: www-data
+    rsync:
+        args:
+            - '--verbose'
+            - '--archive'
+            - '-z'
+        exclude:
+            - .vagrant/
+            - .git/
+        auto: true
+
+empty_forwarded_port:
+    host: ~
+    guest: ~
+
+data:
+    - foo
+    - bar
+    - baz

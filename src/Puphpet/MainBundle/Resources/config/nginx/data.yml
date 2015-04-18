@@ -1,0 +1,12 @@
+install: 0
+
+settings:
+    default_vhost: 1
+    proxy_buffer_size: 128k
+    proxy_buffers: 4 256k
+
+upstreams: []
+
+vhosts: []
+
+proxies: []

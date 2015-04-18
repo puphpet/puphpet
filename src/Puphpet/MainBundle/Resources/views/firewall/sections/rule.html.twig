@@ -1,0 +1,102 @@
+{% set uniqid = uniqid('fr_', true) %}
+
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Firewall Rule</legend>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Port to affect, can be multiple.
+            </div>
+            <label for="firewall-rules-{{ uniqid }}-port">Port(s)</label>
+            <select id="firewall-rules-{{ uniqid }}-port"
+                   name="firewall[rules][{{ uniqid }}][port][]"
+                   multiple class="form-control select-tags-editable">
+                {% if rule.port is defined and rule.port is iterable %}
+                    {% for port in rule.port %}
+                        <option selected value="{{ port }}">{{ port }}</option>
+                    {% endfor %}
+                {% elseif rule.port is defined %}
+                    <option selected value="{{ rule.port }}">{{ rule.port }}</option>
+                {% endif %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <p>Lower priority takes effect first.</p>
+
+                <p><strong>Format must be 3 digits: 000, 111, 011, 999</strong></p>
+            </div>
+            <label for="firewall-rules-{{ uniqid }}-priority">Priority</label>
+            <input type="text" id="firewall-rules-{{ uniqid }}-priority"
+                   name="firewall[rules][{{ uniqid }}][priority]"
+                   placeholder="100" class="form-control"
+                   value="{{ rule.priority ? rule.priority : '100' }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="clearfix"><label>Protocol</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="radio" name="firewall[rules][{{ uniqid }}][proto]"
+                       class="invisible"
+                       {% if rule.proto == 'tcp' or not rule.proto %}checked{% endif %}
+                       value="tcp" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">TCP</span>
+                    </span>
+                </span>
+            </label>
+
+            <label class="radio-tile mini set-width">
+                <input type="radio" name="firewall[rules][{{ uniqid }}][proto]"
+                       class="invisible"
+                       {% if rule.proto == 'udp' %}checked{% endif %}
+                       value="udp" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">UDP</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="clearfix"><label>Action</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="radio" name="firewall[rules][{{ uniqid }}][action]"
+                       class="invisible"
+                       {% if rule.action == 'accept' or not rule.action %}checked{% endif %}
+                       value="accept" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">accept</span>
+                    </span>
+                </span>
+            </label>
+
+            <label class="radio-tile mini set-width">
+                <input type="radio" name="firewall[rules][{{ uniqid }}][action]"
+                       class="invisible"
+                       {% if rule.action == 'drop' %}checked{% endif %}
+                       value="drop" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">drop</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+    </fieldset>
+</div>

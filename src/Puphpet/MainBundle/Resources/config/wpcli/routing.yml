@@ -1,0 +1,3 @@
+puphpet.wpcli.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetMainBundle:WpCli:index }

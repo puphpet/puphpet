@@ -4,64 +4,62 @@ namespace Puphpet\MainBundle\Extension;
 
 use Puphpet\MainBundle\Extension;
 
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 use Symfony\Component\Yaml\Yaml;
 
 class Manager
 {
-    /** @var array */
-    private $alreadyIterated = [];
-
     /** @var Extension\Archive */
-    private $archive;
+    protected $archive;
 
-    /** @var Container */
-    private $container;
-
-    /** @var Extension\ExtensionInterface[] */
-    private $extensions = [];
+    /** @var string Base path to config files */
+    protected $confDir;
 
     /** @var array */
-    private $groups = [];
+    protected $extensions = [];
 
-    /** @var array */
-    private $groupsMirrored = [];
-
-    public function __construct(Container $container)
+    public function __construct($confDir = __DIR__ . '/../Resources/config')
     {
-        $this->container = $container;
+        $this->confDir = $confDir;
     }
 
     /**
-     * @param ExtensionInterface $extension
+     * @param string $name
      * @return $this
      */
-    public function addExtension(Extension\ExtensionInterface $extension)
+    public function addExtension($name)
     {
-        $this->extensions[$extension->getSlug()] = $extension;
+        $confDir = sprintf('%s/%s', $this->confDir, $name);
+        $name    = str_replace('-', '_', $name);
+
+        $data      = $this->yamlParse($confDir . '/data.yml');
+        $defaults  = $this->yamlParse($confDir . '/defaults.yml');
+        $available = $this->yamlParse($confDir . '/available.yml');
+
+        $data      = is_array($data) ? $data : [];
+        $defaults  = is_array($defaults) ? $defaults : [];
+        $available = is_array($available) ? $available : [];
+
+        $mergedData = array_replace_recursive($data, $defaults);
+
+        $this->extensions[$name] = [
+            'available' => $available,
+            'data'      => $data,
+            'defaults'  => $defaults,
+            'merged'    => $mergedData,
+        ];
 
         return $this;
     }
 
     /**
-     * Track extension and add to group
-     *
-     * @param string             $groupName
-     * @param ExtensionInterface $extension
-     * @return $this
+     * @param string $name
+     * @return array
      */
-    public function addExtensionToGroup($groupName, Extension\ExtensionInterface $extension)
+    public function getExtension($name)
     {
-        if (empty($this->groups[$groupName])) {
-            $this->groups[$groupName] = [];
-        }
+        $name = str_replace('-', '_', $name);
 
-        $this->groups[$groupName][] = $extension->getSlug();
-        $this->groupsMirrored[$extension->getSlug()] = $groupName;
-
-        $this->addExtension($extension);
-
-        return $this;
+        return $this->extensions[$name];
     }
 
     /**
@@ -73,182 +71,43 @@ class Manager
     }
 
     /**
-     * @param $slug
-     * @return ExtensionInterface
-     */
-    public function getExtensionBySlug($slug)
-    {
-        return $this->extensions[$slug];
-    }
-
-    /**
+     * @param string $name
      * @return array
      */
-    public function getAllParsed()
+    public function getExtensionData($name)
     {
-        $parsed = [];
+        $name = str_replace('-', '_', $name);
 
-        foreach ($this->extensions as $extension) {
-            $parsed[$extension->getSlug()] = $extension;
-        }
-
-        return $parsed;
+        return $this->extensions[$name]['data'];
     }
 
     /**
-     * Takes associative array and discards any keys not matching a registered
-     * extension slug
-     *
-     * @param array $values
+     * @param string $name
      * @return array
      */
-    public function matchExtensionToArrayValues(array $values)
+    public function getExtensionAvailableData($name)
     {
-        $validExtensions = [];
+        $name = str_replace('-', '_', $name);
 
-        foreach ($this->extensions as $extension) {
-            if (array_key_exists($extension->getSlug(), $values)) {
-                $validExtensions[$extension->getSlug()] = $values[$extension->getSlug()];
-            }
-        }
-
-        return $validExtensions;
+        return $this->extensions[$name]['available'];
     }
 
     /**
-     * @param string $extensionName
+     * @param array $data
      * @return string
      */
-    public function belongsToGroup($extensionName)
+    public function createArchive(array $data)
     {
-        if (array_key_exists($extensionName, $this->groupsMirrored)
-            && !empty($this->groups[$this->groupsMirrored[$extensionName]])
-        ) {
-            return $this->groupsMirrored[$extensionName];
+        foreach ($data as $key => $values) {
+            $name = $this->parseDataKeyName($values, $key);
+
+            $data[$key] = array_replace_recursive($this->extensions[$name]['data'], $data[$key]);
         }
-
-        return false;
-    }
-
-    /**
-     * @param $groupName
-     * @return Extension\ExtensionInterface[]
-     */
-    public function getExtensionsInGroup($groupName)
-    {
-        if (empty($this->groups[$groupName])) {
-            return [];
-        }
-
-        $this->alreadyIterated = array_merge(
-            $this->alreadyIterated,
-            array_values($this->groups[$groupName])
-        );
-
-        $extensions = [];
-
-        foreach ($this->groups[$groupName] as $extensionName) {
-            $extensions[$extensionName] = $this->extensions[$extensionName];
-        }
-
-        return $extensions;
-    }
-
-    /**
-     * Returns only the names of extensions assigned to a particular group
-     *
-     * @param string $groupName
-     * @return array
-     */
-    public function getExtensionNamesInGroup($groupName)
-    {
-        if (empty($this->groups[$groupName])) {
-            return [];
-        }
-
-        return $this->groups[$groupName];
-    }
-
-    /**
-     * Iterate through extensions in a group and figure out if any have custom data set
-     *
-     * This is useful to figure out which extension the user previously selected, so we can
-     * assume that extension is the one the user wants to work with now
-     *
-     * If no extension has any custom data, returns the first extension of the group
-     *
-     * @param string $groupName
-     * @return string
-     */
-    public function extensionInGroupHasCustomData($groupName)
-    {
-        if (empty($this->groups[$groupName])) {
-            return false;
-        }
-
-        $firstExtension = null;
-
-        foreach ($this->groups[$groupName] as $extensionName) {
-            if (!$firstExtension) {
-                $firstExtension = $extensionName;
-            }
-
-            if ($this->extensions[$extensionName]->hasCustomData()) {
-                return $extensionName;
-            }
-        }
-
-        return $firstExtension;
-    }
-
-    /**
-     * Checks whether an extension has already been looped through,
-     * useful for maintaining group structure
-     *
-     * @param string $extensionName
-     * @return bool
-     */
-    public function extensionAlreadyUsed($extensionName)
-    {
-        if (in_array($extensionName, $this->alreadyIterated)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param array $request
-     * @return string
-     */
-    public function createArchive(array $request)
-    {
-        $submittedExtensions = $this->matchExtensionToArrayValues($request);
 
         $this->archive = new Extension\Archive;
-
-        $extensions = [];
-        $mergedData = [];
-
-        foreach ($submittedExtensions as $slug => $data) {
-            $extension = $this->getExtensionBySlug($slug);
-            $extension->setCustomData($data);
-
-            $extensions[$slug] = $extension;
-
-            $extension->setReturnAvailableData(false);
-
-            $this->archive->queueToFile(
-                $extension->getTargetFile(),
-                $extension->renderManifest($extension->getData())
-            );
-
-            $mergedData[$slug] = $extension->getData(false);
-        }
-
         $this->archive->queueToFile(
             'puphpet/config.yaml',
-            Yaml::dump($mergedData, 50)
+            $this->yamlDump($data, 50, 2)
         );
 
         $this->archive->write();
@@ -259,25 +118,95 @@ class Manager
     /**
      * Accepts custom data for all possible extensions
      *
-     * @param yaml $data
+     * @param array $data
      * @return bool
      */
     public function setCustomDataAll($data)
     {
-        foreach ($this->extensions as $extension) {
-            if (empty($data[$extension->getSlug()])) {
-                $baseData = $extension->getBaseData();
-
-                if (!array_key_exists('install', $baseData)) {
-                    continue;
-                }
-
-                $data[$extension->getSlug()] = $baseData;
+        foreach ($this->extensions as $name => $extension) {
+            if (!$formattedName = $this->vagrantfileHandling($data, $name)) {
+                continue;
             }
 
-            $extension->setCustomData($data[$extension->getSlug()]);
+            if (empty($data[$formattedName])) {
+                continue;
+            }
+
+            $mergedData = array_replace_recursive(
+                $this->extensions[$name]['data'],
+                $data[$formattedName]
+            );
+
+            $this->extensions[$name]['merged'] = $mergedData;
         }
 
         return true;
+    }
+
+    /**
+     * Figures out which Vagrantfile extension was selected in config file.
+     *
+     * The vagrantfile config key does not tell us which extension was selected,
+     * eg "vagrantfile-rackspace" or "vagrantfile-digitalocean". The best way to
+     * figure out which target was originally selected is by reading the
+     * "vagrantfile.target" value.
+     *
+     * While looping, if current $name value is not the vagrantfile extension name
+     * chosen, set the "vagrantfile-$name.target" value to "false" so we can
+     * properly reflect choice in the GUI.
+     *
+     * If current $name value is chosen vagrantfile extension, set
+     * "vagrantfile-$name.target" value to $name to properly reflect choice in
+     * the GUI.
+     *
+     * @param array  $data Custom data
+     * @param string $name Name of current extension in loop
+     * @return bool|string
+     */
+    protected function vagrantfileHandling($data, $name)
+    {
+        /**
+         * If "vagrantfile.target" value was not originally set in config,
+         * default to "local". This handles config files created before
+         * v5 redesign.
+         */
+        $vagrantfileTarget = empty($data['vagrantfile']['target'])
+            ? 'local'
+            : $data['vagrantfile']['target'];
+
+        // Current loop is on a vagrantfile-* key
+        if (stristr($name, 'vagrantfile') !== false) {
+            // Current loop is NOT what was chosen in custom target
+            if (stristr($name, $vagrantfileTarget) === false) {
+                $this->extensions[$name]['merged']['target'] = false;
+
+                return false;
+            }
+
+            $this->extensions[$name]['merged']['target'] = $vagrantfileTarget;
+
+            return 'vagrantfile';
+        }
+
+        return $name;
+    }
+
+    protected function parseDataKeyName($data, $name)
+    {
+        if (stristr($name, 'vagrantfile') !== false) {
+            return sprintf('vagrantfile_%s', $data['target']);
+        }
+
+        return $name;
+    }
+
+    protected function yamlParse($file)
+    {
+        return Yaml::parse($file, true);
+    }
+
+    protected function yamlDump($data)
+    {
+        return Yaml::dump($data, 50, 2);
     }
 }
