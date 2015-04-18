@@ -40,27 +40,34 @@
 
             <div class="help-block">
                 <p>You can run your own custom code after the VM finishes provisioning by adding files to the
-                    <code>puphpet/files/exec-always</code>, <code>puphpet/files/exec-once</code>,
-                    <code>puphpet/files/startup-always</code>, and <code>puphpet/files/startup-once</code> folders.</p>
+                    <code>puphpet/files/exec-always</code>, <code>puphpet/files/exec-always-unprivileged</code>,
+                    <code>puphpet/files/exec-once</code>, <code>puphpet/files/exec-once-unprivileged</code>,
+                    <code>puphpet/files/startup-always</code>,
+                    <code>puphpet/files/startup-always-unprivileged</code>,
+                    <code>puphpet/files/startup-once</code> and <code>puphpet/files/startup-once-unprivileged</code>
+                    folders.</p>
 
-                <p><strong>Files must end in <code>.sh</code></strong>. Valid:
-                    <code>foo.sh</code>; Invalid: <code>bar</code></p>
+                <p><strong>Files are executed in alphabetical order</strong>. Files within <code>exec-once-*</code>
+                    are run before files within <code>exec-always-*</code>, and files within <code>startup-once-*</code>
+                    are run before files within <code>startup-always-*</code>. Files in <code>exec-once-*</code> and
+                    <code>exec-always-*</code> are run before files in <code>startup-once-*</code>
+                    and <code>startup-always-*</code>.</p>
 
-                <p><strong>Files are executed in alphabetical order</strong>. Files within <code>exec-once</code>
-                    are run before files within <code>exec-always</code>, and files within <code>startup-once</code> are
-                    run before files within <code>startup-always</code>. Files in <code>exec-once</code> and
-                    <code>exec-always</code> are run before files in <code>startup-once</code>
-                    and <code>startup-always</code>.</p>
+                <p>Files within <code>*-unprivileged</code> are run as the default user while the other ones area run
+                    using sudo. Files within <code>*-unprivileged</code> are run after all other files on the same
+                    running order as "privileged" files.</p>
 
-                <p>Files within <code>exec-always</code> will run on initial <code>$ vagrant up</code> and all
-                    <code>$ vagrant provision</code>, while files within <code>exec-once</code> will
+                <p>Files within <code>exec-always-*</code> will run on initial <code>$ vagrant up</code> and all
+                    <code>$ vagrant provision</code>, while files within <code>exec-once-*</code> will
                     run only the first time you run Vagrant, unless you SSH into the VM and remove the
-                    <code>/.puphpet-stuff/exec-once-ran</code> file and re-run Vagrant.</p>
+                    <code>/.puphpet-stuff/exec-once-ran</code> and/or
+                    <code>/.puphpet-stuff/exec-once-unprivileged-ran</code>
+                    files and re-run Vagrant.</p>
 
-                <p>Files within <code>startup-always</code> will run on each <code>$ vagrant up</code>,
-                    while files within <code>startup-once</code> will only run on the next time you run Vagrant,
+                <p>Files within <code>startup-always-*</code> will run on each <code>$ vagrant up</code>,
+                    while files within <code>startup-once-*</code> will only run on the next time you run Vagrant,
                     unless you SSH into the VM and remove the <code>/.puphpet-stuff/startup-once-ran</code>
-                    file and re-run Vagrant.</p>
+                    and/or <code>/.puphpet-stuff/startup-once-unprivileged-ran</code> files and re-run Vagrant.</p>
             </div>
         </fieldset>
     </div>
