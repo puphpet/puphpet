@@ -49,6 +49,7 @@ modules:
     - proxy_ajp
     - proxy_balancer
     - proxy_fcgi
+    - proxy_http
     - proxy
     - rewrite
     - ssl
