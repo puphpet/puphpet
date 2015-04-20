@@ -67,7 +67,7 @@
                 <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
                        class="invisible hide-on-select"
                        {% if sync_type == 'default' %}checked{% endif %}
-                       value="{{ sync_type }}"
+                       value="default"
                        data-vis-hide-target="#rsync-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
@@ -91,7 +91,7 @@
                 <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
                        class="invisible hide-on-select"
                        {% if sync_type == 'nfs' %}checked{% endif %}
-                       value="{{ sync_type }}"
+                       value="nfs"
                        data-vis-hide-target="#rsync-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
@@ -110,7 +110,7 @@
                 <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
                        class="invisible hide-on-select"
                        {% if sync_type == 'smb' %}checked{% endif %}
-                       value="{{ sync_type }}"
+                       value="smb"
                        data-vis-hide-target="#rsync-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
@@ -135,7 +135,7 @@
                 <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
                        class="invisible show-on-select"
                        {% if sync_type == 'rsync' %}checked{% endif %}
-                       value="{{ sync_type }}"
+                       value="rsync"
                        data-vis-show-target="#rsync-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
