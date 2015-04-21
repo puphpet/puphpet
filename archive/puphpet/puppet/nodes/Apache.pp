@@ -16,7 +16,7 @@ if array_true($apache_values, 'install') {
 
   if array_true($php_values, 'install') {
     $php_engine    = true
-    $php_fcgi_port = access($php_values, 'fpm_settings.port')
+    $php_fcgi_port = '9000'
   } elsif array_true($hhvm_values, 'install') {
     $php_engine    = true
     $php_fcgi_port = access($hhvm_values, 'settings.port')

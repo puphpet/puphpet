@@ -3,9 +3,6 @@ install: 1
 settings:
     version: 56
 
-fpm_settings:
-    port: 9000
-
 modules:
     php:
         - cli
@@ -19,5 +16,18 @@ ini:
     error_reporting: -1
     session.save_path: "/var/lib/php/session"
     date.timezone: UTC
+
+fpm_ini:
+    pid: /run/php-fpm.pid
+    error_log: /var/log/php-fpm.log
+
+fpm_pools:
+    -
+        ini:
+            prefix: www
+            listen: '127.0.0.1:9000'
+            security.limit_extensions: '.php'
+            user: www-user
+            group: www-data
 
 composer_home: ~

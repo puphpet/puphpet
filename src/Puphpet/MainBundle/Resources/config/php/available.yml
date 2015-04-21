@@ -1209,3 +1209,64 @@ ini:
         - zlib.output_compression
         - zlib.output_compression_level
         - zlib.output_handler
+
+fpm_ini:
+    pid:
+    error_log:
+    syslog.facility:
+    syslog.ident:
+    log_level:
+    emergency_restart_threshold:
+    emergency_restart_interval:
+    process_control_timeout:
+    process.max:
+    process.priority:
+    daemonize:
+    rlimit_files:
+    rlimit_core:
+    events.mechanism:
+    systemd_interval:
+
+fpm_pool_ini:
+    prefix:
+    user:
+    group:
+    listen:
+    listen.backlog:
+    listen.owner:
+    listen.group:
+    listen.mode:
+    listen.acl_users:
+    listen.acl_groups:
+    listen.allowed_clients:
+    process.priority:
+    pm:
+    pm.max_children:
+    pm.start_servers:
+    pm.min_spare_servers:
+    pm.max_spare_servers:
+    pm.process_idle_timeout:
+    pm.max_requests:
+    pm.status_path:
+    ping.path:
+    ping.response:
+    access.log:
+    access.format:
+    slowlog:
+    request_slowlog_timeout:
+    request_terminate_timeout:
+    rlimit_files:
+    rlimit_core:
+    chroot:
+    chdir:
+    catch_workers_output:
+    clear_env:
+    security.limit_extensions:
+
+empty_fpm_pool:
+    ini:
+        listen: '127.0.0.1:9000'
+        prefix: CHANGE_ME
+        security.limit_extensions: '.php'
+        user: www-user
+        group: www-data

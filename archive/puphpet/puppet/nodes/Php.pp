@@ -45,31 +45,52 @@ if array_true($php_values, 'install') {
     $php_config_file              = $php_fpm_ini
     $php_manage_service           = true
 
-    $php_fpm_conf = $puphpet::params::php_fpm_conf
-    $php_fpm_port = $php_values['fpm_settings']['port']
-
-    $php_fpm_perl =
-      "perl -p -i -e 's#listen = .*#listen = 127.0.0.1:${php_fpm_port}#gi'"
-    $php_fpm_grep = 'grep -x "listen = 127.0.0.1:9000"'
-
-    exec { 'php_fpm-listen':
-      command => "${php_fpm_perl} ${php_fpm_conf}",
-      onlyif  => "test -f ${php_fpm_conf}",
-      unless  => "${php_fpm_grep} ${php_fpm_conf}",
-      path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
-      require => Package[$php_package],
-      notify  => Service[$php_webserver_service],
+    # config file could contain no fpm_ini key
+    $php_fpm_inis = array_true($php_values, 'fpm_ini') ? {
+      true    => $php_values['fpm_ini'],
+      default => { }
     }
 
-    $php_fpm_lextensions_perl =
-      's#;security.limit_extensions = .*#security.limit_extensions = .php#gi'
-    exec { 'php_fpm-security.limit_extensions':
-      command => "perl -p -i -e '${php_fpm_lextensions_perl}' ${php_fpm_conf}",
-      onlyif  => "test -f ${php_fpm_conf}",
-      unless  => "grep -x 'security.limit_extensions = .php' ${php_fpm_conf}",
-      path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
-      require => Package[$php_package],
-      notify  => Service[$php_webserver_service],
+    each( $php_fpm_inis ) |$name, $value| {
+      puphpet::php::fpm::ini { "${name}: ${value}":
+        fpm_version     => $php_version,
+        entry           => $name,
+        value           => $value,
+        php_fpm_service => $php_webserver_service
+      }
+    }
+
+    # config file could contain no fpm_pools key
+    $php_fpm_pools = array_true($php_values, 'fpm_pools') ? {
+      true    => $php_values['fpm_pools'],
+      default => { }
+    }
+
+    each( $php_fpm_pools ) |$pKey, $pool_settings| {
+      $pool = $php_fpm_pools[$pKey]
+
+      # pool could contain no ini key
+      $ini_hash = array_true($pool, 'ini') ? {
+        true    => $pool['ini'],
+        default => { }
+      }
+
+      each( $ini_hash ) |$name, $value| {
+        $pool_name = array_true($ini_hash, 'prefix') ? {
+          true    => $ini_hash['prefix'],
+          default => $pKey
+        }
+
+        if $name != 'prefix' {
+          puphpet::php::fpm::pool_ini { "${pool_name}/${name}: ${value}":
+            fpm_version     => $php_version,
+            pool_name       => $pool_name,
+            entry           => $name,
+            value           => $value,
+            php_fpm_service => $php_webserver_service
+          }
+        }
+      }
     }
   } else {
     $php_package                  = "${php_prefix}cli"

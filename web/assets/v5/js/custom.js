@@ -885,6 +885,14 @@ PUPHPET.uploadConfig = function() {
     }
 };
 
+PUPHPET.disableEnterSubmit = function() {
+    $('input,select').keypress(function(event) {
+        if(event.keyCode == 13) {
+            event.preventDefault();
+        }
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -902,6 +910,7 @@ $(document).ready(function() {
     PUPHPET.helpTextDisplay();
     PUPHPET.toggleDisplayOnSelect();
     PUPHPET.uploadConfig();
+    PUPHPET.disableEnterSubmit();
 });
 
 /**
