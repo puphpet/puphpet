@@ -10,15 +10,10 @@
                 <div class="row install-checkbox-container">
                     <div class="col-xs-12">
                         <label class="checkbox-inline">
-                            <input type="checkbox" class="update-other-input"
-                                   name="mysql[install]" data-update-mariadb[install]="0"
+                            <input type="checkbox" name="mysql[install]"
                                    {% if mysql.install %}checked{% endif %} value="1" /> Install MySQL
                             {% if not mysql.install %}<input type="hidden" name="mysql[install]" value="0" />{% endif %}
                         </label>
-
-                        <p class="help-block">
-                            If you install MySQL, you cannot install MariaDB.
-                        </p>
                     </div>
                 </div>
 

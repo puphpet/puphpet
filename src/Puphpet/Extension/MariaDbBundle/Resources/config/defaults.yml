@@ -1,7 +1,0 @@
-install: 0
-
-settings:
-    override_options: {}
-    version: "10.0"
-
-databases: []
