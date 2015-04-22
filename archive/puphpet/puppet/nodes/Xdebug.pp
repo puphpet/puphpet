@@ -8,6 +8,9 @@ include puphpet::params
 if hash_key_equals($xdebug_values, 'install', 1)
   and hash_key_equals($php_values, 'install', 1)
 {
+  Class['Puphpet::Php::Settings']
+  -> Class['Puphpet::Php::Xdebug']
+
   $xdebug_php_prefix = $::osfamily ? {
     'debian' => 'php5-',
     'redhat' => 'php-',

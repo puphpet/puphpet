@@ -9,40 +9,36 @@ if array_true($php_values, 'install') {
   include ::apache::params
   include ::nginx::params
 
-
-  Class['Puphpet::Php::Settings']
-  -> Puphpet::Php::Module <| |>
-  -> Puphpet::Php::Pear <| |>
-  -> Puphpet::Php::Pecl <| |>
-  -> Class['Puphpet::Php::Xdebug']
-
   $php_fcgi = array_true($apache_values, 'install')
            or array_true($nginx_values, 'install')
 
   $php_version_tmp = $php_values['settings']['version']
 
-  class { 'puphpet::php::settings':
-    version => $php_version_tmp,
-  }
-
   if $php_version_tmp == '7.0' or $php_version_tmp == '70' {
+    Class['Puphpet::Php::Settings']
+    -> Class['Puphpet::Php::Beta']
+
     $php_version = '7.0'
 
+    class { 'puphpet::php::settings':
+      version => $php_version_tmp,
+    }
     class { 'puphpet::php::beta': }
   } else {
     include ::php::params
 
+    Class['Puphpet::Php::Settings']
+    -> Class['Php']
+    -> Class['Php::Devel']
+
     $php_version = $php_version_tmp
 
+    class { 'puphpet::php::settings':
+      version => $php_version_tmp,
+    }
     class { 'puphpet::php::repos':
       php_version => $php_version
     }
-
-    Class['Php']
-    -> Class['Php::Devel']
-    -> Php::Module <| |>
-    -> Php::Pear::Module <| |>
-    -> Php::Pecl::Module <| |>
   }
 
   $php_prefix        = $puphpet::php::settings::php_prefix
@@ -224,7 +220,6 @@ if array_true($php_values, 'install') {
     and ! defined(Class['puphpet::php::composer'])
   {
     class { 'puphpet::php::composer':
-      php_package   => "${php_module_prefix}cli",
       composer_home => $php_values['composer_home'],
     }
   }
