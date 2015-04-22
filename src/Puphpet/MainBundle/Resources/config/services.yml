@@ -34,6 +34,7 @@ services:
             - [ addExtension, [ 'hhvm' ] ]
         # database
             - [ addExtension, [ 'mysql' ] ]
+            - [ addExtension, [ 'mariadb' ] ]
             - [ addExtension, [ 'postgresql' ] ]
             - [ addExtension, [ 'mongodb' ] ]
             - [ addExtension, [ 'redis' ] ]

@@ -1,31 +1,31 @@
-{% set selectedVersion = (mysql.settings.version is defined and mysql.settings.version)
-    ? mysql.settings.version
+{% set selectedVersion = (mariadb.settings.version is defined and mariadb.settings.version)
+    ? mariadb.settings.version
     : false %}
 {% set versions = selectedVersion
-    ? merge_unique([selectedVersion], mysql.available.versions)
-    : mysql.available.versions %}
+    ? merge_unique([selectedVersion], mariadb.available.versions)
+    : mariadb.available.versions %}
 
-<input type="hidden" name="mysql[install]" value="0" />
+<input type="hidden" name="mariadb[install]" value="0" />
 
 <div class="section-header hidden">
-    <h1>MySQL</h1>
-    <p class="lead">Install MySQL and create users and databases.</p>
+    <h1>MariaDB</h1>
+    <p class="lead">Install MariaDB and create users and databases.</p>
 </div>
 
 <div class="form-group">
     <label class="col-xs-12 radio-tile">
-        <input type="checkbox" name="mysql[install]" value="1"
+        <input type="checkbox" name="mariadb[install]" value="1"
                class="invisible toggle-on-select update-other-input-on-check"
-               {% if mysql.install %}checked{% endif %}
-               data-vis-toggle-target="#mysql-container"
-               data-update-on-check-mariadb[install]="0" />
+               {% if mariadb.install %}checked{% endif %}
+               data-vis-toggle-target="#mariadb-container"
+               data-update-on-check-mysql[install]="0" />
         <span class="content">
             <span class="header large">
                 <i class="icon"></i>
-                <span class="title">Install MySQL</span>
+                <span class="title">Install MariaDB</span>
             </span>
             <span class="footer">
-                The world's most popular open source database. If you install MySQL, you cannot install MariaDB.
+                If you install MariaDB, you cannot install MySQL.
             </span>
         </span>
     </label>
@@ -35,14 +35,14 @@
 
 <div class="clearfix"></div>
 
-<div id="mysql-container" class="{% if not mysql.install %}hidden{% endif %}">
+<div id="mariadb-container" class="{% if not mariadb.install %}hidden{% endif %}">
     <div class="form-group col-xs-6">
         <div class="clearfix"><label>Version</label></div>
 
         {% for version in versions %}
             <label class="radio-tile mini set-width">
                 <input type="radio" class="invisible"
-                       name="mysql[settings][version]"
+                       name="mariadb[settings][version]"
                        value="{{ version }}"
                        {% if version == selectedVersion %}checked{% endif %} />
                 <span class="content">
@@ -65,11 +65,11 @@
             <strong>Database will only be installed
             when a password is entered here.</strong>
         </div>
-        <label for="mysql-settings-root_password">Root Password</label>
-        <input type="text" id="mysql-settings-root_password"
-               name="mysql[settings][root_password]"
+        <label for="mariadb-settings-root_password">Root Password</label>
+        <input type="text" id="mariadb-settings-root_password"
+               name="mariadb[settings][root_password]"
                placeholder="/path/to/your/web/files" class="form-control"
-               value="{{ mysql.settings.root_password }}" />
+               value="{{ mariadb.settings.root_password }}" />
     </div>
 
     <div class="clearfix"></div>
@@ -85,9 +85,9 @@
                 If installed it will be available from
                 <code>http://{SERVER_IP_ADDRESS}/adminer</code>.
             </span>
-            <input type="checkbox" name="mysql[adminer]"
+            <input type="checkbox" name="mariadb[adminer]"
                    class="invisible"
-                   {% if mysql.adminer %}checked{% endif %}
+                   {% if mariadb.adminer %}checked{% endif %}
                    value="1" />
             <span class="content">
                 <span class="header">
@@ -103,7 +103,7 @@
             application like
             <a href="http://www.sequelpro.com/" target="_blank">Sequel Pro (OS X)</a>,
             <a href="http://www.heidisql.com/" target="_blank">HeidiSQL (Windows)</a>, and
-            <a href="http://dev.mysql.com/downloads/tools/workbench/"
+            <a href="http://dev.mariadb.com/downloads/tools/workbench/"
                target="_blank">MySQL Workbench (Cross Platform)</a>.</p>
         <p>Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
             <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
@@ -112,25 +112,25 @@
 
     <div class="clearfix"></div>
 
-    {% for user in mysql.users %}
-        {% include 'PuphpetMainBundle:mysql/sections:user.html.twig' with {'user': user} %}
+    {% for user in mariadb.users %}
+        {% include 'PuphpetMainBundle:mariadb/sections:user.html.twig' with {'user': user} %}
     {% endfor %}
 
-    <a href="#" data-source-url="{{ path('puphpet.mysql.add_user') }}"
+    <a href="#" data-source-url="{{ path('puphpet.mariadb.add_user') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another user</a>
 
-    {% for database in mysql.databases %}
-        {% include 'PuphpetMainBundle:mysql/sections:database.html.twig' with {'database': database} %}
+    {% for database in mariadb.databases %}
+        {% include 'PuphpetMainBundle:mariadb/sections:database.html.twig' with {'database': database} %}
     {% endfor %}
 
-    <a href="#" data-source-url="{{ path('puphpet.mysql.add_database') }}"
+    <a href="#" data-source-url="{{ path('puphpet.mariadb.add_database') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another database</a>
 
-    {% for grant in mysql.grants %}
-        {% include 'PuphpetMainBundle:mysql/sections:grant.html.twig' with {
-            'available_privileges': mysql.available.privileges, 'grant': grant} %}
+    {% for grant in mariadb.grants %}
+        {% include 'PuphpetMainBundle:mariadb/sections:grant.html.twig' with {
+            'available_privileges': mariadb.available.privileges, 'grant': grant} %}
     {% endfor %}
 
-    <a href="#" data-source-url="{{ path('puphpet.mysql.add_grant') }}"
+    <a href="#" data-source-url="{{ path('puphpet.mariadb.add_grant') }}"
        class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another grant</a>
 </div>

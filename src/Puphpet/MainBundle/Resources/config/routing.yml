@@ -91,6 +91,9 @@ puphpet.hhvm:
 puphpet.mysql:
     resource: "@PuphpetMainBundle/Resources/config/mysql/routing.yml"
     prefix:   /extension/mysql
+puphpet.mariadb:
+    resource: "@PuphpetMainBundle/Resources/config/mariadb/routing.yml"
+    prefix:   /extension/mariadb
 puphpet.postgresql:
     resource: "@PuphpetMainBundle/Resources/config/postgresql/routing.yml"
     prefix:   /extension/postgresql
