@@ -1,0 +1,72 @@
+{% set uniqid = uniqid('rmqu_', true)|lower %}
+
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Additional User</legend>
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Admin</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="radio" class="invisible"
+                       name="rabbitmq[users][{{ uniqid }}][admin]"
+                       value="1"
+                       {% if user.admin is defined and user.admin %}checked{% endif %} />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Make user admin</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <label for="rabbitmq-users-{{ uniqid }}-name">Username</label>
+            <input type="text" id="rabbitmq-users-{{ uniqid }}-name"
+                   name="rabbitmq[users][{{ uniqid }}][name]"
+                   placeholder="admin" class="form-control"
+                   value="{{ user.name }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <label for="rabbitmq-users-{{ uniqid }}-password">Password</label>
+            <input type="text" id="rabbitmq-users-{{ uniqid }}-password"
+                   name="rabbitmq[users][{{ uniqid }}][password]"
+                   placeholder="123" class="form-control"
+                   value="{{ user.password }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Separated by comma.
+            </div>
+            <label for="rabbitmq-users-{{ uniqid }}-tags">Tags</label>
+            <select id="rabbitmq-users-{{ uniqid }}-tags"
+                   multiple name="rabbitmq[users][{{ uniqid }}][tags][]"
+                   class="form-control select-tags-editable">
+                {% if user.tags is defined %}
+                    {% for tag in user.tags %}
+                        <option selected value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% for permission in user.permissions %}
+            {% include 'PuphpetMainBundle:rabbitmq/sections:permission.html.twig'
+                with {'userId': uniqid, 'permission': permission} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.rabbitmq.permission', {'userId': uniqid}) }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another permission</a>
+    </fieldset>
+</div>

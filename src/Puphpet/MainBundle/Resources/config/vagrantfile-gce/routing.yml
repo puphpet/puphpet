@@ -1,0 +1,7 @@
+puphpet.vagrantfile_gce.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetMainBundle:VagrantfileGce:index }
+
+puphpet.vagrantfile_gce.synced_folder:
+    pattern: /synced-folder
+    defaults: { _controller: PuphpetMainBundle:VagrantfileGce:syncedFolder }

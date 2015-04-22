@@ -1,0 +1,13 @@
+target: ~
+
+vm:
+    box: rackspace
+    hostname: master
+    provider:
+        rackspace:
+            server_name: ~
+            image: ~
+            region: ~
+            size: ~
+            username: ~
+            api_key: ~

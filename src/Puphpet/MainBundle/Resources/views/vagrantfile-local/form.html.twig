@@ -1,0 +1,201 @@
+{% set providerChosen = (data.target == 'local') ? true : false %}
+
+<div class="section-header hidden">
+    <h1>Local VM Details</h1>
+    <p class="lead">Deploy your virtual machine on your local PC.</p>
+</div>
+
+<div class="form-group">
+    <label class="col-xs-12 radio-tile">
+        <input type="radio" name="vagrantfile[target]" value="local" class="invisible"
+               {% if providerChosen %}checked{% endif %} />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Deploy to Local Host</span>
+            </span>
+            <span class="footer">
+                The virtual machine will live inside your local PC.
+                <a href="#" data-toggle="modal"
+                   data-target="#vagrantfile-local-modal">Click here for instructions</a>.
+            </span>
+        </span>
+    </label>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
+    <input type="hidden" id="vagrantfile-local-vm-box" name="vagrantfile[vm][box]"
+           value="{{ data.vm.box }}" />
+    <input type="hidden" id="vagrantfile-local-vm-hostname" name="vagrantfile[vm][hostname]"
+           value="{{ data.vm.hostname }}" />
+
+    <div class="form-group">
+        <div class="clearfix"><label>Provider</label></div>
+
+        {% for provider in data.available.providers %}
+            <label class="col-xs-6 radio-tile">
+                <span class="help-text">
+                    {{ provider.description|raw }}
+                </span>
+                <input type="radio" class="invisible update-other-input"
+                       name="vagrantfile[vm][chosen_provider]"
+                       value="{{ provider.name }}"
+                       {% if provider.name == data.vm.chosen_provider %}checked{% endif %}
+                       data-update-vagrantfile-vm-network-private_network="{{ provider.default_ip }}"
+                    />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">{{ provider.long_name }}</span>
+                    </span>
+                    <span class="footer">
+                        {{ provider.os_support|raw }}<br />
+                        Performance:
+                        {% for i in range(1, provider.performance) %}
+                            <i class="fa fa-star"></i>
+                        {% endfor %}
+                    </span>
+                </span>
+            </label>
+
+            {% if loop.index is even or loop.last %}
+                <div class="clearfix"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group">
+        <div class="clearfix"><label>Distro</label></div>
+
+        <div class="help-text">
+            <p>Choose the operating system for your VM. It will be downloaded the first
+                time you run Vagrant.
+                <a href="http://docs.vagrantup.com/v2/getting-started/boxes.html"
+                   target="_blank">More information may be found here</a>.</p>
+
+            <p>Note: Listed are the PHP installs that we have confirmed as working for
+                their respective operating system. You are welcome to attempt to install
+                higher if you'd like, but we cannot guarantee it will work. In fact in
+                most cases it won't.</p>
+        </div>
+
+        {% for box in data.available.boxes %}
+            <label class="col-xs-6 radio-tile">
+                <input type="radio" class="invisible update-other-input"
+                       name="vagrantfile[vm][box_url]"
+                       value="{{ box.url }}"
+                       {% if box.url == data.vm.box_url %}checked{% endif %}
+                       data-update-vagrantfile-local-vm-box="{{ box.short_name }}" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">{{ box.long_name }}</span>
+                    </span>
+                    <span class="footer">
+                        PHP {{ box.php_versions|join(', ') }}
+                    </span>
+                </span>
+            </label>
+
+            {% if loop.index is even or loop.last %}
+                <div class="clearfix"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            IP address to use for accessing the VM. This is the IP address you will
+            need to enter into your <code>hosts</code> file for every virtual hosts
+            you create later on.
+        </div>
+        <label for="vagrantfile-vm-network-private_network">IP Address</label>
+        <input type="text" id="vagrantfile-vm-network-private_network"
+               name="vagrantfile[vm][network][private_network]"
+               placeholder="192.168.56.101" class="form-control"
+               value="{{ data.vm.network.private_network }}" />
+    </div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            Memory to assign to VM in megabytes (only integers)
+        </div>
+        <label for="vagrantfile-vm-memory">Memory</label>
+        <input type="number" id="vagrantfile-vm-memory" name="vagrantfile[vm][memory]"
+               placeholder="512" min="64" class="form-control"
+               value="{{ data.vm.memory }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            Number of CPU's to assign to VM (only integers)
+        </div>
+        <label for="vagrantfile-vm-cpus">CPU's</label>
+        <input type="number" id="vagrantfile-vm-cpus" name="vagrantfile[vm][cpus]"
+               placeholder="1" min="1" class="form-control"
+               value="{{ data.vm.cpus }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    {% if providerChosen %}
+        {% for forwarded_port in data.vm.network.forwarded_port %}
+            {% include 'PuphpetMainBundle:vagrantfile-local/sections:forwarded-port.html.twig' with {'forwarded_port': forwarded_port} %}
+        {% endfor %}
+    {% endif %}
+
+    <a href="#" data-source-url="{{ path('puphpet.vagrantfile_local.forwarded_port') }}"
+       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another port pair</a>
+
+    {% if providerChosen %}
+        {% for synced_folder in data.vm.synced_folder %}
+            {% include 'PuphpetMainBundle:vagrantfile-local/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% endfor %}
+    {% endif %}
+
+    <a href="#" data-source-url="{{ path('puphpet.vagrantfile_local.synced_folder') }}"
+       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
+</div>
+
+<div class="modal fade" id="vagrantfile-local-modal" tabindex="-1" role="dialog"
+     aria-labelledby="vagrantfile-local-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="vagrantfile-local-modal-label">
+                    Instructions for Local Deployment
+                </h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download the latest version
+                            of VirtualBox from here</a></li>
+                    <li><a href="http://www.vagrantup.com/downloads.html" target="_blank">Download the latest version of
+                            Vagrant from here.</a></li>
+                </ol>
+
+                <p>
+                    To login to your VM you must use <code>$ vagrant ssh</code> or user <code>vagrant</code>
+                    using the private key automatically generated at
+                    <code>puphpet/files/dot/ssh/id_rsa.key</code>. This key is generated <strong>after</strong>
+                    your initial <code>$ vagrant up</code>!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+{% set uniqid = uniqid('nxv_', true) %}
+{% set members = (upstream.members is defined) ? upstream.members : [] %}
+
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Nginx Proxy Upstreams</legend>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Name of the upstream configuration. You will reference this name in the
+                Virtual host proxy configuration as <code>http://{name}</code>
+            </div>
+            <label for="nginx-upstreams-{{ uniqid }}-name">Name</label>
+            <input type="text" id="nginx-upstreams-{{ uniqid }}-name"
+                   name="nginx[upstreams][{{ uniqid }}][name]"
+                   placeholder="backend" class="form-control"
+                   value="{{ upstream.name }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Time in seconds, example: <code>10s</code>.
+            </div>
+            <label for="nginx-upstreams-{{ uniqid }}-upstream_fail_timeout">Fail Timeout</label>
+            <input type="text" id="nginx-upstreams-{{ uniqid }}-upstream_fail_timeout"
+                   name="nginx[upstreams][{{ uniqid }}][upstream_fail_timeout]"
+                   placeholder="10s" class="form-control"
+                   value="{{ upstream.upstream_fail_timeout }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                URL of your proxy servers, must be in format <code>{name}:{port}</code>,
+                ex: <code>localhost:3000</code>
+            </div>
+            <label for="nginx-upstreams-{{ uniqid }}-members">Members</label>
+            <select id="nginx-upstreams-{{ uniqid }}-members"
+                   name="nginx[upstreams][{{ uniqid }}][members][]"
+                   multiple class="form-control select-tags-editable">
+                {% for member in members %}
+                    <option selected value="{{ member }}">{{ member }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </fieldset>
+</div>

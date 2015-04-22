@@ -1,0 +1,7 @@
+puphpet.firewall.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetMainBundle:Firewall:index }
+
+puphpet.firewall.rule:
+    pattern: /forwarded-port
+    defaults: { _controller: PuphpetMainBundle:Firewall:rule }

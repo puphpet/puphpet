@@ -1,0 +1,20 @@
+install: 0
+
+settings:
+    version: 56
+
+modules:
+    php: []
+    pear: []
+    pecl: []
+
+ini: []
+
+fpm_ini:
+    pid: /run/php-fpm.pid
+    error_log: /var/log/php-fpm.log
+
+fpm_pools: []
+
+composer: 1
+composer_home: ~

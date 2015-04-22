@@ -6,34 +6,49 @@ if $mailcatcher_values == undef { $mailcatcher_values = hiera_hash('mailcatcher'
 include puphpet::params
 
 if array_true($php_values, 'install') {
-  include ::php::params
   include ::apache::params
   include ::nginx::params
+
+
+  Class['Puphpet::Php::Settings']
+  -> Puphpet::Php::Module <| |>
+  -> Puphpet::Php::Pear <| |>
+  -> Puphpet::Php::Pecl <| |>
+  -> Class['Puphpet::Php::Xdebug']
 
   $php_fcgi = array_true($apache_values, 'install')
            or array_true($nginx_values, 'install')
 
-  $php_version = $php_values['settings']['version']
+  $php_version_tmp = $php_values['settings']['version']
 
-  class { 'puphpet::php::repos':
-    php_version => $php_version
+  class { 'puphpet::php::settings':
+    version => $php_version_tmp,
   }
 
-  Class['Php']
-  -> Class['Php::Devel']
-  -> Php::Module <| |>
-  -> Php::Pear::Module <| |>
-  -> Php::Pecl::Module <| |>
+  if $php_version_tmp == '7.0' or $php_version_tmp == '70' {
+    $php_version = '7.0'
 
-  $php_prefix = $::osfamily ? {
-    'debian' => 'php5-',
-    'redhat' => 'php-',
+    class { 'puphpet::php::beta': }
+  } else {
+    include ::php::params
+
+    $php_version = $php_version_tmp
+
+    class { 'puphpet::php::repos':
+      php_version => $php_version
+    }
+
+    Class['Php']
+    -> Class['Php::Devel']
+    -> Php::Module <| |>
+    -> Php::Pear::Module <| |>
+    -> Php::Pecl::Module <| |>
   }
 
-  $php_fpm_ini = $::osfamily ? {
-    'debian' => '/etc/php5/fpm/php.ini',
-    'redhat' => '/etc/php.ini',
-  }
+  $php_prefix        = $puphpet::php::settings::php_prefix
+  $php_fpm_ini       = $puphpet::php::settings::php_fpm_ini
+  $config_file       = $puphpet::php::settings::config_file
+  $php_module_prefix = $puphpet::php::settings::php_module_prefix
 
   if $php_fcgi {
     $php_package                  = "${php_prefix}fpm"
@@ -45,31 +60,52 @@ if array_true($php_values, 'install') {
     $php_config_file              = $php_fpm_ini
     $php_manage_service           = true
 
-    $php_fpm_conf = $puphpet::params::php_fpm_conf
-    $php_fpm_port = $php_values['fpm_settings']['port']
-
-    $php_fpm_perl =
-      "perl -p -i -e 's#listen = .*#listen = 127.0.0.1:${php_fpm_port}#gi'"
-    $php_fpm_grep = 'grep -x "listen = 127.0.0.1:9000"'
-
-    exec { 'php_fpm-listen':
-      command => "${php_fpm_perl} ${php_fpm_conf}",
-      onlyif  => "test -f ${php_fpm_conf}",
-      unless  => "${php_fpm_grep} ${php_fpm_conf}",
-      path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
-      require => Package[$php_package],
-      notify  => Service[$php_webserver_service],
+    # config file could contain no fpm_ini key
+    $php_fpm_inis = array_true($php_values, 'fpm_ini') ? {
+      true    => $php_values['fpm_ini'],
+      default => { }
     }
 
-    $php_fpm_lextensions_perl =
-      's#;security.limit_extensions = .*#security.limit_extensions = .php#gi'
-    exec { 'php_fpm-security.limit_extensions':
-      command => "perl -p -i -e '${php_fpm_lextensions_perl}' ${php_fpm_conf}",
-      onlyif  => "test -f ${php_fpm_conf}",
-      unless  => "grep -x 'security.limit_extensions = .php' ${php_fpm_conf}",
-      path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
-      require => Package[$php_package],
-      notify  => Service[$php_webserver_service],
+    each( $php_fpm_inis ) |$name, $value| {
+      puphpet::php::fpm::ini { "${name}: ${value}":
+        fpm_version     => $php_version,
+        entry           => $name,
+        value           => $value,
+        php_fpm_service => $php_webserver_service
+      }
+    }
+
+    # config file could contain no fpm_pools key
+    $php_fpm_pools = array_true($php_values, 'fpm_pools') ? {
+      true    => $php_values['fpm_pools'],
+      default => { }
+    }
+
+    each( $php_fpm_pools ) |$pKey, $pool_settings| {
+      $pool = $php_fpm_pools[$pKey]
+
+      # pool could contain no ini key
+      $ini_hash = array_true($pool, 'ini') ? {
+        true    => $pool['ini'],
+        default => { }
+      }
+
+      each( $ini_hash ) |$name, $value| {
+        $pool_name = array_true($ini_hash, 'prefix') ? {
+          true    => $ini_hash['prefix'],
+          default => $pKey
+        }
+
+        if $name != 'prefix' {
+          puphpet::php::fpm::pool_ini { "${pool_name}/${name}: ${value}":
+            fpm_version     => $php_version,
+            pool_name       => $pool_name,
+            entry           => $name,
+            value           => $value,
+            php_fpm_service => $php_webserver_service
+          }
+        }
+      }
     }
   } else {
     $php_package                  = "${php_prefix}cli"
@@ -78,59 +114,61 @@ if array_true($php_values, 'install') {
     $php_webserver_service_ensure = undef
     $php_webserver_service_notify = []
     $php_webserver_restart        = false
-    $php_config_file              = $php::params::config_file
+    $php_config_file              = $config_file
     $php_manage_service           = false
   }
 
-  class { 'php':
-    package             => $php_package,
-    service             => $php_webserver_service,
-    version             => 'present',
-    service_autorestart => false,
-    config_file         => $php_config_file,
-  }
-
-  if $php_manage_service
-    and $php_webserver_service
-    and ! defined(Service[$php_webserver_service])
-  {
-    service { $php_webserver_service:
-      ensure     => $php_webserver_service_ensure,
-      enable     => true,
-      hasrestart => true,
-      hasstatus  => true,
-      require    => Package[$php_webserver_service]
-    }
-  }
-
-  class { 'php::devel': }
-
-  each( $php_values['modules']['php'] ) |$name| {
-    if ! defined(Puphpet::Php::Module[$name]) {
-      puphpet::php::module { $name:
-        service_autorestart => $php_webserver_restart,
-      }
-    }
-  }
-
-  each( $php_values['modules']['pear'] ) |$name| {
-    if ! defined(Puphpet::Php::Pear[$name]) {
-      puphpet::php::pear { $name:
-        service_autorestart => $php_webserver_restart,
-      }
-    }
-  }
-
-  each( $php_values['modules']['pecl'] ) |$name| {
-    if ! defined(Puphpet::Php::Extra_repos[$name]) {
-      puphpet::php::extra_repos { $name:
-        before => Puphpet::Php::Pecl[$name],
+  if $php_version != '7.0' {
+    if $php_manage_service
+      and $php_webserver_service
+      and ! defined(Service[$php_webserver_service])
+    {
+      service { $php_webserver_service:
+        ensure     => $php_webserver_service_ensure,
+        enable     => true,
+        hasrestart => true,
+        hasstatus  => true,
+        require    => Package[$php_webserver_service]
       }
     }
 
-    if ! defined(Puphpet::Php::Pecl[$name]) {
-      puphpet::php::pecl { $name:
-        service_autorestart => $php_webserver_restart,
+    class { 'php':
+      package             => $php_package,
+      service             => $php_webserver_service,
+      version             => 'present',
+      service_autorestart => false,
+      config_file         => $php_config_file,
+    }
+
+    class { 'php::devel': }
+
+    each( $php_values['modules']['php'] ) |$name| {
+      if ! defined(Puphpet::Php::Module[$name]) {
+        puphpet::php::module { $name:
+          service_autorestart => $php_webserver_restart,
+        }
+      }
+    }
+
+    each( $php_values['modules']['pear'] ) |$name| {
+      if ! defined(Puphpet::Php::Pear[$name]) {
+        puphpet::php::pear { $name:
+          service_autorestart => $php_webserver_restart,
+        }
+      }
+    }
+
+    each( $php_values['modules']['pecl'] ) |$name| {
+      if ! defined(Puphpet::Php::Extra_repos[$name]) {
+        puphpet::php::extra_repos { $name:
+          before => Puphpet::Php::Pecl[$name],
+        }
+      }
+
+      if ! defined(Puphpet::Php::Pecl[$name]) {
+        puphpet::php::pecl { $name:
+          service_autorestart => $php_webserver_restart,
+        }
       }
     }
   }
@@ -167,7 +205,6 @@ if array_true($php_values, 'install') {
     if ! (':' in $php_sess_save_path) {
       exec { "mkdir -p ${php_sess_save_path}" :
         creates => $php_sess_save_path,
-        require => Package[$php_package],
         notify  => $php_webserver_service_notify,
       }
 
@@ -187,7 +224,7 @@ if array_true($php_values, 'install') {
     and ! defined(Class['puphpet::php::composer'])
   {
     class { 'puphpet::php::composer':
-      php_package   => "${php::params::module_prefix}cli",
+      php_package   => "${php_module_prefix}cli",
       composer_home => $php_values['composer_home'],
     }
   }

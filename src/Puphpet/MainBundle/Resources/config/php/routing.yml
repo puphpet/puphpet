@@ -1,0 +1,7 @@
+puphpet.php.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetMainBundle:Php:index }
+
+puphpet.php.add_fpm_pool:
+    pattern:  /add-fpm-pool
+    defaults: { _controller: PuphpetMainBundle:Php:addFpmPool }

@@ -1,0 +1,11 @@
+puphpet.vagrantfile_local.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetMainBundle:VagrantfileLocal:index }
+
+puphpet.vagrantfile_local.synced_folder:
+    pattern: /synced-folder
+    defaults: { _controller: PuphpetMainBundle:VagrantfileLocal:syncedFolder }
+
+puphpet.vagrantfile_local.forwarded_port:
+    pattern: /forwarded-port
+    defaults: { _controller: PuphpetMainBundle:VagrantfileLocal:forwardedPort }

@@ -16,7 +16,7 @@ if array_true($apache_values, 'install') {
 
   if array_true($php_values, 'install') {
     $php_engine    = true
-    $php_fcgi_port = access($php_values, 'fpm_settings.port')
+    $php_fcgi_port = '9000'
   } elsif array_true($hhvm_values, 'install') {
     $php_engine    = true
     $php_fcgi_port = access($hhvm_values, 'settings.port')
@@ -154,7 +154,7 @@ if array_true($apache_values, 'install') {
       $files_match        = template('puphpet/apache/files_match.erb')
       $directories_merged = merge($vhost['directories'], hash_eval($files_match))
     } else {
-      $directories_merged = {}
+      $directories_merged = []
     }
 
     $vhost_custom_fragment = array_true($vhost, 'custom_fragment') ? {

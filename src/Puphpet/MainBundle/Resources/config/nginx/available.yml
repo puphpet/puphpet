@@ -1,0 +1,38 @@
+empty_upstream:
+    name: backend
+    members: []
+    upstream_fail_timeout: 10s
+
+empty_proxy:
+    proxy: ~
+    proxy_redirect: off
+    proxy_read_timeout: 90
+    proxy_connect_timeout: 90
+    proxy_cache: ~
+    proxy_cache_valid: ~
+    proxy_method: ~
+    proxy_set_body: ~
+
+empty_vhost:
+    server_name: ~
+    server_aliases: []
+    www_root: ~
+    listen_port: 80
+    ssl: false
+    ssl_port: 443
+    ssl_cert: ''
+    ssl_key: ''
+    rewrite_to_https: 0
+    spdy: 0
+    index_files: []
+    client_max_body_size: '1m'
+    locations: []
+
+empty_location:
+    location: '/'
+    autoindex: 0
+    try_files: []
+    fastcgi: ~
+    fastcgi_index: ~
+    fastcgi_split_path: ~
+    fast_cgi_params_extra: []

@@ -1,0 +1,48 @@
+<input type="hidden" name="drush[install]" value="0" />
+
+<div class="form-group margin-top">
+    <label class="col-xs-12 radio-tile">
+        <input type="checkbox" name="drush[install]" value="1"
+               class="invisible toggle-on-select update-other-input"
+               {% if drush.install %}checked{% endif %}
+               data-vis-toggle-target="#drush-container,#drush-install-check"
+               data-update-php[composer]="1" data-update-hhvm[composer]="1" />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Install Drush</span>
+            </span>
+            <span class="footer">
+                Command line shell and Unix scripting interface for Drupal.
+            </span>
+        </span>
+    </label>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="drush-container" class="{% if not drush.install %}hidden{% endif %}">
+    <div class="form-group col-xs-12">
+        <div class="help-text">
+            <p><a href="http://drush.ws/" target="_blank">Drush</a> will be available as a
+                system service:</p>
+            <p><code>$ drush</code></p>
+        </div>
+        <label for="wpcli-version">Choose Version</label>
+        <select id="wpcli-version"
+               name="wpcli[version]"
+               class="form-control select-tag">
+            {% if drush.version is defined %}
+                <option value="{{ drush.version }}" selected>{{ drush.version }}</option>
+            {% endif %}
+
+            {% for version in drush.available.versions %}
+                {% if version != drush.version %}
+                    <option value="{{ version }}">{{ version }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>

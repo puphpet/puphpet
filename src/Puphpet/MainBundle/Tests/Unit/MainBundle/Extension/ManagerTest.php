@@ -3,79 +3,181 @@
 namespace Puphpet\Tests\Unit\MainBundle\Extension;
 
 use Puphpet\Tests\Unit;
-use Puphpet\MainBundle\Extension\ExtensionAbstract;
 use Puphpet\MainBundle\Extension\Manager;
 
-class ManagerTest extends Unit\TestExtensions
+use Symfony\Component\Yaml\Exception;
+use Symfony\Component\Yaml\Yaml;
+
+class ManagerTest extends Unit\BaseTest
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|Manager
-     */
-    protected $manager;
+    const CONF_DIR = Unit\BaseTest::BASE_TEST_DIR . '/assets/config';
 
-    /**
-     * @param string $slug
-     * @return \PHPUnit_Framework_MockObject_MockObject|ExtensionAbstract
-     */
-    public function getExtensionMock($slug)
+    protected $configs = [
+        'vagrantfile-local' => [
+            'data'      => [
+                'target'  => '',
+                'vm'      => [
+                    'hostname'        => '',
+                    'chosen_provider' => 'virtualbox',
+                    'box'             => 'puphpet/debian75-x64',
+                    'box_url'         => 'puphpet/debian75-x64',
+                    'memory'          => 512,
+                    'cpus'            => 1,
+                    'network'         => [
+                        'private_network' => '192.168.56.101',
+                        'forwarded_port'  => [],
+                    ]
+                ],
+                'vagrant' => [
+                    'host' => 'detect',
+                ],
+            ],
+            'defaults'  => [
+                'target'  => 'local',
+                'vm'      => [
+                    'hostname'        => '',
+                    'chosen_provider' => 'virtualbox',
+                    'box'             => 'puphpet/debian75-x64',
+                    'box_url'         => 'puphpet/debian75-x64',
+                    'memory'          => 512,
+                    'cpus'            => 1,
+                    'network'         => [
+                        'private_network' => '192.168.56.101',
+                        'forwarded_port'  => [],
+                    ]
+                ],
+                'vagrant' => [
+                    'host' => 'detect',
+                ],
+            ],
+            'available' => [
+                'empty_synced_folder'  => [
+                    'source'    => '',
+                    'target'    => '',
+                    'id'        => 'vagrant-root',
+                    'sync_type' => 'default',
+                    'owner'     => 'www-data',
+                    'group'     => 'www-data',
+                    'rsync'     => [
+                        'args'    => [
+                            '--verbose',
+                            '--archive',
+                            '-z',
+                        ],
+                        'exclude' => [
+                            '.vagrant/',
+                            '.git/',
+                        ],
+                        'auto'    => true,
+                    ],
+                ],
+                'empty_forwarded_port' => [
+                    'host'  => '',
+                    'guest' => '',
+                ],
+                'data'                 => [
+                    'foo',
+                    'bar',
+                    'baz',
+                ],
+            ],
+        ],
+    ];
+
+    protected $configsSaved = [];
+
+    public function setUp()
     {
-        $mock = $this->getMockBuilder(ExtensionAbstract::class)
-            ->setConstructorArgs([$this->container])
-            ->setMethods(['getSlug', 'yamlParse'])
-            ->getMockForAbstractClass();
+        $this->configsSaved = $this->configs;
 
-        $mock->expects($this->any())
-            ->method('getSlug')
-            ->will($this->returnValue($slug));
-
-        return $mock;
+        parent::setUp();
     }
 
-    public function testAddExtensionToGroupSavesToGroupArray()
+    public function tearDown()
     {
-        $extensionApache     = $this->getExtensionMock('apache');
-        $extensionNginx      = $this->getExtensionMock('nginx');
-        $extensionMySQL      = $this->getExtensionMock('mysql');
-        $extensionPostgreSQL = $this->getExtensionMock('postgresql');
-        $extensionSQLite     = $this->getExtensionMock('sqlite');
+        $this->configs = $this->configsSaved;
 
-        $manager = new Manager($this->container);
-
-        $manager->addExtensionToGroup('webserver', $extensionApache)
-            ->addExtensionToGroup('webserver', $extensionNginx)
-            ->addExtensionToGroup('database', $extensionMySQL)
-            ->addExtensionToGroup('database', $extensionPostgreSQL)
-            ->addExtensionToGroup('database', $extensionSQLite);
-
-        $this->assertEquals('webserver', $manager->belongsToGroup('apache'));
-        $this->assertEquals('webserver', $manager->belongsToGroup('nginx'));
-        $this->assertEquals('database', $manager->belongsToGroup('mysql'));
-        $this->assertEquals('database', $manager->belongsToGroup('postgresql'));
-        $this->assertEquals('database', $manager->belongsToGroup('sqlite'));
+        parent::tearDown();
     }
 
-    public function testAddExtensionSavesBySlug()
+    public function testAddExtensionThrowsExceptionOnInvalidYamlFileContents()
     {
-        $extensionApache = $this->getExtensionMock('apache');
-        $extensionPHP    = $this->getExtensionMock('php');
+        $this->setExpectedException(Exception\ParseException::class);
 
-        $manager = new Manager($this->container);
-
-        $manager->addExtension($extensionPHP)
-            ->addExtensionToGroup('webserver', $extensionApache);
-
-        $this->assertEquals($extensionApache, $manager->getExtensionBySlug('apache'));
-        $this->assertEquals($extensionPHP, $manager->getExtensionBySlug('php'));
+        $manager = new Manager(self::CONF_DIR);
+        $manager->addExtension('extension-broken');
     }
 
-    public function testBelongsToGroupReturnsFalseOnExtensionNotPartOfGroup()
+    public function testAddExtensionConvertsExtensionNameDashToUnderscore()
     {
-        $extensionPHP = $this->getExtensionMock('php');
+        $manager = new Manager(self::CONF_DIR);
+        $manager->addExtension('vagrantfile-local');
 
-        $manager = new Manager($this->container);
+        $extensionsArray = $manager->getExtensions();
 
-        $manager->addExtension($extensionPHP);
+        $this->assertArrayHasKey('vagrantfile_local', $extensionsArray);
+        $this->assertArrayNotHasKey('vagrantfile-local', $extensionsArray);
+        $this->assertCount(1, $extensionsArray);
 
-        $this->assertFalse($manager->belongsToGroup('php'));
+        $extensionData = $manager->getExtension('vagrantfile-local');
+
+        $this->assertTrue(is_array($extensionData));
+    }
+
+    public function testAddExtensionSetsDataInDefaultsAndDataKeys()
+    {
+        $manager = new Manager(self::CONF_DIR);
+        $manager->addExtension('vagrantfile-local');
+
+        $extOneData = $this->configs['vagrantfile-local'];
+
+        $extensionValues = $manager->getExtension('vagrantfile-local');
+
+        $this->assertEquals($extOneData['defaults'], $extensionValues['defaults']);
+        $this->assertEquals($extOneData['data'], $extensionValues['data']);
+    }
+
+    public function testAddExtensionMergesDataDefaultsAndAvailableData()
+    {
+        $manager = new Manager(self::CONF_DIR);
+        $manager->addExtension('vagrantfile-local');
+
+        $extOneData = $this->configs['vagrantfile-local'];
+
+        $extensionValues = $manager->getExtension('vagrantfile-local');
+
+        $mergedData = array_replace_recursive(
+            $extOneData['data'],
+            $extOneData['defaults']
+        );
+
+        $this->assertEquals($mergedData, $extensionValues['merged']);
+    }
+
+    public function testAddExtensionHandlesMultipleExtensions()
+    {
+        $manager = new Manager(self::CONF_DIR);
+        $manager->addExtension('vagrantfile-local');
+        $manager->addExtension('php');
+        $manager->addExtension('vagrantfile-rackspace');
+
+        $extensions = $manager->getExtensions();
+
+        $this->assertSame(3, count($extensions));
+    }
+
+    public function testSetCustomDataAllOverridesDefaultData()
+    {
+        $manager = new Manager(self::CONF_DIR);
+        $manager->addExtension('vagrantfile-local');
+        $manager->addExtension('vagrantfile-rackspace');
+
+        $customData = Yaml::parse(self::CONF_DIR . '/custom-data/custom.yml');
+
+        $manager->setCustomDataAll($customData);
+
+        $expectedResult = Yaml::parse(self::CONF_DIR . '/custom-data/expected-merged.yml');
+
+        $this->assertEquals($expectedResult, $manager->getExtensions());
     }
 }

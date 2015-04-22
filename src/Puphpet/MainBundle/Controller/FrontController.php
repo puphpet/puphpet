@@ -21,22 +21,20 @@ class FrontController extends Controller
 
             $response = new Response;
             $response->headers->set('Content-type', 'application/octet-stream');
-            $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', 'puphpet.zip'));
+            $response->headers->set('Content-Disposition', 'attachment; filename="puphpet.zip"');
             $response->setContent(file_get_contents($archive));
 
             return $response;
         }
 
-        return $this->render('PuphpetMainBundle:front:index.html.twig', [
-            'extensionManager' => $manager,
+        return $this->render('PuphpetMainBundle:front:template.html.twig', [
+            'extensions' => $manager->getExtensions(),
         ]);
     }
 
     public function uploadConfigAction(Request $request)
     {
         $config = $this->normalizeLineBreaks($request->get('config'));
-
-        $yaml = '';
 
         try {
             $yaml = Yaml::parse($config);
@@ -55,9 +53,8 @@ class FrontController extends Controller
         $manager->setCustomDataAll($yaml);
 
         try {
-            $rendered = $this->render('PuphpetMainBundle:front:index.html.twig', [
-                'extensionManager' => $manager,
-                'hasCustom'        => true,
+            $rendered = $this->render('PuphpetMainBundle:front:template.html.twig', [
+                'extensions' => $manager->getExtensions(),
             ]);
 
             return $rendered;
@@ -101,12 +98,12 @@ class FrontController extends Controller
 
     public function aboutAction()
     {
-        return $this->render('PuphpetMainBundle:front:about.html.twig');
+        return $this->redirect('/#about');
     }
 
     public function helpAction()
     {
-        return $this->render('PuphpetMainBundle:front:help.html.twig');
+        return $this->redirect('/#help');
     }
 
     public function githubBtnAction()
