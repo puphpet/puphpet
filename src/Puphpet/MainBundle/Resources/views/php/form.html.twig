@@ -33,8 +33,24 @@
 <div class="clearfix"></div>
 
 <div id="php-container" class="{% if not php.install %}hidden{% endif %}">
-    <div class="form-group col-xs-6">
+    <div class="form-group col-xs-8">
         <div class="clearfix"><label>PHP Version</label></div>
+
+        <label class="radio-tile mini set-width">
+            <span class="help-text">
+                Ubuntu 14.04 <strong>only</strong>.
+            </span>
+            <input type="radio" name="php[settings][version]"
+                   class="invisible"
+                   {% if php.settings.version == '70' %}checked{% endif %}
+                   value="70" />
+            <span class="content">
+                <span class="header">
+                    <i class="icon"></i>
+                    <span class="title">7.0</span>
+                </span>
+            </span>
+        </label>
 
         <label class="radio-tile mini set-width">
             <span class="help-text">
@@ -85,7 +101,7 @@
         </label>
     </div>
 
-    <div class="form-group col-xs-6">
+    <div class="form-group col-xs-4">
         <div class="clearfix"><label>System-Wide Composer</label></div>
 
         <label class="radio-tile mini set-width">
@@ -110,6 +126,13 @@
     </div>
 
     <div class="clearfix"></div>
+
+    <div class="help-block">
+        <p>PHP 7.0 is from <strong>NIGHTLY</strong> builds. Do not use in production! Only Ubuntu 14.04 x64 is
+            currently supported.</p>
+        <p>Pear, PECL, modules are NOT supported! Some packages requiring PHP modules may not work. Proceed at
+            your own risk.</p>
+    </div>
 
     <div class="form-group col-xs-12">
         <div class="help-text">

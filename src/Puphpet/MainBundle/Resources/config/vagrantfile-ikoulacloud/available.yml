@@ -8,6 +8,7 @@ images:
             name: Ubuntu 14.04 - Server - 64bits
             ssh_username: root
             php_versions:
+                - 7.0
                 - 5.6
                 - 5.5
                 - HHVM
