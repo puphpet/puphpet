@@ -52,7 +52,8 @@ regions:
     ams3: Amsterdam 3
     sgp1: Singapore 1
     lon1: London 1
-
+    fra1: Frankfurt 1
+    
 empty_synced_folder:
     source: ~
     target: ~
