@@ -75,7 +75,7 @@
             <input type="radio" name="php[settings][version]"
                    class="invisible"
                    {% if php.settings.version == '55' %}checked{% endif %}
-                   value="56" />
+                   value="55" />
             <span class="content">
                 <span class="header">
                     <i class="icon"></i>
@@ -91,7 +91,7 @@
             <input type="radio" name="php[settings][version]"
                    class="invisible"
                    {% if php.settings.version == '54' %}checked{% endif %}
-                   value="56" />
+                   value="54" />
             <span class="content">
                 <span class="header">
                     <i class="icon"></i>
@@ -238,6 +238,7 @@
         </div>
         <label for="php-modules-pear">PEAR Modules</label>
         <select id="php-modules-pear" multiple
+                name="php[modules][pear][]"
                 class="form-control select-tags-editable">
             {% set flattened = [] %}
             {% for namespace, modules in php.available.modules.pear %}
@@ -266,6 +267,7 @@
         </div>
         <label for="php-modules-pecl">PECL Modules</label>
         <select id="php-modules-pecl" multiple
+                name="php[modules][pecl][]"
                 class="form-control select-tags-editable">
             {% set flattened = [] %}
             {% for namespace, modules in php.available.modules.pecl %}
