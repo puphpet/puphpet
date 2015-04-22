@@ -8,7 +8,7 @@ include puphpet::params
 include puphpet::apache::params
 include puphpet::mysql::params
 
-if array_true($mysql_values, 'install') {
+if array_true($mysql_values, 'install') and !array_true($mariadb_values, 'install') {
   include mysql::params
 
   if array_true($apache_values, 'install')
