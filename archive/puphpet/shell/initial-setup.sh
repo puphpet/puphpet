@@ -34,6 +34,14 @@ if [[ ! -f '/.puphpet-stuff/initial-setup-apt-get-update' ]]; then
     touch '/.puphpet-stuff/initial-setup-repo-update'
 fi
 
+# CentOS comes with tty enabled. RHEL has realized this is stupid, so we can
+# also safely disable it in PuPHPet boxes.
+if [[ ! -f '/.puphpet-stuff/disable-tty' ]]; then
+    perl -pi'~' -e 's@Defaults(\s+)requiretty@Defaults !requiretty@g' /etc/sudoers
+
+    touch '/.puphpet-stuff/disable-tty'
+fi
+
 if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
     exit 0
 fi
