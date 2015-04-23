@@ -193,7 +193,7 @@ legend {
 
     ul.sidebar-menu {
         margin-top: 60px;
-        margin-bottom: 60px;
+        margin-bottom: 25px;
     }
 
     #sidebar > ul > li > ul.sub {
@@ -676,6 +676,26 @@ legend {
     footer {
         padding: 15px 20px;
         background: #fff;
+    }
+
+/*
+ * Carbonads
+**/
+    #carbonads {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    #carbonads .carbon-img {
+        display: block;
+    }
+
+    #carbonads .carbon-wrap {
+        display: block;
+    }
+
+    #carbonads a.carbon-poweredby {
+        color: #000;
     }
 
 .page-header {
