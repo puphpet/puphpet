@@ -178,3 +178,8 @@ if $::osfamily == 'debian' {
 
   create_resources('class', { 'locales' => $locales_settings_merged })
 }
+
+# Set to Google's DNS
+class { 'resolvconf':
+  nameserver => [ '8.8.8.8', '8.8.4.4' ],
+}

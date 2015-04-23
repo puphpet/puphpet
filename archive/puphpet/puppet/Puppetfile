@@ -66,6 +66,9 @@ mod 'puppetlabs/rabbitmq',
 mod 'puphpet/redis',
     :git => 'https://github.com/puphpet/puppet-redis.git',
     :ref => 'd9b3b23b0c'
+mod 'puppet/resolvconf',
+    :git => 'https://github.com/thias/puppet-resolvconf.git',
+    :ref => '5bf752b84b'
 mod 'maestrodev/rvm'
 mod 'puppetlabs/sqlite',
     :git => 'https://github.com/puppetlabs/puppetlabs-sqlite.git',
