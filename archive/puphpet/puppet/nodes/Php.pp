@@ -19,12 +19,6 @@ if array_true($php_values, 'install') {
 
   Class['Puphpet::Php::Settings']
   -> Package[$php_package]
-  -> Puphpet::Php::Ini <| |>
-  -> Puphpet::Php::Fpm::Ini <| |>
-  -> Puphpet::Php::Fpm::Pool_ini <| |>
-  -> Puphpet::Php::Module <| |>
-  -> Puphpet::Php::Pear <| |>
-  -> Puphpet::Php::Pecl <| |>
 
   if $php_version == '7.0' {
     class { 'puphpet::php::beta': }

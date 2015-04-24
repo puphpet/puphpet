@@ -24,7 +24,7 @@ if [[ ! -f /.puphpet-stuff/install-vine-03202015 ]]; then
     touch /.puphpet-stuff/install-vine-03202015
 fi
 
-if [[ ! -f /.puphpet-stuff/install-augeas-04232015 ]]; then
+if [[ ! -f /.puphpet-stuff/install-augeas-04232015 ]] && [ "${OS}" == 'centos' ]; then
     echo 'Upgrading augeas'
     yum -y remove augeas*  >/dev/null
 

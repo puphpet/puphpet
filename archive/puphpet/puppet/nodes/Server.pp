@@ -180,6 +180,13 @@ if $::osfamily == 'debian' {
 }
 
 # Set to Google's DNS
-class { 'resolvconf':
+if $::operatingsystem == 'ubuntu' {
+  $resolve_conf_file = '/run/resolvconf/resolv.conf'
+} else {
+  $resolve_conf_file = '/etc/resolv.conf'
+}
+
+resolvconf::file { $resolve_conf_file:
+  header     => 'This file is managed by Puppet, do not edit',
   nameserver => [ '8.8.8.8', '8.8.4.4' ],
 }
