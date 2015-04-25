@@ -53,7 +53,7 @@
                     <label class="col-xs-6 radio-tile">
                         <input type="radio" class="invisible update-other-input"
                                data-update-vagrantfile-ssh-username="{{ image.ssh_username }}"
-                               data-update-vagrantfile-vm-provider-aws-region="{{ region }}"
+                               data-update-vagrantfile-aws-vm-provider-aws-region="{{ region }}"
                                name="vagrantfile[vm][provider][aws][ami]"
                                value="{{ image.ami }}"
                                {% if image.ami == data.vm.provider.aws.ami %}checked{% endif %} />
