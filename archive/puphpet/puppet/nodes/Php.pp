@@ -180,6 +180,7 @@ if array_true($php_values, 'install') {
     and ! defined(Class['puphpet::php::composer'])
   {
     class { 'puphpet::php::composer':
+      php_package   => $puphpet::php::settings::cli_package,
       composer_home => $php_values['composer_home'],
     }
   }
