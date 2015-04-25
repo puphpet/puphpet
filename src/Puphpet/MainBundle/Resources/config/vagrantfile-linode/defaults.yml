@@ -3,7 +3,7 @@ target: ~
 vm:
     provider:
         linode:
-            distribution: Debian 7
+            distribution: Ubuntu 14.04 LTS
             datacenter: Newark
             plan: 1024
             token: LINODE_API_KEY
