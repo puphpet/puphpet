@@ -1,8 +1,8 @@
 target: ~
 
 vm:
-    box: puphpet/debian75-x64
-    box_url: puphpet/debian75-x64
+    box: puphpet/ubuntu1404-x64
+    box_url: puphpet/ubuntu1404-x64
     hostname: ~
     memory: 512
     cpus: 1
