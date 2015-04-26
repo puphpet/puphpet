@@ -126,6 +126,19 @@
 
     <div class="form-group col-xs-6">
         <div class="help-text">
+            The hostname the machine should have.
+        </div>
+        <label for="vagrantfile-vm-hostname">Hostname</label>
+        <input type="text" id="vagrantfile-vm-hostname"
+               name="vagrantfile[vm][hostname]"
+               placeholder="local.puphpet" class="form-control"
+               value="{{ data.vm.hostname }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
             Memory to assign to VM in megabytes (only integers)
         </div>
         <label for="vagrantfile-vm-memory">Memory</label>
@@ -133,8 +146,6 @@
                placeholder="512" min="64" class="form-control"
                value="{{ data.vm.memory }}" />
     </div>
-
-    <div class="clearfix"></div>
 
     <div class="form-group col-xs-6">
         <div class="help-text">

@@ -3,7 +3,7 @@ target: local
 vm:
     box: puphpet/ubuntu1404-x64
     box_url: puphpet/ubuntu1404-x64
-    hostname: ~
+    hostname: local.puphpet
     chosen_provider: virtualbox
     provider:
         virtualbox: []
