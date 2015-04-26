@@ -80,38 +80,35 @@
 
     <div class="clearfix"></div>
 
-    <div class="form-group col-xs-6">
+    <div class="form-group col-xs-12">
         <div class="help-text">
-            <p>HHVM will run in
-                <a href="http://www.hhvm.com/blog/1817/fastercgi-with-hhvm"
-                   target="_blank">FastCGI mode</a>.</p>
-            <p>In short: it will use Apache or Nginx (whatever you have chosen)
-                so all your htaccess and redirect rules should continue working as
-                normal. Only instead of using the official PHP engine, HHVM will be
-                used.</p>
+            All settings added to a single INI file.
         </div>
-        <label for="hhvm-settings-host">Host</label>
-        <input type="text" id="hhvm-settings-host"
-               name="hhvm[settings][host]"
-               class="form-control" placeholder="127.0.0.1"
-               value="{{ hhvm.settings.host }}" />
-    </div>
+        <label for="hhvm-server_ini-displayer">Server INI Settings</label>
+        <select id="hhvm-server_ini-displayer" multiple
+                class="form-control select-tags-user-input"
+                data-target-container="hhvm-server_ini"
+                data-target-name="hhvm[server_ini]">
+            {% set flattened = [] %}
+            {% for ini, value in hhvm.available.server_ini %}
+                {% set flattened = flattened|merge([ini]) %}
+                <option value="{{ ini }}"
+                    {% if ini in hhvm.server_ini|keys %}selected{% endif %}>{{ ini }}</option>
+            {% endfor %}
 
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <p>HHVM will run in
-                <a href="http://www.hhvm.com/blog/1817/fastercgi-with-hhvm"
-                   target="_blank">FastCGI mode</a>.</p>
-            <p>In short: it will use Apache or Nginx (whatever you have chosen)
-                so all your htaccess and redirect rules should continue working as
-                normal. Only instead of using the official PHP engine, HHVM will be
-                used.</p>
+            {% for name, value in hhvm.server_ini %}
+                {% if name not in flattened %}
+                    <option value="{{ name }}" selected>{{ name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+
+        <div id="hhvm-server_ini" class="hidden">
+            {% for name, value in hhvm.server_ini %}
+                <input type="hidden" name="hhvm[server_ini][{{ name }}]"
+                       data-option-name="{{ name }}" value="{{ value }}" />
+            {% endfor %}
         </div>
-        <label for="hhvm-settings-port">Listen Port</label>
-        <input type="text" id="hhvm-settings-port"
-               name="hhvm[settings][port]"
-               class="form-control" placeholder="13000"
-               value="{{ hhvm.settings.port }}" />
     </div>
 
     <div class="clearfix"></div>
@@ -120,38 +117,28 @@
         <div class="help-text">
             All settings added to a single INI file.
         </div>
-        <label for="hhvm-ini-displayer">INI Settings</label>
-        <select id="hhvm-ini-displayer" multiple
+        <label for="hhvm-php_ini-displayer">PHP INI Settings</label>
+        <select id="hhvm-php_ini-displayer" multiple
                 class="form-control select-tags-user-input"
-                data-target-container="hhvm-ini"
-                data-target-name="hhvm[ini]">
+                data-target-container="hhvm-php_ini"
+                data-target-name="hhvm[php_ini]">
             {% set flattened = [] %}
-            {% for ini, values in hhvm.available.ini %}
-                {% if values is not empty %}
-                    <optgroup label="{{ ini }}">
-                        {% for value in values %}
-                            {% set flattened = flattened|merge([value]) %}
-                            <option value="{{ value }}"
-                                {% if value in hhvm.ini|keys %}selected{% endif %}>{{ value }}</option>
-                        {% endfor %}
-                    </optgroup>
-                {% else %}
-                    {% set flattened = flattened|merge([ini]) %}
-                    <option value="{{ ini }}"
-                        {% if ini in hhvm.ini|keys %}selected{% endif %}>{{ ini }}</option>
-                {% endif %}
+            {% for ini, value in hhvm.available.php_ini %}
+                {% set flattened = flattened|merge([ini]) %}
+                <option value="{{ ini }}"
+                    {% if ini in hhvm.php_ini|keys %}selected{% endif %}>{{ ini }}</option>
             {% endfor %}
 
-            {% for name, value in hhvm.ini %}
+            {% for name, value in hhvm.php_ini %}
                 {% if name not in flattened %}
                     <option value="{{ name }}" selected>{{ name }}</option>
                 {% endif %}
             {% endfor %}
         </select>
 
-        <div id="hhvm-ini" class="hidden">
-            {% for name, value in hhvm.ini %}
-                <input type="hidden" name="hhvm[ini][{{ name }}]"
+        <div id="hhvm-php_ini" class="hidden">
+            {% for name, value in hhvm.php_ini %}
+                <input type="hidden" name="hhvm[php_ini][{{ name }}]"
                        data-option-name="{{ name }}" value="{{ value }}" />
             {% endfor %}
         </div>
