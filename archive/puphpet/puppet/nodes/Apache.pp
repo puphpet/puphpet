@@ -19,7 +19,10 @@ if array_true($apache_values, 'install') {
     $php_fcgi_port = '9000'
   } elsif array_true($hhvm_values, 'install') {
     $php_engine    = true
-    $php_fcgi_port = access($hhvm_values, 'settings.port')
+    $php_fcgi_port = array_true($hhvm_values['server_ini'], 'hhvm.server.port') ? {
+      true    => $hhvm_values['server_ini']['hhvm.server.port'],
+      default => '9000'
+    }
   } else {
     $php_engine    = false
   }
