@@ -12,7 +12,7 @@ if array_true($apache_values, 'install') {
   class { 'puphpet::apache::repo': }
 
   $apache_version = '2.4'
-  $apache_modules = delete($apache_values['modules'], 'pagespeed')
+  $apache_modules = delete($apache_values['modules'], ['pagespeed', 'ssl'])
 
   if array_true($php_values, 'install') {
     $php_engine    = true
