@@ -206,6 +206,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.provision :puppet do |puppet|
     puppet.facter = {
+      'fqdn'             => "#{config.vm.hostname}",
       'ssh_username'     => "#{ssh_username}",
       'provisioner_type' => ENV['VAGRANT_DEFAULT_PROVIDER'],
     }
