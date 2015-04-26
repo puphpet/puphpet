@@ -10,8 +10,8 @@ mod 'puphpet/beanstalkd',
     :git => 'https://github.com/puphpet/puppet-beanstalkd.git',
     :ref => '5a530ff'
 mod 'tPl0ch/composer',
-    :git => 'https://github.com/tPl0ch/puppet-composer.git',
-    :ref => '1.2.1'
+    :git => 'https://github.com/puphpet/puppet-composer.git',
+    :ref => 'c4f9478'
 mod 'puppetlabs/concat',
     :git => 'https://github.com/puppetlabs/puppetlabs-concat.git',
     :ref => '1.1.1'
