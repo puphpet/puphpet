@@ -7,14 +7,28 @@ if hash_key_equals($hhvm_values, 'install', 1) {
     nightly => $hhvm_values['nightly'],
   }
 
+  if ! defined(Group['hhvm']) {
+    group { 'hhvm':
+      ensure => present,
+    }
+  }
+
   if ! defined(User['hhvm']) {
     user { 'hhvm':
       ensure     => present,
       home       => '/home/hhvm',
-      groups     => 'www-data',
+      groups     => ['hhvm', 'www-data'],
       managehome => true,
-      require    => Group['www-data']
+      require    => [
+        Group['hhvm'],
+        Group['www-data']
+      ]
     }
+  }
+
+  User <| title == 'www-data' |> {
+    groups  +> 'hhvm',
+    require +> Group['hhvm'],
   }
 
   file { '/usr/bin/php':
