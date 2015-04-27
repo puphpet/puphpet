@@ -17,7 +17,7 @@
         <div class="form-group col-xs-6">
             <div class="help-text">
                 Provide the user that will be the database owner.
-                The user must be a valid unix user such as <code>vagrant</code>.
+                The user must be a valid unix user such as <code>www-data</code>.
             </div>
             <label for="sqlite-databases-{{ uniqid }}-owner">Owner</label>
             <input type="text" id="sqlite-databases-{{ uniqid }}-owner"
@@ -51,7 +51,4 @@
                    value="{{ database.sql_file }}" />
         </div>
     </fieldset>
-
-    <input type="hidden" name="sqlite[databases][{{ uniqid }}][mode]"
-           value="{{ database.mode }}" />
 </div>

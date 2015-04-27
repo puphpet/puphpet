@@ -53,7 +53,7 @@ mod 'puppetlabs/postgresql',
     :ref => '4.2.0'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => 'aa2fbd8'
+    :ref => 'd9fefd0'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
@@ -70,9 +70,6 @@ mod 'puppet/resolvconf',
     :git => 'https://github.com/thias/puppet-resolvconf.git',
     :ref => '5bf752b84b'
 mod 'maestrodev/rvm'
-mod 'puppetlabs/sqlite',
-    :git => 'https://github.com/puppetlabs/puppetlabs-sqlite.git',
-    :ref => 'v0.0.1'
 mod 'example42/solr',
     :git => 'https://github.com/example42/puppet-solr.git',
     :ref => 'v2.0.7'

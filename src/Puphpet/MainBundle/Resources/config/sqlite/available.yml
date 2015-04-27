@@ -1,6 +1,5 @@
 empty_database:
     name: ~
-    owner: vagrant
+    owner: www-data
     group: ~
-    mode: '755'
     sql_file: ~
