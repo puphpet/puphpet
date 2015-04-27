@@ -687,6 +687,11 @@ legend {
 /*
  * Ascii cast
 **/
+    .asciicast-container {
+        width: 778px;
+        margin: 0 auto;
+    }
+
     #asciicast-container-19251 {
         height: 470px;
     }
