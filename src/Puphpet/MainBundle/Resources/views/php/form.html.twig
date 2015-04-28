@@ -307,6 +307,9 @@
         <li role="presentation" class="active"><a href="#xdebug"
             role="tab" data-toggle="tab"><i id="xdebug-install-check"
                 class="text-info fa fa-check-square-o {% if not xdebug.install %}hidden{% endif %}"></i> Xdebug</a></li>
+        <li role="presentation"><a href="#blackfire"
+            role="tab" data-toggle="tab"><i id="blackfire-install-check"
+                class="text-info fa fa-check-square-o {% if not blackfire.install %}hidden{% endif %}"></i> Blackfire</a></li>
         <li role="presentation"><a href="#xhprof"
             role="tab" data-toggle="tab"><i id="xhprof-install-check"
                 class="text-info fa fa-check-square-o {% if not xhprof.install %}hidden{% endif %}"></i> Xhprof</a></li>
@@ -323,6 +326,9 @@
     <div class="col-xs-12 tab-content">
         <div class="tab-pane active" id="xdebug">
             {% include 'PuphpetMainBundle:xdebug:form.html.twig' with { 'xdebug': xdebug } %}
+        </div>
+        <div class="tab-pane" id="blackfire">
+            {% include 'PuphpetMainBundle:blackfire:form.html.twig' with { 'blackfire': blackfire } %}
         </div>
         <div class="tab-pane" id="xhprof">
             {% include 'PuphpetMainBundle:xhprof:form.html.twig' with { 'xhprof': xhprof } %}

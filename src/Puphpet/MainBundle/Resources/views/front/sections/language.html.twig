@@ -2,6 +2,7 @@
     {% include 'PuphpetMainBundle:php:form.html.twig' with {
         'php': add_available(extensions.php.merged, extensions.php.available),
         'xdebug': add_available(extensions.xdebug.merged, extensions.xdebug.available),
+        'blackfire': add_available(extensions.blackfire.merged, extensions.blackfire.available),
         'xhprof': add_available(extensions.xhprof.merged, extensions.xhprof.available),
         'wpcli': add_available(extensions.wpcli.merged, extensions.wpcli.available),
         'drush': add_available(extensions.drush.merged, extensions.drush.available)

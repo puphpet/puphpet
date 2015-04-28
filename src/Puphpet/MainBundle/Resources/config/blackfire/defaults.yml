@@ -1,0 +1,14 @@
+install: 0
+
+settings:
+    server_id: ~
+    server_token: ~
+    agent:
+        http_proxy: ~
+        https_proxy: ~
+        log_file: stderr
+        log_level: 1
+    php:
+        agent_timeout: '0.25'
+        log_file: ~
+        log_level: 1
