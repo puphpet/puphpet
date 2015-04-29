@@ -11,20 +11,22 @@ if hash_key_equals($nginx_values, 'install', 1) {
   Class['puphpet::ssl_cert']
   -> Nginx::Resource::Vhost <| |>
 
-  class { 'puphpet::ssl_cert': }
+  if ! defined(Class["puphpet::ssl_cert"]) {
+    class { 'puphpet::ssl_cert': }
+  }
 
   $www_location  = $puphpet::params::nginx_www_location
-  $webroot_user  = 'www-data'
-  $webroot_group = 'www-data'
+  $ngnix_webroot_user  = 'www-data'
+  $ngnix_webroot_group = 'www-data'
 
   if ! defined(File[$www_location]) {
     file { $www_location:
       ensure  => directory,
       owner   => 'root',
-      group   => $webroot_group,
+      group   => $ngnix_webroot_group,
       mode    => '0775',
       before  => Class['nginx'],
-      require => Group[$webroot_group],
+      require => Group[$ngnix_webroot_group],
     }
   }
 
@@ -32,9 +34,9 @@ if hash_key_equals($nginx_values, 'install', 1) {
     file { '/usr/share/nginx':
       ensure  => directory,
       mode    => '0775',
-      owner   => $webroot_user,
-      group   => $webroot_group,
-      require => Group[$webroot_group],
+      owner   => $ngnix_webroot_user,
+      group   => $ngnix_webroot_group,
+      require => Group[$ngnix_webroot_group],
       before  => Package['nginx']
     }
   }
@@ -180,8 +182,8 @@ if hash_key_equals($nginx_values, 'install', 1) {
   each( $nginx_vhosts ) |$key, $vhost| {
     exec { "exec mkdir -p ${vhost['www_root']} @ key ${key}":
       command => "mkdir -p ${vhost['www_root']}",
-      user    => $webroot_user,
-      group   => $webroot_group,
+      user    => $ngnix_webroot_user,
+      group   => $ngnix_webroot_group,
       creates => $vhost['www_root'],
       require => File[$www_location],
     }
@@ -302,15 +304,17 @@ if hash_key_equals($nginx_values, 'install', 1) {
     puphpet::firewall::port { '443': }
   }
 
-  if defined(File[$puphpet::params::nginx_webroot_location]) {
-    file { "${puphpet::params::nginx_webroot_location}/index.html":
-      ensure  => present,
-      owner   => 'root',
-      group   => $webroot_group,
-      mode    => '0664',
-      source  => 'puppet:///modules/puphpet/webserver_landing.erb',
-      replace => true,
-      require => File[$puphpet::params::nginx_webroot_location],
+  if ! defined(File["${puphpet::params::nginx_webroot_location}/index.html"]) {
+    if defined(File[$puphpet::params::nginx_webroot_location]) {
+      file { "${puphpet::params::nginx_webroot_location}/index.html":
+        ensure  => present,
+        owner   => 'root',
+        group   => $ngnix_webroot_group,
+        mode    => '0664',
+        source  => 'puppet:///modules/puphpet/webserver_landing.erb',
+        replace => true,
+        require => File[$puphpet::params::nginx_webroot_location],
+      }
     }
   }
 }
