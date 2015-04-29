@@ -208,9 +208,11 @@ if array_true($apache_values, 'install') {
     }
   }
 
-  class { 'puphpet::ssl_cert':
-    require => Class['apache'],
-    notify  => Service['httpd'],
+  if ! defined(Class["puphpet::ssl_cert"]) {
+    class { 'puphpet::ssl_cert':
+      require => Class['apache'],
+      notify  => Service['httpd'],
+    }
   }
 
   $default_vhost_index_file =
