@@ -82,7 +82,8 @@ Vagrant.configure('2') do |config|
           config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}", type: 'nfs'
         end
       elsif folder['sync_type'] == 'smb'
-        config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}", type: 'smb'
+        config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}", type: 'smb',
+          group: sync_group, owner: sync_owner
       elsif folder['sync_type'] == 'rsync'
         rsync_args = !folder['rsync']['args'].nil? ? folder['rsync']['args'] : ['--verbose', '--archive', '-z']
         rsync_auto = !folder['rsync']['auto'].nil? ? folder['rsync']['auto'] : true
