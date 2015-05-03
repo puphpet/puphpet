@@ -34,6 +34,7 @@ datacenters:
     dallas: Dallas
     london: London
     tokyo: Tokyo
+    singapore: Singapore
 
 empty_synced_folder:
     source: ~
