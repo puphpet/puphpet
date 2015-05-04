@@ -50,7 +50,11 @@ if hash_key_equals($rabbitmq_values, 'install', 1) {
   }
 
   each( $rabbitmq_users ) |$key, $user| {
-    $username    = $user['name']
+    $username = $user['name']
+    $is_admin = array_true($user, 'admin') ? {
+      true    => true,
+      default => false
+    }
 
     # config file could contain no user.permissions
     $permissions = array_true($user, 'permissions') ? {
@@ -58,7 +62,9 @@ if hash_key_equals($rabbitmq_values, 'install', 1) {
       default => { }
     }
 
-    $user_merged = delete($user, ['name', 'permissions'])
+    $user_merged = delete(merge($user, {
+      'admin' => $is_admin
+    }), ['name', 'permissions'])
 
     create_resources(rabbitmq_user, { "${username}" => $user_merged })
 

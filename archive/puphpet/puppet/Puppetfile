@@ -68,7 +68,7 @@ mod 'daenney/pyenv',
     :ref => '062ae72'
 mod 'puppetlabs/rabbitmq',
     :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
-    :ref => '5ce33f4968'
+    :ref => '5.2.0'
 mod 'puphpet/redis',
     :git => 'https://github.com/puphpet/puppet-redis.git',
     :ref => 'd9b3b23b0c'
