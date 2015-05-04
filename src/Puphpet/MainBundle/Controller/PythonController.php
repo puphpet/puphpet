@@ -8,14 +8,14 @@ class PythonController extends Controller
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetMainBundle:Python::form.html.twig', [
+        return $this->render('PuphpetMainBundle:python::form.html.twig', [
             'python' => $data,
         ]);
     }
 
     public function addVersionAction()
     {
-        return $this->render('PuphpetMainBundle:Python/sections:version.html.twig', [
+        return $this->render('PuphpetMainBundle:python/sections:version.html.twig', [
             'selected_version'   => $this->getData()['empty_version'],
             'available_versions' => $this->getData()['versions'],
         ]);
