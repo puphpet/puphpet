@@ -42,6 +42,14 @@ if [[ ! -f '/.puphpet-stuff/disable-tty' ]]; then
     touch '/.puphpet-stuff/disable-tty'
 fi
 
+# Digital Ocean seems to be missing iptables-persistent!
+# See https://github.com/puphpet/puphpet/issues/1575
+if [[ ! -f '/.puphpet-stuff/iptables-persistent-installed' ]] && [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
+    apt-get -y install iptables-persistent > /dev/null 2>&1
+
+    touch '/.puphpet-stuff/iptables-persistent-installed'
+fi
+
 if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
     exit 0
 fi
