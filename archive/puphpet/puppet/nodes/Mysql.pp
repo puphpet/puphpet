@@ -49,7 +49,7 @@ if array_true($mysql_values, 'install') {
 
   $mysql_override_options = deep_merge($mysql::params::default_options, {
     'mysqld' => {
-      'tmpdir' => "${mysql::params::datadir}/tmp",
+      'tmpdir' => $mysql::params::tmpdir,
     }
   })
 
@@ -67,18 +67,6 @@ if array_true($mysql_values, 'install') {
   class { 'mysql::client':
     package_name => $mysql_client_package,
     require      => Class['puphpet::mysql::repo'],
-  }
-
-  # prevent problems with being unable to create dir in /tmp
-  if ! defined(File[$mysql_override_options['mysqld']['tmpdir']]) {
-    file { $mysql_override_options['mysqld']['tmpdir']:
-      ensure  => directory,
-      owner   => $mysql_override_options['mysqld']['user'],
-      group   => $mysql::params::root_group,
-      mode    => '0775',
-      require => Class['mysql::client'],
-      notify  => Service[$mysql::params::server_service_name]
-    }
   }
 
   Mysql_user <| |>
