@@ -47,11 +47,11 @@
                     <code>puphpet/files/startup-once</code> and <code>puphpet/files/startup-once-unprivileged</code>
                     folders.</p>
 
-                <p><strong>Files are executed in alphabetical order</strong>. Files within <code>exec-once-*</code>
-                    are run before files within <code>exec-always-*</code>, and files within <code>startup-once-*</code>
-                    are run before files within <code>startup-always-*</code>. Files in <code>exec-once-*</code> and
-                    <code>exec-always-*</code> are run before files in <code>startup-once-*</code>
-                    and <code>startup-always-*</code>.</p>
+                <p><strong>Files are executed in alphabetical order</strong>, and filenames must end in <code>.sh</code>. 
+                    Files within <code>exec-once-*</code> are run before files within <code>exec-always-*</code>,
+                    and files within <code>startup-once-*</code> are run before files within <code>startup-always-*</code>.
+                    Files in <code>exec-once-*</code> and <code>exec-always-*</code> are run before files in
+                    <code>startup-once-*</code> and <code>startup-always-*</code>.</p>
 
                 <p>Files within <code>*-unprivileged</code> are run as the default user while the other ones area run
                     using sudo. Files within <code>*-unprivileged</code> are run after all other files on the same
