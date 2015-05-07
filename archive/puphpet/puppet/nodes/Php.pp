@@ -179,7 +179,10 @@ if array_true($php_values, 'install') {
         command => "chown www-data ${php_sess_save_path} && \
                     chgrp www-data ${php_sess_save_path} && \
                     touch /.puphpet-stuff/php-session-path-owner-group",
-        require => File[$php_sess_save_path],
+        require => [
+          File[$php_sess_save_path],
+          Package[$php_package]
+        ],
       }
     }
   }
