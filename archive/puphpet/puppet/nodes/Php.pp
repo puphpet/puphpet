@@ -174,12 +174,14 @@ if array_true($php_values, 'install') {
         }
       }
 
-      exec { 'set php session path owner/group':
-        creates => '/.puphpet-stuff/php-session-path-owner-group',
-        command => "chown www-data ${php_sess_save_path} && \
-                    chgrp www-data ${php_sess_save_path} && \
-                    touch /.puphpet-stuff/php-session-path-owner-group",
-        require => File[$php_sess_save_path],
+      if $php_sess_save_path != '/tmp' {
+        exec { 'set php session path owner/group':
+          creates => '/.puphpet-stuff/php-session-path-owner-group',
+          command => "chown www-data ${php_sess_save_path} && \
+                      chgrp www-data ${php_sess_save_path} && \
+                      touch /.puphpet-stuff/php-session-path-owner-group",
+          require => File[$php_sess_save_path],
+        }
       }
     }
   }
