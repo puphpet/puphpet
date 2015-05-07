@@ -302,15 +302,20 @@ if hash_key_equals($nginx_values, 'install', 1) {
     puphpet::firewall::port { '443': }
   }
 
-  if defined(File[$puphpet::params::nginx_webroot_location]) {
-    file { "${puphpet::params::nginx_webroot_location}/index.html":
-      ensure  => present,
-      owner   => 'root',
-      group   => $webroot_group,
-      mode    => '0664',
-      source  => 'puppet:///modules/puphpet/webserver_landing.erb',
-      replace => true,
-      require => File[$puphpet::params::nginx_webroot_location],
-    }
+  $default_vhost_index_file =
+    "${puphpet::params::nginx_webroot_location}/index.html"
+
+  $default_vhost_source_file =
+    '/vagrant/puphpet/puppet/modules/puphpet/files/webserver_landing.html'
+
+  exec { "Set ${default_vhost_index_file} contents":
+    command => "cat ${default_vhost_source_file} > ${default_vhost_index_file} && \
+                chmod 644 ${default_vhost_index_file} && \
+                chown root ${default_vhost_index_file} && \
+                chgrp ${webroot_group} ${default_vhost_index_file} && \
+                touch /.puphpet-stuff/default_vhost_index_file_set",
+    returns => [0, 1],
+    creates => '/.puphpet-stuff/default_vhost_index_file_set',
+    require => File[$puphpet::params::nginx_webroot_location],
   }
 }
