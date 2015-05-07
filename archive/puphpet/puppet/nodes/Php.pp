@@ -158,7 +158,7 @@ if array_true($php_values, 'install') {
 
     # Handles URLs like tcp://127.0.0.1:6379
     # absolute file paths won't have ":"
-    if ! (':' in $php_sess_save_path) {
+    if ! (':' in $php_sess_save_path) and $php_sess_save_path != '/tmp' {
       exec { "mkdir -p ${php_sess_save_path}" :
         creates => $php_sess_save_path,
         notify  => Service[$php_service],
@@ -174,14 +174,12 @@ if array_true($php_values, 'install') {
         }
       }
 
-      if $php_sess_save_path != '/tmp' {
-        exec { 'set php session path owner/group':
-          creates => '/.puphpet-stuff/php-session-path-owner-group',
-          command => "chown www-data ${php_sess_save_path} && \
-                      chgrp www-data ${php_sess_save_path} && \
-                      touch /.puphpet-stuff/php-session-path-owner-group",
-          require => File[$php_sess_save_path],
-        }
+      exec { 'set php session path owner/group':
+        creates => '/.puphpet-stuff/php-session-path-owner-group',
+        command => "chown www-data ${php_sess_save_path} && \
+                    chgrp www-data ${php_sess_save_path} && \
+                    touch /.puphpet-stuff/php-session-path-owner-group",
+        require => File[$php_sess_save_path],
       }
     }
   }
