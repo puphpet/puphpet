@@ -200,6 +200,17 @@ if hash_key_equals($nginx_values, 'install', 1) {
       concat([$vhost['server_name']], $vhost['server_aliases'])
     ))
 
+    $allowed_ciphers = [
+      'ECDHE-RSA-AES256-GCM-SHA384', 'ECDHE-RSA-AES128-GCM-SHA256',
+      'DHE-RSA-AES256-GCM-SHA384', 'DHE-RSA-AES128-GCM-SHA256',
+      'ECDHE-RSA-AES256-SHA384', 'ECDHE-RSA-AES128-SHA256', 'ECDHE-RSA-AES256-SHA',
+      'ECDHE-RSA-AES128-SHA', 'DHE-RSA-AES256-SHA256', 'DHE-RSA-AES128-SHA256',
+      'DHE-RSA-AES256-SHA', 'DHE-RSA-AES128-SHA', 'ECDHE-RSA-DES-CBC3-SHA',
+      'EDH-RSA-DES-CBC3-SHA', 'AES256-GCM-SHA384', 'AES128-GCM-SHA256', 'AES256-SHA256',
+      'AES128-SHA256', 'AES256-SHA', 'AES128-SHA', 'DES-CBC3-SHA',
+      'HIGH', '!aNULL', '!eNULL', '!EXPORT', '!DES', '!MD5', '!PSK', '!RC4'
+    ]
+
     $ssl = array_true($vhost, 'ssl') ? {
       true    => true,
       default => false,
@@ -215,6 +226,14 @@ if hash_key_equals($nginx_values, 'install', 1) {
     $ssl_port = array_true($vhost, 'ssl_port') ? {
       true    => $vhost['ssl_port'],
       default => '443',
+    }
+    $ssl_protocols = array_true($vhost, 'ssl_protocols') ? {
+      true    => $vhost['ssl_protocols'],
+      default => 'TLSv1 TLSv1.1 TLSv1.2',
+    }
+    $ssl_ciphers = array_true($vhost, 'ssl_ciphers') ? {
+      true    => $vhost['ssl_ciphers'],
+      default => join($allowed_ciphers, ':'),
     }
     $rewrite_to_https = $ssl and array_true($vhost, 'rewrite_to_https') ? {
       true    => true,
@@ -234,6 +253,8 @@ if hash_key_equals($nginx_values, 'install', 1) {
       'ssl_cert'             => $ssl_cert,
       'ssl_key'              => $ssl_key,
       'ssl_port'             => $ssl_port,
+      'ssl_protocols'        => $ssl_protocols,
+      'ssl_ciphers'          => "\"${ssl_ciphers}\"",
       'rewrite_to_https'     => $rewrite_to_https,
     }), ['server_aliases', 'proxy', 'locations'])
 

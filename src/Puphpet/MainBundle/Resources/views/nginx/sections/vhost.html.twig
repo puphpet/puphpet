@@ -5,6 +5,8 @@
 {% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
 {% set ssl_key = (vhost.ssl_key is defined) ? vhost.ssl_key : '' %}
 {% set ssl_port = (vhost.ssl_port is defined) ? vhost.ssl_port : '' %}
+{% set ssl_protocols = (vhost.ssl_protocols is defined) ? vhost.ssl_protocols : '' %}
+{% set ssl_ciphers = (vhost.ssl_ciphers is defined) ? vhost.ssl_ciphers : '' %}
 {% set rewrite_to_https = (vhost.rewrite_to_https is defined) ? true : false %}
 {% set spdy = (vhost.spdy is defined) ? true : false %}
 {% set locations = (vhost.locations is defined) ? vhost.locations : [] %}
@@ -99,11 +101,12 @@
         <div class="form-group">
             <div class="clearfix"><label>Enable SSL</label></div>
 
+            <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl]" value="0" />
+
             <label class="radio-tile mini set-width">
                 <span class="help-text">
                     Check to enable SSL options.
                 </span>
-                <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl]" value="0" />
                 <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][ssl]"
                        class="invisible toggle-on-select"
                        {% if ssl %}checked{% endif %}
@@ -169,6 +172,10 @@
                            placeholder="443" class="form-control"
                            value="{{ ssl_port }}" />
                 </div>
+
+                <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_protocols]" value="{{ ssl_protocols }}" />
+                <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_ciphers]" value="{{ ssl_ciphers }}" />
+
 
                 <div class="clearfix"></div>
 

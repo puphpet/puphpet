@@ -20,6 +20,8 @@ vhosts:
         ssl_port: 443
         ssl_cert: ''
         ssl_key: ''
+        ssl_protocols: ~
+        ssl_ciphers: ~
         rewrite_to_https: 0
         spdy: 0
         index_files:

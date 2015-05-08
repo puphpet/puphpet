@@ -130,26 +130,41 @@ if array_true($apache_values, 'install') {
       require => Exec['Create apache webroot'],
     }
 
-    $ssl = array_true($vhost, 'ssl')
+    $allowed_ciphers = [
+      'ECDHE-RSA-AES256-GCM-SHA384', 'ECDHE-RSA-AES128-GCM-SHA256',
+      'DHE-RSA-AES256-GCM-SHA384', 'DHE-RSA-AES128-GCM-SHA256',
+      'ECDHE-RSA-AES256-SHA384', 'ECDHE-RSA-AES128-SHA256', 'ECDHE-RSA-AES256-SHA',
+      'ECDHE-RSA-AES128-SHA', 'DHE-RSA-AES256-SHA256', 'DHE-RSA-AES128-SHA256',
+      'DHE-RSA-AES256-SHA', 'DHE-RSA-AES128-SHA', 'ECDHE-RSA-DES-CBC3-SHA',
+      'EDH-RSA-DES-CBC3-SHA', 'AES256-GCM-SHA384', 'AES128-GCM-SHA256', 'AES256-SHA256',
+      'AES128-SHA256', 'AES256-SHA', 'AES128-SHA', 'DES-CBC3-SHA',
+      'HIGH', '!aNULL', '!eNULL', '!EXPORT', '!DES', '!MD5', '!PSK', '!RC4'
+    ]
 
+    $ssl = array_true($vhost, 'ssl')
     $ssl_cert = array_true($vhost, 'ssl_cert') ? {
       true    => $vhost['ssl_cert'],
       default => $puphpet::params::ssl_cert_location
     }
-
     $ssl_key = array_true($vhost, 'ssl_key') ? {
       true    => $vhost['ssl_key'],
       default => $puphpet::params::ssl_key_location
     }
-
     $ssl_chain = array_true($vhost, 'ssl_chain') ? {
       true    => $vhost['ssl_chain'],
       default => undef
     }
-
     $ssl_certs_dir = array_true($vhost, 'ssl_certs_dir') ? {
       true    => $vhost['ssl_certs_dir'],
       default => undef
+    }
+    $ssl_protocol = array_true($vhost, 'ssl_protocol') ? {
+      true    => $vhost['ssl_protocol'],
+      default => 'TLSv1 TLSv1.1 TLSv1.2',
+    }
+    $ssl_cipher = array_true($vhost, 'ssl_cipher') ? {
+      true    => $vhost['ssl_cipher'],
+      default => join($allowed_ciphers, ':'),
     }
 
     if array_true($vhost, 'directories') {
@@ -172,6 +187,8 @@ if array_true($apache_values, 'install') {
       'ssl_key'         => $ssl_key,
       'ssl_chain'       => $ssl_chain,
       'ssl_certs_dir'   => $ssl_certs_dir,
+      'ssl_protocol'    => $ssl_protocol,
+      'ssl_cipher'      => "\"${ssl_cipher}\"",
       'custom_fragment' => $vhost_custom_fragment,
       'manage_docroot'  => false
     })
