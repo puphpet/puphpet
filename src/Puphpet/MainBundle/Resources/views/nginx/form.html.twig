@@ -1,78 +1,82 @@
 <input type="hidden" name="nginx[install]" value="0" />
 
-<div class="section-header hidden">
+<div class="section-header">
     <h1>Nginx Web Server</h1>
     <p class="lead">Setup Nginx. An alright webserver.</p>
 </div>
 
-<div class="form-group">
-    <label class="col-xs-12 radio-tile">
-        <input type="checkbox" name="nginx[install]" value="1"
-               class="invisible toggle-on-select update-other-input-on-check"
-               {% if nginx.install %}checked{% endif %}
-               data-vis-toggle-target="#nginx-container"
-               data-update-on-check-apache[install]="0" />
-        <span class="content">
-            <span class="header large">
-                <i class="icon"></i>
-                <span class="title">Install Nginx</span>
+<div class="field-container">
+    <div class="form-group">
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="nginx[install]" value="1"
+                   class="invisible toggle-on-select update-other-input-on-check"
+                   {% if nginx.install %}checked{% endif %}
+                   data-vis-toggle-target="#nginx-container"
+                   data-update-on-check-apache[install]="0" />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Install Nginx</span>
+                </span>
+                <span class="footer">
+                    You cannot install Apache with Nginx. Apache will be deselected.
+                </span>
             </span>
-            <span class="footer">
-                You cannot install Apache with Nginx. Apache will be deselected.
-            </span>
-        </span>
-    </label>
+        </label>
 
-    <div class="clearfix"></div>
-</div>
-
-<div class="clearfix"></div>
-
-<div id="nginx-container" class="{% if not nginx.install %}hidden{% endif %}">
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffers"
-               target="_blank">Information here</a>.
-        </div>
-        <label for="nginx-settings-proxy_buffers">Proxy Buffers</label>
-        <input type="text" id="nginx-settings-proxy_buffers"
-               name="nginx[settings][proxy_buffers]"
-               class="form-control" placeholder="4 256k"
-               value="{{ nginx.settings.proxy_buffers }}" />
-    </div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffer_size"
-               target="_blank">Information here</a>.
-        </div>
-        <label for="nginx-settings-proxy_buffer_size">Proxy Buffer Size</label>
-        <input type="text" id="nginx-settings-proxy_buffer_size"
-               name="nginx[settings][proxy_buffer_size]"
-               class="form-control" placeholder="128k"
-               value="{{ nginx.settings.proxy_buffer_size }}" />
+        <div class="clearfix"></div>
     </div>
 
     <div class="clearfix"></div>
 
-    {% for vhost in nginx.vhosts %}
-        {% include 'PuphpetMainBundle:nginx/sections:vhost.html.twig' with {'vhost': vhost} %}
-    {% endfor %}
+    <div id="nginx-container" class="{% if not nginx.install %}hidden{% endif %}">
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffers"
+                   target="_blank">Information here</a>.
+            </div>
+            <label for="nginx-settings-proxy_buffers">Proxy Buffers</label>
+            <input type="text" id="nginx-settings-proxy_buffers"
+                   name="nginx[settings][proxy_buffers]"
+                   class="form-control" placeholder="4 256k"
+                   value="{{ nginx.settings.proxy_buffers }}" />
+        </div>
 
-    <a href="#" data-source-url="{{ path('puphpet.nginx.vhost') }}"
-       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx vhost</a>
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_buffer_size"
+                   target="_blank">Information here</a>.
+            </div>
+            <label for="nginx-settings-proxy_buffer_size">Proxy Buffer Size</label>
+            <input type="text" id="nginx-settings-proxy_buffer_size"
+                   name="nginx[settings][proxy_buffer_size]"
+                   class="form-control" placeholder="128k"
+                   value="{{ nginx.settings.proxy_buffer_size }}" />
+        </div>
 
-    {% for upstream in nginx.upstreams %}
-        {% include 'PuphpetMainBundle:nginx/sections:upstream.html.twig' with {'upstream': upstream} %}
-    {% endfor %}
+        <div class="clearfix"></div>
 
-    <a href="#" data-source-url="{{ path('puphpet.nginx.upstream') }}"
-       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx proxy upstream</a>
+        {% for vhost in nginx.vhosts %}
+            {% include 'PuphpetMainBundle:nginx/sections:vhost.html.twig' with {'vhost': vhost} %}
+        {% endfor %}
 
-    {% for proxy in nginx.proxies %}
-        {% include 'PuphpetMainBundle:nginx/sections:proxy.html.twig' with {'proxy': proxy} %}
-    {% endfor %}
+        <a href="#" data-source-url="{{ path('puphpet.nginx.vhost') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx vhost</a>
 
-    <a href="#" data-source-url="{{ path('puphpet.nginx.proxy') }}"
-       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx proxy</a>
+        {% for upstream in nginx.upstreams %}
+            {% include 'PuphpetMainBundle:nginx/sections:upstream.html.twig' with {'upstream': upstream} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.nginx.upstream') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx proxy upstream</a>
+
+        {% for proxy in nginx.proxies %}
+            {% include 'PuphpetMainBundle:nginx/sections:proxy.html.twig' with {'proxy': proxy} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.nginx.proxy') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Nginx proxy</a>
+    </div>
+
+    <div class="clearfix"></div>
 </div>

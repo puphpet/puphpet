@@ -7,64 +7,68 @@
 
 <input type="hidden" name="elastic_search[install]" value="0" />
 
-<div class="section-header hidden">
+<div class="section-header">
     <h1>Elastic Search</h1>
     <p class="lead">Install Elastic Search.</p>
 </div>
 
-<div class="form-group">
-    <label class="col-xs-12 radio-tile">
-        <input type="checkbox" name="elastic_search[install]" value="1"
-               class="invisible toggle-on-select"
-               {% if elastic_search.install %}checked{% endif %}
-               data-vis-toggle-target="#elastic_search-container" />
-        <span class="content">
-            <span class="header large">
-                <i class="icon"></i>
-                <span class="title">Install Elastic Search</span>
-            </span>
-            <span class="footer">
-                A search server based on Lucene.
-            </span>
-        </span>
-    </label>
-
-    <div class="clearfix"></div>
-</div>
-
-<div class="clearfix"></div>
-
-<div id="elastic_search-container" class="{% if not elastic_search.install %}hidden{% endif %}">
-    <div class="form-group col-xs-12">
-        <div class="clearfix"><label>Version</label></div>
-
-        {% for version in versions %}
-            <label class="radio-tile mini set-width">
-                <input type="radio" class="invisible"
-                       name="elastic_search[settings][version]"
-                       value="{{ version }}"
-                       {% if version == selectedVersion %}checked{% endif %} />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">{{ version }}</span>
-                    </span>
+<div class="field-container">
+    <div class="form-group">
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="elastic_search[install]" value="1"
+                   class="invisible toggle-on-select"
+                   {% if elastic_search.install %}checked{% endif %}
+                   data-vis-toggle-target="#elastic_search-container" />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Install Elastic Search</span>
                 </span>
-            </label>
-        {% endfor %}
+                <span class="footer">
+                    A search server based on Lucene.
+                </span>
+            </span>
+        </label>
+
+        <div class="clearfix"></div>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="help-block">
-        <p>Elastic Search is a powerful open source search and analytics engine
-            that makes data easy to explore.</p>
-        <p><a href="http://www.elasticsearch.org/"
-              target="_blank">Learn about Elastic Search</a>.</p>
-        <p><a href="https://github.com/elasticsearch/elasticsearch-php"
-              target="_blank">The official Elastic Search PHP library</a>.</p>
-        <p>Elastic Search will be installed and the service will start automatically.
-            Java will also be installed if not already present on the vagrant box.
-            The default port is <code>9200</code>.</p>
+    <div id="elastic_search-container" class="{% if not elastic_search.install %}hidden{% endif %}">
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Version</label></div>
+
+            {% for version in versions %}
+                <label class="radio-tile mini set-width">
+                    <input type="radio" class="invisible"
+                           name="elastic_search[settings][version]"
+                           value="{{ version }}"
+                           {% if version == selectedVersion %}checked{% endif %} />
+                    <span class="content">
+                        <span class="header">
+                            <i class="icon"></i>
+                            <span class="title">{{ version }}</span>
+                        </span>
+                    </span>
+                </label>
+            {% endfor %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="help-block">
+            <p>Elastic Search is a powerful open source search and analytics engine
+                that makes data easy to explore.</p>
+            <p><a href="http://www.elasticsearch.org/"
+                  target="_blank">Learn about Elastic Search</a>.</p>
+            <p><a href="https://github.com/elasticsearch/elasticsearch-php"
+                  target="_blank">The official Elastic Search PHP library</a>.</p>
+            <p>Elastic Search will be installed and the service will start automatically.
+                Java will also be installed if not already present on the vagrant box.
+                The default port is <code>9200</code>.</p>
+        </div>
     </div>
+
+    <div class="clearfix"></div>
 </div>

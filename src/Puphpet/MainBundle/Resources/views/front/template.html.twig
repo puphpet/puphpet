@@ -12,6 +12,7 @@
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/font-awesome-4.3.0/css/font-awesome.min.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/bootstrap-3.3.4/bootstrap-3.3.4.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/selectize.js/selectize.bootstrap3.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/v5/vendor/webui-popover/src/jquery.webui-popover.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/css/style.css') }}" />
         {% endblock %}
 
@@ -62,46 +63,21 @@
             <div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
 
             <form id="main-form" role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div id="page-header" class="section-header">
-                            <h1>Welcome to PuPHPet</h1>
-                            <p class="lead">A simple GUI to set up virtual machines for Web development.</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="tab-content" id="tab-main-container">
+                    {% include 'PuphpetMainBundle:front:sections/about.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/help.html.twig' %}
 
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="field-container">
-                            <div class="col-xs-12 tab-content" id="tab-main-container">
-                                {% include 'PuphpetMainBundle:front:index.html.twig' %}
-                                {% include 'PuphpetMainBundle:front:sections/about.html.twig' %}
-                                {% include 'PuphpetMainBundle:front:sections/help.html.twig' %}
-                            </div>
+                    {% include 'PuphpetMainBundle:front:sections/deploy-target.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/system.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/webserver.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/language.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/database.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/mail.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/work-queue.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/search-server.html.twig' %}
+                    {% include 'PuphpetMainBundle:front:sections/create.html.twig' %}
 
-                            <div class="col-xs-9 tab-content" id="tab-sections-container">
-                                {% include 'PuphpetMainBundle:front:sections/deploy-target.html.twig' %}
-                                {% include 'PuphpetMainBundle:front:sections/system.html.twig' %}
-                                {% include 'PuphpetMainBundle:front:sections/webserver.html.twig' %}
-                                {% include 'PuphpetMainBundle:front:sections/language.html.twig' %}
-                                {% include 'PuphpetMainBundle:front:sections/database.html.twig' %}
-                                {% include 'PuphpetMainBundle:front:sections/mail.html.twig' %}
-                                {% include 'PuphpetMainBundle:front:sections/work-queue.html.twig' %}
-                                {% include 'PuphpetMainBundle:front:sections/search-server.html.twig' %}
-                                {% include 'PuphpetMainBundle:front:sections/create.html.twig' %}
-                            </div>
-
-                            <div class="col-xs-3 hidden" id="help-text-container">
-                                <div id="help-text">
-                                    <h2>More Information</h2>
-                                    <div class="contents"></div>
-                                </div>
-                            </div>
-
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
+                    <div class="clearfix"></div>
                 </div>
             </form>
         {% endblock %}
@@ -152,6 +128,7 @@
         <script src="{{ asset('assets/v5/vendor/highlight-8.4/highlight.pack.js') }}"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <script src="{{ asset('assets/v5/vendor/selectize.js/selectize.min.js') }}"></script>
+        <script src="{{ asset('assets/v5/vendor/webui-popover/src/jquery.webui-popover.js') }}"></script>
         <script src="{{ asset('assets/v5/js/custom.js') }}"></script>
     {% endblock footerJs %}
 

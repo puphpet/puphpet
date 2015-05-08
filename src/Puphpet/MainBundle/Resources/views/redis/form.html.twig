@@ -1,39 +1,43 @@
 <input type="hidden" name="redis[install]" value="0" />
 
-<div class="section-header hidden">
+<div class="section-header">
     <h1>Redis</h1>
     <p class="lead">Install Redis.</p>
 </div>
 
-<div class="form-group">
-    <label class="col-xs-12 radio-tile">
-        <input type="checkbox" name="redis[install]" value="1"
-               class="invisible toggle-on-select"
-               {% if redis.install %}checked{% endif %}
-               data-vis-toggle-target="#redis-container" />
-        <span class="content">
-            <span class="header large">
-                <i class="icon"></i>
-                <span class="title">Install Redis</span>
+<div class="field-container">
+    <div class="form-group">
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="redis[install]" value="1"
+                   class="invisible toggle-on-select"
+                   {% if redis.install %}checked{% endif %}
+                   data-vis-toggle-target="#redis-container" />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Install Redis</span>
+                </span>
+                <span class="footer">
+                    An open source, advanced key-value store.
+                </span>
             </span>
-            <span class="footer">
-                An open source, advanced key-value store.
-            </span>
-        </span>
-    </label>
+        </label>
+
+        <div class="clearfix"></div>
+    </div>
 
     <div class="clearfix"></div>
-</div>
 
-<div class="clearfix"></div>
+    <div id="redis-container" class="{% if not redis.install %}hidden{% endif %}">
+        <div class="form-group col-xs-6">
+            <label for="redis-settings-conf_port">Listen Port</label>
+            <input type="text" id="redis-settings-conf_port"
+                   name="redis[settings][conf_port]"
+                   placeholder="5673" class="form-control"
+                   value="{{ redis.settings.conf_port }}" />
+        </div>
 
-<div id="redis-container" class="{% if not redis.install %}hidden{% endif %}">
-    <div class="form-group col-xs-6">
-        <label for="redis-settings-conf_port">Listen Port</label>
-        <input type="text" id="redis-settings-conf_port"
-               name="redis[settings][conf_port]"
-               placeholder="5673" class="form-control"
-               value="{{ redis.settings.conf_port }}" />
+        <div class="clearfix"></div>
     </div>
 
     <div class="clearfix"></div>

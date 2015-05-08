@@ -117,45 +117,6 @@ legend {
     margin-top: 10px;
 }
 
-.navbar {
-    z-index: 9999;
-}
-
-.navbar-default .navbar-brand {
-    margin-left: -15px;
-    padding-left: 50px;
-    background: url('../img/logo-menu.png') no-repeat 0 5px;
-    color: #276176;
-}
-
-.navbar-default .navbar-brand .colored {
-    color: #2c9ab7;
-}
-
-.navbar-default .navbar-header,
-.navbar-default .navbar-nav,
-.navbar-default .navbar-nav > li {
-    float: left !important;
-}
-
-.navbar-default .navbar-nav > li > a:hover {
-    color: #2c9ab7;
-}
-
-.navbar-default .navbar-header,
-.navbar-default .navbar-nav {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
-
-.navbar-default .navbar-right {
-    float: right !important;
-}
-
-.navbar-default .navbar-nav.navbar-right:last-child {
-    margin-right: -15px !important;
-}
-
 #main-content {
     background: url('../img/congruent_pentagon.png');
     margin-left: 205px;
@@ -173,6 +134,58 @@ legend {
 #main-form {
     min-height: 800px;
 }
+
+/*
+    navbar
+*/
+    .navbar {
+        z-index: 9999;
+    }
+
+    .navbar-default .navbar-brand {
+        margin-left: -15px;
+        padding-left: 50px;
+        background: url('../img/logo-menu.png') no-repeat 0 5px;
+        color: #276176;
+    }
+
+    .navbar-default .navbar-brand .colored {
+        color: #2c9ab7;
+    }
+
+    .navbar-default .navbar-header,
+    .navbar-default .navbar-nav,
+    .navbar-default .navbar-nav > li {
+        float: left !important;
+    }
+
+    .navbar-default .navbar-nav > li > a:hover {
+        color: #2c9ab7;
+    }
+
+    .navbar-default .navbar-header,
+    .navbar-default .navbar-nav {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .navbar-default .navbar-right {
+        float: right !important;
+    }
+
+    .navbar-default .navbar-nav.navbar-right:last-child {
+        margin-right: -15px !important;
+    }
+
+    .navbar-default .navbar-nav > .active > a,
+    .navbar-default .navbar-nav > .active > a:hover,
+    .navbar-default .navbar-nav > .active > a:focus,
+    .navbar-default .navbar-nav > li > a:hover,
+    .navbar-default .navbar-nav > li > a:focus,
+    .navbar-default .navbar-brand:hover,
+    .navbar-default .navbar-brand:focus {
+        background-color: #fff;
+    }
 
 /*
     sidebar
@@ -358,7 +371,7 @@ legend {
 
     .field-container {
         margin-bottom: 21px;
-        padding: 15px 0;
+        padding: 15px 10px;
         background-color: #fff;
         border: 1px solid #ddd;
         border-radius: 4px;
@@ -382,9 +395,8 @@ legend {
         border-left: 2px solid #2c9ab7;
     }
 
-    .field-container .help-text .form-group,
-    .field-container .help-block .form-group {
-        border-left: none;
+    .field-container .help-block {
+        color: #000;
     }
 
 /*
@@ -616,33 +628,27 @@ legend {
 /*
     help text block
 */
-    #help-text-container #help-text {
-        margin-top: 30px;
-       transition: color .5s ease-in-out;
-       -moz-transition: color .5s ease-in-out;
-       -webkit-transition: color .5s ease-in-out;
-      -o-transition: color .5s ease-in-out;
-    }
-
-    #help-text-container #help-text.affix {
-        margin-top: -150px;
-    }
-
-    #help-text-container #help-text h2 {
-        display: none;
-    }
-
-    #help-text-container #help-text .contents {
-        overflow-x: auto;
-    }
-
-    .help-block {
-        margin-left: 15px;
-        color: #000;
-    }
-
     .form-group .help-text {
         display: none;
+    }
+
+    .webui-popover {
+        min-width: 350px;
+    }
+
+    .webui-popover.top,
+    .webui-popover.top-left,
+    .webui-popover.top-right,
+    .webui-popover.right,
+    .webui-popover.right-top,
+    .webui-popover.right-bottom,
+    .webui-popover.bottom,
+    .webui-popover.bottom-left,
+    .webui-popover.bottom-right,
+    .webui-popover.left,
+    .webui-popover.left-top,
+    .webui-popover.left-bottom {
+        margin-left: 0;
     }
 
 /*
@@ -688,7 +694,7 @@ legend {
  * Ascii cast
 **/
     .asciicast-container {
-        width: 778px;
+        width: 95%;
         margin: 0 auto;
     }
 

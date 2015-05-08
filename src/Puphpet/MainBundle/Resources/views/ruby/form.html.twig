@@ -1,24 +1,26 @@
 <input type="hidden" name="ruby[install]" value="1" />
 
-<div class="section-header hidden">
+<div class="section-header">
     <h1>Ruby</h1>
     <p class="lead">Configure Ruby versions and gems.</p>
 </div>
 
-<input type="hidden" name="ruby[install]" value="1" />
+<div class="field-container">
+    <div class="help-block">
+        <p>Ruby 1.9.3 is already installed in PuPHPet boxes using RVM.
+            It is set as the system default version.</p>
+        <p>To add Gems to the installed 1.9.3, choose it from the list below.</p>
+        <p>Choosing to install a lower version and setting it as default may
+            break things, so proceed with caution.</p>
+    </div>
 
-<div class="help-block">
-    <p>Ruby 1.9.3 is already installed in PuPHPet boxes using RVM.
-        It is set as the system default version.</p>
-    <p>To add Gems to the installed 1.9.3, choose it from the list below.</p>
-    <p>Choosing to install a lower version and setting it as default may
-        break things, so proceed with caution.</p>
+    {% for selected_version in ruby.versions %}
+        {% include 'PuphpetMainBundle:ruby/sections:version.html.twig' with {
+            'available_versions': ruby.available.versions, 'selected_version': selected_version} %}
+    {% endfor %}
+
+    <a href="#" data-source-url="{{ path('puphpet.ruby.add_version') }}"
+       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another Ruby version</a>
+
+    <div class="clearfix"></div>
 </div>
-
-{% for selected_version in ruby.versions %}
-    {% include 'PuphpetMainBundle:ruby/sections:version.html.twig' with {
-        'available_versions': ruby.available.versions, 'selected_version': selected_version} %}
-{% endfor %}
-
-<a href="#" data-source-url="{{ path('puphpet.ruby.add_version') }}"
-   class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another Ruby version</a>
