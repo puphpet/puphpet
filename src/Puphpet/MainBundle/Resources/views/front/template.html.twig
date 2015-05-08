@@ -12,7 +12,7 @@
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/font-awesome-4.3.0/css/font-awesome.min.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/bootstrap-3.3.4/bootstrap-3.3.4.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/selectize.js/selectize.bootstrap3.css') }}" />
-            <link rel="stylesheet" href="{{ asset('assets/v5/vendor/webui-popover/src/jquery.webui-popover.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/v5/vendor/webui-popover/jquery.webui-popover.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/css/style.css') }}" />
         {% endblock %}
 
@@ -64,6 +64,7 @@
 
             <form id="main-form" role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
                 <div class="tab-content" id="tab-main-container">
+                    {% include 'PuphpetMainBundle:front:index.html.twig' %}
                     {% include 'PuphpetMainBundle:front:sections/about.html.twig' %}
                     {% include 'PuphpetMainBundle:front:sections/help.html.twig' %}
 
@@ -128,7 +129,7 @@
         <script src="{{ asset('assets/v5/vendor/highlight-8.4/highlight.pack.js') }}"></script>
         <script>hljs.initHighlightingOnLoad();</script>
         <script src="{{ asset('assets/v5/vendor/selectize.js/selectize.min.js') }}"></script>
-        <script src="{{ asset('assets/v5/vendor/webui-popover/src/jquery.webui-popover.js') }}"></script>
+        <script src="{{ asset('assets/v5/vendor/webui-popover/jquery.webui-popover.js') }}"></script>
         <script src="{{ asset('assets/v5/js/custom.js') }}"></script>
     {% endblock footerJs %}
 
