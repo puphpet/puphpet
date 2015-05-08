@@ -128,6 +128,11 @@ Vagrant.configure('2') do |config|
 
       virtualbox.customize ['modifyvm', :id, '--memory', "#{data['vm']['memory']}"]
       virtualbox.customize ['modifyvm', :id, '--cpus', "#{data['vm']['cpus']}"]
+      
+      if !data['vm']['provider']['virtualbox']['showgui'].nil? &&
+        data['vm']['provider']['virtualbox']['showgui'].to_i == 1
+        virtualbox.gui = true
+      end
 
       if data['vm']['provider']['virtualbox']['modifyvm']['name'].nil? ||
         data['vm']['provider']['virtualbox']['modifyvm']['name'].empty?

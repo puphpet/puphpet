@@ -6,7 +6,8 @@ vm:
     hostname: local.puphpet
     chosen_provider: virtualbox
     provider:
-        virtualbox: []
+        virtualbox: 
+            showgui: 0
         vmware: []
         parallels: []
     synced_folder:
