@@ -96,6 +96,19 @@ class FrontController extends Controller
         return $response;
     }
 
+    public function downloadPuppetModulesAction()
+    {
+        $manager = $this->get('puphpet.extension.manager');
+        $archive = $manager->getPuppetModules();
+
+        $response = new Response;
+        $response->headers->set('Content-type', 'application/octet-stream');
+        $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', 'puphpet.zip'));
+        $response->setContent(file_get_contents($archive));
+
+        return $response;
+    }
+
     public function aboutAction()
     {
         return $this->redirect('/#about');

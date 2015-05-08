@@ -116,6 +116,18 @@ class Manager
     }
 
     /**
+     * @return string
+     */
+    public function getPuppetModules()
+    {
+        $this->archive = new Extension\Archive('puphpet/puppet/modules');
+
+        $this->archive->write();
+
+        return $this->archive->zip();
+    }
+
+    /**
      * Accepts custom data for all possible extensions
      *
      * @param array $data
