@@ -802,6 +802,16 @@ PUPHPET.disableEnterSubmit = function() {
     });
 };
 
+PUPHPET.bootstrapNotify = function() {
+    $('.growl-alert').each(function() {
+        new PNotify({
+            title: this.getAttribute('data-title'),
+            text: $(this).html(),
+            type: this.getAttribute('data-type')
+        });
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -820,6 +830,7 @@ $(document).ready(function() {
     PUPHPET.toggleDisplayOnSelect();
     PUPHPET.uploadConfig();
     PUPHPET.disableEnterSubmit();
+    PUPHPET.bootstrapNotify();
 });
 
 /**

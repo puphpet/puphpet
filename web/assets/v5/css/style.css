@@ -721,6 +721,10 @@ legend {
     padding: 10px;
 }
 
+.growl-alert {
+    display: none;
+}
+
 @media (min-width: 768px) {
     .modal-dialog {
         margin: 75px auto;
