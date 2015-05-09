@@ -72,9 +72,6 @@ mod 'puppetlabs/rabbitmq',
 mod 'puphpet/redis',
     :git => 'https://github.com/puphpet/puppet-redis.git',
     :ref => 'd9b3b23b0c'
-mod 'puppet/resolvconf',
-    :git => 'https://github.com/thias/puppet-resolvconf.git',
-    :ref => '5bf752b84b'
 mod 'maestrodev/rvm'
 mod 'example42/solr',
     :git => 'https://github.com/example42/puppet-solr.git',

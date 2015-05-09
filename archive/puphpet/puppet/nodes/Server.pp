@@ -178,15 +178,3 @@ if $::osfamily == 'debian' {
 
   create_resources('class', { 'locales' => $locales_settings_merged })
 }
-
-# Set to Google's DNS
-if $::operatingsystem == 'ubuntu' {
-  $resolve_conf_file = '/run/resolvconf/resolv.conf'
-} else {
-  $resolve_conf_file = '/etc/resolv.conf'
-}
-
-resolvconf::file { $resolve_conf_file:
-  header     => 'This file is managed by Puppet, do not edit',
-  nameserver => [ '8.8.8.8', '8.8.4.4' ],
-}
