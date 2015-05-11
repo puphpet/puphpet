@@ -12,7 +12,7 @@ var PUPHPET = {};
  * Loops through all data-* type attributes of element
  */
 PUPHPET.updateOtherInput = function() {
-    $(document).on('click', '.update-other-input', function(e){
+    $(document).on('click, change', '.update-other-input', function(e){
         var $parent = $(this);
 
         $.each($(this).data(), function(key, value) {
@@ -138,7 +138,7 @@ PUPHPET.updateOtherInputSelect = function() {
  * When element is checked, changes value of target
  */
 PUPHPET.updateOtherInputOnCheck = function() {
-    $(document).on('click', '.update-other-input-on-check', function(e){
+    $(document).on('click, change', '.update-other-input-on-check', function(e){
         var $parent = $(this);
 
         if (!$parent.is(':checked')) {
