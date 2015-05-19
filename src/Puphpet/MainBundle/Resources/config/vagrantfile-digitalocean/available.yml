@@ -17,7 +17,7 @@ images:
             - HHVM
     -
         image: ubuntu-14-10-x64
-        long_name: Ubuntu Trusty 14.10 LTS x64
+        long_name: Ubuntu Utopic 14.10 x64
         php_versions:
             - 7.0
             - 5.6
