@@ -729,6 +729,10 @@ legend {
     display: none;
 }
 
+.ui-pnotify {
+    width: 500px !important;
+}
+
 @media (min-width: 768px) {
     .modal-dialog {
         margin: 75px auto;

@@ -33,7 +33,7 @@
 {% for messageType, innerMessages in messages %}
     {% for messageIndex, message in innerMessages %}
         <div class="growl-alert" data-title="{{ message.title }}" data-type="{{ messageType }}">
-            {{ message.content }}
+            {{ message.content|raw }}
         </div>
     {% endfor %}
 {% endfor %}
