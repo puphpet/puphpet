@@ -103,6 +103,7 @@ if array_true($php_values, 'install') {
     if ! defined(Puphpet::Php::Module[$name]) {
       puphpet::php::module { $name:
         service_autorestart => true,
+        notify              => Service[$php_service],
       }
     }
   }
@@ -111,6 +112,7 @@ if array_true($php_values, 'install') {
     if ! defined(Puphpet::Php::Pear[$name]) {
       puphpet::php::pear { $name:
         service_autorestart => true,
+        notify              => Service[$php_service],
       }
     }
   }
@@ -125,6 +127,7 @@ if array_true($php_values, 'install') {
     if ! defined(Puphpet::Php::Pecl[$name]) {
       puphpet::php::pecl { $name:
         service_autorestart => true,
+        notify              => Service[$php_service],
       }
     }
   }
@@ -140,7 +143,8 @@ if array_true($php_values, 'install') {
           entry       => "CUSTOM_${innerkey}/${key}",
           value       => $innervalue,
           php_version => $php_version,
-          webserver   => $php_service
+          webserver   => $php_service,
+          notify      => Service[$php_service],
         }
       }
     } else {
@@ -148,7 +152,8 @@ if array_true($php_values, 'install') {
         entry       => "CUSTOM/${key}",
         value       => $value,
         php_version => $php_version,
-        webserver   => $php_service
+        webserver   => $php_service,
+        notify      => Service[$php_service],
       }
     }
   }
@@ -214,7 +219,8 @@ if array_true($php_values, 'install') {
       entry       => 'CUSTOM/sendmail_path',
       value       => "${mc_path}/catchmail${mailcatcher_f_flag}",
       php_version => $php_version,
-      webserver   => $php_service
+      webserver   => $php_service,
+      notify      => Service[$php_service],
     }
   }
 }
