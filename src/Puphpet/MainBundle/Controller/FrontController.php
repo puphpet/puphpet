@@ -96,9 +96,7 @@ class FrontController extends Controller
                 )
             ]);
 
-            $request->setMethod('GET');
-
-            return $this->indexAction($request);
+            return new RedirectResponse($this->generateUrl('puphpet.main.homepage'));
         }
     }
 
