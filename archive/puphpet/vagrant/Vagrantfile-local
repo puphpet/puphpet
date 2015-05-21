@@ -12,6 +12,10 @@ Vagrant.configure('2') do |config|
   if data['vm']['network']['private_network'].to_s != ''
     config.vm.network 'private_network', ip: "#{data['vm']['network']['private_network']}"
   end
+  
+  if data['vm']['network']['public_network'].to_s != ''
+    config.vm.network 'public_network', ip: "#{data['vm']['network']['public_network']}"
+  end
 
   data['vm']['network']['forwarded_port'].each do |i, port|
     if port['guest'] != '' && port['host'] != ''
