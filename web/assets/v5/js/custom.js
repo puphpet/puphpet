@@ -347,11 +347,7 @@ PUPHPET.sidebarMenuClick = function() {
  * Handles displaying section help information
  */
 PUPHPET.helpTextDisplay = function() {
-    $(document).on(
-        'mouseenter',
-        '.field-container .form-group, .field-container .form-group .radio-tile',
-        function (e)
-    {
+    $('.field-container .form-group, .field-container .form-group .radio-tile').each(function() {
         if ($(this).has('> .help-text').length == 0) {
             return;
         }
@@ -363,8 +359,8 @@ PUPHPET.helpTextDisplay = function() {
             content: $helpText.html(),
             trigger: 'hover',
             delay: {
-                show: 150,
-                hide: 100
+                show: 500,
+                hide: 200
             },
             constrains: 'vertical',
             cache: true,
@@ -374,8 +370,6 @@ PUPHPET.helpTextDisplay = function() {
             padding: true,
             type: 'html'
         });
-
-        $(this).webuiPopover('show');
     });
 };
 
