@@ -240,6 +240,7 @@ legend {
         font-size: 14px;
         color: #737B83;
         padding: 0 0 0 32px;
+        border-bottom-color: #eee;
         line-height: 35px;
         height: 35px;
         transition: all 0.3s ease;
@@ -275,7 +276,7 @@ legend {
         font-weight: 300;
         outline: none;
         transition: all 0.3s ease;
-        border-bottom: 1px solid #D7D7D7;
+        border-bottom: 1px solid #fff;
         overflow:hidden;
     }
 
@@ -390,9 +391,9 @@ legend {
         border-left: 2px solid transparent;
     }
 
-    .field-container .form-group:hover,
-    .field-container .form-group:focus {
-        border-left: 2px solid #2c9ab7;
+    .field-container .form-group:hover label,
+    .field-container .form-group:focus label {
+        color: #2c9ab7;
     }
 
     .field-container .help-block {
