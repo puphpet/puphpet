@@ -10,8 +10,8 @@ mod 'puphpet/beanstalkd',
     :git => 'https://github.com/puphpet/puppet-beanstalkd.git',
     :ref => '5a530ff'
 mod 's12v/blackfire',
-    :git => 'https://github.com/s12v/puppet-blackfire.git',
-    :ref => 'e43bab6'
+    :git => 'https://github.com/puphpet/puppet-blackfire.git',
+    :ref => 'cb938a5'
 mod 'tPl0ch/composer',
     :git => 'https://github.com/puphpet/puppet-composer.git',
     :ref => 'c4f9478'
