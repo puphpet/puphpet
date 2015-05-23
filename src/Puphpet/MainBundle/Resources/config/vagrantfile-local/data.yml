@@ -15,6 +15,7 @@ vm:
         virtualbox:
             modifyvm:
                 natdnshostresolver1: on
+            showgui: ~
         vmware:
             numvcpus: 1
         parallels:
