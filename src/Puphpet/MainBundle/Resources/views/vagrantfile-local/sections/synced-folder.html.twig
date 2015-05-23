@@ -12,6 +12,9 @@
     {% set sync_type = 'default' %}
 {% endif %}
 
+{% set smb_host = synced_folder.smb.smb_host is defined  ? synced_folder.smb.smb_host : '' %}
+{% set smb_username = synced_folder.smb.smb_username is defined  ? synced_folder.smb.smb_username : '' %}
+{% set smb_password = synced_folder.smb.smb_password is defined  ? synced_folder.smb.smb_password : '' %}
 {% set rsync_auto = (synced_folder.rsync.auto is not defined or synced_folder.rsync.auto == 'true') ? 'true' : 'false' %}
 {% set rsync_args = (synced_folder.rsync.args is defined and synced_folder.rsync.args is iterable) ? synced_folder.rsync.args : {} %}
 {% set rsync_exclude = (synced_folder.rsync.exclude is defined and synced_folder.rsync.exclude is iterable) ? synced_folder.rsync.exclude : {} %}
@@ -53,7 +56,7 @@
                    value="{{ synced_folder.target }}" />
         </div>
 
-        <div class="clearfix">
+        <div class="clearfix"></div>
 
         <div class="form-group">
             <div class="clearfix"><label>Shared Folder Type</label></div>
@@ -68,7 +71,7 @@
                        class="invisible hide-on-select"
                        {% if sync_type == 'default' %}checked{% endif %}
                        value="default"
-                       data-vis-hide-target="#rsync-folder-options-{{ uniqid }}" />
+                       data-vis-hide-target="#rsync-folder-options-{{ uniqid }}, #smb-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
                         <i class="icon"></i>
@@ -92,7 +95,7 @@
                        class="invisible hide-on-select"
                        {% if sync_type == 'nfs' %}checked{% endif %}
                        value="nfs"
-                       data-vis-hide-target="#rsync-folder-options-{{ uniqid }}" />
+                       data-vis-hide-target="#rsync-folder-options-{{ uniqid }}, #smb-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
                         <i class="icon"></i>
@@ -108,9 +111,10 @@
                        target="_blank">More information</a>.
                 </span>
                 <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
-                       class="invisible hide-on-select"
+                       class="invisible show-on-select hide-on-select"
                        {% if sync_type == 'smb' %}checked{% endif %}
                        value="smb"
+                       data-vis-show-target="#smb-folder-options-{{ uniqid }}"
                        data-vis-hide-target="#rsync-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
@@ -133,10 +137,11 @@
                     and add it to your <code>PATH</code>.
                 </span>
                 <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
-                       class="invisible show-on-select"
+                       class="invisible show-on-select hide-on-select"
                        {% if sync_type == 'rsync' %}checked{% endif %}
                        value="rsync"
-                       data-vis-show-target="#rsync-folder-options-{{ uniqid }}" />
+                       data-vis-show-target="#rsync-folder-options-{{ uniqid }}"
+                       data-vis-hide-target="#smb-folder-options-{{ uniqid }}" />
                 <span class="content">
                     <span class="header">
                         <i class="icon"></i>
@@ -144,6 +149,51 @@
                     </span>
                 </span>
             </label>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div id="smb-folder-options-{{ uniqid }}" class="hidden">
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    The host IP where the SMB mount is located. If this isn't specified,
+                    Vagrant will attempt to determine this automatically.
+                </div>
+                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_host">SMB Host</label>
+                <input type="text" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_host"
+                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][smb_host]"
+                       placeholder="" class="form-control"
+                       value="{{ smb_host }}" />
+            </div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    The username used for authentication to mount the SMB mount. This is the username to access
+                    the mount, <em>not</em> the username of the account where the folder is being mounted to. This is
+                    usually your Windows username. If this isn't specified, Vagrant will prompt you for it.
+                </div>
+                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_host">SMB Username</label>
+                <input type="text" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_username"
+                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][smb_username]"
+                       placeholder="" class="form-control"
+                       value="{{ smb_username }}" />
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    The password used for authentication to mount the SMB mount. This is the password for the
+                    username specified by <code>smb_username</code>. If this is not specified, Vagrant will
+                    prompt you for it. It is highly recommended that you do not set this, since it would
+                    expose your password directly in your <code>config.yaml</code>.
+                </div>
+                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_password">SMB Username</label>
+                <input type="text" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_password"
+                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][smb_password]"
+                       placeholder="" class="form-control"
+                       value="{{ smb_password }}" />
+            </div>
 
             <div class="clearfix"></div>
         </div>
