@@ -133,6 +133,12 @@ legend {
 #main-form {
 }
 
+.next-section {
+    font-size: 2em;
+    padding: 1em;
+    margin: 20px 0;
+}
+
 /*
     navbar
 */
@@ -359,9 +365,19 @@ legend {
 /*
     tabs
 */
-#main-form .tab-content > .tab-pane {
-    box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
-}
+    #main-form .tab-content > .tab-pane {
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+    }
+
+    .nested-tab > .tab-pane {
+        padding-top: 5px;
+        margin-top: 10px;
+    }
+
+    .nested-tab .help-block {
+        margin: 0 10px;
+        padding-bottom: 10px;
+    }
 
 /*
     forms

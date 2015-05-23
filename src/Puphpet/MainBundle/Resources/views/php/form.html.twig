@@ -324,23 +324,36 @@
 
         <div class="clearfix"></div>
 
-        <div class="col-xs-12 tab-content">
+        <div class="col-xs-12 tab-content nested-tab">
             <div class="tab-pane active" id="xdebug">
                 {% include 'PuphpetMainBundle:xdebug:form.html.twig' with { 'xdebug': xdebug } %}
             </div>
-            <div class="tab-pane" id="blackfire">
+            <div class="tab-pane nested-tab" id="blackfire">
                 {% include 'PuphpetMainBundle:blackfire:form.html.twig' with { 'blackfire': blackfire } %}
             </div>
-            <div class="tab-pane" id="xhprof">
+            <div class="tab-pane nested-tab" id="xhprof">
                 {% include 'PuphpetMainBundle:xhprof:form.html.twig' with { 'xhprof': xhprof } %}
             </div>
-            <div class="tab-pane" id="wpcli">
+            <div class="tab-pane nested-tab" id="wpcli">
                 {% include 'PuphpetMainBundle:wpcli:form.html.twig' with { 'wpcli': wpcli } %}
             </div>
-            <div class="tab-pane" id="drush">
+            <div class="tab-pane nested-tab" id="drush">
                 {% include 'PuphpetMainBundle:drush:form.html.twig' with { 'drush': drush } %}
             </div>
         </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#apache">
+            <i class="fa fa-hand-o-left"></i> Apache
+        </a>
+    </div>
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#ruby">
+            Ruby <i class="fa fa-hand-o-right"></i>
+        </a>
     </div>
 
     <div class="clearfix"></div>
