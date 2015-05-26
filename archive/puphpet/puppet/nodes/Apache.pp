@@ -1,35 +1,32 @@
-if $yaml_values == undef { $yaml_values = merge_yaml('/vagrant/puphpet/config.yaml', '/vagrant/puphpet/config-custom.yaml') }
-if $apache_values == undef { $apache_values = $yaml_values['apache'] }
-if $php_values == undef { $php_values = hiera_hash('php', false) }
-if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
+class puphpet_apache (
+  $apache,
+  $php,
+  $hhvm
+) {
 
-include puphpet::params
-include puphpet::apache::params
-
-if array_true($apache_values, 'install') {
+  include ::puphpet::apache::params
   include ::apache::params
 
   class { 'puphpet::apache::repo': }
 
+  # this variable is required by apache module templates
   $apache_version = '2.4'
-  $apache_modules = delete($apache_values['modules'], ['pagespeed', 'ssl'])
+  $modules = delete($apache['modules'], ['pagespeed', 'ssl'])
 
-  if array_true($php_values, 'install') {
+  if array_true($php, 'install') {
     $php_engine    = true
     $php_fcgi_port = '9000'
-  } elsif array_true($hhvm_values, 'install') {
+  } elsif array_true($hhvm, 'install') {
     $php_engine    = true
-    $php_fcgi_port = array_true($hhvm_values['server_ini'], 'hhvm.server.port') ? {
-      true    => $hhvm_values['server_ini']['hhvm.server.port'],
+    $php_fcgi_port = array_true($hhvm['server_ini'], 'hhvm.server.port') ? {
+      true    => $hhvm['server_ini']['hhvm.server.port'],
       default => '9000'
     }
   } else {
     $php_engine    = false
   }
 
-  $mpm_module = 'worker'
-
-  $sethandler_string = $php_engine ? {
+  $sethandler = $php_engine ? {
     true    => "proxy:fcgi://127.0.0.1:${php_fcgi_port}",
     default => 'default-handler'
   }
@@ -52,20 +49,20 @@ if array_true($apache_values, 'install') {
     ],
   }
 
-  $sendfile = array_true($apache_values['settings'], 'sendfile') ? {
+  $sendfile = array_true($apache['settings'], 'sendfile') ? {
     true    => 'On',
     default => 'Off'
   }
 
-  $apache_settings = merge($apache_values['settings'], {
+  $settings = merge($apache['settings'], {
     'default_vhost'  => false,
-    'mpm_module'     => $mpm_module,
+    'mpm_module'     => 'worker',
     'conf_template'  => $::apache::params::conf_template,
     'sendfile'       => $sendfile,
     'apache_version' => $apache_version
   })
 
-  create_resources('class', { 'apache' => $apache_settings })
+  create_resources('class', { 'apache' => $settings })
 
   if $php_engine {
     $default_vhost_directories = {'default' => {
@@ -77,7 +74,7 @@ if array_true($apache_values, 'install') {
       'files_match'     => {'php_match' => {
         'provider'   => 'filesmatch',
         'path'       => '\.php$',
-        'sethandler' => $sethandler_string,
+        'sethandler' => $sethandler,
       }},
       'custom_fragment' => '',
     }}
@@ -93,8 +90,8 @@ if array_true($apache_values, 'install') {
     }}
   }
 
-  if array_true($apache_values['settings'], 'default_vhost') {
-    $apache_default_vhosts = {
+  if array_true($apache['settings'], 'default_vhost') {
+    $default_vhosts = {
       'default_vhost_80'  => {
         'servername'    => 'default',
         'docroot'       => $puphpet::apache::params::default_vhost_dir,
@@ -112,16 +109,16 @@ if array_true($apache_values, 'install') {
       },
     }
   } else {
-    $apache_default_vhosts = {}
+    $default_vhosts = {}
   }
 
   # config file could contain no vhosts key
-  $apache_vhosts_merged = array_true($apache_values, 'vhosts') ? {
-    true    => merge($apache_values['vhosts'], $apache_default_vhosts),
-    default => $apache_default_vhosts,
+  $vhosts_merged = array_true($apache, 'vhosts') ? {
+    true    => merge($apache['vhosts'], $default_vhosts),
+    default => $default_vhosts,
   }
 
-  each( $apache_vhosts_merged ) |$key, $vhost| {
+  each( $vhosts_merged ) |$key, $vhost| {
     exec { "exec mkdir -p ${vhost['docroot']} @ key ${key}":
       command => "mkdir -m 775 -p ${vhost['docroot']}",
       user    => $webroot_user,
@@ -210,16 +207,16 @@ if array_true($apache_values, 'install') {
     }
   }
 
-  if ('proxy_fcgi' in $apache_values['modules']) {
+  if ('proxy_fcgi' in $apache['modules']) {
     include puphpet::apache::proxy_fcgi
   }
 
   # mod_pagespeed needs some extra love
-  if 'pagespeed' in $apache_values['modules'] {
+  if 'pagespeed' in $apache['modules'] {
     class { 'puphpet::apache::modpagespeed': }
   }
 
-  each( $apache_modules ) |$module| {
+  each( $modules ) |$module| {
     if ! defined(Apache::Mod[$module]) {
       apache::mod { $module: }
     }
@@ -246,4 +243,5 @@ if array_true($apache_values, 'install') {
     creates => '/.puphpet-stuff/default_vhost_index_file_set',
     require => Exec['Create apache webroot'],
   }
+
 }

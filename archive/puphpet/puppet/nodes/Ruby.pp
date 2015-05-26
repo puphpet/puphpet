@@ -1,15 +1,15 @@
-if $ruby_values == undef { $ruby_values = hiera_hash('ruby', false) }
+class puphpet_ruby (
+  $ruby
+) {
 
-include puphpet::params
+  User <| title == $::ssh_username |> {
+    groups +> 'rvm'
+  }
 
-User <| title == $::ssh_username |> {
-  groups +> 'rvm'
-}
+  if array_true($ruby, 'versions') and count($ruby['versions']) > 0 {
+    puphpet::ruby::dotfile { 'do': }
 
-if array_true($ruby_values, 'versions')
-  and count($ruby_values['versions']) > 0
-{
-  puphpet::ruby::dotfile { 'do': }
+    create_resources(puphpet::ruby::install, $ruby['versions'])
+  }
 
-  create_resources(puphpet::ruby::install, $ruby_values['versions'])
 }

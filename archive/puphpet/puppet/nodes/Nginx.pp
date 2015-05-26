@@ -1,11 +1,7 @@
-if $yaml_values == undef { $yaml_values = merge_yaml('/vagrant/puphpet/config.yaml', '/vagrant/puphpet/config-custom.yaml') }
-if $nginx_values == undef { $nginx_values = $yaml_values['nginx'] }
-if $php_values == undef { $php_values = hiera_hash('php', false) }
-if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
+class puphpet_nginx (
+  $nginx
+) {
 
-include puphpet::params
-
-if hash_key_equals($nginx_values, 'install', 1) {
   include nginx::params
 
   Class['puphpet::ssl_cert']
@@ -40,21 +36,20 @@ if hash_key_equals($nginx_values, 'install', 1) {
   }
 
   # Merges into empty array for now
-  $nginx_settings = delete(merge({},
-    $nginx_values['settings']
+  $settings = delete(merge({},
+    $nginx['settings']
   ), 'default_vhost')
 
-  create_resources('class', { 'nginx' => $nginx_settings })
+  create_resources('class', { 'nginx' => $settings })
 
-  $nginx_upstreams = merge({}, $nginx_values['upstreams'])
+  $upstreams = merge({}, $nginx['upstreams'])
 
-  each( $nginx_upstreams ) |$key, $upstream| {
-    $upstream_name = $upstream['name']
-
-    $upstream_merged = delete($upstream, ['name'])
+  each( $upstreams ) |$key, $upstream| {
+    $name   = $upstream['name']
+    $merged = delete($upstream, ['name'])
 
     create_resources(nginx::resource::upstream, {
-      "${upstream_name}" => $upstream_merged
+      "${name}" => $merged
     })
 
     each( $upstream['members'] ) |$key, $member| {
@@ -68,12 +63,12 @@ if hash_key_equals($nginx_values, 'install', 1) {
     }
   }
 
-  $nginx_proxies = array_true($proxy, 'proxies') ? {
+  $proxies = array_true($proxy, 'proxies') ? {
     true    => $proxy['proxies'],
     default => [],
   }
 
-  each( $nginx_proxies ) |$key, $proxy| {
+  each( $proxies ) |$key, $proxy| {
     $proxy_redirect = array_true($proxy, 'proxy_redirect') ? {
       true    => $proxy['proxy_redirect'],
       default => undef,
@@ -107,7 +102,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
       default => undef,
     }
 
-    $proxy_merged = merge($proxy, {
+    $merged = merge($proxy, {
       'proxy_redirect'        => $proxy_redirect,
       'proxy_read_timeout'    => $proxy_read_timeout,
       'proxy_connect_timeout' => $proxy_connect_timeout,
@@ -118,12 +113,12 @@ if hash_key_equals($nginx_values, 'install', 1) {
       'proxy_set_body'        => $proxy_set_body,
     })
 
-    create_resources(nginx::resource::vhost, { "${key}" => $proxy_merged })
+    create_resources(nginx::resource::vhost, { "${key}" => $merged })
   }
 
   # Creates a default vhost entry if user chose to do so
-  if hash_key_equals($nginx_values['settings'], 'default_vhost', 1) {
-    $nginx_vhosts = merge($nginx_values['vhosts'], {
+  if array_true($nginx['settings'], 'default_vhost') {
+    $vhosts = merge($nginx['vhosts'], {
       '_'       => {
         'server_name'          => '_',
         'server_aliases'       => [],
@@ -174,10 +169,10 @@ if hash_key_equals($nginx_values, 'install', 1) {
       }
     }
   } else {
-    $nginx_vhosts = $nginx_values['vhosts']
+    $vhosts = $nginx['vhosts']
   }
 
-  each( $nginx_vhosts ) |$key, $vhost| {
+  each( $vhosts ) |$key, $vhost| {
     exec { "exec mkdir -p ${vhost['www_root']} @ key ${key}":
       command => "mkdir -p ${vhost['www_root']}",
       user    => $webroot_user,
@@ -246,7 +241,7 @@ if hash_key_equals($nginx_values, 'install', 1) {
     )
 
     # puppet-nginx is stupidly strict about ssl value datatypes
-    $vhost_merged = delete(merge($vhost_cfg_append, {
+    $merged = delete(merge($vhost_cfg_append, {
       'server_name'          => $server_names,
       'use_default_location' => false,
       'ssl'                  => $ssl,
@@ -258,15 +253,15 @@ if hash_key_equals($nginx_values, 'install', 1) {
       'rewrite_to_https'     => $rewrite_to_https,
     }), ['server_aliases', 'proxy', 'locations'])
 
-    create_resources(nginx::resource::vhost, { "${key}" => $vhost_merged })
+    create_resources(nginx::resource::vhost, { "${key}" => $merged })
 
     # config file could contain no vhost.locations key
-    $nginx_locations = array_true($vhost, 'locations') ? {
+    $locations = array_true($vhost, 'locations') ? {
       true    => $vhost['locations'],
       default => { }
     }
 
-    each( $nginx_locations ) |$lkey, $location| {
+    each( $locations ) |$lkey, $location| {
       if $location['autoindex'] or $location['autoindex'] == 'on' {
         $autoindex = 'on'
       } else {
@@ -339,4 +334,5 @@ if hash_key_equals($nginx_values, 'install', 1) {
     creates => '/.puphpet-stuff/default_vhost_index_file_set',
     require => File[$puphpet::params::nginx_webroot_location],
   }
+
 }

@@ -1,10 +1,9 @@
-if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
+class puphpet_hhvm (
+  $hhvm
+) {
 
-include puphpet::params
-
-if hash_key_equals($hhvm_values, 'install', 1) {
   class { 'puphpet::hhvm':
-    nightly => $hhvm_values['nightly'],
+    nightly => $hhvm['nightly'],
   }
 
   if ! defined(Group['hhvm']) {
@@ -45,54 +44,53 @@ if hash_key_equals($hhvm_values, 'install', 1) {
     ],
   }
 
-  $hhvm_server_ini_file = '/etc/hhvm/php.ini'
+  $server_ini = '/etc/hhvm/server.ini'
 
   # config file could contain no server_ini key
-  $hhvm_server_inis = array_true($hhvm_values, 'server_ini') ? {
-    true    => $hhvm_values['server_ini'],
+  $server_inis = array_true($hhvm, 'server_ini') ? {
+    true    => $hhvm['server_ini'],
     default => { }
   }
 
-  each( $hhvm_server_inis ) |$key, $value| {
+  each( $server_inis ) |$key, $value| {
     $changes = [ "set '${key}' '${value}'" ]
 
     augeas { "${key}: ${value}":
       lens    => 'PHP.lns',
-      incl    => $hhvm_server_ini_file,
-      context => "/files${hhvm_server_ini_file}/.anon",
+      incl    => $server_ini,
+      context => "/files${server_ini}/.anon",
       changes => $changes,
       notify  => Service['hhvm'],
       require => Package['hhvm'],
     }
   }
 
-  $hhvm_php_ini_file = '/etc/hhvm/php.ini'
+  $php_ini = '/etc/hhvm/php.ini'
 
   # config file could contain no php_ini key
-  $hhvm_php_inis = array_true($hhvm_values, 'php_ini') ? {
-    true    => $hhvm_values['php_ini'],
+  $php_inis = array_true($hhvm, 'php_ini') ? {
+    true    => $hhvm['php_ini'],
     default => { }
   }
 
-  each( $hhvm_php_inis ) |$key, $value| {
+  each( $php_inis ) |$key, $value| {
     $changes = [ "set '${key}' '${value}'" ]
 
     augeas { "${key}: ${value}":
       lens    => 'PHP.lns',
-      incl    => $hhvm_php_ini_file,
-      context => "/files${hhvm_php_ini_file}/.anon",
+      incl    => $php_ini,
+      context => "/files${php_ini}/.anon",
       changes => $changes,
       notify  => Service['hhvm'],
       require => Package['hhvm'],
     }
   }
 
-  if hash_key_equals($hhvm_values, 'composer', 1)
-    and ! defined(Class['puphpet::php::composer'])
-  {
+  if array_true($hhvm, 'composer') and ! defined(Class['puphpet::php::composer']) {
     class { 'puphpet::php::composer':
       php_package   => 'hhvm',
-      composer_home => $hhvm_values['composer_home'],
+      composer_home => $hhvm['composer_home'],
     }
   }
+
 }

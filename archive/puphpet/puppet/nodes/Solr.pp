@@ -1,9 +1,10 @@
-if $solr_values == undef { $solr_values = hiera_hash('solr', false) }
+class puphpet_solr (
+  $solr
+) {
 
-include solr::params
+  include solr::params
 
-if hash_key_equals($solr_values, 'install', 1) {
-  $solr_settings = $solr_values['settings']
+  $settings = $solr['settings']
 
   exec { 'create solr conf dir':
     command => "mkdir -p ${solr::params::config_dir}",
@@ -17,36 +18,36 @@ if hash_key_equals($solr_values, 'install', 1) {
     }
   }
 
-  $solr_version = $solr_settings['version']
-  $solr_source_url = 'http://archive.apache.org/dist/lucene/solr'
-  $solr_source_file = "${solr_version}/solr-${solr_version}.tgz"
+  $version = $settings['version']
+  $url     = 'http://archive.apache.org/dist/lucene/solr'
+  $file    = "${version}/solr-${version}.tgz"
 
   class { 'solr':
     install        => 'source',
-    install_source => "${solr_source_url}/${solr_source_file}",
+    install_source => "${url}/${file}",
     require        => [
       Exec['create solr conf dir'],
       Class['java']
     ],
   }
 
-  if ! defined(Puphpet::Firewall::Port[$solr_settings['port']]) {
-    puphpet::firewall::port { $solr_settings['port']: }
+  if ! defined(Puphpet::Firewall::Port[$settings['port']]) {
+    puphpet::firewall::port { $settings['port']: }
   }
 
-  $solr_destination = $solr::params::install_destination
-
-  $solr_path = "${solr_destination}/solr-${solr_version}/bin"
+  $destination = $solr::params::install_destination
+  $path        = "${destination}/solr-${version}/bin"
 
   supervisord::program { 'solr':
-    command     => "${solr_path}/solr start -p ${solr_settings['port']}",
+    command     => "${path}/solr start -p ${settings['port']}",
     priority    => '100',
     user        => 'root',
     autostart   => true,
     autorestart => 'true',
     environment => {
-      'PATH' => "/bin:/sbin:/usr/bin:/usr/sbin:${solr_path}"
+      'PATH' => "/bin:/sbin:/usr/bin:/usr/sbin:${path}"
     },
     require     => Class['solr'],
   }
+
 }
