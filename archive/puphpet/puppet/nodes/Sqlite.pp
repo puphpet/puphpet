@@ -50,16 +50,23 @@ class puphpet_sqlite(
     and $php_package
     and ! defined(Class['puphpet::adminer'])
   {
+    $apache_webroot = $puphpet::apache::params::default_vhost_dir
+    $nginx_webroot  = $puphpet::params::nginx_webroot_location
+
     if array_true($apache, 'install') {
-      $adminer_webroot = $puphpet::apache::params::default_vhost_dir
+      $adminer_webroot = $apache_webroot
+      Class['puphpet_apache']
+      -> Class['puphpet::adminer']
     } elsif array_true($nginx, 'install') {
-      $adminer_webroot = $puphpet::params::nginx_webroot_location
+      $adminer_webroot = $nginx_webroot
+      Class['puphpet_nginx']
+      -> Class['puphpet::adminer']
     } else {
-      $adminer_webroot = $puphpet::apache::params::default_vhost_dir
+      fail( 'Adminer requires either Apache or Nginx to be installed.' )
     }
 
     class { 'puphpet::adminer':
-      location    => "${adminer_webroot}/adminer",
+      location    => "${$adminer_webroot}/adminer",
       owner       => 'www-data',
       php_package => $php_package
     }

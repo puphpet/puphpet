@@ -187,10 +187,14 @@ class puphpet_mysql (
 
     if array_true($apache, 'install') {
       $adminer_webroot = $apache_webroot
+      Class['puphpet_apache']
+      -> Class['puphpet::adminer']
     } elsif array_true($nginx, 'install') {
       $adminer_webroot = $nginx_webroot
+      Class['puphpet_nginx']
+      -> Class['puphpet::adminer']
     } else {
-      $adminer_webroot = $apache_webroot
+      fail( 'Adminer requires either Apache or Nginx to be installed.' )
     }
 
     class { 'puphpet::adminer':
