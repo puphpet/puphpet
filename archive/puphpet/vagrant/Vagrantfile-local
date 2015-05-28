@@ -86,9 +86,9 @@ Vagrant.configure('2') do |config|
           config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}", type: 'nfs'
         end
       elsif folder['sync_type'] == 'smb'
-        smb__host     = !folder['smb']['smb_host'].nil ? folder['smb']['smb_host'] : nil
-        smb__username = !folder['smb']['smb_username'].nil ? folder['smb']['smb_username'] : nil
-        smb__password = !folder['smb']['smb_password'].nil ? folder['smb']['smb_password'] : nil
+        smb__host     = !folder['smb']['smb_host'].nil? ? folder['smb']['smb_host'] : nil
+        smb__username = !folder['smb']['smb_username'].nil? ? folder['smb']['smb_username'] : nil
+        smb__password = !folder['smb']['smb_password'].nil? ? folder['smb']['smb_password'] : nil
 
         config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}", type: 'smb',
           group: sync_group, owner: sync_owner, smb_host: smb__host, smb_username: smb__username, smb_password: smb__password
