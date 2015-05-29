@@ -1,68 +1,82 @@
-if $mariadb_values == undef { $mariadb_values = hiera_hash('mariadb', false) }
-if $php_values == undef { $php_values = hiera_hash('php', false) }
-if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
-if $apache_values == undef { $apache_values = hiera_hash('apache', false) }
-if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
+class puphpet_mariadb (
+  $mariadb,
+  $apache,
+  $nginx,
+  $php,
+  $hhvm
+) {
 
-include puphpet::params
-include puphpet::apache::params
-include puphpet::mysql::params
-
-if array_true($mariadb_values, 'install') and !array_true($mysql_values, 'install') {
+  include puphpet::apache::params
+  include puphpet::mysql::params
   include mysql::params
 
-  if array_true($apache_values, 'install')
-    or array_true($nginx_values, 'install')
-  {
-    $mysql_webserver_restart = true
+  if array_true($apache, 'install') or array_true($nginx, 'install') {
+    $webserver_restart = true
   } else {
-    $mysql_webserver_restart = false
+    $webserver_restart = false
   }
 
-  # fetch repo for specific version
+  $version = to_string($mariadb['settings']['version'])
+
   class { 'puphpet::mariadb':
-    version => $mariadb_values['settings']['version']
+    version => $version,
   }
+
+  $server_package = $puphpet::params::mariadb_package_server_name
+  $client_package = $puphpet::params::mariadb_package_client_name
 
   if array_true($php_values, 'install') {
-    $mariadb_php_installed = true
-    $mariadb_php_package   = 'php'
+    $php_package = 'php'
   } elsif array_true($hhvm_values, 'install') {
-    $mariadb_php_installed = true
-    $mariadb_php_package   = 'hhvm'
+    $php_package = 'hhvm'
   } else {
-    $mariadb_php_installed = false
+    $php_package = false
   }
 
-  if empty($mariadb_values['settings']['root_password']) {
+  if empty($mariadb['settings']['root_password']) {
     fail( 'MariaDB requires choosing a root password. Please check your config.yaml file.' )
   }
 
-  $mariadb_override_options = deep_merge($mysql::params::default_options, {
+  $override_options = deep_merge($mysql::params::default_options, {
     'mysqld' => {
-      'tmpdir' => "${mysql::params::datadir}/tmp",
+      'tmpdir' => $mysql::params::tmpdir,
     }
   })
 
-  $mariadb_settings = delete(deep_merge({
-      'package_name'     => $puphpet::params::mariadb_package_server_name,
-      'service_name'     => 'mysql',
-      'restart'          => true,
-      'override_options' => $mariadb_override_options,
-      require            => Class['puphpet::mariadb'],
-    }, $mariadb_values['settings']), 'version')
+  $settings = delete(deep_merge({
+    'package_name'     => $server_package,
+    'restart'          => true,
+    'override_options' => $override_options,
+    'service_name'     => 'mysql',
+  }, $mariadb['settings']), 'version')
 
   create_resources('class', {
-    'mysql::server' => $mariadb_settings
+    'mysql::server' => $settings
   })
 
   class { 'mysql::client':
-    package_name => $puphpet::params::mariadb_package_client_name
+    package_name => $client_package,
+  }
+
+  $mariadb_user = $override_options['mysqld']['user']
+
+  # Ensure the user exists
+  if ! defined(User[$mariadb_user]) {
+    user { $mariadb_user:
+      ensure => present,
+    }
+  }
+
+  # Ensure the group exists
+  if ! defined(Group[$mysql::params::root_group]) {
+    group { $mysql::params::root_group:
+      ensure => present,
+    }
   }
 
   # prevent problems with being unable to create dir in /tmp
-  if ! defined(File[$mariadb_override_options['mysqld']['tmpdir']]) {
-    file { $mariadb_override_options['mysqld']['tmpdir']:
+  if ! defined(File[$override_options['mysqld']['tmpdir']]) {
+    file { $override_options['mysqld']['tmpdir']:
       ensure  => directory,
       owner   => $mariadb_user,
       group   => $mysql::params::root_group,
@@ -72,20 +86,7 @@ if array_true($mariadb_values, 'install') and !array_true($mysql_values, 'instal
     }
   }
 
-  $mariadb_user = $mariadb_override_options['mysqld']['user']
-
-  if ! defined(User[$mariadb_user]) {
-    user { $mariadb_user:
-      ensure => present,
-    }
-  }
-
-  if ! defined(Group[$mysql::params::root_group]) {
-    group { $mysql::params::root_group:
-      ensure => present,
-    }
-  }
-
+  # Ensure the data directory exists
   if ! defined(File[$mysql::params::datadir]) {
     file { $mysql::params::datadir:
       ensure => directory,
@@ -94,11 +95,12 @@ if array_true($mariadb_values, 'install') and !array_true($mysql_values, 'instal
     }
   }
 
-  $mariadb_pidfile_dir = $mariadb_override_options['mysqld']['pid-file']
+  $mariadb_pidfile = $override_options['mysqld']['pid-file']
 
+  # Ensure PID file directory exists
   exec { 'Create pidfile parent directory':
-    command => "mkdir -p $(dirname ${mariadb_pidfile_dir})",
-    unless  => "test -d $(dirname ${mariadb_pidfile_dir})",
+    command => "mkdir -p $(dirname ${mariadb_pidfile})",
+    unless  => "test -d $(dirname ${mariadb_pidfile})",
     before  => Class['mysql::server'],
     require => [
       User[$mariadb_user],
@@ -108,7 +110,7 @@ if array_true($mariadb_values, 'install') and !array_true($mysql_values, 'instal
   -> exec { 'Set pidfile parent directory permissions':
     command => "chown \
       ${mariadb_user}:${mysql::params::root_group} \
-      $(dirname ${mariadb_pidfile_dir})",
+      $(dirname ${mariadb_pidfile})",
   }
 
   Mysql_user <| |>
@@ -116,46 +118,37 @@ if array_true($mariadb_values, 'install') and !array_true($mysql_values, 'instal
   -> Mysql_grant <| |>
 
   # config file could contain no users key
-  $mariadb_users = array_true($mariadb_values, 'users') ? {
-    true    => $mariadb_values['users'],
+  $users = array_true($mariadb, 'users') ? {
+    true    => $mariadb['users'],
     default => { }
   }
 
-  each( $mariadb_users ) |$key, $user| {
-    # root user doesn't need to be defined
-    if $user['name'] !~ /^root/  {
-      # if no host passed with username, default to localhost
-      if '@' in $user['name'] {
-        $name = $user['name']
-      } else {
-        $name = "${user['name']}@localhost"
-      }
-
-      # force to_string to convert possible ints
-      $password_hash = mysql_password(to_string($user['password']))
-
-      if defined( Mysql_user[$name] ) {
-        Mysql_user <| title == $name |> {
-          password_hash => $password_hash,
-        }
-      } else {
-        $user_merged = delete(merge($user, {
-          ensure          => 'present',
-          'password_hash' => $password_hash,
-        }), ['name', 'password'])
-
-        create_resources( mysql_user, { "${name}" => $user_merged })
-      }
+  each( $users ) |$key, $user| {
+    # if no host passed with username, default to localhost
+    if '@' in $user['name'] {
+      $name = $user['name']
+    } else {
+      $name = "${user['name']}@localhost"
     }
+
+    # force to_string to convert possible ints
+    $password_hash = mysql_password(to_string($user['password']))
+
+    $merged = delete(merge($user, {
+      ensure          => 'present',
+      'password_hash' => $password_hash,
+    }), ['name', 'password'])
+
+    create_resources( mysql_user, { "${name}" => $merged })
   }
 
   # config file could contain no databases key
-  $mariadb_databases = array_true($mariadb_values, 'databases') ? {
-    true    => $mariadb_values['databases'],
+  $databases = array_true($mariadb, 'databases') ? {
+    true    => $mariadb['databases'],
     default => { }
   }
 
-  each( $mariadb_databases ) |$key, $database| {
+  each( $databases ) |$key, $database| {
     $name = $database['name']
     $sql  = $database['sql']
 
@@ -164,11 +157,11 @@ if array_true($mariadb_values, 'install') and !array_true($mysql_values, 'instal
       default => 300
     }
 
-    $database_merged = delete(merge($database, {
+    $merged = delete(merge($database, {
       ensure => 'present',
     }), ['name', 'sql', 'import_timeout'])
 
-    create_resources( mysql_database, { "${name}" => $database_merged })
+    create_resources( mysql_database, { "${name}" => $merged })
 
     if $sql {
       # Run import only on initial database creation
@@ -187,12 +180,12 @@ if array_true($mariadb_values, 'install') and !array_true($mysql_values, 'instal
   }
 
   # config file could contain no grants key
-  $mariadb_grants = array_true($mariadb_values, 'grants') ? {
-    true    => $mariadb_values['grants'],
+  $grants = array_true($mariadb, 'grants') ? {
+    true    => $mariadb['grants'],
     default => { }
   }
 
-  each( $mariadb_grants ) |$key, $grant| {
+  each( $grants ) |$key, $grant| {
     # if no host passed with username, default to localhost
     if '@' in $grant['user'] {
       $user = $grant['user']
@@ -209,7 +202,7 @@ if array_true($mariadb_values, 'install') and !array_true($mysql_values, 'instal
       default => ['GRANT']
     }
 
-    $grant_merged = merge($grant, {
+    $merged = merge($grant, {
       ensure    => 'present',
       'user'    => $user,
       'options' => $options,
@@ -218,6 +211,8 @@ if array_true($mariadb_values, 'install') and !array_true($mysql_values, 'instal
     create_resources( mysql_grant, { "${name}" => $grant_merged })
   }
 
+  # MariaDB doesn't need mysql-libs
+  # Ensure it's uninstalled
   if ! defined(Package['mysql-libs']) {
     package { 'mysql-libs':
       ensure => purged,
@@ -225,41 +220,46 @@ if array_true($mariadb_values, 'install') and !array_true($mysql_values, 'instal
     }
   }
 
-  if $mariadb_php_installed and $mariadb_php_package == 'php' {
-    if $::osfamily == 'redhat' and $php_values['settings']['version'] == '53' {
-      $mariadb_php_module = 'mysql'
+  if $php_package == 'php' {
+    if $::osfamily == 'redhat' and $php['settings']['version'] == '53' {
+      $php_module = 'mysql'
     } elsif $::lsbdistcodename == 'lucid' or $::lsbdistcodename == 'squeeze' {
-      $mariadb_php_module = 'mysql'
+      $php_module = 'mysql'
     } else {
-      $mariadb_php_module = 'mysqlnd'
+      $php_module = 'mysqlnd'
     }
 
-    if ! defined(Puphpet::Php::Module[$mariadb_php_module]) {
-      puphpet::php::module { $mariadb_php_module:
-        service_autorestart => $mariadb_webserver_restart,
+    if ! defined(Puphpet::Php::Module[$php_module]) {
+      puphpet::php::module { $php_module:
+        service_autorestart => $webserver_restart,
       }
     }
   }
 
-  if array_true($mariadb_values, 'adminer')
-    and $mariadb_php_installed
+  if array_true($mariadb, 'adminer')
+    and $php_package
     and ! defined(Class['puphpet::adminer'])
   {
-    $mariadb_apache_webroot = $puphpet::params::apache_webroot_location
-    $mariadb_nginx_webroot = $puphpet::params::nginx_webroot_location
+    $apache_webroot = $puphpet::apache::params::default_vhost_dir
+    $nginx_webroot  = $puphpet::params::nginx_webroot_location
 
-    if array_true($apache_values, 'install') {
-      $mariadb_adminer_webroot_location = $mariadb_apache_webroot
-    } elsif array_true($nginx_values, 'install') {
-      $mariadb_adminer_webroot_location = $mariadb_nginx_webroot
+    if array_true($apache, 'install') {
+      $adminer_webroot = $apache_webroot
+      Class['puphpet_apache']
+      -> Class['puphpet::adminer']
+    } elsif array_true($nginx, 'install') {
+      $adminer_webroot = $nginx_webroot
+      Class['puphpet_nginx']
+      -> Class['puphpet::adminer']
     } else {
-      $mariadb_adminer_webroot_location = $mariadb_apache_webroot
+      fail( 'Adminer requires either Apache or Nginx to be installed.' )
     }
 
     class { 'puphpet::adminer':
-      location    => "${mariadb_adminer_webroot_location}/adminer",
+      location    => "${$adminer_webroot}/adminer",
       owner       => 'www-data',
-      php_package => $mariadb_php_package
+      php_package => $php_package
     }
   }
+
 }
