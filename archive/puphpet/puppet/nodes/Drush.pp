@@ -1,19 +1,18 @@
-if $drush_values == undef { $drush_values = hiera_hash('drush', false) }
-if $php_values == undef { $php_values = hiera_hash('php', false) }
-if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
+class puphpet_drush (
+  $drush,
+  $php,
+  $hhvm
+) {
 
-include puphpet::params
+  $version  = $drush['version'] != undef
+  $engine   = (array_true($php, 'install') or array_true($hhvm, 'install'))
+  $composer = (array_true($php, 'composer') or array_true($hhvm, 'composer'))
 
-if hash_key_equals($drush_values, 'install', 1) {
   # Requires either PHP or HHVM, and Composer
-  if $drush_values['version'] != undef
-    and (hash_key_equals($php_values, 'install', 1)
-          or hash_key_equals($hhvm_values, 'install', 1))
-    and (hash_key_equals($php_values, 'composer', 1)
-          or hash_key_equals($hhvm_values, 'composer', 1))
-  {
+  if $version and $engine and $composer {
     class { 'puphpet::php::drush':
-      version => $drush_values['version']
+      version => $drush['version']
     }
   }
+
 }

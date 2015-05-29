@@ -1,10 +1,13 @@
 target: local
 
 vm:
-    hostname: ~
+    box: puphpet/ubuntu1404-x64
+    box_url: puphpet/ubuntu1404-x64
+    hostname: local.puphpet
     chosen_provider: virtualbox
     provider:
-        virtualbox: []
+        virtualbox: 
+            showgui: 0
         vmware: []
         parallels: []
     synced_folder:
@@ -15,6 +18,10 @@ vm:
             sync_type: default
             owner: 'www-data'
             group: 'www-data'
+            smb:
+                smb_host: ~
+                smb_username: ~
+                smb_password: ~
             rsync:
                 args:
                     - '--verbose'

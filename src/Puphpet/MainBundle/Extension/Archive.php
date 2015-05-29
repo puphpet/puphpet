@@ -4,10 +4,17 @@ namespace Puphpet\MainBundle\Extension;
 
 class Archive
 {
+    const ARCHIVE_LOCATION = __DIR__ . '/../../../../archive';
+
     /**
      * @var string Location of existing, empty files
      */
     protected $sourceDir;
+
+    /**
+     * @var string Subdirectory inside $sourceDir to grab files from
+     */
+    protected $subDir;
 
     /**
      * @var string Directory to save generated archive file
@@ -19,15 +26,17 @@ class Archive
      */
     protected $filesToWrite = [];
 
-    public function __construct()
+    public function __construct($subDir = false)
     {
+        $this->subDir = $subDir;
+
         $this->initialize();
     }
 
     public function getSourceDir()
     {
         if (!$this->sourceDir) {
-            $this->sourceDir = __DIR__ . '/../../../../archive';
+            $this->sourceDir = sprintf('%s/%s', self::ARCHIVE_LOCATION, $this->subDir);
         }
 
         return $this->sourceDir;

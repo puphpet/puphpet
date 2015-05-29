@@ -1,0 +1,3 @@
+puphpet.extension.blackfire.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetExtensionBlackfireBundle:Front:index }

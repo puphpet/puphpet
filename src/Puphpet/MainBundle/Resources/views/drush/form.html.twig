@@ -30,9 +30,9 @@
                 system service:</p>
             <p><code>$ drush</code></p>
         </div>
-        <label for="wpcli-version">Choose Version</label>
-        <select id="wpcli-version"
-               name="wpcli[version]"
+        <label for="drush-version">Choose Version</label>
+        <select id="drush-version"
+               name="drush[version]"
                class="form-control select-tag">
             {% if drush.version is defined %}
                 <option value="{{ drush.version }}" selected>{{ drush.version }}</option>

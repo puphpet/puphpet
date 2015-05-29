@@ -1,18 +1,18 @@
-if $wpcli_values == undef { $wpcli_values = hiera_hash('wpcli', false) }
-if $php_values == undef { $php_values = hiera_hash('php', false) }
-if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
+class puphpet_wpcli (
+  $wpcli,
+  $php,
+  $hhvm
+) {
 
-include puphpet::params
+  $version  = $wpcli['version'] != undef
+  $engine   = (array_true($php, 'install') or array_true($hhvm, 'install'))
+  $composer = (array_true($php, 'composer') or array_true($hhvm, 'composer'))
 
-if hash_key_equals($wpcli_values, 'install', 1) {
-  if $wpcli_values['version'] != undef
-    and (hash_key_equals($php_values, 'install', 1)
-          or hash_key_equals($hhvm_values, 'install', 1))
-    and (hash_key_equals($php_values, 'composer', 1)
-          or hash_key_equals($hhvm_values, 'composer', 1))
-  {
+  # Requires either PHP or HHVM, and Composer
+  if $version and $engine and $composer {
     class { 'puphpet::php::wordpress::wpcli' :
-      version => $wpcli_values['version']
+      version => $wpcli['version']
     }
   }
+
 }

@@ -5,11 +5,14 @@ composer: 1
 composer_home: ~
 
 settings:
-    host: 127.0.0.1
-    port: 9000
 
-ini:
+server_ini:
+    hhvm.server.host: 127.0.0.1
+    hhvm.server.port: 9000
+    hhvm.log.use_log_file: true
+    hhvm.log.file: /var/log/hhvm/error.log
+
+php_ini:
     display_errors: On
     error_reporting: -1
-
-timezone: America/Chicago
+    date.timezone: UTC

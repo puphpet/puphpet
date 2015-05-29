@@ -9,9 +9,12 @@ mod 'puppetlabs/apt',
 mod 'puphpet/beanstalkd',
     :git => 'https://github.com/puphpet/puppet-beanstalkd.git',
     :ref => '5a530ff'
+mod 's12v/blackfire',
+    :git => 'https://github.com/puphpet/puppet-blackfire.git',
+    :ref => 'cb938a5'
 mod 'tPl0ch/composer',
-    :git => 'https://github.com/tPl0ch/puppet-composer.git',
-    :ref => '1.2.1'
+    :git => 'https://github.com/puphpet/puppet-composer.git',
+    :ref => 'c4f9478'
 mod 'puppetlabs/concat',
     :git => 'https://github.com/puppetlabs/puppetlabs-concat.git',
     :ref => '1.1.1'
@@ -24,6 +27,9 @@ mod 'garethr/erlang',
 mod 'puppetlabs/firewall',
     :git => 'https://github.com/puppetlabs/puppetlabs-firewall.git',
     :ref => '1.1.1'
+mod 'puppetlabs/inifile',
+    :git => 'https://github.com/puppetlabs/puppetlabs-inifile.git',
+    :ref => '1.2.0'
 mod 'puppetlabs/java',
     :git => 'https://github.com/puppetlabs/puppetlabs-java.git',
     :ref => '1.3.0'
@@ -53,7 +59,7 @@ mod 'puppetlabs/postgresql',
     :ref => '4.2.0'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '99f33b7'
+    :ref => '51fbfa1'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'v2.1.9'
@@ -62,14 +68,11 @@ mod 'daenney/pyenv',
     :ref => '062ae72'
 mod 'puppetlabs/rabbitmq',
     :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
-    :ref => '5ce33f4968'
+    :ref => '5.2.0'
 mod 'puphpet/redis',
     :git => 'https://github.com/puphpet/puppet-redis.git',
     :ref => 'd9b3b23b0c'
 mod 'maestrodev/rvm'
-mod 'puppetlabs/sqlite',
-    :git => 'https://github.com/puppetlabs/puppetlabs-sqlite.git',
-    :ref => 'v0.0.1'
 mod 'example42/solr',
     :git => 'https://github.com/example42/puppet-solr.git',
     :ref => 'v2.0.7'

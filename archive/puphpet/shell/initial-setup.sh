@@ -34,6 +34,29 @@ if [[ ! -f '/.puphpet-stuff/initial-setup-apt-get-update' ]]; then
     touch '/.puphpet-stuff/initial-setup-repo-update'
 fi
 
+# CentOS comes with tty enabled. RHEL has realized this is stupid, so we can
+# also safely disable it in PuPHPet boxes.
+if [[ ! -f '/.puphpet-stuff/disable-tty' ]]; then
+    perl -pi'~' -e 's@Defaults(\s+)requiretty@Defaults !requiretty@g' /etc/sudoers
+
+    touch '/.puphpet-stuff/disable-tty'
+fi
+
+# Digital Ocean seems to be missing iptables-persistent!
+# See https://github.com/puphpet/puphpet/issues/1575
+if [[ ! -f '/.puphpet-stuff/iptables-persistent-installed' ]] && [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
+    apt-get -y install iptables-persistent > /dev/null 2>&1
+
+    touch '/.puphpet-stuff/iptables-persistent-installed'
+fi
+
+if [[ ! -f '/.puphpet-stuff/resolv-conf-changed' ]]; then
+    echo "nameserver 8.8.8.8" > /etc/resolv.conf
+    echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+
+    touch '/.puphpet-stuff/resolv-conf-changed'
+fi
+
 if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
     exit 0
 fi

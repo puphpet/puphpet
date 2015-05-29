@@ -1,48 +1,65 @@
 <input type="hidden" name="nodejs[install]" value="0" />
 
-<div class="section-header hidden">
+<div class="section-header">
     <h1>Node.js</h1>
     <p class="lead">Install Node.js and add Npm packages</p>
 </div>
 
-<div class="form-group">
-    <span class="help-text">
-        It's callbacks all the way down!
-    </span>
-    <label class="col-xs-12 radio-tile">
-        <input type="checkbox" name="nodejs[install]" value="1"
-               class="invisible toggle-on-select"
-               {% if nodejs.install %}checked{% endif %}
-               data-vis-toggle-target="#nodejs-container" />
-        <span class="content">
-            <span class="header large">
-                <i class="icon"></i>
-                <span class="title">Install Node.js</span>
-            </span>
-            <span class="footer">
-                A platform for easily building fast, scalable network applications.
-            </span>
+<div class="field-container">
+    <div class="form-group">
+        <span class="help-text">
+            It's callbacks all the way down!
         </span>
-    </label>
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="nodejs[install]" value="1"
+                   class="invisible toggle-on-select"
+                   {% if nodejs.install %}checked{% endif %}
+                   data-vis-toggle-target="#nodejs-container" />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Install Node.js</span>
+                </span>
+                <span class="footer">
+                    A platform for easily building fast, scalable network applications.
+                </span>
+            </span>
+        </label>
+
+        <div class="clearfix"></div>
+    </div>
 
     <div class="clearfix"></div>
-</div>
 
-<div class="clearfix"></div>
-
-<div id="nodejs-container" class="{% if not nodejs.install %}hidden{% endif %}">
-    <div class="form-group col-xs-12">
-        <div class="help-text">
-            <p>To install a specific version, use <code>{package}@{version}</code>.</p>
-            <p>eg: <code>express@4.10.4 </code>. For latest just use <code>{package}</code>.</p>
+    <div id="nodejs-container" class="{% if not nodejs.install %}hidden{% endif %}">
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                <p>To install a specific version, use <code>{package}@{version}</code>.</p>
+                <p>eg: <code>express@4.10.4 </code>. For latest just use <code>{package}</code>.</p>
+            </div>
+            <label for="nodejs-npm_packages">Install Npm Packages</label>
+            <select id="nodejs-npm_packages"
+                   multiple name="nodejs[npm_packages][]"
+                   class="form-control select-tags-editable">
+                {% for package in nodejs.npm_packages %}
+                    <option selected value="{{ package }}">{{ package }}</option>
+                {% endfor %}
+            </select>
         </div>
-        <label for="nodejs-npm_packages">Install Npm Packages</label>
-        <select id="nodejs-npm_packages"
-               multiple name="nodejs[npm_packages][]"
-               class="form-control select-tags-editable">
-            {% for package in nodejs.npm_packages %}
-                <option selected value="{{ package }}">{{ package }}</option>
-            {% endfor %}
-        </select>
     </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#python">
+            <i class="fa fa-hand-o-left"></i> Python
+        </a>
+    </div>
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#hhvm">
+            HHVM <i class="fa fa-hand-o-right"></i>
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
 </div>

@@ -11,7 +11,6 @@ modules:
 ini: []
 
 fpm_ini:
-    pid: /run/php-fpm.pid
     error_log: /var/log/php-fpm.log
 
 fpm_pools: []

@@ -12,7 +12,7 @@ var PUPHPET = {};
  * Loops through all data-* type attributes of element
  */
 PUPHPET.updateOtherInput = function() {
-    $(document).on('click', '.update-other-input', function(e){
+    $(document).on('click, change', '.update-other-input', function(e){
         var $parent = $(this);
 
         $.each($(this).data(), function(key, value) {
@@ -138,7 +138,7 @@ PUPHPET.updateOtherInputSelect = function() {
  * When element is checked, changes value of target
  */
 PUPHPET.updateOtherInputOnCheck = function() {
-    $(document).on('click', '.update-other-input-on-check', function(e){
+    $(document).on('click, change', '.update-other-input-on-check', function(e){
         var $parent = $(this);
 
         if (!$parent.is(':checked')) {
@@ -312,122 +312,65 @@ PUPHPET.sidebarMenuClick = function() {
 
     // removes active class from non-selected section/link
     $(document).on('click', '#sidebar .sub-menu a[data-toggle="tab"]', function (e) {
-        PUPHPET.changeTabFromMenuClick(this.hash);
+        if (window.location.hash == this.hash) {
+            return false;
+        }
+
+        window.location.hash = this.hash;
 
         var $activeSection = $('#sidebar .sub-menu.active');
         var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
-        var $topBar        = $('#top .active');
         var $mainContainer = $('#tab-main-container > div.tab-pane.active');
-        var $helpContainer = $('#help-text-container');
 
         $activeSection.removeClass('active');
         $activeLink.removeClass('active');
-        $topBar.removeClass('active');
         $mainContainer.removeClass('active');
 
         $(this).parent().addClass('active');
         $(this).closest('.sub-menu').addClass('active');
 
         $('html, body').scrollTop(0);
-
-        $('.contents', $helpContainer).html('');
-
-        var $headerBlock = $($(this).attr('href') + ' > .section-header').eq(0);
-
-        if ($headerBlock.length != 0) {
-            $('#page-header').html($headerBlock.html());
-        }
-
-        $helpContainer.removeClass('hidden');
     });
 
     $(document).on('click', '#top a[data-toggle="tab"]', function (e) {
-        PUPHPET.changeTabFromMenuClick(this.hash);
+        if (window.location.hash == this.hash) {
+            return false;
+        }
 
-        var $leftActiveLink    = $('#sidebar .active');
-        var $mainActiveTab     = $('#tab-main-container > div.tab-pane.active')
-            .not($(this).attr('href'));
-        var $activeSectionTab  = $('#tab-sections-container > div.tab-pane.active');
-        var $targetTab         = $('#tab-main-container > div' + $(this).attr('href'));
-        var $helpContainer     = $('#help-text-container');
-
-        $leftActiveLink.removeClass('active');
-        $mainActiveTab.removeClass('active');
-        $activeSectionTab.removeClass('active');
-        $helpContainer.addClass('hidden');
-        $targetTab.addClass('active');
+        window.location.hash = this.hash;
 
         $('html, body').scrollTop(0);
-
-        var $headerBlock = $($(this).attr('href') + ' > .section-header').eq(0);
-
-        if ($headerBlock.length != 0) {
-            $('#page-header').html($headerBlock.html());
-        }
     });
 };
 
 /**
- * Handles displaying section help information on right-side element
+ * Handles displaying section help information
  */
 PUPHPET.helpTextDisplay = function() {
-    var $helpContainer = $('#help-text');
-
-    $helpContainer.on('affix.bs.affix', function () {
-        $(this).width($(this).parent().width());
-    });
-
-    $helpContainer.affix({
-        offset: {
-            top: 180
-        }
-    });
-
-    var $previousElement = '';
-
-    $(document).on('mouseenter', '.field-container .form-group', function (e) {
+    $('.field-container .form-group, .field-container .form-group .radio-tile').each(function() {
         if ($(this).has('> .help-text').length == 0) {
             return;
         }
 
         var $helpText = $('> .help-text', this).eq(0);
 
-        changeText($helpText.html());
+        $(this).webuiPopover({
+            title: '',
+            content: $helpText.html(),
+            trigger: 'hover',
+            delay: {
+                show: 500,
+                hide: 200
+            },
+            constrains: 'vertical',
+            cache: true,
+            multi: false,
+            arrow: true,
+            closeable: false,
+            padding: true,
+            type: 'html'
+        });
     });
-
-    $(document).on('mouseenter', '.field-container .form-group .radio-tile', function (e) {
-        if ($(this).has('.help-text').length == 0) {
-            return;
-        }
-
-        var $helpText = $('.help-text', this).eq(0);
-
-        changeText($helpText.html());
-    });
-
-    function changeText(contents) {
-        if ($previousElement && ($previousElement == contents)) {
-            return;
-        }
-
-        $previousElement = contents;
-
-        var h2Div       = $('> h2', $helpContainer).eq(0);
-        var contentsDiv = $('.contents', $helpContainer).eq(0);
-
-        h2Div.css('display', 'block');
-
-        contentsDiv.html(contents);
-        changedTextColor();
-    }
-
-    function changedTextColor() {
-        $helpContainer.css('color', '#F67400');
-
-        setTimeout(function () {
-            $helpContainer.css('color', '#000');
-        }, 500);
-    }
 };
 
 /**
@@ -702,24 +645,9 @@ PUPHPET.submitUncheckedCheckboxes = function () {
     });
 };
 
-var tabChangedFromMenuClick = false;
-
-PUPHPET.changeTabFromMenuClick = function (hash) {
-    tabChangedFromMenuClick = true;
-    window.location.hash = hash;
-
-    setTimeout(function() {
-        tabChangedFromMenuClick = false;
-    }, 300);
-};
-
 PUPHPET.changeTabOnAnchorChange = function () {
     $(window).on('hashchange', function() {
-        if (tabChangedFromMenuClick != true) {
-            PUPHPET.displayTabFromUrl();
-
-            return true;
-        }
+        PUPHPET.displayTabFromUrl();
     });
 };
 
@@ -731,45 +659,20 @@ PUPHPET.displayTabFromUrl = function () {
         var $link     = $('#sidebar .sidebar-menu > .sub-menu a[data-toggle="tab"]');
         var $hashLink = $link.filter('[href=' + window.location.hash + ']');
 
-        var $helpContainer = $('#help-text-container');
-
-        if ($hashLink.length != 0) {
-            var $activeSection = $('#sidebar .sub-menu.active');
-            var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
-
-            var $mainTab = $('#tab-main-container > div.active');
-            if ($mainTab.length != 0) {
-                $mainTab.removeClass('active');
-            }
-
-            $helpContainer.removeClass('hidden');
-            $activeSection.removeClass('active');
-            $activeLink.removeClass('active');
-            $hashLink.addClass('active');
-
-            $hashLink.parent().parent().addClass('open');
-            $hashLink.parent().parent().parent().addClass('active');
+        if ($hashLink.length == 0) {
+            return true;
         }
-        else {
-            $link     = $('#top a[data-toggle="tab"]');
-            $hashLink = $link.filter('[href=' + window.location.hash + ']');
 
-            var $sectionTab = $('#tab-sections-container > div.active');
-            if ($sectionTab.length != 0) {
-                $sectionTab.tab('hide');
-            }
+        var $activeSection = $('#sidebar .sub-menu.active');
+        var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
 
-            $helpContainer.addClass('hidden');
-            $hashLink.addClass('active');
-        }
+        $activeSection.removeClass('active');
+        $activeLink.removeClass('active');
+
+        $hashLink.parent().parent().addClass('open');
+        $hashLink.parent().parent().parent().addClass('active');
 
         $hashLink.tab('show');
-
-        var $headerBlock = $(window.location.hash + ' > .section-header').eq(0);
-
-        if ($headerBlock.length != 0) {
-            $('#page-header').html($headerBlock.html());
-        }
     }
 };
 
@@ -893,6 +796,16 @@ PUPHPET.disableEnterSubmit = function() {
     });
 };
 
+PUPHPET.bootstrapNotify = function() {
+    $('.growl-alert').each(function() {
+        new PNotify({
+            title: this.getAttribute('data-title'),
+            text: $(this).html(),
+            type: this.getAttribute('data-type')
+        });
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -911,6 +824,7 @@ $(document).ready(function() {
     PUPHPET.toggleDisplayOnSelect();
     PUPHPET.uploadConfig();
     PUPHPET.disableEnterSubmit();
+    PUPHPET.bootstrapNotify();
 });
 
 /**

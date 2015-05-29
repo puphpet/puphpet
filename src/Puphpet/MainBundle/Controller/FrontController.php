@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Yaml\Yaml;
 
 class FrontController extends Controller
@@ -15,6 +16,9 @@ class FrontController extends Controller
     public function indexAction(Request $request)
     {
         $manager = $this->get('puphpet.extension.manager');
+
+        /** @var Session $session */
+        $session = $this->get('session');
 
         if ($request->isMethod('POST')) {
             $archive = $manager->createArchive($request->request->all());
@@ -27,8 +31,11 @@ class FrontController extends Controller
             return $response;
         }
 
+        $messages = $session->getFlashBag()->all();
+
         return $this->render('PuphpetMainBundle:front:template.html.twig', [
             'extensions' => $manager->getExtensions(),
+            'messages'   => $messages,
         ]);
     }
 
@@ -36,33 +43,58 @@ class FrontController extends Controller
     {
         $config = $this->normalizeLineBreaks($request->get('config'));
 
+        /** @var Session $session */
+        $session = $this->get('session');
+
         try {
             $yaml = Yaml::parse($config);
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+            $session->getFlashBag()->add('error', [
+                'title'   => 'There was a problem parsing your config file',
+                'content' => $e->getMessage(),
+            ]);
+
+            $request->setMethod('GET');
+
+            return $this->indexAction($request);
+        }
 
         if (empty($yaml)) {
-            $this->get('session')->getFlashBag()->add(
-                'error',
-                'The config file provided was empty! Please recreate your manifest manually below.'
-            );
+            $session->getFlashBag()->add('error', [
+                'title'   => 'The config file provided was empty',
+                'content' => 'Check your config file, or manually recreate it in the GUI.',
+            ]);
 
-            return new RedirectResponse($this->generateUrl('puphpet.main.homepage'));
+            $request->setMethod('GET');
+
+            return $this->indexAction($request);
         }
 
         $manager = $this->get('puphpet.extension.manager');
         $manager->setCustomDataAll($yaml);
 
         try {
+            $session->getFlashBag()->add('success', [
+                'title'   => 'Success!',
+                'content' => 'Your previously generated config file was successfully loaded!',
+            ]);
+
             $rendered = $this->render('PuphpetMainBundle:front:template.html.twig', [
                 'extensions' => $manager->getExtensions(),
+                'messages'   => $session->getFlashBag()->all(),
             ]);
 
             return $rendered;
         } catch (\Exception $e) {
-            $this->get('session')->getFlashBag()->add(
-                'error',
-                'The config file provided had errors! Please recreate your manifest manually below.'
-            );
+            $session->getFlashBag()->clear();
+
+            $session->getFlashBag()->add('error', [
+                'title'   => 'There was a problem parsing your config file',
+                'content' => sprintf(
+                    '<p> Please recreate your manifest manually below.</p>' .
+                    '<p>Error message:</p><p>%s</p>', $e->getMessage()
+                )
+            ]);
 
             return new RedirectResponse($this->generateUrl('puphpet.main.homepage'));
         }
@@ -87,6 +119,19 @@ class FrontController extends Controller
 
         $manager = $this->get('puphpet.extension.manager');
         $archive = $manager->createArchive($values);
+
+        $response = new Response;
+        $response->headers->set('Content-type', 'application/octet-stream');
+        $response->headers->set('Content-Disposition', sprintf('attachment; filename="%s"', 'puphpet.zip'));
+        $response->setContent(file_get_contents($archive));
+
+        return $response;
+    }
+
+    public function downloadPuppetModulesAction()
+    {
+        $manager = $this->get('puphpet.extension.manager');
+        $archive = $manager->getPuppetModules();
 
         $response = new Response;
         $response->headers->set('Content-type', 'application/octet-stream');

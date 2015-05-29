@@ -21,10 +21,9 @@ body,
 }
 
 .section-header {
-    background-color: rgba(255, 255, 255, 0.5);
     padding: 1px 10px;
-    border-radius: 5px;
-    margin: 10px 0;
+    border: 0;
+    margin: 10px 0 0;
 }
 
 a, a:focus {
@@ -117,41 +116,8 @@ legend {
     margin-top: 10px;
 }
 
-.navbar {
-    z-index: 9999;
-}
-
-.navbar-default .navbar-brand {
-    color: #2c9ab7;
-    margin-left: -15px;
-}
-
-.navbar-default .navbar-header,
-.navbar-default .navbar-nav,
-.navbar-default .navbar-nav > li {
-    float: left !important;
-}
-
-.navbar-default .navbar-nav > li > a:hover {
-    color: #2c9ab7;
-}
-
-.navbar-default .navbar-header,
-.navbar-default .navbar-nav {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
-
-.navbar-default .navbar-right {
-    float: right !important;
-}
-
-.navbar-default .navbar-nav.navbar-right:last-child {
-    margin-right: -15px !important;
-}
-
 #main-content {
-    background: url('../img/congruent_pentagon.png');
+    background: #fff;
     margin-left: 205px;
     line-height: 1.8;
     font-size: 15px;
@@ -165,8 +131,65 @@ legend {
 }
 
 #main-form {
-    min-height: 800px;
 }
+
+.next-section {
+    font-size: 2em;
+    padding: 1em;
+    margin: 20px 0;
+}
+
+/*
+    navbar
+*/
+    .navbar {
+        z-index: 9999;
+    }
+
+    .navbar-default .navbar-brand {
+        margin-left: -15px;
+        padding-left: 50px;
+        background: url('../img/logo-menu.png') no-repeat 0 5px;
+        color: #276176;
+    }
+
+    .navbar-default .navbar-brand .colored {
+        color: #2c9ab7;
+    }
+
+    .navbar-default .navbar-header,
+    .navbar-default .navbar-nav,
+    .navbar-default .navbar-nav > li {
+        float: left !important;
+    }
+
+    .navbar-default .navbar-nav > li > a:hover {
+        color: #2c9ab7;
+    }
+
+    .navbar-default .navbar-header,
+    .navbar-default .navbar-nav {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .navbar-default .navbar-right {
+        float: right !important;
+    }
+
+    .navbar-default .navbar-nav.navbar-right:last-child {
+        margin-right: -15px !important;
+    }
+
+    .navbar-default .navbar-nav > .active > a,
+    .navbar-default .navbar-nav > .active > a:hover,
+    .navbar-default .navbar-nav > .active > a:focus,
+    .navbar-default .navbar-nav > li > a:hover,
+    .navbar-default .navbar-nav > li > a:focus,
+    .navbar-default .navbar-brand:hover,
+    .navbar-default .navbar-brand:focus {
+        background-color: #fff;
+    }
 
 /*
     sidebar
@@ -221,6 +244,7 @@ legend {
         font-size: 14px;
         color: #737B83;
         padding: 0 0 0 32px;
+        border-bottom-color: #eee;
         line-height: 35px;
         height: 35px;
         transition: all 0.3s ease;
@@ -256,7 +280,7 @@ legend {
         font-weight: 300;
         outline: none;
         transition: all 0.3s ease;
-        border-bottom: 1px solid #D7D7D7;
+        border-bottom: 1px solid #fff;
         overflow:hidden;
     }
 
@@ -339,6 +363,23 @@ legend {
     }
 
 /*
+    tabs
+*/
+    #main-form .tab-content > .tab-pane {
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+    }
+
+    .nested-tab > .tab-pane {
+        padding-top: 5px;
+        margin-top: 10px;
+    }
+
+    .nested-tab .help-block {
+        margin: 0 10px;
+        padding-bottom: 10px;
+    }
+
+/*
     forms
 */
     .form-control {
@@ -352,10 +393,8 @@ legend {
 
     .field-container {
         margin-bottom: 21px;
-        padding: 15px 0;
+        padding: 15px 10px;
         background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 4px;
         -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     }
@@ -371,14 +410,13 @@ legend {
         border-left: 2px solid transparent;
     }
 
-    .field-container .form-group:hover,
-    .field-container .form-group:focus {
-        border-left: 2px solid #2c9ab7;
+    .field-container .form-group:hover label,
+    .field-container .form-group:focus label {
+        color: #2c9ab7;
     }
 
-    .field-container .help-text .form-group,
-    .field-container .help-block .form-group {
-        border-left: none;
+    .field-container .help-block {
+        color: #000;
     }
 
 /*
@@ -610,33 +648,27 @@ legend {
 /*
     help text block
 */
-    #help-text-container #help-text {
-        margin-top: 30px;
-       transition: color .5s ease-in-out;
-       -moz-transition: color .5s ease-in-out;
-       -webkit-transition: color .5s ease-in-out;
-      -o-transition: color .5s ease-in-out;
-    }
-
-    #help-text-container #help-text.affix {
-        margin-top: -150px;
-    }
-
-    #help-text-container #help-text h2 {
-        display: none;
-    }
-
-    #help-text-container #help-text .contents {
-        overflow-x: auto;
-    }
-
-    .help-block {
-        margin-left: 15px;
-        color: #000;
-    }
-
     .form-group .help-text {
         display: none;
+    }
+
+    .webui-popover {
+        min-width: 350px;
+    }
+
+    .webui-popover.top,
+    .webui-popover.top-left,
+    .webui-popover.top-right,
+    .webui-popover.right,
+    .webui-popover.right-top,
+    .webui-popover.right-bottom,
+    .webui-popover.bottom,
+    .webui-popover.bottom-left,
+    .webui-popover.bottom-right,
+    .webui-popover.left,
+    .webui-popover.left-top,
+    .webui-popover.left-bottom {
+        margin-left: 0;
     }
 
 /*
@@ -678,6 +710,27 @@ legend {
         background: #fff;
     }
 
+/*
+ * Ascii cast
+**/
+    .asciicast-container {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    #asciicast-container-19251 {
+        height: 470px;
+    }
+
+    #asciicast-iframe-19251 {
+        height: 100%;
+    }
+
+    .asciicast-description {
+        width: 760px;
+        margin: -40px auto 40px;
+    }
+
 .page-header {
     padding-bottom: 0;
     margin: 10px 0;
@@ -686,6 +739,14 @@ legend {
 #create-button {
     font-size: 2em;
     padding: 10px;
+}
+
+.growl-alert {
+    display: none;
+}
+
+.ui-pnotify {
+    width: 500px !important;
 }
 
 @media (min-width: 768px) {

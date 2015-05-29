@@ -10,6 +10,10 @@ puphpet.main.generate_archive:
     pattern:  /generate-archive
     defaults: { _controller: PuphpetMainBundle:Front:generateArchive }
 
+puphpet.main.download_puppet_modules:
+    pattern:  /download-puppet-modules
+    defaults: { _controller: PuphpetMainBundle:Front:downloadPuppetModules }
+
 puphpet.main.about:
     pattern:  /about
     defaults: { _controller: PuphpetMainBundle:Front:about }

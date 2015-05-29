@@ -1,8 +1,7 @@
-if $python_values == undef { $python_values = hiera_hash('python', false) }
+class puphpet_python (
+  $python
+) {
 
-include puphpet::params
-
-if hash_key_equals($python_values, 'install', 1) {
   include pyenv::params
 
   puphpet::python::preinstall { 'foo':
@@ -13,11 +12,11 @@ if hash_key_equals($python_values, 'install', 1) {
     manage_packages => false,
   }
 
-  if count($python_values['versions']) > 0 {
-    create_resources(puphpet::python::install, $python_values['versions'])
+  if count($python['versions']) > 0 {
+    create_resources(puphpet::python::install, $python['versions'])
   }
 
-  each( $python_values['packages'] ) |$key, $package| {
+  each( $python['packages'] ) |$key, $package| {
     $package_array = split($package, '@')
     $package_name = $package_array[0]
 
@@ -34,4 +33,5 @@ if hash_key_equals($python_values, 'install', 1) {
       }
     }
   }
+
 }

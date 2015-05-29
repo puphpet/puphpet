@@ -41,3 +41,5 @@ vhosts:
         ssl_key: ~
         ssl_chain: ~
         ssl_certs_dir: ~
+        ssl_protocol: ~
+        ssl_cipher: ~

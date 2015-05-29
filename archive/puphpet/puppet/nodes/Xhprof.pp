@@ -1,47 +1,38 @@
-if $php_values == undef { $php_values = hiera_hash('php', false) }
-if $xhprof_values == undef { $xhprof_values = hiera_hash('xhprof', false) }
-if $apache_values == undef { $apache_values = hiera_hash('apache', false) }
-if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
+class puphpet_xhprof (
+  $xhprof,
+  $apache,
+  $nginx,
+  $php
+) {
 
-include puphpet::params
-include puphpet::apache::params
+  include puphpet::apache::params
 
-if hash_key_equals($xhprof_values, 'install', 1)
-  and hash_key_equals($php_values, 'install', 1)
-{
   # $::lsbdistcodename is blank in CentOS
   if $::operatingsystem == 'ubuntu'
     and $::lsbdistcodename in [
       'lucid', 'maverick', 'natty', 'oneiric', 'precise'
     ]
   {
-    apt::key { '8D0DC64F': key_server => 'hkp://keyserver.ubuntu.com:80' }
-    apt::ppa { 'ppa:brianmercer/php5-xhprof': require => Apt::Key['8D0DC64F'] }
+    apt::key { '8D0DC64F':
+      key_server => 'hkp://keyserver.ubuntu.com:80'
+    }
+    apt::ppa { 'ppa:brianmercer/php5-xhprof':
+      require => Apt::Key['8D0DC64F']
+    }
   }
 
-  $xhprof_php_prefix = $::osfamily ? {
-    'debian' => 'php5-',
-    'redhat' => 'php-',
-  }
-
-  if hash_key_equals($apache_values, 'install', 1)
-    and hash_key_equals($php_values, 'mod_php', 1)
-  {
-    $xhprof_webserver_service = 'httpd'
-  } elsif hash_key_equals($apache_values, 'install', 1)
-    or hash_key_equals($nginx_values, 'install', 1)
-  {
-    $xhprof_webserver_service = "${xhprof_php_prefix}fpm"
+  if array_true($apache, 'install') or array_true($nginx, 'install') {
+    $service = $puphpet::php::settings::service
   } else {
-    $xhprof_webserver_service = undef
+    $service = undef
   }
 
-  if hash_key_equals($apache_values, 'install', 1) {
-    $xhprof_webroot_location = $puphpet::apache::params::default_vhost_dir
-  } elsif hash_key_equals($nginx_values, 'install', 1) {
-    $xhprof_webroot_location = $puphpet::params::nginx_webroot_location
+  if array_true($apache, 'install') {
+    $webroot = $puphpet::apache::params::default_vhost_dir
+  } elsif array_true($nginx, 'install') {
+    $webroot = $puphpet::params::nginx_webroot_location
   } else {
-    $xhprof_webroot_location = $xhprof_values['location']
+    $webroot = $xhprof['location']
   }
 
   if ! defined(Package['graphviz']) {
@@ -51,8 +42,9 @@ if hash_key_equals($xhprof_values, 'install', 1)
   }
 
   class { 'puphpet::php::xhprof':
-    php_version       => $php_values['settings']['version'],
-    webroot_location  => $xhprof_webroot_location,
-    webserver_service => $xhprof_webserver_service
+    php_version       => $php['settings']['version'],
+    webroot_location  => $webroot,
+    webserver_service => $service
   }
+
 }

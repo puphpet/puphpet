@@ -7,7 +7,7 @@ vm:
             username: SOFTLAYER_USERNAME
             api_key: SOFTLAYER_API_KEY
             ssh_key: SOFTLAYER SAVED PUBLIC KEY NAME
-            operating_system: DEBIAN_7_64
+            operating_system: UBUNTU_14_64
             datacenter: DAL01
             max_memory: 1024
             start_cpus: 1

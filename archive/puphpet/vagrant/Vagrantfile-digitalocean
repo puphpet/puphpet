@@ -26,6 +26,7 @@ Vagrant.configure('2') do |config|
     s.path = 'puphpet/shell/initial-setup.sh'
     s.args = '/vagrant/puphpet'
   end
+  config.vm.provision :shell, :path => 'puphpet/shell/check-puppet-modules.sh'
   config.vm.provision :shell, :path => 'puphpet/shell/install-ruby.sh'
   config.vm.provision :shell, :path => 'puphpet/shell/install-puppet.sh'
 

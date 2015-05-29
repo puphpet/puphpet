@@ -6,6 +6,8 @@
 {% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
 {% set ssl_key = (vhost.ssl_key is defined) ? vhost.ssl_key : '' %}
 {% set ssl_certs_dir = (vhost.ssl_certs_dir is defined) ? vhost.ssl_certs_dir : '' %}
+{% set ssl_protocol = (vhost.ssl_protocol is defined) ? vhost.ssl_protocol : '' %}
+{% set ssl_cipher = (vhost.ssl_cipher is defined) ? vhost.ssl_cipher : '' %}
 {% set directories = (vhost.directories is defined) ? vhost.directories : [] %}
 
 <div class="nested-block" id="{{ uniqid }}">
@@ -128,6 +130,8 @@
             <fieldset>
                 <legend>SSL Options</legend>
 
+                <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl]" value="0" />
+
                 <div class="form-group col-xs-6">
                     <div class="help-text">
                         <p>Absolute path to SSL Certificate File. Usually ends in .crt.
@@ -198,6 +202,9 @@
                            placeholder="/leave/blank/for/sample" class="form-control"
                            value="{{ ssl_certs_dir }}" />
                 </div>
+
+                <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_protocol]" value="{{ ssl_protocol }}" />
+                <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_cipher]" value="{{ ssl_cipher }}" />
 
                 <div class="clearfix"></div>
 

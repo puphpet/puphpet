@@ -1,0 +1,160 @@
+<input type="hidden" name="blackfire[install]" value="0" />
+
+<div class="form-group margin-top">
+    <span class="help-text">
+        A free account is required to use this plugin.
+        <a href="https://blackfire.io/" target="_blank">Create your account here</a>.
+        <br /><br />
+        <a href="https://blackfire.io/getting-started" target="_blank">Read the Getting Started docs</a> here.
+    </span>
+    <label class="col-xs-12 radio-tile">
+        <input type="checkbox" name="blackfire[install]" value="1"
+               class="invisible toggle-on-select update-other-input"
+               {% if blackfire.install %}checked{% endif %}
+               data-vis-toggle-target="#blackfire-container,#blackfire-install-check"
+               data-update-php[composer]="1" data-update-hhvm[composer]="1" />
+        <span class="content">
+            <span class="header large">
+                <i class="icon"></i>
+                <span class="title">Install Blackfire</span>
+            </span>
+            <span class="footer">
+                A performance analyzer that digs deep into where server resources are most used.
+            </span>
+        </span>
+    </label>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="blackfire-container" class="{% if not blackfire.install %}hidden{% endif %}">
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            <a href="https://blackfire.io/account/credentials" target="_blank">Your credentials are available here</a>.
+        </div>
+        <label for="blackfire-settings-server_id">Server ID</label>
+        <input type="text" id="blackfire-settings-server_id"
+               name="blackfire[settings][server_id]"
+               class="form-control"
+               value="{{ blackfire.settings.server_id }}" />
+    </div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            <a href="https://blackfire.io/account/credentials" target="_blank">Your credentials are available here</a>.
+        </div>
+        <label for="blackfire-settings-server_token">Server Token</label>
+        <input type="text" id="blackfire-settings-server_token"
+               name="blackfire[settings][server_token]"
+               class="form-control"
+               value="{{ blackfire.settings.server_token }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="nested-block">
+        <fieldset>
+            <legend>Agent Options</legend>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    Optional.
+                </div>
+                <label for="blackfire-settings-agent-http_proxy">HTTP Proxy</label>
+                <input type="text" id="blackfire-settings-agent-http_proxy"
+                       name="blackfire[settings][agent][http_proxy]"
+                       placeholder="" class="form-control"
+                       value="{{ blackfire.settings.agent.http_proxy }}" />
+            </div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    Optional.
+                </div>
+                <label for="blackfire-settings-agent-https_proxy">HTTPS Proxy</label>
+                <input type="text" id="blackfire-settings-agent-https_proxy"
+                       name="blackfire[settings][agent][https_proxy]"
+                       placeholder="" class="form-control"
+                       value="{{ blackfire.settings.agent.https_proxy }}" />
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    Write logs to here. Defaults to <code>stderr</code>.
+                </div>
+                <label for="blackfire-settings-agent-log_file">Log File</label>
+                <input type="text" id="blackfire-settings-agent-log_file"
+                       name="blackfire[settings][agent][log_file]"
+                       placeholder="stderr" class="form-control"
+                       value="{{ blackfire.settings.agent.log_file }}" />
+            </div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    Log verbosity level.
+                </div>
+                <label for="blackfire-settings-agent-log_level">Log Level</label>
+                <select id="blackfire-settings-agent-log_level"
+                       name="blackfire[settings][agent][log_level]"
+                       class="form-control select-tag">
+                    {% for value, name in blackfire.available.log_levels %}
+                        <option value="{{ value }}"
+                            {% if value == blackfire.settings.agent.log_level %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="nested-block">
+        <fieldset>
+            <legend>Extension Options</legend>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    The agent timeout.
+                </div>
+                <label for="blackfire-settings-php-agent_timeout">Agent Timeout</label>
+                <input type="number" id="blackfire-settings-php-agent_timeout"
+                       name="blackfire[settings][php][agent_timeout]"
+                       placeholder="0.25" class="form-control"
+                       value="{{ blackfire.settings.php.agent_timeout }}" />
+            </div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    Write logs to here. Optional.
+                </div>
+                <label for="blackfire-settings-php-log_file">Log File</label>
+                <input type="text" id="blackfire-settings-php-log_file"
+                       name="blackfire[settings][php][log_file]"
+                       placeholder="" class="form-control"
+                       value="{{ blackfire.settings.php.log_file }}" />
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-6">
+                <div class="help-text">
+                    Log verbosity level.
+                </div>
+                <label for="blackfire-settings-php-log_level">Log Level</label>
+                <select id="blackfire-settings-php-log_level"
+                       name="blackfire[settings][php][log_level]"
+                       class="form-control select-tag">
+                    {% for value, name in blackfire.available.log_levels %}
+                        <option value="{{ value }}"
+                            {% if value == blackfire.settings.php.log_level %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </fieldset>
+    </div>
+
+</div>

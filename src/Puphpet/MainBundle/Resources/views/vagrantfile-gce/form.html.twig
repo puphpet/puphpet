@@ -1,200 +1,214 @@
 {% set providerChosen = (data.target == 'gce') ? true : false %}
 
-<div class="section-header hidden">
+<div class="section-header">
     <h1>Google Server Details</h1>
     <p class="lead">Spin up your virtual machine on Google Compute Engine.</p>
 </div>
 
-<div class="form-group">
-    <label class="col-xs-12 radio-tile">
-        <input type="radio" name="vagrantfile[target]" value="gce" class="invisible"
-               {% if providerChosen %}checked{% endif %} />
-        <span class="content">
-            <span class="header large">
-                <i class="icon"></i>
-                <span class="title">Deploy to Google</span>
-            </span>
-            <span class="footer">
-                A new server will be spun up at Google Compute Engine.
-                <a href="#" data-toggle="modal"
-                   data-target="#vagrantfile-gce-modal">Click here for instructions</a>.
-            </span>
-        </span>
-    </label>
-
-    <div class="clearfix"></div>
-</div>
-
-<div class="clearfix"></div>
-
-<div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-    <input type="hidden" id="vagrantfile-gce-vm-box" name="vagrantfile[vm][box]" value="gce" />
-
+<div class="field-container">
     <div class="form-group">
-        <div class="clearfix"><label>Distro</label></div>
-
-        <div class="help-text">
-            <p>Choose the operating system for your server. Google Compute Engine has pre-defined systems you can
-                choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
-            <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
-                operating system. You are welcome to attempt to install higher if you'd like, but
-                we cannot guarantee it will work. In fact in most cases it won't.</p>
-        </div>
-
-        {% for image in data.available.images %}
-            <label class="col-xs-6 radio-tile">
-                <input type="radio" class="invisible"
-                       name="vagrantfile[vm][provider][gce][image]"
-                       value="{{ image.image }}"
-                       {% if image.image == data.vm.provider.gce.image %}checked{% endif %} />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">{{ image.long_name }}</span>
-                    </span>
-                    <span class="footer">
-                        PHP {{ image.php_versions|join(', ') }}
-                    </span>
+        <label class="col-xs-12 radio-tile">
+            <input type="radio" name="vagrantfile[target]" value="gce" class="invisible"
+                   {% if providerChosen %}checked{% endif %} />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Deploy to Google</span>
                 </span>
-            </label>
+                <span class="footer">
+                    A new server will be spun up at Google Compute Engine.
+                    <a href="#" data-toggle="modal"
+                       data-target="#vagrantfile-gce-modal">Click here for instructions</a>.
+                </span>
+            </span>
+        </label>
 
-            {% if loop.index is even or loop.last %}
-                <div class="clearfix"></div>
-            {% endif %}
-        {% endfor %}
+        <div class="clearfix"></div>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            Name your Google Compute Engine instance as it will appear in the Developer Console.
-        </div>
-        <label for="vagrantfile-vm-provider-gce-name">Instance Name</label>
-        <input type="text" id="vagrantfile-vm-provider-gce-name"
-               name="vagrantfile[vm][provider][gce][name]"
-               class="form-control"
-               value="{{ data.vm.provider.gce.name }}" />
-    </div>
+    <div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
+        <input type="hidden" id="vagrantfile-gce-vm-box" name="vagrantfile[vm][box]" value="gce" />
 
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <a href="https://cloud.google.com/compute/pricing#machinetype"
-               target="_blank">Pricing information</a>.
-            Google Compute Engine charges by the hour, but also shows what a full month would cost.
-        </div>
-        <label for="vagrantfile-vm-provider-gce-machine_type">Instance Size</label>
-        <select id="vagrantfile-vm-provider-gce-machine_type"
-               name="vagrantfile[vm][provider][gce][machine_type]"
-               class="form-control select-tag">
-            {% for type, description in data.available.machine_types %}
-                <option value="{{ type }}"
-                        {% if type == data.vm.provider.gce.machine_type %}selected{% endif %}>{{ type }} ({{ description }})</option>
+        <div class="form-group">
+            <div class="clearfix"><label>Distro</label></div>
+
+            <div class="help-text">
+                <p>Choose the operating system for your server. Google Compute Engine has pre-defined systems you can
+                    choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
+                <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
+                    operating system. You are welcome to attempt to install higher if you'd like, but
+                    we cannot guarantee it will work. In fact in most cases it won't.</p>
+            </div>
+
+            {% for image in data.available.images %}
+                <label class="col-xs-6 radio-tile">
+                    <input type="radio" class="invisible"
+                           name="vagrantfile[vm][provider][gce][image]"
+                           value="{{ image.image }}"
+                           {% if image.image == data.vm.provider.gce.image %}checked{% endif %} />
+                    <span class="content">
+                        <span class="header">
+                            <i class="icon"></i>
+                            <span class="title">{{ image.long_name }}</span>
+                        </span>
+                        <span class="footer">
+                            PHP {{ image.php_versions|join(', ') }}
+                        </span>
+                    </span>
+                </label>
+
+                {% if loop.index is even or loop.last %}
+                    <div class="clearfix"></div>
+                {% endif %}
             {% endfor %}
-        </select>
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            Choose the one closest to you, or your target audience!
         </div>
-        <label for="vagrantfile-vm-provider-gce-zone">Instance Size</label>
-        <select id="vagrantfile-vm-provider-gce-zone"
-               name="vagrantfile[vm][provider][gce][zone]"
-               class="form-control select-tag">
-            {% for key, zone in data.available.zones %}
-                <option value="{{ key }}"
-                    {% if key == data.vm.provider.gce.zone %}selected{% endif %}>{{ zone }}</option>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Name your Google Compute Engine instance as it will appear in the Developer Console.
+            </div>
+            <label for="vagrantfile-vm-provider-gce-name">Instance Name</label>
+            <input type="text" id="vagrantfile-vm-provider-gce-name"
+                   name="vagrantfile[vm][provider][gce][name]"
+                   class="form-control"
+                   value="{{ data.vm.provider.gce.name }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="https://cloud.google.com/compute/pricing#machinetype"
+                   target="_blank">Pricing information</a>.
+                Google Compute Engine charges by the hour, but also shows what a full month would cost.
+            </div>
+            <label for="vagrantfile-vm-provider-gce-machine_type">Instance Size</label>
+            <select id="vagrantfile-vm-provider-gce-machine_type"
+                   name="vagrantfile[vm][provider][gce][machine_type]"
+                   class="form-control select-tag">
+                {% for type, description in data.available.machine_types %}
+                    <option value="{{ type }}"
+                            {% if type == data.vm.provider.gce.machine_type %}selected{% endif %}>{{ type }} ({{ description }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Choose the one closest to you, or your target audience!
+            </div>
+            <label for="vagrantfile-vm-provider-gce-zone">Instance Size</label>
+            <select id="vagrantfile-vm-provider-gce-zone"
+                   name="vagrantfile[vm][provider][gce][zone]"
+                   class="form-control select-tag">
+                {% for key, zone in data.available.zones %}
+                    <option value="{{ key }}"
+                        {% if key == data.vm.provider.gce.zone %}selected{% endif %}>{{ zone }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                The email address provided by your service account.
+            </div>
+            <label for="vagrantfile-vm-provider-gce-client_email">Client Email</label>
+            <input type="text" id="vagrantfile-vm-provider-gce-client_email"
+                   name="vagrantfile[vm][provider][gce][client_email]"
+                   class="form-control" placeholder="GCE CLIENT EMAIL"
+                   value="{{ data.vm.provider.gce.client_email }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                The ID of your project.
+            </div>
+            <label for="vagrantfile-vm-provider-gce-project_id">Project ID</label>
+            <input type="text" id="vagrantfile-vm-provider-gce-project_id"
+                   name="vagrantfile[vm][provider][gce][project_id]"
+                   class="form-control" placeholder="GCE PROJECT ID"
+                   value="{{ data.vm.provider.gce.project_id }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                The path to the service account private key file.
+            </div>
+            <label for="vagrantfile-vm-provider-gce-key_location">GCE Private Key Location</label>
+            <input type="text" id="vagrantfile-vm-provider-gce-key_location"
+                   name="vagrantfile[vm][provider][gce][key_location]"
+                   class="form-control" placeholder="/PATH/TO/PRIVATE_KEY.P12"
+                   value="{{ data.vm.provider.gce.key_location }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <p>The GCE instance will not be accessible without your private/public key.</p>
+                <p><strong>It will not be accessible using username/password,
+                        only private key!</strong></p>
+            </div>
+            <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
+            <input type="text" id="vagrantfile-ssh-private_key_path"
+                   name="vagrantfile[ssh][private_key_path]"
+                   class="form-control" placeholder="~/.ssh/id_rsa"
+                   value="{{ data.ssh.private_key_path }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                The username associated with the private key entered.
+            </div>
+            <label for="vagrantfile-ssh-username">Local Private Key Username</label>
+            <input type="text" id="vagrantfile-ssh-username"
+                   name="vagrantfile[ssh][username]"
+                   class="form-control"
+                   value="{{ data.ssh.username }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Your public key is also required.
+            </div>
+            <label for="vagrantfile-ssh-public_key_path">Local Public Key Path</label>
+            <input type="text" id="vagrantfile-ssh-public_key_path"
+                   name="vagrantfile[ssh][public_key_path]"
+                   class="form-control" placeholder="~/.ssh/id_rsa.pub"
+                   value="{{ data.ssh.public_key_path }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% if providerChosen %}
+            {% for synced_folder in data.vm.synced_folder %}
+                {% include 'PuphpetMainBundle:vagrantfile-gce/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
             {% endfor %}
-        </select>
-    </div>
+        {% endif %}
 
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            The email address provided by your service account.
-        </div>
-        <label for="vagrantfile-vm-provider-gce-client_email">Client Email</label>
-        <input type="text" id="vagrantfile-vm-provider-gce-client_email"
-               name="vagrantfile[vm][provider][gce][client_email]"
-               class="form-control" placeholder="GCE CLIENT EMAIL"
-               value="{{ data.vm.provider.gce.client_email }}" />
+        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_gce.synced_folder') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            The ID of your project.
-        </div>
-        <label for="vagrantfile-vm-provider-gce-project_id">Project ID</label>
-        <input type="text" id="vagrantfile-vm-provider-gce-project_id"
-               name="vagrantfile[vm][provider][gce][project_id]"
-               class="form-control" placeholder="GCE PROJECT ID"
-               value="{{ data.vm.provider.gce.project_id }}" />
+    <div class="col-xs-6">
     </div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            The path to the service account private key file.
-        </div>
-        <label for="vagrantfile-vm-provider-gce-key_location">GCE Private Key Location</label>
-        <input type="text" id="vagrantfile-vm-provider-gce-key_location"
-               name="vagrantfile[vm][provider][gce][key_location]"
-               class="form-control" placeholder="/PATH/TO/PRIVATE_KEY.P12"
-               value="{{ data.vm.provider.gce.key_location }}" />
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#system-packages">
+            System Packages <i class="fa fa-hand-o-right"></i>
+        </a>
     </div>
 
     <div class="clearfix"></div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <p>The GCE instance will not be accessible without your private/public key.</p>
-            <p><strong>It will not be accessible using username/password,
-                    only private key!</strong></p>
-        </div>
-        <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
-        <input type="text" id="vagrantfile-ssh-private_key_path"
-               name="vagrantfile[ssh][private_key_path]"
-               class="form-control" placeholder="~/.ssh/id_rsa"
-               value="{{ data.ssh.private_key_path }}" />
-    </div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            The username associated with the private key entered.
-        </div>
-        <label for="vagrantfile-ssh-username">Local Private Key Username</label>
-        <input type="text" id="vagrantfile-ssh-username"
-               name="vagrantfile[ssh][username]"
-               class="form-control"
-               value="{{ data.ssh.username }}" />
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            Your public key is also required.
-        </div>
-        <label for="vagrantfile-ssh-public_key_path">Local Public Key Path</label>
-        <input type="text" id="vagrantfile-ssh-public_key_path"
-               name="vagrantfile[ssh][public_key_path]"
-               class="form-control" placeholder="~/.ssh/id_rsa.pub"
-               value="{{ data.ssh.public_key_path }}" />
-    </div>
-
-    <div class="clearfix"></div>
-
-    {% if providerChosen %}
-        {% for synced_folder in data.vm.synced_folder %}
-            {% include 'PuphpetMainBundle:vagrantfile-gce/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-        {% endfor %}
-    {% endif %}
-
-    <a href="#" data-source-url="{{ path('puphpet.vagrantfile_gce.synced_folder') }}"
-       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
 </div>
 
 <div class="modal fade" id="vagrantfile-gce-modal" tabindex="-1" role="dialog"

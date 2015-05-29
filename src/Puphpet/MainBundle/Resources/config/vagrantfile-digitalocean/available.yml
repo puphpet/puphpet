@@ -16,8 +16,8 @@ images:
             - 5.4
             - HHVM
     -
-        image: ubuntu-14-10-x64
-        long_name: Ubuntu Trusty 14.10 LTS x64
+        image: ubuntu-14-04-x64
+        long_name: Ubuntu Trusty 14.04 LTS x64
         php_versions:
             - 7.0
             - 5.6
@@ -52,7 +52,8 @@ regions:
     ams3: Amsterdam 3
     sgp1: Singapore 1
     lon1: London 1
-
+    fra1: Frankfurt 1
+    
 empty_synced_folder:
     source: ~
     target: ~

@@ -1,169 +1,173 @@
 <input type="hidden" name="hhvm[install]" value="0" />
 
-<div class="section-header hidden">
+<div class="section-header">
     <h1>HHVM</h1>
     <p class="lead">Install HHVM and choose modules and settings.</p>
 </div>
 
-<div class="form-group">
-    <span class="help-text">
-        HHVM is a new open-source virtual machine designed for executing programs
-        written in PHP.
-        <a href="https://github.com/facebook/hhvm/" target="_blank">Learn about HHVM</a>.
-    </span>
-    <label class="col-xs-12 radio-tile">
-        <input type="checkbox" name="hhvm[install]" value="1"
-               class="invisible toggle-on-select update-other-input-on-check"
-               {% if hhvm.install %}checked{% endif %}
-               data-vis-toggle-target="#hhvm-container"
-               data-update-on-check-php[install]="0" />
-        <span class="content">
-            <span class="header large">
-                <i class="icon"></i>
-                <span class="title">Install HHVM</span>
-            </span>
-            <span class="footer">
-                If you install HHVM, you cannot install PHP.
-            </span>
+<div class="field-container">
+    <div class="form-group">
+        <span class="help-text">
+            HHVM is a new open-source virtual machine designed for executing programs
+            written in PHP.
+            <a href="https://github.com/facebook/hhvm/" target="_blank">Learn about HHVM</a>.
         </span>
-    </label>
-
-    <div class="clearfix"></div>
-</div>
-
-<div class="clearfix"></div>
-
-<div id="hhvm-container" class="{% if not hhvm.install %}hidden{% endif %}">
-    <div class="form-group col-xs-6">
-        <div class="clearfix"><label>Nightly</label></div>
-
-        <label class="radio-tile mini set-width">
-            <span class="help-text">
-                This will install the nightly release of HHVM.
-            </span>
-            <input type="checkbox" name="hhvm[nightly]"
-                   class="invisible"
-                   {% if hhvm.nightly %}checked{% endif %}
-                   value="1" />
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="hhvm[install]" value="1"
+                   class="invisible toggle-on-select update-other-input-on-check"
+                   {% if hhvm.install %}checked{% endif %}
+                   data-vis-toggle-target="#hhvm-container"
+                   data-update-on-check-php[install]="0" />
             <span class="content">
-                <span class="header">
+                <span class="header large">
                     <i class="icon"></i>
-                    <span class="title">Install Nightly</span>
+                    <span class="title">Install HHVM</span>
                 </span>
-            </span>
-        </label>
-    </div>
-
-    <div class="form-group col-xs-6">
-        <div class="clearfix"><label>System-Wide Composer</label></div>
-
-        <label class="radio-tile mini set-width">
-            <span class="help-text">
-                <a href="https://getcomposer.org">Composer</a> will be available as a
-                system service:<br />
-                <code>$ composer</code>
-            </span>
-            <input type="checkbox" name="hhvm[composer]"
-                   class="invisible"
-                   {% if hhvm.composer %}checked{% endif %}
-                   value="1" />
-            <span class="content">
-                <span class="header">
-                    <i class="icon"></i>
-                    <span class="title">Install Composer</span>
+                <span class="footer">
+                    If you install HHVM, you cannot install PHP.
                 </span>
             </span>
         </label>
 
-        <input type="hidden" name="hhvm[composer_home]" value="{{ hhvm.composer_home }}" />
+        <div class="clearfix"></div>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <p>HHVM will run in
-                <a href="http://www.hhvm.com/blog/1817/fastercgi-with-hhvm"
-                   target="_blank">FastCGI mode</a>.</p>
-            <p>In short: it will use Apache or Nginx (whatever you have chosen)
-                so all your htaccess and redirect rules should continue working as
-                normal. Only instead of using the official PHP engine, HHVM will be
-                used.</p>
-        </div>
-        <label for="hhvm-settings-host">Host</label>
-        <input type="text" id="hhvm-settings-host"
-               name="hhvm[settings][host]"
-               class="form-control" placeholder="127.0.0.1"
-               value="{{ hhvm.settings.host }}" />
-    </div>
+    <div id="hhvm-container" class="{% if not hhvm.install %}hidden{% endif %}">
+        <div class="form-group col-xs-6">
+            <div class="clearfix"><label>Nightly</label></div>
 
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <p>HHVM will run in
-                <a href="http://www.hhvm.com/blog/1817/fastercgi-with-hhvm"
-                   target="_blank">FastCGI mode</a>.</p>
-            <p>In short: it will use Apache or Nginx (whatever you have chosen)
-                so all your htaccess and redirect rules should continue working as
-                normal. Only instead of using the official PHP engine, HHVM will be
-                used.</p>
+            <label class="radio-tile mini set-width">
+                <span class="help-text">
+                    This will install the nightly release of HHVM.
+                </span>
+                <input type="checkbox" name="hhvm[nightly]"
+                       class="invisible"
+                       {% if hhvm.nightly %}checked{% endif %}
+                       value="1" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Install Nightly</span>
+                    </span>
+                </span>
+            </label>
         </div>
-        <label for="hhvm-settings-port">Listen Port</label>
-        <input type="text" id="hhvm-settings-port"
-               name="hhvm[settings][port]"
-               class="form-control" placeholder="13000"
-               value="{{ hhvm.settings.port }}" />
-    </div>
 
-    <div class="clearfix"></div>
+        <div class="form-group col-xs-6">
+            <div class="clearfix"><label>System-Wide Composer</label></div>
 
-    <div class="form-group col-xs-12">
-        <div class="help-text">
-            All settings added to a single INI file.
+            <label class="radio-tile mini set-width">
+                <span class="help-text">
+                    <a href="https://getcomposer.org">Composer</a> will be available as a
+                    system service:<br />
+                    <code>$ composer</code>
+                </span>
+                <input type="checkbox" name="hhvm[composer]"
+                       class="invisible"
+                       {% if hhvm.composer %}checked{% endif %}
+                       value="1" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Install Composer</span>
+                    </span>
+                </span>
+            </label>
+
+            <input type="hidden" name="hhvm[composer_home]" value="{{ hhvm.composer_home }}" />
         </div>
-        <label for="hhvm-ini-displayer">INI Settings</label>
-        <select id="hhvm-ini-displayer" multiple
-                class="form-control select-tags-user-input"
-                data-target-container="hhvm-ini"
-                data-target-name="hhvm[ini]">
-            {% set flattened = [] %}
-            {% for ini, values in hhvm.available.ini %}
-                {% if values is not empty %}
-                    <optgroup label="{{ ini }}">
-                        {% for value in values %}
-                            {% set flattened = flattened|merge([value]) %}
-                            <option value="{{ value }}"
-                                {% if value in hhvm.ini|keys %}selected{% endif %}>{{ value }}</option>
-                        {% endfor %}
-                    </optgroup>
-                {% else %}
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                All settings added to a single INI file.
+            </div>
+            <label for="hhvm-server_ini-displayer">Server INI Settings</label>
+            <select id="hhvm-server_ini-displayer" multiple
+                    class="form-control select-tags-user-input"
+                    data-target-container="hhvm-server_ini"
+                    data-target-name="hhvm[server_ini]">
+                {% set flattened = [] %}
+                {% for ini, value in hhvm.available.server_ini %}
                     {% set flattened = flattened|merge([ini]) %}
                     <option value="{{ ini }}"
-                        {% if ini in hhvm.ini|keys %}selected{% endif %}>{{ ini }}</option>
-                {% endif %}
-            {% endfor %}
+                        {% if ini in hhvm.server_ini|keys %}selected{% endif %}>{{ ini }}</option>
+                {% endfor %}
 
-            {% for name, value in hhvm.ini %}
-                {% if name not in flattened %}
-                    <option value="{{ name }}" selected>{{ name }}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
+                {% for name, value in hhvm.server_ini %}
+                    {% if name not in flattened %}
+                        <option value="{{ name }}" selected>{{ name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
 
-        <div id="hhvm-ini" class="hidden">
-            {% for name, value in hhvm.ini %}
-                <input type="hidden" name="hhvm[ini][{{ name }}]"
-                       data-option-name="{{ name }}" value="{{ value }}" />
-            {% endfor %}
+            <div id="hhvm-server_ini" class="hidden">
+                {% for name, value in hhvm.server_ini %}
+                    <input type="hidden" name="hhvm[server_ini][{{ name }}]"
+                           data-option-name="{{ name }}" value="{{ value }}" />
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                All settings added to a single INI file.
+            </div>
+            <label for="hhvm-php_ini-displayer">PHP INI Settings</label>
+            <select id="hhvm-php_ini-displayer" multiple
+                    class="form-control select-tags-user-input"
+                    data-target-container="hhvm-php_ini"
+                    data-target-name="hhvm[php_ini]">
+                {% set flattened = [] %}
+                {% for ini, value in hhvm.available.php_ini %}
+                    {% set flattened = flattened|merge([ini]) %}
+                    <option value="{{ ini }}"
+                        {% if ini in hhvm.php_ini|keys %}selected{% endif %}>{{ ini }}</option>
+                {% endfor %}
+
+                {% for name, value in hhvm.php_ini %}
+                    {% if name not in flattened %}
+                        <option value="{{ name }}" selected>{{ name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <div id="hhvm-php_ini" class="hidden">
+                {% for name, value in hhvm.php_ini %}
+                    <input type="hidden" name="hhvm[php_ini][{{ name }}]"
+                           data-option-name="{{ name }}" value="{{ value }}" />
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="help-block">
+            <p>ATTENTION: <strong>HHVM is currently not officially supported on CentOS</strong>.</p>
+            <p>Unfortunately the latest version available to PuPHPet boxes is HHVM 3.2. While HHVM
+                will install on CentOS, many things simply do not work.</p>
+            <p>Do not open support tickets about this! It is a known problem with CentOS and HHVM.</p>
+            <p>It is highly recommended you install HHVM on an Ubuntu 14.04 or Debian 7.5 box.</p>
         </div>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="help-block">
-        <p>ATTENTION: <strong>HHVM is currently not officially supported on CentOS</strong>.</p>
-        <p>Unfortunately the latest version available to PuPHPet boxes is HHVM 3.2. While HHVM
-            will install on CentOS, many things simply do not work.</p>
-        <p>Do not open support tickets about this! It is a known problem with CentOS and HHVM.</p>
-        <p>It is highly recommended you install HHVM on an Ubuntu 14.04 or Debian 7.5 box.</p>
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#nodejs">
+            <i class="fa fa-hand-o-left"></i> Node.js
+        </a>
     </div>
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#mysql">
+            MySQL <i class="fa fa-hand-o-right"></i>
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
 </div>

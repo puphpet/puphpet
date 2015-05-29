@@ -25,6 +25,7 @@ services:
         # language
             - [ addExtension, [ 'php' ] ]
             - [ addExtension, [ 'xdebug' ] ]
+            - [ addExtension, [ 'blackfire' ] ]
             - [ addExtension, [ 'xhprof' ] ]
             - [ addExtension, [ 'wpcli' ] ]
             - [ addExtension, [ 'drush' ] ]

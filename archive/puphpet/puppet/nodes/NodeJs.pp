@@ -1,11 +1,10 @@
-if $nodejs_values == undef { $nodejs_values = hiera_hash('nodejs', false) }
+class puphpet_nodejs (
+  $nodejs
+) {
 
-include puphpet::params
-
-if hash_key_equals($nodejs_values, 'install', 1) {
   include puphpet::nodejs
 
-  each( $nodejs_values['npm_packages'] ) |$package| {
+  each( $nodejs['npm_packages'] ) |$package| {
       $npm_array = split($package, '@')
 
       if count($npm_array) == 2 {
@@ -21,4 +20,5 @@ if hash_key_equals($nodejs_values, 'install', 1) {
       }
     }
   }
+
 }

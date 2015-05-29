@@ -1,225 +1,239 @@
 {% set providerChosen = (data.target == 'softlayer') ? true : false %}
 
-<div class="section-header hidden">
+<div class="section-header">
     <h1>SoftLayer Server Details</h1>
     <p class="lead">Spin up your virtual machine on SoftLayer.</p>
 </div>
 
-<div class="form-group">
-    <label class="col-xs-12 radio-tile">
-        <input type="radio" name="vagrantfile[target]" value="softlayer" class="invisible"
-               {% if providerChosen %}checked{% endif %} />
-        <span class="content">
-            <span class="header large">
-                <i class="icon"></i>
-                <span class="title">Deploy to SoftLayer</span>
-            </span>
-            <span class="footer">
-                A new server will be spun up at SoftLayer.
-                <a href="#" data-toggle="modal"
-                   data-target="#vagrantfile-softlayer-modal">Click here for instructions</a>.
-            </span>
-        </span>
-    </label>
-
-    <div class="clearfix"></div>
-</div>
-
-<div class="clearfix"></div>
-
-<div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-    <input type="hidden" id="vagrantfile-softlayer-vm-box" name="vagrantfile[vm][box]"
-           value="softlayer" />
+<div class="field-container">
     <div class="form-group">
-        <div class="clearfix"><label>Distro</label></div>
-
-        <div class="help-text">
-            <p>Choose the operating system for your server. SoftLayer has pre-defined systems you can
-                choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
-            <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
-                operating system. You are welcome to attempt to install higher if you'd like, but
-                we cannot guarantee it will work. In fact in most cases it won't.</p>
-        </div>
-
-        {% for image in data.available.images %}
-            <label class="col-xs-6 radio-tile">
-                <input type="radio" class="invisible"
-                       name="vagrantfile[vm][provider][softlayer][operating_system]"
-                       value="{{ image.image }}"
-                       {% if image.image == data.vm.provider.softlayer.operating_system %}checked{% endif %} />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">{{ image.long_name }}</span>
-                    </span>
-                    <span class="footer">
-                        PHP {{ image.php_versions|join(', ') }}
-                    </span>
+        <label class="col-xs-12 radio-tile">
+            <input type="radio" name="vagrantfile[target]" value="softlayer" class="invisible"
+                   {% if providerChosen %}checked{% endif %} />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Deploy to SoftLayer</span>
                 </span>
-            </label>
+                <span class="footer">
+                    A new server will be spun up at SoftLayer.
+                    <a href="#" data-toggle="modal"
+                       data-target="#vagrantfile-softlayer-modal">Click here for instructions</a>.
+                </span>
+            </span>
+        </label>
 
-            {% if loop.index is even or loop.last %}
-                <div class="clearfix"></div>
-            {% endif %}
-        {% endfor %}
+        <div class="clearfix"></div>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            Name your SoftLayer server as it will appear in the Control Panel.
-        </div>
-        <label for="vagrantfile-vm-hostname">Server Name</label>
-        <input type="text" id="vagrantfile-vm-hostname"
-               name="vagrantfile[vm][hostname]"
-               class="form-control" placeholder="AWESOME"
-               value="{{ data.vm.hostname }}" />
-    </div>
+    <div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
+        <input type="hidden" id="vagrantfile-softlayer-vm-box" name="vagrantfile[vm][box]"
+               value="softlayer" />
+        <div class="form-group">
+            <div class="clearfix"><label>Distro</label></div>
 
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <p>Must end in valid TLD.</p>
+            <div class="help-text">
+                <p>Choose the operating system for your server. SoftLayer has pre-defined systems you can
+                    choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
+                <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
+                    operating system. You are welcome to attempt to install higher if you'd like, but
+                    we cannot guarantee it will work. In fact in most cases it won't.</p>
+            </div>
 
-            <p>Your VM will be named {HOSTNAME}.{DOMAIN}</p>
+            {% for image in data.available.images %}
+                <label class="col-xs-6 radio-tile">
+                    <input type="radio" class="invisible"
+                           name="vagrantfile[vm][provider][softlayer][operating_system]"
+                           value="{{ image.image }}"
+                           {% if image.image == data.vm.provider.softlayer.operating_system %}checked{% endif %} />
+                    <span class="content">
+                        <span class="header">
+                            <i class="icon"></i>
+                            <span class="title">{{ image.long_name }}</span>
+                        </span>
+                        <span class="footer">
+                            PHP {{ image.php_versions|join(', ') }}
+                        </span>
+                    </span>
+                </label>
 
-            <p>The hostname and domain must be alphanumeric strings that may be separated by periods '.'.
-                The only other allowable special character is the dash '-' However the special
-                characters '.' and '-' may not be consecutive. Each alphanumeric string separated by a
-                period is considered a label. Labels must begin and end with an alphanumeric character.
-                Each label cannot be solely comprised of digits and must be between 1-63 characters in
-                length. The last label, the TLD (top level domain) must be between 2-6 alphabetic
-                characters. The domain portion must consist of least one label followed by a period '.'
-                then ending with the TLD label. Combining the hostname, followed by a period '.',
-                followed by the domain gives the FQDN (fully qualified domain name), which may not
-                exceed 253 characters in total length.</p>
-        </div>
-        <label for="vagrantfile-vm-provider-softlayer-domain">Domain</label>
-        <input type="text" id="vagrantfile-vm-provider-softlayer-domain"
-               name="vagrantfile[vm][provider][softlayer][domain]"
-               class="form-control"
-               value="{{ data.vm.provider.softlayer.domain }}" />
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <a href="http://www.softlayer.com/virtual-servers"
-               target="_blank">Pricing information</a>.
-            SoftLayer charges by the hour, but also shows what a full month would cost.
-        </div>
-        <label for="vagrantfile-vm-provider-softlayer-start_cpus">CPUs</label>
-        <select id="vagrantfile-vm-provider-softlayer-start_cpus"
-               name="vagrantfile[vm][provider][softlayer][start_cpus]"
-               class="form-control select-tag">
-            {% for key, name in data.available.cpus %}
-                <option value="{{ key }}"
-                    {% if key == data.vm.provider.softlayer.start_cpus %}selected{% endif %}>{{ name }}</option>
+                {% if loop.index is even or loop.last %}
+                    <div class="clearfix"></div>
+                {% endif %}
             {% endfor %}
-        </select>
-    </div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <a href="http://www.softlayer.com/virtual-servers"
-               target="_blank">Pricing information</a>.
-            SoftLayer charges by the hour, but also shows what a full month would cost.
         </div>
-        <label for="vagrantfile-vm-provider-softlayer-max_memory">Memory</label>
-        <select id="vagrantfile-vm-provider-softlayer-max_memory"
-               name="vagrantfile[vm][provider][softlayer][max_memory]"
-               class="form-control select-tag">
-            {% for key, memory in data.available.memory %}
-                <option value="{{ key }}"
-                    {% if key == data.vm.provider.softlayer.max_memory %}selected{% endif %}>{{ memory }}</option>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Name your SoftLayer server as it will appear in the Control Panel.
+            </div>
+            <label for="vagrantfile-vm-hostname">Server Name</label>
+            <input type="text" id="vagrantfile-vm-hostname"
+                   name="vagrantfile[vm][hostname]"
+                   class="form-control" placeholder="AWESOME"
+                   value="{{ data.vm.hostname }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <p>Must end in valid TLD.</p>
+
+                <p>Your VM will be named {HOSTNAME}.{DOMAIN}</p>
+
+                <p>The hostname and domain must be alphanumeric strings that may be separated by periods '.'.
+                    The only other allowable special character is the dash '-' However the special
+                    characters '.' and '-' may not be consecutive. Each alphanumeric string separated by a
+                    period is considered a label. Labels must begin and end with an alphanumeric character.
+                    Each label cannot be solely comprised of digits and must be between 1-63 characters in
+                    length. The last label, the TLD (top level domain) must be between 2-6 alphabetic
+                    characters. The domain portion must consist of least one label followed by a period '.'
+                    then ending with the TLD label. Combining the hostname, followed by a period '.',
+                    followed by the domain gives the FQDN (fully qualified domain name), which may not
+                    exceed 253 characters in total length.</p>
+            </div>
+            <label for="vagrantfile-vm-provider-softlayer-domain">Domain</label>
+            <input type="text" id="vagrantfile-vm-provider-softlayer-domain"
+                   name="vagrantfile[vm][provider][softlayer][domain]"
+                   class="form-control"
+                   value="{{ data.vm.provider.softlayer.domain }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="http://www.softlayer.com/virtual-servers"
+                   target="_blank">Pricing information</a>.
+                SoftLayer charges by the hour, but also shows what a full month would cost.
+            </div>
+            <label for="vagrantfile-vm-provider-softlayer-start_cpus">CPUs</label>
+            <select id="vagrantfile-vm-provider-softlayer-start_cpus"
+                   name="vagrantfile[vm][provider][softlayer][start_cpus]"
+                   class="form-control select-tag">
+                {% for key, name in data.available.cpus %}
+                    <option value="{{ key }}"
+                        {% if key == data.vm.provider.softlayer.start_cpus %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="http://www.softlayer.com/virtual-servers"
+                   target="_blank">Pricing information</a>.
+                SoftLayer charges by the hour, but also shows what a full month would cost.
+            </div>
+            <label for="vagrantfile-vm-provider-softlayer-max_memory">Memory</label>
+            <select id="vagrantfile-vm-provider-softlayer-max_memory"
+                   name="vagrantfile[vm][provider][softlayer][max_memory]"
+                   class="form-control select-tag">
+                {% for key, memory in data.available.memory %}
+                    <option value="{{ key }}"
+                        {% if key == data.vm.provider.softlayer.max_memory %}selected{% endif %}>{{ memory }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <p>Choose the one closest to you, or your target audience!</p>
+
+                <p>If you get an error that looks like
+                    'There is insufficient Local disk resources in {DATACENTER} to create the following
+                    guests: {HOSTNAME}', choose a different datacenter.</p>
+            </div>
+            <label for="vagrantfile-vm-provider-softlayer-datacenter">Datacenter Location</label>
+            <select id="vagrantfile-vm-provider-softlayer-datacenter"
+                   name="vagrantfile[vm][provider][softlayer][datacenter]"
+                   class="form-control select-tag">
+                {% for key, dc in data.available.datacenters %}
+                    <option value="{{ key }}"
+                        {% if key == data.vm.provider.softlayer.datacenter %}selected{% endif %}>{{ dc }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Username you use to login to SoftLayer
+            </div>
+            <label for="vagrantfile-vm-provider-softlayer-username">SoftLayer Account Username</label>
+            <input type="text" id="vagrantfile-vm-provider-softlayer-username"
+                   name="vagrantfile[vm][provider][softlayer][username]"
+                   class="form-control" placeholder="SOFTLAYER USERNAME"
+                   value="{{ data.vm.provider.softlayer.username }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="https://control.softlayer.com/account/user/profile"
+                   target="_blank">Get it here</a>.
+            </div>
+            <label for="vagrantfile-vm-provider-softlayer-api_key">SoftLayer API Key</label>
+            <input type="text" id="vagrantfile-vm-provider-softlayer-api_key"
+                   name="vagrantfile[vm][provider][softlayer][api_key]"
+                   class="form-control" placeholder="SOFTLAYER API KEY"
+                   value="{{ data.vm.provider.softlayer.api_key }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <p>The SoftLayer server will not be accessible without your private/public key.</p>
+                <p><strong>It will not be accessible using username/password,
+                        only private key!</strong></p>
+            </div>
+            <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
+            <input type="text" id="vagrantfile-ssh-private_key_path"
+                   name="vagrantfile[ssh][private_key_path]"
+                   class="form-control" placeholder="~/.ssh/id_rsa"
+                   value="{{ data.ssh.private_key_path }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                This must be a public key associated with your account from
+                <a href="https://control.softlayer.com/devices/sshkeys" target="_blank">this page</a>.
+            </div>
+            <label for="vagrantfile-vm-provider-softlayer-ssh_key">Local Public Key Path</label>
+            <input type="text" id="vagrantfile-vm-provider-softlayer-ssh_key"
+                   name="vagrantfile[vm][provider][softlayer][ssh_key]"
+                   class="form-control" placeholder="~/.ssh/id_rsa.pub"
+                   value="{{ data.ssh.public_key_path }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% if providerChosen %}
+            {% for synced_folder in data.vm.synced_folder %}
+                {% include 'PuphpetMainBundle:vagrantfile-softlayer/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
             {% endfor %}
-        </select>
+        {% endif %}
+
+        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_softlayer.synced_folder') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <p>Choose the one closest to you, or your target audience!</p>
-
-            <p>If you get an error that looks like
-                'There is insufficient Local disk resources in {DATACENTER} to create the following
-                guests: {HOSTNAME}', choose a different datacenter.</p>
-        </div>
-        <label for="vagrantfile-vm-provider-softlayer-datacenter">Datacenter Location</label>
-        <select id="vagrantfile-vm-provider-softlayer-datacenter"
-               name="vagrantfile[vm][provider][softlayer][datacenter]"
-               class="form-control select-tag">
-            {% for key, dc in data.available.datacenters %}
-                <option value="{{ key }}"
-                    {% if key == data.vm.provider.softlayer.datacenter %}selected{% endif %}>{{ dc }}</option>
-            {% endfor %}
-        </select>
+    <div class="col-xs-6">
     </div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            Username you use to login to SoftLayer
-        </div>
-        <label for="vagrantfile-vm-provider-softlayer-username">SoftLayer Account Username</label>
-        <input type="text" id="vagrantfile-vm-provider-softlayer-username"
-               name="vagrantfile[vm][provider][softlayer][username]"
-               class="form-control" placeholder="SOFTLAYER USERNAME"
-               value="{{ data.vm.provider.softlayer.username }}" />
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#system-packages">
+            System Packages <i class="fa fa-hand-o-right"></i>
+        </a>
     </div>
 
     <div class="clearfix"></div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <a href="https://control.softlayer.com/account/user/profile"
-               target="_blank">Get it here</a>.
-        </div>
-        <label for="vagrantfile-vm-provider-softlayer-api_key">SoftLayer API Key</label>
-        <input type="text" id="vagrantfile-vm-provider-softlayer-api_key"
-               name="vagrantfile[vm][provider][softlayer][api_key]"
-               class="form-control" placeholder="SOFTLAYER API KEY"
-               value="{{ data.vm.provider.softlayer.api_key }}" />
-    </div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            <p>The SoftLayer server will not be accessible without your private/public key.</p>
-            <p><strong>It will not be accessible using username/password,
-                    only private key!</strong></p>
-        </div>
-        <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
-        <input type="text" id="vagrantfile-ssh-private_key_path"
-               name="vagrantfile[ssh][private_key_path]"
-               class="form-control" placeholder="~/.ssh/id_rsa"
-               value="{{ data.ssh.private_key_path }}" />
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div class="form-group col-xs-6">
-        <div class="help-text">
-            This must be a public key associated with your account from
-            <a href="https://control.softlayer.com/devices/sshkeys" target="_blank">this page</a>.
-        </div>
-        <label for="vagrantfile-vm-provider-softlayer-ssh_key">Local Public Key Path</label>
-        <input type="text" id="vagrantfile-vm-provider-softlayer-ssh_key"
-               name="vagrantfile[vm][provider][softlayer][ssh_key]"
-               class="form-control" placeholder="~/.ssh/id_rsa.pub"
-               value="{{ data.ssh.public_key_path }}" />
-    </div>
-
-    <div class="clearfix"></div>
-
-    {% if providerChosen %}
-        {% for synced_folder in data.vm.synced_folder %}
-            {% include 'PuphpetMainBundle:vagrantfile-softlayer/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-        {% endfor %}
-    {% endif %}
-
-    <a href="#" data-source-url="{{ path('puphpet.vagrantfile_softlayer.synced_folder') }}"
-       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
 </div>
 
 <div class="modal fade" id="vagrantfile-softlayer-modal" tabindex="-1" role="dialog"

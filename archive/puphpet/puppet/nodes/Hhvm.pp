@@ -1,58 +1,33 @@
-if $hhvm_values == undef { $hhvm_values = hiera_hash('hhvm', false) }
-if $apache_values == undef { $apache_values = hiera_hash('apache', false) }
-if $nginx_values == undef { $nginx_values = hiera_hash('nginx', false) }
-
-include puphpet::params
-include puphpet::supervisord
-
-if hash_key_equals($hhvm_values, 'install', 1) {
-  if hash_key_equals($apache_values, 'install', 1) {
-    $hhvm_webserver         = 'httpd'
-    $hhvm_webserver_restart = true
-  } elsif hash_key_equals($nginx_values, 'install', 1) {
-    $hhvm_webserver         = 'nginx'
-    $hhvm_webserver_restart = true
-  } else {
-    $hhvm_webserver         = undef
-    $hhvm_webserver_restart = true
-  }
+class puphpet_hhvm (
+  $hhvm
+) {
 
   class { 'puphpet::hhvm':
-    nightly   => $hhvm_values['nightly'],
-    webserver => $hhvm_webserver
+    nightly => $hhvm['nightly'],
+  }
+
+  if ! defined(Group['hhvm']) {
+    group { 'hhvm':
+      ensure => present,
+    }
   }
 
   if ! defined(User['hhvm']) {
     user { 'hhvm':
       ensure     => present,
       home       => '/home/hhvm',
-      groups     => 'www-data',
+      groups     => ['hhvm', 'www-data'],
       managehome => true,
-      require    => Group['www-data']
+      require    => [
+        Group['hhvm'],
+        Group['www-data']
+      ]
     }
   }
 
-  # Use supervisord to keep the HHVM daemon up and running
-  $hhvm_port = "-vServer.Port=${hhvm_values['settings']['port']}"
-  $supervisord_hhvm = "hhvm --mode server -vServer.Type=fastcgi ${hhvm_port}"
-
-  service { 'hhvm':
-    ensure  => stopped,
-    before  => Supervisord::Supervisorctl['restart_hhvm'],
-    require => [
-      User['hhvm'],
-      Package['hhvm']
-    ]
-  }
-  -> supervisord::program { 'hhvm':
-    command     => $supervisord_hhvm,
-    priority    => '100',
-    user        => 'hhvm',
-    autostart   => true,
-    autorestart => 'true',
-    environment => {
-      'PATH' => '/bin:/sbin:/usr/bin:/usr/sbin',
-    }
+  User <| title == 'www-data' |> {
+    groups  +> 'hhvm',
+    require +> Group['hhvm'],
   }
 
   file { '/usr/bin/php':
@@ -61,37 +36,61 @@ if hash_key_equals($hhvm_values, 'install', 1) {
     require => Package['hhvm']
   }
 
-  $hhvm_inis = merge({
-    'date.timezone' => $hhvm_values['timezone'],
-  }, $hhvm_values['ini'])
+  service { 'hhvm':
+    ensure  => 'running',
+    require => [
+      User['hhvm'],
+      Package['hhvm'],
+    ],
+  }
 
-  $hhvm_ini = '/etc/hhvm/php.ini'
+  $server_ini = '/etc/hhvm/server.ini'
 
-  each( $hhvm_inis ) |$key, $value| {
-    $hhvm_perl_cmd = "perl -p -i -e 's#${key} = .*#${key} = ${value}#gi'"
+  # config file could contain no server_ini key
+  $server_inis = array_true($hhvm, 'server_ini') ? {
+    true    => $hhvm['server_ini'],
+    default => { }
+  }
 
-    exec { "hhvm-php.ini@${key}/${value}":
-      command => "${hhvm_perl_cmd} ${hhvm_ini}",
-      onlyif  => "test -f ${hhvm_ini}",
-      unless  => "grep -x '${key} = ${value}' ${hhvm_ini}",
-      path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
+  each( $server_inis ) |$key, $value| {
+    $changes = [ "set '${key}' '${value}'" ]
+
+    augeas { "${key}: ${value}":
+      lens    => 'PHP.lns',
+      incl    => $server_ini,
+      context => "/files${server_ini}/.anon",
+      changes => $changes,
+      notify  => Service['hhvm'],
       require => Package['hhvm'],
-      notify  => Supervisord::Supervisorctl['restart_hhvm'],
     }
   }
 
-  supervisord::supervisorctl { 'restart_hhvm':
-    command     => 'restart',
-    process     => 'hhvm',
-    refreshonly => true,
+  $php_ini = '/etc/hhvm/php.ini'
+
+  # config file could contain no php_ini key
+  $php_inis = array_true($hhvm, 'php_ini') ? {
+    true    => $hhvm['php_ini'],
+    default => { }
   }
 
-  if hash_key_equals($hhvm_values, 'composer', 1)
-    and ! defined(Class['puphpet::php::composer'])
-  {
+  each( $php_inis ) |$key, $value| {
+    $changes = [ "set '${key}' '${value}'" ]
+
+    augeas { "${key}: ${value}":
+      lens    => 'PHP.lns',
+      incl    => $php_ini,
+      context => "/files${php_ini}/.anon",
+      changes => $changes,
+      notify  => Service['hhvm'],
+      require => Package['hhvm'],
+    }
+  }
+
+  if array_true($hhvm, 'composer') and ! defined(Class['puphpet::php::composer']) {
     class { 'puphpet::php::composer':
       php_package   => 'hhvm',
-      composer_home => $hhvm_values['composer_home'],
+      composer_home => $hhvm['composer_home'],
     }
   }
+
 }

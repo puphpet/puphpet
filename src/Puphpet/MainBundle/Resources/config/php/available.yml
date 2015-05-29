@@ -1211,7 +1211,6 @@ ini:
         - zlib.output_handler
 
 fpm_ini:
-    pid:
     error_log:
     syslog.facility:
     syslog.ident:

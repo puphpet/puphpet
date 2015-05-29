@@ -52,6 +52,5 @@ modules:
     - proxy_http
     - proxy
     - rewrite
-    - ssl
     - userdir
     - vhost_alias
