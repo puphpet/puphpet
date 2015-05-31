@@ -82,7 +82,7 @@ class puphpet_mariadb (
       group   => $mysql::params::root_group,
       mode    => '0775',
       require => Class['mysql::client'],
-      notify  => Service[$mariadb_settings['service_name']]
+      notify  => Service[$settings['service_name']]
     }
   }
 
@@ -208,16 +208,7 @@ class puphpet_mariadb (
       'options' => $options,
     })
 
-    create_resources( mysql_grant, { "${name}" => $grant_merged })
-  }
-
-  # MariaDB doesn't need mysql-libs
-  # Ensure it's uninstalled
-  if ! defined(Package['mysql-libs']) {
-    package { 'mysql-libs':
-      ensure => purged,
-      before => Class['mysql::server'],
-    }
+    create_resources( mysql_grant, { "${name}" => $merged })
   }
 
   if $php_package == 'php' {
