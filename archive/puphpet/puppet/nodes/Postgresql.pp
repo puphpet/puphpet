@@ -73,7 +73,7 @@ class puphpet_postgresql (
     })
 
     create_resources( postgresql::server::role, {
-      "${user_merged['username']}" => $merged
+      "${merged['username']}" => $merged
     })
   }
 
