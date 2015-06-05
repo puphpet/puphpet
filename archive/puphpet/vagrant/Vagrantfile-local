@@ -4,6 +4,11 @@ vagrant_dot  = (ENV['VAGRANT_DOTFILE_PATH'].to_s.split.join.length > 0) ? ENV['V
 Vagrant.configure('2') do |config|
   config.vm.box     = "#{data['vm']['box']}"
   config.vm.box_url = "#{data['vm']['box_url']}"
+  
+  if !data['vm']['name'].nil?
+    config.vm.define "#{data['vm']['name']}" do |t|
+    end
+  end
 
   if data['vm']['hostname'].to_s.strip.length != 0
     config.vm.hostname = "#{data['vm']['hostname']}"
