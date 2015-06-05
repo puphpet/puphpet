@@ -6,9 +6,9 @@ mod 'puppetlabs/apache',
 mod 'puppetlabs/apt',
     :git => 'https://github.com/puppetlabs/puppetlabs-apt.git',
     :ref => '1.4.2'
-mod 'puphpet/beanstalkd',
-    :git => 'https://github.com/puphpet/puppet-beanstalkd.git',
-    :ref => '5a530ff'
+mod 'keen99/beanstalkd',
+    :git => 'https://github.com/keen99/puppet-beanstalkd.git',
+    :ref => '1.0.0'
 mod 's12v/blackfire',
     :git => 'https://github.com/puphpet/puppet-blackfire.git',
     :ref => 'cb938a5'
