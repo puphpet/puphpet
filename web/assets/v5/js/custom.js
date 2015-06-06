@@ -366,7 +366,7 @@ PUPHPET.helpTextDisplay = function() {
             cache: true,
             multi: false,
             arrow: true,
-            closeable: false,
+            closeable: true,
             padding: true,
             type: 'html'
         });
