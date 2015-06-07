@@ -49,7 +49,7 @@ Vagrant.configure('2') do |config|
         hosts.push(vhost['server_name'])
 
         if vhost['server_aliases'].is_a?(Array)
-          vhost['server_aliases'].each do |x, vhost_alias|
+          vhost['server_aliases'].each do |vhost_alias|
             hosts.push(vhost_alias)
           end
         end
