@@ -1,0 +1,13 @@
+install: 0
+settings:
+    version: "10.0"
+    root_password: 123
+    override_options: {}
+
+adminer: 0
+
+users: []
+
+databases: []
+
+grants: []
