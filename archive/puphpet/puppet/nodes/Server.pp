@@ -163,19 +163,19 @@ class puphpet_server (
   }
 
   if $::osfamily == 'debian' {
-    $default_value = array_true($locales, 'default_value') ? {
-      true    => $locales['default_value'],
+    $default_locale = array_true($locales_values, 'default_locale') ? {
+      true    => $locales_values['default_locale'],
       default => 'en_US.UTF-8'
     }
 
-    $available = array_true($locales, 'available') ? {
-      true    => $locales['default_value'],
+    $locales = array_true($locales_values, 'locales') ? {
+      true    => $locales_values['locales'],
       default => ['en_US.UTF-8 UTF-8', 'en_GB.UTF-8 UTF-8']
     }
 
-    $locales_settings = merge($locales, {
-      'default_value' => $default_value,
-      'available'     => $available,
+    $locales_settings = merge($locales_values, {
+      'default_locale' => $default_locale,
+      'locales'        => $locales,
     })
 
     create_resources('class', { 'locales' => $locales_settings })
