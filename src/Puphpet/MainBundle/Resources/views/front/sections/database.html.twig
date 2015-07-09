@@ -1,6 +1,9 @@
 <div class="tab-pane" id="mysql">
     {% include 'PuphpetMainBundle:mysql:form.html.twig' with {'mysql': add_available(extensions.mysql.merged, extensions.mysql.available)} %}
 </div>
+<div class="tab-pane" id="mariadb">
+    {% include 'PuphpetMainBundle:mariadb:form.html.twig' with {'mariadb': add_available(extensions.mariadb.merged, extensions.mariadb.available)} %}
+</div>
 <div class="tab-pane" id="postgresql">
     {% include 'PuphpetMainBundle:postgresql:form.html.twig' with {'postgresql': add_available(extensions.postgresql.merged, extensions.postgresql.available)} %}
 </div>
