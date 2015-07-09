@@ -363,6 +363,7 @@ PUPHPET.helpTextDisplay = function() {
                 hide: 200
             },
             constrains: 'vertical',
+            placement: 'top-left',
             cache: true,
             multi: false,
             arrow: true,
