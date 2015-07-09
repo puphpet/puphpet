@@ -34,8 +34,8 @@ mod 'puppetlabs/java',
     :git => 'https://github.com/puppetlabs/puppetlabs-java.git',
     :ref => '1.3.0'
 mod 'attachmentgenie/locales',
-    :git => 'https://github.com/attachmentgenie/attachmentgenie-locales.git',
-    :ref => '1.1.1'
+    :git => 'https://github.com/saz/puppet-locales.git',
+    :ref => 'v2.2.2'
 mod 'actionjack/mailcatcher',
     :git => 'https://github.com/puphpet/puppet-mailcatcher.git',
     :ref => 'dcc8c3d357'
