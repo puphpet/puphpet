@@ -31,19 +31,20 @@ function create_key()
 create_key 'root_id_rsa'
 create_key 'id_rsa'
 
+ROOT_PUBLIC_SSH_KEY=$(cat "${VAGRANT_CORE_FOLDER}/files/dot/ssh/root_id_rsa.pub")
 PUBLIC_SSH_KEY=$(cat "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub")
 
-echo 'Adding generated key to /root/.ssh/id_rsa'
-echo 'Adding generated key to /root/.ssh/id_rsa.pub'
-echo 'Adding generated key to /root/.ssh/authorized_keys'
+echo 'Adding generated root key to /root/.ssh/id_rsa'
+echo 'Adding generated root key to /root/.ssh/id_rsa.pub'
+echo 'Adding generated root key to /root/.ssh/authorized_keys'
 
 mkdir -p /root/.ssh
 
-cp "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa" '/root/.ssh/'
-cp "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub" '/root/.ssh/'
+cp "${VAGRANT_CORE_FOLDER}/files/dot/ssh/root_id_rsa" '/root/.ssh/id_rsa'
+cp "${VAGRANT_CORE_FOLDER}/files/dot/ssh/root_id_rsa.pub" '/root/.ssh/id_rsa.pub'
 
-if [[ ! -f '/root/.ssh/authorized_keys' ]] || ! grep -q "${PUBLIC_SSH_KEY}" '/root/.ssh/authorized_keys'; then
-    cat "${VAGRANT_CORE_FOLDER}/files/dot/ssh/id_rsa.pub" >> '/root/.ssh/authorized_keys'
+if [[ ! -f '/root/.ssh/authorized_keys' ]] || ! grep -q "${ROOT_PUBLIC_SSH_KEY}" '/root/.ssh/authorized_keys'; then
+    cat "${VAGRANT_CORE_FOLDER}/files/dot/ssh/root_id_rsa.pub" >> '/root/.ssh/authorized_keys'
 fi
 
 chown -R root '/root/.ssh'
