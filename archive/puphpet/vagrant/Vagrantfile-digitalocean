@@ -5,10 +5,12 @@ Vagrant.configure('2') do |config|
   config.vm.hostname = "#{data['vm']['hostname']}"
   config.nfs.functional = false
 
-  config.ssh.private_key_path = "#{data['ssh']['private_key_path']}"
-  config.ssh.username         = "#{data['ssh']['username']}"
+  if !data['ssh']['username'].nil?
+    config.ssh.username         = "#{data['ssh']['username']}"
+  end
 
-  config.vm.provider :digital_ocean do |provider|
+  config.vm.provider :digital_ocean do |provider, override|
+    override.ssh.private_key_path = "#{data['ssh']['private_key_path']}"
     provider.token        = "#{data['vm']['provider']['digital_ocean']['token']}"
     provider.image        = "#{data['vm']['provider']['digital_ocean']['image']}"
     provider.region       = "#{data['vm']['provider']['digital_ocean']['region']}"
