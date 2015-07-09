@@ -1,0 +1,22 @@
+install: 0
+
+settings:
+    version: "10.0"
+    override_options: {}
+
+users:
+    -
+        name: dbuser
+        password: 123
+
+databases:
+    -
+        name: dbname
+        sql: ~
+
+grants:
+    -
+        user: dbuser
+        table: '*.*'
+        privileges:
+            - ALL
