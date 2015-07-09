@@ -59,6 +59,9 @@ puphpet.server:
 puphpet.users_groups:
     resource: "@PuphpetMainBundle/Resources/config/users-groups/routing.yml"
     prefix:   /extension/users-groups
+puphpet.locale:
+    resource: "@PuphpetMainBundle/Resources/config/locale/routing.yml"
+    prefix:   /extension/locale
 puphpet.firewall:
     resource: "@PuphpetMainBundle/Resources/config/firewall/routing.yml"
     prefix:   /extension/firewall

@@ -17,6 +17,7 @@ services:
         # system
             - [ addExtension, [ 'server' ] ]
             - [ addExtension, [ 'users-groups' ] ]
+            - [ addExtension, [ 'locale' ] ]
             - [ addExtension, [ 'firewall' ] ]
             - [ addExtension, [ 'cron' ] ]
         # web server

@@ -1,0 +1,62 @@
+<input type="hidden" name="locale[install]" value="1" />
+
+<div class="section-header">
+    <h1>Locale</h1>
+    <p class="lead">Set system locale.</p>
+</div>
+
+<div class="field-container">
+    <div class="help-block">
+        <p>Setting a locale currently only works on Debian and Ubuntu!</p>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            Per the <a href="https://wiki.debian.org/Locale#Standard" target="_blank">Debian Locale wiki</a>
+            it is highly recommended to leave your default locale empty.
+        </div>
+        <label for="locale-settings-default_locale">Default Locale</label>
+        <select id="locale-settings-default_locale"
+                name="locale[settings][default_locale]"
+                class="form-control select-tag-editable">
+            <option value="" {% if locale.settings.default_locale == '' %}selected{% endif %}>&lt;NONE&gt;</option>
+
+            {% for available in locale.available.locales %}
+                <option value="{{ available }}"
+                    {% if available == locale.settings.default_locale %}selected{% endif %}>{{ available }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group col-xs-6">
+        <div class="help-text">
+            Add as many as you want to support here.
+        </div>
+        <label for="locale-settings-locales">Supported Locales</label>
+        <select id="locale-settings-locales"
+                name="locale[settings][locales][]"
+                multiple class="form-control select-tags-editable">
+            {% for available in locale.available.locales %}
+                <option value="{{ available }}"
+                    {% if available in locale.settings.locales %}selected{% endif %}>{{ available }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#users-groups">
+            <i class="fa fa-hand-o-left"></i> Users &amp; Groups
+        </a>
+    </div>
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#firewall">
+            Firewall Rules <i class="fa fa-hand-o-right"></i>
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

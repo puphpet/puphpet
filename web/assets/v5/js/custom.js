@@ -492,6 +492,12 @@ PUPHPET.runSelectize = function($element) {
         searchField: 'value'
     });
 
+    // input or select elements; allows user to create their own tag - SINGLE selection
+    var $selectTagEditable = $('.select-tag-editable', $element).selectize({
+        persist: false,
+        create: true
+    });
+
     // select elements; asks user for value of selected tags; cannot create own tags
     var $selectTagsUserInput = PUPHPET.selectizeTagsUserInput($element);
 
@@ -511,6 +517,7 @@ PUPHPET.runSelectize = function($element) {
 
     PUPHPET._trackSelectize($selectTagsEditable);
     PUPHPET._trackSelectize($selectTagsUserInput);
+    PUPHPET._trackSelectize($selectTagEditable);
     PUPHPET._trackSelectize($selectTag);
     PUPHPET._trackSelectize($selectTags);
 };

@@ -201,7 +201,10 @@ class { '::puphpet_ruby':
 }
 
 class { '::puphpet_server':
-  server  => $server,
+  server  => $server
+}
+
+class { '::puphpet_locale':
   locales => $locales
 }
 

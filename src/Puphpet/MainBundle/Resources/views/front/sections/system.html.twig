@@ -4,6 +4,9 @@
 <div class="tab-pane" id="users-groups">
     {% include 'PuphpetMainBundle:users-groups:form.html.twig' with {'ug': add_available(extensions.users_groups.merged, extensions.users_groups.available)} %}
 </div>
+<div class="tab-pane" id="locale">
+    {% include 'PuphpetMainBundle:locale:form.html.twig' with {'locale': add_available(extensions.locale.merged, extensions.locale.available)} %}
+</div>
 <div class="tab-pane" id="firewall">
     {% include 'PuphpetMainBundle:firewall:form.html.twig' with {'firewall': add_available(extensions.firewall.merged, extensions.firewall.available)} %}
 </div>

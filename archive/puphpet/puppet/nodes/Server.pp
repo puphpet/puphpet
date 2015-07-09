@@ -1,6 +1,5 @@
 class puphpet_server (
-  $server,
-  $locales
+  $server
 ) {
 
   include ntp
@@ -160,25 +159,6 @@ class puphpet_server (
         ensure => present,
       }
     }
-  }
-
-  if $::osfamily == 'debian' {
-    $default_locale = array_true($locales_values, 'default_locale') ? {
-      true    => $locales_values['default_locale'],
-      default => 'en_US.UTF-8'
-    }
-
-    $locales = array_true($locales_values, 'locales') ? {
-      true    => $locales_values['locales'],
-      default => ['en_US.UTF-8 UTF-8', 'en_GB.UTF-8 UTF-8']
-    }
-
-    $locales_settings = merge($locales_values, {
-      'default_locale' => $default_locale,
-      'locales'        => $locales,
-    })
-
-    create_resources('class', { 'locales' => $locales_settings })
   }
 
 }
