@@ -92,8 +92,6 @@ class puphpet_server (
           ensure => present,
         }
       }
-
-      puphpet::server::link_dotfiles { $user_home: }
     }
     default: {
       error('PuPHPet currently only works with Debian and RHEL families')

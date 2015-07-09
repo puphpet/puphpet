@@ -1,5 +1,3 @@
-set rtp+=$GOROOT/misc/vim
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer:
 "       Amir Salihefendic
