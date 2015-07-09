@@ -25,9 +25,9 @@ class puphpet_mariadb (
   $server_package = $puphpet::params::mariadb_package_server_name
   $client_package = $puphpet::params::mariadb_package_client_name
 
-  if array_true($php_values, 'install') {
+  if array_true($php, 'install') {
     $php_package = 'php'
-  } elsif array_true($hhvm_values, 'install') {
+  } elsif array_true($hhvm, 'install') {
     $php_package = 'hhvm'
   } else {
     $php_package = false
