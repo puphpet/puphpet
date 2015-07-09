@@ -5,7 +5,7 @@ mod 'puppetlabs/apache',
     :ref => '7dde9fc31e'
 mod 'puppetlabs/apt',
     :git => 'https://github.com/puppetlabs/puppetlabs-apt.git',
-    :ref => '1.4.2'
+    :ref => '1.8.0'
 mod 'keen99/beanstalkd',
     :git => 'https://github.com/keen99/puppet-beanstalkd.git',
     :ref => '1.0.0'
