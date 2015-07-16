@@ -4,7 +4,6 @@ namespace Puphpet\MainBundle\Extension;
 
 class Archive
 {
-    const ARCHIVE_LOCATION = __DIR__ . '/../../../../archive';
 
     /**
      * @var string Location of existing, empty files
@@ -36,7 +35,7 @@ class Archive
     public function getSourceDir()
     {
         if (!$this->sourceDir) {
-            $this->sourceDir = sprintf('%s/%s', self::ARCHIVE_LOCATION, $this->subDir);
+            $this->sourceDir = sprintf('%s/%s', $this->getArchiveLocation(), $this->subDir);
         }
 
         return $this->sourceDir;
@@ -195,5 +194,15 @@ class Archive
     protected function file_put_contents($filename, $data, $flags = null)
     {
         return file_put_contents($filename, $data, $flags);
+    }
+
+    /**
+     * Get the default archive location.
+     *
+     * @return string
+     */
+    protected function getArchiveLocation()
+    {
+        return __DIR__ . '/../../../../archive';
     }
 }
