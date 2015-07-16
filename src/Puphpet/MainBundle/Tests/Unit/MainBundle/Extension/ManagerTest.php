@@ -104,13 +104,13 @@ class ManagerTest extends Unit\BaseTest
     {
         $this->setExpectedException(Exception\ParseException::class);
 
-        $manager = new Manager(self::CONF_DIR);
+        $manager = new Manager($this->getConfDir());
         $manager->addExtension('extension-broken');
     }
 
     public function testAddExtensionConvertsExtensionNameDashToUnderscore()
     {
-        $manager = new Manager(self::CONF_DIR);
+        $manager = new Manager($this->getConfDir());
         $manager->addExtension('vagrantfile-local');
 
         $extensionsArray = $manager->getExtensions();
@@ -126,7 +126,7 @@ class ManagerTest extends Unit\BaseTest
 
     public function testAddExtensionSetsDataInDefaultsAndDataKeys()
     {
-        $manager = new Manager(self::CONF_DIR);
+        $manager = new Manager($this->getConfDir());
         $manager->addExtension('vagrantfile-local');
 
         $extOneData = $this->configs['vagrantfile-local'];
@@ -139,7 +139,7 @@ class ManagerTest extends Unit\BaseTest
 
     public function testAddExtensionMergesDataDefaultsAndAvailableData()
     {
-        $manager = new Manager(self::CONF_DIR);
+        $manager = new Manager($this->getConfDir());
         $manager->addExtension('vagrantfile-local');
 
         $extOneData = $this->configs['vagrantfile-local'];
@@ -156,7 +156,7 @@ class ManagerTest extends Unit\BaseTest
 
     public function testAddExtensionHandlesMultipleExtensions()
     {
-        $manager = new Manager(self::CONF_DIR);
+        $manager = new Manager($this->getConfDir());
         $manager->addExtension('vagrantfile-local');
         $manager->addExtension('php');
         $manager->addExtension('vagrantfile-rackspace');
@@ -168,16 +168,21 @@ class ManagerTest extends Unit\BaseTest
 
     public function testSetCustomDataAllOverridesDefaultData()
     {
-        $manager = new Manager(self::CONF_DIR);
+        $manager = new Manager($this->getConfDir());
         $manager->addExtension('vagrantfile-local');
         $manager->addExtension('vagrantfile-rackspace');
 
-        $customData = Yaml::parse(self::CONF_DIR . '/custom-data/custom.yml');
+        $customData = Yaml::parse($this->getConfDir() . '/custom-data/custom.yml');
 
         $manager->setCustomDataAll($customData);
 
-        $expectedResult = Yaml::parse(self::CONF_DIR . '/custom-data/expected-merged.yml');
+        $expectedResult = Yaml::parse($this->getConfDir() . '/custom-data/expected-merged.yml');
 
         $this->assertEquals($expectedResult, $manager->getExtensions());
+    }
+
+    protected function getConfDir()
+    {
+        return Unit\BaseTest::BASE_TEST_DIR . '/assets/config';
     }
 }
