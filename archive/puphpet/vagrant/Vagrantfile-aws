@@ -22,7 +22,7 @@ Vagrant.configure('2') do |config|
 
     aws.tags = {}
     data['vm']['provider']['aws']['tags'].each do |key, tag|
-      aws.tags.store(:key, :tag)
+      aws.tags.store(key, tag)
     end
   end
 
