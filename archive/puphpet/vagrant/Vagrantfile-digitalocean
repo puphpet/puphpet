@@ -16,6 +16,10 @@ Vagrant.configure('2') do |config|
     provider.region       = "#{data['vm']['provider']['digital_ocean']['region']}"
     provider.size         = "#{data['vm']['provider']['digital_ocean']['size']}"
     provider.ssh_key_name = "#{data['vm']['provider']['digital_ocean']['ssh_key_name']}"
+    provider.setup     = "#{data['vm']['provider']['digital_ocean']['setup']}"
+    provider.ipv6       = "#{data['vm']['provider']['digital_ocean']['ipv6']}"
+    provider.private_networking  = "#{data['vm']['provider']['digital_ocean']['private_networking']}"
+    provider.backups_enabled     = "#{data['vm']['provider']['digital_ocean']['backups_enabled']}"
   end
 
   data['vm']['synced_folder'].each do |i, folder|
