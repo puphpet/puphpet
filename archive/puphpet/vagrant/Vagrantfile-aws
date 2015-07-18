@@ -10,6 +10,8 @@ Vagrant.configure('2') do |config|
     aws.keypair_name              = "#{data['vm']['provider']['aws']['keypair_name']}"
     aws.ami                       = "#{data['vm']['provider']['aws']['ami']}"
     aws.instance_type             = "#{data['vm']['provider']['aws']['instance_type']}"
+    aws.subnet_id                 = "#{data['vm']['provider']['aws']['subnet_id']}"
+    aws.elastic_ip                = "#{data['vm']['provider']['aws']['elastic_ip']}"
     override.ssh.username         = "#{data['ssh']['username']}"
     override.ssh.private_key_path = "#{data['ssh']['private_key_path']}"
     if !data['vm']['provider']['aws']['region'].nil?

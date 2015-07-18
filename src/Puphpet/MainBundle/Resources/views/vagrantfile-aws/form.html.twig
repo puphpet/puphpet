@@ -174,6 +174,33 @@
             </select>
         </div>
 
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                The subnet to boot the instance into, for VPC.
+                <a href="https://console.aws.amazon.com/vpc/home?#subnets:" target="_blank">Get them here</a>.
+            </div>
+            <label for="vagrantfile-vm-provider-aws-subnet_id">VPC Subnet ID</label>
+            <input type="text" id="vagrantfile-vm-provider-aws-subnet_id"
+                   name="vagrantfile[vm][provider][aws][subnet_id]"
+                   class="form-control" placeholder="VPC Subnet ID"
+                   value="{{ data.vm.provider.aws.subnet_id }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Assign an elastic IP address to this instance.
+                <a href="https://console.aws.amazon.com/ec2/v2/home?Addresses#Addresses:sort=publicIp" target="_blank">Get them here</a>.
+            </div>
+            <label for="vagrantfile-vm-provider-aws-elastic_ip">Elastic IP Address</label>
+            <input type="text" id="vagrantfile-vm-provider-aws-elastic_ip"
+                   name="vagrantfile[vm][provider][aws][elastic_ip]"
+                   class="form-control" placeholder="Elastic IP"
+                   value="{{ data.vm.provider.aws.elastic_ip }}" />
+        </div>
+
+
         <div class="clearfix"></div>
 
         {% if providerChosen %}
