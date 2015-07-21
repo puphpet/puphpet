@@ -1,3 +1,5 @@
+# -*- mode: ruby -*-
+
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'digital_ocean'
 
 Vagrant.configure('2') do |config|

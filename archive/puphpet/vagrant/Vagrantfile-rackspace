@@ -1,3 +1,5 @@
+# -*- mode: ruby -*-
+
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'rackspace'
 
 require 'fog/version'
