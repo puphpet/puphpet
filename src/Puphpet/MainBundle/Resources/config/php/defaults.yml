@@ -8,8 +8,7 @@ modules:
         - cli
         - intl
         - mcrypt
-    pecl:
-        - pecl_http
+    pecl: []
 
 ini:
     display_errors: On
