@@ -31,7 +31,7 @@ if [[ ! -f '/.puphpet-stuff/initial-setup-apt-get-update' ]]; then
         echo 'Finished running initial-setup apt-get update'
     fi
 
-    touch '/.puphpet-stuff/initial-setup-repo-update'
+    touch '/.puphpet-stuff/initial-setup-apt-get-update'
 fi
 
 # CentOS comes with tty enabled. RHEL has realized this is stupid, so we can
