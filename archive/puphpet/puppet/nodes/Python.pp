@@ -3,6 +3,7 @@ class puphpet_python (
 ) {
 
   include pyenv::params
+  require supervisord::pip
 
   puphpet::python::preinstall { 'foo':
     before => Class['pyenv'],
