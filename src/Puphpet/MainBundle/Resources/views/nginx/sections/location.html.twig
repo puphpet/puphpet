@@ -1,5 +1,6 @@
 {% set uniqid = uniqid('nxvl_', true) %}
 {% set autoindex = (location.autoindex is defined and location.autoindex is sameas('on')) ? true : false %}
+{% set internal = (location.internal is defined and location.internal is sameas('on')) ? true : false %}
 {% set try_files = (location.try_files is defined) ? location.try_files : [] %}
 {% set fast_cgi_params_extras = (location.fast_cgi_params_extra is defined) ? location.fast_cgi_params_extra : [] %}
 
@@ -21,7 +22,7 @@
                    value="{{ location.location }}"/>
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-3">
             <div class="clearfix"><label>autoindex</label></div>
 
             <label class="radio-tile mini set-width">
@@ -35,6 +36,26 @@
                     <span class="header">
                         <i class="icon"></i>
                         <span class="title">Enable autoindex</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="form-group col-xs-3">
+            <div class="clearfix"><label>internal</label></div>
+
+            <label class="radio-tile mini set-width">
+                <span class="help-text">
+                    Designates location as internal-only.
+                    See <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#internal" title="nginx internal location docs">nginx documentation</a> for more details.
+                </span>
+                <input type="hidden" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]" value="off" />
+                <input type="checkbox" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]"
+                       class="invisible" {% if internal %}checked{% endif %} value="true" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable internal</span>
                     </span>
                 </span>
             </label>
