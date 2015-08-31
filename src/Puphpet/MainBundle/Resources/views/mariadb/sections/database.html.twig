@@ -22,7 +22,7 @@
             <label for="mariadb-databases-{{ uniqid }}-sql">Import Database From File</label>
             <input type="text" id="mariadb-databases-{{ uniqid }}-sql"
                    name="mariadb[databases][{{ uniqid }}][sql]"
-                   placeholder="123" class="form-control"
+                   placeholder="/path/to/your/db/file" class="form-control"
                    value="{{ database.sql }}" />
         </div>
 
