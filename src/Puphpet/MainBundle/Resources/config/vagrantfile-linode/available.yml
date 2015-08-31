@@ -35,6 +35,7 @@ datacenters:
     london: London
     tokyo: Tokyo
     singapore: Singapore
+    frankfurt: Frankfurt
 
 empty_synced_folder:
     source: ~
