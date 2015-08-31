@@ -31,6 +31,7 @@ empty_vhost:
 empty_location:
     location: '/'
     autoindex: 0
+    internal: false
     try_files: []
     fastcgi: ~
     fastcgi_index: ~

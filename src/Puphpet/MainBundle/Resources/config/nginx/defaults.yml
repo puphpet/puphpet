@@ -33,6 +33,7 @@ vhosts:
             -
                 location: '/'
                 autoindex: 0
+                internal: false
                 try_files:
                     - '$uri'
                     - '$uri/'
@@ -44,6 +45,7 @@ vhosts:
             -
                 location: '~ \.php$'
                 autoindex: 0
+                internal: false
                 try_files:
                     - '$uri'
                     - '$uri/'

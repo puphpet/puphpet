@@ -134,6 +134,7 @@ class puphpet_nginx (
           {
             'location'              => '/',
             'autoindex'             => 'off',
+            'internal'              => false,
             'try_files'             => ['$uri', '$uri/', 'index.php',],
             'fastcgi'               => '',
             'fastcgi_index'         => '',
@@ -144,6 +145,7 @@ class puphpet_nginx (
           {
             'location'              => '~ \.php$',
             'autoindex'             => 'off',
+            'internal'              => false,
             'try_files'             => [
               '$uri', '$uri/', 'index.php', '/index.php$is_args$args'
             ],
@@ -266,6 +268,12 @@ class puphpet_nginx (
         $autoindex = 'on'
       } else {
         $autoindex = 'off'
+      }
+
+      if $location['internal'] {
+        $internal = true
+      } else {
+        $internal = false
       }
 
       # remove empty values
