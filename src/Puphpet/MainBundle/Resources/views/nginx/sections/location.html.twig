@@ -49,7 +49,7 @@
                     Designates location as internal-only.
                     See <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#internal" title="nginx internal location docs">nginx documentation</a> for more details.
                 </span>
-                <input type="hidden" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]" value="off" />
+                <input type="hidden" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]" value="false" />
                 <input type="checkbox" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]"
                        class="invisible" {% if internal %}checked{% endif %} value="true" />
                 <span class="content">
