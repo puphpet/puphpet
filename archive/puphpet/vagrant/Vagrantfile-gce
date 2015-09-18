@@ -5,6 +5,7 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'google'
 require 'fog/version'
 
 Vagrant.configure('2') do |config|
+  config.vm.define   :gce
   config.vm.box      = 'gce'
   config.vm.hostname = "#{data['vm']['hostname']}"
 

@@ -3,6 +3,7 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'aws'
 
 Vagrant.configure('2') do |config|
+  config.vm.define   :aws
   config.vm.box      = 'dummy'
   config.vm.hostname = "#{data['vm']['hostname']}"
 
