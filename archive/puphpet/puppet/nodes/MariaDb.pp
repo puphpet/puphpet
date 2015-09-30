@@ -74,18 +74,6 @@ class puphpet_mariadb (
     }
   }
 
-  # prevent problems with being unable to create dir in /tmp
-  if ! defined(File[$override_options['mysqld']['tmpdir']]) {
-    file { $override_options['mysqld']['tmpdir']:
-      ensure  => directory,
-      owner   => $mariadb_user,
-      group   => $mysql::params::root_group,
-      mode    => '0775',
-      require => Class['mysql::client'],
-      notify  => Service[$settings['service_name']]
-    }
-  }
-
   # Ensure the data directory exists
   if ! defined(File[$mysql::params::datadir]) {
     file { $mysql::params::datadir:
