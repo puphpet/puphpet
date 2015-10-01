@@ -75,7 +75,9 @@ class puphpet_mariadb (
   }
 
   # prevent problems with being unable to create dir in /tmp
-  if ! defined(File[$override_options['mysqld']['tmpdir']]) {
+  if ! defined(File[$override_options['mysqld']['tmpdir']]) 
+    and File[$override_options['mysqld']['tmpdir'] != '/tmp'
+  {
     file { $override_options['mysqld']['tmpdir']:
       ensure  => directory,
       owner   => $mariadb_user,
