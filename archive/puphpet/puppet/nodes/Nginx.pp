@@ -270,7 +270,7 @@ class puphpet_nginx (
         $autoindex = 'off'
       }
 
-      if $location['internal'] {
+      if array_true($location, 'internal') and $location['internal'] != 'off' {
         $internal = true
       } else {
         $internal = false
@@ -284,6 +284,7 @@ class puphpet_nginx (
       # transforms user-data to expected
       $location_custom_data = merge($location_trimmed, {
         'autoindex' => $autoindex,
+        'internal'  => $internal,
       })
 
       # Takes gui ENV vars: fastcgi_param {ENV_NAME} {VALUE}
