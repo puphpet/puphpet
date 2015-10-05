@@ -7,7 +7,7 @@ vm:
             client_email: GCE_CLIENT_EMAIL
             key_location: /PATH/TO/PRIVATE_KEY.PK12
             machine_type: n1-standard-1
-            image: ubuntu-1404-trusty-v20141212
+            image: ubuntu-1504-vivid-v20150911
             name: instance-name
             zone: us-central1-a
             tags:
