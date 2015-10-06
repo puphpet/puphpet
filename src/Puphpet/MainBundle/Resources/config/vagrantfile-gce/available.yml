@@ -1,6 +1,6 @@
 images:
     -
-        image: debian-7-wheezy-v20150603
+        image: debian-7-wheezy-v20150915
         long_name: Debian Wheezy 7 x64
         php_versions:
             - 5.6
@@ -8,7 +8,7 @@ images:
             - 5.4
             - HHVM
     -
-        image: ubuntu-1404-trusty-v20150316
+        image: ubuntu-1404-trusty-v20150909a
         long_name: Ubuntu Trusty 14.04 LTS x64
         php_versions:
             - 7.0
@@ -16,7 +16,7 @@ images:
             - 5.5
             - HHVM
     -
-        image: ubuntu-1204-precise-v20150616
+        image: ubuntu-1204-precise-v20150910
         long_name: Ubuntu Precise 12.04 LTS x64
         php_versions:
             - 5.5
