@@ -1,0 +1,13 @@
+map <%= @string %> $<%= @name %> {
+<% if @hostnames -%>
+  hostnames;
+<% end -%>
+<% if @default -%>
+  default <%= @default %>;
+<% end -%>
+<% if @mappings -%>
+  <%- @mappings.sort_by{|k,v| k}.each do |key,value| -%>
+  <%= key %> <%= value %>;
+  <%- end -%>
+<% end -%>
+}

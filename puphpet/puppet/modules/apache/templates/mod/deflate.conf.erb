@@ -1,0 +1,7 @@
+<%- @types.sort.each do |type| -%>
+AddOutputFilterByType DEFLATE <%= type %>
+<%- end -%>
+
+<%- @notes.sort.each do |type,note| -%>
+DeflateFilterNote <%= type %> <%=note %>
+<%- end -%>

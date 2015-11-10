@@ -1,0 +1,41 @@
+language: ruby
+rvm:
+  - 2.1.4
+  - 2.0.0
+  - 1.9.3
+  - 1.8.7
+before_script:
+after_script:
+script: "bundle exec rake spec"
+bundler_args: --without acceptance
+env:
+  - PUPPET_VERSION=2.7.25
+  - PUPPET_VERSION=3.1.1
+  - PUPPET_VERSION=3.2.4
+  - PUPPET_VERSION=3.3.2
+  - PUPPET_VERSION=3.4.3
+  - PUPPET_VERSION=3.6.2
+  - PUPPET_VERSION=3.7.3 FUTURE_PARSER="yes"
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+  exclude:
+    - rvm: 2.0.0
+      env: PUPPET_VERSION=2.7.25
+    - rvm: 2.0.0
+      env: PUPPET_VERSION=3.1.1
+    - rvm: 2.1.4
+      env: PUPPET_VERSION=2.7.25
+    - rvm: 2.1.4
+      env: PUPPET_VERSION=3.1.1
+    - rvm: 2.1.4
+      env: PUPPET_VERSION=3.2.4
+    - rvm: 2.1.4
+      env: PUPPET_VERSION=3.3.2
+  fast_finish: true
+notifications:
+  email: false
+branches:
+  only:
+    - master
+    - /^release.*$/

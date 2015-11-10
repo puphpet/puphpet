@@ -1,0 +1,23 @@
+# This file is managed centrally by modulesync
+#   https://github.com/maestrodev/puppet-modulesync
+
+HOSTS:
+  centos-65-x64:
+    roles:
+      - master
+    platform: el-6-x86_64
+    image: devopsil/puppet:3.5.1
+    # ip: localhost
+    hypervisor : docker
+    docker_image_commands:
+      - yum -y install tar
+      - useradd vagrant
+      - "sed -ri 's/^#?PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config"
+      - "sed -ri 's/^#?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config"
+    docker_cmd:
+      - 'sh'
+      - '-c'
+      - 'service sshd start; tail -f /dev/null'
+CONFIG:
+  log_level: debug
+  type: git

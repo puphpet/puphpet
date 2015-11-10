@@ -1,0 +1,16 @@
+HOSTS:
+  'sles-11-vcloud':
+    roles:
+      - master
+    platform: sles-11-x86_64
+    hypervisor: vcloud
+    template: sles-11-x86_64
+
+CONFIG:
+  type: foss
+  ssh:
+    keys: "~/.ssh/id_rsa-acceptance"
+  datastore: instance0
+  folder: Delivery/Quality Assurance/Enterprise/Dynamic
+  resourcepool: delivery/Quality Assurance/Enterprise/Dynamic
+  pooling_api: http://vcloud.delivery.puppetlabs.net/

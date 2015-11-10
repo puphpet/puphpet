@@ -1,0 +1,14 @@
+language: ruby
+bundler_args: --without development debug acceptance
+script: "bundle exec rake lint"
+rvm:
+  - 1.8.7
+  - 1.9.3
+env:
+  matrix:
+    - PUPPET_GEM_VERSION="~> 3.4.0"
+    - PUPPET_GEM_VERSION="~> 3.5.0"
+matrix:
+  fast_finish: true
+notifications:
+  email: false

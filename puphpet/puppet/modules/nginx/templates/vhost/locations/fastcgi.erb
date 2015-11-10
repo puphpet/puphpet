@@ -1,0 +1,17 @@
+<% if (defined? @www_root) && (@www_root.split.join.length > 0) -%>
+    root  <%= @www_root %>;
+<% end -%>
+<% if (defined? @fastcgi_index) && (@fastcgi_index.split.join.length > 0) -%>
+    fastcgi_index <%= @fastcgi_index %>;
+<% end -%>
+<% if (@fastcgi_split_path) && (@fastcgi_split_path.split.join.length > 0) -%>
+    fastcgi_split_path_info <%= @fastcgi_split_path %>;
+<% end -%>
+<% if (defined? @try_files) && @try_files.count > 0 -%>
+    try_files<% @try_files.each do |try| -%> <%= try %><% end -%>;
+<% end -%>
+    include <%= @fastcgi_params %>;
+    fastcgi_pass <%= @fastcgi %>;
+<% if defined? @fastcgi_script %>
+    fastcgi_param SCRIPT_FILENAME <%= @fastcgi_script %>;
+<% end -%>

@@ -1,0 +1,55 @@
+{
+  "name": "puppetlabs-rabbitmq",
+  "version": "5.2.0",
+  "author": "puppetlabs",
+  "summary": "Installs, configures, and manages RabbitMQ.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/puppetlabs/puppetlabs-rabbitmq",
+  "project_page": "https://github.com/puppetlabs/puppetlabs-rabbitmq",
+  "issues_url": "https://tickets.puppetlabs.com/browse/MODULES",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04",
+        "14.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">=3.0.0 <5.0.0"},
+    {"name":"puppetlabs/apt","version_requirement":">=1.8.0 <2.0.0"},
+    {"name":"nanliu/staging","version_requirement":">=0.3.1 <2.0.0"}
+  ]
+}

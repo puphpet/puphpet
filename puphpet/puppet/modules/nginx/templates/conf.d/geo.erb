@@ -1,0 +1,29 @@
+<%
+  # sorting ip addresses in ascending order is more efficient for nginx - so we need
+  # to convert them to numbers first via IPAddr
+  require 'ipaddr'
+-%>
+geo <%= @address ? "#{@address} " : '' %>$<%= @name %> {
+<% if @ranges -%>
+  ranges;
+<% end -%>
+<% if @default -%>
+  default <%= @default %>;
+<% end -%>
+<% if @delete -%>
+  delete <%= @delete %>;
+<% end -%>
+<% if @proxies -%>
+  <%- [@proxies].flatten.each do |proxy| -%>
+  proxy <%= proxy %>;
+  <%- end -%>
+<% end -%>
+<% if @proxy_recursive && @proxies -%>
+  proxy_recursive;
+<% end -%>
+<% if @networks -%>
+  <%- @networks.sort_by{|k,v| IPAddr.new(k.split('-').first).to_i }.each do |key,value| -%>
+  <%= key %> <%= value %>;
+  <%- end -%>
+<% end -%>
+}

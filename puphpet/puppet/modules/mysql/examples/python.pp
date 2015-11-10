@@ -1,0 +1,1 @@
+class { 'mysql::bindings::python':}

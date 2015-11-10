@@ -1,0 +1,11 @@
+{
+  "LICENSE": "a300b604c66de62cf6e923cca89c9d83",
+  "README.md": "3905b3902659a53f7536327984714beb",
+  "Rakefile": "e90d68823ff237c89224eb139f8926ad",
+  "manifests/mount.pp": "feab994564a4e10fc2f640186013c8bf",
+  "manifests/plugin.pp": "73ff4df4e7c388b73a3018d0282bbc88",
+  "manifests/port.pp": "1aae86a7b2236f298d88cd17cf528b0a",
+  "manifests/process.pp": "1d64c41e8429f5f2db669237d6a7357d",
+  "manifests/url.pp": "49250b768189eb93e8432130bf9e5eda",
+  "metadata.json": "63100f2b2a90e59e5a4dca13d99793d2"
+}

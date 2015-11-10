@@ -1,0 +1,21 @@
+<% if defined? @www_root && @www_root.split.join.length > 0 -%>
+    root  <%= @www_root %>;
+<% end -%>
+<% if (defined? @try_files) && @try_files.count > 0 -%>
+    try_files<% @try_files.each do |try| -%> <%= try %><% end -%>;
+<% end -%>
+<% if defined? @autoindex -%>
+     autoindex <%= @autoindex %>;
+<% end -%>
+<% if @index_files.count > 0 -%>
+    index <% Array(@index_files).each do |i| %> <%= i %><% end %>;
+<% end -%>
+<% @rewrite_rules.each do |rewrite_rule| -%>
+    rewrite <%= rewrite_rule %>;
+<% end -%>
+<% if defined? @auth_basic -%>
+    auth_basic           "<%= @auth_basic %>";
+<% end -%>
+<% if defined? @auth_basic_user_file -%>
+    auth_basic_user_file <%= @auth_basic_user_file %>;
+<% end -%>

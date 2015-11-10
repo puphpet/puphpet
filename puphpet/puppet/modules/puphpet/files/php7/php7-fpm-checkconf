@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+errors=$(/usr/sbin/php7-fpm --fpm-config /etc/php7/fpm/php-fpm.conf -t 2>&1 | grep "\[ERROR\]" || true);
+if [ -n "$errors" ]; then
+    echo "Please fix your configuration file..."
+    echo $errors
+    exit 1
+fi
+exit 0

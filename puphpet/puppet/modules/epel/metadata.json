@@ -1,0 +1,66 @@
+{
+  "name": "stahnma-epel",
+  "version": "1.0.2",
+  "author": "stahnma",
+  "summary": "Setup the EPEL package repo",
+  "license": "Apache License, Version 2.0",
+  "source": "http://github.com/stahnma/puppet-module-epel",
+  "project_page": "http://github.com/stahnma/puppet-module-epel",
+  "issues_url": "https://github.com/stahnma/puppet-module-epel/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OEL",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": ">= 3.0.0"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.0.0"
+    }
+  ],
+  "description": "Setup the EPEL package repo on Centos/RHEL et al",
+  "dependencies": [
+  
+  ]
+}

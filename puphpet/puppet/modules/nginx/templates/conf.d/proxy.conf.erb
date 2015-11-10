@@ -1,0 +1,14 @@
+proxy_temp_path         <%= @proxy_temp_path %>;
+client_body_temp_path   <%= @client_body_temp_path %>;
+proxy_redirect          <%= @proxy_redirect %>;
+client_max_body_size    <%= @client_max_body_size %>;
+client_body_buffer_size <%= @client_body_buffer_size %>;
+proxy_connect_timeout   <%= @proxy_connect_timeout %>;
+proxy_send_timeout      <%= @proxy_send_timeout %>;
+proxy_read_timeout      <%= @proxy_read_timeout %>;
+proxy_buffers           <%= @proxy_buffers %>;
+proxy_buffer_size       <%= @proxy_buffer_size %>;
+proxy_http_version      <%= @proxy_http_version %>;
+<% @proxy_set_header.each do |header| %>
+proxy_set_header        <%= header %>;<% end %>
+proxy_headers_hash_bucket_size <%= @proxy_headers_hash_bucket_size %>;
