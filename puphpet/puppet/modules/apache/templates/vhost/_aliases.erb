@@ -1,0 +1,16 @@
+<% if @aliases and ! @aliases.empty? -%>
+  ## Alias declarations for resources outside the DocumentRoot
+  <%- [@aliases].flatten.compact.each do |alias_statement| -%>
+    <%- if alias_statement["path"] != '' -%>
+      <%- if alias_statement["alias"] and alias_statement["alias"] != '' -%>
+  Alias <%= alias_statement["alias"] %> "<%= alias_statement["path"] %>"
+      <%- elsif alias_statement["aliasmatch"] and alias_statement["aliasmatch"] != '' -%>
+  AliasMatch <%= alias_statement["aliasmatch"] %> "<%= alias_statement["path"] %>"
+      <%- elsif alias_statement["scriptalias"] and alias_statement["scriptalias"] != '' -%>
+  ScriptAlias <%= alias_statement["scriptalias"] %> "<%= alias_statement["path"] %>"
+      <%- elsif alias_statement["scriptaliasmatch"] and alias_statement["scriptaliasmatch"] != '' -%>
+  ScriptAliasMatch <%= alias_statement["scriptaliasmatch"] %> "<%= alias_statement["path"] %>"
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<% end -%>

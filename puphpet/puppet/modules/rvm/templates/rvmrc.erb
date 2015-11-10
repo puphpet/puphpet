@@ -1,0 +1,12 @@
+<% if @umask and !@umask.empty? -%>
+umask <%= @umask %>
+<% end -%>
+<% if @max_time_flag and !@max_time_flag.empty? -%>
+export rvm_max_time_flag=<%= @max_time_flag %>
+<% end -%>
+<% if @autoupdate_flag and !@autoupdate_flag.empty? -%>
+rvm_autoupdate_flag=<%= @autoupdate_flag %>
+<% end -%>
+<% if @silence_path_mismatch_check_flag and !@silence_path_mismatch_check_flag.empty? -%>
+rvm_silence_path_mismatch_check_flag=<%= @silence_path_mismatch_check_flag %>
+<%end -%>

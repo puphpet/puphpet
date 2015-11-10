@@ -1,0 +1,40 @@
+{
+  "name": "puppetlabs-apt",
+  "version": "1.8.0",
+  "author": "Puppet Labs",
+  "summary": "Provides an interface for managing Apt source, key, and definitions with Puppet",
+  "license": "Apache-2.0",
+  "source": "https://github.com/puppetlabs/puppetlabs-apt",
+  "project_page": "https://github.com/puppetlabs/puppetlabs-apt",
+  "issues_url": "https://tickets.puppetlabs.com/browse/MODULES",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "10.04",
+        "12.04",
+        "14.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">= 2.2.1"}
+  ]
+}

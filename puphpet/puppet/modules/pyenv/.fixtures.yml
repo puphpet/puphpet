@@ -1,0 +1,8 @@
+fixtures:
+  repositories:
+    stdlib:
+        "repo": "git://github.com/puppetlabs/puppetlabs-stdlib.git"
+        "ref": "3.2.1"
+    vcsrepo: "git://github.com/puppetlabs/puppetlabs-vcsrepo.git"
+  symlinks:
+    apache: "#{source_dir}"

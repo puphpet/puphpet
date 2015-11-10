@@ -1,0 +1,49 @@
+  location <%= @location %> {
+<% if @internal -%>
+    internal;
+<% end -%>
+<% if @location_allow -%>
+    <%- @location_allow.each do |allow_rule| -%>
+    allow <%= allow_rule %>;
+    <%- end -%>
+<% end -%>
+<% if @location_deny -%>
+    <%- @location_deny.each do |deny_rule| -%>
+    deny <%= deny_rule %>;
+    <%- end -%>
+<% end -%>
+<% if @location_custom_cfg_prepend -%>
+  <%- @location_custom_cfg_prepend.each do |key,value| -%>
+    <%- if value.is_a?(Hash) -%>
+      <%- value.each do |subkey,subvalue| -%>
+        <%- Array(subvalue).each do |asubvalue| -%>
+    <%= key %> <%= subkey %> <%= asubvalue %>
+        <%- end -%>
+      <%- end -%>
+    <%- else -%>
+      <%- Array(value).each do |asubvalue| -%>
+    <%= key %> <%= asubvalue %>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<% end -%>
+<% if @location_cfg_prepend -%>
+  <%- @location_cfg_prepend.sort_by {|k,v| k}.each do |key,value| -%>
+    <%- if value.is_a?(Hash) -%>
+      <%- value.each do |subkey,subvalue| -%>
+        <%- Array(subvalue).each do |asubvalue| -%>
+    <%= key %> <%= subkey %> <%= asubvalue %>;
+        <%- end -%>
+      <%- end -%>
+    <%- else -%>
+      <%- Array(value).each do |asubvalue| -%>
+    <%= key %> <%= asubvalue %>;
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<% end -%>
+<% if @raw_prepend && Array(@raw_prepend).size > 0 %>
+    <%- Array(@raw_prepend).each do |line| -%>
+    <%= line %>
+    <%- end -%>
+<% end %>

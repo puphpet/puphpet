@@ -1,0 +1,10 @@
+<% Array(@additional_includes).each do |include| -%>
+
+  ## Load additional static includes
+<%- if scope.function_versioncmp([@apache_version, '2.4']) >= 0 && @use_optional_includes -%>
+IncludeOptional "<%= include %>"
+<%- else -%>
+Include "<%= include %>"
+<%- end -%>
+
+<% end -%>

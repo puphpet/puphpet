@@ -1,0 +1,45 @@
+
+{
+  "name": "puphpet-puppet",
+  "version": "1.0",
+  "author": "puphpet",
+  "summary": "Puppet module for PuPHPet",
+  "license": "MIT",
+  "source": "git://github.com/puphpet/puppet-puphpet.git",
+  "project_page": "https://github.com/puphpet/puppet-puphpet",
+  "issues_url": "https://github.com/puphpet/puppet-puphpet/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "10.04",
+        "12.04",
+        "14.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "description": "Puppet module for PuPHPet",
+  "dependencies": [
+  ]
+}

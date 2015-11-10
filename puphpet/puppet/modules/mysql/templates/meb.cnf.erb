@@ -1,0 +1,18 @@
+### MANAGED BY PUPPET ###
+
+<% @options.sort.map do |k,v| -%>
+<%   if v.is_a?(Hash) -%>
+[<%=   k %>]
+<%     v.sort.map do |ki, vi| -%>
+<%       if vi == true or v == '' -%>
+<%=        ki %>
+<%       elsif vi.is_a?(Array) -%>
+<%         vi.each do |vii| -%>
+<%=          ki %> = <%= vii %>
+<%         end -%>
+<%       elsif ![nil, '', :undef].include?(vi) -%>
+<%=        ki %> = <%= vi %>
+<%       end -%>
+<%     end -%>
+<%   end %>
+<% end -%>

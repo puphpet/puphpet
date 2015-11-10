@@ -1,0 +1,31 @@
+<% if @directories_hash and ! @directories_hash.empty? -%>
+<% @directories_hash.each do |key, values| -%>
+  <% if @directories_hash[key]['custom_fragment'].split.join.length > 0 -%>
+    <% if File.file?(@directories_hash[key]['custom_fragment']) -%>
+      <% custom_fragment = File.read(@directories_hash[key]['custom_fragment']) -%>
+      <% @directories_hash[key]['custom_fragment'] = custom_fragment -%>
+    <% end -%>
+  <% end -%>
+  <% if (values.has_key?('files_match')) && values['files_match'].count > 0 -%>
+    <% filesMatchArr = [] -%>
+    <% values['files_match'].each do |innerKey, filesmatch| -%>
+      <% if @directories_hash[key]['files_match'][innerKey].has_key?('custom_fragment') -%>
+        <% if @directories_hash[key]['files_match'][innerKey]['custom_fragment'].split.join.length > 0 -%>
+          <% if File.file?(@directories_hash[key]['files_match'][innerKey]['custom_fragment']) -%>
+            <% custom_fragment = File.read(@directories_hash[key]['files_match'][innerKey]['custom_fragment']) -%>
+            <% @directories_hash[key]['files_match'][innerKey]['custom_fragment'] = custom_fragment -%>
+          <% end -%>
+        <% end -%>
+      <% end -%>
+      <% filesMatchArr.push(filesmatch) -%>
+    <% end -%>
+    <% table = scope.effective_symtable(true) -%>
+    <% table.delete('_directories') -%>
+    <% scope['_directories'] = filesMatchArr -%>
+    <% result = scope.function_template(['apache/vhost/_directories.erb']) -%>
+    <% result = result.gsub("\n  ## Directories, there should at least be a declaration for \n", "") -%>
+    <% @directories_hash[key]['custom_fragment'] << result.gsub("\n  ", "\n    ") -%>
+  <% end -%>
+<% end -%>
+<% end -%>
+<%= @directories_hash.inspect %>

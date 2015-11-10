@@ -1,0 +1,5 @@
+junit/
+log/
+spec/
+Gemfile.lock
+Rakefile

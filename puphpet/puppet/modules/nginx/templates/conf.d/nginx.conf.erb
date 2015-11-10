@@ -1,0 +1,78 @@
+<% if @super_user -%>
+user <%= @daemon_user %>;
+<% end -%>
+worker_processes <%= @worker_processes %>;
+<% if @worker_rlimit_nofile %>worker_rlimit_nofile <%= @worker_rlimit_nofile %>;<% end -%>
+
+error_log  <%= @nginx_error_log %>;
+<% if @pid -%>
+pid        <%= @pid %>;
+<% end -%>
+
+events {
+  worker_connections <%= @worker_connections -%>;
+  <% if @multi_accept == 'on' -%>
+    multi_accept on;
+  <% end -%>
+  <% if @events_use -%>
+    use <%= @events_use %>;
+  <% end -%>
+}
+
+http {
+  include       <%= @conf_dir %>/mime.types;
+  default_type  application/octet-stream;
+
+  access_log  <%= @http_access_log %>;
+
+<% if @sendfile == 'on' -%>
+  sendfile    on;
+<% if @http_tcp_nopush == 'on' -%>
+  tcp_nopush on;
+<% end -%>
+<% end -%>
+
+  server_tokens <%= @server_tokens %>;
+
+  types_hash_max_size <%= @types_hash_max_size %>;
+  types_hash_bucket_size <%= @types_hash_bucket_size %>;
+
+  server_names_hash_bucket_size <%= @names_hash_bucket_size %>;
+  server_names_hash_max_size <%= @names_hash_max_size %>;
+
+  keepalive_timeout  <%= @keepalive_timeout %>;
+  tcp_nodelay        <%= @http_tcp_nodelay %>;
+
+<% if @gzip == 'on' -%>
+  gzip         on;
+  gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+<% end -%>
+
+<% if @proxy_cache_path -%>
+  proxy_cache_path    <%= @proxy_cache_path %> levels=<%= @proxy_cache_levels %> keys_zone=<%= @proxy_cache_keys_zone %> max_size=<%= @proxy_cache_max_size %> inactive=<%= @proxy_cache_inactive %>;
+<% end -%>
+
+<% if @fastcgi_cache_path -%>
+  fastcgi_cache_path    	<%= @fastcgi_cache_path %> levels=<%= @fastcgi_cache_levels %> keys_zone=<%= @fastcgi_cache_keys_zone %> max_size=<%= @fastcgi_cache_max_size %> inactive=<%= @fastcgi_cache_inactive %>;
+<% end -%>
+<% if @fastcgi_cache_key -%>
+  fastcgi_cache_key		<%= @fastcgi_cache_key %>;
+<% end -%>
+<% if @fastcgi_cache_use_stale -%>
+  fastcgi_cache_use_stale 	<%= @fastcgi_cache_use_stale %>;
+<% end -%>
+
+<% if @http_cfg_append -%><% @http_cfg_append.sort_by{|k,v| k}.each do |key,value| -%>
+  <%= key %> <%= value %>;
+<% end -%>
+<% end -%>
+
+  include <%= @conf_dir %>/conf.d/*.conf;
+  include <%= @conf_dir %>/sites-enabled/*;
+
+}
+<% if @mail -%>
+mail {
+  include <%= @conf_dir %>/conf.mail.d/*.conf;
+}
+<% end -%>

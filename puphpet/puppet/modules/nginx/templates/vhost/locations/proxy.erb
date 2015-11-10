@@ -1,0 +1,26 @@
+<% if @proxy_cache -%>
+    proxy_cache         <%= @proxy_cache %>;
+    proxy_cache_valid   <%= @proxy_cache_valid %>;
+<% end -%>
+    proxy_pass          <%= @proxy %>;
+    proxy_read_timeout  <%= @proxy_read_timeout %>;
+    proxy_connect_timeout  <%= @proxy_connect_timeout %>;
+    proxy_redirect  <%= @proxy_redirect %>;
+<% @proxy_set_header.each do |header| -%>
+    proxy_set_header        <%= header %>;
+<% end -%>
+<% if @proxy_method -%>
+    proxy_method        <%= @proxy_method %>;
+<% end -%>
+<% if @proxy_set_body -%>
+    proxy_set_body      <%= @proxy_set_body %>;
+<% end -%>
+<% @rewrite_rules.each do |rewrite_rule| -%>
+    rewrite <%= rewrite_rule %>;
+<% end -%>
+<% if defined? @auth_basic -%>
+    auth_basic           "<%= @auth_basic %>";
+<% end -%>
+<% if defined? @auth_basic_user_file -%>
+    auth_basic_user_file <%= @auth_basic_user_file %>;
+<% end -%>

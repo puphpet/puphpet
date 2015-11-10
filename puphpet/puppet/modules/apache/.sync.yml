@@ -1,0 +1,12 @@
+---
+.travis.yml:
+  extras:
+  - rvm: 1.9.3
+    env: PUPPET_GEM_VERSION="~> 3.5.0" STRICT_VARIABLES="yes"
+  - rvm: 2.0.0
+    env: PUPPET_GEM_VERSION="~> 3.5.0" STRICT_VARIABLES="yes"
+Rakefile:
+  extra_disabled_lint_checks:
+  - 'disable_only_variable_string'
+spec/spec_helper.rb:
+  unmanaged: true

@@ -1,0 +1,75 @@
+<% if @proxy_dest or @proxy_pass -%>
+
+  ## Proxy rules
+  ProxyRequests Off
+<%- end -%>
+<% if @proxy_preserve_host -%>
+  ProxyPreserveHost On
+<%- end -%>
+<% if @proxy_error_override -%>
+  ProxyErrorOverride On
+<%- end -%>
+<%- [@proxy_pass].flatten.compact.each do |proxy| -%>
+  ProxyPass <%= proxy['path'] %> <%= proxy['url'] -%>
+  <%- if proxy['params'] -%>
+    <%- proxy['params'].each_pair do |key, value| -%> <%= key %>=<%= value -%>
+    <%- end -%>
+  <%- end -%>
+  <%- if proxy['keywords'] %> <%= proxy['keywords'].join(' ') -%>
+  <%- end %>
+  <Location <%= proxy['path']%>>
+  <%- if proxy['reverse_urls'].nil? -%>
+    ProxyPassReverse <%= proxy['url'] %>
+  <%- else -%>
+    <%- Array(proxy['reverse_urls']).each do |reverse_url| -%>
+    ProxyPassReverse <%= reverse_url %>
+    <%- end -%>
+  <%- end -%>
+  <%- if proxy['setenv'] -%>
+    <%- Array(proxy['setenv']).each do |setenv_var| -%>
+    SetEnv <%= setenv_var -%>
+    <%- end -%>
+  <%- end -%>
+  </Location>
+<% end -%>
+<% [@proxy_pass_match].flatten.compact.each do |proxy| %>
+  ProxyPassMatch <%= proxy['path'] %> <%= proxy['url'] %>
+  <%- if proxy['params'] -%>
+    <%- proxy['params'].each_pair do |key, value| -%> <%= key %>=<%= value -%>
+    <%- end -%>
+  <%- end -%>
+  <%- if proxy['keywords'] %> <%= proxy['keywords'].join(' ') -%>
+  <%- end %>
+  <Location <%= proxy['path']%>>
+  <%- if proxy['reverse_urls'].nil? -%>
+    ProxyPassReverse <%= proxy['url'] %>
+  <%- else -%>
+    <%- Array(proxy['reverse_urls']).each do |reverse_url| -%>
+    ProxyPassReverse <%= reverse_url %>
+    <%- end -%>
+  <%- end -%>
+  <%- if proxy['setenv'] -%>
+    <%- Array(proxy['setenv']).each do |setenv_var| -%>
+    SetEnv <%= setenv_var -%>
+    <%- end -%>
+  <%- end -%>
+  </Location>
+<% end -%>
+<% if @proxy_dest -%>
+<%- Array(@no_proxy_uris).each do |uri| -%>
+  ProxyPass        <%= uri %> !
+<% end -%>
+  ProxyPass          / <%= @proxy_dest %>/
+  <Location          />
+    ProxyPassReverse <%= @proxy_dest %>/
+  </Location>
+<% end -%>
+<% if @proxy_dest_match -%>
+<%- Array(@no_proxy_uris_match).each do |uri| -%>
+  ProxyPassMatch        <%= uri %> !
+<% end -%>
+  ProxyPassMatch          / <%= @proxy_dest_match %>/
+  <Location          />
+    ProxyPassReverse <%= @proxy_dest_reverse_match %>/
+  </Location>
+<% end -%>
