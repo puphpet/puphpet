@@ -35,6 +35,9 @@ Vagrant.configure('2') do |config|
     if data['proxy']['https'].to_s != ''
       config.proxy.https = "#{data['proxy']['https']}"
     end
+    if data['proxy']['ftp'].to_s != ''
+      config.proxy.ftp = "#{data['proxy']['ftp']}"
+    end
     if data['proxy']['no_proxy'].to_s != ''
       config.proxy.no_proxy = "#{data['proxy']['no_proxy']}"
     end
