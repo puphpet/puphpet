@@ -191,6 +191,15 @@ legend {
         background-color: #fff;
     }
 
+    .navbar-default .navbar-nav .inversed {
+        background-color: #eb6864;
+        border-color: #e53c37;
+    }
+
+    .navbar-default .navbar-nav .inversed a {
+        color: #fff;
+    }
+
 /*
     sidebar
 */
@@ -199,7 +208,7 @@ legend {
         height: 100%;
         position: fixed;
         background: #fff;
-        border-right: 1px solid #D7D7D7;
+        border: 0;
         overflow-y: auto;
     }
 
@@ -366,7 +375,7 @@ legend {
     tabs
 */
     #main-form .tab-content > .tab-pane {
-        box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+        box-shadow: 0;
     }
 
     .nested-tab > .tab-pane {
