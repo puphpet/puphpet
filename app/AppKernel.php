@@ -5,10 +5,6 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
-    public function getCacheDir()
-    {
-        return '/tmp/puphpet-sf2-cache';
-    }
     public function registerBundles()
     {
         $bundles = array(
