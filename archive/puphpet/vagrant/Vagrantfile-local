@@ -7,6 +7,8 @@ Vagrant.configure('2') do |config|
   config.vm.box     = "#{data['vm']['box']}"
   config.vm.box_url = "#{data['vm']['box_url']}"
 
+  config.ssh.insert_key = data['ssh']['insert_key']
+
   if data['vm']['hostname'].to_s.strip.length != 0
     config.vm.hostname = "#{data['vm']['hostname']}"
   end
@@ -272,10 +274,6 @@ Vagrant.configure('2') do |config|
   vagrantKey = "#{vagrant_dot}/machines/default/#{ENV['VAGRANT_DEFAULT_PROVIDER']}/private_key"
 
   if File.file?(customKey)
-    # TODO: Improve SSH key insertion
-    # Turn off insert key to prevent failure to login to VM
-    config.ssh.insert_key = false
-
     config.ssh.private_key_path = [
       customKey,
       "#{vagrant_home}/insecure_private_key"

@@ -51,3 +51,4 @@ vm:
         stop: 10500
 ssh:
     forward_agent: true
+    insert_key: false
