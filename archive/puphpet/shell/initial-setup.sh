@@ -20,18 +20,24 @@ fi
 touch '/.puphpet-stuff/vagrant-core-folder.txt'
 echo "${VAGRANT_CORE_FOLDER}" > '/.puphpet-stuff/vagrant-core-folder.txt'
 
-# Adding this here with a datestamped filename for future issues like #1189
-# apt repos become stale, Ubuntu/Debian move stuff around and break existing
-# boxes that no longer require apt-get update. Force it one more time. Update
-# datestamp as required for future breaks.
-if [[ ! -f '/.puphpet-stuff/initial-setup-apt-get-update' ]]; then
+# Use Anacron to run `apt-get update` once a week to keep repos fresh
+if [[ ! -f '/.puphpet-stuff/anacron-installed' ]]; then
     if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-        echo 'Running initial-setup apt-get update'
+        echo 'Installing Anacron'
         apt-get update
-        echo 'Finished running initial-setup apt-get update'
+        apt-get -y install anacron
+
+        cat >/etc/cron.weekly/autoupdt << 'EOL'
+#!/bin/bash
+
+apt-get update
+apt-get autoclean
+EOL
+
+        echo 'Finished installing Anacron'
     fi
 
-    touch '/.puphpet-stuff/initial-setup-apt-get-update'
+    touch '/.puphpet-stuff/anacron-installed'
 fi
 
 # CentOS comes with tty enabled. RHEL has realized this is stupid, so we can
