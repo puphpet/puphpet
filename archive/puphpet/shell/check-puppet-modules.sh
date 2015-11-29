@@ -23,6 +23,6 @@ SAVE_TO="/.puphpet-stuff/puppet-modules.zip"
 echo "Downloading missing Puppet modules"
 
 wget --quiet --tries=5 --connect-timeout=10 -O ${SAVE_TO} ${URL}
-uz ${SAVE_TO} ${MODULES_FOLDER} > /dev/null 2>&1
+uz ${SAVE_TO} ${MODULES_FOLDER}
 
 echo "Done downloading missing Puppet modules"

@@ -26,12 +26,12 @@ fi
 
 if [[ ! -f /.puphpet-stuff/install-augeas-04232015 ]] && [ "${OS}" == 'centos' ]; then
     echo 'Upgrading augeas'
-    yum -y remove augeas*  >/dev/null
+    yum -y remove augeas*
 
     AUGEAS='http://dl.fedoraproject.org/pub/epel/5/x86_64/augeas-1.2.0-1.el5.x86_64.rpm'
     AUG_LIBS='http://dl.fedoraproject.org/pub/epel/5/x86_64/augeas-libs-1.2.0-1.el5.x86_64.rpm'
-    yum -y --nogpgcheck install "${AUG_LIBS}" >/dev/null
-    yum -y --nogpgcheck --setopt=protected_multilib=false install "${AUGEAS}" >/dev/null
+    yum -y --nogpgcheck install "${AUG_LIBS}"
+    yum -y --nogpgcheck --setopt=protected_multilib=false install "${AUGEAS}"
     touch /.puphpet-stuff/install-augeas-04232015
     echo 'Finished upgrading augeas'
 fi

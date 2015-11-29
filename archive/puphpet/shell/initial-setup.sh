@@ -27,7 +27,7 @@ echo "${VAGRANT_CORE_FOLDER}" > '/.puphpet-stuff/vagrant-core-folder.txt'
 if [[ ! -f '/.puphpet-stuff/initial-setup-apt-get-update' ]]; then
     if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
         echo 'Running initial-setup apt-get update'
-        apt-get update >/dev/null
+        apt-get update
         echo 'Finished running initial-setup apt-get update'
     fi
 
@@ -45,7 +45,7 @@ fi
 # Digital Ocean seems to be missing iptables-persistent!
 # See https://github.com/puphpet/puphpet/issues/1575
 if [[ ! -f '/.puphpet-stuff/iptables-persistent-installed' ]] && [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-    apt-get -y install iptables-persistent > /dev/null 2>&1
+    apt-get -y install iptables-persistent
 
     touch '/.puphpet-stuff/iptables-persistent-installed'
 fi
@@ -63,21 +63,21 @@ fi
 
 if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
     echo 'Installing curl'
-    apt-get -y install curl >/dev/null
+    apt-get -y install curl
     echo 'Finished installing curl'
 
     echo 'Installing git'
-    apt-get -y install git-core >/dev/null
+    apt-get -y install git-core
     echo 'Finished installing git'
 
     if [[ "${CODENAME}" == 'lucid' || "${CODENAME}" == 'precise' ]]; then
         echo 'Installing basic curl packages'
-        apt-get -y install libcurl3 libcurl4-gnutls-dev curl >/dev/null
+        apt-get -y install libcurl3 libcurl4-gnutls-dev
         echo 'Finished installing basic curl packages'
     fi
 
     echo 'Installing build-essential packages'
-    apt-get -y install build-essential >/dev/null
+    apt-get -y install build-essential
     echo 'Finished installing build-essential packages'
 elif [[ "${OS}" == 'centos' ]]; then
     echo 'Adding repos: elrepo, epel, scl'
@@ -91,23 +91,23 @@ elif [[ "${OS}" == 'centos' ]]; then
         EPEL='https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm'
     fi
 
-    yum -y --nogpgcheck install "${EL_REPO}" >/dev/null
-    yum -y --nogpgcheck install "${EPEL}" >/dev/null
-    yum -y install centos-release-SCL >/dev/null
-    yum clean all >/dev/null
-    yum -y check-update >/dev/null
+    yum -y --nogpgcheck install "${EL_REPO}"
+    yum -y --nogpgcheck install "${EPEL}"
+    yum -y install centos-release-SCL
+    yum clean all
+    yum -y check-update
     echo 'Finished adding repos: elrep, epel, scl'
 
     echo 'Installing curl'
-    yum -y install curl >/dev/null
+    yum -y install curl
     echo 'Finished installing curl'
 
     echo 'Installing git'
-    yum -y install git >/dev/null
+    yum -y install git
     echo 'Finished installing git'
 
     echo 'Installing Development Tools'
-    yum -y groupinstall 'Development Tools' >/dev/null
+    yum -y groupinstall 'Development Tools'
     echo 'Finished installing Development Tools'
 fi
 

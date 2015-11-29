@@ -35,7 +35,7 @@ if [[ -f '/etc/profile' ]] && ! grep -q 'source /usr/local/rvm/scripts/rvm' /etc
 fi
 
 /usr/local/rvm/bin/rvm cleanup all
-gem update --system >/dev/null
+gem update --system
 echo 'y' | rvm rvmrc warning ignore all.rvmrcs
 
 echo 'Finished installing RVM and Ruby 1.9.3'
