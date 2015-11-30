@@ -175,19 +175,22 @@ class puphpet_nginx (
   }
 
   each( $vhosts ) |$key, $vhost| {
-    exec { "exec mkdir -p ${vhost['www_root']} @ key ${key}":
-      command => "mkdir -p ${vhost['www_root']}",
-      user    => $webroot_user,
-      group   => $webroot_group,
-      creates => $vhost['www_root'],
-      require => File[$www_location],
-    }
+    # Could be proxy vhost
+    if $vhost['www_root'] != '' {
+      exec { "exec mkdir -p ${vhost['www_root']} @ key ${key}":
+        command => "mkdir -p ${vhost['www_root']}",
+        user    => $webroot_user,
+        group   => $webroot_group,
+        creates => $vhost['www_root'],
+        require => File[$www_location],
+      }
 
-    if ! defined(File[$vhost['www_root']]) {
-      file { $vhost['www_root']:
-        ensure  => directory,
-        mode    => '0775',
-        require => Exec["exec mkdir -p ${vhost['www_root']} @ key ${key}"],
+      if ! defined(File[$vhost['www_root']]) {
+        file { $vhost['www_root']:
+          ensure  => directory,
+          mode    => '0775',
+          require => Exec["exec mkdir -p ${vhost['www_root']} @ key ${key}"],
+        }
       }
     }
 

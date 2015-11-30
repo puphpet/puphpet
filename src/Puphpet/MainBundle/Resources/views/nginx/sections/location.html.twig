@@ -3,6 +3,7 @@
 {% set internal = (location.internal is defined and location.internal is sameas('on')) ? true : false %}
 {% set try_files = (location.try_files is defined) ? location.try_files : [] %}
 {% set fast_cgi_params_extras = (location.fast_cgi_params_extra is defined) ? location.fast_cgi_params_extra : [] %}
+{% set proxy_set_headers = (location.proxy_set_header is defined) ? location.proxy_set_header : [] %}
 
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
@@ -129,6 +130,46 @@
                     name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fast_cgi_params_extra][]"
                     multiple class="form-control select-tags-editable">
                 {% for param in fast_cgi_params_extras %}
+                    <option selected value="{{ param }}">{{ param }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy">Proxy</label>
+            <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy"
+                   name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][proxy]"
+                   placeholder="http://127.0.0.1:8080/" class="form-control"
+                   value="{{ location.proxy }}"/>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_redirect"
+                   target="_blank">More information</a>.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_redirect">Proxy Redirect</label>
+            <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_redirect"
+                   name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][proxy_redirect]"
+                   placeholder="off" class="form-control"
+                   value="{{ location.proxy }}"/>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                <code>name value</code>, separated by comma.
+                <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header"
+                   target="_blank">More information</a>.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_set_header">Proxy Set Header</label>
+            <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_set_header"
+                    name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][proxy_set_header][]"
+                    multiple class="form-control select-tags-editable">
+                {% for param in proxy_set_headers %}
                     <option selected value="{{ param }}">{{ param }}</option>
                 {% endfor %}
             </select>

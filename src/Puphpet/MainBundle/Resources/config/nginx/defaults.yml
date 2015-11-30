@@ -46,6 +46,9 @@ vhosts:
                 fastcgi_index: ~
                 fastcgi_split_path: ~
                 fast_cgi_params_extra: []
+                proxy: ~
+                proxy_redirect: ~
+                proxy_set_header: []
             -
                 location: '~ \.php$'
                 autoindex: 0
@@ -60,3 +63,6 @@ vhosts:
                 fast_cgi_params_extra:
                     - 'SCRIPT_FILENAME $request_filename'
                     - 'APP_ENV dev'
+                proxy: ~
+                proxy_redirect: ~
+                proxy_set_header: []
