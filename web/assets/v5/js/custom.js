@@ -207,7 +207,7 @@ PUPHPET.updateOtherInputOnCheck = function() {
  * When element is unchecked, changes value of target
  */
 PUPHPET.updateOtherInputOnUncheck = function() {
-    $(document).on('click', '.update-other-input-on-uncheck', function(e){
+    $(document).on('click, change', '.update-other-input-on-uncheck', function(e){
         var $parent = $(this);
 
         if ($parent.is(':checked')) {
