@@ -1,4 +1,4 @@
-install: 0
+install: 1
 
 settings:
     version: "10.1.9"
