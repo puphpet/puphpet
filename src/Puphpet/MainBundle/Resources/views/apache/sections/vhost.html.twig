@@ -2,6 +2,7 @@
 
 {% set serveraliases = (vhost.serveraliases is defined) ? vhost.serveraliases : [] %}
 {% set setenvs = (vhost.setenv is defined) ? vhost.setenv : [] %}
+{% set setenvifs = (vhost.setenvif is defined) ? vhost.setenvif : [] %}
 {% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
 {% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
 {% set ssl_key = (vhost.ssl_key is defined) ? vhost.ssl_key : '' %}
@@ -69,7 +70,7 @@
 
         <div class="clearfix"></div>
 
-        <div class="form-group col-xs-12">
+        <div class="form-group col-xs-6">
             <div class="help-text">
                 <code>name value</code>, separated by comma.
             </div>
@@ -79,6 +80,20 @@
                     multiple class="form-control select-tags-editable">
                 {% for setenv in setenvs %}
                     <option selected value="{{ setenv }}">{{ setenv }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <code>name value</code>, separated by comma.
+            </div>
+            <label for="apache-vhosts-{{ uniqid }}-setenvif">SetEnvIf</label>
+            <select id="apache-vhosts-{{ uniqid }}-setenvif"
+                    name="apache[vhosts][{{ uniqid }}][setenvif][]"
+                    multiple class="form-control select-tags-editable">
+                {% for setenvif in setenvifs %}
+                    <option selected value="{{ setenvif }}">{{ setenvif }}</option>
                 {% endfor %}
             </select>
         </div>

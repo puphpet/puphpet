@@ -16,6 +16,8 @@ vhosts:
         port: 80
         setenv:
             - APP_ENV dev
+        setenvif:
+            - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
         custom_fragment: ~
         directories:
             -
