@@ -1,6 +1,6 @@
 install: 0
 settings:
-    version: "10.0"
+    version: "10.1.9"
     root_password: 123
     override_options: {}
 
