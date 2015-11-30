@@ -46,6 +46,7 @@ vhosts:
                 fastcgi_index: ~
                 fastcgi_split_path: ~
                 fast_cgi_params_extra: []
+                set: []
                 proxy: ~
                 proxy_redirect: ~
                 proxy_set_header: []
@@ -63,6 +64,8 @@ vhosts:
                 fast_cgi_params_extra:
                     - 'SCRIPT_FILENAME $request_filename'
                     - 'APP_ENV dev'
+                set:
+                    - '$path_info $fastcgi_path_info'
                 proxy: ~
                 proxy_redirect: ~
                 proxy_set_header: []

@@ -3,6 +3,7 @@
 {% set internal = (location.internal is defined and location.internal is sameas('on')) ? true : false %}
 {% set try_files = (location.try_files is defined) ? location.try_files : [] %}
 {% set fast_cgi_params_extras = (location.fast_cgi_params_extra is defined) ? location.fast_cgi_params_extra : [] %}
+{% set sets = (location.set is defined) ? location.set : [] %}
 {% set proxy_set_headers = (location.proxy_set_header is defined) ? location.proxy_set_header : [] %}
 
 <div class="nested-block" id="{{ uniqid }}">
@@ -121,7 +122,7 @@
 
         <div class="clearfix"></div>
 
-        <div class="form-group col-xs-12">
+        <div class="form-group col-xs-6">
             <div class="help-text">
                 <code>name value</code>, separated by comma. Unlike Apache, each variable must have a value.
             </div>
@@ -130,6 +131,22 @@
                     name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fast_cgi_params_extra][]"
                     multiple class="form-control select-tags-editable">
                 {% for param in fast_cgi_params_extras %}
+                    <option selected value="{{ param }}">{{ param }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <code>name value</code>, separated by comma.
+                <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#set"
+                   target="_blank">More information</a>.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-set">Set Variables</label>
+            <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-set"
+                    name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][set][]"
+                    multiple class="form-control select-tags-editable">
+                {% for param in sets %}
                     <option selected value="{{ param }}">{{ param }}</option>
                 {% endfor %}
             </select>
