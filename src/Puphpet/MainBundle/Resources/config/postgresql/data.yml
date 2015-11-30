@@ -3,7 +3,7 @@ install: 0
 settings:
     global:
         encoding: UTF8
-        version: "9.3"
+        version: "9.5"
     server:
         postgres_password: ~
 
