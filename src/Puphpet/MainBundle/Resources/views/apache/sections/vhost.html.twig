@@ -107,6 +107,8 @@
                 <span class="help-text">
                     Check to enable SSL options.
                 </span>
+                <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl]" value="0" />
+
                 <input type="checkbox" name="apache[vhosts][{{ uniqid }}][ssl]"
                        class="invisible toggle-on-select
                               update-other-input-on-check update-other-input-on-uncheck"
@@ -129,8 +131,6 @@
         <div class="nested-block {% if not ssl %}hidden{% endif %}" id="apache-vhosts-{{ uniqid }}-ssl_options">
             <fieldset>
                 <legend>SSL Options</legend>
-
-                <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl]" value="0" />
 
                 <div class="form-group col-xs-6">
                     <div class="help-text">
