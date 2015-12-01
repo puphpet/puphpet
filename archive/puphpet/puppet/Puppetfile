@@ -8,10 +8,10 @@ mod 'puppetlabs/apt',
     :ref => '1.8.0'
 mod 'keen99/beanstalkd',
     :git => 'https://github.com/keen99/puppet-beanstalkd.git',
-    :ref => '1.0.0'
+    :ref => '1.0.1'
 mod 's12v/blackfire',
     :git => 'https://github.com/puphpet/puppet-blackfire.git',
-    :ref => 'cb938a5'
+    :ref => 'af4eae8'
 mod 'tPl0ch/composer',
     :git => 'https://github.com/puphpet/puppet-composer.git',
     :ref => 'c4f9478'
@@ -38,7 +38,7 @@ mod 'attachmentgenie/locales',
     :ref => 'v2.2.2'
 mod 'actionjack/mailcatcher',
     :git => 'https://github.com/puphpet/puppet-mailcatcher.git',
-    :ref => 'dcc8c3d357'
+    :ref => 'cccdd63'
 mod 'puppetlabs/mongodb',
     :git => 'https://github.com/puppetlabs/puppetlabs-mongodb.git',
     :ref => '0.11.0'
@@ -53,16 +53,16 @@ mod 'puppetlabs/ntp',
     :ref => '4.1.1'
 mod 'puphpet/php',
     :git => 'https://github.com/puphpet/puppet-php.git',
-    :ref => 'eb14528'
+    :ref => 'f693a75'
 mod 'puppetlabs/postgresql',
     :git => 'https://github.com/puppetlabs/puppetlabs-postgresql.git',
-    :ref => '4.2.0'
+    :ref => '4.6.0'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '1c7acf3'
+    :ref => '96703d9'
 mod 'example42/puppi',
-    :git => 'https://github.com/example42/puppi.git',
-    :ref => 'v2.1.12'
+    :git => 'https://github.com/puphpet/puppi.git',
+    :ref => '5dd5091'
 mod 'daenney/pyenv',
     :git => 'https://github.com/puphpet/puppet-pyenv.git',
     :ref => '062ae72'
@@ -71,11 +71,11 @@ mod 'puppetlabs/rabbitmq',
     :ref => '5.2.0'
 mod 'puphpet/redis',
     :git => 'https://github.com/puphpet/puppet-redis.git',
-    :ref => 'd9b3b23b0c'
+    :ref => '233cc8f'
 mod 'maestrodev/rvm'
 mod 'example42/solr',
-    :git => 'https://github.com/example42/puppet-solr.git',
-    :ref => 'v2.0.7'
+    :git => 'https://github.com/puphpet/puppet-solr.git',
+    :ref => 'a5ce62c'
 mod 'petems/swap_file',
     :git => 'https://github.com/petems/puppet-swap_file.git',
     :ref => '39582afda5'
