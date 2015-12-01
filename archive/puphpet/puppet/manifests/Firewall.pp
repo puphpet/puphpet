@@ -18,14 +18,14 @@ class puphpet_firewall (
     }
 
     each( $ports ) |$port| {
-      if ! defined(Puphpet::Firewall::Port[$port]) {
+      if ! defined(Puphpet::Firewall::Port["${port}"]) {
         if has_key($rule, 'priority') {
           $priority = $rule['priority']
         } else {
           $priority = 100
         }
 
-        puphpet::firewall::port { $port:
+        puphpet::firewall::port { "${port}":
           protocol => $rule['proto'],
           priority => $priority,
           action   => $rule['action'],
@@ -43,8 +43,8 @@ class puphpet_firewall (
       default => $vm['ssh']['port']
     }
 
-    if ! defined(Puphpet::Firewall::Port[$vm_ssh_port]) {
-      puphpet::firewall::port { $vm_ssh_port: }
+    if ! defined(Puphpet::Firewall::Port["${vm_ssh_port}"]) {
+      puphpet::firewall::port { "${vm_ssh_port}": }
     }
   }
 
@@ -54,8 +54,8 @@ class puphpet_firewall (
     and has_key($vm['vm']['network'], 'forwarded_port')
   {
     each( $vm['vm']['network']['forwarded_port'] ) |$key, $ports| {
-      if ! defined(Puphpet::Firewall::Port[$ports['guest']]) {
-        puphpet::firewall::port { $ports['guest']: }
+      if ! defined(Puphpet::Firewall::Port["${ports['guest']}"]) {
+        puphpet::firewall::port {"${ports['guest']}": }
       }
     }
   }

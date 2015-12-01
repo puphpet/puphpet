@@ -17,13 +17,11 @@ vm:
             nfs: false
     provision:
         puppet:
-            manifests_path: "puphpet/puppet"
-            manifest_file: "site.pp"
+            manifests_path: "puphpet/puppet/manifests"
             module_path: "puphpet/puppet/modules"
             options:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
-                - "--parser future"
 ssh:
     username: PRIVATE_KEY_USER
     forward_agent: true

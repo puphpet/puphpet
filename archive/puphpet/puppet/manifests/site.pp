@@ -23,7 +23,7 @@ $postgresql     = hiera_hash('postgresql', {})
 $python         = hiera_hash('python', {})
 $rabbitmq       = hiera_hash('rabbitmq', {})
 $redis          = hiera_hash('redis', {})
-$ruby           = hiera_hash('ruby', {})
+$rubyhash       = hiera_hash('ruby', {})
 $server         = hiera_hash('server', {})
 $solr           = hiera_hash('solr', {})
 $sqlite         = hiera_hash('sqlite', {})
@@ -36,8 +36,6 @@ $xhprof         = hiera_hash('xhprof', {})
 Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
 
 include ::puphpet::params
-
-import 'nodes/*'
 
 if array_true($apache, 'install') {
   class { '::puphpet_apache':
@@ -197,7 +195,7 @@ if array_true($redis, 'install') {
 }
 
 class { '::puphpet_ruby':
-  ruby => $ruby
+  ruby => $rubyhash
 }
 
 class { '::puphpet_server':

@@ -2,6 +2,12 @@ class puphpet_ruby (
   $ruby
 ) {
 
+  if ! defined(Group['rvm']) {
+    group { 'rvm':
+      ensure => present
+    }
+  }
+
   User <| title == $::ssh_username |> {
     groups +> 'rvm'
   }

@@ -4,6 +4,7 @@ dir = File.dirname(File.expand_path(__FILE__))
 
 require 'yaml'
 require "#{dir}/puphpet/ruby/deep_merge.rb"
+require "#{dir}/puphpet/ruby/puppet.rb"
 
 configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 

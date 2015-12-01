@@ -33,7 +33,7 @@ class puphpet_server (
     require    => [Group['www-data'], Group['www-user']],
   }
 
-  User[$::ssh_username]
+  realize(User[$::ssh_username])
 
   each( ['apache', 'nginx', 'httpd', 'www-data', 'www-user'] ) |$key| {
     if ! defined(User[$key]) {

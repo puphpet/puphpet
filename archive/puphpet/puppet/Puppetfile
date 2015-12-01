@@ -50,7 +50,7 @@ mod 'jfryman/nginx',
     :ref => 'ea75350'
 mod 'puppetlabs/ntp',
     :git => 'https://github.com/puppetlabs/puppetlabs-ntp.git',
-    :ref => '3.0.4'
+    :ref => '4.1.1'
 mod 'puphpet/php',
     :git => 'https://github.com/puphpet/puppet-php.git',
     :ref => 'eb14528'
@@ -62,7 +62,7 @@ mod 'puphpet/puphpet',
     :ref => '1c7acf3'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
-    :ref => 'v2.1.9'
+    :ref => 'v2.1.12'
 mod 'daenney/pyenv',
     :git => 'https://github.com/puphpet/puppet-pyenv.git',
     :ref => '062ae72'
@@ -90,4 +90,4 @@ mod 'puppetlabs/vcsrepo',
     :ref => '0.2.0'
 mod 'example42/yum',
     :git => 'https://github.com/example42/puppet-yum.git',
-    :ref => 'v2.1.17'
+    :ref => 'v2.1.25'
