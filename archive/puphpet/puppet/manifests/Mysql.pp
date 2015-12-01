@@ -38,7 +38,7 @@ class puphpet_mysql (
     $php_package = false
   }
 
-  if empty($mysql['settings']['root_password']) {
+  if !array_true($mysql['settings'], 'root_password') {
     fail( 'MySQL requires choosing a root password. Please check your config.yaml file.' )
   }
 
@@ -114,7 +114,7 @@ class puphpet_mysql (
 
     create_resources( mysql_database, { "${name}" => $merged })
 
-    if !empty($sql) {
+    if $sql != '' {
       # Run import only on initial database creation
       $touch_file = "/.puphpet-stuff/db-import-${name}"
 
@@ -179,7 +179,7 @@ class puphpet_mysql (
   }
 
   if array_true($mysql, 'adminer')
-    and ! empty($php_package)
+    and $php_package
     and ! defined(Class['puphpet::adminer'])
   {
     $apache_webroot = $puphpet::apache::params::default_vhost_dir

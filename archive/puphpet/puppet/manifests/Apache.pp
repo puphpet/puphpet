@@ -64,7 +64,7 @@ class puphpet_apache (
 
   create_resources('class', { 'apache' => $settings })
 
-  if !empty($php_engine) {
+  if $php_engine {
     $default_vhost_directories = {'default' => {
       'provider'        => 'directory',
       'path'            => $puphpet::apache::params::default_vhost_dir,
