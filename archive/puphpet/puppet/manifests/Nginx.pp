@@ -308,9 +308,7 @@ class puphpet_nginx (
 
       # If www_root was removed with all the trimmings,
       # add it back it
-      if ! defined($location_no_root['fastcgi'])
-        or empty($location_no_root['fastcgi'])
-      {
+      if ! array_true($location_no_root, 'fastcgi') {
         $location_merged = merge({
           'www_root' => $vhost['www_root'],
         }, $location_no_root)
