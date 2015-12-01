@@ -82,8 +82,8 @@ class puphpet_rabbitmq (
     }
   }
 
-  if ! defined(Puphpet::Firewall::Port[$settings['port']]) {
-    puphpet::firewall::port { $settings['port']: }
+  if ! defined(Puphpet::Firewall::Port["${settings['port']}"]) {
+    puphpet::firewall::port { "${settings['port']}": }
   }
 
 }

@@ -25,12 +25,12 @@ class puphpet_mailcatcher (
 
   create_resources('class', { 'mailcatcher' => $settings })
 
-  if ! defined(Puphpet::Firewall::Port[$settings['smtp_port']]) {
-    puphpet::firewall::port { $settings['smtp_port']: }
+  if ! defined(Puphpet::Firewall::Port["${settings['smtp_port']}"]) {
+    puphpet::firewall::port { "${settings['smtp_port']}": }
   }
 
-  if ! defined(Puphpet::Firewall::Port[$settings['http_port']]) {
-    puphpet::firewall::port { $settings['http_port']: }
+  if ! defined(Puphpet::Firewall::Port["${settings['http_port']}"]) {
+    puphpet::firewall::port { "${settings['http_port']}": }
   }
 
   $path = $settings['mailcatcher_path']

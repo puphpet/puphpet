@@ -31,8 +31,8 @@ class puphpet_solr (
     ],
   }
 
-  if ! defined(Puphpet::Firewall::Port[$settings['port']]) {
-    puphpet::firewall::port { $settings['port']: }
+  if ! defined(Puphpet::Firewall::Port["${settings['port']}"]) {
+    puphpet::firewall::port { "${settings['port']}": }
   }
 
   $destination = $solr::params::install_destination

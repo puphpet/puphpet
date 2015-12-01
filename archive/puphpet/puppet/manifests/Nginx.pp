@@ -56,9 +56,9 @@ class puphpet_nginx (
       $member_array = $package_array = split($member, ':')
 
       if count($member_array) == 2
-        and ! defined(Puphpet::Firewall::Port[$member_array[1]])
+        and ! defined(Puphpet::Firewall::Port["${member_array[1]}"])
       {
-        puphpet::firewall::port { $member_array[1]: }
+        puphpet::firewall::port { "${member_array[1]}": }
       }
     }
   }
@@ -321,8 +321,8 @@ class puphpet_nginx (
       create_resources(nginx::resource::location, { "${lkey}" => $location_merged })
     }
 
-    if ! defined(Puphpet::Firewall::Port[$vhost['listen_port']]) {
-      puphpet::firewall::port { $vhost['listen_port']: }
+    if ! defined(Puphpet::Firewall::Port["${vhost['listen_port']}"]) {
+      puphpet::firewall::port { "${vhost['listen_port']}": }
     }
   }
 

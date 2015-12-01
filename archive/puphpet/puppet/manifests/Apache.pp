@@ -192,8 +192,8 @@ class puphpet_apache (
 
     create_resources(::apache::vhost, { "${key}" => $vhost_merged })
 
-    if ! defined(Puphpet::Firewall::Port[$vhost['port']]) {
-      puphpet::firewall::port { $vhost['port']: }
+    if ! defined(Puphpet::Firewall::Port["${vhost['port']}"]) {
+      puphpet::firewall::port { "${vhost['port']}": }
     }
   }
 
