@@ -28,7 +28,7 @@ class puphpet_beanstalkd (
     'beanstalkd' => $beanstalkd['settings'],
   })
 
-  $console_prerequisites = ($webroot and $php_installed)
+  $console_prerequisites = (!empty($webroot) and !empty($php_installed))
 
   if array_true($beanstalkd, 'beanstalk_console') and $console_prerequisites {
     class { 'puphpet::beanstalkd::console' :

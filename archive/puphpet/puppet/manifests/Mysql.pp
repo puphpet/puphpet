@@ -114,7 +114,7 @@ class puphpet_mysql (
 
     create_resources( mysql_database, { "${name}" => $merged })
 
-    if $sql {
+    if !empty($sql) {
       # Run import only on initial database creation
       $touch_file = "/.puphpet-stuff/db-import-${name}"
 
@@ -179,7 +179,7 @@ class puphpet_mysql (
   }
 
   if array_true($mysql, 'adminer')
-    and $php_package
+    and ! empty($php_package)
     and ! defined(Class['puphpet::adminer'])
   {
     $apache_webroot = $puphpet::apache::params::default_vhost_dir
