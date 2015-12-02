@@ -80,13 +80,6 @@ class puphpet_server (
 
       Class['::yum'] -> Yum::Managed_yumrepo <| |> -> Package <| |>
 
-      if ! defined(Package['git']) {
-        package { 'git':
-          ensure  => latest,
-          require => Class['yum::repo::repoforgeextras']
-        }
-      }
-
       if ! defined(Package['augeas']) {
         package { 'augeas':
           ensure => present,

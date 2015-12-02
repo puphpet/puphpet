@@ -3,7 +3,16 @@ class puphpet_python (
 ) {
 
   include pyenv::params
-  require supervisord::pip
+
+  if ! defined(Package['git']) {
+    package { 'git':
+      ensure  => present,
+    }
+  }
+
+  class { 'supervisord::pip':
+    require => Package['git']
+  }
 
   puphpet::python::preinstall { 'foo':
     before => Class['pyenv'],
