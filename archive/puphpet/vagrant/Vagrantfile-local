@@ -7,6 +7,10 @@ Vagrant.configure('2') do |config|
   config.vm.box     = "#{data['vm']['box']}"
   config.vm.box_url = "#{data['vm']['box_url']}"
 
+  if data['vm']['box_version'].to_s.strip.length != 0
+    config.vm.box_version = "#{data['vm']['box_version']}"
+  end
+
   config.ssh.insert_key = data['ssh']['insert_key']
 
   if data['vm']['hostname'].to_s.strip.length != 0
