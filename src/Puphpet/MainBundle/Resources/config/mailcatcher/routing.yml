@@ -1,3 +1,0 @@
-puphpet.mailcatcher.homepage:
-    pattern:  /
-    defaults: { _controller: PuphpetMainBundle:MailCatcher:index }

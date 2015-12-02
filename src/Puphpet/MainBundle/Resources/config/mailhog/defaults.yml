@@ -1,0 +1,8 @@
+install: 0
+
+settings:
+    smtp_ip: 0.0.0.0
+    smtp_port: 1025
+    http_ip: 0.0.0.0
+    http_port: 8025
+    path: /usr/local/bin/mailhog

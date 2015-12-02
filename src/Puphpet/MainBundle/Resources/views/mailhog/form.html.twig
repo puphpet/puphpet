@@ -1,0 +1,67 @@
+<input type="hidden" name="mailhog[install]" value="0" />
+
+<div class="section-header">
+    <h1>MailHog</h1>
+    <p class="lead">Install MailHog.</p>
+</div>
+
+<div class="field-container">
+    <div class="form-group">
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="mailhog[install]" value="1"
+                   class="invisible toggle-on-select"
+                   {% if mailhog.install %}checked{% endif %}
+                   data-vis-toggle-target="#mailhog-container" />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Install MailHog</span>
+                </span>
+                <span class="footer">
+                    Web and API based SMTP testing
+                </span>
+            </span>
+        </label>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div id="mailhog-container" class="{% if not mailhog.install %}hidden{% endif %}">
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <p>Minimum port number is <code>1000</code>.</p>
+            </div>
+            <label for="mailhog-settings-http_port">HTTP Port</label>
+            <input type="number" id="mailhog-settings-http_port"
+                   name="mailhog[settings][http_port]"
+                   placeholder="1080" class="form-control"
+                   value="{{ mailhog.settings.http_port }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="help-block">
+            <p>MailHog will be available at
+                <code>http://{SERVER_IP_ADDRESS}:{HTTP_PORT}</code></p>
+            <p>It is highly recommended <strong>not</strong> installing
+                MailHog on production servers.</p>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#sqlite">
+            <i class="fa fa-hand-o-left"></i> SQLite
+        </a>
+    </div>
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#beanstalkd">
+            Beanstalkd <i class="fa fa-hand-o-right"></i>
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

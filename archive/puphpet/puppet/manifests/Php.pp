@@ -1,6 +1,6 @@
 class puphpet_php (
   $php,
-  $mailcatcher
+  $mailhog
 ) {
 
   include ::php::params
@@ -195,23 +195,15 @@ class puphpet_php (
     }
   }
 
-  # Usually this would go within the library that needs in (Mailcatcher)
+  # Usually this would go within the library that needs it  (MailHog)
   # but the values required are sufficiently complex that it's easier to
   # add here
-  if array_true($mailcatcher, 'install')
+  if array_true($mailhog, 'install')
     and ! defined(Puphpet::Php::Ini['sendmail_path'])
   {
-    $mc_from_method = $mailcatcher['settings']['from_email_method']
-    $mc_path = $mailcatcher['settings']['mailcatcher_path']
-
-    $mailcatcher_f_flag = $mc_from_method ? {
-      'headers' => '',
-      default   => ' -f',
-    }
-
     puphpet::php::ini { 'sendmail_path':
       entry       => 'CUSTOM/sendmail_path',
-      value       => "${mc_path}/catchmail${mailcatcher_f_flag}",
+      value       => $mailhog['settings']['path'],
       php_version => $version,
       webserver   => $service,
       notify      => Service[$service],

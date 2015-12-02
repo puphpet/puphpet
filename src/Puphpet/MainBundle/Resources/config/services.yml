@@ -42,7 +42,7 @@ services:
             - [ addExtension, [ 'redis' ] ]
             - [ addExtension, [ 'sqlite' ] ]
         # mail
-            - [ addExtension, [ 'mailcatcher' ] ]
+            - [ addExtension, [ 'mailhog' ] ]
         # work queue
             - [ addExtension, [ 'beanstalkd' ] ]
             - [ addExtension, [ 'rabbitmq' ] ]

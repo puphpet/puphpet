@@ -1,0 +1,3 @@
+puphpet.mailhog.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetMainBundle:MailHog:index }

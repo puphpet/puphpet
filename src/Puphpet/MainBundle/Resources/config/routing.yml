@@ -115,9 +115,9 @@ puphpet.sqlite:
     prefix:   /extension/sqlite
 
 # mail
-puphpet.mailcatcher:
-    resource: "@PuphpetMainBundle/Resources/config/mailcatcher/routing.yml"
-    prefix:   /extension/mailcatcher
+puphpet.mailhog:
+    resource: "@PuphpetMainBundle/Resources/config/mailhog/routing.yml"
+    prefix:   /extension/mailhog
 
 # work queue
 puphpet.beanstalkd:

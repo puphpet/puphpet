@@ -12,7 +12,7 @@ $elasticsearch  = hiera_hash('elastic_search', {})
 $firewall       = hiera_hash('firewall', {})
 $hhvm           = hiera_hash('hhvm', {})
 $locales        = hiera_hash('locale', {})
-$mailcatcher    = hiera_hash('mailcatcher', {})
+$mailhog        = hiera_hash('mailhog', {})
 $mariadb        = hiera_hash('mariadb', {})
 $mongodb        = hiera_hash('mongodb', {})
 $mysql          = hiera_hash('mysql', {})
@@ -84,9 +84,9 @@ if array_true($hhvm, 'install') {
   }
 }
 
-if array_true($mailcatcher, 'install') {
-  class { '::puphpet_mailcatcher':
-    mailcatcher => $mailcatcher
+if array_true($mailhog, 'install') {
+  class { '::puphpet_mailhog':
+    mailhog => $mailhog
   }
 }
 
@@ -133,8 +133,8 @@ if array_true($nodejs, 'install') {
 
 if array_true($php, 'install') {
   class { '::puphpet_php':
-    php         => $php,
-    mailcatcher => $mailcatcher
+    php     => $php,
+    mailhog => $mailhog
   }
 
   if array_true($blackfire, 'install') {
@@ -212,8 +212,7 @@ if array_true($solr, 'install') {
   }
 }
 
-# puppet manifests for mailcatcher and sqlite are not compatible
-if array_true($sqlite, 'install') and ! array_true($mailcatcher, 'install') {
+if array_true($sqlite, 'install') {
   class { '::puphpet_sqlite':
     sqlite => $sqlite,
     apache => $apache,

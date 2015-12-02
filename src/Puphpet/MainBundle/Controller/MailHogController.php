@@ -5,12 +5,12 @@ namespace Puphpet\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class MailCatcherController extends Controller
+class MailHogController extends Controller
 {
     public function indexAction(array $data)
     {
-        return $this->render('PuphpetMainBundle:MailCatcher:form.html.twig', [
-            'mailcatcher' => $data,
+        return $this->render('PuphpetMainBundle:MailHog:form.html.twig', [
+            'mailhog' => $data,
         ]);
     }
 }
