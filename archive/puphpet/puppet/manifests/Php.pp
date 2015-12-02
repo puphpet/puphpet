@@ -203,7 +203,7 @@ class puphpet_php (
   {
     puphpet::php::ini { 'sendmail_path':
       entry       => 'CUSTOM/sendmail_path',
-      value       => $mailhog['settings']['path'],
+      value       => "${mailhog['settings']['path']} sendmail foo@example.com",
       php_version => $version,
       webserver   => $service,
       notify      => Service[$service],
