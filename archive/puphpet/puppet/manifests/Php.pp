@@ -208,4 +208,13 @@ class puphpet_php (
     }
   }
 
+  if $version == '70' and $::osfamily == 'redhat' {
+    exec { 'Fix pid_file path':
+      command => "perl -p -i -e 's#/var/run/php-fpm/php-fpm.pid#/var/run/php-fpm.pid#gi' /etc/init.d/php-fpm",
+      unless  => "grep -x '/var/run/php-fpm.pid' /etc/init.d/php-fpm",
+      path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
+      notify  => Service[$service],
+    }
+  }
+
 }
