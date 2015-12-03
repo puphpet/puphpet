@@ -54,7 +54,13 @@ class puphpet_apache (
     default => 'Off'
   }
 
+  $apache_name = $::osfamily ? {
+    'Debian' => $::apache::params::apache_name,
+    'Redhat' => 'httpd24u'
+  }
+
   $settings = merge($apache['settings'], {
+    'apache_name'    => $apache_name,
     'default_vhost'  => false,
     'mpm_module'     => 'worker',
     'conf_template'  => $::apache::params::conf_template,
@@ -214,6 +220,26 @@ class puphpet_apache (
   # mod_pagespeed needs some extra love
   if 'pagespeed' in $apache['modules'] {
     class { 'puphpet::apache::modpagespeed': }
+  }
+
+  # CentOS will be using IUS which has different prefix for packages
+  if $::osfamily == 'redhat' {
+    # Install all available modules by default
+    each( ['httpd24u-filesystem', 'httpd24u-tools', 'mod24u_ldap',
+           'mod24u_proxy_html', 'mod24u_session'] ) |$package|
+    {
+      if ! defined(Package[$package]) {
+        package { $package:
+          ensure  => present,
+          require => Class['apache'],
+          notify  => Service['httpd'],
+        }
+      }
+    }
+
+    class { 'apache::mod::ssl':
+      package_name => 'mod24u_ssl',
+    }
   }
 
   each( $modules ) |$module| {
