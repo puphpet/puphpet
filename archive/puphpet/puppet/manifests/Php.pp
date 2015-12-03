@@ -9,33 +9,31 @@ class puphpet_php (
     version_string => $php['settings']['version'],
   }
 
-  $version  = $puphpet::php::settings::version
-  $base_ini = $puphpet::php::settings::base_ini
-  $package  = $puphpet::php::settings::fpm_package
-  $service  = $puphpet::php::settings::service
+  $version       = $puphpet::php::settings::version
+  $base_ini      = $puphpet::php::settings::base_ini
+  $package       = $puphpet::php::settings::fpm_package
+  $package_devel = $puphpet::php::settings::package_devel
+  $service       = $puphpet::php::settings::service
 
   Class['Puphpet::Php::Settings']
   -> Package[$package]
 
-  if $version == '7.0' {
-    class { 'puphpet::php::beta': }
-  } else {
-    class { 'puphpet::php::repos':
-      php_version => $version,
-    }
+  class { 'puphpet::php::repos':
+    php_version => $version,
+  }
 
-    if ! defined(Service[$service]) {
-      service { $service:
-        ensure     => 'running',
-        enable     => true,
-        hasrestart => true,
-        hasstatus  => true,
-        require    => Package[$package]
-      }
+  if ! defined(Service[$service]) {
+    service { $service:
+      ensure     => 'running',
+      enable     => true,
+      hasrestart => true,
+      hasstatus  => true,
+      require    => Package[$package]
     }
 
     class { 'php':
       package             => $package,
+      package_devel       => $package_devel,
       service             => $service,
       version             => 'present',
       service_autorestart => false,
