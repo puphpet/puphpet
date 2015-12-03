@@ -3,6 +3,7 @@ class puphpet_solr (
 ) {
 
   include solr::params
+  include puphpet::supervisord
 
   $settings = $solr['settings']
 
