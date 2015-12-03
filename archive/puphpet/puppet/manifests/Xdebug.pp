@@ -6,12 +6,13 @@ class puphpet_xdebug (
   Class['Puphpet::Php::Settings']
   -> Class['Puphpet::Php::Xdebug']
 
-  $version = $php['settings']['version']
+  $version = $puphpet::php::settings::version
   $service = $puphpet::php::settings::service
 
   $compile = $version ? {
     '5.6'   => true,
     '56'    => true,
+    '70'    => true,
     default => false,
   }
 
