@@ -1,6 +1,6 @@
 install: 0
 
 settings:
-    version: 1.4.1
+    version: 2.1.0
     java_install: true
 
