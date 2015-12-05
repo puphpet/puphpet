@@ -37,7 +37,9 @@ class puphpet_sqlite(
       'group' => $group,
     }), 'mode')
 
-    create_resources( puphpet::sqlite::db, { "${key}" => $merged })
+    create_resources( puphpet::sqlite::db, {
+      "${name}" => $merged
+    })
   }
 
   if $php_package == 'php' and ! defined(Puphpet::Php::Pecl['sqlite']) {
