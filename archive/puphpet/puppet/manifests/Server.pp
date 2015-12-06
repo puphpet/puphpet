@@ -115,25 +115,25 @@ class puphpet_server (
       }
     }
     'ubuntu': {
-      if ! defined(Apt::Key['4F4EA0AAE5267A6C']){
-        apt::key { '4F4EA0AAE5267A6C':
+      if ! defined(Apt::Key['14AA40EC0831756756D7F66C4F4EA0AAE5267A6C']){
+        apt::key { '14AA40EC0831756756D7F66C4F4EA0AAE5267A6C':
           key_server => 'hkp://keyserver.ubuntu.com:80'
         }
       }
-      if ! defined(Apt::Key['4CBEDD5A']){
-        apt::key { '4CBEDD5A':
+      if ! defined(Apt::Key['945A6177078449082DDCC0E5551CE2FB4CBEDD5A']){
+        apt::key { '945A6177078449082DDCC0E5551CE2FB4CBEDD5A':
           key_server => 'hkp://keyserver.ubuntu.com:80'
         }
       }
 
       if $::lsbdistcodename in ['lucid', 'precise'] {
         apt::ppa { 'ppa:pdoes/ppa':
-          require => Apt::Key['4CBEDD5A'],
+          require => Apt::Key['945A6177078449082DDCC0E5551CE2FB4CBEDD5A'],
           options => ''
         }
       } else {
         apt::ppa { 'ppa:pdoes/ppa':
-          require => Apt::Key['4CBEDD5A']
+          require => Apt::Key['945A6177078449082DDCC0E5551CE2FB4CBEDD5A']
         }
       }
     }
