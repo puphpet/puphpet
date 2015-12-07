@@ -1,3 +1,7 @@
+{% set selectedVersion = (mongodb.global.version is defined and mongodb.global.version)
+    ? mongodb.global.version
+    : false %}
+
 <input type="hidden" name="mongodb[install]" value="0" />
 
 <div class="section-header">
@@ -29,26 +33,51 @@
     <div class="clearfix"></div>
 
     <div id="mongodb-container" class="{% if not mongodb.install %}hidden{% endif %}">
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                IP Address Mongo will listen on. Will usually be local.
+        <div class="form-group">
+            <div class="col-xs-6">
+                <label for="mongodb-globals-version">Version</label>
+                <select id="mongodb-globals-version"
+                       name="mongodb[globals][version]"
+                       class="form-control select-tag">
+                    <optgroup label="Debian/Ubuntu">
+                        {% for version in mongodb.available.versions_deb %}
+                            <option value="{{ version }}"
+                                {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
+                        {% endfor %}
+                    </optgroup>
+
+                    <optgroup label="CentOS">
+                        {% for version in mongodb.available.versions_rhel %}
+                            <option value="{{ version }}"
+                                {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
+                        {% endfor %}
+                    </optgroup>
+                </select>
             </div>
-            <label for="mongodb-settings-bind_ip">Bind IP</label>
-            <input type="text" id="mongodb-settings-bind_ip"
-                   name="mongodb[settings][bind_ip]"
-                   placeholder="127.0.0.1" class="form-control"
-                   value="{{ mongodb.settings.bind_ip }}" />
+
+            <div class="col-xs-6">
+                <div class="help-text">
+                    IP Address Mongo will listen on. Will usually be local.
+                </div>
+                <label for="mongodb-settings-bind_ip">Bind IP</label>
+                <input type="text" id="mongodb-settings-bind_ip"
+                       name="mongodb[settings][bind_ip]"
+                       placeholder="127.0.0.1" class="form-control"
+                       value="{{ mongodb.settings.bind_ip }}" />
+            </div>
         </div>
 
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                Port will automatically be added to <code>iptables</code>.
+        <div class="form-group">
+            <div class="col-xs-6">
+                <div class="help-text">
+                    Port will automatically be added to <code>iptables</code>.
+                </div>
+                <label for="mongodb-settings-port">Listen Port</label>
+                <input type="text" id="mongodb-settings-port"
+                       name="mongodb[settings][port]"
+                       placeholder="27017" class="form-control"
+                       value="{{ mongodb.settings.port }}" />
             </div>
-            <label for="mongodb-settings-port">Listen Port</label>
-            <input type="text" id="mongodb-settings-port"
-                   name="mongodb[settings][port]"
-                   placeholder="27017" class="form-control"
-                   value="{{ mongodb.settings.port }}" />
         </div>
 
         <div class="clearfix"></div>
