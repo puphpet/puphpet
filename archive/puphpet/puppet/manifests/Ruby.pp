@@ -2,6 +2,14 @@ class puphpet_ruby (
   $ruby
 ) {
 
+  include '::gnupg'
+
+  Class['::rvm']
+  -> Puphpet::Ruby::Dotfile <| |>
+  -> Puphpet::Ruby::Install <| |>
+
+  class { '::rvm': }
+
   if ! defined(Group['rvm']) {
     group { 'rvm':
       ensure => present

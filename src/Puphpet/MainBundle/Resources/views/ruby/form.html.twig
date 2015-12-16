@@ -6,14 +6,6 @@
 </div>
 
 <div class="field-container">
-    <div class="help-block">
-        <p>Ruby 1.9.3 is already installed in PuPHPet boxes using RVM.
-            It is set as the system default version.</p>
-        <p>To add Gems to the installed 1.9.3, choose it from the list below.</p>
-        <p>Choosing to install a lower version and setting it as default may
-            break things, so proceed with caution.</p>
-    </div>
-
     {% for selected_version in ruby.versions %}
         {% include 'PuphpetMainBundle:ruby/sections:version.html.twig' with {
             'available_versions': ruby.available.versions, 'selected_version': selected_version} %}

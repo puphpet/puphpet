@@ -17,7 +17,7 @@
                     Set this as system-wide default version.
                     Don't set more than one version as default.
                 </span>
-                <input type="radio" name="ruby[versions][{{ uniqid }}][default]"
+                <input type="checkbox" name="ruby[versions][{{ uniqid }}][default]"
                        class="invisible"
                        {% if default %}checked{% endif %} value="1" />
                 <span class="content">
@@ -37,7 +37,7 @@
                     The best way to manage a Ruby application's gems.
                     <a href="http://bundler.io/" target="_blank">More information</a>
                 </span>
-                <input type="radio" name="ruby[versions][{{ uniqid }}][bundler]"
+                <input type="checkbox" name="ruby[versions][{{ uniqid }}][bundler]"
                        class="invisible"
                        {% if bundler %}checked{% endif %} value="1" />
                 <span class="content">
