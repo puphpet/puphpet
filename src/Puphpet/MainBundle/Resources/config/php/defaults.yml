@@ -7,7 +7,6 @@ modules:
     php:
         - cli
         - intl
-        - mcrypt
     pecl: []
 
 ini:

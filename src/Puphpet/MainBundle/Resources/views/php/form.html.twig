@@ -210,11 +210,6 @@
         <div class="clearfix"></div>
 
         <div class="form-group col-xs-12">
-            <div class="help-text">
-                If you've chosen CentOS, Some modules come pre-installed: <code>curl</code>,
-                <code>imagick</code>, <code>memcached</code>, <code>sqlite</code>.
-                Don't choose these here.
-            </div>
             <label for="php-modules-php">PHP Modules</label>
             <select id="php-modules-php"
                     name="php[modules][php][]"
@@ -227,6 +222,14 @@
                     <option value="{{ module }}">{{ module }}</option>
                 {% endfor %}
             </select>
+
+            <div class="help-block">
+                <p>If you've chosen <strong>CentOS</strong>, Some modules come pre-installed: <code>curl</code>,
+                    <code>imagick</code>, <code>memcached</code>, <code>sqlite</code>.
+                    Don't choose these here.</p>
+                <p>If you've chosen <strong>Ubuntu 14.04 and PHP 7</strong>, some modules have been noted as
+                    coming pre-installed: <code>mcrypt</code>. Don't choose these here.</p>
+            </div>
         </div>
 
         <div class="clearfix"></div>
