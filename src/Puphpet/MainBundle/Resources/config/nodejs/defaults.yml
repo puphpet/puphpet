@@ -1,3 +1,6 @@
 install: 0
 
+settings:
+    version: 5
+
 npm_packages: []
