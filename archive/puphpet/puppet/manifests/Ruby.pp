@@ -7,6 +7,7 @@ class puphpet_ruby (
   Class['::rvm']
   -> Puphpet::Ruby::Dotfile <| |>
   -> Puphpet::Ruby::Install <| |>
+  -> Exec['rvm rvmrc warning ignore all.rvmrcs']
 
   class { '::rvm': }
 
@@ -14,6 +15,12 @@ class puphpet_ruby (
     group { 'rvm':
       ensure => present
     }
+  }
+
+  exec { 'rvm rvmrc warning ignore all.rvmrcs':
+    command => 'rvm rvmrc warning ignore all.rvmrcs && touch /.puphpet-stuff/rvmrc',
+    creates => '/.puphpet-stuff/rvmrc',
+    path    => '/bin:/usr/bin:/usr/local/bin:/usr/local/rvm/bin',
   }
 
   User <| title == $::ssh_username |> {
