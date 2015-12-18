@@ -14,14 +14,14 @@ class puphpet_redis (
   create_resources('class', { 'redis' => $redis['settings'] })
 
   if array_true($php, 'install') and ! defined(Puphpet::Php::Pecl['redis']) {
-    puphpet::php::pecl { 'redis':
-      service_autorestart => $webserver_restart,
-      require             => Class['redis']
-    }
-
     if $::osfamily == 'debian'
       and $puphpet::php::settings::version in ['54', '5.4']
     {
+      puphpet::php::pecl { 'redis':
+        service_autorestart => $webserver_restart,
+        require             => Class['redis']
+      }
+
       puphpet::php::ini { 'REDIS/extension':
         entry       => "REDIS/extension",
         value       => 'redis.so',
