@@ -16,7 +16,7 @@ Vagrant.configure('2') do |config|
   if data['vm']['network']['private_network'].to_s != ''
     config.vm.network 'private_network', ip: "#{data['vm']['network']['private_network']}"
   end
-  
+
   if data['vm']['network']['public_network'].to_s != ''
     config.vm.network 'public_network'
     if data['vm']['network']['public_network'].to_s != '1'
@@ -145,7 +145,7 @@ Vagrant.configure('2') do |config|
 
       virtualbox.customize ['modifyvm', :id, '--memory', "#{data['vm']['memory']}"]
       virtualbox.customize ['modifyvm', :id, '--cpus', "#{data['vm']['cpus']}"]
-      
+
       if !data['vm']['provider']['virtualbox']['showgui'].nil? &&
         data['vm']['provider']['virtualbox']['showgui'].to_i == 1
         virtualbox.gui = true
@@ -197,7 +197,24 @@ Vagrant.configure('2') do |config|
     ENV['VAGRANT_DEFAULT_PROVIDER'] = 'parallels'
 
     config.vm.provider 'parallels' do |v|
-      data['vm']['provider']['parallels'].each do |key, value|
+      parallels_data = data['vm']['provider']['parallels']
+
+      if !parallels_data['use_linked_clone'].nil? &&
+        parallels_data['use_linked_clone'].to_i == 1
+        v.use_linked_clone = true
+      end
+
+      if !parallels_data['check_guest_tools'].nil? &&
+        parallels_data['check_guest_tools'].to_i == 1
+        v.check_guest_tools = true
+      end
+
+      if !parallels_data['update_guest_tools'].nil? &&
+        parallels_data['update_guest_tools'].to_i == 1
+        v.update_guest_tools = true
+      end
+
+      parallels_data['customize'].each do |key, value|
         if key == 'memsize'
           next
         end
@@ -208,11 +225,14 @@ Vagrant.configure('2') do |config|
         v.customize ['set', :id, "--#{key}", "#{value}"]
       end
 
+      v.use_linked_clone = true
+      v.update_guest_tools = true
+
       v.memory = "#{data['vm']['memory']}"
       v.cpus   = "#{data['vm']['cpus']}"
 
-      if data['vm']['provider']['parallels']['name'].nil? ||
-        data['vm']['provider']['parallels']['name'].empty?
+      if parallels_data['name'].nil? ||
+        parallels_data['name'].empty?
         if data['vm']['hostname'].to_s.strip.length != 0
           v.name = config.vm.hostname
         end
