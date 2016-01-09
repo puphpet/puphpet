@@ -59,7 +59,7 @@ mod 'puppetlabs/postgresql',
     :ref => '4.6.0'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '08a00e2'
+    :ref => '45fa78f'
 mod 'example42/puppi',
     :git => 'https://github.com/puphpet/puppi.git',
     :ref => '5dd5091'
