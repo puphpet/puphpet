@@ -140,9 +140,8 @@ class puphpet_postgresql (
     }
 
     class { 'puphpet::adminer':
-      location    => "${$adminer_webroot}/adminer",
-      owner       => 'www-data',
-      php_package => $php_package
+      location => "${$adminer_webroot}/adminer",
+      owner    => 'www-data',
     }
   }
 
