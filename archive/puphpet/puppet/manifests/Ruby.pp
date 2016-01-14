@@ -9,7 +9,9 @@ class puphpet_ruby (
   -> Puphpet::Ruby::Install <| |>
   -> Exec['rvm rvmrc warning ignore all.rvmrcs']
 
-  class { '::rvm': }
+  class { '::rvm':
+    key_server => 'pgp.mit.edu',
+  }
 
   if ! defined(Group['rvm']) {
     group { 'rvm':
