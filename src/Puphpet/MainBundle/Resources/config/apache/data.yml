@@ -1,6 +1,7 @@
 install: 0
 
 settings:
+    version: 2.4
     user: 'www-data'
     group: 'www-data'
     default_vhost: true
