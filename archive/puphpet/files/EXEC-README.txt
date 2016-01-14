@@ -1,5 +1,7 @@
 Files are executed in alphabetical order, and filenames must end in .sh.
 
+Files within exec-preprovision are run one time before Puppet is called.
+
 Files within exec-once-* are run before files within exec-always-*.
 
 Files within startup-once-* are run before files within startup-always-*.
