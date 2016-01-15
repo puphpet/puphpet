@@ -8,7 +8,7 @@ Vagrant.configure('2') do |config|
   config.vm.box     = "#{data['vm']['box']}"
   config.vm.box_url = "#{data['vm']['box_url']}"
 
-  if data['vm']['box_version'].to_s.strip.length != 0
+  if data['vm']['box_version'].to_s != ''
     config.vm.box_version = "#{data['vm']['box_version']}"
   end
 

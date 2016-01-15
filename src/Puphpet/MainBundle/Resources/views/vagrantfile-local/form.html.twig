@@ -36,6 +36,8 @@
     <div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
         <input type="hidden" id="vagrantfile-local-vm-box" name="vagrantfile[vm][box]"
                value="{{ data.vm.box }}" />
+        <input type="hidden" id="vagrantfile-local-vm-box_version" name="vagrantfile[vm][box_version]"
+               value="{{ data.vm.box_version }}" />
         <input type="hidden" id="vagrantfile-local-vm-hostname" name="vagrantfile[vm][hostname]"
                value="{{ data.vm.hostname }}" />
         <input type="hidden" id="vagrantfile-local-vm-provider-virtualbox-showgui" name="vagrantfile[vm][provider][virtualbox][showgui]"

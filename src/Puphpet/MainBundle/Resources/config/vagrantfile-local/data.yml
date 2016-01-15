@@ -7,6 +7,7 @@ vm:
     memory: 512
     cpus: 1
     chosen_provider: virtualbox
+    box_version: ~
     network:
         private_network: 192.168.56.101
         forwarded_port: []

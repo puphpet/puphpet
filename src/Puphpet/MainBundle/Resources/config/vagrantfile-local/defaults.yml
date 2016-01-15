@@ -5,6 +5,7 @@ vm:
     box_url: puphpet/ubuntu1404-x64
     hostname: local.puphpet
     chosen_provider: virtualbox
+    box_version: ~
     provider:
         virtualbox: 
             showgui: 0
