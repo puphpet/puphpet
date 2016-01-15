@@ -12,7 +12,16 @@ FORGE
     richardc-datacat (0.6.2)
     stahnma-epel (1.2.2)
       puppetlabs-stdlib (>= 3.0.0)
-    thias-sysctl (0.3.0)
+
+GIT
+  remote: https://github.com/arioch/puppet-redis.git
+  ref: 1.2.1
+  sha: 7aff3d9df5133adce16f2f512725f4c1f6154e7a
+  specs:
+    arioch-redis (1.2.1)
+      puppetlabs-apt (< 3.0.0, >= 2.0.1)
+      puppetlabs-stdlib (< 5.0.0, >= 1.0.2)
+      stahnma-epel (< 2.0.0, >= 1.0.2)
 
 GIT
   remote: https://github.com/elastic/puppet-elasticsearch.git
@@ -33,14 +42,6 @@ GIT
       example42-monitor (>= 2.0.0)
       example42-puppi (>= 2.0.0)
       puppetlabs-stdlib (>= 2.0.0)
-
-GIT
-  remote: https://github.com/example42/puppet-yum.git
-  ref: 8233e01382f9989e9a7b15fc529e34069f99fb37
-  sha: 8233e01382f9989e9a7b15fc529e34069f99fb37
-  specs:
-    example42-yum (2.1.24)
-      example42-puppi (>= 2.0.0)
 
 GIT
   remote: https://github.com/example42/puppi.git
@@ -100,8 +101,8 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: 06f924c9d8f4184cc07fbefc7008a14a37ebd971
-  sha: 06f924c9d8f4184cc07fbefc7008a14a37ebd971
+  ref: c4c27d2318581def3c081e3098e1b6a8055232f2
+  sha: c4c27d2318581def3c081e3098e1b6a8055232f2
   specs:
     puphpet-puphpet (1.0)
 
@@ -114,14 +115,6 @@ GIT
       puppetlabs-stdlib (>= 0.1.6)
 
 GIT
-  remote: https://github.com/puphpet/puppet-redis.git
-  ref: 233cc8f8dcfc7ae8d91ce1feb5469cc98798a815
-  sha: 233cc8f8dcfc7ae8d91ce1feb5469cc98798a815
-  specs:
-    puphpet-redis (0.0.11)
-      thias-sysctl (= 0.3.0)
-
-GIT
   remote: https://github.com/puphpet/puppet-supervisord.git
   ref: 17643f10c2322bfab349108e02b7f5a9992dbdde
   sha: 17643f10c2322bfab349108e02b7f5a9992dbdde
@@ -129,6 +122,14 @@ GIT
     ajcrowe-supervisord (0.4.1)
       puppetlabs-concat (< 2.0.0, >= 1.0.0)
       puppetlabs-stdlib (>= 4.1.0)
+
+GIT
+  remote: https://github.com/puphpet/puppet-yum.git
+  ref: 8233e01382f9989e9a7b15fc529e34069f99fb37
+  sha: 8233e01382f9989e9a7b15fc529e34069f99fb37
+  specs:
+    example42-yum (2.1.25)
+      example42-puppi (>= 2.0.0)
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-apache.git
@@ -265,6 +266,7 @@ GIT
 
 DEPENDENCIES
   ajcrowe-supervisord (>= 0)
+  arioch-redis (>= 0)
   attachmentgenie-locales (>= 0)
   daenney-pyenv (>= 0)
   elasticsearch-elasticsearch (>= 0)
@@ -279,7 +281,6 @@ DEPENDENCIES
   petems-swap_file (>= 0)
   puphpet-php (>= 0)
   puphpet-puphpet (>= 0)
-  puphpet-redis (>= 0)
   puppetlabs-apache (>= 0)
   puppetlabs-apt (>= 0)
   puppetlabs-concat (>= 0)

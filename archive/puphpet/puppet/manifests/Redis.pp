@@ -11,7 +11,17 @@ class puphpet_redis (
     $webserver_restart = false
   }
 
-  create_resources('class', { 'redis' => $redis['settings'] })
+  if array_true($redis['settings'], 'conf_port') {
+    $port = $redis['settings']['conf_port']
+  } else {
+    $port = $redis['settings']['port']
+  }
+
+  $settings = delete(deep_merge({
+    'port' => $port,
+  }, $redis['settings']), 'conf_port')
+
+  create_resources('class', { 'redis' => $settings })
 
   if array_true($php, 'install') and ! defined(Puphpet::Php::Pecl['redis']) {
     puphpet::php::pecl { 'redis':

@@ -30,11 +30,11 @@
 
     <div id="redis-container" class="{% if not redis.install %}hidden{% endif %}">
         <div class="form-group col-xs-6">
-            <label for="redis-settings-conf_port">Listen Port</label>
-            <input type="text" id="redis-settings-conf_port"
-                   name="redis[settings][conf_port]"
+            <label for="redis-settings-port">Listen Port</label>
+            <input type="text" id="redis-settings-port"
+                   name="redis[settings][port]"
                    placeholder="5673" class="form-control"
-                   value="{{ redis.settings.conf_port }}" />
+                   value="{{ redis.settings.port }}" />
         </div>
 
         <div class="clearfix"></div>
