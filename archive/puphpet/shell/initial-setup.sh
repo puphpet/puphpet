@@ -62,10 +62,10 @@ if [[ ! -f '/.puphpet-stuff/iptables-persistent-installed' ]] && [[ "${OS}" == '
     touch '/.puphpet-stuff/iptables-persistent-installed'
 fi
 
-if [[ ! -f '/.puphpet-stuff/add-apt-repository' ]] && [[ "${OS}" == 'ubuntu' ]]; then
-    apt-get -y install add-apt-repository
+if [[ ! -f '/.puphpet-stuff/software-properties-common' ]] && [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
+    apt-get -y install software-properties-common
 
-    touch '/.puphpet-stuff/add-apt-repository'
+    touch '/.puphpet-stuff/software-properties-common'
 fi
 
 if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
