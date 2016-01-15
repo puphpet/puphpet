@@ -8,14 +8,14 @@ require "#{dir}/puphpet/ruby/puppet.rb"
 
 configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 
-if File.file?("#{dir}/puphpet/config-custom.yaml")
-  custom = YAML.load_file("#{dir}/puphpet/config-custom.yaml")
-  configValues.deep_merge!(custom)
-end
-
 provider = ENV['VAGRANT_DEFAULT_PROVIDER']
 if File.file?("#{dir}/puphpet/config-#{provider}.yaml")
   custom = YAML.load_file("#{dir}/puphpet/config-#{provider}.yaml")
+  configValues.deep_merge!(custom)
+end
+
+if File.file?("#{dir}/puphpet/config-custom.yaml")
+  custom = YAML.load_file("#{dir}/puphpet/config-custom.yaml")
   configValues.deep_merge!(custom)
 end
 
