@@ -46,3 +46,9 @@ ssh:
 
 vagrant:
     host: detect
+
+proxy:
+    http: ~
+    https: ~
+    ftp: ~
+    no_proxy: ''
