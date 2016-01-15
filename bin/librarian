@@ -9,7 +9,7 @@ CWD=`pwd`
 
 cd `realpath $BASE_DIR`
 
-librarian-puppet install --clean
+librarian-puppet install --clean --verbose
 rm -rf .librarian
 rm -rf .tmp
 

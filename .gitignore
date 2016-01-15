@@ -9,7 +9,6 @@
 !/bin/librarian
 /composer.phar
 /.tmp
-/archive/puphpet/puppet/Puppetfile.lock
 /archive/puphpet/puppet/.librarian
 /archive/puphpet/puppet/.tmp
 /archive/puphpet/puppet/modules

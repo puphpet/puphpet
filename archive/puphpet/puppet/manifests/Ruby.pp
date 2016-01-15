@@ -9,7 +9,7 @@ class puphpet_ruby (
   -> Puphpet::Ruby::Install <| |>
 
   class { '::rvm':
-    key_server => 'pgp.mit.edu',
+    key_server => 'hkp://pgp.mit.edu/',
   }
 
   if ! defined(Group['rvm']) {
