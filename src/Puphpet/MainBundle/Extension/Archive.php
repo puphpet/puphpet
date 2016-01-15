@@ -167,13 +167,18 @@ class Archive
 
     /**
      * Mockable wrapper around exec()
-     *
+     * 
+     * @see http://tldp.org/LDP/abs/html/exitcodes.html
      * @param string $cmd
      * @return string
      */
     protected function exec($cmd)
     {
-        return exec($cmd);
+        $ret =  exec($cmd, $out, $code);
+        if (127 == $code) {
+            error_log('Command not found: ' . $cmd);
+        }
+        return $ret;
     }
 
     /**
