@@ -3,6 +3,7 @@
 :yaml:
     :datadir: '/vagrant/puphpet'
 :hierarchy:
+    - config-%{::provisioner_type}
     - config-custom
     - config
 :merge_behavior: deeper

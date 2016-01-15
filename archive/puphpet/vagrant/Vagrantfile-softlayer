@@ -3,6 +3,7 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'softlayer'
 
 Vagrant.configure('2') do |config|
+  config.vm.define            :softlayer
   config.nfs.functional       = false
   config.ssh.username         = 'root'
   config.ssh.private_key_path = "#{data['ssh']['private_key_path']}"

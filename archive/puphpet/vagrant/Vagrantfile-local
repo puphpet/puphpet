@@ -4,6 +4,7 @@ vagrant_home = (ENV['VAGRANT_HOME'].to_s.split.join.length > 0) ? ENV['VAGRANT_H
 vagrant_dot  = (ENV['VAGRANT_DOTFILE_PATH'].to_s.split.join.length > 0) ? ENV['VAGRANT_DOTFILE_PATH'] : "#{dir}/.vagrant"
 
 Vagrant.configure('2') do |config|
+  config.vm.define  :local
   config.vm.box     = "#{data['vm']['box']}"
   config.vm.box_url = "#{data['vm']['box_url']}"
 

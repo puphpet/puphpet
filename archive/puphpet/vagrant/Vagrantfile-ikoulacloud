@@ -3,6 +3,7 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'cloudstack'
 
 Vagrant.configure('2') do |config|
+  config.vm.define   :cloudstack
   config.vm.box      = 'dummy'
   config.vm.hostname = "#{data['vm']['hostname']}"
 

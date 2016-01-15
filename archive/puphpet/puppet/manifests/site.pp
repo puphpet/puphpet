@@ -1,7 +1,15 @@
-$yaml = merge_yaml(
+$config = merge_yaml(
   '/vagrant/puphpet/config.yaml',
   '/vagrant/puphpet/config-custom.yaml'
 )
+
+# a little ugly, can be improved if merge_yaml could support 3 args
+$provisionerConfig = merge_yaml(
+  "/vagrant/puphpet/config-${::provisioner_type}.yaml",
+  ""
+)
+
+$yaml = deep_merge($config, $provisionerConfig)
 
 $apache         = $yaml['apache']
 $beanstalkd     = hiera_hash('beanstalkd', {})
