@@ -63,7 +63,7 @@ mod 'puppetlabs/postgresql',
     :ref => '4.6.0'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => 'c4c27d2318581def3c081e3098e1b6a8055232f2'
+    :ref => '186bb745268836201c3bb4ec10f015aa7d272bc9'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'fe711883625bf4848d5f62b4fd64af7dddf6c424'
