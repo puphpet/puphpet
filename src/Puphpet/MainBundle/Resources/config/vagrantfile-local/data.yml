@@ -20,7 +20,10 @@ vm:
         vmware:
             numvcpus: 1
         parallels:
-            cpus: 1
+            use_linked_clone: '1'
+            check_guest_tools: '0'
+            update_guest_tools: '0'
+            customize: []
     provision:
         puppet:
             manifests_path: 'puphpet/puppet/manifests'
