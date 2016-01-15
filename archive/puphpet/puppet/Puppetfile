@@ -3,6 +3,7 @@ forge "https://forgeapi.puppetlabs.com"
 mod 'puppetlabs/stdlib',
     :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
     :ref => '4.11.0'
+
 mod 'puppetlabs/apache',
     :git => 'https://github.com/puppetlabs/puppetlabs-apache.git',
     :ref => '1.7.1'
@@ -62,7 +63,7 @@ mod 'puppetlabs/postgresql',
     :ref => '4.6.0'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '06f924c9d8f4184cc07fbefc7008a14a37ebd971'
+    :ref => '5ac1289460d8dd25dac8117e95945a02982b5371'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'fe711883625bf4848d5f62b4fd64af7dddf6c424'
@@ -89,7 +90,7 @@ mod 'puppetlabs/vcsrepo',
     :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
     :ref => '0.2.0'
 mod 'example42/yum',
-    :git => 'https://github.com/example42/puppet-yum.git',
-    :ref => 'v2.1.25'
+    :git => 'https://github.com/puphpet/puppet-yum.git',
+    :ref => '8233e01382f9989e9a7b15fc529e34069f99fb37'
 exclusion 'ceritsc-yum'
 exclusion 'n1tr0g/gnupg'

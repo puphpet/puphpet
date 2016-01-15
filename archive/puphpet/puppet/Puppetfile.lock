@@ -36,8 +36,8 @@ GIT
 
 GIT
   remote: https://github.com/example42/puppet-yum.git
-  ref: v2.1.25
-  sha: 93977ef49bb737ffbc88495d13516de27f0c90a1
+  ref: 8233e01382f9989e9a7b15fc529e34069f99fb37
+  sha: 8233e01382f9989e9a7b15fc529e34069f99fb37
   specs:
     example42-yum (2.1.24)
       example42-puppi (>= 2.0.0)
