@@ -42,6 +42,15 @@
                value="{{ data.vm.hostname }}" />
         <input type="hidden" id="vagrantfile-local-vm-provider-virtualbox-showgui" name="vagrantfile[vm][provider][virtualbox][showgui]"
                value="{{ data.vm.provider.virtualbox.showgui }}" />
+        <input type="hidden" id="vagrantfile-local-vm-provider-parallels-use_linked_clone"
+               name="vagrantfile[vm][provider][parallels][use_linked_clone]"
+               value="{{ data.vm.provider.parallels.use_linked_clone }}" />
+        <input type="hidden" id="vagrantfile-local-vm-provider-parallels-check_guest_tools"
+               name="vagrantfile[vm][provider][parallels][check_guest_tools]"
+               value="{{ data.vm.provider.parallels.check_guest_tools }}" />
+        <input type="hidden" id="vagrantfile-local-vm-provider-parallels-update_guest_tools"
+               name="vagrantfile[vm][provider][parallels][update_guest_tools]"
+               value="{{ data.vm.provider.parallels.update_guest_tools }}" />
 
         <div class="form-group">
             <div class="clearfix"><label>Provider</label></div>
