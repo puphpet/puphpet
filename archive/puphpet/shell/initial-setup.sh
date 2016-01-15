@@ -63,7 +63,7 @@ if [[ ! -f '/.puphpet-stuff/iptables-persistent-installed' ]] && [[ "${OS}" == '
 fi
 
 if [[ ! -f '/.puphpet-stuff/software-properties-common' ]] && [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
-    apt-get -y install software-properties-common
+    apt-get -y install software-properties-common python-software-properties
 
     touch '/.puphpet-stuff/software-properties-common'
 fi
