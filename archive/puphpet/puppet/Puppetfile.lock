@@ -84,8 +84,8 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-nginx.git
-  ref: 08179bba9bd69c624a1df95f6c74b30f9511218e
-  sha: 08179bba9bd69c624a1df95f6c74b30f9511218e
+  ref: ea75350545f674568d29b899c2c0b5d51d0553a6
+  sha: ea75350545f674568d29b899c2c0b5d51d0553a6
   specs:
     jfryman-nginx (0.0.5)
       puppetlabs-apt (>= 1.0.0)
