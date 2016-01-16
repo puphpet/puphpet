@@ -394,6 +394,7 @@ PUPHPET.addBlock = function() {
         }).done(function(response) {
             var $row = $(response).insertBefore(clickedElement).hide().slideDown(500);
             PUPHPET.runSelectize($row);
+            PUPHPET.helpTextDisplay();
         });
     });
 };
