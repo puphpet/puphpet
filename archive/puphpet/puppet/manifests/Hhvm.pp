@@ -55,7 +55,7 @@ class puphpet_hhvm (
   each( $server_inis ) |$key, $value| {
     $changes = [ "set '${key}' '${value}'" ]
 
-    augeas { "${key}: ${value}":
+    augeas { "hhvm server_ini, ${key}: ${value}":
       lens    => 'PHP.lns',
       incl    => $server_ini,
       context => "/files${server_ini}/.anon",
@@ -76,7 +76,7 @@ class puphpet_hhvm (
   each( $php_inis ) |$key, $value| {
     $changes = [ "set '${key}' '${value}'" ]
 
-    augeas { "${key}: ${value}":
+    augeas { "hhvm php_ini, ${key}: ${value}":
       lens    => 'PHP.lns',
       incl    => $php_ini,
       context => "/files${php_ini}/.anon",
