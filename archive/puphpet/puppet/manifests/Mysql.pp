@@ -38,8 +38,9 @@ class puphpet_mysql (
     $php_package = false
   }
 
-  if !array_true($mysql['settings'], 'root_password') {
-    fail( 'MySQL requires choosing a root password. Please check your config.yaml file.' )
+  $root_password = array_true($mysql['settings'], 'root_password') ? {
+    true    => $mysql['settings']['root_password'],
+    default => $mysql::params::root_password
   }
 
   $override_options = deep_merge($mysql::params::default_options, {
@@ -53,10 +54,14 @@ class puphpet_mysql (
     'restart'          => true,
     'override_options' => $override_options,
     require            => Class['puphpet::mysql::repo'],
-  }, $mysql['settings']), 'version')
+  }, $mysql['settings']), ['version', 'root_password'])
+
+  $settingsPw = deep_merge($settings, {
+    'root_password' => $root_password
+  })
 
   create_resources('class', {
-    'mysql::server' => $settings
+    'mysql::server' => $settingsPw
   })
 
   class { 'mysql::client':

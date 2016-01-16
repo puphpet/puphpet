@@ -33,8 +33,9 @@ class puphpet_mariadb (
     $php_package = false
   }
 
-  if !array_true($mariadb['settings'], 'root_password') {
-    fail( 'MariaDB requires choosing a root password. Please check your config.yaml file.' )
+  $root_password = array_true($mysql['settings'], 'root_password') ? {
+    true    => $mysql['settings']['root_password'],
+    default => $mysql::params::root_password
   }
 
   $override_options = deep_merge($mysql::params::default_options, {
@@ -48,10 +49,14 @@ class puphpet_mariadb (
     'restart'          => true,
     'override_options' => $override_options,
     'service_name'     => 'mysql',
-  }, $mariadb['settings']), 'version')
+  }, $mariadb['settings']), ['version', 'root_password'])
+
+  $settingsPw = deep_merge($settings, {
+    'root_password' => $root_password
+  })
 
   create_resources('class', {
-    'mysql::server' => $settings
+    'mysql::server' => $settingsPw
   })
 
   class { 'mysql::client':
