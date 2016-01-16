@@ -13,4 +13,20 @@ class ElasticSearchController extends Controller
             'elastic_search' => $data,
         ]);
     }
+
+    public function instanceAction()
+    {
+        return $this->render('PuphpetMainBundle:elastic-search/sections:instance.html.twig', [
+            'instance' => $this->getData()['empty_instance'],
+        ]);
+    }
+
+    /**
+     * @return array
+     */
+    private function getData()
+    {
+        $manager = $this->get('puphpet.extension.manager');
+        return $manager->getExtensionAvailableData('elastic-search');
+    }
 }

@@ -4,3 +4,6 @@ settings:
     version: 2.1.0
     java_install: true
 
+instances:
+    -
+        name: es-01

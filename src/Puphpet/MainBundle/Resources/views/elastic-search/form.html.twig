@@ -68,6 +68,15 @@
                 Java will also be installed if not already present on the vagrant box.
                 The default port is <code>9200</code>.</p>
         </div>
+
+        <div class="clearfix"></div>
+
+        {% for instance in elastic_search.instances %}
+            {% include 'PuphpetMainBundle:elastic-search/sections:instance.html.twig' with {'instance': instance} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.elastic_search.instance') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another instance</a>
     </div>
 
     <div class="clearfix"></div>

@@ -33,4 +33,16 @@ class puphpet_elasticsearch (
 
   create_resources('class', { 'elasticsearch' => $merged })
 
+  # config file could contain no instance keys
+  $instances = array_true($elasticsearch, 'instances') ? {
+    true    => $elasticsearch['instances'],
+    default => { }
+  }
+
+  each( $instances ) |$key, $instance| {
+    $name = $instance['name']
+
+    create_resources( elasticsearch::instance, { "${name}" => $instance })
+  }
+
 }
