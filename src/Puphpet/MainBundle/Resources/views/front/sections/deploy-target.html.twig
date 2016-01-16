@@ -1,5 +1,3 @@
-<input type="hidden" id="version" name="version" value="{{ version }}" />
-
 <div class="tab-pane" id="vagrantfile-local">
     {% include 'PuphpetMainBundle:vagrantfile-local:form.html.twig' with {'data': add_available(extensions.vagrantfile_local.merged, extensions.vagrantfile_local.available)} %}
 </div>
