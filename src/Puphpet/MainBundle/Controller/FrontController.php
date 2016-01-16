@@ -33,9 +33,12 @@ class FrontController extends Controller
 
         $messages = $session->getFlashBag()->all();
 
+        exec('git rev-parse --verify HEAD 2> /dev/null', $git);
+
         return $this->render('PuphpetMainBundle:front:template.html.twig', [
             'extensions' => $manager->getExtensions(),
             'messages'   => $messages,
+            'version'    => $git[0],
         ]);
     }
 
@@ -79,9 +82,12 @@ class FrontController extends Controller
                 'content' => 'Your previously generated config file was successfully loaded!',
             ]);
 
+            exec('git rev-parse --verify HEAD 2> /dev/null', $git);
+
             $rendered = $this->render('PuphpetMainBundle:front:template.html.twig', [
                 'extensions' => $manager->getExtensions(),
                 'messages'   => $session->getFlashBag()->all(),
+                'version'    => $git[0],
             ]);
 
             return $rendered;
