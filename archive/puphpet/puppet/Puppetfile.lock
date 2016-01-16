@@ -101,8 +101,8 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: 9679d01a4237fca363c6e160a00499de6c2f270d
-  sha: 9679d01a4237fca363c6e160a00499de6c2f270d
+  ref: e262c55d685bd8ed5a662c6968be193d9db808e8
+  sha: e262c55d685bd8ed5a662c6968be193d9db808e8
   specs:
     puphpet-puphpet (1.0)
 
@@ -256,9 +256,9 @@ GIT
     attachmentgenie-locales (2.2.2)
 
 GIT
-  remote: https://github.com/tPl0ch/puppet-composer.git
-  ref: 463bc769f7377a6aff4cd93ba9ca301210618c98
-  sha: 463bc769f7377a6aff4cd93ba9ca301210618c98
+  remote: https://github.com/puphpet/puppet-composer.git
+  ref: 2cad1a23ca4fd3e03171a60a09c711e6e5097894
+  sha: 2cad1a23ca4fd3e03171a60a09c711e6e5097894
   specs:
     tPl0ch-composer (1.3.7)
       puppetlabs-git (>= 0.0.2)
