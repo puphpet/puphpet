@@ -52,7 +52,13 @@ class puphpet_nginx (
       "${name}" => $merged
     })
 
-    each( $upstream['members'] ) |$key, $member| {
+    # upstream hash could contain no members key
+    $members = array_true($upstream, 'members') ? {
+      true    => $upstream['members'],
+      default => { }
+    }
+
+    each( $members ) |$key, $member| {
       $member_array = $package_array = split($member, ':')
 
       if count($member_array) == 2
