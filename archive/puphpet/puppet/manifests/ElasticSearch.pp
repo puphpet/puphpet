@@ -2,6 +2,10 @@ class puphpet_elasticsearch (
   $elasticsearch
 ) {
 
+  if ! defined(Puphpet::Firewall::Port["9200"]) {
+    puphpet::firewall::port { "9200": }
+  }
+
   $settings = $elasticsearch['settings']
   $version  = $elasticsearch['settings']['version']
 
