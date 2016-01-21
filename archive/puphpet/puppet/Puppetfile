@@ -1,9 +1,11 @@
 forge "https://forgeapi.puppetlabs.com"
 
+mod 'puphpet/puphpet',
+    :git => 'https://github.com/puphpet/puppet-puphpet.git',
+    :ref => 'b15dbe41fbf9895b8a52f553064ba0fa14b0d43b'
 mod 'puppetlabs/stdlib',
     :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
     :ref => '4.11.0'
-
 mod 'puppetlabs/apache',
     :git => 'https://github.com/puppetlabs/puppetlabs-apache.git',
     :ref => '1.7.1'
@@ -61,9 +63,6 @@ mod 'puphpet/php',
 mod 'puppetlabs/postgresql',
     :git => 'https://github.com/puppetlabs/puppetlabs-postgresql.git',
     :ref => '4.6.0'
-mod 'puphpet/puphpet',
-    :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => 'b15dbe41fbf9895b8a52f553064ba0fa14b0d43b'
 mod 'example42/puppi',
     :git => 'https://github.com/example42/puppi.git',
     :ref => 'fe711883625bf4848d5f62b4fd64af7dddf6c424'
