@@ -15,7 +15,7 @@ vm:
     provider:
         virtualbox:
             modifyvm:
-                natdnshostresolver1: on
+                natdnshostresolver1: false
             showgui: ~
         vmware:
             numvcpus: 1

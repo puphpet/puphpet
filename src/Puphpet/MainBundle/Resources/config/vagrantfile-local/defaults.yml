@@ -7,7 +7,9 @@ vm:
     chosen_provider: virtualbox
     box_version: ~
     provider:
-        virtualbox: 
+        virtualbox:
+            modifyvm:
+                natdnshostresolver1: false
             showgui: 0
         vmware: []
         parallels:
