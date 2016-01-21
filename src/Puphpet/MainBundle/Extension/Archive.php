@@ -5,6 +5,7 @@ namespace Puphpet\MainBundle\Extension;
 class Archive
 {
     const ARCHIVE_LOCATION = __DIR__ . '/../../../../archive';
+    const ZIP_COMMAND      = 'cd "%s" && cd .. && zip -r "%s" "%s" -x "*/.git/*" -x "*/.tmp/*" -x "*/.librarian/*"';
 
     /**
      * @var string Location of existing, empty files
@@ -126,7 +127,7 @@ class Archive
 
         // ignore .git folders/files
         $exec = sprintf(
-            'cd "%s" && cd .. && zip -r "%s" "%s" -x "*/.git/*" -x "*/.tmp/*" -x "*/.librarian/*"',
+            static::ZIP_COMMAND,
             $this->targetDir,
             $this->targetDir . '.zip',
             $folder
