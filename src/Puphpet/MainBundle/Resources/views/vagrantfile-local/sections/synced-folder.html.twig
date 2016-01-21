@@ -15,6 +15,8 @@
 {% set smb_host = synced_folder.smb.smb_host is defined  ? synced_folder.smb.smb_host : '' %}
 {% set smb_username = synced_folder.smb.smb_username is defined  ? synced_folder.smb.smb_username : '' %}
 {% set smb_password = synced_folder.smb.smb_password is defined  ? synced_folder.smb.smb_password : '' %}
+{% set smb_mount_dir_mode = synced_folder.smb.mount_options.dir_mode is defined ? synced_folder.smb.mount_options.dir_mode : '0775' %}
+{% set smb_mount_file_mode = synced_folder.smb.mount_options.file_mode is defined ? synced_folder.smb.mount_options.file_mode : '0664' %}
 {% set rsync_auto = (synced_folder.rsync.auto is not defined or synced_folder.rsync.auto == 'true') ? 'true' : 'false' %}
 {% set rsync_args = (synced_folder.rsync.args is defined and synced_folder.rsync.args is iterable) ? synced_folder.rsync.args : {} %}
 {% set rsync_exclude = (synced_folder.rsync.exclude is defined and synced_folder.rsync.exclude is iterable) ? synced_folder.rsync.exclude : {} %}
@@ -196,6 +198,14 @@
             </div>
 
             <div class="clearfix"></div>
+
+            <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-mount_options-dir_mode"
+                   name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][mount_options][dir_mode]"
+                   value="{{ smb_mount_dir_mode }}" />
+
+            <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-mount_options-file_mode"
+                   name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][mount_options][file_mode]"
+                   value="{{ smb_mount_file_mode }}" />
         </div>
 
         <div id="rsync-folder-options-{{ uniqid }}" class="hidden">
