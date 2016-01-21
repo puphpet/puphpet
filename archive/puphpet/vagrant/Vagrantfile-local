@@ -64,6 +64,12 @@ Vagrant.configure('2') do |config|
   if Vagrant.has_plugin?('vagrant-hostmanager')
     hosts = Array.new()
 
+    if !configValues['hosts'].nil?
+      configValues['hosts'].each do |host|
+        hosts.push(host)
+      end
+    end
+
     if !configValues['apache']['install'].nil? &&
         configValues['apache']['install'].to_i == 1 &&
         configValues['apache']['vhosts'].is_a?(Hash)

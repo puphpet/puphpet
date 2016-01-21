@@ -251,8 +251,17 @@ class puphpet_nginx (
       $vhost
     )
 
+    # rewrites
+    $rewrites = array_true($vhost, 'rewrites') ? {
+      true    =>  $vhost['rewrites'],
+      default =>  {}
+    }
+    $vhost_rewrites_append = deep_merge($vhost_cfg_append, {
+      'rewrites'  => $rewrites
+    })
+
     # puppet-nginx is stupidly strict about ssl value datatypes
-    $merged = delete(merge($vhost_cfg_append, {
+    $merged = delete(merge($vhost_rewrites_append, {
       'server_name'          => $server_names,
       'use_default_location' => false,
       'ssl'                  => $ssl,
