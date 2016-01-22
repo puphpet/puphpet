@@ -14,6 +14,14 @@ puphpet.nginx.vhost:
     pattern:  /vhost
     defaults: { _controller: PuphpetMainBundle:Nginx:vhost }
 
+puphpet.nginx.vhost_rewrite:
+    pattern:  /vhost-rewrite/{vhostId}
+    defaults: { _controller: PuphpetMainBundle:Nginx:vhostRewrite }
+
 puphpet.nginx.location:
     pattern:  /location/{vhostId}
     defaults: { _controller: PuphpetMainBundle:Nginx:location }
+
+puphpet.nginx.location_rewrite:
+    pattern:  /location-rewrite/{vhostId}/{locationId}
+    defaults: { _controller: PuphpetMainBundle:Nginx:locationRewrite }

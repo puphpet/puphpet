@@ -40,3 +40,13 @@ empty_location:
     proxy: ~
     proxy_redirect: ~
     proxy_set_header: []
+
+empty_vhost_rewrite:
+    when: ~
+    regex: ~
+    target: ~
+
+empty_location_rewrite:
+    when: ~
+    regex: ~
+    target: ~

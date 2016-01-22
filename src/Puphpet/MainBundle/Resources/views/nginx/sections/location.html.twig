@@ -5,6 +5,7 @@
 {% set fast_cgi_params_extras = (location.fast_cgi_params_extra is defined) ? location.fast_cgi_params_extra : [] %}
 {% set sets = (location.set is defined) ? location.set : [] %}
 {% set proxy_set_headers = (location.proxy_set_header is defined) ? location.proxy_set_header : [] %}
+{% set rewrites = (location.rewrites is defined) ? location.rewrites : [] %}
 
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
@@ -49,7 +50,8 @@
             <label class="radio-tile mini set-width">
                 <span class="help-text">
                     Designates location as internal-only.
-                    See <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#internal" title="nginx internal location docs">nginx documentation</a> for more details.
+                    See <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#internal"
+                           title="nginx internal location docs">nginx documentation</a> for more details.
                 </span>
                 <input type="hidden" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]" value="false" />
                 <input type="checkbox" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]"
@@ -191,6 +193,15 @@
                 {% endfor %}
             </select>
         </div>
+
+        <div class="clearfix"></div>
+
+        {% for rewrite in rewrites %}
+            {% include 'PuphpetMainBundle:nginx/sections:location_rewrite.html.twig' with {'vhostId': vhostId, 'locationId': uniqid, 'rewrite': rewrite} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.nginx.location_rewrite', {'vhostId': vhostId, 'locationId': uniqid}) }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add a location rewrite</a>
 
         <div class="clearfix"></div>
     </fieldset>

@@ -9,6 +9,7 @@
 {% set ssl_ciphers = (vhost.ssl_ciphers is defined) ? vhost.ssl_ciphers : '' %}
 {% set rewrite_to_https = (vhost.rewrite_to_https is defined) ? true : false %}
 {% set spdy = (vhost.spdy is defined) ? true : false %}
+{% set rewrites = (vhost.rewrites is defined) ? vhost.rewrites : [] %}
 {% set locations = (vhost.locations is defined) ? vhost.locations : [] %}
 {% set client_max_body_type = (vhost.client_max_body_type is defined) ? vhost.client_max_body_type : '1m' %}
 
@@ -222,6 +223,15 @@
                 <div class="clearfix"></div>
             </fieldset>
         </div>
+
+        <div class="clearfix"></div>
+
+        {% for rewrite in rewrites %}
+            {% include 'PuphpetMainBundle:nginx/sections:vhost_rewrite.html.twig' with {'vhostId': uniqid, 'rewrite': rewrite} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.nginx.vhost_rewrite', {'vhostId': uniqid}) }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add a vhost rewrite</a>
 
         <div class="clearfix"></div>
 

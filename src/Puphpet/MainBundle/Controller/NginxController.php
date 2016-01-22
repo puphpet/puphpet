@@ -21,11 +21,28 @@ class NginxController extends Controller
         ]);
     }
 
+    public function vhostRewriteAction(Request $request)
+    {
+        return $this->render('PuphpetMainBundle:nginx/sections:vhost_rewrite.html.twig', [
+            'vhostId' => $request->get('vhostId'),
+            'rewrite' => $this->getData()['empty_vhost_rewrite'],
+        ]);
+    }
+
     public function locationAction(Request $request)
     {
         return $this->render('PuphpetMainBundle:nginx/sections:location.html.twig', [
             'vhostId'  => $request->get('vhostId'),
             'location' => $this->getData()['empty_location'],
+        ]);
+    }
+
+    public function locationRewriteAction(Request $request)
+    {
+        return $this->render('PuphpetMainBundle:nginx/sections:location_rewrite.html.twig', [
+            'vhostId'    => $request->get('vhostId'),
+            'locationId' => $request->get('locationId'),
+            'rewrite'    => $this->getData()['empty_location_rewrite'],
         ]);
     }
 

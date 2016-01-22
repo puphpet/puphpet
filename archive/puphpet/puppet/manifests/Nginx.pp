@@ -324,12 +324,20 @@ class puphpet_nginx (
       # If www_root was removed with all the trimmings,
       # add it back it
       if ! array_true($location_no_root, 'fastcgi') {
-        $location_merged = merge({
+        $location_root_merged = merge({
           'www_root' => $vhost['www_root'],
         }, $location_no_root)
       } else {
-        $location_merged = $location_no_root
+        $location_root_merged = $location_no_root
       }
+
+      # location rewrites
+      $location_merged = deep_merge($location_root_merged, {
+        'rewrites'  => array_true($location_root_merged, 'rewrites') ? {
+          true    => $location_root_merged['rewrites'],
+          default => { }
+        }
+      })
 
       create_resources(nginx::resource::location, { "${lkey}" => $location_merged })
     }

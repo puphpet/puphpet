@@ -33,6 +33,7 @@ vhosts:
             - index.htm
             - index.php
         client_max_body_size: '1m'
+        rewrites: []
         locations:
             -
                 location: '/'
@@ -50,6 +51,7 @@ vhosts:
                 proxy: ~
                 proxy_redirect: ~
                 proxy_set_header: []
+                rewrites: []
             -
                 location: '~ \.php$'
                 autoindex: 0
@@ -69,3 +71,4 @@ vhosts:
                 proxy: ~
                 proxy_redirect: ~
                 proxy_set_header: []
+                rewrites: []
