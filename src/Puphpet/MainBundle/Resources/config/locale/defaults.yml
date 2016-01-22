@@ -5,3 +5,4 @@ settings:
     locales:
         - en_US.UTF-8
         - en_GB.UTF-8
+    timezone: UTC

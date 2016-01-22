@@ -85,6 +85,9 @@ mod 'petems/swap_file',
 mod 'ajcrowe/supervisord',
     :git => 'https://github.com/puphpet/puppet-supervisord.git',
     :ref => '17643f10c2322bfab349108e02b7f5a9992dbdde'
+mod 'saz/timezone',
+    :git => 'https://github.com/saz/puppet-timezone.git',
+    :ref => 'v3.3.0'
 mod 'puppetlabs/vcsrepo',
     :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
     :ref => '0.2.0'

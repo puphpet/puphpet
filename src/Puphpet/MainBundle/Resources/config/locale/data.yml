@@ -3,3 +3,4 @@ install: 0
 settings:
     default_locale: ~
     locales: []
+    timezone: ~
