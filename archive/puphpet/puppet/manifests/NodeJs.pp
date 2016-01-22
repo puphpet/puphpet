@@ -11,6 +11,12 @@ class puphpet_nodejs (
   }
 
   if $::osfamily == 'debian' {
+    if ! defined('apt-transport-https') {
+      package { 'apt-transport-https':
+        ensure => present
+      }
+    }
+
     $version = $version_num ? {
       '5'     => '5.x',
       '4'     => '4.x',
@@ -28,6 +34,7 @@ class puphpet_nodejs (
                   && bash ${save_to}",
       creates => $save_to,
       path    => '/usr/bin:/bin',
+      require => Package['apt-transport-https'],
     }
     -> package { 'nodejs':
       ensure => present,
