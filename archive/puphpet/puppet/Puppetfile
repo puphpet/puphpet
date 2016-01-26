@@ -2,7 +2,7 @@ forge "https://forgeapi.puppetlabs.com"
 
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => 'f1ba7141a4540ce3aff48d0a9da84da4d26bad30'
+    :ref => '65f9a8ad9287a1b8d9c21a3f4d2f2541c2b40bb2'
 mod 'puppetlabs/stdlib',
     :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
     :ref => '4.11.0'
