@@ -33,8 +33,8 @@ class puphpet_mariadb (
     $php_package = false
   }
 
-  $root_password = array_true($mysql['settings'], 'root_password') ? {
-    true    => $mysql['settings']['root_password'],
+  $root_password = array_true($mariadb['settings'], 'root_password') ? {
+    true    => $mariadb['settings']['root_password'],
     default => $mysql::params::root_password
   }
 
