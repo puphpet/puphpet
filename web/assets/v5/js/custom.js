@@ -270,76 +270,130 @@ PUPHPET.updateOtherInputOnUncheck = function() {
 };
 
 /**
- * Handles sidebar activity
+ * Handles the logic of opening and closing sections and changing the angle on
+ * the corresponding arrow.
+ * 
+ * @param  {jQuery} $sub jQuery wrapped ul.sub to be opened
+ * @return {void}
+ */
+PUPHPET.sidebarOpenSection = function($sub) {
+    var $lastSub      = $('.sub.open', $('#sidebar'));
+    var slideDuration = 200;
+
+    if ($lastSub.length) {
+        if ($lastSub.is($sub)) {
+            return;
+        }
+
+        $lastSub.slideUp(slideDuration).removeClass('open');
+        $('.menu-arrow', $lastSub.parent()).toggleClass('fa-angle-right fa-angle-down');
+    }
+
+    $sub.slideDown(slideDuration).addClass('open');
+    $('.menu-arrow', $sub.parent()).toggleClass('fa-angle-right fa-angle-down');
+};
+
+/**
+ * Handles the logic of toggling the 'active' class on sidebar links and
+ * sections.
+ * 
+ * @param  {jQuery} $link jQuery wrapped a[data-toggle="tab"] to be set as active
+ * @return {void}
+ */
+PUPHPET.sidebarSetActive = function($link) {
+    var $lastLinkParent = $('#sidebar .sub-menu ul.sub li.active');
+    if ($lastLinkParent.length) {
+        $lastLinkParent.removeClass('active');
+        $lastLinkParent.parent().parent().removeClass('active');
+    }
+
+    $link.parent().addClass('active');
+    $link.parent().parent().parent().addClass('active');
+};
+
+/**
+ * Handles sidebar activity.
+ * 
+ * @return {void}
  */
 PUPHPET.sidebarMenuClick = function() {
-    // prevent scrolling to top of page on section title click
-    $(document).on('click', '#sidebar .sidebar-menu > .sub-menu > a', function (e) {
+    var $doc = $(document);
+
+    $doc.on('click', '#sidebar .sidebar-menu > .sub-menu > a', function (e) {
+        // Prevent scrolling to top of page on section title click
         if ($(this).next().length != 0) {
             e.stopPropagation();
             e.preventDefault && e.preventDefault();
         }
+
+        PUPHPET.sidebarOpenSection($(this).next());
     });
 
-    // handles sliding sections open and closed on link click
-    $(document).on('click', '#sidebar .sub-menu > a', function (e) {
-        var last = $('.sub.open', $('#sidebar'));
-
-        $(last).slideUp(200);
-        $(last).removeClass('open');
-
-        $('.menu-arrow', $(last).parent()).addClass('fa-angle-right');
-        $('.menu-arrow', $(last).parent()).removeClass('fa-angle-down');
-
-        var sub = $(this).next();
-
-        if (sub.is(':visible')) {
-            $('.menu-arrow', this).addClass('fa-angle-right');
-            $('.menu-arrow', this).removeClass('fa-angle-down');
-
-            sub.slideUp(200);
-            $(sub).removeClass('open');
-
+    $doc.on('click', '#sidebar .sub-menu a[data-toggle="tab"]', function(e) {
+        if (window.location.hash == this.hash) {
             return;
         }
+        window.location.hash = this.hash;
+    });
+};
 
-        $('.menu-arrow', this).addClass('fa-angle-down');
-        $('.menu-arrow', this).removeClass('fa-angle-right');
+/**
+ * Catches anchor tag (#foo) in URL bar.
+ * 
+ * @return {void}
+ */
+PUPHPET.changeTabOnAnchorChange = function () {
+    $(window).on('hashchange', function() {
+        PUPHPET.displayTabFromUrl();
+    });
+};
 
-        sub.slideDown(200);
-        $(sub).addClass('open');
+/**
+ * Displays the proper tab corresponding to the anchor tag from the URL.
+ * 
+ * @return {void}
+ */
+PUPHPET.displayTabFromUrl = function () {
+    if (!window.location.hash.length) {
+        return;
+    }
+
+    var $links    = $('#sidebar .sidebar-menu > .sub-menu a[data-toggle="tab"]');
+    var $hashLink = $links.filter('[href=' + window.location.hash + ']');
+    if (!$hashLink.length) {
+        return;
+    }
+
+    PUPHPET.sidebarOpenSection($hashLink.parent().parent());
+    PUPHPET.sidebarSetActive($hashLink);
+
+    $hashLink.tab('show');
+    $('html, body').scrollTop(0);
+};
+
+PUPHPET.toggleDeployTargetVisibility = function() {
+    $('.vagrantfile.hidden').each(function() {
+        $(this)
+            .find('input, textarea, button, select')
+            .prop('disabled', true);
     });
 
-    // removes active class from non-selected section/link
-    $(document).on('click', '#sidebar .sub-menu a[data-toggle="tab"]', function (e) {
-        if (window.location.hash == this.hash) {
-            return false;
-        }
+    $(document).on('change', 'input:radio[name="vagrantfile[target]"]', function(e) {
+        var tabName = '#vagrantfile-' + $(this).val();
+        var $tab    = $(tabName);
+        $('.hideable', $tab).hide().removeClass('hidden').slideDown();
+        $('.hideable', $tab)
+            .find('input, textarea, button, select')
+            .prop('disabled', false);
 
-        window.location.hash = this.hash;
-
-        var $activeSection = $('#sidebar .sub-menu.active');
-        var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
-        var $mainContainer = $('#tab-main-container > div.tab-pane.active');
-
-        $activeSection.removeClass('active');
-        $activeLink.removeClass('active');
-        $mainContainer.removeClass('active');
-
-        $(this).parent().addClass('active');
-        $(this).closest('.sub-menu').addClass('active');
-
-        $('html, body').scrollTop(0);
-    });
-
-    $(document).on('click', '#top a[data-toggle="tab"]', function (e) {
-        if (window.location.hash == this.hash) {
-            return false;
-        }
-
-        window.location.hash = this.hash;
-
-        $('html, body').scrollTop(0);
+        $('input:radio[name="vagrantfile[target]"]').not(this).each(function() {
+            var tabName = '#vagrantfile-' + $(this).val();
+            var $tab    = $(tabName);
+            $('.hideable', $tab).hide();
+            $('.hideable', $tab)
+                .find('input, textarea, button, select')
+                .prop('disabled', true);
+        });
     });
 };
 
@@ -651,63 +705,6 @@ PUPHPET.submitUncheckedCheckboxes = function () {
         }
 
         $('input[type="hidden"][name="' + $(this).attr('name') + '"]').remove();
-    });
-};
-
-PUPHPET.changeTabOnAnchorChange = function () {
-    $(window).on('hashchange', function() {
-        PUPHPET.displayTabFromUrl();
-    });
-};
-
-/**
- * Catches anchor tag (#foo) in URL bar and displays proper tab
- */
-PUPHPET.displayTabFromUrl = function () {
-    if (window.location.hash.length) {
-        var $link     = $('#sidebar .sidebar-menu > .sub-menu a[data-toggle="tab"]');
-        var $hashLink = $link.filter('[href=' + window.location.hash + ']');
-
-        if ($hashLink.length == 0) {
-            return true;
-        }
-
-        var $activeSection = $('#sidebar .sub-menu.active');
-        var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
-
-        $activeSection.removeClass('active');
-        $activeLink.removeClass('active');
-
-        $hashLink.parent().parent().addClass('open');
-        $hashLink.parent().parent().parent().addClass('active');
-
-        $hashLink.tab('show');
-    }
-};
-
-PUPHPET.toggleDeployTargetVisibility = function() {
-    $('.vagrantfile.hidden').each(function() {
-        $(this)
-            .find('input, textarea, button, select')
-            .prop('disabled', true);
-    });
-
-    $(document).on('change', 'input:radio[name="vagrantfile[target]"]', function(e) {
-        var tabName = '#vagrantfile-' + $(this).val();
-        var $tab    = $(tabName);
-        $('.hideable', $tab).hide().removeClass('hidden').slideDown();
-        $('.hideable', $tab)
-            .find('input, textarea, button, select')
-            .prop('disabled', false);
-
-        $('input:radio[name="vagrantfile[target]"]').not(this).each(function() {
-            var tabName = '#vagrantfile-' + $(this).val();
-            var $tab    = $(tabName);
-            $('.hideable', $tab).hide();
-            $('.hideable', $tab)
-                .find('input, textarea, button, select')
-                .prop('disabled', true);
-        });
     });
 };
 
