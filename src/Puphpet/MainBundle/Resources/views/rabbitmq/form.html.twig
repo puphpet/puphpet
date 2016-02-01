@@ -29,6 +29,10 @@
     <div class="clearfix"></div>
 
     <div id="rabbitmq-container" class="{% if not rabbitmq.install %}hidden{% endif %}">
+        <div class="help-block">
+            <strong>RabbitMQ is not available on Debian Wheezy. <code>librabbitmq-dev</code> is too old.</strong>
+        </div>
+
         <div class="form-group col-xs-6">
             <label for="rabbitmq-settings-port">Listen Port</label>
             <input type="number" id="rabbitmq-settings-port"

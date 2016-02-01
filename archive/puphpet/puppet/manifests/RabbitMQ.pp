@@ -5,6 +5,10 @@ class puphpet_rabbitmq (
   $php
 ) {
 
+  if $::operatingsystem == 'debian' {
+     fail('RabbitMQ is not supported on Debian. librabbitmq-dev is too old.')
+  }
+
   if array_true($apache, 'install') or array_true($nginx, 'install') {
     $webserver_restart = true
   } else {
