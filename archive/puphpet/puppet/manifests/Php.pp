@@ -97,6 +97,7 @@ class puphpet_php (
     }
   }
 
+  $php_modules = $php['modules']['php'];
   each( $php_modules ) |$name| {
     if ! defined(Puphpet::Php::Module[$name]) {
       puphpet::php::module { $name:
