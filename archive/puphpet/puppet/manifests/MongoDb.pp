@@ -19,6 +19,7 @@ class puphpet_mongodb (
 
   Class['mongodb::globals']
   -> Class['mongodb::server']
+  -> Class['mongodb::client']
 
   # The GUI does not choose a version by default
   $global_settings = array_true($mongodb, 'global') ? {
@@ -42,9 +43,11 @@ class puphpet_mongodb (
     'mongodb::server' => $mongodb['settings']
   })
 
-  if $::osfamily == 'redhat' {
-    class { 'mongodb::client':
-      require => Class['mongodb::server']
+  class { 'mongodb::client': }
+
+  if ! defined(Package['mongodb-org-tools']) {
+    package {'mongodb-org-tools':
+      require => Class['mongodb::client']
     }
   }
 
@@ -85,6 +88,7 @@ class puphpet_mongodb (
   each( $mongodb['databases'] ) |$key, $database| {
     $merged = delete(merge($database, {
       'dbname' => $database['name'],
+      require  => Package['mongodb-org-tools'],
     }), 'name')
 
     create_resources( puphpet::mongodb::db, {
