@@ -1,5 +1,10 @@
 {% set providerChosen = (data.target == 'rackspace') ? true : false %}
 
+{% set machines = (data.vm.provider.rackspace.machines is defined and data.vm.provider.rackspace.machines)
+    ? data.vm.provider.rackspace.machines : [] %}
+{% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
+    ? data.vm.synced_folder : [] %}
+
 <div class="section-header">
     <h1>Rackspace Server Details</h1>
     <p class="lead">Spin up your virtual machine on Rackspace Cloud.</p>
@@ -28,10 +33,7 @@
 
     <div class="clearfix"></div>
 
-    <div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-        <input type="hidden" id="vagrantfile-rackspace-vm-box" name="vagrantfile[vm][box]"
-               value="rackspace" />
-
+    <div id="vagrantfile-rackspace-container" class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
         <div class="form-group">
             <div class="clearfix"><label>Distro</label></div>
 
@@ -70,51 +72,6 @@
 
         <div class="form-group col-xs-6">
             <div class="help-text">
-                Name your Rackspace server as it will appear in the Rackspace Control Panel.
-            </div>
-            <label for="vagrantfile-vm-provider-rackspace-server_name">Server Name</label>
-            <input type="text" id="vagrantfile-vm-provider-rackspace-server_name"
-                   name="vagrantfile[vm][provider][rackspace][server_name]"
-                   class="form-control"
-                   value="{{ data.vm.provider.rackspace.server_name }}" />
-        </div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                <a href="http://www.rackspace.com/cloud/public-pricing/"
-                   target="_blank">Pricing information</a>.
-                Rackspace charges by the hour, but also shows what a full month would cost.
-            </div>
-            <label for="vagrantfile-vm-provider-rackspace-size">Server Size</label>
-            <select id="vagrantfile-vm-provider-rackspace-size"
-                   name="vagrantfile[vm][provider][rackspace][size]"
-                   class="form-control select-tag">
-                {% for size in data.available.sizes %}
-                    <option value="{{ size }}"
-                        {% if size == data.vm.provider.rackspace.size %}selected{% endif %}>{{ size }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                Choose the one closest to you, or your target audience!
-            </div>
-            <label for="vagrantfile-vm-provider-rackspace-region">Datacenter Location</label>
-            <select id="vagrantfile-vm-provider-rackspace-region"
-                   name="vagrantfile[vm][provider][rackspace][region]"
-                   class="form-control select-tag">
-                {% for key, region in data.available.regions %}
-                    <option value="{{ key }}"
-                        {% if key == data.vm.provider.rackspace.region %}selected{% endif %}>{{ region }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
                 Username you use to login to Rackspace
             </div>
             <label for="vagrantfile-vm-provider-rackspace-username">Rackspace Account Username</label>
@@ -123,8 +80,6 @@
                    class="form-control" placeholder="RACKSPACE USERNAME"
                    value="{{ data.vm.provider.rackspace.username }}" />
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-6">
             <div class="help-text">
@@ -137,6 +92,8 @@
                    class="form-control" placeholder="RACKSPACE API KEY"
                    value="{{ data.vm.provider.rackspace.api_key }}" />
         </div>
+
+        <div class="clearfix"></div>
 
         <div class="form-group col-xs-6">
             <div class="help-text">
@@ -151,8 +108,6 @@
                    value="{{ data.ssh.private_key_path }}" />
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="form-group col-xs-6">
             <div class="help-text">
                 The username associated with the private key entered.
@@ -163,6 +118,8 @@
                    class="form-control"
                    value="{{ data.ssh.username }}" />
         </div>
+
+        <div class="clearfix"></div>
 
         <div class="form-group col-xs-6">
             <div class="help-text">
@@ -177,11 +134,22 @@
 
         <div class="clearfix"></div>
 
-        {% if providerChosen %}
-            {% for synced_folder in data.vm.synced_folder %}
-                {% include 'PuphpetMainBundle:vagrantfile-rackspace/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-            {% endfor %}
-        {% endif %}
+        {% for machine in machines %}
+            {% include 'PuphpetMainBundle:vagrantfile-rackspace/sections:machine.html.twig' with {
+                'machine': machine,
+                'regions': data.available.regions,
+                'sizes': data.available.sizes
+            } %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_rackspace.machine') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another machine</a>
+
+        <div class="clearfix"></div>
+
+        {% for synced_folder in data.vm.synced_folder %}
+            {% include 'PuphpetMainBundle:vagrantfile-rackspace/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% endfor %}
 
         <a href="#" data-source-url="{{ path('puphpet.vagrantfile_rackspace.synced_folder') }}"
            class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>

@@ -1,4 +1,4 @@
-{% set uniqid = uniqid('vflnp_', true) %}
+{% set uniqid = uniqid('vflmnfp_', true) %}
 
 <div id="{{ uniqid }}" class="nested-block">
     <a href="#" class="delete-block remove"
@@ -12,9 +12,9 @@
                 <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
                    target="_blank">More information</a>.
             </div>
-            <label for="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-host">Host Port</label>
-            <input type="number" id="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-host"
-                   name="vagrantfile[vm][network][forwarded_port][{{ uniqid }}][host]"
+            <label for="vagrantfile-vm-provider-local-machines-{{ mId }}-network-forwarded_port-{{ uniqid }}-host">Host Port</label>
+            <input type="number" id="vagrantfile-vm-provider-local-machines-{{ mId }}-network-forwarded_port-{{ uniqid }}-host"
+                   name="vagrantfile[vm][provider][local][machines][{{ mId }}][network][forwarded_port][{{ uniqid }}][host]"
                    placeholder="8080" class="form-control"
                    value="{{ forwarded_port.host ? forwarded_port.host : mt_rand(5000, 9999) }}" />
         </div>
@@ -26,9 +26,9 @@
                        target="_blank">More information</a>.</p>
                 <p>This port is automatically added to <code>iptables</code></p>
             </div>
-            <label for="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-guest">VM Port</label>
-            <input type="number" id="vagrantfile-vm-network-forwarded_port-{{ uniqid }}-guest"
-                   name="vagrantfile[vm][network][forwarded_port][{{ uniqid }}][guest]"
+            <label for="vagrantfile-vm-provider-local-machines-{{ mId }}-network-forwarded_port-{{ uniqid }}-guest">VM Port</label>
+            <input type="number" id="vagrantfile-vm-provider-local-machines-{{ mId }}-network-forwarded_port-{{ uniqid }}-guest"
+                   name="vagrantfile[vm][provider][local][machines][{{ mId }}][network][forwarded_port][{{ uniqid }}][guest]"
                    placeholder="80" class="form-control"
                    value="{{ forwarded_port.guest ? forwarded_port.guest : '22' }}" />
         </div>

@@ -1,4 +1,10 @@
 {% set providerChosen = (data.target == 'local') ? true : false %}
+
+{% set machines = (data.vm.provider.local.machines is defined and data.vm.provider.local.machines)
+    ? data.vm.provider.local.machines : [] %}
+{% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
+    ? data.vm.synced_folder : [] %}
+
 {% set proxy = (data.proxy.enabled is defined and data.proxy.enabled) ? true : false %}
 {% set proxy_http = (data.proxy.proxy_http is defined) ? data.proxy.proxy_http : '' %}
 {% set proxy_https = (data.proxy.proxy_https is defined) ? data.proxy.proxy_https : '' %}
@@ -33,48 +39,43 @@
 
     <div class="clearfix"></div>
 
-    <div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-        <input type="hidden" id="vagrantfile-local-vm-box" name="vagrantfile[vm][box]"
-               value="{{ data.vm.box }}" />
-        <input type="hidden" id="vagrantfile-local-vm-box_version" name="vagrantfile[vm][box_version]"
-               value="{{ data.vm.box_version }}" />
-        <input type="hidden" id="vagrantfile-local-vm-hostname" name="vagrantfile[vm][hostname]"
-               value="{{ data.vm.hostname }}" />
-        <input type="hidden" id="vagrantfile-local-vm-provider-virtualbox-showgui" name="vagrantfile[vm][provider][virtualbox][showgui]"
-               value="{{ data.vm.provider.virtualbox.showgui }}" />
-        <input type="hidden" id="vagrantfile-local-vm-provider-parallels-use_linked_clone"
-               name="vagrantfile[vm][provider][parallels][use_linked_clone]"
-               value="{{ data.vm.provider.parallels.use_linked_clone }}" />
-        <input type="hidden" id="vagrantfile-local-vm-provider-parallels-check_guest_tools"
-               name="vagrantfile[vm][provider][parallels][check_guest_tools]"
-               value="{{ data.vm.provider.parallels.check_guest_tools }}" />
-        <input type="hidden" id="vagrantfile-local-vm-provider-parallels-update_guest_tools"
-               name="vagrantfile[vm][provider][parallels][update_guest_tools]"
-               value="{{ data.vm.provider.parallels.update_guest_tools }}" />
+    <div id="vagrantfile-local-container" class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
+        <input type="hidden" id="vagrantfile-vm-provider-local-box"
+               name="vagrantfile[vm][provider][local][box]" value="{{ formValue(data.vm.provider.local.box) }}" />
+        <input type="hidden" id="vagrantfile-vm-provider-local-box_version"
+               name="vagrantfile[vm][provider][local][box_version]"
+               value="{{ formValue(data.vm.provider.local.box_version) }}" />
+
+        {% for key, value in data.ssh %}
+            <input type="hidden"
+                id="vagrantfile-ssh-{{ key }}"
+                name="vagrantfile[ssh][{{ key }}]"
+                value="{{ formValue(value) }}" />
+        {% endfor %}
 
         <div class="form-group">
             <div class="clearfix"><label>Provider</label></div>
 
-            {% for provider in data.available.providers %}
+            {% for virtualizer in data.available.virtualizers %}
                 <label class="col-xs-6 radio-tile">
                     <span class="help-text">
-                        {{ provider.description|raw }}
+                        {{ virtualizer.description|raw }}
                     </span>
-                    <input type="radio" class="invisible update-other-input"
-                           name="vagrantfile[vm][chosen_provider]"
-                           value="{{ provider.name }}"
-                           {% if provider.name == data.vm.chosen_provider %}checked{% endif %}
-                           data-update-vagrantfile-vm-network-private_network="{{ provider.default_ip }}"
+                    <input type="radio" class="invisible update-local-ip-address"
+                           name="vagrantfile[vm][provider][local][chosen_virtualizer]"
+                           value="{{ virtualizer.name }}"
+                           {% if virtualizer.name == data.vm.provider.local.chosen_virtualizer %}checked{% endif %}
+                           data-base-ip="{{ virtualizer.base_ip }}"
                         />
                     <span class="content">
                         <span class="header">
                             <i class="icon"></i>
-                            <span class="title">{{ provider.long_name }}</span>
+                            <span class="title">{{ virtualizer.long_name }}</span>
                         </span>
                         <span class="footer">
-                            {{ provider.os_support|raw }}<br />
+                            {{ virtualizer.os_support|raw }}<br />
                             Performance:
-                            {% for i in range(1, provider.performance) %}
+                            {% for i in range(1, virtualizer.performance) %}
                                 <i class="fa fa-star"></i>
                             {% endfor %}
                         </span>
@@ -107,10 +108,10 @@
             {% for box in data.available.boxes %}
                 <label class="col-xs-6 radio-tile">
                     <input type="radio" class="invisible update-other-input"
-                           name="vagrantfile[vm][box_url]"
+                           name="vagrantfile[vm][provider][local][box_url]"
                            value="{{ box.url }}"
-                           {% if box.url == data.vm.box_url %}checked{% endif %}
-                           data-update-vagrantfile-local-vm-box="{{ box.short_name }}" />
+                           {% if box.url == data.vm.provider.local.box_url %}checked{% endif %}
+                           data-update-vagrantfile-vm-provider-local-box="{{ box.short_name }}" />
                     <span class="content">
                         <span class="header">
                             <i class="icon"></i>
@@ -130,150 +131,98 @@
 
         <div class="clearfix"></div>
 
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                IP address to use for accessing the VM. This is the IP address you will
-                need to enter into your <code>hosts</code> file for every virtual hosts
-                you create later on.
-            </div>
-            <label for="vagrantfile-vm-network-private_network">IP Address</label>
-            <input type="text" id="vagrantfile-vm-network-private_network"
-                   name="vagrantfile[vm][network][private_network]"
-                   placeholder="192.168.56.101" class="form-control"
-                   value="{{ data.vm.network.private_network }}" />
-        </div>
+        {% for machine in machines %}
+            {% include 'PuphpetMainBundle:vagrantfile-local/sections:machine.html.twig' with {'machine': machine} %}
+        {% endfor %}
 
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                The hostname the machine should have.
-                <a href="http://stackoverflow.com/a/3523068/446766"
-                   target="_blank">This answer lists all valid characters.</a>
-            </div>
-            <label for="vagrantfile-vm-hostname">Hostname</label>
-            <input type="text" id="vagrantfile-vm-hostname"
-                   name="vagrantfile[vm][hostname]"
-                   placeholder="local.puphpet" class="form-control"
-                   value="{{ data.vm.hostname }}" />
-        </div>
+        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_local.machine') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another machine</a>
 
         <div class="clearfix"></div>
 
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                Memory to assign to VM in megabytes (only integers)
-            </div>
-            <label for="vagrantfile-vm-memory">Memory</label>
-            <input type="number" id="vagrantfile-vm-memory" name="vagrantfile[vm][memory]"
-                   placeholder="512" min="64" class="form-control"
-                   value="{{ data.vm.memory }}" />
-        </div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                Number of CPUs to assign to VM (only integers)
-            </div>
-            <label for="vagrantfile-vm-cpus">CPUs</label>
-            <input type="number" id="vagrantfile-vm-cpus" name="vagrantfile[vm][cpus]"
-                   placeholder="1" min="1" class="form-control"
-                   value="{{ data.vm.cpus }}" />
-        </div>
-
-        <div class="clearfix"></div>
-
-        {% if providerChosen %}
-            {% for forwarded_port in data.vm.network.forwarded_port %}
-                {% include 'PuphpetMainBundle:vagrantfile-local/sections:forwarded-port.html.twig' with {'forwarded_port': forwarded_port} %}
-            {% endfor %}
-        {% endif %}
-
-        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_local.forwarded_port') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another port pair</a>
-
-        {% if providerChosen %}
-            {% for synced_folder in data.vm.synced_folder %}
-                {% include 'PuphpetMainBundle:vagrantfile-local/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-            {% endfor %}
-        {% endif %}
+        {% for synced_folder in syncedFolders %}
+            {% include 'PuphpetMainBundle:vagrantfile-local/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% endfor %}
 
         <a href="#" data-source-url="{{ path('puphpet.vagrantfile_local.synced_folder') }}"
            class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
-    </div>
 
-    <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-    <div class="form-group">
-        <div class="clearfix"><label>Enable Proxy</label></div>
+        <div class="form-group">
+            <div class="clearfix"><label>Enable Proxy</label></div>
 
-        <input type="hidden" name="vagrantfile[proxy][enabled]" value="" />
+            <input type="hidden" name="vagrantfile[proxy][enabled]" value="" />
 
-        <label class="radio-tile mini set-width">
-            <span class="help-text">
-                Check to set proxy options.
-            </span>
-            <input type="checkbox" name="vagrantfile[proxy][enabled]"
-                   class="invisible toggle-on-select"
-                   {% if proxy %}checked{% endif %}
-                   value="1"
-                   data-vis-toggle-target="#vagrantfile-proxy-proxy_options" />
-            <span class="content">
-                <span class="header">
-                    <i class="icon"></i>
-                    <span class="title">Enable Proxy</span>
+            <label class="radio-tile mini set-width">
+                <span class="help-text">
+                    Check to set proxy options.
                 </span>
-            </span>
-        </label>
-    </div>
+                <input type="checkbox" name="vagrantfile[proxy][enabled]"
+                       class="invisible toggle-on-select"
+                       {% if proxy %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#vagrantfile-proxy-proxy_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable Proxy</span>
+                    </span>
+                </span>
+            </label>
+        </div>
 
-    <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-    <div class="nested-block {% if not proxy %}hidden{% endif %}" id="vagrantfile-proxy-proxy_options">
-        <fieldset>
-            <legend>Proxy Options</legend>
-            <div class="form-group col-xs-6">
-                <label for="vagrantfile-proxy-http">Proxy for HTTP URIs</label>
-                <input type="text" id="vagrantfile-proxy-http"
-                       name="vagrantfile[proxy][http]"
-                       placeholder="http://192.168.0.2:3128/" class="form-control"
-                       value="{{ proxy_http }}" />
-            </div>
+        <div class="nested-block {% if not proxy %}hidden{% endif %}" id="vagrantfile-proxy-proxy_options">
+            <fieldset>
+                <legend>Proxy Options</legend>
+                <div class="form-group col-xs-6">
+                    <label for="vagrantfile-proxy-http">Proxy for HTTP URIs</label>
+                    <input type="text" id="vagrantfile-proxy-http"
+                           name="vagrantfile[proxy][http]"
+                           placeholder="http://192.168.0.2:3128/" class="form-control"
+                           value="{{ proxy_http }}" />
+                </div>
 
-            <div class="form-group col-xs-6">
-                <label for="vagrantfile-proxy-https">Proxy for HTTPS URIs</label>
-                <input type="text" id="vagrantfile-proxy-https"
-                       name="vagrantfile[proxy][https]"
-                       placeholder="http://192.168.0.2:3128/" class="form-control"
-                       value="{{ proxy_https }}" />
-            </div>
+                <div class="form-group col-xs-6">
+                    <label for="vagrantfile-proxy-https">Proxy for HTTPS URIs</label>
+                    <input type="text" id="vagrantfile-proxy-https"
+                           name="vagrantfile[proxy][https]"
+                           placeholder="http://192.168.0.2:3128/" class="form-control"
+                           value="{{ proxy_https }}" />
+                </div>
 
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-            <div class="form-group col-xs-6">
-                <label for="vagrantfile-proxy-ftp">Proxy for FTP URIs</label>
-                <input type="text" id="vagrantfile-proxy-ftp"
-                       name="vagrantfile[proxy][ftp]"
-                       placeholder="http://192.168.0.2:3128/" class="form-control"
-                       value="{{ proxy_ftp }}" />
-            </div>
+                <div class="form-group col-xs-6">
+                    <label for="vagrantfile-proxy-ftp">Proxy for FTP URIs</label>
+                    <input type="text" id="vagrantfile-proxy-ftp"
+                           name="vagrantfile[proxy][ftp]"
+                           placeholder="http://192.168.0.2:3128/" class="form-control"
+                           value="{{ proxy_ftp }}" />
+                </div>
 
-            <div class="form-group col-xs-6">
-                <label for="vagrantfile-proxy-no_proxy">Comma-Separated Excluded Hosts or Domains</label>
-                <input type="text" id="vagrantfile-proxy-no_proxy"
-                       name="vagrantfile[proxy][no_proxy]"
-                       placeholder="localhost,127.0.0.1,.example.com" class="form-control"
-                       value="{{ proxy_no_proxy }}" />
-            </div>
+                <div class="form-group col-xs-6">
+                    <label for="vagrantfile-proxy-no_proxy">Comma-Separated Excluded Hosts or Domains</label>
+                    <input type="text" id="vagrantfile-proxy-no_proxy"
+                           name="vagrantfile[proxy][no_proxy]"
+                           placeholder="localhost,127.0.0.1,.example.com" class="form-control"
+                           value="{{ proxy_no_proxy }}" />
+                </div>
 
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-            <div class="help-block">
-                <p>Requires installing the <code>vagrant-proxyconf</code> plugin:</p>
+                <div class="help-block">
+                    <p>Requires installing the <code>vagrant-proxyconf</code> plugin:</p>
 
-                <p><code>vagrant plugin install vagrant-proxyconf</code></p>
+                    <p><code>vagrant plugin install vagrant-proxyconf</code></p>
 
-                <p><a href="https://github.com/tmatilai/vagrant-proxyconf/"
-                      target="_blank">Click here for more information</a>.</p>
-            </div>
-        </fieldset>
+                    <p><a href="https://github.com/tmatilai/vagrant-proxyconf/"
+                          target="_blank">Click here for more information</a>.</p>
+                </div>
+            </fieldset>
+        </div>
     </div>
 
     <div class="clearfix"></div>

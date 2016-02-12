@@ -13,6 +13,15 @@ class VagrantfileLinodeController extends Controller
         ]);
     }
 
+    public function machineAction()
+    {
+        return $this->render('PuphpetMainBundle:vagrantfile-linode/sections:machine.html.twig', [
+            'machine'     => $this->getData()['empty_machine'],
+            'datacenters' => $this->getData()['datacenters'],
+            'plans'       => $this->getData()['plans'],
+        ]);
+    }
+
     public function syncedFolderAction()
     {
         return $this->render('PuphpetMainBundle:vagrantfile-linode/sections:synced-folder.html.twig', [

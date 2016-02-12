@@ -6,18 +6,16 @@ vm:
             project_id: GCE_PROJECT_ID
             client_email: GCE_CLIENT_EMAIL
             key_location: /PATH/TO/PRIVATE_KEY.PK12
-            machine_type: n1-standard-1
             image: ubuntu-1404-trusty-v20150909a
-            name: instance-name
-            zone: us-central1-a
-            tags:
-                - http-server
-    synced_folder:
-        -
-            source: ./
-            target: /var/www
-            id: webroot
-            nfs: false
+            machines:
+                -
+                    id: gce1
+                    hostname: gce1.puphpet
+                    name: gce1-puphpet
+                    machine_type: n1-standard-1
+                    zone: us-central1-a
+                    tags:
+                        - http-server
     provision:
         puppet:
             manifests_path: "puphpet/puppet/manifests"
@@ -25,6 +23,12 @@ vm:
             options:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
+    synced_folder:
+        -
+            source: ./
+            target: /var/www
+            id: webroot
+            nfs: false
 ssh:
     username: PRIVATE_KEY_USER
     forward_agent: true

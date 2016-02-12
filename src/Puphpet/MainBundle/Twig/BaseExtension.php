@@ -21,6 +21,7 @@ class BaseExtension extends \Twig_Extension
             new \Twig_SimpleFunction('uniqid', [$this, 'uniqid']),
             new \Twig_SimpleFunction('merge_unique', [$this, 'mergeUnique']),
             new \Twig_SimpleFunction('add_available', [$this, 'addAvailable']),
+            new \Twig_SimpleFunction('formValue', [$this, 'formValue']),
         ];
     }
 
@@ -58,6 +59,19 @@ class BaseExtension extends \Twig_Extension
     public function addAvailable(array $arr1, array $arr2)
     {
         return array_merge($arr1, ['available' => $arr2]);
+    }
+
+    public function formValue($value)
+    {
+        if ($value === false) {
+            return 'false';
+        }
+
+        if ($value === null) {
+            return 'false';
+        }
+
+        return $value;
     }
 
     public function getName()

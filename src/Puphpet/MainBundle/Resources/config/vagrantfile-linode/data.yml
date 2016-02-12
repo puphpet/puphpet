@@ -1,18 +1,12 @@
 target: ~
 
 vm:
-    box: linode
-    hostname: master
-    network:
-        private_network: 192.168.56.101
-        forwarded_port: []
     provider:
         linode:
-            distribution: ~
-            datacenter: ~
-            plan: ~
             token: ~
             ssh_key_name: Vagrant
+            distribution: ~
+            machines: []
     provision:
         puppet:
             manifests_path: "puphpet/puppet/manifests"
@@ -21,17 +15,8 @@ vm:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
     synced_folder: []
-
+    post_up_message: ''
 ssh:
-    host: ~
-    port: ~
-    private_key_path: ~
     username: ~
-    guest_port: ~
-    keep_alive: true
-    forward_agent: false
-    forward_x11: false
-    shell: bash -l
-
-vagrant:
-    host: detect
+    private_key_path: ~
+    public_key_path: ~

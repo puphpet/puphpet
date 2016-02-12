@@ -68,3 +68,10 @@ empty_synced_folder:
     target: ~
     id: ~
     nfs: false
+
+empty_machine:
+    id: ~
+    server_name: ~
+    hostname: ~
+    region: ~
+    size: ~

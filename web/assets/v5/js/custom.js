@@ -428,6 +428,25 @@ PUPHPET.toggleDisplayOnSelect = function() {
             return;
         }
 
+        if (!$(this).is(':checked')) {
+            return;
+        }
+
+        var targetId = snakeCaseToDash(dataValue);
+        $(targetId).hide().removeClass('hidden').slideDown();
+    });
+
+    $(document).on('change', '.show-on-unselect', function(e) {
+        var dataValue = this.getAttribute('data-invis-show-target');
+
+        if (dataValue == undefined) {
+            return;
+        }
+
+        if ($(this).is(':checked')) {
+            return;
+        }
+
         var targetId = snakeCaseToDash(dataValue);
         $(targetId).hide().removeClass('hidden').slideDown();
     });
@@ -436,6 +455,25 @@ PUPHPET.toggleDisplayOnSelect = function() {
         var dataValue = this.getAttribute('data-vis-hide-target');
 
         if (dataValue == undefined) {
+            return;
+        }
+
+        if (!$(this).is(':checked')) {
+            return;
+        }
+
+        var targetId = snakeCaseToDash(dataValue);
+        $(targetId).slideUp();
+    });
+
+    $(document).on('change', '.hide-on-unselect', function(e) {
+        var dataValue = this.getAttribute('data-invis-hide-target');
+
+        if (dataValue == undefined) {
+            return;
+        }
+
+        if ($(this).is(':checked')) {
             return;
         }
 
@@ -685,6 +723,9 @@ PUPHPET.displayTabFromUrl = function () {
     }
 };
 
+/**
+ * Disables all form field options for deploy target tab when option unselected.
+ */
 PUPHPET.toggleDeployTargetVisibility = function() {
     $('.vagrantfile.hidden').each(function() {
         $(this)
@@ -815,6 +856,43 @@ PUPHPET.bootstrapNotify = function() {
     });
 };
 
+/**
+ * Updates local virtualizers' base IP address.
+ *
+ * Virtualbox is 192.168.56.*
+ * Vmware is     192.168.57.*
+ * Parallels is  192.168.58.*
+ */
+PUPHPET.updateLocalIpAddress = function() {
+    $(document).on('change', '.update-local-ip-address', function(e) {
+        var baseIp = this.getAttribute('data-base-ip');
+        var matches = [
+            '192.168.56',
+            '192.168.57',
+            '192.168.58'
+        ];
+
+        // Only replace IP addresses that are using the default ranges, not a custom address
+        $('.local-ip-address').each(function() {
+            var currentIp = $(this).val();
+            var currentIpBase = currentIp.replace(
+                /([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/g,
+                '$1.$2.$3'
+            );
+
+            if (matches.indexOf(currentIpBase) == -1) {
+                return true;
+            }
+
+            var newIp = currentIp.replace(
+                /([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/g,
+                baseIp + '.$4'
+            );
+            $(this).val(newIp);
+        });
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -834,6 +912,7 @@ $(document).ready(function() {
     PUPHPET.uploadConfig();
     PUPHPET.disableEnterSubmit();
     PUPHPET.bootstrapNotify();
+    PUPHPET.updateLocalIpAddress();
 });
 
 /**

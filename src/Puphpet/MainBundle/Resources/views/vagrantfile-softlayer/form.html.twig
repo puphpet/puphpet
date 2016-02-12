@@ -1,5 +1,10 @@
 {% set providerChosen = (data.target == 'softlayer') ? true : false %}
 
+{% set machines = (data.vm.provider.softlayer.machines is defined and data.vm.provider.softlayer.machines)
+    ? data.vm.provider.softlayer.machines : [] %}
+{% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
+    ? data.vm.synced_folder : [] %}
+
 <div class="section-header">
     <h1>SoftLayer Server Details</h1>
     <p class="lead">Spin up your virtual machine on SoftLayer.</p>
@@ -28,9 +33,7 @@
 
     <div class="clearfix"></div>
 
-    <div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-        <input type="hidden" id="vagrantfile-softlayer-vm-box" name="vagrantfile[vm][box]"
-               value="softlayer" />
+    <div id="vagrantfile-softlayer-container" class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
         <div class="form-group">
             <div class="clearfix"><label>Distro</label></div>
 
@@ -69,98 +72,6 @@
 
         <div class="form-group col-xs-6">
             <div class="help-text">
-                Name your SoftLayer server as it will appear in the Control Panel.
-            </div>
-            <label for="vagrantfile-vm-hostname">Server Name</label>
-            <input type="text" id="vagrantfile-vm-hostname"
-                   name="vagrantfile[vm][hostname]"
-                   class="form-control" placeholder="AWESOME"
-                   value="{{ data.vm.hostname }}" />
-        </div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                <p>Must end in valid TLD.</p>
-
-                <p>Your VM will be named {HOSTNAME}.{DOMAIN}</p>
-
-                <p>The hostname and domain must be alphanumeric strings that may be separated by periods '.'.
-                    The only other allowable special character is the dash '-' However the special
-                    characters '.' and '-' may not be consecutive. Each alphanumeric string separated by a
-                    period is considered a label. Labels must begin and end with an alphanumeric character.
-                    Each label cannot be solely comprised of digits and must be between 1-63 characters in
-                    length. The last label, the TLD (top level domain) must be between 2-6 alphabetic
-                    characters. The domain portion must consist of least one label followed by a period '.'
-                    then ending with the TLD label. Combining the hostname, followed by a period '.',
-                    followed by the domain gives the FQDN (fully qualified domain name), which may not
-                    exceed 253 characters in total length.</p>
-            </div>
-            <label for="vagrantfile-vm-provider-softlayer-domain">Domain</label>
-            <input type="text" id="vagrantfile-vm-provider-softlayer-domain"
-                   name="vagrantfile[vm][provider][softlayer][domain]"
-                   class="form-control"
-                   value="{{ data.vm.provider.softlayer.domain }}" />
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                <a href="http://www.softlayer.com/virtual-servers"
-                   target="_blank">Pricing information</a>.
-                SoftLayer charges by the hour, but also shows what a full month would cost.
-            </div>
-            <label for="vagrantfile-vm-provider-softlayer-start_cpus">CPUs</label>
-            <select id="vagrantfile-vm-provider-softlayer-start_cpus"
-                   name="vagrantfile[vm][provider][softlayer][start_cpus]"
-                   class="form-control select-tag">
-                {% for key, name in data.available.cpus %}
-                    <option value="{{ key }}"
-                        {% if key == data.vm.provider.softlayer.start_cpus %}selected{% endif %}>{{ name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                <a href="http://www.softlayer.com/virtual-servers"
-                   target="_blank">Pricing information</a>.
-                SoftLayer charges by the hour, but also shows what a full month would cost.
-            </div>
-            <label for="vagrantfile-vm-provider-softlayer-max_memory">Memory</label>
-            <select id="vagrantfile-vm-provider-softlayer-max_memory"
-                   name="vagrantfile[vm][provider][softlayer][max_memory]"
-                   class="form-control select-tag">
-                {% for key, memory in data.available.memory %}
-                    <option value="{{ key }}"
-                        {% if key == data.vm.provider.softlayer.max_memory %}selected{% endif %}>{{ memory }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                <p>Choose the one closest to you, or your target audience!</p>
-
-                <p>If you get an error that looks like
-                    'There is insufficient Local disk resources in {DATACENTER} to create the following
-                    guests: {HOSTNAME}', choose a different datacenter.</p>
-            </div>
-            <label for="vagrantfile-vm-provider-softlayer-datacenter">Datacenter Location</label>
-            <select id="vagrantfile-vm-provider-softlayer-datacenter"
-                   name="vagrantfile[vm][provider][softlayer][datacenter]"
-                   class="form-control select-tag">
-                {% for key, dc in data.available.datacenters %}
-                    <option value="{{ key }}"
-                        {% if key == data.vm.provider.softlayer.datacenter %}selected{% endif %}>{{ dc }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
                 Username you use to login to SoftLayer
             </div>
             <label for="vagrantfile-vm-provider-softlayer-username">SoftLayer Account Username</label>
@@ -169,8 +80,6 @@
                    class="form-control" placeholder="SOFTLAYER USERNAME"
                    value="{{ data.vm.provider.softlayer.username }}" />
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-6">
             <div class="help-text">
@@ -183,6 +92,8 @@
                    class="form-control" placeholder="SOFTLAYER API KEY"
                    value="{{ data.vm.provider.softlayer.api_key }}" />
         </div>
+
+        <div class="clearfix"></div>
 
         <div class="form-group col-xs-6">
             <div class="help-text">
@@ -197,27 +108,37 @@
                    value="{{ data.ssh.private_key_path }}" />
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="form-group col-xs-6">
             <div class="help-text">
                 This must be a public key associated with your account from
                 <a href="https://control.softlayer.com/devices/sshkeys" target="_blank">this page</a>.
             </div>
-            <label for="vagrantfile-vm-provider-softlayer-ssh_key">Local Public Key Path</label>
+            <label for="vagrantfile-vm-provider-softlayer-ssh_key">Softlayer SSH Key Name</label>
             <input type="text" id="vagrantfile-vm-provider-softlayer-ssh_key"
                    name="vagrantfile[vm][provider][softlayer][ssh_key]"
-                   class="form-control" placeholder="~/.ssh/id_rsa.pub"
-                   value="{{ data.ssh.public_key_path }}" />
+                   class="form-control" placeholder="SOFTLAYER SSH KEY NAME"
+                   value="{{ data.vm.provider.softlayer.ssh_key }}" />
         </div>
 
         <div class="clearfix"></div>
 
-        {% if providerChosen %}
-            {% for synced_folder in data.vm.synced_folder %}
-                {% include 'PuphpetMainBundle:vagrantfile-softlayer/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-            {% endfor %}
-        {% endif %}
+        {% for machine in machines %}
+            {% include 'PuphpetMainBundle:vagrantfile-softlayer/sections:machine.html.twig' with {
+                'machine': machine,
+                'datacenters': data.available.datacenters,
+                'cpus': data.available.cpus,
+                'memories': data.available.memory
+            } %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_softlayer.machine') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another machine</a>
+
+        <div class="clearfix"></div>
+
+        {% for synced_folder in data.vm.synced_folder %}
+            {% include 'PuphpetMainBundle:vagrantfile-softlayer/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% endfor %}
 
         <a href="#" data-source-url="{{ path('puphpet.vagrantfile_softlayer.synced_folder') }}"
            class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>

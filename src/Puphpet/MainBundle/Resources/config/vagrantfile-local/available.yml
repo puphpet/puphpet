@@ -1,4 +1,4 @@
-providers:
+virtualizers:
     -
         name: virtualbox
         long_name: VirtualBox
@@ -7,7 +7,7 @@ providers:
             <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download Virtualbox here</a>.
         os_support: Windows, OS X &amp; Linux
         performance: 1
-        default_ip: 192.168.56.101
+        base_ip: 192.168.56
     -
         name: vmware_fusion
         long_name: VMWare Fusion
@@ -18,7 +18,7 @@ providers:
             and purchase of <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Fusion Plugin</a>.
         os_support: OS X only
         performance: 3
-        default_ip: 192.168.57.101
+        base_ip: 192.168.57
     -
         name: vmware_workstation
         long_name: VMWare Workstation
@@ -29,7 +29,7 @@ providers:
             and purchase of <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Workstation Plugin</a>.
         os_support: Windows &amp; Linux
         performance: 3
-        default_ip: 192.168.57.101
+        base_ip: 192.168.57
     -
         name: parallels
         long_name: Parallels Desktop
@@ -40,7 +40,7 @@ providers:
             and installing the free <a href="https://github.com/Parallels/vagrant-parallels" target="_blank">Vagrant Parallels Plugin</a>.
         os_support: OS X only
         performance: 3
-        default_ip: 192.168.58.101
+        base_ip: 192.168.58
 
 boxes:
     -
@@ -94,10 +94,23 @@ boxes:
             - 5.4
             - HHVM
 
+empty_machine:
+    id: ~
+    hostname: ~
+    memory: ~
+    cpus: ~
+    network:
+        private_network: 192.168.56.101
+        forwarded_port: [ ]
+
+empty_forwarded_port:
+    host: ~
+    guest: ~
+
 empty_synced_folder:
+    id: vagrant-root
     source: ~
     target: ~
-    id: vagrant-root
     sync_type: default
     owner: 'www-data'
     group: 'www-data'
@@ -110,7 +123,3 @@ empty_synced_folder:
             - '.vagrant/'
             - '.git/'
         auto: true
-
-empty_forwarded_port:
-    host: ~
-    guest: ~

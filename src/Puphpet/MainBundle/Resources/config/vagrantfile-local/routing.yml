@@ -2,10 +2,14 @@ puphpet.vagrantfile_local.homepage:
     pattern:  /
     defaults: { _controller: PuphpetMainBundle:VagrantfileLocal:index }
 
+puphpet.vagrantfile_local.machine:
+    pattern: /machine
+    defaults: { _controller: PuphpetMainBundle:VagrantfileLocal:machine }
+
+puphpet.vagrantfile_local.machine_forwarded_port:
+    pattern: /machine-forwarded-port/{mId}
+    defaults: { _controller: PuphpetMainBundle:VagrantfileLocal:machineForwardedPort }
+
 puphpet.vagrantfile_local.synced_folder:
     pattern: /synced-folder
     defaults: { _controller: PuphpetMainBundle:VagrantfileLocal:syncedFolder }
-
-puphpet.vagrantfile_local.forwarded_port:
-    pattern: /forwarded-port
-    defaults: { _controller: PuphpetMainBundle:VagrantfileLocal:forwardedPort }
