@@ -12,7 +12,7 @@ machines = !provider['machines'].empty? ? provider['machines'] : { }
 
 machines.each do |i, machine|
   config.vm.define "#{machine['id']}" do |machine_id|
-    machine_id.vm.box     = "#{data['box']}"
+    machine_id.vm.box     = "#{provider['box']}"
     machine_id.vm.box_url = "#{provider['box_url']}"
 
     if provider['box_version'].to_bool
