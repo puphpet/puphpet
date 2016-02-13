@@ -93,26 +93,11 @@ machines.each do |i, machine|
 
     machine_id.vm.provision :shell, :path => 'puphpet/shell/important-notices.sh'
 
-    if !data['ssh']['host'].nil?
-      config.ssh.host = data['ssh']['host']
-    end
-    if !data['ssh']['port'].nil?
-      config.ssh.port = "#{data['ssh']['port']}"
-    end
-    if !data['ssh']['guest_port'].nil?
-      config.ssh.guest_port = data['ssh']['guest_port']
+    if !data['ssh']['port'].nil? && data['ssh']['port'].to_bool
+      machine_id.ssh.port = "#{data['ssh']['port']}"
     end
     if !data['ssh']['shell'].nil?
-      config.ssh.shell = "#{data['ssh']['shell']}"
-    end
-    if !data['ssh']['keep_alive'].nil?
-      config.ssh.keep_alive = data['ssh']['keep_alive']
-    end
-    if !data['ssh']['forward_agent'].nil?
-      config.ssh.forward_agent = data['ssh']['forward_agent']
-    end
-    if !data['ssh']['forward_x11'].nil?
-      config.ssh.forward_x11 = data['ssh']['forward_x11']
+      machine_id.ssh.shell = "#{data['ssh']['shell']}"
     end
   end
 end

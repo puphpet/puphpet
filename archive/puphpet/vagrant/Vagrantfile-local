@@ -431,26 +431,26 @@ machines.each do |i, machine|
       end
     end
 
-    if !data['ssh']['port'].nil?
+    if !data['ssh']['port'].nil? && data['ssh']['port'].to_bool
       machine_id.ssh.port = "#{data['ssh']['port']}"
     end
     if !data['ssh']['username'].nil?
       machine_id.ssh.username = "#{data['ssh']['username']}"
     end
-    if !data['ssh']['guest_port'].nil?
+    if !data['ssh']['guest_port'].nil? && data['ssh']['guest_port'].to_bool
       machine_id.ssh.guest_port = data['ssh']['guest_port']
     end
     if !data['ssh']['shell'].nil?
       machine_id.ssh.shell = "#{data['ssh']['shell']}"
     end
     if !data['ssh']['keep_alive'].nil?
-      machine_id.ssh.keep_alive = data['ssh']['keep_alive']
+      machine_id.ssh.keep_alive = data['ssh']['keep_alive'].to_bool
     end
     if !data['ssh']['forward_agent'].nil?
-      machine_id.ssh.forward_agent = data['ssh']['forward_agent']
+      machine_id.ssh.forward_agent = data['ssh']['forward_agent'].to_bool
     end
     if !data['ssh']['forward_x11'].nil?
-      machine_id.ssh.forward_x11 = data['ssh']['forward_x11']
+      machine_id.ssh.forward_x11 = data['ssh']['forward_x11'].to_bool
     end
   end
 end
