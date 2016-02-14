@@ -3,6 +3,7 @@
 namespace Puphpet\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class VagrantfileLocalController extends Controller
 {
@@ -13,17 +14,25 @@ class VagrantfileLocalController extends Controller
         ]);
     }
 
+    public function machineAction()
+    {
+        return $this->render('PuphpetMainBundle:vagrantfile-local/sections:machine.html.twig', [
+            'machine' => $this->getData()['empty_machine'],
+        ]);
+    }
+
+    public function machineForwardedPortAction(Request $request)
+    {
+        return $this->render('PuphpetMainBundle:vagrantfile-local/sections:machine-forwarded-port.html.twig', [
+            'mId'            => $request->get('mId'),
+            'forwarded_port' => $this->getData()['empty_forwarded_port'],
+        ]);
+    }
+
     public function syncedFolderAction()
     {
         return $this->render('PuphpetMainBundle:vagrantfile-local/sections:synced-folder.html.twig', [
             'synced_folder' => $this->getData()['empty_synced_folder'],
-        ]);
-    }
-
-    public function forwardedPortAction()
-    {
-        return $this->render('PuphpetMainBundle:vagrantfile-local/sections:forwarded-port.html.twig', [
-            'forwarded_port' => $this->getData()['empty_forwarded_port'],
         ]);
     }
 

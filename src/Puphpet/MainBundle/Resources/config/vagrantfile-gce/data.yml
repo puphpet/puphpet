@@ -1,18 +1,13 @@
 target: ~
 
 vm:
-    box: gce
-    hostname: master
     provider:
         gce:
             project_id: ~
             client_email: ~
             key_location: ~
-            machine_type: ~
             image: ~
-            name: ~
-            tags: ~
-            zone: ~
+            machines: []
     provision:
         puppet:
             manifests_path: "puphpet/puppet/manifests"
@@ -21,18 +16,7 @@ vm:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
     synced_folder: []
-
 ssh:
-    host: ~
-    port: ~
+    username: ~
     private_key_path: ~
     public_key_path: ~
-    username: ~
-    guest_port: ~
-    keep_alive: true
-    forward_agent: false
-    forward_x11: false
-    shell: bash -l
-
-vagrant:
-    host: detect

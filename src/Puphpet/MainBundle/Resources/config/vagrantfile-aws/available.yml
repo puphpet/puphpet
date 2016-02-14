@@ -1,198 +1,72 @@
-images:
-# US East (Northern Virginia) Region
-    us-east-1:
-        -
-            ami: ami-4b124a22
-            os: debian
-            name: Debian 7.1a x64 EBS
-            ssh_username: admin
-            php_versions:
-                - 5.6
-                - 5.5
-                - 5.4
-                - HHVM
-        -
-            ami: ami-a73264ce
-            name: Ubuntu Precise 12.04.3 x64 EBS
-            ssh_username: ubuntu
-            php_versions:
-                - 5.5
-                - 5.4
-                - HHVM
-# US West (Northern California) Region
-    us-west-1:
-        -
-            ami: ami-80487ec5
-            os: debian
-            name: Debian 7.1a x64 EBS
-            ssh_username: admin
-            php_versions:
-                - 5.6
-                - 5.5
-                - 5.4
-                - HHVM
-        -
-            ami: ami-acf9cde9
-            os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64 EBS
-            ssh_username: ubuntu
-            php_versions:
-                - 5.5
-                - 5.4
-                - HHVM
-# US West (Northern California) Region
-    us-west-2:
-        -
-            ami: ami-a850c898
-            os: debian
-            name: Debian 7.1a x64 EBS
-            ssh_username: admin
-            php_versions:
-                - 5.6
-                - 5.5
-                - 5.4
-                - HHVM
-        -
-            ami: ami-6aad335a
-            os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64 EBS
-            ssh_username: ubuntu
-            php_versions:
-                - 5.5
-                - 5.4
-                - HHVM
-# EU (Ireland) Region
-    eu-west-1:
-        -
-            ami: ami-e34dae94
-            os: debian
-            name: Debian 7.1a x64 EBS
-            ssh_username: admin
-            php_versions:
-                - 5.6
-                - 5.5
-                - 5.4
-                - HHVM
-        -
-            ami: ami-8e987ef9
-            os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64 EBS
-            ssh_username: ubuntu
-            php_versions:
-                - 5.5
-                - 5.4
-                - HHVM
-# South America (Sao Paulo) Region
-    sa-east-1:
-        -
-            ami: ami-8b6cca96
-            os: debian
-            name: Debian 7.1a x64 EBS
-            ssh_username: admin
-            php_versions:
-                - 5.6
-                - 5.5
-                - 5.4
-                - HHVM
-        -
-            ami: ami-35258228
-            os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64 EBS
-            ssh_username: ubuntu
-            php_versions:
-                - 5.5
-                - 5.4
-                - HHVM
-# Asia Pacific (Tokyo) Region
-    ap-northeast-1:
-        -
-            ami: ami-914f2a90
-            os: debian
-            name: Debian 7.1a x64 EBS
-            ssh_username: admin
-            php_versions:
-                - 5.6
-                - 5.5
-                - 5.4
-                - HHVM
-        -
-            ami: ami-3f32ac3e
-            os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64 EBS
-            ssh_username: ubuntu
-            php_versions:
-                - 5.5
-                - 5.4
-                - HHVM
-# Asia Pacific (Singapore) Region
-    ap-southeast-1:
-        -
-            ami: ami-687d283a
-            os: debian
-            name: Debian 7.1a x64 EBS
-            ssh_username: admin
-            php_versions:
-                - 5.6
-                - 5.5
-                - 5.4
-                - HHVM
-        -
-            ami: ami-b84e04ea
-            os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64 EBS
-            ssh_username: ubuntu
-            php_versions:
-                - 5.5
-                - 5.4
-                - HHVM
-# Asia Pacific (Sydney) Region
-    ap-southeast-2:
-        -
-            ami: ami-9d4fd3a7
-            os: debian
-            name: Debian 7.1a x64 EBS
-            ssh_username: admin
-            php_versions:
-                - 5.6
-                - 5.5
-                - 5.4
-                - HHVM
-        -
-            ami: ami-3d128f07
-            os: ubuntu
-            name: Ubuntu Precise 12.04.3 x64 EBS
-            ssh_username: ubuntu
-            php_versions:
-                - 5.5
-                - 5.4
-                - HHVM
-
 instance_types:
-    t1.micro: up to 2 ECUs, 1 vCPUs, 0.613 GiB memory, EBS only
-    m1.small: 1 ECUs, 1 vCPUs, 1.7 GiB memory, 1 x 160 GiB Storage Capacity
-    m1.medium: 2 ECUs, 1 vCPUs, 3.7 GiB memory, 1 x 410 GiB Storage Capacity
-    m1.large: 4 ECUs, 2 vCPUs, 7.5 GiB memory, 2 x 420 GiB Storage Capacity
-    m1.xlarge: 8 ECUs, 4 vCPUs, 15 GiB memory, 4 x 420 GiB Storage Capacity
-    m2.xlarge: 6.5 ECUs, 2 vCPUs, 17.1 GiB memory, 1 x 420 GiB Storage Capacity
-    m2.2xlarge: 13 ECUs, 4 vCPUs, 34.2 GiB memory, 1 x 850 GiB Storage Capacity
-    m2.4xlarge: 26 ECUs, 8 vCPUs, 68.4 GiB memory, 2 x 840 GiB Storage Capacity
-    hi1.4xlarge: 35 ECUs, 16 vCPUs, 60.5 GiB memory, 2 x 1024 GiB Storage Capacity
-    hs1.8xlarge: 35 ECUs, 16 vCPUs, 117 GiB memory, 24 x 2048 GiB Storage Capacity
-    c1.medium: 5 ECUs, 2 vCPUs, 1.7 GiB memory, 1 x 350 GiB Storage Capacity
-    c1.xlarge: 20 ECUs, 8 vCPUs, 7 GiB memory, 4 x 420 GiB Storage Capacity
+    t2.nano: 1 CPU, 0.5 Memory, EBS Only
+    t2.micro: 1 CPU, 1 Memory, EBS Only
+    t2.small: 1 CPU, 2 Memory, EBS Only
+    t2.medium: 2 CPU, 4 Memory, EBS Only
+    t2.large: 2 CPU, 8 Memory, EBS Only
+    m4.large: 2 CPU, 8 Memory, EBS Only
+    m4.xlarge: 4 CPU, 16 Memory, EBS Only
+    m4.2xlarge: 8 CPU, 32 Memory, EBS Only
+    m4.4xlarge: 16 CPU, 64 Memory, EBS Only
+    m4.10xlarge: 40 CPU, 160 Memory, EBS Only
+    m3.medium: 1 CPU, 3.75 Memory, 1 x 4 GB SSD
+    m3.large: 2 CPU, 7.5 Memory, 1 x 32 GB SSD
+    m3.xlarge: 4 CPU, 15 Memory, 2 x 40 GB SSD
+    m3.2xlarge: 8 CPU, 30 Memory, 2 x 80 GB SSD
+    c4.large: 2 CPU, 3.75 Memory, EBS Only
+    c4.xlarge: 4 CPU, 7.5 Memory, EBS Only
+    c4.2xlarge: 8 CPU, 15 Memory, EBS Only
+    c4.4xlarge: 16 CPU, 30 Memory, EBS Only
+    c4.8xlarge: 36 CPU, 60 Memory, EBS Only
+    c3.large: 2 CPU, 3.75 Memory, 2 x 16 GB SSD
+    c3.xlarge: 4 CPU, 7.5 Memory, 2 x 40 GB SSD
+    c3.2xlarge: 8 CPU, 15 Memory, 2 x 80 GB SSD
+    c3.4xlarge: 16 CPU, 30 Memory, 2 x 160 GB SSD
+    c3.8xlarge: 32 CPU, 60 Memory, 2 x 320 GB SSD
+    g2.2xlarge: 8 CPU, 15 Memory, 1 x 60 GB SSD
+    g2.8xlarge: 32 CPU, 60 Memory, 2 x 120 GB SSD
+    r3.large: 2 CPU, 15.25 Memory, 1 x 32 GB SSD
+    r3.xlarge: 4 CPU, 30.5 Memory, 1 x 80 GB SSD
+    r3.2xlarge: 8 CPU, 61 Memory, 1 x 160 GB SSD
+    r3.4xlarge: 16 CPU, 122 Memory, 1 x 320 GB SSD
+    r3.8xlarge: 32 CPU, 244 Memory, 2 x 320 GB SSD
+    i2.xlarge: 4 CPU, 30.5 Memory, 1 x 800 GB SSD
+    i2.2xlarge: 8 CPU, 61 Memory, 2 x 800 GB SSD
+    i2.4xlarge: 16 CPU, 122 Memory, 4 x 800 GB SSD
+    i2.8xlarge: 32 CPU, 244 Memory, 8 x 800 GB SSD
+    d2.xlarge: 4 CPU, 30.5 Memory, 3 x 2000 GB
+    d2.2xlarge: 8 CPU, 61 Memory, 6 x 2000 GB
+    d2.4xlarge: 16 CPU, 122 Memory, 12 x 2000 GB
+    d2.8xlarge: 36 CPU, 244 Memory, 24 x 2000 GB
 
 regions:
-    ap-northeast-1: Asia Pacific (Tokyo) Region
-    ap-southeast-1: Asia Pacific (Singapore) Region
-    ap-southeast-2: Asia Pacific (Sydney) Region
-    eu-west-1: EU (Ireland) Region
-    sa-east-1: South America (Sao Paulo) Region
-    us-east-1: US East (Northern Virginia) Region
-    us-west-1: US West (Northern California) Region
-    us-west-2: US West (Oregon) Region
+    ap-northeast-1: Asia Pacific (Tokyo)
+    ap-northeast-2: Asia Pacific (Seoul)
+    ap-southeast-1: Asia Pacific (Singapore)
+    ap-southeast-2: Asia Pacific (Sydney)
+    eu-central-1: EU (Frankfurt)
+    eu-west-1: EU (Ireland)
+    sa-east-1: South America (Sao Paulo)
+    us-east-1: US East (Northern Virginia)
+    us-west-1: US West (Northern California)
+    us-west-2: US West (Oregon)
 
 empty_synced_folder:
     source: ~
     target: ~
     id: ~
     nfs: false
+
+empty_machine:
+    id: ~
+    hostname: ~
+    ssh_username:
+    keypair_name:
+    private_key_path: ~
+    region: ~
+    instance_type: ~
+    ami: ~
+    subnet_id: ~
+    elastic_ip: ~
+    security_groups: []
+    tags: []

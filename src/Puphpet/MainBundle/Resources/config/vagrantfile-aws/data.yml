@@ -1,24 +1,11 @@
 target: ~
 
 vm:
-    box: digital_ocean
-    hostname: master
-    network:
-        private_network: 192.168.56.101
-        forwarded_port: []
     provider:
         aws:
             access_key_id: ~
             secret_access_key: ~
-            keypair_name: ~
-            ami: ~
-            region: ~
-            instance_type: ~
-            security_groups: {}
-            subnet_id: ~
-            elastic_ip: ~
-            tags:
-                Source: Puphpet
+            machines: []
     provision:
         puppet:
             manifests_path: "puphpet/puppet/manifests"
@@ -27,17 +14,6 @@ vm:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
     synced_folder: []
-
+    post_up_message: ''
 ssh:
-    host: ~
-    port: ~
-    private_key_path: ~
-    username: ~
-    guest_port: ~
-    keep_alive: true
-    forward_agent: false
-    forward_x11: false
-    shell: bash -l
-
-vagrant:
-    host: detect
+    forward_agent: true

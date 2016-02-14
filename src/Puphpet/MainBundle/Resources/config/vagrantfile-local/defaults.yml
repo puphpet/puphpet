@@ -1,26 +1,47 @@
 target: local
 
 vm:
-    box: puphpet/ubuntu1404-x64
-    box_url: puphpet/ubuntu1404-x64
-    hostname: local.puphpet
-    chosen_provider: virtualbox
-    box_version: ~
     provider:
-        virtualbox:
-            modifyvm:
-                natdnshostresolver1: false
-            showgui: 0
-        vmware: []
-        parallels:
-            use_linked_clone: 0
-            check_guest_tools: 0
-            update_guest_tools: 0
+        local:
+            box: puphpet/ubuntu1404-x64
+            box_url: puphpet/ubuntu1404-x64
+            box_version: 0
+            chosen_virtualizer: virtualbox
+            virtualizers:
+                virtualbox:
+                    modifyvm:
+                        natdnshostresolver1: false
+                    showgui: 0
+                vmware:
+                    numvcpus: 1
+                parallels:
+                    use_linked_clone: 0
+                    check_guest_tools: 0
+                    update_guest_tools: 0
+            machines:
+                -
+                    id: machine1
+                    hostname: machine1.puphpet
+                    memory: 512
+                    cpus: 1
+                    network:
+                        private_network: 192.168.56.101
+                        forwarded_port:
+                            -
+                                guest: ~
+                                host: ~
+    provision:
+        puppet:
+            manifests_path: 'puphpet/puppet/manifests'
+            module_path: 'puphpet/puppet/modules'
+            options:
+                - '--verbose'
+                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
     synced_folder:
         -
+            id: vagrant-root
             source: ./
             target: /var/www
-            id: vagrant-root
             sync_type: default
             owner: 'www-data'
             group: 'www-data'
@@ -40,22 +61,28 @@ vm:
                     - '.vagrant/'
                     - '.git/'
                 auto: true
-    network:
-        forwarded_port:
-            -
-                guest: ~
-                host: ~
-    post_up_message: ''
-    provision:
-        puppet:
-            manifests_path: 'puphpet/puppet/manifests'
-            module_path: 'puphpet/puppet/modules'
-            options:
-                - '--verbose'
-                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
     usable_port_range:
         start: 10200
         stop: 10500
+    post_up_message: ''
+
 ssh:
-    forward_agent: true
+    host: ~
+    port: ~
+    private_key_path: ~
+    username: vagrant
+    guest_port: ~
+    keep_alive: true
+    forward_agent: false
+    forward_x11: false
+    shell: bash -l
     insert_key: false
+
+vagrant:
+    host: detect
+
+proxy:
+    http: ~
+    https: ~
+    ftp: ~
+    no_proxy: ''

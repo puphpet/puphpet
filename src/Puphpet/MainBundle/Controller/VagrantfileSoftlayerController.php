@@ -13,6 +13,16 @@ class VagrantfileSoftlayerController extends Controller
         ]);
     }
 
+    public function machineAction()
+    {
+        return $this->render('PuphpetMainBundle:vagrantfile-softlayer/sections:machine.html.twig', [
+            'machine'     => $this->getData()['empty_machine'],
+            'datacenters' => $this->getData()['datacenters'],
+            'cpus'        => $this->getData()['cpus'],
+            'memories'    => $this->getData()['memory'],
+        ]);
+    }
+
     public function syncedFolderAction()
     {
         return $this->render('PuphpetMainBundle:vagrantfile-softlayer/sections:synced-folder.html.twig', [

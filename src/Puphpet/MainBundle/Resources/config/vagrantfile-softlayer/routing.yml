@@ -2,6 +2,10 @@ puphpet.vagrantfile_softlayer.homepage:
     pattern:  /
     defaults: { _controller: PuphpetMainBundle:VagrantfileSoftlayer:index }
 
+puphpet.vagrantfile_softlayer.machine:
+    pattern: /machine
+    defaults: { _controller: PuphpetMainBundle:VagrantfileSoftlayer:machine }
+
 puphpet.vagrantfile_softlayer.synced_folder:
     pattern: /synced-folder
     defaults: { _controller: PuphpetMainBundle:VagrantfileSoftlayer:syncedFolder }

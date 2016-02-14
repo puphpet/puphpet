@@ -1,5 +1,10 @@
 {% set providerChosen = (data.target == 'aws') ? true : false %}
 
+{% set machines = (data.vm.provider.aws.machines is defined and data.vm.provider.aws.machines)
+    ? data.vm.provider.aws.machines : [] %}
+{% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
+    ? data.vm.synced_folder : [] %}
+
 <div class="section-header">
     <h1>Amazon Server Details</h1>
     <p class="lead">Spin up your virtual machine on Amazon EC2.</p>
@@ -28,81 +33,7 @@
 
     <div class="clearfix"></div>
 
-    <div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-        <input type="hidden" id="vagrantfile-aws-vm-box" name="vagrantfile[vm][box]"
-               value="aws" />
-        <input type="hidden" id="vagrantfile-aws-ssh-username" name="vagrantfile[ssh][username]"
-               value="{{ data.ssh.username }}" />
-        <input type="hidden" id="vagrantfile-aws-vm-provider-aws-region" name="vagrantfile[vm][provider][aws][region]"
-               value="{{ data.vm.provider.aws.region }}" />
-
-        <div class="form-group">
-            <div class="clearfix"><label>Region &amp; Distro</label></div>
-
-            <div class="help-text">
-                <p>Choose the operating system for your server. Rackspace has pre-defined systems you can
-                    choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
-                <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
-                    operating system. You are welcome to attempt to install higher if you'd like, but
-                    we cannot guarantee it will work. In fact in most cases it won't.</p>
-            </div>
-
-            {% for region, images in data.available.images %}
-                <fieldset>
-                    <legend>{{ attribute(data.available.regions, region) }}</legend>
-                    {% for image in images %}
-                        <label class="col-xs-6 radio-tile">
-                            <input type="radio" class="invisible update-other-input"
-                                   data-update-vagrantfile-ssh-username="{{ image.ssh_username }}"
-                                   data-update-vagrantfile-aws-vm-provider-aws-region="{{ region }}"
-                                   name="vagrantfile[vm][provider][aws][ami]"
-                                   value="{{ image.ami }}"
-                                   {% if image.ami == data.vm.provider.aws.ami %}checked{% endif %} />
-                            <span class="content">
-                                <span class="header">
-                                    <i class="icon"></i>
-                                    <span class="title">{{ image.name }}</span>
-                                </span>
-                                <span class="footer">
-                                    PHP {{ image.php_versions|join(', ') }}
-                                    {% if image.marketplace is defined %}
-                                    <br /><br />
-                                    [<a href="{{ image.marketplace }}" target="_blank">Requires Amazon Marketplace agreement.
-                                        Click here to add to your account</a>]
-                                    {% endif %}
-                                </span>
-                            </span>
-                        </label>
-
-                        {% if loop.index is even or loop.last %}
-                            <div class="clearfix"></div>
-                        {% endif %}
-                    {% endfor %}
-                </fieldset>
-            {% endfor %}
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <a href="http://aws.amazon.com/ec2/pricing/"
-                   target="_blank">Pricing information</a>.
-                EC2 pricing is infamously difficult to calculate. Good luck!
-            </div>
-            <label for="vagrantfile-vm-provider-aws-instance_type">Instance Size</label>
-            <select id="vagrantfile-vm-provider-aws-instance_type"
-                   name="vagrantfile[vm][provider][aws][instance_type]"
-                   class="form-control select-tag">
-                {% for type, description in data.available.instance_types %}
-                    <option value="{{ type }}"
-                        {% if type == data.vm.provider.aws.instance_type %}selected{% endif %}>{{ type }} - {{ description }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="clearfix"></div>
-
+    <div id="vagrantfile-aws-container" class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
         <div class="form-group col-xs-6">
             <div class="help-text">
                 <a href="https://console.aws.amazon.com/iam/home?#security_credential" target="_blank">Get it here</a>.
@@ -129,85 +60,20 @@
 
         <div class="clearfix"></div>
 
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                The Key Pair name from
-                <a href="https://console.aws.amazon.com/ec2/v2/home?#KeyPairs:" target="_blank">here</a>.
-            </div>
-            <label for="vagrantfile-vm-provider-aws-keypair_name">EC2 Key Pair Name</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-keypair_name"
-                   name="vagrantfile[vm][provider][aws][keypair_name]"
-                   class="form-control" placeholder="EC2 KEY PAIR NAME"
-                   value="{{ data.vm.provider.aws.keypair_name }}" />
-        </div>
+        {% for machine in machines %}
+            {% include 'PuphpetMainBundle:vagrantfile-aws/sections:machine.html.twig' with {
+                'machine': machine,
+                'instance_types': data.available.instance_types,
+                'regions': data.available.regions
+            } %}
+        {% endfor %}
 
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                <p>The EC2 server will not be accessible without your private key.</p>
+        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_aws.machine') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another machine</a>
 
-                <p>This corresponds to the Key Pair from above.</p>
-
-                <p><strong>It will not be accessible using username/password,
-                        only private key!</strong></p>
-            </div>
-            <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
-            <input type="text" id="vagrantfile-ssh-private_key_path"
-                   name="vagrantfile[ssh][private_key_path]"
-                   class="form-control" placeholder="~/.ssh/id_rsa"
-                   value="{{ data.ssh.private_key_path }}" />
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                Assign security groups to this instance.
-                <a href="https://console.aws.amazon.com/ec2/home?#s=SecurityGroups" target="_blank">Get them here</a>.
-            </div>
-            <label for="vagrantfile-vm-provider-aws-security_groups">EC2 Security Groups</label>
-            <select id="vagrantfile-vm-provider-aws-security_groups"
-                   name="vagrantfile[vm][provider][aws][security_groups][]"
-                   multiple class="form-control select-tags-editable">
-                {% for group in data.vm.provider.aws.security_groups %}
-                    <option value="{{ group }}" selected>{{ group }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                The subnet to boot the instance into, for VPC.
-                <a href="https://console.aws.amazon.com/vpc/home?#subnets:" target="_blank">Get them here</a>.
-            </div>
-            <label for="vagrantfile-vm-provider-aws-subnet_id">VPC Subnet ID</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-subnet_id"
-                   name="vagrantfile[vm][provider][aws][subnet_id]"
-                   class="form-control" placeholder="VPC Subnet ID"
-                   value="{{ data.vm.provider.aws.subnet_id }}" />
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                Assign an elastic IP address to this instance.
-                <a href="https://console.aws.amazon.com/ec2/v2/home?Addresses#Addresses:sort=publicIp" target="_blank">Get them here</a>.
-            </div>
-            <label for="vagrantfile-vm-provider-aws-elastic_ip">Elastic IP Address</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-elastic_ip"
-                   name="vagrantfile[vm][provider][aws][elastic_ip]"
-                   class="form-control" placeholder="Elastic IP"
-                   value="{{ data.vm.provider.aws.elastic_ip }}" />
-        </div>
-
-
-        <div class="clearfix"></div>
-
-        {% if providerChosen %}
-            {% for synced_folder in data.vm.synced_folder %}
-                {% include 'PuphpetMainBundle:vagrantfile-aws/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-            {% endfor %}
-        {% endif %}
+        {% for synced_folder in data.vm.synced_folder %}
+            {% include 'PuphpetMainBundle:vagrantfile-aws/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% endfor %}
 
         <a href="#" data-source-url="{{ path('puphpet.vagrantfile_aws.synced_folder') }}"
            class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>

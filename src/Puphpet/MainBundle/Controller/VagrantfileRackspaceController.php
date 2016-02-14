@@ -13,6 +13,15 @@ class VagrantfileRackspaceController extends Controller
         ]);
     }
 
+    public function machineAction()
+    {
+        return $this->render('PuphpetMainBundle:vagrantfile-rackspace/sections:machine.html.twig', [
+            'machine' => $this->getData()['empty_machine'],
+            'regions' => $this->getData()['regions'],
+            'sizes'   => $this->getData()['sizes'],
+        ]);
+    }
+
     public function syncedFolderAction()
     {
         return $this->render('PuphpetMainBundle:vagrantfile-rackspace/sections:synced-folder.html.twig', [

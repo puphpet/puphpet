@@ -719,27 +719,6 @@ legend {
         background: #fff;
     }
 
-/*
- * Ascii cast
-**/
-    .asciicast-container {
-        width: 95%;
-        margin: 0 auto;
-    }
-
-    #asciicast-container-19251 {
-        height: 470px;
-    }
-
-    #asciicast-iframe-19251 {
-        height: 100%;
-    }
-
-    .asciicast-description {
-        width: 760px;
-        margin: -40px auto 40px;
-    }
-
 .page-header {
     padding-bottom: 0;
     margin: 10px 0;

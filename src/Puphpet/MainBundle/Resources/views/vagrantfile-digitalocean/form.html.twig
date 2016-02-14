@@ -1,5 +1,10 @@
 {% set providerChosen = (data.target == 'digitalocean') ? true : false %}
 
+{% set machines = (data.vm.provider.digitalocean.machines is defined and data.vm.provider.digitalocean.machines)
+    ? data.vm.provider.digitalocean.machines : [] %}
+{% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
+    ? data.vm.synced_folder : [] %}
+
 <div class="section-header">
     <h1>Digital Ocean Server Details</h1>
     <p class="lead">Spin up your virtual machine on Digital Ocean.</p>
@@ -28,10 +33,7 @@
 
     <div class="clearfix"></div>
 
-    <div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-        <input type="hidden" id="vagrantfile-digitalocean-vm-box" name="vagrantfile[vm][box]"
-           value="digital_ocean" />
-
+    <div id="vagrantfile-digitalocean-container" class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
         <div class="form-group">
             <div class="clearfix"><label>Distro</label></div>
 
@@ -46,9 +48,9 @@
             {% for image in data.available.images %}
                 <label class="col-xs-6 radio-tile">
                     <input type="radio" class="invisible"
-                           name="vagrantfile[vm][provider][digital_ocean][image]"
+                           name="vagrantfile[vm][provider][digitalocean][image]"
                            value="{{ image.image }}"
-                           {% if image.image == data.vm.provider.digital_ocean.image %}checked{% endif %} />
+                           {% if image.image == data.vm.provider.digitalocean.image %}checked{% endif %} />
                     <span class="content">
                         <span class="header">
                             <i class="icon"></i>
@@ -68,62 +70,16 @@
 
         <div class="clearfix"></div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <a href="https://www.digitalocean.com/pricing" target="_blank">Pricing information</a>.
-                Digital Ocean charges by the hour, but also shows what a full month would cost.
-            </div>
-            <label for="vagrantfile-vm-provider-digital_ocean-size">Server Size</label>
-            <select id="vagrantfile-vm-provider-digital_ocean-size"
-                   name="vagrantfile[vm][provider][digital_ocean][size]"
-                   class="form-control select-tag">
-                {% for size, name in data.available.sizes %}
-                    <option value="{{ size }}"
-                        {% if size == data.vm.provider.digital_ocean.size %}selected{% endif %}>{{ name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                Name your server. It must be unique to your account!
-            </div>
-            <label for="vagrantfile-vm-hostname">Server Name</label>
-            <input type="text" id="vagrantfile-vm-hostname"
-                   name="vagrantfile[vm][hostname]"
-                   class="form-control"
-                   value="{{ data.vm.hostname }}" />
-        </div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                Choose the one closest to you, or your target audience!
-            </div>
-            <label for="vagrantfile-vm-provider-digital_ocean-region">Datacenter Location</label>
-            <select id="vagrantfile-vm-provider-digital_ocean-region"
-                   name="vagrantfile[vm][provider][digital_ocean][region]"
-                   class="form-control select-tag">
-                {% for key, region in data.available.regions %}
-                    <option value="{{ key }}"
-                        {% if key == data.vm.provider.digital_ocean.region %}selected{% endif %}>{{ region }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="clearfix"></div>
-
         <div class="form-group col-xs-6">
             <div class="help-text">
                 <a href="https://cloud.digitalocean.com/settings/applications"
                    target="_blank">Get it here</a>.
             </div>
-            <label for="vagrantfile-vm-provider-digital_ocean-token">Digital Ocean Token</label>
-            <input type="text" id="vagrantfile-vm-provider-digital_ocean-token"
-                   name="vagrantfile[vm][provider][digital_ocean][token]"
+            <label for="vagrantfile-vm-provider-digitalocean-token">Digital Ocean Token</label>
+            <input type="text" id="vagrantfile-vm-provider-digitalocean-token"
+                   name="vagrantfile[vm][provider][digitalocean][token]"
                    class="form-control" placeholder="DIGITAL OCEAN TOKEN"
-                   value="{{ data.vm.provider.digital_ocean.token }}" />
+                   value="{{ data.vm.provider.digitalocean.token }}" />
         </div>
 
         <div class="form-group col-xs-6">
@@ -131,11 +87,11 @@
                 Change if you already have an SSH key you would like to use.
                 Leave as default otherwise.
             </div>
-            <label for="vagrantfile-vm-provider-digital_ocean-ssh_key_name">SSH Key Name</label>
-            <input type="text" id="vagrantfile-vm-provider-digital_ocean-ssh_key_name"
-                   name="vagrantfile[vm][provider][digital_ocean][ssh_key_name]"
+            <label for="vagrantfile-vm-provider-digitalocean-ssh_key_name">SSH Key Name</label>
+            <input type="text" id="vagrantfile-vm-provider-digitalocean-ssh_key_name"
+                   name="vagrantfile[vm][provider][digitalocean][ssh_key_name]"
                    class="form-control" placeholder="Vagrant"
-                   value="{{ data.vm.provider.digital_ocean.ssh_key_name }}" />
+                   value="{{ data.vm.provider.digitalocean.ssh_key_name }}" />
         </div>
 
         <div class="clearfix"></div>
@@ -166,11 +122,22 @@
 
         <div class="clearfix"></div>
 
-        {% if providerChosen %}
-            {% for synced_folder in data.vm.synced_folder %}
-                {% include 'PuphpetMainBundle:vagrantfile-digitalocean/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-            {% endfor %}
-        {% endif %}
+        {% for machine in machines %}
+            {% include 'PuphpetMainBundle:vagrantfile-digitalocean/sections:machine.html.twig' with {
+                'machine': machine,
+                'regions': data.available.regions,
+                'sizes': data.available.sizes
+            } %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_digitalocean.machine') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another machine</a>
+
+        <div class="clearfix"></div>
+
+        {% for synced_folder in data.vm.synced_folder %}
+            {% include 'PuphpetMainBundle:vagrantfile-digitalocean/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% endfor %}
 
         <a href="#" data-source-url="{{ path('puphpet.vagrantfile_digitalocean.synced_folder') }}"
            class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
@@ -220,19 +187,19 @@
                 <p>Run the following commands from your host's terminal (not within the VM):</p>
 
                 <ul class="nav nav-pills">
-                    <li class="active"><a href="#digital_ocean-instructions-mac" data-toggle="pill">Mac</a></li>
-                    <li><a href="#digital_ocean-instructions-windows" data-toggle="pill">Windows</a></li>
-                    <li><a href="#digital_ocean-instructions-linux" data-toggle="pill">Linux</a></li>
+                    <li class="active"><a href="#digitalocean-instructions-mac" data-toggle="pill">Mac</a></li>
+                    <li><a href="#digitalocean-instructions-windows" data-toggle="pill">Windows</a></li>
+                    <li><a href="#digitalocean-instructions-linux" data-toggle="pill">Linux</a></li>
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="digital_ocean-instructions-mac">
+                    <div class="tab-pane active" id="digitalocean-instructions-mac">
                         <code class="col-xs-11 inline-instructions">
                             $ vagrant plugin install vagrant-digitalocean<br />
                             $ vagrant box add dummy https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box
                         </code>
                     </div>
-                    <div class="tab-pane" id="digital_ocean-instructions-windows">
+                    <div class="tab-pane" id="digitalocean-instructions-windows">
                         <code class="col-xs-11 inline-instructions">
                             $ vagrant plugin install vagrant-digitalocean<br />
                             $ vagrant box add dummy https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box
@@ -247,7 +214,7 @@
                             and add it to your PATH.
                         </p>
                     </div>
-                    <div class="tab-pane" id="digital_ocean-instructions-linux">
+                    <div class="tab-pane" id="digitalocean-instructions-linux">
                         <code class="col-xs-11 inline-instructions">
                             $ vagrant plugin install vagrant-digitalocean<br />
                             $ vagrant box add dummy https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box

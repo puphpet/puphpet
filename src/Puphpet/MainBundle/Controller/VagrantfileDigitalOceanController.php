@@ -13,6 +13,15 @@ class VagrantfileDigitalOceanController extends Controller
         ]);
     }
 
+    public function machineAction()
+    {
+        return $this->render('PuphpetMainBundle:vagrantfile-digitalocean/sections:machine.html.twig', [
+            'machine' => $this->getData()['empty_machine'],
+            'regions' => $this->getData()['regions'],
+            'sizes'   => $this->getData()['sizes'],
+        ]);
+    }
+
     public function syncedFolderAction()
     {
         return $this->render('PuphpetMainBundle:vagrantfile-digitalocean/sections:synced-folder.html.twig', [

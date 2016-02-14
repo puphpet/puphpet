@@ -13,6 +13,15 @@ class VagrantfileAwsController extends Controller
         ]);
     }
 
+    public function machineAction()
+    {
+        return $this->render('PuphpetMainBundle:vagrantfile-aws/sections:machine.html.twig', [
+            'machine'        => $this->getData()['empty_machine'],
+            'instance_types' => $this->getData()['instance_types'],
+            'regions'        => $this->getData()['regions'],
+        ]);
+    }
+
     public function syncedFolderAction()
     {
         return $this->render('PuphpetMainBundle:vagrantfile-aws/sections:synced-folder.html.twig', [

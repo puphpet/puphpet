@@ -2,96 +2,96 @@
 
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'softlayer'
 
-Vagrant.configure('2') do |config|
-  config.vm.define            :softlayer
-  config.nfs.functional       = false
-  config.ssh.username         = 'root'
-  config.ssh.private_key_path = "#{data['ssh']['private_key_path']}"
-  config.vm.box               = 'https://github.com/audiolize/vagrant-softlayer/raw/master/dummy.box'
+provider = data['vm']['provider']['softlayer']
+machines = !provider['machines'].empty? ? provider['machines'] : { }
 
-  config.vm.provider :softlayer do |sl|
-    sl.hostname           = "#{data['vm']['hostname']}"
-    sl.domain             = "#{data['vm']['provider']['softlayer']['domain']}"
-    sl.ssh_key            = "#{data['vm']['provider']['softlayer']['ssh_key']}"
-    sl.username           = "#{data['vm']['provider']['softlayer']['username']}"
-    sl.api_key            = "#{data['vm']['provider']['softlayer']['api_key']}"
-    sl.operating_system   = "#{data['vm']['provider']['softlayer']['operating_system']}"
-    sl.datacenter         = "#{data['vm']['provider']['softlayer']['datacenter']}"
-    sl.max_memory         = data['vm']['provider']['softlayer']['max_memory'].to_i
-    sl.start_cpus         = data['vm']['provider']['softlayer']['start_cpus'].to_i
-  end
+machines.each do |i, machine|
+  config.vm.define "#{machine['id']}" do |machine_id|
+    machine_id.vm.box         = 'dummy'
+    machine_id.vm.hostname    = "#{machine['hostname']}"
+    machine_id.nfs.functional = false
 
-  data['vm']['synced_folder'].each do |i, folder|
-    if folder['source'] != '' && folder['target'] != ''
-      config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}"
+    ssh_username = !data['ssh']['username'].nil? ?
+      data['ssh']['username'] :
+      'root'
+
+    machine_id.ssh.private_key_path = "#{data['ssh']['private_key_path']}"
+    machine_id.ssh.username         = "#{ssh_username}"
+
+    machine_id.vm.provider :softlayer do |sl, override|
+      sl.username          = "#{provider['username']}"
+      sl.api_key           = "#{provider['api_key']}"
+      sl.ssh_key           = "#{provider['ssh_key']}"
+      sl.operating_system  = "#{provider['operating_system']}"
+      sl.hostname          = "#{machine['hostname']}"
+      sl.domain            = "#{machine['domain']}"
+      sl.datacenter        = "#{machine['datacenter']}"
+      sl.max_memory        = machine['max_memory'].to_i
+      sl.start_cpus        = machine['start_cpus'].to_i
+    end
+
+    data['vm']['synced_folder'].each do |i, folder|
+      if folder['source'] != '' && folder['target'] != ''
+        machine_id.vm.synced_folder "#{folder['source']}", "#{folder['target']}",
+          id: "#{i}"
+      end
+    end
+
+    machine_id.vm.provision 'shell' do |s|
+      s.path = 'puphpet/shell/initial-setup.sh'
+      s.args = '/vagrant/puphpet'
+    end
+    machine_id.vm.provision 'shell' do |s|
+      s.path = 'puphpet/shell/check-puppet-modules.sh'
+    end
+    machine_id.vm.provision 'shell' do |s|
+      s.path = 'puphpet/shell/install-puppet.sh'
+    end
+    machine_id.vm.provision :shell do |s|
+      s.path = 'puphpet/shell/execute-files.sh'
+      s.args = ['exec-preprovision']
+    end
+
+    machine_id.vm.provision :puppet do |puppet|
+      puppet.facter = {
+        'fqdn'             => "#{machine_id.vm.hostname}",
+        'ssh_username'     => "#{ssh_username}",
+        'provisioner_type' => ENV['VAGRANT_DEFAULT_PROVIDER'],
+      }
+      puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
+      puppet.manifest_file  = ""
+      puppet.module_path    = "#{data['vm']['provision']['puppet']['module_path']}"
+
+      if !data['vm']['provision']['puppet']['options'].empty?
+        puppet.options = data['vm']['provision']['puppet']['options']
+      end
+    end
+
+    machine_id.vm.provision :shell do |s|
+      s.path = 'puphpet/shell/execute-files.sh'
+      s.args = ['exec-once', 'exec-always']
+    end
+    machine_id.vm.provision :shell, run: 'always' do |s|
+      s.path = 'puphpet/shell/execute-files.sh'
+      s.args = ['startup-once', 'startup-always']
+    end
+
+    machine_id.vm.provision :shell, privileged: false do |s|
+      s.path = 'puphpet/shell/execute-files.sh'
+      s.args = ['exec-once-unprivileged', 'exec-always-unprivileged']
+    end
+    machine_id.vm.provision :shell, run: 'always', privileged: false do |s|
+      s.path = 'puphpet/shell/execute-files.sh'
+      s.args = ['startup-once-unprivileged', 'startup-always-unprivileged']
+    end
+
+    machine_id.vm.provision :shell, :path => 'puphpet/shell/important-notices.sh'
+
+    if !data['ssh']['port'].nil? && data['ssh']['port'].to_bool
+      machine_id.ssh.port = "#{data['ssh']['port']}"
+    end
+    if !data['ssh']['shell'].nil?
+      machine_id.ssh.shell = "#{data['ssh']['shell']}"
     end
   end
-
-  config.vm.provision 'shell' do |s|
-    s.path = 'puphpet/shell/initial-setup.sh'
-    s.args = '/vagrant/puphpet'
-  end
-  config.vm.provision :shell, :path => 'puphpet/shell/check-puppet-modules.sh'
-  config.vm.provision :shell, :path => 'puphpet/shell/install-puppet.sh'
-  config.vm.provision :shell do |s|
-    s.path = 'puphpet/shell/execute-files.sh'
-    s.args = ['exec-preprovision']
-  end
-
-  config.vm.provision :puppet do |puppet|
-    puppet.facter = {
-      'ssh_username'     => 'root',
-      'provisioner_type' => ENV['VAGRANT_DEFAULT_PROVIDER'],
-    }
-    puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
-    puppet.manifest_file  = ""
-    puppet.module_path    = "#{data['vm']['provision']['puppet']['module_path']}"
-
-    if !data['vm']['provision']['puppet']['options'].empty?
-      puppet.options = data['vm']['provision']['puppet']['options']
-    end
-  end
-
-  config.vm.provision :shell do |s|
-    s.path = 'puphpet/shell/execute-files.sh'
-    s.args = ['exec-once', 'exec-always']
-  end
-  config.vm.provision :shell, run: 'always' do |s|
-    s.path = 'puphpet/shell/execute-files.sh'
-    s.args = ['startup-once', 'startup-always']
-  end
-
-  config.vm.provision :shell, privileged: false do |s|
-    s.path = 'puphpet/shell/execute-files.sh'
-    s.args = ['exec-once-unprivileged', 'exec-always-unprivileged']
-  end
-  config.vm.provision :shell, run: 'always', privileged: false do |s|
-    s.path = 'puphpet/shell/execute-files.sh'
-    s.args = ['startup-once-unprivileged', 'startup-always-unprivileged']
-  end
-
-  config.vm.provision :shell, :path => 'puphpet/shell/important-notices.sh'
-
-  if !data['ssh']['host'].nil?
-    config.ssh.host = data['ssh']['host']
-  end
-  if !data['ssh']['port'].nil?
-    config.ssh.port = "#{data['ssh']['port']}"
-  end
-  if !data['ssh']['guest_port'].nil?
-    config.ssh.guest_port = data['ssh']['guest_port']
-  end
-  if !data['ssh']['shell'].nil?
-    config.ssh.shell = "#{data['ssh']['shell']}"
-  end
-  if !data['ssh']['keep_alive'].nil?
-    config.ssh.keep_alive = data['ssh']['keep_alive']
-  end
-  if !data['ssh']['forward_agent'].nil?
-    config.ssh.forward_agent = data['ssh']['forward_agent']
-  end
-  if !data['ssh']['forward_x11'].nil?
-    config.ssh.forward_x11 = data['ssh']['forward_x11']
-  end
-
 end

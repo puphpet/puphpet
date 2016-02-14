@@ -3,18 +3,24 @@ target: ~
 vm:
     provider:
         aws:
-            ami: ami-4b124a22
-            region: us-east-1
-            instance_type: m1.small
-            tags:
-                Source: Puphpet
-    synced_folder:
-        -
-            source: ./
-            target: /var/www
-            id: webroot
-            nfs: false
-    network:
+            access_key_id: ACCESS KEY ID
+            secret_access_key: SECRET ACCESS KEY
+            machines:
+                -
+                    id: aws1
+                    hostname: aws1.puphpet
+                    ssh_username: ubuntu
+                    keypair_name: REGION KEYPAIR NAME
+                    private_key_path: REGION PRIVATE KEY PATH
+                    region: us-east-1
+                    instance_type: t2.small
+                    ami: ami-7b386c11
+                    subnet_id: ~
+                    elastic_ip: ~
+                    security_groups:
+                        - vagrant
+                    tags:
+                        Source: Puphpet
     provision:
         puppet:
             manifests_path: "puphpet/puppet/manifests"
@@ -22,7 +28,12 @@ vm:
             options:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
+    synced_folder:
+        -
+            source: ./
+            target: /var/www
+            id: webroot
+            nfs: false
+    post_up_message: ''
 ssh:
-    username: admin
     forward_agent: true
-    private_key_path: "~/.ssh/id_rsa"

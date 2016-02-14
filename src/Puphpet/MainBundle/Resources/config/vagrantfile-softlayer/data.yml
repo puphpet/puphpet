@@ -1,18 +1,13 @@
 target: ~
 
 vm:
-    box: softlayer
-    hostname: master
     provider:
         softlayer:
             username: ~
             api_key: ~
             ssh_key: ~
             operating_system: ~
-            datacenter: ~
-            max_memory: ~
-            start_cpus: ~
-            domain: ~
+            machines: []
     provision:
         puppet:
             manifests_path: "puphpet/puppet/manifests"
@@ -21,18 +16,9 @@ vm:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
     synced_folder: []
-
+    post_up_message: ''
 ssh:
-    host: ~
-    port: ~
-    private_key_path: ~
-    public_key_path: ~
-    username: ~
-    guest_port: ~
-    keep_alive: true
-    forward_agent: false
-    forward_x11: false
-    shell: bash -l
-
-vagrant:
-    host: detect
+    username: PRIVATE_KEY_USER
+    forward_agent: true
+    private_key_path: "~/.ssh/id_rsa"
+    public_key_path: "~/.ssh/id_rsa.pub"

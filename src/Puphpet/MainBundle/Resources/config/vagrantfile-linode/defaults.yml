@@ -3,18 +3,16 @@ target: ~
 vm:
     provider:
         linode:
-            distribution: Ubuntu 14.04 LTS
-            datacenter: Newark
-            plan: 1024
             token: LINODE_API_KEY
             ssh_key_name: Vagrant
-    synced_folder:
-        -
-            source: ./
-            target: /var/www
-            id: webroot
-            nfs: false
-    network:
+            distribution: Ubuntu 14.04 LTS
+            machines:
+                -
+                    id: linode1
+                    hostname: linode1.puphpet
+                    datacenter: dfw
+                    plan: 1024
+                    label: linode1-puphpet
     provision:
         puppet:
             manifests_path: "puphpet/puppet/manifests"
@@ -22,7 +20,15 @@ vm:
             options:
                 - "--verbose"
                 - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
+    synced_folder:
+        -
+            source: ./
+            target: /var/www
+            id: webroot
+            nfs: false
+    post_up_message: ''
 ssh:
     username: PRIVATE_KEY_USER
     forward_agent: true
     private_key_path: "~/.ssh/id_rsa"
+    public_key_path: "~/.ssh/id_rsa.pub"

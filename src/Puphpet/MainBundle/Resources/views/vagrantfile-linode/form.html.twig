@@ -1,5 +1,10 @@
 {% set providerChosen = (data.target == 'linode') ? true : false %}
 
+{% set machines = (data.vm.provider.linode.machines is defined and data.vm.provider.linode.machines)
+    ? data.vm.provider.linode.machines : [] %}
+{% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
+    ? data.vm.synced_folder : [] %}
+
 <div class="section-header">
     <h1>Linode Server Details</h1>
     <p class="lead">Spin up your virtual machine on Linode.</p>
@@ -28,10 +33,7 @@
 
     <div class="clearfix"></div>
 
-    <div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-        <input type="hidden" id="vagrantfile-linode-vm-box" name="vagrantfile[vm][box]"
-               value="linode" />
-
+    <div id="vagrantfile-linode-container" class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
         <div class="form-group">
             <div class="clearfix"><label>Distro</label></div>
 
@@ -70,51 +72,6 @@
 
         <div class="form-group col-xs-6">
             <div class="help-text">
-                <a href="https://www.linode.com/pricing"
-                   target="_blank">Pricing information</a>.
-                Linode charges by the hour, but also shows what a full month would cost.
-            </div>
-            <label for="vagrantfile-vm-provider-linode-plan">Server Size</label>
-            <select id="vagrantfile-vm-provider-linode-plan"
-                   name="vagrantfile[vm][provider][linode][plan]"
-                   class="form-control select-tag">
-                {% for plan, name in data.available.plans %}
-                    <option value="{{ plan }}"
-                        {% if plan == data.vm.provider.linode.plan %}selected{% endif %}>{{ name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                Choose the one closest to you, or your target audience!
-            </div>
-            <label for="vagrantfile-vm-provider-linode-datacenter">Datacenter Location</label>
-            <select id="vagrantfile-vm-provider-linode-datacenter"
-                   name="vagrantfile[vm][provider][linode][datacenter]"
-                   class="form-control select-tag">
-                {% for key, datacenter in data.available.datacenters %}
-                    <option value="{{ key }}"
-                        {% if key == data.vm.provider.linode.datacenter %}selected{% endif %}>{{ datacenter }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
-                Name your server. It must be unique to your account!
-            </div>
-            <label for="vagrantfile-vm-hostname">Server Name</label>
-            <input type="text" id="vagrantfile-vm-hostname"
-                   name="vagrantfile[vm][hostname]"
-                   class="form-control"
-                   value="{{ data.vm.hostname }}" />
-        </div>
-
-        <div class="form-group col-xs-6">
-            <div class="help-text">
                 <a href="https://manager.linode.com/profile/index/"
                    target="_blank">Get it here</a>.
             </div>
@@ -124,8 +81,6 @@
                    class="form-control" placeholder="LINODE API KEY"
                    value="{{ data.vm.provider.linode.token }}" />
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-6">
             <div class="help-text">
@@ -137,6 +92,8 @@
                    class="form-control"
                    value="{{ data.ssh.username }}" />
         </div>
+
+        <div class="clearfix"></div>
 
         <div class="form-group col-xs-6">
             <div class="help-text">
@@ -150,8 +107,6 @@
                    class="form-control" placeholder="~/.ssh/id_rsa"
                    value="{{ data.ssh.private_key_path }}" />
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-6">
             <div class="help-text">
@@ -167,11 +122,22 @@
 
         <div class="clearfix"></div>
 
-        {% if providerChosen %}
-            {% for synced_folder in data.vm.synced_folder %}
-                {% include 'PuphpetMainBundle:vagrantfile-linode/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-            {% endfor %}
-        {% endif %}
+        {% for machine in machines %}
+            {% include 'PuphpetMainBundle:vagrantfile-linode/sections:machine.html.twig' with {
+                'machine': machine,
+                'datacenters': data.available.datacenters,
+                'plans': data.available.plans
+            } %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_linode.machine') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another machine</a>
+
+        <div class="clearfix"></div>
+
+        {% for synced_folder in data.vm.synced_folder %}
+            {% include 'PuphpetMainBundle:vagrantfile-linode/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+        {% endfor %}
 
         <a href="#" data-source-url="{{ path('puphpet.vagrantfile_linode.synced_folder') }}"
            class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>

@@ -13,6 +13,15 @@ class VagrantfileGceController extends Controller
         ]);
     }
 
+    public function machineAction()
+    {
+        return $this->render('PuphpetMainBundle:vagrantfile-gce/sections:machine.html.twig', [
+            'machine'       => $this->getData()['empty_machine'],
+            'zones'         => $this->getData()['zones'],
+            'machine_types' => $this->getData()['machine_types'],
+        ]);
+    }
+
     public function syncedFolderAction()
     {
         return $this->render('PuphpetMainBundle:vagrantfile-gce/sections:synced-folder.html.twig', [
