@@ -5,3 +5,7 @@ versions:
         default: '1'
         bundler: '1'
         version: 1.9.3
+        gems:
+            - deep_merge
+            - activesupport
+            - vine
