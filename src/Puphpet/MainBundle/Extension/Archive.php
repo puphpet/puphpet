@@ -4,7 +4,7 @@ namespace Puphpet\MainBundle\Extension;
 
 class Archive
 {
-    const ARCHIVE_LOCATION = __DIR__ . '/../../../../archive';
+    const ARCHIVE_LOCATION = '/../../../../archive';
     const ZIP_COMMAND      = 'cd "%s" && cd .. && zip -r "%s" "%s" -x "*/.git/*" -x "*/.tmp/*" -x "*/.librarian/*"';
 
     /**
@@ -37,7 +37,7 @@ class Archive
     public function getSourceDir()
     {
         if (!$this->sourceDir) {
-            $this->sourceDir = sprintf('%s/%s', self::ARCHIVE_LOCATION, $this->subDir);
+            $this->sourceDir = sprintf('%s/%s', __DIR__.self::ARCHIVE_LOCATION, $this->subDir);
         }
 
         return $this->sourceDir;
