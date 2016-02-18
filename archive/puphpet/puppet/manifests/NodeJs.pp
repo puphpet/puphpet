@@ -43,6 +43,8 @@ class puphpet_nodejs (
     $pkg_url = $version_num ? {
       '0.12'  => 'https://rpm.nodesource.com/pub_0.12/el/6/x86_64/nodejs-0.12.9-1nodesource.el6.x86_64.rpm',
       '0.10'  => 'https://rpm.nodesource.com/pub_0.10/el/6/x86_64/nodejs-0.10.41-1nodesource.el6.x86_64.rpm',
+      '4'     => 'https://rpm.nodesource.com/pub_4.x/el/6/x86_64/nodejs-4.2.6-2nodesource.el6.x86_64.rpm',
+      '5'     => 'https://rpm.nodesource.com/pub_5.x/el/6/x86_64/nodejs-5.6.0-1nodesource.el6.x86_64.rpm',
       default => false
     }
 
@@ -53,6 +55,8 @@ class puphpet_nodejs (
     $dev_url = $version_num ? {
       '0.12' => 'https://rpm.nodesource.com/pub_0.12/el/6/x86_64/nodejs-devel-0.12.9-1nodesource.el6.x86_64.rpm',
       '0.10' => 'https://rpm.nodesource.com/pub_0.10/el/6/x86_64/nodejs-devel-0.10.41-1nodesource.el6.x86_64.rpm',
+      '4'    => 'https://rpm.nodesource.com/pub_4.x/el/6/x86_64/nodejs-devel-4.2.6-2nodesource.el6.x86_64.rpm',
+      '5'    => 'https://rpm.nodesource.com/pub_5.x/el/6/x86_64/nodejs-devel-5.6.0-1nodesource.el6.x86_64.rpm',
     }
 
     $pkg_save_to = '/.puphpet-stuff/nodesource_pkg'
