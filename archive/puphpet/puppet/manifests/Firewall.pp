@@ -40,10 +40,12 @@ class puphpet_firewall (
       true  => $vm['ssh']['port'],
       false => 22,
     }
+  } else {
+    $vm_ssh_port = 22
+  }
 
-    if ! defined(Puphpet::Firewall::Port["${vm_ssh_port}"]) {
-      puphpet::firewall::port { "${vm_ssh_port}": }
-    }
+  if ! defined(Puphpet::Firewall::Port["${vm_ssh_port}"]) {
+    puphpet::firewall::port { "${vm_ssh_port}": }
   }
 
   # Opens up forwarded ports on locale machines; remote servers won't have these keys
