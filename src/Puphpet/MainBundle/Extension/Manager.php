@@ -17,9 +17,9 @@ class Manager
     /** @var array */
     protected $extensions = [];
 
-    public function __construct($confDir = __DIR__ . '/../Resources/config')
+    public function __construct($confDir = false)
     {
-        $this->confDir = $confDir;
+        $this->confDir = ($confDir?$confDir:__DIR__ . '/../Resources/config');
     }
 
     /**
