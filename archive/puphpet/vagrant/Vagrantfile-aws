@@ -15,7 +15,7 @@ machines.each do |i, machine|
       aws.secret_access_key         = "#{provider['secret_access_key']}"
       aws.keypair_name              = "#{machine['keypair_name']}"
       override.ssh.private_key_path = "#{machine['private_key_path']}"
-      override.ssh.username         = "#{machine['username']}"
+      override.ssh.username         = "#{machine['ssh_username']}"
       aws.region                    = "#{machine['region']}"
       aws.instance_type             = "#{machine['instance_type']}"
       aws.ami                       = "#{machine['ami']}"
