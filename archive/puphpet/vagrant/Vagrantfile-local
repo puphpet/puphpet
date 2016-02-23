@@ -378,7 +378,7 @@ machines.each do |i, machine|
       puppet.facter = {
         'fqdn'             => "#{machine_id.vm.hostname}",
         'ssh_username'     => "#{ssh_username}",
-        'provisioner_type' => ENV['VAGRANT_DEFAULT_PROVIDER'],
+        'provisioner_type' => 'local',
       }
       puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
       puppet.manifest_file  = ""
