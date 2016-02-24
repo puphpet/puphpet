@@ -7,7 +7,6 @@ machines = !provider['machines'].empty? ? provider['machines'] : { }
 
 machines.each do |i, machine|
   config.vm.define "#{machine['id']}" do |machine_id|
-    machine_id.vm.define      :aws
     machine_id.vm.box         = 'dummy'
     machine_id.vm.hostname    = "#{machine['hostname']}"
     machine_id.nfs.functional = false
