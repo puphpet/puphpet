@@ -31,8 +31,10 @@ machines.each do |i, machine|
       end
 
       aws.tags = {}
-      machine['tags'].each do |key, tag|
-        aws.tags.store(key, tag)
+      if machine.key?('tags')
+        machine['tags'].each do |key, tag|
+          aws.tags.store(key, tag)
+        end
       end
     end
 
@@ -59,6 +61,7 @@ machines.each do |i, machine|
     end
 
     machine_id.vm.provision :puppet do |puppet|
+      ssh_username = !machine['ssh_username'].nil? ? machine['ssh_username'] : 'vagrant'
       puppet.facter = {
         'fqdn'             => "#{machine_id.vm.hostname}",
         'ssh_username'     => "#{ssh_username}",
