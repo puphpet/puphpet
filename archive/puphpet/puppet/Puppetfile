@@ -2,7 +2,7 @@ forge "https://forgeapi.puppetlabs.com"
 
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '869eba270668516c726348b05bcaad29abcdd15a'
+    :ref => 'c013d1639814311933f9f3ef20983293923c6b00'
 mod 'puppetlabs/stdlib',
     :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
     :ref => '4.11.0'
@@ -50,7 +50,7 @@ mod 'puppetlabs/mongodb',
     :ref => '38ceb81e36bbbb844039e12fb8aebb43cb2cef0d'
 mod 'puppetlabs/mysql',
     :git => 'https://github.com/puppetlabs/puppetlabs-mysql.git',
-    :ref => '3.3.0'
+    :ref => 'a3d0de3e053daa14aeaaa05badaa3867dc2533f7'
 mod 'jfryman/nginx',
     :git => 'https://github.com/puphpet/puppet-nginx.git',
     :ref => '3ab5c5ab549b56f641ae4d842415de8b99e3a522'

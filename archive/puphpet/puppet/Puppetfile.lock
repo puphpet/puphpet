@@ -111,8 +111,8 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: 869eba270668516c726348b05bcaad29abcdd15a
-  sha: 869eba270668516c726348b05bcaad29abcdd15a
+  ref: c013d1639814311933f9f3ef20983293923c6b00
+  sha: c013d1639814311933f9f3ef20983293923c6b00
   specs:
     puphpet-puphpet (1.0)
 
@@ -199,7 +199,7 @@ GIT
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-mysql.git
-  ref: 3.3.0
+  ref: a3d0de3e053daa14aeaaa05badaa3867dc2533f7
   sha: c01682597524ae9395daa1133e11f576a80569a0
   specs:
     puppetlabs-mysql (3.3.0)

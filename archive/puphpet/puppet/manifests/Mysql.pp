@@ -49,10 +49,16 @@ class puphpet_mysql (
     }
   })
 
+  $install_options = $::osfamily ? {
+    'Debian' => '--force-yes',
+    default  => '',
+  }
+
   $settings = delete(deep_merge({
     'package_name'     => $server_package,
     'restart'          => true,
     'override_options' => $override_options,
+    'install_options'  => $install_options,
     require            => Class['puphpet::mysql::repo'],
   }, $mysql['settings']), ['version', 'root_password'])
 
