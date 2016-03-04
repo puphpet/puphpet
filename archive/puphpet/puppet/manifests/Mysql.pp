@@ -51,7 +51,7 @@ class puphpet_mysql (
 
   $install_options = $::osfamily ? {
     'Debian' => '--force-yes',
-    default  => '',
+    default  => undef,
   }
 
   $settings = delete(deep_merge({
