@@ -148,7 +148,13 @@ class puphpet_server (
     }
   }
 
-  each( $server['packages'] ) |$package| {
+  # config file could contain no packages key
+  $packages = array_true($server, 'packages') ? {
+    true    => $server['packages'],
+    default => { }
+  }
+
+  each( $packages ) |$package| {
     if ! defined(Package[$package]) {
       package { $package:
         ensure => present,

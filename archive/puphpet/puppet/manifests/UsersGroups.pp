@@ -5,7 +5,13 @@ class puphpet_usersgroups (
   Group <| |>
   -> User <| |>
 
-  each( $users_groups['groups'] ) |$key, $group| {
+  # config file could contain no groups key
+  $groups = array_true($users_groups, 'groups') ? {
+    true    => $users_groups['groups'],
+    default => { }
+  }
+
+  each( $groups ) |$key, $group| {
     if ! defined(Group[$group]) {
       group { $group:
         ensure => present
@@ -13,7 +19,13 @@ class puphpet_usersgroups (
     }
   }
 
-  each( $users_groups['users'] ) |$key, $user_group| {
+  # config file could contain no users key
+  $users = array_true($users_groups, 'users') ? {
+    true    => $users_groups['users'],
+    default => { }
+  }
+
+  each( $users ) |$key, $user_group| {
     $ug_array = split($user_group, ':')
 
     $user = $ug_array[0]
