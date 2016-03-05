@@ -42,8 +42,20 @@ class puphpet_sqlite(
     })
   }
 
-  if $php_package == 'php' and ! defined(Puphpet::Php::Pecl['sqlite']) {
-    puphpet::php::pecl { 'sqlite':
+  case $::operatingsystem {
+    'debian': {
+      $php_sqlite = 'sqlite'
+    }
+    'ubuntu': {
+      $php_sqlite = 'sqlite3'
+    }
+    'redhat', 'centos': {
+      $php_sqlite = 'sqlite3'
+    }
+  }
+
+  if $php_package == 'php' and ! defined(Puphpet::Php::Module[$php_sqlite]) {
+    puphpet::php::module { $php_sqlite:
       service_autorestart => true,
     }
   }
