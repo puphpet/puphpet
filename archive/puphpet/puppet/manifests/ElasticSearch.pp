@@ -16,7 +16,14 @@ class puphpet_elasticsearch (
       $url = "${url_base}/elasticsearch-${version}.deb"
     }
     'redhat': {
-      $url = "${url_base}/elasticsearch-${version}.noarch.rpm"
+      $noarch_rpm = ''
+
+      # Versions less than 2.0.0 have .noarch on the rpm
+      if $version =~ /^1\./ {
+        $noarch_rpm = '.noarch'
+      }
+
+      $url = "${url_base}/elasticsearch-${version}${noarch_rpm}.rpm"
     }
     default: {
       fail('Unrecognized operating system for Elastic Search')
