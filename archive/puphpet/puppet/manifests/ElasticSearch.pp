@@ -16,11 +16,11 @@ class puphpet_elasticsearch (
       $url = "${url_base}/elasticsearch-${version}.deb"
     }
     'redhat': {
-      $noarch_rpm = ''
-
       # Versions less than 2.0.0 have .noarch on the rpm
       if $version =~ /^1\./ {
         $noarch_rpm = '.noarch'
+      } else {
+        $noarch_rpm = ''
       }
 
       $url = "${url_base}/elasticsearch-${version}${noarch_rpm}.rpm"
