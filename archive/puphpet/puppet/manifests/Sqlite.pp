@@ -47,7 +47,7 @@ class puphpet_sqlite(
       $php_sqlite = 'sqlite'
     }
     'ubuntu': {
-      $php_sqlite = 'sqlite3'
+      $php_sqlite = 'sqlite'
     }
     'redhat', 'centos': {
       $php_sqlite = 'sqlite3'
