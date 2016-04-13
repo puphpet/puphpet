@@ -26,7 +26,7 @@ mod 'puppetlabs/concat',
     :ref => '1.1.1'
 mod 'elasticsearch/elasticsearch',
     :git => 'https://github.com/elastic/puppet-elasticsearch.git',
-    :ref => '0.10.1'
+    :ref => '0.10.3'
 mod 'garethr/erlang',
     :git => 'https://github.com/garethr/garethr-erlang.git',
     :ref => 'a8f29a48e8127e75d3ab747bca1c4ed4746369f7'

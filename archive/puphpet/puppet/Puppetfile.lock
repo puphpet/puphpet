@@ -25,10 +25,10 @@ GIT
 
 GIT
   remote: https://github.com/elastic/puppet-elasticsearch.git
-  ref: 0.10.1
-  sha: 785afdc9783a2d4e79584514b1b6fb6c223a32ba
+  ref: 0.10.3
+  sha: 36409eae08800fb2107d9ea4fef031f5348cb1ca
   specs:
-    elasticsearch-elasticsearch (0.10.1)
+    elasticsearch-elasticsearch (0.10.3)
       puppetlabs-apt (< 3.0.0, >= 1.4.0)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
       richardc-datacat (< 1.0.0, >= 0.6.2)

@@ -1,7 +1,7 @@
 install: 0
 
 settings:
-    version: 2.1.0
+    version: 2.3.1
     java_install: true
 
 instances:
