@@ -6,6 +6,8 @@ class puphpet_elasticsearch (
     puphpet::firewall::port { "9200": }
   }
 
+  $settings = $elasticsearch['settings']
+
   if ! defined(Class['java']) and $settings['java_install'] {
     class { 'java':
       distribution => 'jre',
