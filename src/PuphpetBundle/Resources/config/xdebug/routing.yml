@@ -1,0 +1,3 @@
+puphpet.xdebug.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetBundle:Xdebug:index }

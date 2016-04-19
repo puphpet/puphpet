@@ -19,7 +19,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
-            new Puphpet\MainBundle\PuphpetMainBundle(),
+            new PuphpetBundle\PuphpetBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

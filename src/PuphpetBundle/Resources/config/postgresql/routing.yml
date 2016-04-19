@@ -1,0 +1,15 @@
+puphpet.postgresql.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetBundle:Postgresql:index }
+
+puphpet.postgresql.add_user:
+    pattern:  /add-user
+    defaults: { _controller: PuphpetBundle:Postgresql:addUser }
+
+puphpet.postgresql.add_database:
+    pattern:  /add-database
+    defaults: { _controller: PuphpetBundle:Postgresql:addDatabase }
+
+puphpet.postgresql.add_grant:
+    pattern:  /add-grant
+    defaults: { _controller: PuphpetBundle:Postgresql:addGrant }

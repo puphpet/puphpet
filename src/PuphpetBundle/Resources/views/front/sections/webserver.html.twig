@@ -1,0 +1,6 @@
+<div class="tab-pane" id="nginx">
+    {% include 'PuphpetBundle:nginx:form.html.twig' with {'nginx': add_available(extensions.nginx.merged, extensions.nginx.available)} %}
+</div>
+<div class="tab-pane" id="apache">
+    {% include 'PuphpetBundle:apache:form.html.twig' with {'apache': add_available(extensions.apache.merged, extensions.apache.available)} %}
+</div>

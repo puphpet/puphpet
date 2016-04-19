@@ -1,0 +1,3 @@
+puphpet.beanstalkd.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetBundle:Beanstalkd:index }

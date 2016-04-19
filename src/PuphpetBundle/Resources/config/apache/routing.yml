@@ -1,0 +1,15 @@
+puphpet.apache.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetBundle:Apache:index }
+
+puphpet.apache.vhost:
+    pattern:  /vhost
+    defaults: { _controller: PuphpetBundle:Apache:vhost }
+
+puphpet.apache.directory:
+    pattern:  /directory
+    defaults: { _controller: PuphpetBundle:Apache:directory }
+
+puphpet.apache.files_match:
+    pattern:  /files-match
+    defaults: { _controller: PuphpetBundle:Apache:filesMatch }

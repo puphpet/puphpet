@@ -1,0 +1,74 @@
+<input type="hidden" name="apache[install]" value="0" />
+
+<div class="section-header">
+    <h1>Apache Web Server</h1>
+    <p class="lead">Setup Apache. Not as hip as Nginx.</p>
+</div>
+
+<div class="field-container">
+    <div class="form-group">
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="apache[install]" value="1"
+                   class="invisible toggle-on-select update-other-input-on-check"
+                   {% if apache.install %}checked{% endif %}
+                   data-vis-toggle-target="#apache-container"
+                   data-update-on-check-nginx[install]="0" />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Install Apache</span>
+                </span>
+                <span class="footer">
+                    You cannot install Nginx with Apache. Nginx will be deselected.
+                </span>
+            </span>
+        </label>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div id="apache-container" class="{% if not apache.install %}hidden{% endif %}">
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                <p><code>proxy_fcgi</code> is required for PHP.</p>
+                <p><code>ssl</code> is automatically added when you create an SSL vhost below.
+                    Do not add it here.</p>
+            </div>
+            <label for="apache-modules">Apache Modules</label>
+            <select id="apache-modules"
+                    name="apache[modules][]"
+                    multiple class="form-control select-tags-editable">
+                {% for module in apache.available.modules %}
+                    <option value="{{ module }}"
+                    {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% for vhost in apache.vhosts %}
+            {% include 'PuphpetBundle:apache/sections:vhost.html.twig' with {'vhost': vhost} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.apache.vhost') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add an Apache vhost</a>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#nginx">
+            <i class="fa fa-hand-o-left"></i> Nginx
+        </a>
+    </div>
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#php">
+            PHP <i class="fa fa-hand-o-right"></i>
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

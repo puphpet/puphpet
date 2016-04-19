@@ -1,0 +1,3 @@
+puphpet.redis.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetBundle:Redis:index }

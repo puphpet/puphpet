@@ -6,18 +6,18 @@ Community made patches, bug reports and contributions are always welcome and are
 
 * You need a [GitHub account](https://github.com/signup/free)
 * Submit an [issue ticket](https://github.com/puphpet/puphpet/issues) for your issue, assuming one does not already exist.
-	* Clearly Describe the issue including steps to reproduce when it's a bug.
-	* Ensure to paste the contents of your `puphpet/config.yaml` file!
-	* Ensure to mark `xxxx` if you have sensitive information (passwords, api keys, etc).
+    * Clearly Describe the issue including steps to reproduce when it's a bug.
+    * Ensure to paste the contents of your `puphpet/config.yaml` file!
+    * Ensure to mark `xxxx` if you have sensitive information (passwords, api keys, etc).
 * Fork the repository on GitHub
 
 ## Make Changes
 
 * In your forked repository, create a topic branch for your upcoming patch.
-	* Usually this is based on the master branch.
-	* Create a branch based on master; `git branch
-	fix/master/my_contribution master` then checkout the new branch with `git
-	checkout fix/master/my_contribution`.  Please avoid working directly on the `master` branch.
+    * Usually this is based on the master branch.
+    * Create a branch based on master; `git branch
+    fix/master/my_contribution master` then checkout the new branch with `git
+    checkout fix/master/my_contribution`.  Please avoid working directly on the `master` branch.
 * Make commits of logical units and describe them properly.
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * If possible, submit tests to your patch/new feature so it can be tested easily.

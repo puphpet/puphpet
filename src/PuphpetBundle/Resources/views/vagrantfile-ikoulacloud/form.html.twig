@@ -1,0 +1,268 @@
+{% set providerChosen = (data.target == 'ikoulacloud') ? true : false %}
+
+<div class="section-header">
+    <h1>Ikoula Server Details</h1>
+    <p class="lead">Spin up your virtual machine on Ikoula Cloud.</p>
+</div>
+
+<div class="field-container">
+    <div class="form-group">
+        <label class="col-xs-12 radio-tile">
+            <input type="radio" name="vagrantfile[target]" value="ikoulacloud" class="invisible"
+                   {% if providerChosen %}checked{% endif %} />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Deploy to Ikoula Cloud</span>
+                </span>
+                <span class="footer">
+                    A new server will be spun up at Ikoula Cloud.
+                    <a href="#" data-toggle="modal"
+                       data-target="#vagrantfile-ikoulacloud-modal">Click here for instructions</a>.
+                </span>
+            </span>
+        </label>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
+        <input type="hidden" id="vagrantfile-ikoulacloud-vm-box" name="vagrantfile[vm][box]"
+               value="ikoulacloud" />
+        <input type="hidden" id="vagrantfile-ikoulacloud-ssh-username" name="vagrantfile[ssh][username]"
+               value="{{ data.ssh.username }}" />
+        <input type="hidden" id="vagrantfile-ikoulacloud-vm-provider-cloudstack-zone_name"
+               name="vagrantfile[vm][provider][cloudstack][zone_name]"
+               value="{{ data.vm.provider.cloudstack.zone_name }}" />
+
+        <div class="form-group">
+            <div class="clearfix"><label>Distro</label></div>
+
+            <div class="help-text">
+                <p>Choose the operating system for your server. Rackspace has pre-defined systems you can
+                    choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
+                <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
+                    operating system. You are welcome to attempt to install higher if you'd like, but
+                    we cannot guarantee it will work. In fact in most cases it won't.</p>
+            </div>
+
+            {% for zone_name, images in data.available.images %}
+                <fieldset>
+                    <legend>{{ attribute(data.available.zone_names, zone_name) }}</legend>
+
+                    {% for image in images %}
+                        <label class="col-xs-6 radio-tile">
+                            <input type="radio" class="invisible"
+                                   name="vagrantfile[vm][provider][cloudstack][template_name]"
+                                   value="{{ image.template_name }}"
+                                   data-update-vagrantfile-ssh-username="{{ image.ssh_username }}"
+                                   data-update-vagrantfile-vm-provider-cloudstack-zone_name="{{ zone_name }}"
+                                   {% if image.template_id == data.vm.provider.cloudstack.template_id %}checked{% endif %} />
+                            <span class="content">
+                                <span class="header">
+                                    <i class="icon"></i>
+                                    <span class="title">{{ image.name }}</span>
+                                </span>
+                                <span class="footer">
+                                    PHP {{ image.php_versions|join(', ') }}
+                                    {% if image.marketplace is defined %}
+                                        <br /><br />
+                                        [<a href="{{ image.marketplace }}"
+                                            target="_blank">Requires Ikoula agreement. Click here to add to your account</a>]
+                                    {% endif %}
+                                </span>
+                            </span>
+                        </label>
+
+                        {% if loop.index is even or loop.last %}
+                            <div class="clearfix"></div>
+                        {% endif %}
+                    {% endfor %}
+                </fieldset>
+                <div class="clear-fix"></div>
+            {% endfor %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                <a href="https://express.ikoula.com/en/public-cloud"
+                   target="_blank">Pricing information</a>.
+                Ikoula Cloud charges by the hour, but also shows what a full month would cost.
+            </div>
+            <label for="vagrantfile-vm-provider-cloudstack-service_offering_name">Server Size</label>
+            <select id="vagrantfile-vm-provider-cloudstack-service_offering_name"
+                   name="vagrantfile[vm][provider][cloudstack][service_offering_name]"
+                   class="form-control select-tag">
+                {% for type, description in data.available.service_offering_names %}
+                    <option value="{{ type }}"
+                        {% if type == data.vm.provider.cloudstack.service_offering_name %}selected{% endif %}>{{ type }} - {{ description }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="https://cloudstack.ikoula.com/client"
+                   target="_blank">Get it here</a>.
+            </div>
+            <label for="vagrantfile-vm-provider-cloudstack-api_key">Ikoula API Key</label>
+            <input type="text" id="vagrantfile-vm-provider-cloudstack-api_key"
+                   name="vagrantfile[vm][provider][cloudstack][api_key]"
+                   class="form-control" placeholder="IKOULA API KEY"
+                   value="{{ data.vm.provider.cloudstack.api_key }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="https://cloudstack.ikoula.com/client"
+                   target="_blank">Get it here</a>.
+            </div>
+            <label for="vagrantfile-vm-provider-cloudstack-secret_key">Ikoula Secret Key</label>
+            <input type="text" id="vagrantfile-vm-provider-cloudstack-secret_key"
+                   name="vagrantfile[vm][provider][cloudstack][secret_key]"
+                   class="form-control" placeholder="IKOULA SECRET KEY"
+                   value="{{ data.vm.provider.cloudstack.secret_key }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <a href="https://cloudstack.ikoula.com/client"
+                   target="_blank">Generate here</a>.
+            </div>
+            <label for="vagrantfile-vm-provider-cloudstack-keypair">Ikoula Key Pair Name</label>
+            <input type="text" id="vagrantfile-vm-provider-cloudstack-keypair"
+                   name="vagrantfile[vm][provider][cloudstack][keypair]"
+                   class="form-control" placeholder="IKOULA KEY PAIR NAME"
+                   value="{{ data.vm.provider.cloudstack.keypair }}" />
+        </div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                <p>The Ikoula Cloud server will not be accessible without your private/public key.</p>
+                <p><strong>It will not be accessible using username/password,
+                        only private key!</strong></p>
+            </div>
+            <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
+            <input type="text" id="vagrantfile-ssh-private_key_path"
+                   name="vagrantfile[ssh][private_key_path]"
+                   class="form-control" placeholder="~/.ssh/id_rsa"
+                   value="{{ data.ssh.private_key_path }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-6">
+            <div class="help-text">
+                Assign security groups to this instance.
+                <a href="https://cloudstack.ikoula.com/client" target="_blank">Get them here</a>.
+            </div>
+            <label for="vagrantfile-vm-provider-cloudstack-security_groups_id">Ikoula Security Groups</label>
+            <select id="vagrantfile-vm-provider-cloudstack-security_groups_id"
+                   name="vagrantfile[vm][provider][cloudstack][security_groups_id][]"
+                   multiple class="form-control select-tags-editable">
+                {% for group in data.vm.provider.cloudstack.security_groups_id %}
+                    <option value="{{ group }}" selected>{{ group }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% if providerChosen %}
+            {% for synced_folder in data.vm.synced_folder %}
+                {% include 'PuphpetBundle:vagrantfile-ikoulacloud/sections:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
+            {% endfor %}
+        {% endif %}
+
+        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_ikoulacloud.synced_folder') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-xs-6">
+    </div>
+    <div class="col-xs-6">
+        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#system-packages">
+            System Packages <i class="fa fa-hand-o-right"></i>
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="modal fade" id="vagrantfile-ikoulacloud-modal" tabindex="-1" role="dialog"
+     aria-labelledby="vagrantfile-ikoulacloud-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="vagrantfile-ikoulacloud-modal-label">
+                    Instructions for Ikoula Cloud Deployment
+                </h4>
+            </div>
+            <div class="modal-body">
+                <h3>Ikoula Cloud Instance</h3>
+
+                <p>Don't have an Ikoula Cloud account ?
+                    <a href="https://order.ikoula.com/cloudstack.php"
+                       target="_blank">Click here to create one</a></p>
+
+                <p><a href="http://express.ikoula.com/en/cloud-public"
+                      target="_blank">Information on Ikoula Cloud Instances.</a></p>
+
+                <h3>Installation Requirements</h3>
+
+                <p>Run the following commands from your host's terminal (not within the VM):</p>
+
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#ikoulacloud-instructions-mac" data-toggle="pill">Mac</a></li>
+                    <li><a href="#ikoulacloud-instructions-windows" data-toggle="pill">Windows</a></li>
+                    <li><a href="#ikoulacloud-instructions-linux" data-toggle="pill">Linux</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="ikoulacloud-instructions-mac">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-cloudstack<br />
+                            $ vagrant box add ikoulacloud https://github.com/klarna/vagrant-cloudstack/raw/master/dummy.box
+                        </code>
+                    </div>
+                    <div class="tab-pane" id="ikoulacloud-instructions-windows">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-cloudstack<br />
+                            $ vagrant box add ikoulacloud https://github.com/klarna/vagrant-cloudstack/raw/master/dummy.box
+                        </code>
+
+                        <div class="clearfix"></div>
+
+                        <p>
+                            You need rsync installed. Easiest way is to use Cygwin and install it through there.
+                            Alternatively, you can
+                            <a href="https://www.itefix.no/i2/content/cwrsync-free-edition" target="_blank">install rsync separately</a>
+                            and add it to your PATH.
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="ikoulacloud-instructions-linux">
+                        <code class="col-xs-11 inline-instructions">
+                            $ vagrant plugin install vagrant-cloudstack<br />
+                            $ vagrant box add ikoulacloud https://github.com/klarna/vagrant-cloudstack/raw/master/dummy.box
+                        </code>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

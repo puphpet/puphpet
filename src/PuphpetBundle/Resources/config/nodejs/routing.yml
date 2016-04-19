@@ -1,0 +1,3 @@
+puphpet.nodejs.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetBundle:NodeJs:index }

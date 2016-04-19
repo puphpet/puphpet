@@ -1,0 +1,22 @@
+<div class="tab-pane" id="php">
+    {% include 'PuphpetBundle:php:form.html.twig' with {
+        'php': add_available(extensions.php.merged, extensions.php.available),
+        'xdebug': add_available(extensions.xdebug.merged, extensions.xdebug.available),
+        'blackfire': add_available(extensions.blackfire.merged, extensions.blackfire.available),
+        'xhprof': add_available(extensions.xhprof.merged, extensions.xhprof.available),
+        'wpcli': add_available(extensions.wpcli.merged, extensions.wpcli.available),
+        'drush': add_available(extensions.drush.merged, extensions.drush.available)
+    } %}
+</div>
+<div class="tab-pane" id="ruby">
+    {% include 'PuphpetBundle:ruby:form.html.twig' with {'ruby': add_available(extensions.ruby.merged, extensions.ruby.available)} %}
+</div>
+<div class="tab-pane" id="python">
+    {% include 'PuphpetBundle:python:form.html.twig' with {'python': add_available(extensions.python.merged, extensions.python.available)} %}
+</div>
+<div class="tab-pane" id="nodejs">
+    {% include 'PuphpetBundle:nodejs:form.html.twig' with {'nodejs': add_available(extensions.nodejs.merged, extensions.nodejs.available)} %}
+</div>
+<div class="tab-pane" id="hhvm">
+    {% include 'PuphpetBundle:hhvm:form.html.twig' with {'hhvm': add_available(extensions.hhvm.merged, extensions.hhvm.available)} %}
+</div>

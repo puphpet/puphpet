@@ -1,0 +1,3 @@
+puphpet.xhprof.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetBundle:Xhprof:index }

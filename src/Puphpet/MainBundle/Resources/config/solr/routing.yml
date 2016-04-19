@@ -1,3 +1,0 @@
-puphpet.solr.homepage:
-    pattern:  /
-    defaults: { _controller: PuphpetMainBundle:Solr:index }

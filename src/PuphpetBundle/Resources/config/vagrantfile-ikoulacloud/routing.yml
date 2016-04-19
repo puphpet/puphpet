@@ -1,0 +1,7 @@
+puphpet.vagrantfile_ikoulacloud.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetBundle:VagrantfileIkoulaCloud:index }
+
+puphpet.vagrantfile_ikoulacloud.synced_folder:
+    pattern: /synced-folder
+    defaults: { _controller: PuphpetBundle:VagrantfileIkoulaCloud:syncedFolder }

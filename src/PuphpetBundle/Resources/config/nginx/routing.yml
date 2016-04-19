@@ -1,0 +1,27 @@
+puphpet.nginx.homepage:
+    pattern:  /
+    defaults: { _controller: PuphpetBundle:Nginx:index }
+
+puphpet.nginx.upstream:
+    pattern:  /upstream
+    defaults: { _controller: PuphpetBundle:Nginx:upstream }
+
+puphpet.nginx.proxy:
+    pattern:  /proxy
+    defaults: { _controller: PuphpetBundle:Nginx:proxy }
+
+puphpet.nginx.vhost:
+    pattern:  /vhost
+    defaults: { _controller: PuphpetBundle:Nginx:vhost }
+
+puphpet.nginx.vhost_rewrite:
+    pattern:  /vhost-rewrite/{vhostId}
+    defaults: { _controller: PuphpetBundle:Nginx:vhostRewrite }
+
+puphpet.nginx.location:
+    pattern:  /location/{vhostId}
+    defaults: { _controller: PuphpetBundle:Nginx:location }
+
+puphpet.nginx.location_rewrite:
+    pattern:  /location-rewrite/{vhostId}/{locationId}
+    defaults: { _controller: PuphpetBundle:Nginx:locationRewrite }
