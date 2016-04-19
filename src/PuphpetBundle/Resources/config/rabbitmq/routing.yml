@@ -1,11 +1,11 @@
 puphpet.rabbitmq.homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: PuphpetBundle:RabbitMq:index }
 
 puphpet.rabbitmq.user:
-    pattern:  /user
+    path:  /user
     defaults: { _controller: PuphpetBundle:RabbitMq:user }
 
 puphpet.rabbitmq.permission:
-    pattern:  /permission/{userId}
+    path:  /permission/{userId}
     defaults: { _controller: PuphpetBundle:RabbitMq:permission }

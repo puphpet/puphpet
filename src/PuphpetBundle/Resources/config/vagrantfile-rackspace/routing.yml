@@ -1,11 +1,11 @@
 puphpet.vagrantfile_rackspace.homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: PuphpetBundle:VagrantfileRackspace:index }
 
 puphpet.vagrantfile_rackspace.machine:
-    pattern: /machine
+    path: /machine
     defaults: { _controller: PuphpetBundle:VagrantfileRackspace:machine }
 
 puphpet.vagrantfile_rackspace.synced_folder:
-    pattern: /synced-folder
+    path: /synced-folder
     defaults: { _controller: PuphpetBundle:VagrantfileRackspace:syncedFolder }

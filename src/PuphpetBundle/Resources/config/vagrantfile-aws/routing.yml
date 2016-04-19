@@ -1,11 +1,11 @@
 puphpet.vagrantfile_aws.homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: PuphpetBundle:VagrantfileAws:index }
 
 puphpet.vagrantfile_aws.machine:
-    pattern: /machine
+    path: /machine
     defaults: { _controller: PuphpetBundle:VagrantfileAws:machine }
 
 puphpet.vagrantfile_aws.synced_folder:
-    pattern: /synced-folder
+    path: /synced-folder
     defaults: { _controller: PuphpetBundle:VagrantfileAws:syncedFolder }

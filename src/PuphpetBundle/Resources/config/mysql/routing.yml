@@ -1,15 +1,15 @@
 puphpet.mysql.homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: PuphpetBundle:Mysql:index }
 
 puphpet.mysql.add_user:
-    pattern:  /add-user
+    path:  /add-user
     defaults: { _controller: PuphpetBundle:Mysql:addUser }
 
 puphpet.mysql.add_database:
-    pattern:  /add-database
+    path:  /add-database
     defaults: { _controller: PuphpetBundle:Mysql:addDatabase }
 
 puphpet.mysql.add_grant:
-    pattern:  /add-grant
+    path:  /add-grant
     defaults: { _controller: PuphpetBundle:Mysql:addGrant }

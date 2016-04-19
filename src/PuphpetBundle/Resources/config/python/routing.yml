@@ -3,5 +3,5 @@ puphpet.python.homepage:
     defaults: { _controller: PuphpetBundle:Python:index }
 
 puphpet.python.add_version:
-    pattern:  /add-version
+    path:  /add-version
     defaults: { _controller: PuphpetBundle:Python:addVersion }

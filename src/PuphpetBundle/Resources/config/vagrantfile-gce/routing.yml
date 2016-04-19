@@ -1,11 +1,11 @@
 puphpet.vagrantfile_gce.homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: PuphpetBundle:VagrantfileGce:index }
 
 puphpet.vagrantfile_gce.machine:
-    pattern: /machine
+    path: /machine
     defaults: { _controller: PuphpetBundle:VagrantfileGce:machine }
 
 puphpet.vagrantfile_gce.synced_folder:
-    pattern: /synced-folder
+    path: /synced-folder
     defaults: { _controller: PuphpetBundle:VagrantfileGce:syncedFolder }

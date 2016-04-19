@@ -1,29 +1,29 @@
 puphpet.main.homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: PuphpetBundle:Front:index }
 
 puphpet.main.upload_config:
-    pattern:  /upload-config
+    path:  /upload-config
     defaults: { _controller: PuphpetBundle:Front:uploadConfig }
 
 puphpet.main.generate_archive:
-    pattern:  /generate-archive
+    path:  /generate-archive
     defaults: { _controller: PuphpetBundle:Front:generateArchive }
 
 puphpet.main.download_puppet_modules:
-    pattern:  /download-puppet-modules
+    path:  /download-puppet-modules
     defaults: { _controller: PuphpetBundle:Front:downloadPuppetModules }
 
 puphpet.main.about:
-    pattern:  /about
+    path:  /about
     defaults: { _controller: PuphpetBundle:Front:about }
 
 puphpet.main.help:
-    pattern:  /help
+    path:  /help
     defaults: { _controller: PuphpetBundle:Front:help }
 
 puphpet.main.github_btn:
-    pattern:  /github-btn
+    path:  /github-btn
     defaults: { _controller: PuphpetBundle:Front:githubBtn }
 
 # deploy target

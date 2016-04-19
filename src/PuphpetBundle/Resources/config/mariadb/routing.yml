@@ -1,15 +1,15 @@
 puphpet.mariadb.homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: PuphpetBundle:MariaDb:index }
 
 puphpet.mariadb.add_user:
-    pattern:  /add-user
+    path:  /add-user
     defaults: { _controller: PuphpetBundle:MariaDb:addUser }
 
 puphpet.mariadb.add_database:
-    pattern:  /add-database
+    path:  /add-database
     defaults: { _controller: PuphpetBundle:MariaDb:addDatabase }
 
 puphpet.mariadb.add_grant:
-    pattern:  /add-grant
+    path:  /add-grant
     defaults: { _controller: PuphpetBundle:MariaDb:addGrant }

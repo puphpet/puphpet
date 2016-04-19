@@ -1,11 +1,11 @@
 puphpet.vagrantfile_digitalocean.homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: PuphpetBundle:VagrantfileDigitalOcean:index }
 
 puphpet.vagrantfile_digitalocean.machine:
-    pattern: /machine
+    path: /machine
     defaults: { _controller: PuphpetBundle:VagrantfileDigitalOcean:machine }
 
 puphpet.vagrantfile_digitalocean.synced_folder:
-    pattern: /synced-folder
+    path: /synced-folder
     defaults: { _controller: PuphpetBundle:VagrantfileDigitalOcean:syncedFolder }

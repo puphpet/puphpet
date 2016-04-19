@@ -1,8 +1,8 @@
 puphpet.elastic_search.homepage:
-    pattern:  /
+    path:  /
     defaults: { _controller: PuphpetBundle:ElasticSearch:index }
 
 puphpet.elastic_search.instance:
-    pattern:  /instance
+    path:  /instance
     defaults: { _controller: PuphpetBundle:ElasticSearch:instance }
 
