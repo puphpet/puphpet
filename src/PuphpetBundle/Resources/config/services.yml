@@ -53,6 +53,6 @@ services:
     puphpet.twig.base_extension:
         class: PuphpetBundle\Twig\BaseExtension
         arguments:
-            - @randomlib
+            - '@randomlib'
         tags:
             - { name: twig.extension }
