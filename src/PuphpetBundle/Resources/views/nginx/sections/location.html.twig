@@ -1,6 +1,6 @@
 {% set uniqid = uniqid('nxvl_', true) %}
-{% set autoindex = (location.autoindex is defined and location.autoindex is sameas('on')) ? true : false %}
-{% set internal = (location.internal is defined and location.internal is sameas('on')) ? true : false %}
+{% set autoindex = (location.autoindex is defined and location.autoindex is same as('on')) ? true : false %}
+{% set internal = (location.internal is defined and location.internal is same as('on')) ? true : false %}
 {% set try_files = (location.try_files is defined) ? location.try_files : [] %}
 {% set fast_cgi_params_extras = (location.fast_cgi_params_extra is defined) ? location.fast_cgi_params_extra : [] %}
 {% set sets = (location.set is defined) ? location.set : [] %}

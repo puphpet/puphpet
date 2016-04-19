@@ -28,7 +28,7 @@ class BaseExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            'str_replace' => new \Twig_Filter_Function([$this, 'str_replace']),
+            'str_replace' => new \Twig_SimpleFilter('str_replace', 'str_replace'),
         ];
     }
 

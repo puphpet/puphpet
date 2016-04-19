@@ -17,6 +17,9 @@ class Manager
     /** @var array */
     protected $extensions = [];
 
+    /** @var Yaml */
+    private $yaml;
+
     public function __construct($confDir = __DIR__ . '/../Resources/config')
     {
         $this->confDir = $confDir;
@@ -214,11 +217,19 @@ class Manager
 
     protected function yamlParse($file)
     {
-        return Yaml::parse($file, true);
+        if (!$this->yaml) {
+            $this->yaml = new Yaml();
+        }
+
+        return $this->yaml->parse(file_get_contents($file), true);
     }
 
     protected function yamlDump($data)
     {
-        return Yaml::dump($data, 50, 4);
+        if (!$this->yaml) {
+            $this->yaml = new Yaml();
+        }
+
+        return $this->yaml->dump($data, 50, 4);
     }
 }

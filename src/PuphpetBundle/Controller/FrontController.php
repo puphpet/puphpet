@@ -46,8 +46,10 @@ class FrontController extends Controller
         /** @var Session $session */
         $session = $this->get('session');
 
+        $yaml = new Yaml();
+
         try {
-            $yaml = Yaml::parse($config);
+            $parsed = $yaml::parse($config);
         } catch (\Exception $e) {
             $session->getFlashBag()->add('error', [
                 'title'   => 'There was a problem parsing your config file',
@@ -59,7 +61,7 @@ class FrontController extends Controller
             return $this->indexAction($request);
         }
 
-        if (empty($yaml)) {
+        if (empty($parsed)) {
             $session->getFlashBag()->add('error', [
                 'title'   => 'The config file provided was empty',
                 'content' => 'Check your config file, or manually recreate it in the GUI.',
@@ -71,7 +73,7 @@ class FrontController extends Controller
         }
 
         $manager = $this->get('puphpet.extension.manager');
-        $manager->setCustomDataAll($yaml);
+        $manager->setCustomDataAll($parsed);
 
         try {
             $session->getFlashBag()->add('success', [
@@ -104,13 +106,13 @@ class FrontController extends Controller
     {
         $config = $this->normalizeLineBreaks($request->get('config'));
 
-        $values = '';
+        $yaml = new Yaml();
 
         try {
-            $values = Yaml::parse($config);
+            $parsed = $yaml::parse($config);
         } catch (\Exception $e) {}
 
-        if (empty($values)) {
+        if (empty($parsed)) {
             $response = new Response;
             $response->setStatusCode(Response::HTTP_NOT_ACCEPTABLE);
 
@@ -118,7 +120,7 @@ class FrontController extends Controller
         }
 
         $manager = $this->get('puphpet.extension.manager');
-        $archive = $manager->createArchive($values);
+        $archive = $manager->createArchive($parsed);
 
         $response = new Response;
         $response->headers->set('Content-type', 'application/octet-stream');
