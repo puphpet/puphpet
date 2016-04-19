@@ -4,22 +4,28 @@ use Symfony\Component\HttpFoundation\Request;
 
 umask(0000); // This will let the permissions be 0777
 
-foreach (['SCRIPT_URL', 'REQUEST_URI', 'SCRIPT_NAME', 'ORIG_SCRIPT_FILENAME', 'PATH_TRANSLATED', 'PHP_SELF'] as $key) {
-    if (!empty($_SERVER[$key])) {
-        $_SERVER[$key] = str_replace('//', '/', $_SERVER[$key]);
-    }
-}
+/**
+ * @var Composer\Autoload\ClassLoader
+ */
+$loader = require __DIR__.'/../app/autoload.php';
+include_once __DIR__.'/../app/bootstrap.php.cache';
 
-$loader = require_once __DIR__.'/../app/bootstrap.php.cache';
-
-$loader->register(true);
-
-require_once __DIR__.'/../app/AppKernel.php';
+// Enable APC for autoloading to improve performance.
+// You should change the ApcClassLoader first argument to a unique prefix
+// in order to prevent cache key conflicts with other applications
+// also using APC.
+/*
+$apcLoader = new Symfony\Component\ClassLoader\ApcClassLoader(sha1(__FILE__), $loader);
+$loader->unregister();
+$apcLoader->register(true);
+*/
 
 $kernel = new AppKernel('prod', false);
 $kernel->loadClassCache();
+//$kernel = new AppCache($kernel);
 
-Request::enableHttpMethodParameterOverride();
+// When using the HttpCache, you need to call the method in your front controller instead of relying on the configuration parameter
+//Request::enableHttpMethodParameterOverride();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();

@@ -1,6 +1,12 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    locale:            en
-    secret:            ThisTokenIsNotSoSecretButItsOpenSourceAnyway
+    # A secret key that's used to generate certain security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeIt
 
-    user_password:     57f3d5fdf38bafeb55fe9483e9b0049dec1df872
-    admin_password:    433a9b7b0e9a8bff8b68a812be4fc7e4d70a3d44
+    # Default cache directory override
+    cache_dir: ~
+
+    # Default log directory override
+    log_dir: ~
