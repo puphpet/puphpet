@@ -349,12 +349,13 @@ PUPHPET.sidebarMenuClick = function() {
 PUPHPET.helpTextDisplay = function() {
     $(document).on('mouseover', '.field-container .form-group, ' +
         '.field-container .form-group .radio-tile,' +
-        '.field-container .form-group .radio', function (e) {
+        '.field-container .form-group .radio,' +
+        '.field-container .nested-block', function (e) {
         if ($(this).has('> .help-text').length == 0) {
             return;
         }
 
-        var coords = _cumulativeOffset(this)
+        var coords = _cumulativeOffset(this);
 
         var $helpText = $('> .help-text', this).eq(0);
 

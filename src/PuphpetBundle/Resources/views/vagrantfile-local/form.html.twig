@@ -92,7 +92,8 @@
                            {% if box.url == data.vm.provider.local.box_url %}checked{% endif %}
                            data-update-vagrantfile-vm-provider-local-box="{{ box.short_name }}" />
                     <label for="vagrantfile-vm-provider-local-box_url-{{ box.short_name }}">
-                        {{ box.long_name }} <br />(PHP {{ box.php_versions|join(', ') }})
+                        {{ box.long_name }}
+                        (PHP <strong>{{ box.php_versions|join('</strong>, <strong>')|raw }}</strong>)
                     </label>
                 </div>
             {% endfor %}
@@ -137,8 +138,18 @@
         </div>
 
         <div class="nested-block {% if not proxy %}hidden{% endif %}" id="vagrantfile-proxy-proxy_options">
+            <div class="help-text">
+                <p>Requires installing the <code>vagrant-proxyconf</code> plugin:</p>
+
+                <p><code>vagrant plugin install vagrant-proxyconf</code></p>
+
+                <p><a href="https://github.com/tmatilai/vagrant-proxyconf/"
+                      target="_blank">Click here for more information</a>.</p>
+            </div>
+
             <fieldset>
                 <legend>Proxy Options</legend>
+
                 <div class="form-group col-xs-12">
                     <label for="vagrantfile-proxy-http">Proxy for HTTP URIs</label>
                     <input type="text" id="vagrantfile-proxy-http"
@@ -170,30 +181,15 @@
                            placeholder="localhost,127.0.0.1,.example.com" class="form-control"
                            value="{{ proxy_no_proxy }}" />
                 </div>
-
-                <div class="help-block">
-                    <p>Requires installing the <code>vagrant-proxyconf</code> plugin:</p>
-
-                    <p><code>vagrant plugin install vagrant-proxyconf</code></p>
-
-                    <p><a href="https://github.com/tmatilai/vagrant-proxyconf/"
-                          target="_blank">Click here for more information</a>.</p>
-                </div>
             </fieldset>
         </div>
     </div>
 
-    <div class="clearfix"></div>
-
-    <div class="col-xs-6">
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#system-packages">
-            System Packages <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="next"><a href="#system-packages">System Packages <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>
 
 <div class="modal fade" id="vagrantfile-local-modal" tabindex="-1" role="dialog"

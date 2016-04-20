@@ -5,13 +5,11 @@
 {% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
     ? data.vm.synced_folder : [] %}
 
-<div class="section-header">
-    <h1>Linode Server Details</h1>
-    <p class="lead">Spin up your virtual machine on Linode.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
+        <div class="help-text">
+            Spin up your virtual machine on Linode.
+        </div>
         <label class="col-xs-12 radio-tile">
             <input type="radio" name="vagrantfile[target]" value="linode" class="invisible"
                    {% if providerChosen %}checked{% endif %} />
@@ -46,31 +44,23 @@
             </div>
 
             {% for distribution in data.available.distributions %}
-                <label class="col-xs-6 radio-tile">
-                    <input type="radio" class="invisible"
-                           name="vagrantfile[vm][provider][linode][distribution]"
-                           value="{{ distribution.distribution }}"
-                           {% if distribution.distribution == data.vm.provider.linode.distribution %}checked{% endif %} />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">{{ distribution.long_name }}</span>
-                        </span>
-                        <span class="footer">
-                            PHP {{ distribution.php_versions|join(', ') }}
-                        </span>
-                    </span>
-                </label>
-
-                {% if loop.index is even or loop.last %}
-                    <div class="clearfix"></div>
-                {% endif %}
+                <div class="radio">
+                    <input type="radio"
+                       id="vagrantfile-vm-provider-linode-distribution-{{ distribution.distribution }}"
+                       name="vagrantfile[vm][provider][linode][distribution]"
+                       value="{{ distribution.distribution }}"
+                       {% if distribution.distribution == data.vm.provider.linode.distribution %}checked{% endif %} />
+                    <label for="vagrantfile-vm-provider-linode-distribution-{{ distribution.distribution }}">
+                        {{ distribution.long_name }}
+                        (PHP <strong>{{ distribution.php_versions|join('</strong>, <strong>')|raw }}</strong>)
+                    </label>
+                </div>
             {% endfor %}
         </div>
 
         <div class="clearfix"></div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <a href="https://manager.linode.com/profile/index/"
                    target="_blank">Get it here</a>.
@@ -82,7 +72,7 @@
                    value="{{ data.vm.provider.linode.token }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 The username associated with the private key entered.
             </div>
@@ -93,9 +83,7 @@
                    value="{{ data.ssh.username }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <p>The Linode server will not be accessible without your private/public key.</p>
                 <p><strong>It will not be accessible using username/password,
@@ -108,7 +96,7 @@
                    value="{{ data.ssh.private_key_path }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Change if you already have an SSH key you would like to use.
                 Leave as default otherwise.
@@ -145,15 +133,11 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#system-packages">
-            System Packages <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="next"><a href="#system-packages">System Packages <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>
 
 <div class="modal fade" id="vagrantfile-linode-modal" tabindex="-1" role="dialog"

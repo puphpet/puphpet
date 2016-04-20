@@ -63,6 +63,11 @@
             <div class="clearfix"><label>Shared Folder Type</label></div>
 
             <div class="radio">
+                <span class="help-text">
+                    This is the slowest option of all.
+                    <a href="http://docs.vagrantup.com/v2/synced-folders/basic_usage.html"
+                       target="_blank">More information</a>.
+                </span>
                 <input type="radio" class="invisible show-on-select hide-on-select"
                        id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-default"
                        name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
@@ -74,6 +79,16 @@
             </div>
 
             <div class="radio">
+                <span class="help-text">
+                    NFS is highly recommended for OSX and Linux!
+                    Make sure to install the vagrant-bindfs plugin with
+                    <code>$ vagrant plugin install vagrant-bindfs</code>.
+                    <br /><br />
+                    <a href="http://docs.vagrantup.com/v2/synced-folders/nfs.html"
+                       target="_blank">More information about NFS</a>, and
+                    <a href="https://github.com/gael-ian/vagrant-bindfs"
+                       target="_blank">more information about vagrant-bindfs</a>
+                </span>
                 <input type="radio" class="invisible show-on-select hide-on-select"
                        id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-nfs"
                        name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
@@ -85,6 +100,11 @@
             </div>
 
             <div class="radio">
+                <span class="help-text">
+                    Windows only, and highly recommended.
+                    <a href="http://docs.vagrantup.com/v2/synced-folders/smb.html"
+                       target="_blank">More information</a>.
+                </span>
                 <input type="radio" class="invisible show-on-select hide-on-select"
                        id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-smb"
                        name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
@@ -97,6 +117,16 @@
             </div>
 
             <div class="radio">
+                <span class="help-text">
+                    If you are on Windows you need <code>rsync</code> installed. The simplest way is to
+                    <a href="https://www.cygwin.com/" target="_blank">use Cygwin</a>
+                    and install it through there. Alternatively, you can
+                    <a href="https://www.itefix.no/i2/content/cwrsync-free-edition"
+                       target="_blank">install rsync separately</a>
+                    and add it to your <code>PATH</code>.
+                    <a href="http://docs.vagrantup.com/v2/synced-folders/rsync.html"
+                       target="_blank">More information</a>.
+                </span>
                 <input type="radio" class="invisible show-on-select hide-on-select"
                        id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-rsync"
                        name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"

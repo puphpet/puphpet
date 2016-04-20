@@ -500,12 +500,13 @@ legend {
         color: #fff;
         padding: 5px 5px 8px;
         background-color: #eb6864;
+        font-size: 1.5em;
         margin: -5px -5px 0 0;
     }
 
     .nested-block > .remove:hover i:after {
         content: " Remove this block";
-        font-weight: bold;
+        font-family: Helvetica, Arial, sans-serif;
         padding-top: 50px;
     }
 
@@ -540,7 +541,7 @@ legend {
 
     .form-control.selectize-control {
         padding-left: 0;
-        margin-left: 5px;
+        margin-left: 10px;
     }
 
     .add-block {
@@ -682,7 +683,8 @@ legend {
 /*
     help text block
 */
-    .form-group .help-text {
+    .form-group .help-text,
+    .nested-block .help-text {
         display: none;
     }
 

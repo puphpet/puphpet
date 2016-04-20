@@ -5,13 +5,11 @@
 {% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
     ? data.vm.synced_folder : [] %}
 
-<div class="section-header">
-    <h1>Amazon Server Details</h1>
-    <p class="lead">Spin up your virtual machine on Amazon EC2.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
+        <div class="help-text">
+            Spin up your virtual machine on Amazon EC2.
+        </div>
         <label class="col-xs-12 radio-tile">
             <input type="radio" name="vagrantfile[target]" value="aws" class="invisible"
                    {% if providerChosen %}checked{% endif %} />
@@ -34,7 +32,7 @@
     <div class="clearfix"></div>
 
     <div id="vagrantfile-aws-container" class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <a href="https://console.aws.amazon.com/iam/home?#security_credential" target="_blank">Get it here</a>.
                 You can leave this blank and fill it in manually in your <code>config.yaml</code> if you want.
@@ -46,7 +44,7 @@
                    value="{{ data.vm.provider.aws.access_key_id }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <a href="https://portal.aws.amazon.com/gp/aws/securityCredentials?" target="_blank">Get it here</a>.
                 You can leave this blank and fill it in manually in your <code>config.yaml</code> if you want.
@@ -81,15 +79,11 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#system-packages">
-            System Packages <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="next"><a href="#system-packages">System Packages <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>
 
 <div class="modal fade" id="vagrantfile-aws-modal" tabindex="-1" role="dialog"
