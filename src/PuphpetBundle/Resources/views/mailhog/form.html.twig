@@ -1,10 +1,5 @@
 <input type="hidden" name="mailhog[install]" value="0" />
 
-<div class="section-header">
-    <h1>MailHog</h1>
-    <p class="lead">Install MailHog.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
         <label class="col-xs-12 radio-tile">
@@ -29,7 +24,7 @@
     <div class="clearfix"></div>
 
     <div id="mailhog-container" class="{% if not mailhog.install %}hidden{% endif %}">
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <p>Minimum port number is <code>1000</code>.</p>
             </div>
@@ -40,9 +35,7 @@
                    value="{{ mailhog.settings.http_port }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="help-block">
+        <div class="help-block col-xs-12">
             <p>MailHog will be available at
                 <code>http://{SERVER_IP_ADDRESS}:{HTTP_PORT}</code></p>
             <p>It is highly recommended <strong>not</strong> installing
@@ -52,16 +45,12 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#sqlite">
-            <i class="fa fa-hand-o-left"></i> SQLite
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#beanstalkd">
-            Beanstalkd <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#sqlite"><span aria-hidden="true">&larr;</span> SQLite</a></li>
+            <li class="next">
+                <a href="#beanstalkd">Beanstalkd <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

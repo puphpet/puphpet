@@ -1,30 +1,17 @@
-<input type="hidden" name="xdebug[install]" value="0" />
+<fieldset>
+    <legend>XDebug Options</legend>
 
-<div class="form-group margin-top">
-    <label class="col-xs-12 radio-tile">
-        <input type="checkbox" name="xdebug[install]" value="1"
-               class="invisible toggle-on-select"
-               {% if xdebug.install %}checked{% endif %}
-               data-vis-toggle-target="#xdebug-container,#xdebug-install-check"
-            />
-        <span class="content">
-            <span class="header large">
-                <i class="icon"></i>
-                <span class="title">Install Xdebug</span>
-            </span>
-            <span class="footer">
-                Debugger and Profiler Tool for PHP.
-            </span>
-        </span>
-    </label>
-
-    <div class="clearfix"></div>
-</div>
-
-<div class="clearfix"></div>
-
-<div id="xdebug-container" class="{% if not xdebug.install %}hidden{% endif %}">
     <div class="form-group col-xs-12">
+        <div class="help-text">
+            <p>Not using Xdebug? Still pounding out <code>var_dump()</code> and
+                <code>print_r()</code> and <code>echo</code>?</p>
+            <p><a href="https://jtreminio.com/2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger"
+                  target="_blank">Xdebug and You: Why You Should be Using a Real Debugger</a></p>
+            <p>CLI debugging will be automatically available. Simply run <code>$ xdebug foo.php</code>!</p>
+            <p><a href="http://devincharge.com/debug-cli-remote-server/"
+                  target="_blank">Follow instructions here to setup PHPStorm to listen for a CLI connection</a>.
+                Other IDEs should be similar.</p>
+        </div>
         <label for="xdebug-settings-displayer">Settings</label>
         <select id="xdebug-settings-displayer" multiple
                 class="form-control select-tags-user-input"
@@ -48,17 +35,4 @@
             {% endfor %}
         </div>
     </div>
-
-    <div class="clearfix"></div>
-
-    <div class="help-block">
-        <p>Not using Xdebug? Still pounding out <code>var_dump()</code> and
-            <code>print_r()</code> and <code>echo</code>?</p>
-        <p><a href="https://jtreminio.com/2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger"
-              target="_blank">Xdebug and You: Why You Should be Using a Real Debugger</a></p>
-        <p>CLI debugging will be automatically available. Simply run <code>$ xdebug foo.php</code>!</p>
-        <p><a href="http://devincharge.com/debug-cli-remote-server/"
-              target="_blank">Follow instructions here to setup PHPStorm to listen for a CLI connection</a>.
-            Other IDEs should be similar.</p>
-    </div>
-</div>
+</fieldset>

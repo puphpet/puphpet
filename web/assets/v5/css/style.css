@@ -3,6 +3,7 @@ body {
     background: #fff;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: 300;
+    max-width: 1280px;
 }
 
 html,
@@ -66,7 +67,7 @@ input::-webkit-input-placeholder {
 }
 
 pre code {
-    font-size: 18px !important;
+    font-size: 16px !important;
     font-family: 'Courier New', monospace;
 }
 
@@ -90,6 +91,34 @@ label.radio {
 label.radio input[type="radio"] {
     position: relative;
     margin-left: 0;
+}
+
+.radio label {
+    line-height: 1.2em;
+}
+
+.radio,
+.checkbox {
+    margin-top: 0;
+    margin-left: 10px;
+}
+
+.checkbox label {
+    line-height: 18px;
+}
+
+.form-group-lg .checkbox label {
+    padding-left: 10px;
+}
+
+.form-group-lg .checkbox label::before {
+    width: 25px;
+    height: 25px;
+    top: 5px;
+}
+
+.form-group-lg .checkbox label::after {
+    font-size: 19px;
 }
 
 legend {
@@ -118,15 +147,15 @@ legend {
 
 #main-content {
     background: #fff;
-    margin-left: 205px;
+    margin-left: 170px;
     line-height: 1.8;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .wrapper {
     display: inline-block;
     margin-top: 60px;
-    padding: 0 15px 0 15px;
+    padding: 0 15px 0 0;
     width: 100%;
 }
 
@@ -144,6 +173,16 @@ legend {
 */
     .navbar {
         z-index: 9999;
+    }
+
+    .navbar-fixed-top > .container-fluid {
+        margin-right: 0;
+        margin-left: 10px;
+        max-width: 1280px;
+    }
+
+    .navbar-default {
+        background-color: #fff;
     }
 
     .navbar-default .navbar-brand {
@@ -204,7 +243,7 @@ legend {
     sidebar
 */
     #sidebar {
-        width: 205px;
+        width: 170px;
         height: 100%;
         position: fixed;
         background: #fff;
@@ -224,7 +263,7 @@ legend {
     }
 
     ul.sidebar-menu {
-        margin-top: 60px;
+        margin-top: 51px;
         margin-bottom: 60px;
     }
 
@@ -250,12 +289,12 @@ legend {
     }
 
     ul.sidebar-menu li ul.sub li a {
-        font-size: 14px;
+        font-size: 12px;
         color: #737B83;
-        padding: 0 0 0 32px;
+        padding: 0 0 0 20px;
         border-bottom-color: #eee;
-        line-height: 35px;
-        height: 35px;
+        line-height: 30px;
+        height: 30px;
         transition: all 0.3s ease;
     }
 
@@ -273,7 +312,7 @@ legend {
 
     ul.sidebar-menu li.sub-menu {
         line-height: 15px;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     ul.sidebar-menu li a span {
@@ -285,7 +324,7 @@ legend {
         text-decoration: none;
         display: block;
         padding: 10px 0 10px 10px;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 300;
         outline: none;
         transition: all 0.3s ease;
@@ -312,7 +351,7 @@ legend {
     }
 
     ul.sidebar-menu li a i {
-        font-size: 18px;
+        font-size: 16px;
         padding-right: 6px;
     }
 
@@ -397,12 +436,12 @@ legend {
     }
 
     input.form-control {
-        margin-left: 5px;
+        margin-left: 10px;
     }
 
     .field-container {
         margin-bottom: 21px;
-        padding: 15px 10px;
+        padding: 15px 0;
         background-color: #fff;
         -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -419,9 +458,8 @@ legend {
         border-left: 2px solid transparent;
     }
 
-    .field-container .form-group:hover label,
-    .field-container .form-group:focus label {
-        color: #2c9ab7;
+    .field-container .form-group.form-group-lg {
+        font-size: 1.5em;
     }
 
     .field-container .help-block {
@@ -432,22 +470,19 @@ legend {
     nested blocks
 */
     .nested-block {
-        padding: 10px 30px 20px 20px;
-        margin: 5px 0 10px 20px;
+        padding: 10px 5px 20px 5px;
+        margin: 5px 0 10px 0;
         border: 1px solid #eee;
-        border-left: 5px solid #d4d5d9;
         background-color: #f7f7f8;
         position: relative;
     }
 
     .nested-block .nested-block,
     .nested-block .nested-block .nested-block .nested-block {
-        border-left: 5px solid #9fa0a4;
         background-color: #fff;
     }
 
     .nested-block .nested-block .nested-block {
-        border-left: 5px solid #808185;
         background-color: #f7f7f8;
     }
 
@@ -457,15 +492,15 @@ legend {
         right: 0;
         margin: 0;
         padding: 5px;
-        border: 1px solid #e53c37;
+        border: 1px solid #515961;
         border-radius: 0 0 0 2px;
-        font-size: 10px;
+        font-size: 8px;
         font-weight: 700;
         text-rendering: optimizeLegibility;
         text-transform: uppercase;
         cursor: pointer;
         color: #fff;
-        background-color: #eb6864;
+        background-color: #737B83;
     }
 
     .nested-block > .remove:hover {
@@ -480,12 +515,13 @@ legend {
         color: #fff;
         padding: 5px 5px 8px;
         background-color: #eb6864;
+        font-size: 1.5em;
         margin: -5px -5px 0 0;
     }
 
     .nested-block > .remove:hover i:after {
         content: " Remove this block";
-        font-weight: bold;
+        font-family: Helvetica, Arial, sans-serif;
         padding-top: 50px;
     }
 
@@ -497,7 +533,7 @@ legend {
 
     .selectize-control a.remove {
         border: 1px solid #e53c37 !important;
-        font-size: 14px !important;
+        font-size: 12px !important;
         color: #fff !important;
         background: #eb6864 !important;
     }
@@ -520,11 +556,11 @@ legend {
 
     .form-control.selectize-control {
         padding-left: 0;
-        margin-left: 5px;
+        margin-left: 10px;
     }
 
     .add-block {
-        font-size: 2em;
+        font-size: 1.5em;
         margin: 0 0 20px 23px;
         display: block;
     }
@@ -535,6 +571,10 @@ legend {
 
     .add-block + .nested-block {
         margin-bottom: 15px;
+    }
+
+    .nested-block .add-block {
+        margin-bottom: 0;
     }
 
 /*
@@ -559,8 +599,8 @@ legend {
 
     .radio-tile input:checked + .content {
         color: #000;
-        border-color: #f47421;
-        box-shadow: 0 0 0 1px #f47421;
+        border-color: #737B83;
+        box-shadow: 0 0 0 1px #737B83;
     }
 
     .radio-tile .content {
@@ -623,11 +663,12 @@ legend {
     }
 
     .radio-tile .header.large .title {
-        padding-left: 25px;
+        font-size: .8em;
+        padding-left: 15px;
     }
 
     .radio-tile .header.large .icon {
-        margin-bottom: 10px;
+        margin-bottom: 18px;
         font-size: 1.3em;
     }
 
@@ -657,7 +698,8 @@ legend {
 /*
     help text block
 */
-    .form-group .help-text {
+    .form-group .help-text,
+    .nested-block .help-text {
         display: none;
     }
 
@@ -741,4 +783,12 @@ legend {
     .modal-dialog {
         margin: 75px auto;
     }
+}
+
+#help-text-container {
+    position: relative;
+}
+
+#help-text-container > .content {
+    position: absolute;
 }

@@ -6,7 +6,7 @@
     <fieldset>
         <legend>Create User</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Enter <code>{username}@{host}</code>
                 for a specific host. If no host is defined, eg:
@@ -21,7 +21,7 @@
                    value="{{ user.name }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Password is required for each user.
             </div>
@@ -31,7 +31,5 @@
                    placeholder="123" class="form-control"
                    value="{{ user.password }}" />
         </div>
-
-        <div class="clearfix"></div>
     </fieldset>
 </div>

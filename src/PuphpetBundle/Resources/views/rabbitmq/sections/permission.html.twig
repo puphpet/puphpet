@@ -3,10 +3,11 @@
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
     <fieldset>
         <legend>User Permissions</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Virtual host must be added in the section above!
             </div>
@@ -17,7 +18,7 @@
                    value="{{ permission.host }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <label for="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-configure_permission">Configure Permission</label>
             <input type="text" id="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-configure_permission"
                    name="rabbitmq[users][{{ userId }}][permissions][{{ uniqid }}][configure_permission]"
@@ -25,9 +26,7 @@
                    value="{{ permission.configure_permission }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <label for="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-read_permission">Read Permission</label>
             <input type="text" id="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-read_permission"
                    name="rabbitmq[users][{{ userId }}][permissions][{{ uniqid }}][read_permission]"
@@ -35,7 +34,7 @@
                    value="{{ permission.read_permission }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <label for="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-write_permission">Write Permission</label>
             <input type="text" id="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-write_permission"
                    name="rabbitmq[users][{{ userId }}][permissions][{{ uniqid }}][write_permission]"

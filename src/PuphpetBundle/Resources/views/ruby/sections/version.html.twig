@@ -6,50 +6,37 @@
 <div id="{{ uniqid }}" class="nested-block">
     <a href="#" class="delete-block remove"
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
     <fieldset>
         <legend>Ruby version via RVM</legend>
 
-        <div class="form-group col-xs-6">
-            <div class="clearfix"><label>Default</label></div>
-
-            <label class="radio-tile mini set-width">
-                <span class="help-text">
-                    Set this as system-wide default version.
-                    Don't set more than one version as default.
-                </span>
-                <input type="checkbox" name="ruby[versions][{{ uniqid }}][default]"
-                       class="invisible"
-                       {% if default %}checked{% endif %} value="1" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Set as default</span>
-                    </span>
-                </span>
+        <div class="checkbox">
+            <span class="help-text">
+                Set this as system-wide default version.
+                Don't set more than one version as default.
+            </span>
+            <input class="styled" type="checkbox"
+                   {% if default %}checked{% endif %} value="1"
+                   id="ruby-versions-{{ uniqid }}-default"
+                   name="ruby[versions][{{ uniqid }}][default]" />
+            <label for="ruby-versions-{{ uniqid }}-default">
+                Set as default
             </label>
         </div>
 
-        <div class="form-group col-xs-6">
-            <div class="clearfix"><label>Bundler</label></div>
-
-            <label class="radio-tile mini set-width">
-                <span class="help-text">
-                    The best way to manage a Ruby application's gems.
-                    <a href="http://bundler.io/" target="_blank">More information</a>
-                </span>
-                <input type="checkbox" name="ruby[versions][{{ uniqid }}][bundler]"
-                       class="invisible"
-                       {% if bundler %}checked{% endif %} value="1" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Install Bundler</span>
-                    </span>
-                </span>
+        <div class="checkbox">
+            <span class="help-text">
+                The best way to manage a Ruby application's gems.
+                <a href="http://bundler.io/" target="_blank">More information</a>
+            </span>
+            <input class="styled" type="checkbox"
+                   {% if bundler %}checked{% endif %} value="1"
+                   id="ruby-versions-{{ uniqid }}-bundler"
+                   name="ruby[versions][{{ uniqid }}][bundler]" />
+            <label for="ruby-versions-{{ uniqid }}-bundler">
+                Install Bundler
             </label>
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">
@@ -71,8 +58,6 @@
                 {% endfor %}
             </select>
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">

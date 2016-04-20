@@ -26,10 +26,11 @@
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
     <fieldset>
         <legend>Shared Folders</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <p>Path your files are stored on host machine,
                     <a href="http://docs.vagrantup.com/v2/synced-folders/index.html"
@@ -45,7 +46,7 @@
                    value="{{ synced_folder.source }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Path your hosts' files are mounted on guest machine,
                 <a href="http://docs.vagrantup.com/v2/synced-folders/index.html"
@@ -58,31 +59,26 @@
                    value="{{ synced_folder.target }}" />
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="form-group">
             <div class="clearfix"><label>Shared Folder Type</label></div>
 
-            <label class="radio-tile mini set-width">
+            <div class="radio">
                 <span class="help-text">
                     This is the slowest option of all.
                     <a href="http://docs.vagrantup.com/v2/synced-folders/basic_usage.html"
                        target="_blank">More information</a>.
                 </span>
-                <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
-                       class="invisible hide-on-select"
-                       {% if sync_type == 'default' %}checked{% endif %}
-                       value="default"
+                <input type="radio" class="invisible show-on-select hide-on-select"
+                       id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-default"
+                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
+                       value="default" {% if sync_type == 'default' %}checked{% endif %}
                        data-vis-hide-target="#rsync-folder-options-{{ uniqid }}, #smb-folder-options-{{ uniqid }}" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Default</span>
-                    </span>
-                </span>
-            </label>
+                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-default">
+                    Default
+                </label>
+            </div>
 
-            <label class="radio-tile mini set-width">
+            <div class="radio">
                 <span class="help-text">
                     NFS is highly recommended for OSX and Linux!
                     Make sure to install the vagrant-bindfs plugin with
@@ -93,70 +89,58 @@
                     <a href="https://github.com/gael-ian/vagrant-bindfs"
                        target="_blank">more information about vagrant-bindfs</a>
                 </span>
-                <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
-                       class="invisible hide-on-select"
-                       {% if sync_type == 'nfs' %}checked{% endif %}
-                       value="nfs"
+                <input type="radio" class="invisible show-on-select hide-on-select"
+                       id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-nfs"
+                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
+                       value="nfs" {% if sync_type == 'nfs' %}checked{% endif %}
                        data-vis-hide-target="#rsync-folder-options-{{ uniqid }}, #smb-folder-options-{{ uniqid }}" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">NFS</span>
-                    </span>
-                </span>
-            </label>
+                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-nfs">
+                    NFS
+                </label>
+            </div>
 
-            <label class="radio-tile mini set-width">
+            <div class="radio">
                 <span class="help-text">
                     Windows only, and highly recommended.
                     <a href="http://docs.vagrantup.com/v2/synced-folders/smb.html"
                        target="_blank">More information</a>.
                 </span>
-                <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
-                       class="invisible show-on-select hide-on-select"
-                       {% if sync_type == 'smb' %}checked{% endif %}
-                       value="smb"
+                <input type="radio" class="invisible show-on-select hide-on-select"
+                       id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-smb"
+                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
+                       value="smb" {% if sync_type == 'smb' %}checked{% endif %}
                        data-vis-show-target="#smb-folder-options-{{ uniqid }}"
                        data-vis-hide-target="#rsync-folder-options-{{ uniqid }}" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">SMB</span>
-                    </span>
-                </span>
-            </label>
+                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-smb">
+                    SMB
+                </label>
+            </div>
 
-            <label class="radio-tile mini set-width">
+            <div class="radio">
                 <span class="help-text">
-                    <a href="http://docs.vagrantup.com/v2/synced-folders/rsync.html"
-                       target="_blank">More information</a>.
-                    <br /><br />
                     If you are on Windows you need <code>rsync</code> installed. The simplest way is to
                     <a href="https://www.cygwin.com/" target="_blank">use Cygwin</a>
                     and install it through there. Alternatively, you can
                     <a href="https://www.itefix.no/i2/content/cwrsync-free-edition"
                        target="_blank">install rsync separately</a>
                     and add it to your <code>PATH</code>.
+                    <a href="http://docs.vagrantup.com/v2/synced-folders/rsync.html"
+                       target="_blank">More information</a>.
                 </span>
-                <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
-                       class="invisible show-on-select hide-on-select"
-                       {% if sync_type == 'rsync' %}checked{% endif %}
-                       value="rsync"
+                <input type="radio" class="invisible show-on-select hide-on-select"
+                       id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-rsync"
+                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
+                       value="rsync" {% if sync_type == 'rsync' %}checked{% endif %}
                        data-vis-show-target="#rsync-folder-options-{{ uniqid }}"
                        data-vis-hide-target="#smb-folder-options-{{ uniqid }}" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">RSync</span>
-                    </span>
-                </span>
-            </label>
-
-            <div class="clearfix"></div>
+                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-rsync">
+                    RSync
+                </label>
+            </div>
         </div>
 
         <div id="smb-folder-options-{{ uniqid }}" class="hidden">
-            <div class="form-group col-xs-6">
+            <div class="form-group col-xs-12">
                 <div class="help-text">
                     The host IP where the SMB mount is located. If this isn't specified,
                     Vagrant will attempt to determine this automatically.
@@ -168,7 +152,7 @@
                        value="{{ smb_host }}" />
             </div>
 
-            <div class="form-group col-xs-6">
+            <div class="form-group col-xs-12">
                 <div class="help-text">
                     The username used for authentication to mount the SMB mount. This is the username to access
                     the mount, <em>not</em> the username of the account where the folder is being mounted to. This is
@@ -181,9 +165,7 @@
                        value="{{ smb_username }}" />
             </div>
 
-            <div class="clearfix"></div>
-
-            <div class="form-group col-xs-6">
+            <div class="form-group col-xs-12">
                 <div class="help-text">
                     The password used for authentication to mount the SMB mount. This is the password for the
                     username specified by <code>smb_username</code>. If this is not specified, Vagrant will
@@ -197,19 +179,16 @@
                        value="{{ smb_password }}" />
             </div>
 
-            <div class="clearfix"></div>
-
             <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-mount_options-dir_mode"
                    name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][mount_options][dir_mode]"
                    value="{{ smb_mount_dir_mode }}" />
-
             <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-mount_options-file_mode"
                    name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][mount_options][file_mode]"
                    value="{{ smb_mount_file_mode }}" />
         </div>
 
         <div id="rsync-folder-options-{{ uniqid }}" class="hidden">
-            <div class="form-group col-xs-6">
+            <div class="form-group col-xs-12">
                 <div class="help-text">
                     A list of arguments to supply to rsync.
                 </div>
@@ -223,7 +202,7 @@
                 </select>
             </div>
 
-            <div class="form-group col-xs-6">
+            <div class="form-group col-xs-12">
                 <div class="help-text">
                     Files or directories to exclude from the sync.
                 </div>
@@ -237,40 +216,34 @@
                 </select>
             </div>
 
-            <div class="clearfix"></div>
-
-            <div class="form-group">
+            <div class="form-group col-xs-12">
                 <span class="help-text">
                     If false, then Vagrant's <code>rsync-auto</code> will not watch and
                     automatically sync this folder.
                 </span>
                 <div class="clearfix"><label>Auto Sync</label></div>
 
-                <label class="radio-tile mini set-width">
-                    <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][rsync][auto]"
-                           class="invisible" {% if rsync_auto == 'true' %}checked{% endif %}
-                           value="{{ rsync_auto }}" />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">On</span>
-                        </span>
-                    </span>
-                </label>
+                <div class="radio">
+                    <input type="radio"
+                           id="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-auto-on"
+                           name="vagrantfile[vm][synced_folder][{{ uniqid }}][rsync][auto]"
+                           value="{{ rsync_auto }}"
+                           {% if rsync_auto == 'true' %}checked{% endif %} />
+                    <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-auto-on">
+                        On
+                    </label>
+                </div>
 
-                <label class="radio-tile mini set-width">
-                    <input type="radio" name="vagrantfile[vm][synced_folder][{{ uniqid }}][rsync][auto]"
-                           class="invisible" {% if rsync_auto == 'false' %}checked{% endif %}
-                           value="{{ rsync_auto }}" />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">Off</span>
-                        </span>
-                    </span>
-                </label>
-
-                <div class="clearfix"></div>
+                <div class="radio">
+                    <input type="radio"
+                           id="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-auto-off"
+                           name="vagrantfile[vm][synced_folder][{{ uniqid }}][rsync][auto]"
+                           value="{{ rsync_auto }}"
+                           {% if rsync_auto == 'false' %}checked{% endif %} />
+                    <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-auto-off">
+                        Off
+                    </label>
+                </div>
             </div>
         </div>
     </fieldset>
@@ -278,7 +251,6 @@
     <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-owner"
            name="vagrantfile[vm][synced_folder][{{ uniqid }}][owner]"
            value="{{ owner }}" />
-
     <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-group"
            name="vagrantfile[vm][synced_folder][{{ uniqid }}][group]"
            value="{{ group }}" />

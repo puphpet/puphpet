@@ -25,7 +25,7 @@
         <fieldset>
             <legend>dotfiles</legend>
 
-            <div class="help-block">
+            <div class="help-block col-xs-12">
                 <p>You can add all your dot files (
                     <code>.bash_aliases</code>, <code>.vimrc</code>,
                     <code>.gitconfig</code>, etc),
@@ -41,7 +41,7 @@
         <fieldset>
             <legend>Custom Bash Files</legend>
 
-            <div class="help-block">
+            <div class="help-block col-xs-12">
                 <p>You can run your own custom code after the VM finishes provisioning by adding files to the
                     <code>puphpet/files/exec-always</code>, <code>puphpet/files/exec-always-unprivileged</code>,
                     <code>puphpet/files/exec-once</code>, <code>puphpet/files/exec-once-unprivileged</code>,
@@ -76,17 +76,13 @@
 
         <div class="clearfix"></div>
 
-        <div class="col-xs-6">
-            <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#cron">
-                <i class="fa fa-hand-o-left"></i> Cron Jobs
-            </a>
-        </div>
-        <div class="col-xs-6">
-            <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#nginx">
-                Nginx <i class="fa fa-hand-o-right"></i>
-            </a>
-        </div>
-
-        <div class="clearfix"></div>
+        <nav>
+            <ul class="pager">
+                <li class="previous">
+                    <a href="#cron"><span aria-hidden="true">&larr;</span> Cron Jobs</a></li>
+                <li class="next">
+                    <a href="#nginx">Nginx <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
     </div>
 </div>

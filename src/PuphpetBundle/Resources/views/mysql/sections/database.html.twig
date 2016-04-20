@@ -6,7 +6,7 @@
     <fieldset>
         <legend>Create Database</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <label for="mysql-databases-{{ uniqid }}-name">DB Name</label>
             <input type="text" id="mysql-databases-{{ uniqid }}-name"
                    name="mysql[databases][{{ uniqid }}][name]"
@@ -14,7 +14,7 @@
                    value="{{ database.name }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Optional. Make sure this file is inside the VM,
                 or is inside a shared folder before running <code>$ vagrant up</code>
@@ -25,7 +25,5 @@
                    placeholder="/path/to/your/db/file" class="form-control"
                    value="{{ database.sql }}" />
         </div>
-
-        <div class="clearfix"></div>
     </fieldset>
 </div>

@@ -7,13 +7,16 @@
 
 <input type="hidden" name="elastic_search[install]" value="0" />
 
-<div class="section-header">
-    <h1>Elastic Search</h1>
-    <p class="lead">Install Elastic Search.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
+        <div class="help-text">
+            <p>Elastic Search is a powerful open source search and analytics engine
+                that makes data easy to explore.</p>
+            <p><a href="http://www.elasticsearch.org/"
+                  target="_blank">Learn about Elastic Search</a>.</p>
+            <p><a href="https://github.com/elasticsearch/elasticsearch-php"
+                  target="_blank">The official Elastic Search PHP library</a>.</p>
+        </div>
         <label class="col-xs-12 radio-tile">
             <input type="checkbox" name="elastic_search[install]" value="1"
                    class="invisible toggle-on-select"
@@ -40,30 +43,21 @@
             <div class="clearfix"><label>Version</label></div>
 
             {% for version in versions %}
-                <label class="radio-tile mini set-width">
-                    <input type="radio" class="invisible"
-                           name="elastic_search[settings][version]"
-                           value="{{ version }}"
-                           {% if version == selectedVersion %}checked{% endif %} />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">{{ version }}</span>
-                        </span>
-                    </span>
-                </label>
+                <div class="radio">
+                    <input type="radio"
+                       id="elastic_search-settings-version-{{ version }}"
+                       name="elastic_search[settings][version]"
+                       value="{{ version }}"
+                       {% if version == selectedVersion %}checked{% endif %}
+                    />
+                    <label for="elastic_search-settings-version-{{ version }}">
+                        {{ version }}
+                    </label>
+                </div>
             {% endfor %}
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="help-block">
-            <p>Elastic Search is a powerful open source search and analytics engine
-                that makes data easy to explore.</p>
-            <p><a href="http://www.elasticsearch.org/"
-                  target="_blank">Learn about Elastic Search</a>.</p>
-            <p><a href="https://github.com/elasticsearch/elasticsearch-php"
-                  target="_blank">The official Elastic Search PHP library</a>.</p>
+        <div class="help-block col-xs-12">
             <p>Elastic Search will be installed and the service will start automatically.
                 Java will also be installed if not already present on the vagrant box.
                 The default port is <code>9200</code>.</p>
@@ -81,16 +75,12 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#rabbitmq">
-            <i class="fa fa-hand-o-left"></i> RabbitMQ
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#solr">
-            Apache Solr <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#rabbitmq"><span aria-hidden="true">&larr;</span> RabbitMQ</a></li>
+            <li class="next">
+                <a href="#solr">Apache Solr <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

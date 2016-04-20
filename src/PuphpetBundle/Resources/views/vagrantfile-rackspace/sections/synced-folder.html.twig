@@ -6,7 +6,7 @@
     <fieldset>
         <legend>Shared Folders</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <p>Path your files are stored on host machine,
                     <a href="http://docs.vagrantup.com/v2/synced-folders/index.html"
@@ -25,7 +25,7 @@
                    value="{{ synced_folder.source }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Path your hosts' files are uploaded to on guest machine,
                 <a href="http://docs.vagrantup.com/v2/synced-folders/index.html"
@@ -37,7 +37,5 @@
                    placeholder="/var/www" class="form-control"
                    value="{{ synced_folder.target }}" />
         </div>
-
-        <div class="clearfix"></div>
     </fieldset>
 </div>

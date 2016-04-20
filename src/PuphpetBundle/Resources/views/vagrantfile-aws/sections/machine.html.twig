@@ -6,7 +6,7 @@
     <fieldset>
         <legend>Machines</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 This is the ID used within the <code>Vagrantfile</code>. It is only used
                 for your internal identification.
@@ -18,7 +18,7 @@
                    value="{{ machine.id }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 The hostname the machine should have.
                 <a href="http://stackoverflow.com/a/3523068/446766"
@@ -31,9 +31,7 @@
                    value="{{ machine.hostname }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 The Key Pair name from
                 <a href="https://console.aws.amazon.com/ec2/v2/home?#KeyPairs:" target="_blank">here</a>.
@@ -45,7 +43,7 @@
                    value="{{ machine.keypair_name }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <p>The EC2 server will not be accessible without your private key.</p>
 
@@ -61,9 +59,7 @@
                    value="{{ machine.private_key_path }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Choose the one closest to you, or your target audience!
             </div>
@@ -78,7 +74,7 @@
             </select>
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <a href="http://aws.amazon.com/ec2/pricing/"
                    target="_blank">Pricing information</a>.
@@ -95,9 +91,7 @@
             </select>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <p>The AMI must be available to the region and size selected above.</p>
 
@@ -114,7 +108,7 @@
                    value="{{ machine.ami }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 You must know what username your chosen AMI requires for initial boot up!
             </div>
@@ -125,9 +119,7 @@
                    value="{{ machine.ssh_username }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Assign security groups to this instance.
                 <a href="https://console.aws.amazon.com/ec2/home?#s=SecurityGroups" target="_blank">Get them here</a>.
@@ -142,7 +134,7 @@
             </select>
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 The subnet to boot the instance into, for VPC.
                 <a href="https://console.aws.amazon.com/vpc/home?#subnets:" target="_blank">Get them here</a>.
@@ -154,9 +146,7 @@
                    value="{{ machine.subnet_id }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Assign an elastic IP address to this instance.
                 <a href="https://console.aws.amazon.com/ec2/v2/home?Addresses#Addresses:sort=publicIp" target="_blank">Get them here</a>.

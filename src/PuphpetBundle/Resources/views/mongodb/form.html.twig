@@ -4,11 +4,6 @@
 
 <input type="hidden" name="mongodb[install]" value="0" />
 
-<div class="section-header">
-    <h1>MongoDB</h1>
-    <p class="lead">Install MongoDB and create users and databases.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
         <label class="col-xs-12 radio-tile">
@@ -33,60 +28,51 @@
     <div class="clearfix"></div>
 
     <div id="mongodb-container" class="{% if not mongodb.install %}hidden{% endif %}">
-        <div class="form-group">
-            <div class="col-xs-6">
-                <label for="mongodb-globals-version">Version</label>
-                <select id="mongodb-globals-version"
-                       name="mongodb[globals][version]"
-                       class="form-control select-tag">
-                    <optgroup label="Debian/Ubuntu">
-                        {% for version in mongodb.available.versions_deb %}
-                            <option value="{{ version }}"
-                                {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
-                        {% endfor %}
-                    </optgroup>
-
-                    <optgroup label="CentOS">
-                        {% for version in mongodb.available.versions_rhel %}
-                            <option value="{{ version }}"
-                                {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
-                        {% endfor %}
-                    </optgroup>
-                </select>
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Select the proper version for your chosen distro.
             </div>
+            <label for="mongodb-globals-version">Version</label>
+            <select id="mongodb-globals-version"
+                   name="mongodb[globals][version]"
+                   class="form-control select-tag">
+                <optgroup label="Debian/Ubuntu">
+                    {% for version in mongodb.available.versions_deb %}
+                        <option value="{{ version }}"
+                            {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
+                    {% endfor %}
+                </optgroup>
 
-            <div class="col-xs-6">
-                <div class="help-text">
-                    IP Address Mongo will listen on. Will usually be local.
-                </div>
-                <label for="mongodb-settings-bind_ip">Bind IP</label>
-                <input type="text" id="mongodb-settings-bind_ip"
-                       name="mongodb[settings][bind_ip]"
-                       placeholder="127.0.0.1" class="form-control"
-                       value="{{ mongodb.settings.bind_ip }}" />
-            </div>
+                <optgroup label="CentOS">
+                    {% for version in mongodb.available.versions_rhel %}
+                        <option value="{{ version }}"
+                            {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
+                    {% endfor %}
+                </optgroup>
+            </select>
         </div>
 
-        <div class="form-group">
-            <div class="col-xs-6">
-                <div class="help-text">
-                    Port will automatically be added to <code>iptables</code>.
-                </div>
-                <label for="mongodb-settings-port">Listen Port</label>
-                <input type="text" id="mongodb-settings-port"
-                       name="mongodb[settings][port]"
-                       placeholder="27017" class="form-control"
-                       value="{{ mongodb.settings.port }}" />
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                IP Address Mongo will listen on. Will usually be local.
             </div>
+            <label for="mongodb-settings-bind_ip">Bind IP</label>
+            <input type="text" id="mongodb-settings-bind_ip"
+                   name="mongodb[settings][bind_ip]"
+                   placeholder="127.0.0.1" class="form-control"
+                   value="{{ mongodb.settings.bind_ip }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <p class="help-block">
-            If you want to assign a user to multiple databases, simply create more databases and type in
-            the same username and password. Only the password for the first entry will be considered,
-            <strong>but all fields must be completed</strong>!
-        </p>
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Port will automatically be added to <code>iptables</code>.
+            </div>
+            <label for="mongodb-settings-port">Listen Port</label>
+            <input type="text" id="mongodb-settings-port"
+                   name="mongodb[settings][port]"
+                   placeholder="27017" class="form-control"
+                   value="{{ mongodb.settings.port }}" />
+        </div>
 
         <div class="clearfix"></div>
 
@@ -101,16 +87,12 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#postgresql">
-            <i class="fa fa-hand-o-left"></i> PostgreSQL
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#redis">
-            Redis <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#postgresql"><span aria-hidden="true">&larr;</span> PostgreSQL</a></li>
+            <li class="next">
+                <a href="#redis">Redis <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

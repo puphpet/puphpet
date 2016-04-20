@@ -318,18 +318,14 @@ PUPHPET.sidebarMenuClick = function() {
 
         window.location.hash = this.hash;
 
-        var $activeSection = $('#sidebar .sub-menu.active');
-        var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
-        var $mainContainer = $('#tab-main-container > div.tab-pane.active');
+        var $activeSection     = $('#sidebar .sub-menu.active');
+        var $activeLink        = $('#sidebar .sub-menu ul.sub li.active');
 
         $activeSection.removeClass('active');
         $activeLink.removeClass('active');
-        $mainContainer.removeClass('active');
 
         $(this).parent().addClass('active');
         $(this).closest('.sub-menu').addClass('active');
-
-        $('html, body').scrollTop(0);
     });
 
     $(document).on('click', '#top a[data-toggle="tab"]', function (e) {
@@ -343,35 +339,82 @@ PUPHPET.sidebarMenuClick = function() {
     });
 };
 
+PUPHPET.changeTabOnAnchorChange = function () {
+    $(window).on('hashchange', function() {
+        PUPHPET.displayTabFromUrl();
+    });
+};
+
+/**
+ * Catches anchor tag (#foo) in URL bar and displays proper tab
+ */
+PUPHPET.displayTabFromUrl = function () {
+    if (window.location.hash.length) {
+        if (window.location.hash == this.hash) {
+            return false;
+        }
+
+        this.hash = window.location.hash;
+
+        var $hashLink = $('a[data-toggle="tab"]').filter('[href=' + window.location.hash + ']');
+
+        if ($hashLink.length == 0) {
+            return true;
+        }
+
+        var $tabs = $(
+            '#tab-main-container > div.tab-pane,' +
+            '#tab-fullpage-container > div.tab-pane,' +
+            '#help-text-container .content'
+        );
+
+        $tabs.not($hashLink).each(function() {
+            $(this).hide();
+        });
+
+        $(window.location.hash).addClass('active').show();
+
+        $('html, body').scrollTop(0);
+    }
+};
+
 /**
  * Handles displaying section help information
  */
 PUPHPET.helpTextDisplay = function() {
-    $('.field-container .form-group, .field-container .form-group .radio-tile').each(function() {
+    $(document).on('mouseover focus', '.field-container .form-group, ' +
+        '.field-container .form-group .radio-tile,' +
+        '.field-container .form-group .radio,' +
+        '.field-container .form-group .checkbox,' +
+        '.field-container .checkbox,' +
+        '.field-container .nested-block', function (e) {
         if ($(this).has('> .help-text').length == 0) {
             return;
         }
 
+        var coords = _cumulativeOffset(this);
+
         var $helpText = $('> .help-text', this).eq(0);
 
-        $(this).webuiPopover({
-            title: '',
-            content: $helpText.html(),
-            trigger: 'hover',
-            delay: {
-                show: 500,
-                hide: 200
-            },
-            constrains: 'vertical',
-            placement: 'top-left',
-            cache: true,
-            multi: false,
-            arrow: true,
-            closeable: true,
-            padding: true,
-            type: 'html'
-        });
+        $('#help-text-container > .content').show()
+            .width($('#help-text-container').width())
+            .css('top', coords.top - 50)
+            .html($helpText.html());
     });
+};
+
+_cumulativeOffset = function (element) {
+    var top = 0, left = 0;
+    do {
+        top    += element.offsetTop || 0;
+        left   += element.offsetLeft || 0;
+        element = element.offsetParent;
+    } while (element);
+
+    return {
+        top: top,
+        left: left
+    };
 };
 
 /**
@@ -690,37 +733,6 @@ PUPHPET.submitUncheckedCheckboxes = function () {
 
         $('input[type="hidden"][name="' + $(this).attr('name') + '"]').remove();
     });
-};
-
-PUPHPET.changeTabOnAnchorChange = function () {
-    $(window).on('hashchange', function() {
-        PUPHPET.displayTabFromUrl();
-    });
-};
-
-/**
- * Catches anchor tag (#foo) in URL bar and displays proper tab
- */
-PUPHPET.displayTabFromUrl = function () {
-    if (window.location.hash.length) {
-        var $link     = $('#sidebar .sidebar-menu > .sub-menu a[data-toggle="tab"]');
-        var $hashLink = $link.filter('[href=' + window.location.hash + ']');
-
-        if ($hashLink.length == 0) {
-            return true;
-        }
-
-        var $activeSection = $('#sidebar .sub-menu.active');
-        var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
-
-        $activeSection.removeClass('active');
-        $activeLink.removeClass('active');
-
-        $hashLink.parent().parent().addClass('open');
-        $hashLink.parent().parent().parent().addClass('active');
-
-        $hashLink.tab('show');
-    }
 };
 
 /**

@@ -6,7 +6,7 @@
     <fieldset>
         <legend>Machines</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 This is the ID used within the <code>Vagrantfile</code>. It is only used
                 for your internal identification.
@@ -18,7 +18,7 @@
                    value="{{ machine.id }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 The hostname the machine should have.
                 <a href="http://stackoverflow.com/a/3523068/446766"
@@ -31,9 +31,7 @@
                    value="{{ machine.hostname }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Name your Linode server as it will appear in the Linode Control Panel.
             </div>
@@ -44,7 +42,7 @@
                    value="{{ machine.label }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Choose the one closest to you, or your target audience!
             </div>
@@ -59,9 +57,7 @@
             </select>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <a href="https://www.linode.com/pricing"
                    target="_blank">Pricing information</a>.

@@ -1,10 +1,5 @@
 <input type="hidden" name="redis[install]" value="0" />
 
-<div class="section-header">
-    <h1>Redis</h1>
-    <p class="lead">Install Redis.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
         <label class="col-xs-12 radio-tile">
@@ -29,7 +24,7 @@
     <div class="clearfix"></div>
 
     <div id="redis-container" class="{% if not redis.install %}hidden{% endif %}">
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <label for="redis-settings-port">Listen Port</label>
             <input type="text" id="redis-settings-port"
                    name="redis[settings][port]"
@@ -42,16 +37,12 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#mongodb">
-            <i class="fa fa-hand-o-left"></i> MongoDB
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#sqlite">
-            SQLite <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#mongodb"><span aria-hidden="true">&larr;</span> MongoDB</a></li>
+            <li class="next">
+                <a href="#sqlite">SQLite <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

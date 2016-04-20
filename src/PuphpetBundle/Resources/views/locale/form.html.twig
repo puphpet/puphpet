@@ -8,13 +8,11 @@
 </div>
 
 <div class="field-container">
-    <div class="help-block">
+    <div class="help-block col-xs-12">
         <p>Setting a locale currently only works on Debian and Ubuntu!</p>
     </div>
 
-    <div class="clearfix"></div>
-
-    <div class="form-group col-xs-6">
+    <div class="form-group col-xs-12">
         <div class="help-text">
             Per the <a href="https://wiki.debian.org/Locale#Standard" target="_blank">Debian Locale wiki</a>
             it is highly recommended to leave your default locale empty.
@@ -32,7 +30,7 @@
         </select>
     </div>
 
-    <div class="form-group col-xs-6">
+    <div class="form-group col-xs-12">
         <div class="help-text">
             Add as many as you want to support here.
         </div>
@@ -47,9 +45,7 @@
         </select>
     </div>
 
-    <div class="clearfix"></div>
-
-    <div class="form-group col-xs-6">
+    <div class="form-group col-xs-12">
         <label for="locale-settings-timezone">Timezone</label>
         <select id="locale-settings-timezone"
                 name="locale[settings][timezone]"
@@ -63,16 +59,12 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#users-groups">
-            <i class="fa fa-hand-o-left"></i> Users &amp; Groups
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#firewall">
-            Firewall Rules <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#users-groups"><span aria-hidden="true">&larr;</span> Users &amp; Groups</a></li>
+            <li class="next">
+                <a href="#firewall">Firewall Rules <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

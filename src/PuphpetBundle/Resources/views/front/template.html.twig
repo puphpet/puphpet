@@ -10,10 +10,11 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Anton" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/font-awesome-4.3.0/css/font-awesome.min.css') }}" />
-            <link rel="stylesheet" href="{{ asset('assets/v5/vendor/bootstrap-3.3.4/bootstrap-3.3.4.css') }}" />
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/selectize.js/selectize.bootstrap3.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/webui-popover/jquery.webui-popover.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/pnotify/pnotify.custom.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/v5/css/awesome-bootstrap-checkbox.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/css/style.css') }}" />
         {% endblock %}
 
@@ -42,7 +43,7 @@
 
 {% block topMenu %}
     <div id="top" class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <a href="#frontpage" class="navbar-brand" data-toggle="tab">
                     Pu<span class="colored">PHP</span>et
@@ -56,9 +57,9 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://kiwiirc.com/client/chat.freenode.net/#puphpet" target="_blank">#puphpet on Freenode</a></li>
-                    <li><a href="https://github.com/puphpet/puphpet/issues" target="_blank">Issues?</a></li>
-                    <li><a href="https://github.com/puphpet/puphpet" target="_blank">Fork Me</a></li>
+                    <li class="hidden-xs hidden-sm"><a href="https://kiwiirc.com/client/chat.freenode.net/#puphpet" target="_blank">#puphpet on Freenode</a></li>
+                    <li class="hidden-xs hidden-sm"><a href="https://github.com/puphpet/puphpet/issues" target="_blank">Issues?</a></li>
+                    <li class="hidden-xs hidden-sm"><a href="https://github.com/puphpet/puphpet" target="_blank">Fork Me</a></li>
                     <li class="inversed"><a href="https://jtreminio.com/hire-me/" target="_blank">Hire Me!</a></li>
                 </ul>
             </div>
@@ -70,30 +71,40 @@
 
 <section id="main-content">
     <section class="wrapper">
-        {% block main %}
-            <div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
+        <div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
 
-            <form id="main-form" role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
-                <div class="tab-content" id="tab-main-container">
+        <form id="main-form" role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
+            {% block main %}
+                <div class="tab-content col-xs-12" id="tab-fullpage-container">
                     {% include 'PuphpetBundle:front:index.html.twig' %}
                     {% include 'PuphpetBundle:front:sections/about.html.twig' %}
                     {% include 'PuphpetBundle:front:sections/help.html.twig' %}
-
-                    {% include 'PuphpetBundle:front:sections/deploy-target.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/system.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/webserver.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/language.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/database.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/mail.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/work-queue.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/search-server.html.twig' %}
                     {% include 'PuphpetBundle:front:sections/create.html.twig' %}
-
-                    <div class="clearfix"></div>
                 </div>
-            </form>
-        {% endblock %}
+
+                <div class="col-xs-7">
+                    <div class="tab-content" id="tab-main-container">
+                        {% include 'PuphpetBundle:front:sections/deploy-target.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/system.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/webserver.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/language.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/database.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/mail.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/work-queue.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/search-server.html.twig' %}
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div id="help-text-container" class="col-xs-5">
+                    <div class="content"></div>
+                </div>
+            {% endblock %}
+        </form>
     </section>
+
+    <div class="clearfix"></div>
 
     {% block footer %}
         <footer>

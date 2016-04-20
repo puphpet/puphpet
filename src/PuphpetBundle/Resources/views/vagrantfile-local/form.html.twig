@@ -11,14 +11,12 @@
 {% set proxy_ftp = (data.proxy.proxy_ftp is defined) ? data.proxy.proxy_ftp : '' %}
 {% set proxy_no_proxy = (data.proxy.proxy_no_proxy is defined) ? data.proxy.proxy_no_proxy : '' %}
 
-<div class="section-header">
-    <h1>Local VM Details</h1>
-    <p class="lead">Deploy your virtual machine on your local PC.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
-        <label class="col-xs-12 radio-tile">
+        <div class="help-text">
+            Deploy your virtual machine on your local PC.
+        </div>
+        <label class="radio-tile">
             <input type="radio" name="vagrantfile[target]" value="local" class="invisible"
                    {% if providerChosen %}checked{% endif %} />
             <span class="content">
@@ -33,8 +31,6 @@
                 </span>
             </span>
         </label>
-
-        <div class="clearfix"></div>
     </div>
 
     <div class="clearfix"></div>
@@ -47,52 +43,33 @@
                value="{{ formValue(data.vm.provider.local.box_version) }}" />
 
         {% for key, value in data.ssh %}
-            <input type="hidden"
-                id="vagrantfile-ssh-{{ key }}"
-                name="vagrantfile[ssh][{{ key }}]"
-                value="{{ formValue(value) }}" />
+            <input type="hidden" id="vagrantfile-ssh-{{ key }}"
+                name="vagrantfile[ssh][{{ key }}]" value="{{ formValue(value) }}" />
         {% endfor %}
 
         <div class="form-group">
             <div class="clearfix"><label>Provider</label></div>
 
             {% for virtualizer in data.available.virtualizers %}
-                <label class="col-xs-6 radio-tile">
+                <div class="radio">
                     <span class="help-text">
                         {{ virtualizer.description|raw }}
                     </span>
-                    <input type="radio" class="invisible update-local-ip-address"
-                           name="vagrantfile[vm][provider][local][chosen_virtualizer]"
-                           value="{{ virtualizer.name }}"
-                           {% if virtualizer.name == data.vm.provider.local.chosen_virtualizer %}checked{% endif %}
-                           data-base-ip="{{ virtualizer.base_ip }}"
-                        />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">{{ virtualizer.long_name }}</span>
-                        </span>
-                        <span class="footer">
-                            {{ virtualizer.os_support|raw }}<br />
-                            Performance:
-                            {% for i in range(1, virtualizer.performance) %}
-                                <i class="fa fa-star"></i>
-                            {% endfor %}
-                        </span>
-                    </span>
-                </label>
-
-                {% if loop.index is even or loop.last %}
-                    <div class="clearfix"></div>
-                {% endif %}
+                    <input type="radio" class="update-local-ip-address"
+                       id="vagrantfile-vm-provider-local-chosen_virtualizer-{{ virtualizer.name }}"
+                       name="vagrantfile[vm][provider][local][chosen_virtualizer]"
+                       value="{{ virtualizer.name }}"
+                       {% if virtualizer.name == data.vm.provider.local.chosen_virtualizer %}checked{% endif %}
+                       data-base-ip="{{ virtualizer.base_ip }}"
+                    />
+                    <label for="vagrantfile-vm-provider-local-chosen_virtualizer-{{ virtualizer.name }}">
+                        {{ virtualizer.long_name }}
+                    </label>
+                </div>
             {% endfor %}
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="form-group">
-            <div class="clearfix"><label>Distro</label></div>
-
             <div class="help-text">
                 <p>Choose the operating system for your VM. It will be downloaded the first
                     time you run Vagrant.
@@ -104,28 +81,21 @@
                     higher if you'd like, but we cannot guarantee it will work. In fact in
                     most cases it won't.</p>
             </div>
+            <div class="clearfix"><label>Distro</label></div>
 
             {% for box in data.available.boxes %}
-                <label class="col-xs-6 radio-tile">
-                    <input type="radio" class="invisible update-other-input"
+                <div class="radio">
+                    <input type="radio" class="update-other-input"
+                           id="vagrantfile-vm-provider-local-box_url-{{ box.short_name }}"
                            name="vagrantfile[vm][provider][local][box_url]"
                            value="{{ box.url }}"
                            {% if box.url == data.vm.provider.local.box_url %}checked{% endif %}
                            data-update-vagrantfile-vm-provider-local-box="{{ box.short_name }}" />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">{{ box.long_name }}</span>
-                        </span>
-                        <span class="footer">
-                            PHP {{ box.php_versions|join(', ') }}
-                        </span>
-                    </span>
-                </label>
-
-                {% if loop.index is even or loop.last %}
-                    <div class="clearfix"></div>
-                {% endif %}
+                    <label for="vagrantfile-vm-provider-local-box_url-{{ box.short_name }}">
+                        {{ box.long_name }}
+                        (PHP <strong>{{ box.php_versions|join('</strong>, <strong>')|raw }}</strong>)
+                    </label>
+                </div>
             {% endfor %}
         </div>
 
@@ -145,18 +115,16 @@
         {% endfor %}
 
         <a href="#" data-source-url="{{ path('puphpet.vagrantfile_local.synced_folder') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder</a>
 
         <div class="clearfix"></div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-12">
             <div class="clearfix"><label>Enable Proxy</label></div>
-
-            <input type="hidden" name="vagrantfile[proxy][enabled]" value="" />
 
             <label class="radio-tile mini set-width">
                 <span class="help-text">
-                    Check to set proxy options.
+                    Enable Proxy
                 </span>
                 <input type="checkbox" name="vagrantfile[proxy][enabled]"
                        class="invisible toggle-on-select"
@@ -175,9 +143,19 @@
         <div class="clearfix"></div>
 
         <div class="nested-block {% if not proxy %}hidden{% endif %}" id="vagrantfile-proxy-proxy_options">
+            <div class="help-text">
+                <p>Requires installing the <code>vagrant-proxyconf</code> plugin:</p>
+
+                <p><code>vagrant plugin install vagrant-proxyconf</code></p>
+
+                <p><a href="https://github.com/tmatilai/vagrant-proxyconf/"
+                      target="_blank">Click here for more information</a>.</p>
+            </div>
+
             <fieldset>
                 <legend>Proxy Options</legend>
-                <div class="form-group col-xs-6">
+
+                <div class="form-group col-xs-12">
                     <label for="vagrantfile-proxy-http">Proxy for HTTP URIs</label>
                     <input type="text" id="vagrantfile-proxy-http"
                            name="vagrantfile[proxy][http]"
@@ -185,7 +163,7 @@
                            value="{{ proxy_http }}" />
                 </div>
 
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
                     <label for="vagrantfile-proxy-https">Proxy for HTTPS URIs</label>
                     <input type="text" id="vagrantfile-proxy-https"
                            name="vagrantfile[proxy][https]"
@@ -193,9 +171,7 @@
                            value="{{ proxy_https }}" />
                 </div>
 
-                <div class="clearfix"></div>
-
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
                     <label for="vagrantfile-proxy-ftp">Proxy for FTP URIs</label>
                     <input type="text" id="vagrantfile-proxy-ftp"
                            name="vagrantfile[proxy][ftp]"
@@ -203,39 +179,22 @@
                            value="{{ proxy_ftp }}" />
                 </div>
 
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
                     <label for="vagrantfile-proxy-no_proxy">Comma-Separated Excluded Hosts or Domains</label>
                     <input type="text" id="vagrantfile-proxy-no_proxy"
                            name="vagrantfile[proxy][no_proxy]"
                            placeholder="localhost,127.0.0.1,.example.com" class="form-control"
                            value="{{ proxy_no_proxy }}" />
                 </div>
-
-                <div class="clearfix"></div>
-
-                <div class="help-block">
-                    <p>Requires installing the <code>vagrant-proxyconf</code> plugin:</p>
-
-                    <p><code>vagrant plugin install vagrant-proxyconf</code></p>
-
-                    <p><a href="https://github.com/tmatilai/vagrant-proxyconf/"
-                          target="_blank">Click here for more information</a>.</p>
-                </div>
             </fieldset>
         </div>
     </div>
 
-    <div class="clearfix"></div>
-
-    <div class="col-xs-6">
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#system-packages">
-            System Packages <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="next"><a href="#system-packages">System Packages <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>
 
 <div class="modal fade" id="vagrantfile-local-modal" tabindex="-1" role="dialog"
