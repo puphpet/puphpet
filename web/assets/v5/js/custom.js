@@ -328,8 +328,6 @@ PUPHPET.sidebarMenuClick = function() {
         $(this).closest('.sub-menu').addClass('active');
     });
 
-    // todo: remove?
-
     $(document).on('click', '#top a[data-toggle="tab"]', function (e) {
         if (window.location.hash == this.hash) {
             return false;
