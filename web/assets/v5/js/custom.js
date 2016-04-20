@@ -347,31 +347,35 @@ PUPHPET.sidebarMenuClick = function() {
  * Handles displaying section help information
  */
 PUPHPET.helpTextDisplay = function() {
-    $('.field-container .form-group, .field-container .form-group .radio-tile').each(function() {
+    $(document).on('mouseover', '.field-container .form-group, ' +
+        '.field-container .form-group .radio-tile,' +
+        '.field-container .form-group .radio', function (e) {
         if ($(this).has('> .help-text').length == 0) {
             return;
         }
 
+        var coords = _cumulativeOffset(this)
+
         var $helpText = $('> .help-text', this).eq(0);
 
-        $(this).webuiPopover({
-            title: '',
-            content: $helpText.html(),
-            trigger: 'hover',
-            delay: {
-                show: 500,
-                hide: 200
-            },
-            constrains: 'vertical',
-            placement: 'top-left',
-            cache: true,
-            multi: false,
-            arrow: true,
-            closeable: true,
-            padding: true,
-            type: 'html'
-        });
+        $('#help-text-container > .content').width($('#help-text-container').width())
+            .css('top', coords.top - 50)
+            .html($helpText.html());
     });
+};
+
+_cumulativeOffset = function (element) {
+    var top = 0, left = 0;
+    do {
+        top    += element.offsetTop || 0;
+        left   += element.offsetLeft || 0;
+        element = element.offsetParent;
+    } while (element);
+
+    return {
+        top: top,
+        left: left
+    };
 };
 
 /**

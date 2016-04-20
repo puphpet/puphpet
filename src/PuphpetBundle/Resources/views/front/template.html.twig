@@ -10,10 +10,11 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Anton" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/font-awesome-4.3.0/css/font-awesome.min.css') }}" />
-            <link rel="stylesheet" href="{{ asset('assets/v5/vendor/bootstrap-3.3.4/bootstrap-3.3.4.css') }}" />
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/selectize.js/selectize.bootstrap3.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/webui-popover/jquery.webui-popover.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/vendor/pnotify/pnotify.custom.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('assets/v5/css/awesome-bootstrap-checkbox.css') }}" />
             <link rel="stylesheet" href="{{ asset('assets/v5/css/style.css') }}" />
         {% endblock %}
 
@@ -56,9 +57,9 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://kiwiirc.com/client/chat.freenode.net/#puphpet" target="_blank">#puphpet on Freenode</a></li>
-                    <li><a href="https://github.com/puphpet/puphpet/issues" target="_blank">Issues?</a></li>
-                    <li><a href="https://github.com/puphpet/puphpet" target="_blank">Fork Me</a></li>
+                    <li class="hidden-xs hidden-sm"><a href="https://kiwiirc.com/client/chat.freenode.net/#puphpet" target="_blank">#puphpet on Freenode</a></li>
+                    <li class="hidden-xs hidden-sm"><a href="https://github.com/puphpet/puphpet/issues" target="_blank">Issues?</a></li>
+                    <li class="hidden-xs hidden-sm"><a href="https://github.com/puphpet/puphpet" target="_blank">Fork Me</a></li>
                     <li class="inversed"><a href="https://jtreminio.com/hire-me/" target="_blank">Hire Me!</a></li>
                 </ul>
             </div>
@@ -70,34 +71,42 @@
 
 <section id="main-content">
     <section class="wrapper">
+        <div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
+
         {% block main %}
-            <div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
+            <div class="col-xs-6">
+                <form id="main-form" role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
+                    <div class="tab-content" id="tab-main-container">
+                        {% include 'PuphpetBundle:front:index.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/about.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/help.html.twig' %}
 
-            <form id="main-form" role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
-                <div class="tab-content" id="tab-main-container">
-                    {% include 'PuphpetBundle:front:index.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/about.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/help.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/deploy-target.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/system.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/webserver.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/language.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/database.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/mail.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/work-queue.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/search-server.html.twig' %}
+                        {% include 'PuphpetBundle:front:sections/create.html.twig' %}
 
-                    {% include 'PuphpetBundle:front:sections/deploy-target.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/system.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/webserver.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/language.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/database.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/mail.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/work-queue.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/search-server.html.twig' %}
-                    {% include 'PuphpetBundle:front:sections/create.html.twig' %}
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
 
-                    <div class="clearfix"></div>
-                </div>
-            </form>
+            <div id="help-text-container" class="col-xs-4">
+                <div class="content"></div>
+            </div>
         {% endblock %}
     </section>
 
+    <div class="clearfix"></div>
+
     {% block footer %}
         <footer>
-            <div class="col-sm-12">
+            <div class="col-sm-9">
                 <ul class="list-unstyled list-inline pull-left">
                     <li><i class="fa fa-pencil"></i> <a href="https://jtreminio.com" target="_blank">Blog</a></li>
                     <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/puphpet" target="_blank">Twitter</a></li>
@@ -117,7 +126,7 @@
                 </ul>
             </div>
 
-            <div class="col-xs-9">
+            <div class="col-xs-7">
                 <p>Made with <span class="glyphicon glyphicon-heart"></span>
                     by <a href="https://jtreminio.com">Juan Treminio</a>.</p>
                 <p>Contact him at <a href="mailto:jtreminio@gmail.com">jtreminio@gmail.com</a>.</p>

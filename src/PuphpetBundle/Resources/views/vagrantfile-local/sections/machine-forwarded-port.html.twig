@@ -3,10 +3,11 @@
 <div id="{{ uniqid }}" class="nested-block">
     <a href="#" class="delete-block remove"
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
     <fieldset>
         <legend>Forwarded Ports</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Port on Host to forward to VM.
                 <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
@@ -19,7 +20,7 @@
                    value="{{ forwarded_port.host ? forwarded_port.host : mt_rand(5000, 9999) }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <p>Port on VM to accept from Host.
                     <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
@@ -32,7 +33,5 @@
                    placeholder="80" min="1" max="65535" class="form-control"
                    value="{{ forwarded_port.guest ? forwarded_port.guest : '22' }}" />
         </div>
-
-        <div class="clearfix"></div>
     </fieldset>
 </div>
