@@ -7,7 +7,7 @@
     <fieldset>
         <legend>Nginx Proxy Upstreams</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Name of the upstream configuration. You will reference this name in the
                 Virtual host proxy configuration as <code>http://{name}</code>
@@ -19,7 +19,7 @@
                    value="{{ upstream.name }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Time in seconds, example: <code>10s</code>.
             </div>
@@ -29,8 +29,6 @@
                    placeholder="10s" class="form-control"
                    value="{{ upstream.upstream_fail_timeout }}" />
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">

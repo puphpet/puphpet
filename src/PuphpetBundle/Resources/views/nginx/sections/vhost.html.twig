@@ -19,7 +19,7 @@
     <fieldset>
         <legend>Virtual Host</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Don't forget to <a href="/#help" target="_blank">update
                     your computer's hosts file!</a>
@@ -31,7 +31,7 @@
                    value="{{ vhost.server_name }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Separated by comma.
             </div>
@@ -45,9 +45,7 @@
             </select>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Location of your site's <code>index.php</code> file, or other landing page.
             </div>
@@ -58,7 +56,7 @@
                    value="{{ vhost.www_root }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <code>80</code> for normal browsing, if you choose another append
                 it to the URL in your browser, eg: <code>http://awesome.dev:1337</code>
@@ -70,9 +68,7 @@
                    value="{{ vhost.listen_port }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 The last file should be the accessor to your PHP script or front controller.
             </div>
@@ -86,7 +82,7 @@
             </select>
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Value in megabytes (<code>1m</code> = 1 megabyte). <code>0</code> = disabled
             </div>
@@ -97,9 +93,7 @@
                    value="{{ client_max_body_type }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group">
+        <div class="form-group col-xs-12">
             <div class="clearfix"><label>Enable SSL</label></div>
 
             <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl]" value="0" />
@@ -127,7 +121,8 @@
         <div class="nested-block {% if not ssl %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-ssl_options">
             <fieldset>
                 <legend>SSL Options</legend>
-                <div class="form-group col-xs-6">
+
+                <div class="form-group col-xs-12">
                     <div class="help-text">
                         <p>Absolute path to SSL Certificate File. Usually ends in .crt.
                             Leave blank to use a generic one.
@@ -144,7 +139,7 @@
                            value="{{ ssl_cert }}" />
                 </div>
 
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
                     <div class="help-text">
                         <p>Absolute path to SSL Certificate Key File. Usually ends in .key.
                                 Leave blank to use a generic one
@@ -161,9 +156,7 @@
                            value="{{ ssl_key }}" />
                 </div>
 
-                <div class="clearfix"></div>
-
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
                     <div class="help-text">
                         Should be different from the normal Port chosen above!
                     </div>
@@ -177,50 +170,41 @@
                 <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_protocols]" value="{{ ssl_protocols }}" />
                 <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_ciphers]" value="{{ ssl_ciphers }}" />
 
-
-                <div class="clearfix"></div>
-
                 <div class="form-group col-xs-12">
                     <div class="clearfix"><label>SSL-Only Options</label></div>
 
-                    <label class="radio-tile mini set-width">
+                    <div class="checkbox">
                         <span class="help-text">
                             Forwards all non-SSL traffic to SSL vhost.
                         </span>
-                        <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][rewrite_to_https]"
-                               class="invisible" {% if rewrite_to_https %}checked{% endif %}
-                               value="1" />
-                        <span class="content">
-                            <span class="header">
-                                <i class="icon"></i>
-                                <span class="title">Rewrite to SSL</span>
-                            </span>
-                        </span>
-                    </label>
+                        <input class="styled" type="checkbox"
+                               {% if rewrite_to_https %}checked{% endif %} value="1"
+                               id="nginx-vhosts-{{ uniqid }}-rewrite_to_https"
+                               name="nginx[vhosts][{{ uniqid }}][rewrite_to_https]" />
+                        <label for="nginx-vhosts-{{ uniqid }}-rewrite_to_https">
+                            Rewrite to SSL
+                        </label>
+                    </div>
 
-                    <label class="radio-tile mini set-width">
+                    <div class="checkbox">
                         <span class="help-text">
                             <a href="http://blog.cloudflare.com/introducing-spdy"
                                target="_blank">Learn more about this</a>.
                         </span>
-                        <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][spdy]"
-                               class="invisible" {% if spdy %}checked{% endif %}
-                               value="1" />
-                        <span class="content">
-                            <span class="header">
-                                <i class="icon"></i>
-                                <span class="title">Enable Spdy Module</span>
-                            </span>
-                        </span>
-                    </label>
+                        <input class="styled" type="checkbox"
+                               {% if spdy %}checked{% endif %} value="1"
+                               id="nginx-vhosts-{{ uniqid }}-spdy"
+                               name="nginx[vhosts][{{ uniqid }}][spdy]" />
+                        <label for="nginx-vhosts-{{ uniqid }}-spdy">
+                            Enable Spdy Module
+                        </label>
+                    </div>
                 </div>
 
                 <div class="help-block">
                     <p>There is currently a bug where self-signed certificate will not work in CentOS for
                         Nginx. PRs are welcome!</p>
                 </div>
-
-                <div class="clearfix"></div>
             </fieldset>
         </div>
 

@@ -5,10 +5,11 @@
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
     <fieldset>
         <legend>Cron Job</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <label for="cron-jobs-{{ uniqid }}-name">Name</label>
             <input type="text" id="cron-jobs-{{ uniqid }}-name"
                    name="cron[jobs][{{ uniqid }}][name]"
@@ -16,7 +17,7 @@
                    value="{{ job.name }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Run the job as this user.
             </div>
@@ -27,9 +28,7 @@
                    value="{{ job.user }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Command to have cron run.
             </div>
@@ -40,7 +39,7 @@
                    value="{{ job.command }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Should be specified exactly as they should appear in the crontab,
                 e.g., <code>PATH=/bin:/usr/bin:/usr/sbin</code>.
@@ -55,9 +54,7 @@
             </select>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <code>0-59</code> for a specific minute of the hour,
                 or use steps, e.g., <code>*/10</code>, for every X minutes.
@@ -69,7 +66,7 @@
                    value="{{ job.minute }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <code>0-23</code> for a specific hour of the day,
                 or use steps, e.g., <code>*/10</code>, for every X hours.
@@ -81,9 +78,7 @@
                    value="{{ job.hour }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <code>0-6</code> for a specific day of the week (Sunday is 0),
                 or use steps, e.g., <code>*/10</code>, for every X days
@@ -95,7 +90,7 @@
                    value="{{ job.weekday }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <code>1-12</code> for a specific month of the year,
                 or use steps, e.g., <code>*/10</code>, for every X months.

@@ -350,6 +350,8 @@ PUPHPET.helpTextDisplay = function() {
     $(document).on('mouseover', '.field-container .form-group, ' +
         '.field-container .form-group .radio-tile,' +
         '.field-container .form-group .radio,' +
+        '.field-container .form-group .checkbox,' +
+        '.field-container .checkbox,' +
         '.field-container .nested-block', function (e) {
         if ($(this).has('> .help-text').length == 0) {
             return;

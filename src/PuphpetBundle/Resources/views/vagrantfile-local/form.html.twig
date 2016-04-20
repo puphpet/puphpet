@@ -119,23 +119,28 @@
 
         <div class="clearfix"></div>
 
-        <div class="form-group form-group-lg">
-            <fieldset>
-                <legend>
-                    <div class="checkbox checkbox-success">
-                        <input type="checkbox" class="form-control styled toggle-on-select"
-                               id="vagrantfile-proxy-enabled"
-                               name="vagrantfile[proxy][enabled]"
-                               {% if proxy %}checked{% endif %}
-                               value="1"
-                               data-vis-toggle-target="#vagrantfile-proxy-proxy_options" />
-                        <label for="vagrantfile-proxy-enabled">
-                            Enable Proxy
-                        </label>
-                    </div>
-                </legend>
-            </fieldset>
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable SSL</label></div>
+
+            <label class="radio-tile mini set-width">
+                <span class="help-text">
+                    Enable Proxy
+                </span>
+                <input type="checkbox" name="vagrantfile[proxy][enabled]"
+                       class="invisible toggle-on-select"
+                       {% if proxy %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#vagrantfile-proxy-proxy_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable Proxy</span>
+                    </span>
+                </span>
+            </label>
         </div>
+
+        <div class="clearfix"></div>
 
         <div class="nested-block {% if not proxy %}hidden{% endif %}" id="vagrantfile-proxy-proxy_options">
             <div class="help-text">

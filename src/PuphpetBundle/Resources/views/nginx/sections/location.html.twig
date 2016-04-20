@@ -13,7 +13,7 @@
     <fieldset>
         <legend>Location</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#location"
                    target="_blank">More information</a>.
@@ -25,43 +25,33 @@
                    value="{{ location.location }}"/>
         </div>
 
-        <div class="form-group col-xs-3">
-            <div class="clearfix"><label>autoindex</label></div>
+        <div class="clearfix"></div>
 
-            <label class="radio-tile mini set-width">
-                <span class="help-text">
-                    Enables directory listings.
-                </span>
-                <input type="hidden" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][autoindex]" value="off" />
-                <input type="checkbox" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][autoindex]"
-                       class="invisible" {% if autoindex %}checked{% endif %} value="on" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Enable autoindex</span>
-                    </span>
-                </span>
+        <div class="checkbox">
+            <span class="help-text">
+                Enables directory listings.
+            </span>
+            <input class="styled" type="checkbox"
+                   {% if autoindex %}checked{% endif %} value="on"
+                   id="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-autoindex"
+                   name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][autoindex]" />
+            <label for="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-autoindex">
+                Enable autoindex
             </label>
         </div>
 
-        <div class="form-group col-xs-3">
-            <div class="clearfix"><label>internal</label></div>
-
-            <label class="radio-tile mini set-width">
-                <span class="help-text">
-                    Designates location as internal-only.
-                    See <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#internal"
-                           title="nginx internal location docs">nginx documentation</a> for more details.
-                </span>
-                <input type="hidden" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]" value="false" />
-                <input type="checkbox" name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]"
-                       class="invisible" {% if internal %}checked{% endif %} value="true" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Enable internal</span>
-                    </span>
-                </span>
+        <div class="checkbox">
+            <span class="help-text">
+                Designates location as internal-only.
+                See <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#internal"
+                       title="nginx internal location docs">nginx documentation</a> for more details.
+            </span>
+            <input class="styled" type="checkbox"
+                   {% if internal %}checked{% endif %} value="true"
+                   id="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-internal"
+                   name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]" />
+            <label for="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-internal">
+                Enable internal
             </label>
         </div>
 
@@ -82,9 +72,7 @@
             </select>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_pass"
                    target="_blank">More information</a>.
@@ -96,7 +84,7 @@
                    value="{{ location.fastcgi }}"/>
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_index"
                    target="_blank">More information</a>.
@@ -108,9 +96,7 @@
                    value="{{ location.fastcgi_index }}"/>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_split_path_info"
                    target="_blank">More information</a>.
@@ -122,9 +108,7 @@
                    value="{{ location.fastcgi_split_path }}"/>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <code>name value</code>, separated by comma. Unlike Apache, each variable must have a value.
             </div>
@@ -138,7 +122,7 @@
             </select>
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <code>name value</code>, separated by comma.
                 <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#set"
@@ -154,9 +138,7 @@
             </select>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy">Proxy</label>
             <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy"
                    name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][proxy]"
@@ -164,7 +146,7 @@
                    value="{{ location.proxy }}"/>
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_redirect"
                    target="_blank">More information</a>.
@@ -175,8 +157,6 @@
                    placeholder="off" class="form-control"
                    value="{{ location.proxy }}"/>
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">

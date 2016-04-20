@@ -3,6 +3,7 @@
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
     <fieldset>
         <legend>Virtual Host Rewrites</legend>
 
@@ -19,9 +20,7 @@
                    value="{{ rewrite.when }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Regex to match against.
                 <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite"
@@ -34,7 +33,7 @@
                    value="{{ rewrite.regex }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Action to take. Do not append with <code>;</code>!
                 <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite"
