@@ -48,9 +48,6 @@ puphpet.vagrantfile_gce:
 puphpet.vagrantfile_digitalocean:
     resource: "@PuphpetBundle/Resources/config/vagrantfile-digitalocean/routing.yml"
     prefix:   /extension/vagrantfile-digitalocean
-puphpet.vagrantfile_ikoulacloud:
-    resource: "@PuphpetBundle/Resources/config/vagrantfile-ikoulacloud/routing.yml"
-    prefix:   /extension/vagrantfile-ikoulacloud
 
 # system
 puphpet.server:

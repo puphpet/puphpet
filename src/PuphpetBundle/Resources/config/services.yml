@@ -13,7 +13,6 @@ services:
             - [ addExtension, [ 'vagrantfile-aws' ] ]
             - [ addExtension, [ 'vagrantfile-gce' ] ]
             - [ addExtension, [ 'vagrantfile-digitalocean' ] ]
-            - [ addExtension, [ 'vagrantfile-ikoulacloud' ] ]
         # system
             - [ addExtension, [ 'server' ] ]
             - [ addExtension, [ 'users-groups' ] ]
