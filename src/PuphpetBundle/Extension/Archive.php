@@ -4,7 +4,7 @@ namespace PuphpetBundle\Extension;
 
 class Archive
 {
-    const ARCHIVE_LOCATION = __DIR__ . '/../../../../archive';
+    const ARCHIVE_LOCATION = __DIR__ . '/../../../archive';
     const ZIP_COMMAND      = 'cd "%s" && cd .. && zip -r "%s" "%s" -x "*/.git/*" -x "*/.tmp/*" -x "*/.librarian/*"';
 
     /**
@@ -163,6 +163,10 @@ class Archive
             $this->unlink($tempfile);
         }
 
+        if (!is_dir($tempfile)) {
+            mkdir($tempfile, 0775, true);
+        }
+
         return $tempfile;
     }
 
@@ -200,6 +204,12 @@ class Archive
      */
     protected function file_put_contents($filename, $data, $flags = null)
     {
+        $path = pathinfo($filename);
+
+        if (!is_dir($path['dirname'])) {
+            mkdir($path['dirname'], 0775, true);
+        }
+
         return file_put_contents($filename, $data, $flags);
     }
 }
