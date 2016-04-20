@@ -181,6 +181,10 @@ legend {
         max-width: 1280px;
     }
 
+    .navbar-default {
+        background-color: #fff;
+    }
+
     .navbar-default .navbar-brand {
         margin-left: -15px;
         padding-left: 50px;
