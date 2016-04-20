@@ -3,6 +3,7 @@ body {
     background: #fff;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: 300;
+    max-width: 1280px;
 }
 
 html,
@@ -102,6 +103,10 @@ label.radio input[type="radio"] {
     margin-left: 10px;
 }
 
+.checkbox label {
+    line-height: 18px;
+}
+
 .form-group-lg .checkbox label {
     padding-left: 10px;
 }
@@ -168,6 +173,12 @@ legend {
 */
     .navbar {
         z-index: 9999;
+    }
+
+    .navbar-fixed-top > .container-fluid {
+        margin-right: 0;
+        margin-left: 10px;
+        max-width: 1280px;
     }
 
     .navbar-default .navbar-brand {
@@ -477,7 +488,7 @@ legend {
         right: 0;
         margin: 0;
         padding: 5px;
-        border: 1px solid #e53c37;
+        border: 1px solid #515961;
         border-radius: 0 0 0 2px;
         font-size: 8px;
         font-weight: 700;
@@ -485,7 +496,7 @@ legend {
         text-transform: uppercase;
         cursor: pointer;
         color: #fff;
-        background-color: #eb6864;
+        background-color: #737B83;
     }
 
     .nested-block > .remove:hover {
@@ -584,8 +595,8 @@ legend {
 
     .radio-tile input:checked + .content {
         color: #000;
-        border-color: #f47421;
-        box-shadow: 0 0 0 1px #f47421;
+        border-color: #737B83;
+        box-shadow: 0 0 0 1px #737B83;
     }
 
     .radio-tile .content {

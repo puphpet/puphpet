@@ -43,7 +43,7 @@
 
 {% block topMenu %}
     <div id="top" class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <a href="#frontpage" class="navbar-brand" data-toggle="tab">
                     Pu<span class="colored">PHP</span>et
@@ -73,14 +73,17 @@
     <section class="wrapper">
         <div id="drag-drop"><p><span class="glyphicon glyphicon-cloud-upload"></span><br />upload your config</p></div>
 
-        {% block main %}
-            <div class="col-xs-6">
-                <form id="main-form" role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
-                    <div class="tab-content" id="tab-main-container">
-                        {% include 'PuphpetBundle:front:index.html.twig' %}
-                        {% include 'PuphpetBundle:front:sections/about.html.twig' %}
-                        {% include 'PuphpetBundle:front:sections/help.html.twig' %}
+        <form id="main-form" role="form" action="{{ path('puphpet.main.homepage') }}" method="post">
+            {% block main %}
+                <div class="tab-content col-xs-12" id="tab-fullpage-container">
+                    {% include 'PuphpetBundle:front:index.html.twig' %}
+                    {% include 'PuphpetBundle:front:sections/about.html.twig' %}
+                    {% include 'PuphpetBundle:front:sections/help.html.twig' %}
+                    {% include 'PuphpetBundle:front:sections/create.html.twig' %}
+                </div>
 
+                <div class="col-xs-7">
+                    <div class="tab-content" id="tab-main-container">
                         {% include 'PuphpetBundle:front:sections/deploy-target.html.twig' %}
                         {% include 'PuphpetBundle:front:sections/system.html.twig' %}
                         {% include 'PuphpetBundle:front:sections/webserver.html.twig' %}
@@ -89,24 +92,23 @@
                         {% include 'PuphpetBundle:front:sections/mail.html.twig' %}
                         {% include 'PuphpetBundle:front:sections/work-queue.html.twig' %}
                         {% include 'PuphpetBundle:front:sections/search-server.html.twig' %}
-                        {% include 'PuphpetBundle:front:sections/create.html.twig' %}
 
                         <div class="clearfix"></div>
                     </div>
-                </form>
-            </div>
+                </div>
 
-            <div id="help-text-container" class="col-xs-4">
-                <div class="content"></div>
-            </div>
-        {% endblock %}
+                <div id="help-text-container" class="col-xs-5">
+                    <div class="content"></div>
+                </div>
+            {% endblock %}
+        </form>
     </section>
 
     <div class="clearfix"></div>
 
     {% block footer %}
         <footer>
-            <div class="col-sm-9">
+            <div class="col-sm-12">
                 <ul class="list-unstyled list-inline pull-left">
                     <li><i class="fa fa-pencil"></i> <a href="https://jtreminio.com" target="_blank">Blog</a></li>
                     <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/puphpet" target="_blank">Twitter</a></li>
@@ -126,7 +128,7 @@
                 </ul>
             </div>
 
-            <div class="col-xs-7">
+            <div class="col-xs-9">
                 <p>Made with <span class="glyphicon glyphicon-heart"></span>
                     by <a href="https://jtreminio.com">Juan Treminio</a>.</p>
                 <p>Contact him at <a href="mailto:jtreminio@gmail.com">jtreminio@gmail.com</a>.</p>

@@ -5,10 +5,11 @@
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
     <fieldset>
         <legend>Create User</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <label for="postgresql-users-{{ uniqid }}-username">Username</label>
             <input type="text" id="postgresql-users-{{ uniqid }}-username"
                    name="postgresql[users][{{ uniqid }}][username]"
@@ -16,7 +17,7 @@
                    value="{{ user.username }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Password is required for each user.
             </div>
@@ -27,28 +28,21 @@
                    value="{{ user.password }}" />
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="form-group col-xs-12">
             <div class="clearfix"><label>Superuser</label></div>
 
-            <label class="radio-tile mini set-width">
+            <div class="checkbox">
                 <span class="help-text">
                     Grants this user superuser role.
                 </span>
-                <input type="checkbox" name="postgresql[users][{{ uniqid }}][superuser]"
-                       class="invisible"
-                       {% if superUser %}checked{% endif %}
-                       value="1" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Make superuser</span>
-                    </span>
-                </span>
-            </label>
+                <input class="styled" type="checkbox"
+                       {% if superUser %}checked{% endif %} value="1"
+                       id="postgresql-users-{{ uniqid }}-superuser"
+                       name="postgresql[users][{{ uniqid }}][superuser]" />
+                <label for="postgresql-users-{{ uniqid }}-superuser">
+                    Make superuser
+                </label>
+            </div>
         </div>
-
-        <div class="clearfix"></div>
     </fieldset>
 </div>

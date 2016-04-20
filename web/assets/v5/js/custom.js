@@ -318,19 +318,17 @@ PUPHPET.sidebarMenuClick = function() {
 
         window.location.hash = this.hash;
 
-        var $activeSection = $('#sidebar .sub-menu.active');
-        var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
-        var $mainContainer = $('#tab-main-container > div.tab-pane.active');
+        var $activeSection     = $('#sidebar .sub-menu.active');
+        var $activeLink        = $('#sidebar .sub-menu ul.sub li.active');
 
         $activeSection.removeClass('active');
         $activeLink.removeClass('active');
-        $mainContainer.removeClass('active');
 
         $(this).parent().addClass('active');
         $(this).closest('.sub-menu').addClass('active');
-
-        $('html, body').scrollTop(0);
     });
+
+    // todo: remove?
 
     $(document).on('click', '#top a[data-toggle="tab"]', function (e) {
         if (window.location.hash == this.hash) {
@@ -341,6 +339,45 @@ PUPHPET.sidebarMenuClick = function() {
 
         $('html, body').scrollTop(0);
     });
+};
+
+PUPHPET.changeTabOnAnchorChange = function () {
+    $(window).on('hashchange', function() {
+        PUPHPET.displayTabFromUrl();
+    });
+};
+
+/**
+ * Catches anchor tag (#foo) in URL bar and displays proper tab
+ */
+PUPHPET.displayTabFromUrl = function () {
+    if (window.location.hash.length) {
+        if (window.location.hash == this.hash) {
+            return false;
+        }
+
+        this.hash = window.location.hash;
+
+        var $hashLink = $('a[data-toggle="tab"]').filter('[href=' + window.location.hash + ']');
+
+        if ($hashLink.length == 0) {
+            return true;
+        }
+
+        var $tabs = $(
+            '#tab-main-container > div.tab-pane,' +
+            '#tab-fullpage-container > div.tab-pane,' +
+            '#help-text-container .content'
+        );
+
+        $tabs.not($hashLink).each(function() {
+            $(this).hide();
+        });
+
+        $(window.location.hash).addClass('active').show();
+
+        $('html, body').scrollTop(0);
+    }
 };
 
 /**
@@ -361,7 +398,8 @@ PUPHPET.helpTextDisplay = function() {
 
         var $helpText = $('> .help-text', this).eq(0);
 
-        $('#help-text-container > .content').width($('#help-text-container').width())
+        $('#help-text-container > .content').show()
+            .width($('#help-text-container').width())
             .css('top', coords.top - 50)
             .html($helpText.html());
     });
@@ -697,37 +735,6 @@ PUPHPET.submitUncheckedCheckboxes = function () {
 
         $('input[type="hidden"][name="' + $(this).attr('name') + '"]').remove();
     });
-};
-
-PUPHPET.changeTabOnAnchorChange = function () {
-    $(window).on('hashchange', function() {
-        PUPHPET.displayTabFromUrl();
-    });
-};
-
-/**
- * Catches anchor tag (#foo) in URL bar and displays proper tab
- */
-PUPHPET.displayTabFromUrl = function () {
-    if (window.location.hash.length) {
-        var $link     = $('#sidebar .sidebar-menu > .sub-menu a[data-toggle="tab"]');
-        var $hashLink = $link.filter('[href=' + window.location.hash + ']');
-
-        if ($hashLink.length == 0) {
-            return true;
-        }
-
-        var $activeSection = $('#sidebar .sub-menu.active');
-        var $activeLink    = $('#sidebar .sub-menu ul.sub li.active');
-
-        $activeSection.removeClass('active');
-        $activeLink.removeClass('active');
-
-        $hashLink.parent().parent().addClass('open');
-        $hashLink.parent().parent().parent().addClass('active');
-
-        $hashLink.tab('show');
-    }
 };
 
 /**

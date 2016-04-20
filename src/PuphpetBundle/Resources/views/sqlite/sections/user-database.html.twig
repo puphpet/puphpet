@@ -3,10 +3,11 @@
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
     <fieldset>
         <legend>Additional Owner &amp; Database</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <label for="sqlite-databases-{{ uniqid }}-name">DB Name</label>
             <input type="text" id="sqlite-databases-{{ uniqid }}-name"
                    name="sqlite[databases][{{ uniqid }}][name]"
@@ -14,7 +15,7 @@
                    value="{{ database.name }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Provide the user that will be the database owner.
                 The user must be a valid unix user such as <code>www-data</code>.
@@ -26,9 +27,7 @@
                    value="{{ database.owner }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Provide a valid unix group for the database.
             </div>
@@ -39,7 +38,7 @@
                    value="{{ database.group }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Optional. Make sure this file is inside the VM before running
                 <code>$ vagrant up</code>.

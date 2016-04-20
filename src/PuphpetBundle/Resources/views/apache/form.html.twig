@@ -1,12 +1,10 @@
 <input type="hidden" name="apache[install]" value="0" />
 
-<div class="section-header">
-    <h1>Apache Web Server</h1>
-    <p class="lead">Setup Apache. Not as hip as Nginx.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
+        <div class="help-text">
+            Setup Apache. Not as hip as Nginx.
+        </div>
         <label class="col-xs-12 radio-tile">
             <input type="checkbox" name="apache[install]" value="1"
                    class="invisible toggle-on-select update-other-input-on-check"
@@ -59,16 +57,12 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#nginx">
-            <i class="fa fa-hand-o-left"></i> Nginx
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#php">
-            PHP <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#nginx"><span aria-hidden="true">&larr;</span> Nginx</a></li>
+            <li class="next">
+                <a href="#php">PHP <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

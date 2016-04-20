@@ -8,11 +8,6 @@
 
 <input type="hidden" name="postgresql[install]" value="0" />
 
-<div class="section-header">
-    <h1>PostgreSQL</h1>
-    <p class="lead">Install PostgreSQL and create users and databases.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
         <label class="col-xs-12 radio-tile">
@@ -37,30 +32,25 @@
     <div class="clearfix"></div>
 
     <div id="postgresql-container" class="{% if not postgresql.install %}hidden{% endif %}">
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="clearfix"><label>Version</label></div>
 
             {% for version in versions %}
-                <label class="radio-tile mini set-width">
-                    <input type="radio" class="invisible"
-                           name="postgresql[settings][global][version]"
-                           value="{{ version }}"
-                           {% if version == selectedVersion %}checked{% endif %} />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">{{ version }}</span>
-                        </span>
-                    </span>
-                </label>
-
-                {% if loop.last %}
-                    <div class="clearfix"></div>
-                {% endif %}
+                <div class="radio">
+                    <input type="radio"
+                       id="postgresql-settings-global-version-{{ version }}"
+                       name="postgresql[settings][global][version]"
+                       value="{{ version }}"
+                       {% if version == selectedVersion %}checked{% endif %}
+                    />
+                    <label for="postgresql-settings-global-version-{{ version }}">
+                        {{ version }}
+                    </label>
+                </div>
             {% endfor %}
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Assign a password to the root user.
                 <strong>Database will only be installed
@@ -73,12 +63,10 @@
                    value="{{ postgresql.settings.server.postgres_password }}" />
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="form-group col-xs-12">
             <div class="clearfix"><label>Adminer</label></div>
 
-            <label class="radio-tile mini set-width">
+            <div class="checkbox">
                 <span class="help-text">
                     It is highly recommended <strong>not</strong> installing Adminer
                     on production servers.
@@ -86,17 +74,14 @@
                     If installed it will be available from
                     <code>http://{SERVER_IP_ADDRESS}/adminer</code>.
                 </span>
-                <input type="checkbox" name="postgresql[adminer]"
-                       class="invisible"
-                       {% if postgresql.adminer %}checked{% endif %}
-                       value="1" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Install Adminer</span>
-                    </span>
-                </span>
-            </label>
+                <input class="styled" type="checkbox"
+                       {% if postgresql.adminer %}checked{% endif %} value="1"
+                       id="postgresql-adminer"
+                       name="postgresql[adminer]" />
+                <label for="postgresql-adminer">
+                    Install Adminer
+                </label>
+            </div>
         </div>
 
         <div class="help-block">
@@ -138,16 +123,12 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#mysql">
-            <i class="fa fa-hand-o-left"></i> MySQL
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#mongodb">
-            MongoDB <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#mysql"><span aria-hidden="true">&larr;</span> MySQL</a></li>
+            <li class="next">
+                <a href="#mongodb">MongoDB <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

@@ -1,10 +1,5 @@
 <input type="hidden" name="php[install]" value="0" />
 
-<div class="section-header">
-    <h1>PHP</h1>
-    <p class="lead">Install PHP system-wide and choose modules and settings.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
         <span class="help-text">
@@ -34,104 +29,91 @@
     <div class="clearfix"></div>
 
     <div id="php-container" class="{% if not php.install %}hidden{% endif %}">
-        <div class="form-group col-xs-8">
+        <div class="form-group col-xs-12">
             <div class="clearfix"><label>PHP Version</label></div>
 
-            <label class="radio-tile mini set-width">
+            <div class="radio">
                 <span class="help-text">
                     CentOS 6, Ubuntu 14.04.
                 </span>
-                <input type="radio" name="php[settings][version]"
-                       class="invisible"
-                       {% if php.settings.version == '70' %}checked{% endif %}
-                       value="70" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">7.0</span>
-                    </span>
-                </span>
-            </label>
+                <input type="radio"
+                   id="php-settings-version-70"
+                   name="php[settings][version]"
+                   value="70"
+                   {% if php.settings.version == '70' %}checked{% endif %}
+                />
+                <label for="php-settings-version-70">
+                    7.0
+                </label>
+            </div>
 
-            <label class="radio-tile mini set-width">
+            <div class="radio">
                 <span class="help-text">
                     CentOS 6, Debian 7, Ubuntu 14.04.
                 </span>
-                <input type="radio" name="php[settings][version]"
-                       class="invisible"
-                       {% if php.settings.version == '56' %}checked{% endif %}
-                       value="56" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">5.6</span>
-                    </span>
-                </span>
-            </label>
+                <input type="radio"
+                   id="php-settings-version-56"
+                   name="php[settings][version]"
+                   value="56"
+                   {% if php.settings.version == '56' %}checked{% endif %}
+                />
+                <label for="php-settings-version-56">
+                    5.6
+                </label>
+            </div>
 
-            <label class="radio-tile mini set-width">
+            <div class="radio">
                 <span class="help-text">
                     Available on all distros.
                 </span>
-                <input type="radio" name="php[settings][version]"
-                       class="invisible"
-                       {% if php.settings.version == '55' %}checked{% endif %}
-                       value="55" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">5.5</span>
-                    </span>
-                </span>
-            </label>
+                <input type="radio"
+                   id="php-settings-version-55"
+                   name="php[settings][version]"
+                   value="55"
+                   {% if php.settings.version == '55' %}checked{% endif %}
+                />
+                <label for="php-settings-version-55">
+                    5.5
+                </label>
+            </div>
 
-            <label class="radio-tile mini set-width">
+            <div class="radio">
                 <span class="help-text">
                     CentOS 6, Debian 7, Ubuntu 12.04.
                 </span>
-                <input type="radio" name="php[settings][version]"
-                       class="invisible"
-                       {% if php.settings.version == '54' %}checked{% endif %}
-                       value="54" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">5.4</span>
-                    </span>
-                </span>
-            </label>
+                <input type="radio"
+                   id="php-settings-version-54"
+                   name="php[settings][version]"
+                   value="54"
+                   {% if php.settings.version == '54' %}checked{% endif %}
+                />
+                <label for="php-settings-version-54">
+                    5.4
+                </label>
+            </div>
         </div>
 
-        <div class="form-group col-xs-4">
+        <div class="form-group col-xs-12">
             <div class="clearfix"><label>System-Wide Composer</label></div>
 
-            <label class="radio-tile mini set-width">
+            <div class="checkbox">
                 <span class="help-text">
                     <a href="https://getcomposer.org">Composer</a> will be available as a
                     system service:<br />
                     <code>$ composer</code>
                 </span>
-                <input type="checkbox" name="php[composer]"
-                       class="invisible"
+                <input class="styled" type="checkbox"
                        {% if php.composer %}checked{% endif %}
-                       value="1" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Install Composer</span>
-                    </span>
-                </span>
-            </label>
+                       id="php-composer" name="php[composer]" />
+                <label for="php-composer">
+                    Install Composer
+                </label>
+            </div>
 
             <input type="hidden" name="php[composer_home]" value="{{ php.composer_home }}" />
         </div>
 
         <div class="clearfix"></div>
-
-        <div class="help-block">
-            <p>Many PHP modules are not yet available for PHP 7. If you notice issues installing selected
-                modules, then it is probable it won't work on PHP 7 yet!</p>
-        </div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">
@@ -174,8 +156,6 @@
             </div>
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="form-group col-xs-12">
             <div class="help-text">
                 Make sure to define <code>pid</code>.
@@ -207,9 +187,14 @@
             </div>
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="form-group col-xs-12">
+            <div class="help-text">
+                <p>If you've chosen <strong>CentOS</strong>, Some modules come pre-installed: <code>curl</code>,
+                    <code>imagick</code>, <code>memcached</code>, <code>sqlite</code>.
+                    Don't choose these here.</p>
+                <p>If you've chosen <strong>Ubuntu 14.04 and PHP 7</strong>, some modules have been noted as
+                    coming pre-installed: <code>mcrypt</code>. Don't choose these here.</p>
+            </div>
             <label for="php-modules-php">PHP Modules</label>
             <select id="php-modules-php"
                     name="php[modules][php][]"
@@ -222,17 +207,7 @@
                     <option value="{{ module }}">{{ module }}</option>
                 {% endfor %}
             </select>
-
-            <div class="help-block">
-                <p>If you've chosen <strong>CentOS</strong>, Some modules come pre-installed: <code>curl</code>,
-                    <code>imagick</code>, <code>memcached</code>, <code>sqlite</code>.
-                    Don't choose these here.</p>
-                <p>If you've chosen <strong>Ubuntu 14.04 and PHP 7</strong>, some modules have been noted as
-                    coming pre-installed: <code>mcrypt</code>. Don't choose these here.</p>
-            </div>
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">
@@ -260,8 +235,6 @@
                 {% endfor %}
             </select>
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">
@@ -303,59 +276,153 @@
 
         <div class="clearfix"></div>
 
-        <h2>Libraries</h2>
+        <input type="hidden" name="xdebug[install]" value="0" />
 
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="#xdebug"
-                role="tab" data-toggle="tab"><i id="xdebug-install-check"
-                    class="text-info fa fa-check-square-o {% if not xdebug.install %}hidden{% endif %}"></i> Xdebug</a></li>
-            <li role="presentation"><a href="#blackfire"
-                role="tab" data-toggle="tab"><i id="blackfire-install-check"
-                    class="text-info fa fa-check-square-o {% if not blackfire.install %}hidden{% endif %}"></i> Blackfire</a></li>
-            <li role="presentation"><a href="#xhprof"
-                role="tab" data-toggle="tab"><i id="xhprof-install-check"
-                    class="text-info fa fa-check-square-o {% if not xhprof.install %}hidden{% endif %}"></i> Xhprof</a></li>
-            <li role="presentation"><a href="#wpcli"
-                role="tab" data-toggle="tab"><i id="wpcli-install-check"
-                    class="text-info fa fa-check-square-o {% if not wpcli.install %}hidden{% endif %}"></i> WP CLI</a></li>
-            <li role="presentation"><a href="#drush"
-                role="tab" data-toggle="tab"><i id="drush-install-check"
-                    class="text-info fa fa-check-square-o {% if not drush.install %}hidden{% endif %}"></i> Drush</a></li>
-        </ul>
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable XDebug</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="checkbox" name="xdebug[install]"
+                       class="invisible toggle-on-select"
+                       {% if xdebug.install %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#xdebug_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable XDebug</span>
+                    </span>
+                </span>
+            </label>
+        </div>
 
         <div class="clearfix"></div>
 
-        <div class="col-xs-12 tab-content nested-tab">
-            <div class="tab-pane active" id="xdebug">
-                {% include 'PuphpetBundle:xdebug:form.html.twig' with { 'xdebug': xdebug } %}
-            </div>
-            <div class="tab-pane nested-tab" id="blackfire">
-                {% include 'PuphpetBundle:blackfire:form.html.twig' with { 'blackfire': blackfire } %}
-            </div>
-            <div class="tab-pane nested-tab" id="xhprof">
-                {% include 'PuphpetBundle:xhprof:form.html.twig' with { 'xhprof': xhprof } %}
-            </div>
-            <div class="tab-pane nested-tab" id="wpcli">
-                {% include 'PuphpetBundle:wpcli:form.html.twig' with { 'wpcli': wpcli } %}
-            </div>
-            <div class="tab-pane nested-tab" id="drush">
-                {% include 'PuphpetBundle:drush:form.html.twig' with { 'drush': drush } %}
-            </div>
+        <div class="nested-block {% if not xdebug.install %}hidden{% endif %}" id="xdebug_options">
+            {% include 'PuphpetBundle:xdebug:form.html.twig' with { 'xdebug': xdebug } %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <input type="hidden" name="blackfire[install]" value="0" />
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable Blackfire</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="checkbox" name="blackfire[install]"
+                       class="invisible toggle-on-select"
+                       {% if blackfire.install %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#blackfire_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable Blackfire</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="nested-block {% if not blackfire.install %}hidden{% endif %}" id="blackfire_options">
+            {% include 'PuphpetBundle:blackfire:form.html.twig' with { 'blackfire': blackfire } %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <input type="hidden" name="xhprof[install]" value="0" />
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable XHProf</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="checkbox" name="xhprof[install]"
+                       class="invisible toggle-on-select"
+                       {% if xhprof.install %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#xhprof_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable XHProf</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="nested-block {% if not xhprof.install %}hidden{% endif %}" id="xhprof_options">
+            {% include 'PuphpetBundle:xhprof:form.html.twig' with { 'xhprof': xhprof } %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <input type="hidden" name="wpcli[install]" value="0" />
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable WP CLI</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="checkbox" name="wpcli[install]"
+                       class="invisible toggle-on-select"
+                       {% if wpcli.install %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#wpcli_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable WP CLI</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="nested-block {% if not wpcli.install %}hidden{% endif %}" id="wpcli_options">
+            {% include 'PuphpetBundle:wpcli:form.html.twig' with { 'wpcli': wpcli } %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <input type="hidden" name="drush[install]" value="0" />
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable Drush</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="checkbox" name="drush[install]"
+                       class="invisible toggle-on-select"
+                       {% if drush.install %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#drush_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable Drush</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="nested-block {% if not drush.install %}hidden{% endif %}" id="drush_options">
+            {% include 'PuphpetBundle:drush:form.html.twig' with { 'drush': drush } %}
         </div>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#apache">
-            <i class="fa fa-hand-o-left"></i> Apache
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#ruby">
-            Ruby <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#apache"><span aria-hidden="true">&larr;</span> Apache</a></li>
+            <li class="next">
+                <a href="#ruby">Ruby <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

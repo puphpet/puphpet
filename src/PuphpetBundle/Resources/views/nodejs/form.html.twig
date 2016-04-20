@@ -7,16 +7,8 @@
 
 <input type="hidden" name="nodejs[install]" value="0" />
 
-<div class="section-header">
-    <h1>Node.js</h1>
-    <p class="lead">Install Node.js and add Npm packages</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
-        <span class="help-text">
-            It's callbacks all the way down!
-        </span>
         <label class="col-xs-12 radio-tile">
             <input type="checkbox" name="nodejs[install]" value="1"
                    class="invisible toggle-on-select"
@@ -40,29 +32,25 @@
 
     <div id="nodejs-container" class="{% if not nodejs.install %}hidden{% endif %}">
         <div class="form-group col-xs-12">
+            <span class="help-text">
+                CentOS only supports versions <= 0.12
+            </span>
             <div class="clearfix"><label>Version</label></div>
 
             {% for version in versions %}
-                <label class="radio-tile mini set-width">
-                    <input type="radio" class="invisible"
-                           name="nodejs[settings][version]"
-                           value="{{ version }}"
-                           {% if version == selectedVersion %}checked{% endif %} />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">{{ version }}</span>
-                        </span>
-                    </span>
-                </label>
+                <div class="radio">
+                    <input type="radio"
+                       id="nodejs-settings-version-{{ version }}"
+                       name="nodejs[settings][version]"
+                       value="{{ version }}"
+                       {% if version == selectedVersion %}checked{% endif %}
+                    />
+                    <label for="nodejs-settings-version-{{ version }}">
+                        {{ version }}
+                    </label>
+                </div>
             {% endfor %}
-
-            <p class="help-block">
-                CentOS only supports versions <= 0.12
-            </p>
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">
@@ -82,16 +70,12 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#python">
-            <i class="fa fa-hand-o-left"></i> Python
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#hhvm">
-            HHVM <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#python"><span aria-hidden="true">&larr;</span> Python</a></li>
+            <li class="next">
+                <a href="#hhvm">HHVM <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

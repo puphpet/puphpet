@@ -5,12 +5,13 @@
 <div id="{{ uniqid }}" class="nested-block">
     <a href="#" class="delete-block remove"
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
     <fieldset>
         <legend>Python version via pyenv</legend>
 
         <div class="clearfix"></div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <p>Each Python will be installed system-wide and can be accessed as
                     <code>$ python{version}</code>.</p>
@@ -27,34 +28,26 @@
             </select>
         </div>
 
-        <div class="form-group col-xs-6">
-            <div class="clearfix"><label>virtualenv</label></div>
+        <div class="checkbox">
+            <div class="help-text">
+                <p>Each virtualenv will be installed system-wide and can be accessed
+                as <code>$ virtualenv-{version}</code>.</p>
 
-            <label class="radio-tile mini set-width">
-                <span class="help-text">
-                    Each virtualenv will be installed system-wide and can be accessed
-                    as <code>$ virtualenv-{version}</code>.
-                    <br /><br />
-                    eg: <code>$ virtualenv-3.4.0</code>.
-                </span>
-                <input type="radio" name="python[versions][{{ uniqid }}][virtualenv]"
-                       class="invisible"
-                       {% if virtualenv %}checked{% endif %} value="1" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Install virtualenv</span>
-                    </span>
-                </span>
+                <p>eg: <code>$ virtualenv-3.4.0</code>.</p>
+
+                <p>There is currently a small bug where <code>virtualenv</code> is
+                    not being installed on initial <code>$ vagrant up</code>. The
+                    solution is simple: just run <code>$ vagrant provision</code>
+                    and <code>virtualenv</code> will be installed for your chosen
+                    Python version. Fix coming soon!</p>
+            </div>
+            <input class="styled" type="checkbox"
+                   {% if virtualenv %}checked{% endif %} value="1"
+                   id="python-versions-{{ uniqid }}-virtualenv"
+                   name="python[versions][{{ uniqid }}][virtualenv]" />
+            <label for="python-versions-{{ uniqid }}-virtualenv">
+                Install virtualenv
             </label>
-        </div>
-
-        <div class="help-block">
-            <p>There is currently a small bug where <code>virtualenv</code> is
-                not being installed on initial <code>$ vagrant up</code>. The
-                solution is simple: just run <code>$ vagrant provision</code>
-                and <code>virtualenv</code> will be installed for your chosen
-                Python version. Fix coming soon!</p>
         </div>
     </fieldset>
 </div>

@@ -1,10 +1,5 @@
 <input type="hidden" name="hhvm[install]" value="0" />
 
-<div class="section-header">
-    <h1>HHVM</h1>
-    <p class="lead">Install HHVM and choose modules and settings.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
         <span class="help-text">
@@ -35,51 +30,39 @@
     <div class="clearfix"></div>
 
     <div id="hhvm-container" class="{% if not hhvm.install %}hidden{% endif %}">
-        <div class="form-group col-xs-6">
-            <div class="clearfix"><label>Nightly</label></div>
-
-            <label class="radio-tile mini set-width">
+        <div class="form-group col-xs-12">
+            <div class="checkbox">
                 <span class="help-text">
                     This will install the nightly release of HHVM.
                 </span>
-                <input type="checkbox" name="hhvm[nightly]"
-                       class="invisible"
-                       {% if hhvm.nightly %}checked{% endif %}
-                       value="1" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Install Nightly</span>
-                    </span>
-                </span>
-            </label>
-        </div>
+                <input class="styled" type="checkbox"
+                       {% if hhvm.nightly %}checked{% endif %} value="1"
+                       id="hhvm-nightly"
+                       name="hhvm[nightly]" />
+                <label for="hhvm-nightly">
+                    Install Nightly
+                </label>
+            </div>
 
-        <div class="form-group col-xs-6">
-            <div class="clearfix"><label>System-Wide Composer</label></div>
+            <div class="clearfix"></div>
 
-            <label class="radio-tile mini set-width">
+            <div class="checkbox">
                 <span class="help-text">
                     <a href="https://getcomposer.org">Composer</a> will be available as a
                     system service:<br />
                     <code>$ composer</code>
                 </span>
-                <input type="checkbox" name="hhvm[composer]"
-                       class="invisible"
-                       {% if hhvm.composer %}checked{% endif %}
-                       value="1" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Install Composer</span>
-                    </span>
-                </span>
-            </label>
+                <input class="styled" type="checkbox"
+                       {% if hhvm.composer %}checked{% endif %} value="1"
+                       id="hhvm-composer"
+                       name="hhvm[composer]" />
+                <label for="hhvm-composer">
+                    Install Composer
+                </label>
+            </div>
 
             <input type="hidden" name="hhvm[composer_home]" value="{{ hhvm.composer_home }}" />
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">
@@ -112,8 +95,6 @@
             </div>
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="form-group col-xs-12">
             <div class="help-text">
                 All settings added to a single INI file.
@@ -145,9 +126,7 @@
             </div>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="help-block">
+        <div class="help-block col-xs-12">
             <p>ATTENTION: <strong>HHVM is currently not officially supported on CentOS</strong>.</p>
             <p>Unfortunately the latest version available to PuPHPet boxes is HHVM 3.2. While HHVM
                 will install on CentOS, many things simply do not work.</p>
@@ -158,16 +137,12 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#nodejs">
-            <i class="fa fa-hand-o-left"></i> Node.js
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#mariadb">
-            MariaDB <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#nodejs"><span aria-hidden="true">&larr;</span> Node.js</a></li>
+            <li class="next">
+                <a href="#mariadb">MariaDB <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

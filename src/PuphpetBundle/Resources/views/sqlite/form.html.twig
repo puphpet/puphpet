@@ -1,10 +1,5 @@
 <input type="hidden" name="sqlite[install]" value="0" />
 
-<div class="section-header">
-    <h1>SQLite</h1>
-    <p class="lead">Install SQLite and create users and databases.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
         <label class="col-xs-12 radio-tile">
@@ -32,7 +27,7 @@
         <div class="form-group col-xs-12">
             <div class="clearfix"><label>Adminer</label></div>
 
-            <label class="radio-tile mini set-width">
+            <div class="checkbox">
                 <span class="help-text">
                     It is highly recommended <strong>not</strong> installing Adminer
                     on production servers.
@@ -40,22 +35,17 @@
                     If installed it will be available from
                     <code>http://{SERVER_IP_ADDRESS}/adminer</code>.
                 </span>
-                <input type="checkbox" name="sqlite[adminer]"
-                       class="invisible"
-                       {% if sqlite.adminer %}checked{% endif %}
-                       value="1" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Install Adminer</span>
-                    </span>
-                </span>
-            </label>
+                <input class="styled" type="checkbox"
+                       {% if sqlite.adminer %}checked{% endif %} value="1"
+                       id="sqlite-adminer"
+                       name="sqlite[adminer]" />
+                <label for="sqlite-adminer">
+                    Install Adminer
+                </label>
+            </div>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="help-block">
+        <div class="help-block col-xs-12">
             <p>The preferred way to connect to your database is using a dedicated
                 application like
                 <a href="http://www.valentina-db.com/valentina-studio-overview" target="_blank">Valentina Studio (OS X)</a>,
@@ -68,6 +58,8 @@
                 your initial <code>$ vagrant up</code>!</p>
         </div>
 
+        <div class="clearfix"></div>
+
         {% for database in sqlite.databases %}
             {% include 'PuphpetBundle:sqlite/sections:user-database.html.twig'
                 with {'available_privileges': sqlite.available.privileges, 'database': database} %}
@@ -79,16 +71,12 @@
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#redis">
-            <i class="fa fa-hand-o-left"></i> Redis
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#mailhog">
-            MailHog <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#redis"><span aria-hidden="true">&larr;</span> Redis</a></li>
+            <li class="next">
+                <a href="#mailhog">MailHog <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

@@ -7,11 +7,6 @@
 
 <input type="hidden" name="mariadb[install]" value="0" />
 
-<div class="section-header">
-    <h1>MariaDB</h1>
-    <p class="lead">Install MariaDB and create users and databases.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
         <label class="col-xs-12 radio-tile">
@@ -37,30 +32,24 @@
     <div class="clearfix"></div>
 
     <div id="mariadb-container" class="{% if not mariadb.install %}hidden{% endif %}">
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="clearfix"><label>Version</label></div>
 
             {% for version in versions %}
-                <label class="radio-tile mini set-width">
-                    <input type="radio" class="invisible"
-                           name="mariadb[settings][version]"
-                           value="{{ version }}"
-                           {% if version == selectedVersion %}checked{% endif %} />
-                    <span class="content">
-                        <span class="header">
-                            <i class="icon"></i>
-                            <span class="title">{{ version }}</span>
-                        </span>
-                    </span>
-                </label>
-
-                {% if loop.index is even or loop.last %}
-                    <div class="clearfix"></div>
-                {% endif %}
+                <div class="radio">
+                    <input type="radio"
+                       id="mariadb-settings-version-{{ version }}"
+                       name="mariadb[settings][version]"
+                       value="{{ version }}"
+                       {% if version == selectedVersion %}checked{% endif %} />
+                    <label for="mariadb-settings-version-{{ version }}">
+                        {{ version }}
+                    </label>
+                </div>
             {% endfor %}
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Assign a password to the root user.
                 <strong>Database will only be installed
@@ -73,12 +62,10 @@
                    value="{{ mariadb.settings.root_password }}" />
         </div>
 
-        <div class="clearfix"></div>
-
         <div class="form-group col-xs-12">
             <div class="clearfix"><label>Adminer</label></div>
 
-            <label class="radio-tile mini set-width">
+            <div class="checkbox">
                 <span class="help-text">
                     It is highly recommended <strong>not</strong> installing Adminer
                     on production servers.
@@ -86,20 +73,17 @@
                     If installed it will be available from
                     <code>http://{SERVER_IP_ADDRESS}/adminer</code>.
                 </span>
-                <input type="checkbox" name="mariadb[adminer]"
-                       class="invisible"
-                       {% if mariadb.adminer %}checked{% endif %}
-                       value="1" />
-                <span class="content">
-                    <span class="header">
-                        <i class="icon"></i>
-                        <span class="title">Install Adminer</span>
-                    </span>
-                </span>
-            </label>
+                <input class="styled" type="checkbox"
+                       {% if mariadb.adminer %}checked{% endif %} value="1"
+                       id="mariadb-adminer"
+                       name="mariadb[adminer]" />
+                <label for="mariadb-adminer">
+                    Install Adminer
+                </label>
+            </div>
         </div>
 
-        <div class="help-block">
+        <div class="help-block col-xs-12">
             <p>The preferred way to connect to your database is using a dedicated
                 application like
                 <a href="http://www.sequelpro.com/" target="_blank">Sequel Pro (OS X)</a>,
@@ -136,16 +120,14 @@
            class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another grant</a>
     </div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#hhvm">
-            <i class="fa fa-hand-o-left"></i> HHVM
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#mysql">
-            MySQL <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
     <div class="clearfix"></div>
+
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#hhvm"><span aria-hidden="true">&larr;</span> HHVM</a></li>
+            <li class="next">
+                <a href="#mysql">MySQL <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>

@@ -14,10 +14,11 @@
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
     <fieldset>
         <legend>Virtual Host</legend>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Don't forget to <a href="/help#update-my-hosts-file" target="_blank">update
                     your computer's hosts file!</a>
@@ -29,7 +30,7 @@
                    value="{{ vhost.servername }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Separated by comma.
             </div>
@@ -43,9 +44,7 @@
             </select>
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Location of your site's index.php file, or other landing page.
             </div>
@@ -56,7 +55,7 @@
                    value="{{ vhost.docroot }}" />
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <code>80</code> for normal browsing, if you choose another append
                 it to the URL in your browser, eg: <code>http://awesome.dev:1337</code>
@@ -68,9 +67,7 @@
                    value="{{ vhost.port }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <code>name value</code>, separated by comma.
             </div>
@@ -84,7 +81,7 @@
             </select>
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 <code>name value</code>, separated by comma.
             </div>
@@ -97,8 +94,6 @@
                 {% endfor %}
             </select>
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">
@@ -113,9 +108,7 @@
                    value="{{ vhost.custom_fragment }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="form-group">
+        <div class="form-group col-xs-12">
             <div class="clearfix"><label>Enable SSL</label></div>
 
             <label class="radio-tile mini set-width">
@@ -147,7 +140,7 @@
             <fieldset>
                 <legend>SSL Options</legend>
 
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
                     <div class="help-text">
                         <p>Absolute path to SSL Certificate File. Usually ends in .crt.
                             Leave blank to use a generic one.
@@ -164,7 +157,7 @@
                            value="{{ ssl_cert }}" />
                 </div>
 
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
                     <div class="help-text">
                         <p>Absolute path to SSL Certificate Key File. Usually ends in .key.
                             Leave blank to use a generic one.
@@ -181,9 +174,7 @@
                            value="{{ ssl_key }}" />
                 </div>
 
-                <div class="clearfix"></div>
-
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
                     <div class="help-text">
                         <p>Absolute path to SSL Certificate Chain File.
                             Usually ends in .crt and may have the name of your SSL provider.
@@ -201,7 +192,7 @@
                            value="{{ ssl_certs_dir }}" />
                 </div>
 
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-12">
                     <div class="help-text">
                         <p>Absolute path to SSL CL Certificate.
                             Leave blank to use a generic one.
@@ -221,9 +212,7 @@
                 <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_protocol]" value="{{ ssl_protocol }}" />
                 <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_cipher]" value="{{ ssl_cipher }}" />
 
-                <div class="clearfix"></div>
-
-                <div class="help-block">
+                <div class="help-block col-xs-12">
                     <p>To redirect all non-SSL traffic to SSL, create two vhosts - one on
                         port 80 and one on port 443.</p>
                     <p>Add <code>Redirect permanent / https://{YOUR_VHOST_NAME}/</code> to

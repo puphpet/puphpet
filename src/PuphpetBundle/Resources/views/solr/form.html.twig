@@ -7,13 +7,14 @@
 
 <input type="hidden" name="solr[install]" value="0" />
 
-<div class="section-header">
-    <h1>Solr</h1>
-    <p class="lead">Install Solr.</p>
-</div>
-
 <div class="field-container">
     <div class="form-group">
+        <div class="help-text">
+            <p>Solr is the popular, blazing-fast, open source enterprise search platform
+                built on Apache Lucene.</p>
+            <p><a href="http://lucene.apache.org/solr/"
+                  target="_blank">Learn about Apache Solr</a>.</p>
+        </div>
         <label class="col-xs-12 radio-tile">
             <input type="checkbox" name="solr[install]" value="1"
                    class="invisible toggle-on-select"
@@ -25,7 +26,8 @@
                     <span class="title">Install Solr</span>
                 </span>
                 <span class="footer">
-                    Solr powers the search and navigation features of many of the world's largest internet sites.
+                    Solr powers the search and navigation features of many of
+                    the world's largest internet sites.
                 </span>
             </span>
         </label>
@@ -36,7 +38,7 @@
     <div class="clearfix"></div>
 
     <div id="solr-container" class="{% if not solr.install %}hidden{% endif %}">
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <label for="solr-settings-version">Version</label>
             <select id="solr-settings-version"
                    name="solr[settings][version]"
@@ -48,7 +50,7 @@
             </select>
         </div>
 
-        <div class="form-group col-xs-6">
+        <div class="form-group col-xs-12">
             <div class="help-text">
                 Minimum port number is <code>1000</code>.
             </div>
@@ -59,30 +61,20 @@
                    value="{{ solr.settings.port }}" />
         </div>
 
-        <div class="clearfix"></div>
-
-        <div class="help-block">
-            <p>Solr is the popular, blazing-fast, open source enterprise search platform
-                built on Apache Lucene.</p>
-            <p><a href="http://lucene.apache.org/solr/"
-                  target="_blank">Learn about Apache Solr</a>.</p>
-            <p>Solr will be available at
+        <div class="help-block col-xs-12">
+            <p>Solr will be available at<br />
                 <code>http://{SERVER_IP_ADDRESS}:{HTTP_PORT}/solr</code>.</p>
         </div>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#elastic-search">
-            <i class="fa fa-hand-o-left"></i> Elastic Search
-        </a>
-    </div>
-    <div class="col-xs-6">
-        <a class="btn btn-lg btn-success btn-block next-section" type="button" href="#create">
-            Create Archive <i class="fa fa-hand-o-right"></i>
-        </a>
-    </div>
-
-    <div class="clearfix"></div>
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#elastic-search"><span aria-hidden="true">&larr;</span> Elastic Search</a></li>
+            <li class="next">
+                <a href="#create">Create Archive <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
 </div>
