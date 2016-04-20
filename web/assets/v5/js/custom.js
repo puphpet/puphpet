@@ -382,7 +382,7 @@ PUPHPET.displayTabFromUrl = function () {
  * Handles displaying section help information
  */
 PUPHPET.helpTextDisplay = function() {
-    $(document).on('mouseover', '.field-container .form-group, ' +
+    $(document).on('mouseover focus', '.field-container .form-group, ' +
         '.field-container .form-group .radio-tile,' +
         '.field-container .form-group .radio,' +
         '.field-container .form-group .checkbox,' +
