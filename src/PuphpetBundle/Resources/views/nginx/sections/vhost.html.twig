@@ -2,6 +2,7 @@
 {% set server_aliases = (vhost.server_aliases is defined) ? vhost.server_aliases : [] %}
 {% set index_files = (vhost.index_files is defined) ? vhost.index_files : [] %}
 {% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
+{% set letsencrypt_email = (vhost.letsencrypt_email is defined) ? vhost.letsencrypt_email : '' %}
 {% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
 {% set ssl_key = (vhost.ssl_key is defined) ? vhost.ssl_key : '' %}
 {% set ssl_port = (vhost.ssl_port is defined) ? vhost.ssl_port : '' %}
@@ -123,6 +124,54 @@
                 <legend>SSL Options</legend>
 
                 <div class="form-group col-xs-12">
+                    <div class="checkbox">
+                        <div class="help-text">
+                            <p>Let’s Encrypt is a new Certificate Authority:<br />
+                                It’s free, automated, and open. </p>
+
+                            <p>Generates a valid SSL certificate. Automatically
+                                renews the certificate once a month. It's awesome!</p>
+
+                            <p><a href="https://letsencrypt.org/" target="_blank">More information</a></p>
+
+                            <p><strong>This will only work on a public domain!</strong></p>
+
+                            <p>Do not choose this option for local development domains.</p>
+
+                            <p>THE DOMAIN MUST BE PUBLIC AND REACHABLE FROM THE INTERNET.</p>
+
+                            <p>If you do not know your server's IP address ahead of time,
+                                <code>$ vagrant up</code> may fail initially. You need to assign
+                                your domain to the new server via an <code>A</code> record
+                                or a floating IP address. As long as your domain resolves
+                                to the created server this will work!</p>
+
+                            <p>Simply run <code>$ vagrant provision</code> once the domain is
+                                resolving properly!</p>
+                        </div>
+                        <input class="styled toggle-on-select update-other-input-on-check update-other-input-on-uncheck"
+                               type="checkbox"
+                               {% if ssl_cert == 'LETSENCRYPT' %}checked{% endif %} value="1"
+                               id="nginx-vhosts-{{ uniqid }}-letsencrypt"
+                               data-vis-toggle-target="#nginx-vhosts-{{ uniqid }}-letsencrypt_info"
+                               data-update-on-check-nginx-vhosts-{{ uniqid }}-ssl_cert="LETSENCRYPT"
+                               data-update-on-check-nginx-vhosts-{{ uniqid }}-ssl_key="LETSENCRYPT"
+                               data-update-on-uncheck-nginx-vhosts-{{ uniqid }}-ssl_cert=""
+                               data-update-on-uncheck-nginx-vhosts-{{ uniqid }}-ssl_key=""
+                        />
+                        <label for="nginx-vhosts-{{ uniqid }}-letsencrypt">
+                            Use Let's Encrypt
+                        </label>
+                    </div>
+                </div>
+
+                <div id="nginx-vhosts-{{ uniqid }}-letsencrypt_info"
+                     class="help-block col-xs-12 {% if ssl_cert != 'LETSENCRYPT' %}hidden{% endif %}">
+                    <p>Make sure to also add this domain to the
+                        <a href="#letsencrypt">Let's Encrypt tab by clicking here</a>!</p>
+                </div>
+
+                <div class="form-group col-xs-12">
                     <div class="help-text">
                         <p>Absolute path to SSL Certificate File. Usually ends in .crt.
                             Leave blank to use a generic one.
@@ -131,6 +180,8 @@
 
                         <p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html"
                            target="_blank">Learn more about this</a>.</p>
+
+                        <p>If you chose Let's Encrypt, leave this as <code>LETSENCRYPT</code>!</p>
                     </div>
                     <label for="nginx-vhosts-{{ uniqid }}-ssl_cert">SSL Certificate File Path</label>
                     <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
@@ -148,6 +199,8 @@
 
                         <p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html"
                               target="_blank">Learn more about this</a>.</p>
+
+                        <p>If you chose Let's Encrypt, leave this as <code>LETSENCRYPT</code>!</p>
                     </div>
                     <label for="nginx-vhosts-{{ uniqid }}-ssl_key">SSL Certificate Key File Path</label>
                     <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_key"

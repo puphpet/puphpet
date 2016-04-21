@@ -1,0 +1,6 @@
+install: 1
+
+settings:
+    email: ~
+
+domains: { }

@@ -202,6 +202,23 @@ class puphpet_apache (
       default => join($allowed_ciphers, ':'),
     }
 
+    $ssl_cert_real = ($ssl_cert == 'LETSENCRYPT') ? {
+      true    => "/etc/letsencrypt/live/${vhost['servername']}/cert.pem",
+      default => $ssl_cert,
+    }
+    $ssl_key_real = ($ssl_key == 'LETSENCRYPT') ? {
+      true    => "/etc/letsencrypt/live/${vhost['servername']}/privkey.pem",
+      default => $ssl_key,
+    }
+    $ssl_chain_real = ($ssl_chain == 'LETSENCRYPT') ? {
+      true    => "/etc/letsencrypt/live/${vhost['servername']}/chain.pem",
+      default => $ssl_chain,
+    }
+    $ssl_certs_dir_real = ($ssl_certs_dir == 'LETSENCRYPT') ? {
+      true    => "/etc/letsencrypt/live/${vhost['servername']}",
+      default => $ssl_certs_dir,
+    }
+
     if array_true($vhost, 'directories') {
       $directories_hash   = $vhost['directories']
       $files_match        = template('puphpet/apache/files_match.erb')
@@ -218,10 +235,10 @@ class puphpet_apache (
     $vhost_merged = merge($vhost, {
       'directories'     => values_no_error($directories_merged),
       'ssl'             => $ssl,
-      'ssl_cert'        => $ssl_cert,
-      'ssl_key'         => $ssl_key,
-      'ssl_chain'       => $ssl_chain,
-      'ssl_certs_dir'   => $ssl_certs_dir,
+      'ssl_cert'        => $ssl_cert_real,
+      'ssl_key'         => $ssl_key_real,
+      'ssl_chain'       => $ssl_chain_real,
+      'ssl_certs_dir'   => $ssl_certs_dir_real,
       'ssl_protocol'    => $ssl_protocol,
       'ssl_cipher'      => "\"${ssl_cipher}\"",
       'custom_fragment' => $vhost_custom_fragment,

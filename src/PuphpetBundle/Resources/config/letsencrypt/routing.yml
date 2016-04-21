@@ -1,0 +1,7 @@
+puphpet.letsencrypt.homepage:
+    path:  /
+    defaults: { _controller: PuphpetBundle:LetsEncrypt:index }
+
+puphpet.letsencrypt.add_domain:
+    path:  /add-domain
+    defaults: { _controller: PuphpetBundle:LetsEncrypt:addDomain }

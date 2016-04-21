@@ -73,6 +73,9 @@ puphpet.nginx:
 puphpet.apache:
     resource: "@PuphpetBundle/Resources/config/apache/routing.yml"
     prefix:   /extension/apache
+puphpet.letsencrypt:
+    resource: "@PuphpetBundle/Resources/config/letsencrypt/routing.yml"
+    prefix:   /extension/letsencrypt
 
 # language
 puphpet.php:

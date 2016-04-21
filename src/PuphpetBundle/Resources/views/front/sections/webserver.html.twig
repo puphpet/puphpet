@@ -4,3 +4,6 @@
 <div class="tab-pane" id="apache">
     {% include 'PuphpetBundle:apache:form.html.twig' with {'apache': add_available(extensions.apache.merged, extensions.apache.available)} %}
 </div>
+<div class="tab-pane" id="letsencrypt">
+    {% include 'PuphpetBundle:letsencrypt:form.html.twig' with {'letsencrypt': add_available(extensions.letsencrypt.merged, extensions.letsencrypt.available)} %}
+</div>

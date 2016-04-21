@@ -246,6 +246,15 @@ class puphpet_nginx (
       default => undef,
     }
 
+    $ssl_cert_real = ($ssl_cert == 'LETSENCRYPT') ? {
+      true    => "/etc/letsencrypt/live/${vhost['server_name']}/fullchain.pem",
+      default => $ssl_cert,
+    }
+    $ssl_key_real = ($ssl_key == 'LETSENCRYPT') ? {
+      true    => "/etc/letsencrypt/live/${vhost['server_name']}/privkey.pem",
+      default => $ssl_key,
+    }
+
     $vhost_cfg_append = deep_merge(
       {'vhost_cfg_append' => {'sendfile' => 'off'}},
       $vhost
@@ -265,8 +274,8 @@ class puphpet_nginx (
       'server_name'          => $server_names,
       'use_default_location' => false,
       'ssl'                  => $ssl,
-      'ssl_cert'             => $ssl_cert,
-      'ssl_key'              => $ssl_key,
+      'ssl_cert'             => $ssl_cert_real,
+      'ssl_key'              => $ssl_key_real,
       'ssl_port'             => $ssl_port,
       'ssl_protocols'        => $ssl_protocols,
       'ssl_ciphers'          => "\"${ssl_ciphers}\"",
