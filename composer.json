@@ -8,7 +8,7 @@
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {
-        "cocur/slugify": "~2.1",
+        "cocur/slugify": "~v2.1",
         "incenteev/composer-parameter-handler": "~v2.1",
         "ircmaxell/random-lib": "~v1.1",
         "patchwork/jsqueeze": "~2.0",
