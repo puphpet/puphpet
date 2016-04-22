@@ -54,7 +54,7 @@
             <div class="radio">
                 <input type="radio"
                    id="firewall-rules-{{ uniqid }}-proto-udp"
-                   name="firewall[rules][{{ uniqid }}][proto]" value="tcp"
+                   name="firewall[rules][{{ uniqid }}][proto]" value="udp"
                    {% if rule.proto == 'udp' or not rule.proto %}checked{% endif %} />
                 <label for="firewall-rules-{{ uniqid }}-proto-udp">
                     UDP
@@ -68,7 +68,7 @@
             <div class="radio">
                 <input type="radio"
                    id="firewall-rules-{{ uniqid }}-action-accept"
-                   name="firewall[rules][{{ uniqid }}][action]" value="tcp"
+                   name="firewall[rules][{{ uniqid }}][action]" value="accept"
                    {% if rule.action == 'accept' or not rule.action %}checked{% endif %} />
                 <label for="firewall-rules-{{ uniqid }}-action-accept">
                     accept
