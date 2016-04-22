@@ -60,9 +60,15 @@ class puphpet_letsencrypt (
     $domains_joined = join($domain['hosts'], ' -d ')
     $domains_joined_no_flag = join($domain['hosts'], ' ')
 
+    $cmd_standalone_joined = "${cmd_standalone} -d ${domains_joined}"
+    $cmd_cron_joined       = "${cmd_cron} -d ${domains_joined} && service restart ${service}"
+
     # Generate initial cert before Nginx or Apache are installed
+    # If this server already existed, Nginx/Apache may already be installed
+    # and using port 80 - standalone cmd will fail,
+    # run the cron webroot cmd instead
     exec { "generate ssl cert for ${domain['hosts'][0]}":
-      command => "${cmd_standalone} -d ${domains_joined}",
+      command => "${cmd_standalone_joined} || ${cmd_cron_joined}",
       creates => "/etc/letsencrypt/live/${domain['hosts'][0]}/fullchain.pem",
       group   => 'root',
       user    => 'root',
@@ -75,7 +81,7 @@ class puphpet_letsencrypt (
     }
 
     cron { "letsencrypt cron for ${domain['hosts'][0]}":
-       command  => "${cmd_cron} -d ${domains_joined} && service restart ${service}",
+       command  => $cmd_cron_joined,
        minute   => '45',
        hour     => '3',
        weekday  => '1',
