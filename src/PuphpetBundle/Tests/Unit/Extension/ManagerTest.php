@@ -135,6 +135,8 @@ class ManagerTest extends Unit\BaseTest
 
         $this->assertEquals($extOneData['defaults'], $extensionValues['defaults']);
         $this->assertEquals($extOneData['data'], $extensionValues['data']);
+        $this->assertEquals($extOneData['data'], $manager->getExtensionData('vagrantfile-local'));
+        $this->assertEquals($extOneData['available'], $manager->getExtensionAvailableData('vagrantfile-local'));
     }
 
     public function testAddExtensionMergesDataDefaultsAndAvailableData()
@@ -172,11 +174,11 @@ class ManagerTest extends Unit\BaseTest
         $manager->addExtension('vagrantfile-local');
         $manager->addExtension('vagrantfile-rackspace');
 
-        $customData = Yaml::parse(self::CONF_DIR . '/custom-data/custom.yml');
+        $customData = Yaml::parse(file_get_contents(self::CONF_DIR . '/custom-data/custom.yml'));
 
         $manager->setCustomDataAll($customData);
 
-        $expectedResult = Yaml::parse(self::CONF_DIR . '/custom-data/expected-merged.yml');
+        $expectedResult = Yaml::parse(file_get_contents(self::CONF_DIR . '/custom-data/expected-merged.yml'));
 
         $this->assertEquals($expectedResult, $manager->getExtensions());
     }

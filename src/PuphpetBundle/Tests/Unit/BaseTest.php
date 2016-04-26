@@ -5,7 +5,7 @@ namespace Puphpet\Tests\Unit;
 use AppKernel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-require_once __DIR__ . '/../../../../../app/AppKernel.php';
+require_once __DIR__ . '/../../../../app/AppKernel.php';
 
 abstract class BaseTest extends \PHPUnit_Framework_TestCase
 {
@@ -90,5 +90,10 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
 
         return $method->invokeArgs($object, $parameters);
+    }
+
+    public function testKernelShutdown()
+    {
+        $this->SetUp();
     }
 }
