@@ -24,14 +24,15 @@ class puphpet_firewall (
     }
 
     each( $ports ) |$port| {
-      if ! defined(Puphpet::Firewall::Port["${port}"]) {
+      if ! defined(Puphpet::Firewall::Port["${rule['proto']}/${port}"]) {
         if has_key($rule, 'priority') {
           $priority = $rule['priority']
         } else {
           $priority = 100
         }
 
-        puphpet::firewall::port { "${port}":
+        puphpet::firewall::port { "${rule['proto']}/${port}":
+          port     => $port,
           protocol => $rule['proto'],
           priority => $priority,
           action   => $rule['action'],
