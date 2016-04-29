@@ -53,7 +53,7 @@ mod 'puppetlabs/mysql',
     :ref => 'a3d0de3e053daa14aeaaa05badaa3867dc2533f7'
 mod 'jfryman/nginx',
     :git => 'https://github.com/puphpet/puppet-nginx.git',
-    :ref => '1c6d2870e2c9a59e94189d9aaa6d3a5f1544c9c3'
+    :ref => '6245b64bdaab0c5044fab77f6ebf3ed785d050e6'
 mod 'puppetlabs/ntp',
     :git => 'https://github.com/puppetlabs/puppetlabs-ntp.git',
     :ref => '4.1.1'
