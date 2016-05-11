@@ -17,6 +17,9 @@
 <div class="tab-pane" id="nodejs">
     {% include 'PuphpetBundle:nodejs:form.html.twig' with {'nodejs': add_available(extensions.nodejs.merged, extensions.nodejs.available)} %}
 </div>
+<div class="tab-pane" id="nvm">
+    {% include 'PuphpetBundle:nvm:form.html.twig' with {'nvm': add_available(extensions.nvm.merged, extensions.nvm.available)} %}
+</div>
 <div class="tab-pane" id="hhvm">
     {% include 'PuphpetBundle:hhvm:form.html.twig' with {'hhvm': add_available(extensions.hhvm.merged, extensions.hhvm.available)} %}
 </div>

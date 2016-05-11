@@ -1,0 +1,7 @@
+install: 0
+
+# settings:
+#     version: 5
+
+users: ['vagrant']
+versions: ['stable']
