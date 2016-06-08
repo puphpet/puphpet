@@ -104,7 +104,9 @@ elif [[ "${OS}" == 'centos' ]]; then
 
     yum -y --nogpgcheck install "${EL_REPO}"
     yum -y --nogpgcheck install "${EPEL}"
-    yum -y install centos-release-SCL
+    yum -y remove centos-release-SCL
+    yum -y install centos-release-scl
+    
     yum clean all
     yum -y check-update
     echo 'Finished adding repos: elrep, epel, scl'
