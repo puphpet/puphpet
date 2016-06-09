@@ -68,6 +68,13 @@ if [[ ! -f '/.puphpet-stuff/software-properties-common' ]] && [[ "${OS}" == 'deb
     touch '/.puphpet-stuff/software-properties-common'
 fi
 
+if [[ ! -f /.puphpet-stuff/initial-setup-scl-repo && "${OS}" == 'centos' ]]; then
+    yum -y remove centos-release-SCL >/dev/null
+    yum -y install centos-release-scl >/dev/null
+
+    touch /.puphpet-stuff/initial-setup-scl-repo
+fi
+
 if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
     exit 0
 fi
