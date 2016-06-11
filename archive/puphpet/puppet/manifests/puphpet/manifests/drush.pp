@@ -1,8 +1,14 @@
-class puphpet::drush (
-  $drush = $puphpet::params::config['drush'],
-  $php   = $puphpet::params::config['php'],
-  $hhvm  = $puphpet::params::config['hhvm'],
-) {
+# Class for installing Drush CLI tool
+#
+# PHP or HHVM must be flagged for installation.
+#
+class puphpet::drush {
+
+  include ::puphpet::params
+
+  $drush = $puphpet::params::config['drush']
+  $php   = $puphpet::params::config['php']
+  $hhvm  = $puphpet::params::config['hhvm']
 
   $version  = $drush['version'] != undef
   $engine   = (array_true($php, 'install') or array_true($hhvm, 'install'))
