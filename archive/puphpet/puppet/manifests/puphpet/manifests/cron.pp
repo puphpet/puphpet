@@ -4,7 +4,7 @@ class puphpet::cron {
 
   include ::puphpet::params
 
-  $cron = $puphpet::params::config['cron']
+  $cron = $puphpet::params::hiera['cron']
 
   # config file could contain no jobs key
   $jobs = array_true($cron, 'jobs') ? {

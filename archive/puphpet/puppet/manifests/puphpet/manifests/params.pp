@@ -6,7 +6,7 @@ class puphpet::params {
     '/vagrant/puphpet/config-custom.yaml'
   )
 
-  $config = {
+  $hiera = {
     vm             => hiera_hash('vagrantfile', {}),
     apache         => $yaml['apache'],
     beanstalkd     => hiera_hash('beanstalkd', {}),

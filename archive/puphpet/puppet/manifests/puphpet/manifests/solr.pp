@@ -1,5 +1,5 @@
 class puphpet::solr (
-  $solr = $puphpet::params::config['solr'],
+  $solr = $puphpet::params::hiera['solr'],
 ) {
 
   include solr::params

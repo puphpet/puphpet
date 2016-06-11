@@ -1,5 +1,5 @@
 class puphpet::hhvm (
-  $hhvm = $puphpet::params::config['hhvm'],
+  $hhvm = $puphpet::params::hiera['hhvm'],
 ) {
 
   class { 'puphpet::hhvm::install':

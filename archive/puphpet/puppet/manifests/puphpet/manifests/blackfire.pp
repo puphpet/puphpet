@@ -6,7 +6,7 @@ class puphpet::blackfire {
 
   include ::puphpet::params
 
-  $blackfire = $puphpet::params::config['blackfire']
+  $blackfire = $puphpet::params::hiera['blackfire']
 
   create_resources('class', {
     'blackfire' => $blackfire['settings']

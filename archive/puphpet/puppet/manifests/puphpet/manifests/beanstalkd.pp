@@ -9,20 +9,20 @@ class puphpet::beanstalkd {
   include ::puphpet::nginx::params
   include ::puphpet::apache::params
 
-  $beanstalkd = $puphpet::params::config['beanstalkd']
+  $beanstalkd = $puphpet::params::hiera['beanstalkd']
 
   # beanstalk_console requires Apache or Nginx
-  if array_true($puphpet::params::config['nginx'], 'install') {
+  if array_true($puphpet::params::hiera['nginx'], 'install') {
     $webroot = "${puphpet::nginx::params::nginx_webroot_location}/beanstalk_console"
-  } elsif array_true($puphpet::params::config['apache'], 'install') {
+  } elsif array_true($puphpet::params::hiera['apache'], 'install') {
     $webroot = "${puphpet::apache::params::default_vhost_dir}/beanstalk_console"
   } else {
     $webroot = false
   }
 
   # beanstalk_console requires PHP engine
-  if array_true($puphpet::params::config['php'], 'install')
-    or array_true($puphpet::params::config['hhvm'], 'install')
+  if array_true($puphpet::params::hiera['php'], 'install')
+    or array_true($puphpet::params::hiera['hhvm'], 'install')
   {
     $php_installed = true
   } else {

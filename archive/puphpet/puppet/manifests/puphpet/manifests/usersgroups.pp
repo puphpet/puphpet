@@ -1,5 +1,5 @@
 class puphpet::usersgroups (
-  $users_groups = $puphpet::params::config['users_groups'],
+  $users_groups = $puphpet::params::hiera['users_groups'],
 ) {
 
   Group <| |>

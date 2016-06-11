@@ -1,9 +1,9 @@
 class puphpet::mysql (
-  $mysql  = $puphpet::params::config['mysql'],
-  $apache = $puphpet::params::config['apache'],
-  $nginx  = $puphpet::params::config['nginx'],
-  $php    = $puphpet::params::config['php'],
-  $hhvm   = $puphpet::params::config['hhvm'],
+  $mysql  = $puphpet::params::hiera['mysql'],
+  $apache = $puphpet::params::hiera['apache'],
+  $nginx  = $puphpet::params::hiera['nginx'],
+  $php    = $puphpet::params::hiera['php'],
+  $hhvm   = $puphpet::params::hiera['hhvm'],
 ) {
 
   include puphpet::apache::params

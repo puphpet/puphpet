@@ -1,6 +1,6 @@
 class puphpet::xdebug (
-  $xdebug = $puphpet::params::config['xdebug'],
-  $php    = $puphpet::params::config['php'],
+  $xdebug = $puphpet::params::hiera['xdebug'],
+  $php    = $puphpet::params::hiera['php'],
 ) {
 
   include puphpet::php::settings

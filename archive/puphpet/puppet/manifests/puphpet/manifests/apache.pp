@@ -1,7 +1,7 @@
 class puphpet::apache (
-  $apache = $puphpet::params::config['apache'],
-  $php    = $puphpet::params::config['php'],
-  $hhvm   = $puphpet::params::config['hhvm'],
+  $apache = $puphpet::params::hiera['apache'],
+  $php    = $puphpet::params::hiera['php'],
+  $hhvm   = $puphpet::params::hiera['hhvm'],
 ) {
 
   include ::puphpet::apache::params

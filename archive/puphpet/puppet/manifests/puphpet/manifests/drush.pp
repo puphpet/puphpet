@@ -6,9 +6,9 @@ class puphpet::drush {
 
   include ::puphpet::params
 
-  $drush = $puphpet::params::config['drush']
-  $php   = $puphpet::params::config['php']
-  $hhvm  = $puphpet::params::config['hhvm']
+  $drush = $puphpet::params::hiera['drush']
+  $php   = $puphpet::params::hiera['php']
+  $hhvm  = $puphpet::params::hiera['hhvm']
 
   $version  = $drush['version'] != undef
   $engine   = (array_true($php, 'install') or array_true($hhvm, 'install'))

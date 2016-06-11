@@ -8,10 +8,10 @@ class puphpet::adminer {
   include ::puphpet::nginx::params
   include ::puphpet::apache::params
 
-  if array_true($puphpet::params::config['nginx'], 'install') {
+  if array_true($puphpet::params::hiera['nginx'], 'install') {
     $webroot = $puphpet::nginx::params::nginx_webroot_location
     $require = Class['puphpet::nginx']
-  } elsif array_true($puphpet::params::config['apache'], 'install') {
+  } elsif array_true($puphpet::params::hiera['apache'], 'install') {
     $webroot = $puphpet::apache::params::default_vhost_dir
     $require = Class['puphpet::apache']
   } else {

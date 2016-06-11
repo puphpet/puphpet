@@ -1,8 +1,8 @@
 class puphpet::xhprof (
-  $xhprof = $puphpet::params::config['xhprof'],
-  $apache = $puphpet::params::config['apache'],
-  $nginx  = $puphpet::params::config['nginx'],
-  $php    = $puphpet::params::config['php'],
+  $xhprof = $puphpet::params::hiera['xhprof'],
+  $apache = $puphpet::params::hiera['apache'],
+  $nginx  = $puphpet::params::hiera['nginx'],
+  $php    = $puphpet::params::hiera['php'],
 ) {
 
   include puphpet::apache::params

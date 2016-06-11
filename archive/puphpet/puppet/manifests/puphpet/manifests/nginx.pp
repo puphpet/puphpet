@@ -1,5 +1,5 @@
 class puphpet::nginx (
-  $nginx = $puphpet::params::config['nginx'],
+  $nginx = $puphpet::params::hiera['nginx'],
 ) {
 
   include nginx::params

@@ -1,5 +1,5 @@
 class puphpet::mailhog (
-  $mailhog = $puphpet::params::config['mailhog'],
+  $mailhog = $puphpet::params::hiera['mailhog'],
 
 ) {
 

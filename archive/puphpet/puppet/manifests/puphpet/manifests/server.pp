@@ -1,5 +1,5 @@
 class puphpet::server (
-  $server = $puphpet::params::config['server'],
+  $server = $puphpet::params::hiera['server'],
 ) {
 
   include ntp

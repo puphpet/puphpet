@@ -1,5 +1,5 @@
 class puphpet::nodejs (
-  $nodejs = $puphpet::params::config['nodejs'],
+  $nodejs = $puphpet::params::hiera['nodejs'],
 ) {
 
   if array_true($nodejs, 'settings')

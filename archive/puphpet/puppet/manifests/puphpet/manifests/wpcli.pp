@@ -1,7 +1,7 @@
 class puphpet::wpcli (
-  $wpcli = $puphpet::params::config['wpcli'],
-  $php   = $puphpet::params::config['php'],
-  $hhvm  = $puphpet::params::config['hhvm'],
+  $wpcli = $puphpet::params::hiera['wpcli'],
+  $php   = $puphpet::params::hiera['php'],
+  $hhvm  = $puphpet::params::hiera['hhvm'],
 ) {
 
   $version  = $wpcli['version'] != undef

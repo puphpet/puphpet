@@ -1,6 +1,6 @@
 class puphpet::php (
-  $php     = $puphpet::params::config['php'],
-  $mailhog = $puphpet::params::config['mailhog'],
+  $php     = $puphpet::params::hiera['php'],
+  $mailhog = $puphpet::params::hiera['mailhog'],
 ) {
 
   include ::php::params

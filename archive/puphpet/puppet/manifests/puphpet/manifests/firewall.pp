@@ -1,6 +1,6 @@
 class puphpet::firewall (
-  $firewall = $puphpet::params::config['firewall'],
-  $vm       = $puphpet::params::config['vm'],
+  $firewall = $puphpet::params::hiera['firewall'],
+  $vm       = $puphpet::params::hiera['vm'],
 ) {
 
   Firewall {
