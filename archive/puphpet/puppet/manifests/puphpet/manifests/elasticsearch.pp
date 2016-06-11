@@ -1,9 +1,11 @@
-class puphpet::elasticsearch (
-  $elasticsearch = $puphpet::params::hiera['elasticsearch'],
-) {
+class puphpet::elasticsearch {
 
-  if ! defined(Puphpet::Firewall::Port["9200"]) {
-    puphpet::firewall::port { "9200": }
+  include ::puphpet::params
+
+  $elasticsearch = $puphpet::params::hiera['elasticsearch']
+
+  if ! defined(Puphpet::Firewall::Port['9200']) {
+    puphpet::firewall::port { '9200': }
   }
 
   $settings = $elasticsearch['settings']
