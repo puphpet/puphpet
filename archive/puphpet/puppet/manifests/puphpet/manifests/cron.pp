@@ -1,6 +1,6 @@
-class puphpet::cron (
-  $cron = $puphpet::params::config['cron'],
-) {
+class puphpet::cron {
+
+  $cron = $puphpet::params::config['cron']
 
   # config file could contain no jobs key
   $jobs = array_true($cron, 'jobs') ? {
