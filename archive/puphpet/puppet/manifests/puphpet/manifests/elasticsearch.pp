@@ -1,3 +1,5 @@
+# Class for installing Elasticsearch engine
+#
 class puphpet::elasticsearch {
 
   include ::puphpet::params
