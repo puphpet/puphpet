@@ -110,13 +110,6 @@ GIT
       example42-puppi (>= 2.0.0)
 
 GIT
-  remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: c80a6f2b9d4ae3f6a3656d1ee92afb25edbf8971
-  sha: c80a6f2b9d4ae3f6a3656d1ee92afb25edbf8971
-  specs:
-    puphpet-puphpet (1.0)
-
-GIT
   remote: https://github.com/puphpet/puppet-pyenv.git
   ref: 062ae728ae0ddcb76d6d60c3c268fc13b022106e
   sha: 062ae728ae0ddcb76d6d60c3c268fc13b022106e
@@ -289,7 +282,6 @@ DEPENDENCIES
   maestrodev-rvm (>= 0)
   petems-swap_file (>= 0)
   puphpet-php (>= 0)
-  puphpet-puphpet (>= 0)
   puppetlabs-apache (>= 0)
   puppetlabs-apt (>= 0)
   puppetlabs-concat (>= 0)

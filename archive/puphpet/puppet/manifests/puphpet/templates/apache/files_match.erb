@@ -1,0 +1,63 @@
+<%
+class Puppet::Parser::Scope
+  def setvar(name, value, options = {})
+    if name =~ /^[0-9]+$/
+      raise Puppet::ParseError.new("Cannot assign to a numeric match result variable '$#{name}'") # unless options[:ephemeral]
+    end
+    unless name.is_a? String
+      raise Puppet::ParseError, "Scope variable name #{name.inspect} is a #{name.class}, not a string"
+    end
+
+    # Check for reserved variable names
+    if !options[:privileged] && RESERVED_VARIABLE_NAMES.include?(name)
+      raise Puppet::ParseError, "Attempt to assign to a reserved variable name: '#{name}'"
+    end
+
+    # Check for server_facts reserved variable name if the trusted_sever_facts setting is true
+    if Puppet[:trusted_server_facts] && name == 'server_facts' && !options[:privileged]
+      raise Puppet::ParseError, "Attempt to assign to a reserved variable name: '#{name}'"
+    end
+
+    table = effective_symtable(options[:ephemeral])
+
+    if options[:append]
+      # produced result (value) is the resulting appended value, note: the table[]= does not return the value
+      table[name] = (value = append_value(undef_as('', self[name]), value))
+    else
+      table[name] = value
+    end
+    value
+  end
+end
+-%>
+
+<% if @directories_hash and ! @directories_hash.empty? -%>
+<% @directories_hash.each do |key, values| -%>
+  <% if @directories_hash[key]['custom_fragment'].split.join.length > 0 -%>
+    <% if File.file?(@directories_hash[key]['custom_fragment']) -%>
+      <% custom_fragment = File.read(@directories_hash[key]['custom_fragment']) -%>
+      <% @directories_hash[key]['custom_fragment'] = custom_fragment -%>
+    <% end -%>
+  <% end -%>
+  <% if (values.has_key?('files_match')) && values['files_match'].count > 0 -%>
+    <% filesMatchArr = [] -%>
+    <% values['files_match'].each do |innerKey, filesmatch| -%>
+      <% if @directories_hash[key]['files_match'][innerKey].has_key?('custom_fragment') -%>
+        <% if @directories_hash[key]['files_match'][innerKey]['custom_fragment'].split.join.length > 0 -%>
+          <% if File.file?(@directories_hash[key]['files_match'][innerKey]['custom_fragment']) -%>
+            <% custom_fragment = File.read(@directories_hash[key]['files_match'][innerKey]['custom_fragment']) -%>
+            <% @directories_hash[key]['files_match'][innerKey]['custom_fragment'] = custom_fragment -%>
+          <% end -%>
+        <% end -%>
+      <% end -%>
+      <% filesMatchArr.push(filesmatch) -%>
+    <% end -%>
+    <% table = scope.effective_symtable(true) -%>
+    <% scope['_directories'] = filesMatchArr -%>
+    <% result = scope.function_template(['apache/vhost/_directories.erb']) -%>
+    <% result = result.gsub("\n  ## Directories, there should at least be a declaration for \n", "") -%>
+    <% @directories_hash[key]['custom_fragment'] += result.gsub("\n  ", "\n    ") -%>
+  <% end -%>
+<% end -%>
+<% end -%>
+<%= @directories_hash.inspect %>

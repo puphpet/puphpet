@@ -1,8 +1,5 @@
 forge "https://forgeapi.puppetlabs.com"
 
-mod 'puphpet/puphpet',
-    :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => 'c80a6f2b9d4ae3f6a3656d1ee92afb25edbf8971'
 mod 'puppetlabs/stdlib',
     :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
     :ref => '4.11.0'
