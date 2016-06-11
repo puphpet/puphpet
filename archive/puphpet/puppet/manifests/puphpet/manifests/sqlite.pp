@@ -65,7 +65,7 @@ class puphpet::sqlite(
     and ! defined(Class['puphpet::adminer'])
   {
     $apache_webroot = $puphpet::apache::params::default_vhost_dir
-    $nginx_webroot  = $puphpet::params::nginx_webroot_location
+    $nginx_webroot  = $puphpet::nginx::params::nginx_webroot_location
 
     if array_true($apache, 'install') {
       $adminer_webroot = $apache_webroot

@@ -22,8 +22,8 @@ class puphpet::mariadb (
     version => $version,
   }
 
-  $server_package = $puphpet::params::mariadb_package_server_name
-  $client_package = $puphpet::params::mariadb_package_client_name
+  $server_package = $puphpet::mariadb::params::mariadb_package_server_name
+  $client_package = $puphpet::mariadb::params::mariadb_package_client_name
 
   if array_true($php, 'install') {
     $php_package = 'php'
@@ -229,7 +229,7 @@ class puphpet::mariadb (
     and ! defined(Class['puphpet::adminer'])
   {
     $apache_webroot = $puphpet::apache::params::default_vhost_dir
-    $nginx_webroot  = $puphpet::params::nginx_webroot_location
+    $nginx_webroot  = $puphpet::nginx::params::nginx_webroot_location
 
     if array_true($apache, 'install') {
       $adminer_webroot = $apache_webroot

@@ -12,7 +12,7 @@ class puphpet::beanstalkd (
   if array_true($apache, 'install') {
     $webroot = "${puphpet::apache::params::default_vhost_dir}/beanstalk_console"
   } elsif array_true($nginx, 'install') {
-    $webroot = "${puphpet::params::nginx_webroot_location}/beanstalk_console"
+    $webroot = "${puphpet::nginx::params::nginx_webroot_location}/beanstalk_console"
   } else {
     $webroot = false
   }

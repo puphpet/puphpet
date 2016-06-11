@@ -9,7 +9,7 @@ class puphpet::nginx (
 
   class { 'puphpet::ssl_cert': }
 
-  $www_location  = $puphpet::params::nginx_www_location
+  $www_location  = $puphpet::nginx::params::nginx_www_location
   $webroot_user  = 'www-data'
   $webroot_group = 'www-data'
 
@@ -128,7 +128,7 @@ class puphpet::nginx (
       '_'       => {
         'server_name'          => '_',
         'server_aliases'       => [],
-        'www_root'             => $puphpet::params::nginx_webroot_location,
+        'www_root'             => $puphpet::nginx::params::nginx_webroot_location,
         'listen_port'          => 80,
         'client_max_body_size' => '1m',
         'use_default_location' => false,
@@ -169,8 +169,8 @@ class puphpet::nginx (
     })
 
     # Force nginx to be managed exclusively through puppet module
-    if ! defined(File[$puphpet::params::nginx_default_conf_location]) {
-      file { $puphpet::params::nginx_default_conf_location:
+    if ! defined(File[$puphpet::nginx::params::nginx_default_conf_location]) {
+      file { $puphpet::nginx::params::nginx_default_conf_location:
         ensure  => absent,
         require => Package['nginx'],
         notify  => Class['nginx::service'],
@@ -362,7 +362,7 @@ class puphpet::nginx (
 
   if array_true($nginx['settings'], 'default_vhost') {
     $default_vhost_index_file =
-      "${puphpet::params::nginx_webroot_location}/index.html"
+      "${puphpet::nginx::params::nginx_webroot_location}/index.html"
 
     $default_vhost_source_file =
       '/vagrant/puphpet/puppet/manifests/puphpet/files/webserver_landing.html'
@@ -375,7 +375,7 @@ class puphpet::nginx (
                   touch /.puphpet-stuff/default_vhost_index_file_set",
       returns => [0, 1],
       creates => '/.puphpet-stuff/default_vhost_index_file_set',
-      require => File[$puphpet::params::nginx_webroot_location],
+      require => File[$puphpet::nginx::params::nginx_webroot_location],
     }
   }
 

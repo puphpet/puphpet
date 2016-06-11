@@ -8,9 +8,9 @@ class puphpet::hhvm::install (
 ) {
 
   if $nightly == true {
-    $package_name_base = $puphpet::params::hhvm_package_name_nightly
+    $package_name_base = $puphpet::php::params::hhvm_package_name_nightly
   } else {
-    $package_name_base = $puphpet::params::hhvm_package_name
+    $package_name_base = $puphpet::php::params::hhvm_package_name
   }
 
   if $nightly == true and $::osfamily == 'Redhat' {
