@@ -61,29 +61,11 @@ class puphpet::sqlite(
     }
   }
 
-  if array_true($sqlite, 'adminer')
+  if array_true($mariadb, 'adminer')
     and $php_package
     and ! defined(Class['puphpet::adminer'])
   {
-    $apache_webroot = $puphpet::apache::params::default_vhost_dir
-    $nginx_webroot  = $puphpet::nginx::params::nginx_webroot_location
-
-    if array_true($apache, 'install') {
-      $adminer_webroot = $apache_webroot
-      Class['puphpet_apache']
-      -> Class['puphpet::adminer']
-    } elsif array_true($nginx, 'install') {
-      $adminer_webroot = $nginx_webroot
-      Class['puphpet_nginx']
-      -> Class['puphpet::adminer']
-    } else {
-      fail( 'Adminer requires either Apache or Nginx to be installed.' )
-    }
-
-    class { 'puphpet::adminer':
-      location => "${$adminer_webroot}/adminer",
-      owner    => 'www-data',
-    }
+    class { 'puphpet::adminer': }
   }
 
 }
