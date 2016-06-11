@@ -1,9 +1,9 @@
 class puphpet::beanstalkd (
-  $beanstalkd,
-  $apache,
-  $hhvm,
-  $nginx,
-  $php
+  $beanstalkd = $puphpet::params::config['beanstalkd'],
+  $apache     = $puphpet::params::config['apache'],
+  $hhvm       = $puphpet::params::config['hhvm'],
+  $php        = $puphpet::params::config['nginx'],
+  $php        = $puphpet::params::config['php'],
 ) {
 
   include ::puphpet::apache::params

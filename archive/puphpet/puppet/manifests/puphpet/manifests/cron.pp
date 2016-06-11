@@ -1,5 +1,5 @@
 class puphpet::cron (
-  $cron
+  $cron = $puphpet::params::config['cron'],
 ) {
 
   # config file could contain no jobs key

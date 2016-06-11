@@ -1,5 +1,5 @@
 class puphpet::locale (
-  $locales
+  $locales = $puphpet::params::config['locales'],
 ) {
 
   $settings = $locales['settings']

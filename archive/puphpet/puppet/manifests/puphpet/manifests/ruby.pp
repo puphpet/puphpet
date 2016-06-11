@@ -1,5 +1,5 @@
 class puphpet::ruby (
-  $ruby
+  $ruby = $puphpet::params::config['ruby'],
 ) {
 
   include '::gnupg'

@@ -1,7 +1,7 @@
 class puphpet::drush (
-  $drush,
-  $php,
-  $hhvm
+  $drush = $puphpet::params::config['drush'],
+  $php   = $puphpet::params::config['php'],
+  $hhvm  = $puphpet::params::config['hhvm'],
 ) {
 
   $version  = $drush['version'] != undef

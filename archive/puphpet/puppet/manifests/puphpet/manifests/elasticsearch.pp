@@ -1,5 +1,5 @@
 class puphpet::elasticsearch (
-  $elasticsearch
+  $elasticsearch = $puphpet::params::config['elasticsearch'],
 ) {
 
   if ! defined(Puphpet::Firewall::Port["9200"]) {

@@ -1,5 +1,5 @@
 class puphpet::python (
-  $python
+  $python = $puphpet::params::config['python'],
 ) {
 
   include pyenv::params

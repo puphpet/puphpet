@@ -1,8 +1,8 @@
 class puphpet::rabbitmq (
-  $rabbitmq,
-  $apache,
-  $nginx,
-  $php
+  $rabbitmq = $puphpet::params::config['rabbitmq'],
+  $apache   = $puphpet::params::config['apache'],
+  $nginx    = $puphpet::params::config['nginx'],
+  $php      = $puphpet::params::config['php'],
 ) {
 
   if $::operatingsystem == 'debian' {

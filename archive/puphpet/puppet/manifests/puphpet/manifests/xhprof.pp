@@ -1,11 +1,13 @@
 class puphpet::xhprof (
-  $xhprof,
-  $apache,
-  $nginx,
-  $php
+  $xhprof = $puphpet::params::config['xhprof'],
+  $apache = $puphpet::params::config['apache'],
+  $nginx  = $puphpet::params::config['nginx'],
+  $php    = $puphpet::params::config['php'],
 ) {
 
   include puphpet::apache::params
+  include puphpet::nginx::params
+  include puphpet::php::settings
 
   # $::lsbdistcodename is blank in CentOS
   if $::operatingsystem == 'ubuntu'

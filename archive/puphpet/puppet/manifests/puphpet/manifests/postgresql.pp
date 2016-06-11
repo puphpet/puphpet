@@ -1,12 +1,13 @@
 class puphpet::postgresql (
-  $postgresql,
-  $apache,
-  $nginx,
-  $php,
-  $hhvm
+  $postgresql = $puphpet::params::config['postgresql'],
+  $apache     = $puphpet::params::config['apache'],
+  $nginx      = $puphpet::params::config['nginx'],
+  $php        = $puphpet::params::config['php'],
+  $hhvm       = $puphpet::params::config['hhvm'],
 ) {
 
   include puphpet::apache::params
+  include puphpet::nginx::params
 
   if array_true($apache, 'install') or array_true($nginx, 'install') {
     $webserver_restart = true

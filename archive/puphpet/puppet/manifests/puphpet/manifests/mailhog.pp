@@ -1,5 +1,6 @@
 class puphpet::mailhog (
-  $mailhog
+  $mailhog = $puphpet::params::config['mailhog'],
+
 ) {
 
   include puphpet::supervisord

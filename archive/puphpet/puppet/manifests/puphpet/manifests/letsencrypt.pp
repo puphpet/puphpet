@@ -1,7 +1,7 @@
 class puphpet::letsencrypt (
-  $letsencrypt,
-  $apache,
-  $nginx
+  $letsencrypt = $puphpet::params::config['letsencrypt'],
+  $apache      = $puphpet::params::config['apache'],
+  $nginx       = $puphpet::params::config['nginx'],
 ) {
 
   if array_true($apache, 'install') {

@@ -1,9 +1,10 @@
 class puphpet::php (
-  $php,
-  $mailhog
+  $php     = $puphpet::params::config['php'],
+  $mailhog = $puphpet::params::config['mailhog'],
 ) {
 
   include ::php::params
+  include ::puphpet::php::params
 
   class { 'puphpet::php::settings':
     version_string => $php['settings']['version'],

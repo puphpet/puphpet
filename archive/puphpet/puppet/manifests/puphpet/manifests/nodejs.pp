@@ -1,5 +1,5 @@
 class puphpet::nodejs (
-  $nodejs
+  $nodejs = $puphpet::params::config['nodejs'],
 ) {
 
   if array_true($nodejs, 'settings')

@@ -1,5 +1,5 @@
 class puphpet::blackfire (
-  $blackfire
+  $blackfire = $puphpet::params::config['blackfire'],
 ) {
 
   create_resources('class', {

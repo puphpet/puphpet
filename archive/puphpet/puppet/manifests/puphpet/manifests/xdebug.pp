@@ -1,7 +1,9 @@
 class puphpet::xdebug (
-  $xdebug,
-  $php
+  $xdebug = $puphpet::params::config['xdebug'],
+  $php    = $puphpet::params::config['php'],
 ) {
+
+  include puphpet::php::settings
 
   Class['Puphpet::Php::Settings']
   -> Class['Puphpet::Php::Xdebug']

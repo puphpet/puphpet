@@ -1,12 +1,13 @@
 class puphpet::mariadb (
-  $mariadb,
-  $apache,
-  $nginx,
-  $php,
-  $hhvm
+  $mariadb = $puphpet::params::config['mariadb'],
+  $apache  = $puphpet::params::config['apache'],
+  $nginx   = $puphpet::params::config['nginx'],
+  $php     = $puphpet::params::config['php'],
+  $hhvm    = $puphpet::params::config['hhvm'],
 ) {
 
   include puphpet::apache::params
+  include puphpet::mariadb::params
   include puphpet::mysql::params
   include mysql::params
 

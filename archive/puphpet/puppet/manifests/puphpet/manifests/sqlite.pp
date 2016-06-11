@@ -1,12 +1,13 @@
 class puphpet::sqlite(
-  $sqlite,
-  $apache,
-  $nginx,
-  $php,
-  $hhvm
+  $sqlite = $puphpet::params::config['sqlite'],
+  $apache = $puphpet::params::config['apache'],
+  $nginx  = $puphpet::params::config['nginx'],
+  $php    = $puphpet::params::config['php'],
+  $hhvm   = $puphpet::params::config['hhvm'],
 ) {
 
   include puphpet::apache::params
+  include puphpet::nginx::params
 
   if array_true($php, 'install') {
     $php_package = 'php'

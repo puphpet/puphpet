@@ -1,8 +1,8 @@
 class puphpet::mongodb (
-  $mongodb,
-  $apache,
-  $nginx,
-  $php
+  $mongodb = $puphpet::params::config['mongodb'],
+  $apache  = $puphpet::params::config['apache'],
+  $nginx   = $puphpet::params::config['nginx'],
+  $php     = $puphpet::params::config['php'],
 ) {
 
   if array_true($apache, 'install') or array_true($nginx, 'install') {

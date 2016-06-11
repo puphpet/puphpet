@@ -1,8 +1,8 @@
 class puphpet::redis (
-  $redis,
-  $apache,
-  $nginx,
-  $php
+  $redis  = $puphpet::params::config['redis'],
+  $apache = $puphpet::params::config['apache'],
+  $nginx  = $puphpet::params::config['nginx'],
+  $php    = $puphpet::params::config['php'],
 ) {
 
   if array_true($apache, 'install') or array_true($nginx, 'install') {

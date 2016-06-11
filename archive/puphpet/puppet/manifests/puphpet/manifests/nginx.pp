@@ -1,8 +1,9 @@
 class puphpet::nginx (
-  $nginx
+  $nginx = $puphpet::params::config['nginx'],
 ) {
 
   include nginx::params
+  include puphpet::nginx::params
 
   Class['puphpet::ssl_cert']
   -> Nginx::Resource::Vhost <| |>
