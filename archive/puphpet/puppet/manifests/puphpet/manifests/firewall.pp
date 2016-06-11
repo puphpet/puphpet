@@ -1,7 +1,15 @@
-class puphpet::firewall (
-  $firewall = $puphpet::params::hiera['firewall'],
-  $vm       = $puphpet::params::hiera['vm'],
-) {
+# Class for managing firewall
+#
+# Opens SSH port defined under "vm" hiera section
+#
+# Opens forwarded ports on local machines
+#
+class puphpet::firewall {
+
+  include ::puphpet::params
+
+  $firewall = $puphpet::params::hiera['firewall']
+  $vm       = $puphpet::params::hiera['vm']
 
   Firewall {
     before  => Class['puphpet::firewall::post'],
@@ -55,7 +63,7 @@ class puphpet::firewall (
     puphpet::firewall::port { "${vm_ssh_port}": }
   }
 
-  # Opens up forwarded ports on locale machines; remote servers won't have these keys
+  # Opens forwarded ports only on local machines
   if array_true($vm['vm']['provider'], 'local') {
     each( $vm['vm']['provider']['local']['machines'] ) |$mId, $machine| {
       # config file could contain no forwarded ports
