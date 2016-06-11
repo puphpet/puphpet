@@ -1,6 +1,10 @@
-class puphpet::hhvm (
-  $hhvm = $puphpet::params::hiera['hhvm'],
-) {
+# Class for installing HHVM
+#
+class puphpet::hhvm {
+
+  include ::puphpet::params
+
+  $hhvm = $puphpet::params::hiera['hhvm']
 
   class { 'puphpet::hhvm::install':
     nightly => $hhvm['nightly'],
