@@ -1,3 +1,8 @@
+# Class for installing beanstalkd work queue
+#
+# If beanstalkd_console GUI chosen for install,
+# Apache or Nginx and PHP or HHVM must also be chosen
+#
 class puphpet::beanstalkd {
 
   include ::puphpet::params

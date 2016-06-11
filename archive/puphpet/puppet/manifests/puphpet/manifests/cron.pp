@@ -1,3 +1,5 @@
+# Class for defining cron jobs
+#
 class puphpet::cron {
 
   include ::puphpet::params

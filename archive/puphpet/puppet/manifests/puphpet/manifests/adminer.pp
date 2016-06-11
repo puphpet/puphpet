@@ -1,3 +1,7 @@
+# Class for installing Adminer SQL gui tool
+#
+# Nginx or Apache must be flagged for installation.
+#
 class puphpet::adminer {
 
   include ::puphpet::params
