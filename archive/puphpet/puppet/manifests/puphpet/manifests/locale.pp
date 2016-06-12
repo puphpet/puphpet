@@ -1,6 +1,11 @@
-class puphpet::locale (
-  $locales = $puphpet::params::hiera['locales'],
-) {
+# Class for setting server locale and timezone
+#
+#
+class puphpet::locale {
+
+  include ::puphpet::params
+
+  $locales = $puphpet::params::hiera['locales']
 
   $settings = $locales['settings']
 
