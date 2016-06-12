@@ -3,52 +3,11 @@
 class puphpet::hhvm {
 
   include ::puphpet::params
+  include ::puphpet::hhvm::params
 
   $hhvm = $puphpet::params::hiera['hhvm']
 
-  class { 'puphpet::hhvm::install':
-    nightly => $hhvm['nightly'],
-  }
-
-  if ! defined(Group['hhvm']) {
-    group { 'hhvm':
-      ensure => present,
-    }
-  }
-
-  if ! defined(User['hhvm']) {
-    user { 'hhvm':
-      ensure     => present,
-      home       => '/home/hhvm',
-      groups     => ['hhvm', 'www-data'],
-      managehome => true,
-      require    => [
-        Group['hhvm'],
-        Group['www-data']
-      ]
-    }
-  }
-
-  User <| title == 'www-data' |> {
-    groups  +> 'hhvm',
-    require +> Group['hhvm'],
-  }
-
-  file { '/usr/bin/php':
-    ensure  => 'link',
-    target  => '/usr/bin/hhvm',
-    require => Package['hhvm']
-  }
-
-  service { 'hhvm':
-    ensure  => 'running',
-    require => [
-      User['hhvm'],
-      Package['hhvm'],
-    ],
-  }
-
-  $server_ini = '/etc/hhvm/server.ini'
+  class { 'puphpet::hhvm::install': }
 
   # config file could contain no server_ini key
   $server_inis = array_true($hhvm, 'server_ini') ? {
@@ -57,19 +16,12 @@ class puphpet::hhvm {
   }
 
   each( $server_inis ) |$key, $value| {
-    $changes = [ "set '${key}' '${value}'" ]
-
-    augeas { "hhvm server_ini, ${key}: ${value}":
-      lens    => 'PHP.lns',
-      incl    => $server_ini,
-      context => "/files${server_ini}/.anon",
-      changes => $changes,
-      notify  => Service['hhvm'],
-      require => Package['hhvm'],
+    puphpet::hhvm::ini::server { "hhvm ${key}: ${value}":
+      key         => $key,
+      value       => $value,
+      change_type => 'set',
     }
   }
-
-  $php_ini = '/etc/hhvm/php.ini'
 
   # config file could contain no php_ini key
   $php_inis = array_true($hhvm, 'php_ini') ? {
@@ -78,15 +30,10 @@ class puphpet::hhvm {
   }
 
   each( $php_inis ) |$key, $value| {
-    $changes = [ "set '${key}' '${value}'" ]
-
-    augeas { "hhvm php_ini, ${key}: ${value}":
-      lens    => 'PHP.lns',
-      incl    => $php_ini,
-      context => "/files${php_ini}/.anon",
-      changes => $changes,
-      notify  => Service['hhvm'],
-      require => Package['hhvm'],
+    puphpet::hhvm::ini::php { "hhvm-php ${key}: ${value}":
+      key         => $key,
+      value       => $value,
+      change_type => 'set',
     }
   }
 

@@ -1,87 +1,65 @@
-# This depends on
-#   puppetlabs/apt: https://github.com/puppetlabs/puppetlabs-apt
-#   example42/puppet-yum: https://github.com/example42/puppet-yum
-#   puppetlabs/puppetlabs-apache: https://github.com/puppetlabs/puppetlabs-apache (if apache)
-
+# Class for configuring HHVM
+#
+#  [*override_php_alias*]
+#    Point /usr/bin/php to HHVM for drop-in replacement
+#
 class puphpet::hhvm::install (
-  $nightly = false,
-) {
+  $override_php_alias = true
+) inherits puphpet::hhvm::params {
 
-  if $nightly == true {
-    $package_name_base = $puphpet::php::params::hhvm_package_name_nightly
-  } else {
-    $package_name_base = $puphpet::php::params::hhvm_package_name
+  group { $puphpet::hhvm::params::group:
+    ensure => present,
   }
 
-  if $nightly == true and $::osfamily == 'Redhat' {
-    warning('HHVM-nightly is not available for RHEL distros. Falling back to normal release')
+  user { $puphpet::hhvm::params::user:
+    ensure     => present,
+    groups     => [$puphpet::hhvm::params::group],
+    managehome => false,
+    require    => Group[$puphpet::hhvm::params::group],
   }
 
-  case $::operatingsystem {
-    'debian': {
-      if $::lsbdistcodename != 'wheezy' {
-        fail('Sorry, HHVM currently only works with Debian 7+.')
-      }
-
-      include ::puphpet::debian::non_free
+  case $::lsbdistcodename {
+    'wheezy': {
+      class { 'puphpet::hhvm::repo::debian7': }
     }
-    'ubuntu': {
-      if ! ($lsbdistcodename in ['precise', 'raring', 'trusty']) {
-        fail('Sorry, HHVM currently only works with Ubuntu 12.04, 13.10 and 14.04.')
+    'precise': {
+      class { 'puphpet::hhvm::repo::ubuntu1204': }
+    }
+    'trusty': {
+      class { 'puphpet::hhvm::repo::ubuntu1404': }
+
+      package { 'libdouble-conversion1':
+        ensure => present,
+        before => Package[$puphpet::hhvm::params::package_name],
       }
 
-      apt::key { 'A6729974D728D7BA84154F8E4F7B93595D50B6BA':
-        server => 'hkp://keyserver.ubuntu.com:80'
-      }
-
-      if $lsbdistcodename in ['lucid', 'precise'] {
-        apt::ppa { 'ppa:mapnik/boost':
-          require => Apt::Key['A6729974D728D7BA84154F8E4F7B93595D50B6BA'],
-          options => ''
-        }
+      package { 'liblz4-1':
+        ensure => present,
+        before => Package[$puphpet::hhvm::params::package_name],
       }
     }
-    'centos': {
-      $require = defined(Class['puphpet::firewall::post']) ? {
-        true    => Class['puphpet::firewall::post'],
-        default => [],
-      }
-
-      package { 'jemalloc':
-        ensure   => latest,
-        provider => yum,
-      }
-
-      yum::managed_yumrepo { 'hop5':
-        descr    => 'hop5 repository',
-        baseurl  => 'http://www.hop5.in/yum/el6/',
-        gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-HOP5',
-        enabled  => 1,
-        gpgcheck => 0,
-        priority => 1,
-      }
+    default: {
+      fail('HHVM not supported on this distro')
     }
   }
 
-  $os = downcase($::operatingsystem)
-
-  case $::osfamily {
-    'debian': {
-      apt::source { 'hhvm':
-        location          => "http://dl.hhvm.com/${os}",
-        repos             => 'main',
-        required_packages => 'debian-keyring debian-archive-keyring',
-        key               => {
-          'id'      => '16d09fb4',
-          'source'  => 'http://dl.hhvm.com/conf/hhvm.gpg.key',
-        },
-      }
-    }
+  package { $puphpet::hhvm::params::package_name:
+    ensure => present
   }
 
-  if ! defined(Package[$package_name_base]) {
-    package { $package_name_base:
-      ensure => present
+  service { $puphpet::hhvm::params::service_name:
+    ensure  => 'running',
+    require => [
+      User[$puphpet::hhvm::params::user],
+      Package[$puphpet::hhvm::params::package_name],
+    ],
+  }
+
+  if $override_php_alias == true {
+    file { '/usr/bin/php':
+      ensure  => 'link',
+      target  => '/usr/bin/hhvm',
+      require => Package[$puphpet::hhvm::params::package_name]
     }
   }
 

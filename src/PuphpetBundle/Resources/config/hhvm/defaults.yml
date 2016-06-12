@@ -1,5 +1,4 @@
 install: 0
-nightly: 0
 
 composer: 1
 composer_home: ~

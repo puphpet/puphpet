@@ -12,12 +12,6 @@ class puphpet::php::params
     'Redhat' => 'php-cgi'
   }
 
-  $hhvm_package_name = 'hhvm'
-  $hhvm_package_name_nightly = $::osfamily ? {
-    'Debian' => 'hhvm-nightly',
-    'Redhat' => 'hhvm'
-  }
-
   $xhprof_package = $::osfamily ? {
     'Debian' => $::operatingsystem ? {
       'ubuntu' => false,
