@@ -29,10 +29,12 @@ class puphpet::adminer {
     }
   }
 
-  remote_file { "${webroot}/adminer.php":
-    ensure  => present,
-    source  => 'http://www.adminer.org/latest.php',
-    require => [
+  wget::fetch { 'http://www.adminer.org/latest.php':
+    cache_dir   => '/var/cache/wget',
+    destination => "${webroot}/adminer.php",
+    timeout     => 0,
+    verbose     => false,
+    require     => [
       File[$webroot],
       $require
     ],

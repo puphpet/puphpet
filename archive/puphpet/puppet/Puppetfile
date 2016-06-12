@@ -72,9 +72,6 @@ mod 'puppetlabs/rabbitmq',
 mod 'arioch/redis',
     :git => 'https://github.com/arioch/puppet-redis.git',
     :ref => '1.2.1'
-mod 'lwf/remote_file',
-    :git => 'https://github.com/lwf/puppet-remote_file.git',
-    :ref => 'v1.1.3'
 mod 'maestrodev/rvm'
 mod 'example42/solr',
     :git => 'https://github.com/example42/puppet-solr.git',
@@ -91,6 +88,9 @@ mod 'saz/timezone',
 mod 'puppetlabs/vcsrepo',
     :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
     :ref => '0.2.0'
+mod 'maestrodev/wget',
+    :git => 'https://github.com/maestrodev/puppet-wget.git',
+    :ref => 'v1.7.3'
 mod 'example42/yum',
     :git => 'https://github.com/puphpet/puppet-yum.git',
     :ref => '8233e01382f9989e9a7b15fc529e34069f99fb37'
