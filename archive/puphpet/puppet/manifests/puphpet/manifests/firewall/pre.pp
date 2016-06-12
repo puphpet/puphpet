@@ -1,5 +1,5 @@
-# This depends on puppetlabs/firewall: https://github.com/puppetlabs/puppetlabs-firewall
-# Firewall rules to be setup before custom rules
+# First whitelist
+#
 class puphpet::firewall::pre {
 
   Firewall {

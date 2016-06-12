@@ -11,12 +11,7 @@ class puphpet::firewall {
   $firewall = $puphpet::params::hiera['firewall']
   $vm       = $puphpet::params::hiera['vm']
 
-  Firewall {
-    before  => Class['puphpet::firewall::post'],
-    require => Class['puphpet::firewall::pre'],
-  }
-
-  class { ['puphpet::firewall::pre', 'puphpet::firewall::post', 'firewall']: }
+  class { 'puphpet::firewall::install': }
 
   # config file could contain no rules key
   $rules = array_true($firewall, 'rules') ? {
