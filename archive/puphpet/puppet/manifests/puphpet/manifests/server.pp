@@ -140,8 +140,19 @@ class puphpet::server (
           require => Apt::Key['945A6177078449082DDCC0E5551CE2FB4CBEDD5A']
         }
       }
+
+      if ! defined(Package['git']) {
+        package { 'git':
+          ensure => present,
+        }
+      }
     }
     'redhat', 'centos': {
+      if ! defined(Package['git']) {
+        package { 'git':
+          ensure => present,
+        }
+      }
     }
     default: {
       error('PuPHPet supports Debian, Ubuntu, CentOS and RHEL only')

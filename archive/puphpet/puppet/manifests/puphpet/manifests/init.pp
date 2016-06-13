@@ -3,6 +3,7 @@ class puphpet {
   include ::puphpet::params
 
   Exec { path => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ] }
+  Vcsrepo { require => Package['git'] }
 
   class { '::puphpet::cron': }
   class { '::puphpet::firewall': }
