@@ -1,9 +1,15 @@
-class puphpet::redis (
-  $redis  = $puphpet::params::hiera['redis'],
-  $apache = $puphpet::params::hiera['apache'],
-  $nginx  = $puphpet::params::hiera['nginx'],
-  $php    = $puphpet::params::hiera['php'],
-) {
+# Class for installing redis database
+#
+# If PHP is chosen for install , redis module is also installed
+#
+class puphpet::redis {
+
+  include ::puphpet::params
+
+  $redis  = $puphpet::params::hiera['redis']
+  $apache = $puphpet::params::hiera['apache']
+  $nginx  = $puphpet::params::hiera['nginx']
+  $php    = $puphpet::params::hiera['php']
 
   if array_true($apache, 'install') or array_true($nginx, 'install') {
     $webserver_restart = true

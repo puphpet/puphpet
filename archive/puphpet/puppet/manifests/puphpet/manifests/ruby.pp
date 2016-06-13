@@ -1,6 +1,10 @@
-class puphpet::ruby (
-  $ruby = $puphpet::params::hiera['ruby'],
-) {
+# Class for installing ruby via rvm
+#
+class puphpet::ruby {
+
+  include ::puphpet::params
+
+  $ruby = $puphpet::params::hiera['ruby']
 
   include '::gnupg'
 
