@@ -1,7 +1,7 @@
 # This depends on puppetlabs-vcsrepo: https://github.com/puppetlabs/puppetlabs-vcsrepo.git
 # This depends on puppet-composer: https://github.com/tPl0ch/puppet-composer.git
 # Installs WPCLI system-wide
-class puphpet::php::wordpress::wpcli (
+class puphpet::wpcli::install (
   $version
 ) {
 
