@@ -26,6 +26,16 @@ define puphpet::python::install (
       ensure => link,
       path   => "/usr/bin/virtualenv-${version}",
       target => "/usr/local/pyenv/versions/${version}/bin/virtualenv",
+    } ->
+    file { "python v${version} pip symlink":
+      ensure => link,
+      path   => "/usr/bin/pip-${version}",
+      target => "/usr/local/pyenv/versions/${version}/bin/pip",
+    } ->
+    file { "python pip symlink":
+      ensure => link,
+      path   => "/usr/bin/pip",
+      target => "/usr/local/pyenv/versions/${version}/bin/pip",
     }
   }
 

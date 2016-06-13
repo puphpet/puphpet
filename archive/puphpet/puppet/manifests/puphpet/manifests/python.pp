@@ -1,21 +1,33 @@
-class puphpet::python (
-  $python = $puphpet::params::hiera['python'],
-) {
+# Class for installing Pythons via pyenv
+#
+class puphpet::python {
 
-  include pyenv::params
-  include puphpet::supervisord
+  include ::puphpet::params
 
-  puphpet::python::preinstall { 'foo':
-    before => Class['pyenv'],
-  }
+  $python = $puphpet::params::hiera['python']
 
-  class { 'pyenv':
+  anchor{ 'puphpet::python::init': }
+  -> class { 'puphpet::python::pre': }
+  -> class { 'pyenv':
     manage_packages => false,
   }
 
-  if count($python['versions']) > 0 {
-    create_resources(puphpet::python::install, $python['versions'])
+  # config file could contain no versions key
+  $versions = array_true($python, 'versions') ? {
+    true    => $python['versions'],
+    default => { }
   }
+
+  each( $versions ) |$key, $version| {
+    puphpet::python::install { "python-{$version['version']}":
+      version    => $version['version'],
+      virtualenv => $version['virtualenv'],
+      require    => Class['pyenv'],
+      before     => Anchor['puphpet::python::end']
+    }
+  }
+
+  anchor{ 'puphpet::python::end': }
 
   each( $python['packages'] ) |$key, $package| {
     $package_array = split($package, '@')
@@ -31,6 +43,7 @@ class puphpet::python (
       package { $package_name:
         ensure   => $package_ensure,
         provider => pip,
+        require  => Anchor['puphpet::python::end'],
       }
     }
   }
