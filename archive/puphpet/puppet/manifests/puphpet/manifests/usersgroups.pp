@@ -1,6 +1,8 @@
-class puphpet::usersgroups (
-  $users_groups = $puphpet::params::hiera['users_groups'],
-) {
+class puphpet::usersgroups {
+
+  include ::puphpet::params
+
+  $users_groups = $puphpet::params::hiera['users_groups']
 
   Group <| |>
   -> User <| |>
