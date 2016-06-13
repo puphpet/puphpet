@@ -1,13 +1,17 @@
-class puphpet::rabbitmq (
-  $rabbitmq = $puphpet::params::hiera['rabbitmq'],
-  $apache   = $puphpet::params::hiera['apache'],
-  $nginx    = $puphpet::params::hiera['nginx'],
-  $php      = $puphpet::params::hiera['php'],
-) {
+# Class for installing RabbitMQ message broker
+#
+# If PHP is chosen for install , rabbitmq module is also installed
+#
+class puphpet::rabbitmq {
 
-  if $::operatingsystem == 'debian' {
-     fail('RabbitMQ is not supported on Debian. librabbitmq-dev is too old.')
-  }
+  include ::puphpet::params
+
+  $rabbitmq = $puphpet::params::hiera['rabbitmq']
+  $apache   = $puphpet::params::hiera['apache']
+  $nginx    = $puphpet::params::hiera['nginx']
+  $php      = $puphpet::params::hiera['php']
+
+  class { 'puphpet::rabbitmq::install': }
 
   if array_true($apache, 'install') or array_true($nginx, 'install') {
     $webserver_restart = true
@@ -15,18 +19,17 @@ class puphpet::rabbitmq (
     $webserver_restart = false
   }
 
-  if $::osfamily == 'redhat' {
-    Class['erlang']
-    -> Class['rabbitmq']
-
-    include erlang
-  }
-
   $settings = merge({'delete_guest_user' => true,}, $rabbitmq['settings'])
 
   create_resources('class', { 'rabbitmq' => $settings })
 
-  each( $rabbitmq['plugins'] ) |$plugin| {
+  # config file could contain no plugins key
+  $plugins = array_true($rabbitmq, 'plugins') ? {
+    true    => $rabbitmq['plugins'],
+    default => []
+  }
+
+  each( $plugins ) |$plugin| {
     rabbitmq_plugin { $plugin:
       ensure => present,
     }
@@ -57,17 +60,17 @@ class puphpet::rabbitmq (
       default => false
     }
 
-    # config file could contain no user.permissions
-    $permissions = array_true($user, 'permissions') ? {
-      true    => $user['permissions'],
-      default => { }
-    }
-
     $merged = delete(merge($user, {
       'admin' => $is_admin
     }), ['name', 'permissions'])
 
     create_resources(rabbitmq_user, { "${username}" => $merged })
+
+    # config file could contain no user.permissions
+    $permissions = array_true($user, 'permissions') ? {
+      true    => $user['permissions'],
+      default => { }
+    }
 
     each($permissions) |$pkey, $permission| {
       $host = $permission['host']
