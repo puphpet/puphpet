@@ -1,9 +1,10 @@
-class puphpet::server (
-  $server = $puphpet::params::hiera['server'],
-) {
+class puphpet::server {
 
-  include ntp
-  include swap_file
+  include ::puphpet::params
+  include ::ntp
+  include ::swap_file
+
+  $server = $puphpet::params::hiera['server']
 
   each( ['puppet', 'www-data', 'www-user'] ) |$group| {
     if ! defined(Group[$group]) {
