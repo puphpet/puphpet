@@ -1,23 +1,16 @@
-class puphpet::solr (
-  $solr = $puphpet::params::hiera['solr'],
-) {
+# Class for installing solr search server
+#
+class puphpet::solr {
 
-  include solr::params
-  include puphpet::supervisord
+  include ::puphpet::params
+  include ::puphpet::supervisord
+  include ::solr::params
+
+  $solr = $puphpet::params::hiera['solr']
 
   $settings = $solr['settings']
 
-  exec { 'create solr conf dir':
-    command => "mkdir -p ${solr::params::config_dir}",
-    creates => $solr::params::config_dir,
-    path    => [ '/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/' ],
-  }
-
-  if ! defined(Class['java']) {
-    class { 'java':
-      distribution => 'jre',
-    }
-  }
+  class { 'puphpet::solr::install': }
 
   $version = $settings['version']
   $url     = 'http://archive.apache.org/dist/lucene/solr'
