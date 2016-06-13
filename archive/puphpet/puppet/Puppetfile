@@ -51,6 +51,9 @@ mod 'puppetlabs/mysql',
 mod 'jfryman/nginx',
     :git => 'https://github.com/puphpet/puppet-nginx.git',
     :ref => '6245b64bdaab0c5044fab77f6ebf3ed785d050e6'
+mod 'willdurand/nodejs',
+    :git => 'https://github.com/willdurand/puppet-nodejs.git',
+    :ref => 'v1.9.1'
 mod 'puppetlabs/ntp',
     :git => 'https://github.com/puppetlabs/puppetlabs-ntp.git',
     :ref => '4.1.1'

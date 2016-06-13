@@ -1,83 +1,16 @@
-class puphpet::nodejs (
-  $nodejs = $puphpet::params::hiera['nodejs'],
-) {
+class puphpet::nodejs {
 
-  if array_true($nodejs, 'settings')
-    and array_true($nodejs['settings'], ['version'])
-  {
-    $version_num = $nodejs['settings']['version']
-  } else {
-    $version_num = '0.12'
+  include ::puphpet::params
+
+  $nodejs = $puphpet::params::hiera['nodejs']
+
+  if $::operatingsystem == 'centos' and $::operatingsystemmajrelease in ['6', 6] {
+    fail('Node.js is not supported in CentOS 6')
   }
 
-  if $::osfamily == 'debian' {
-    if ! defined('apt-transport-https') {
-      package { 'apt-transport-https':
-        ensure => present
-      }
-    }
-
-    $version = $version_num ? {
-      '5'     => '5.x',
-      '4'     => '4.x',
-      '0.12'  => '0.12',
-      '0.10'  => '0.10',
-      default => "${version_num}.x"
-    }
-
-    $url = "https://deb.nodesource.com/setup_${version}"
-
-    $save_to = '/.puphpet-stuff/nodesource'
-
-    exec { 'add nodejs repo':
-      command => "wget --quiet --tries=5 --connect-timeout=10 -O '${save_to}' ${url} \
-                  && bash ${save_to}",
-      creates => $save_to,
-      path    => '/usr/bin:/bin',
-      require => Package['apt-transport-https'],
-    }
-    -> package { 'nodejs':
-      ensure => present,
-    }
-  } else {
-    $pkg_url = $version_num ? {
-      '0.12'  => 'https://rpm.nodesource.com/pub_0.12/el/6/x86_64/nodejs-0.12.9-1nodesource.el6.x86_64.rpm',
-      '0.10'  => 'https://rpm.nodesource.com/pub_0.10/el/6/x86_64/nodejs-0.10.41-1nodesource.el6.x86_64.rpm',
-      default => false
-    }
-
-    if ! $pkg_url {
-      fail('You have chosen an unsupported NodeJS version.')
-    }
-
-    $dev_url = $version_num ? {
-      '0.12' => 'https://rpm.nodesource.com/pub_0.12/el/6/x86_64/nodejs-devel-0.12.9-1nodesource.el6.x86_64.rpm',
-      '0.10' => 'https://rpm.nodesource.com/pub_0.10/el/6/x86_64/nodejs-devel-0.10.41-1nodesource.el6.x86_64.rpm',
-    }
-
-    $pkg_save_to = '/.puphpet-stuff/nodesource_pkg'
-    $dev_save_to = '/.puphpet-stuff/nodesource_dev'
-
-    exec { 'add nodejs rpm':
-      command => "wget --quiet --tries=5 --connect-timeout=10 -O '${pkg_save_to}' ${pkg_url}",
-      creates => $pkg_save_to,
-      path    => '/usr/bin:/bin',
-    }
-    -> exec { 'add nodejs dev rpm':
-      command => "wget --quiet --tries=5 --connect-timeout=10 -O '${dev_save_to}' ${dev_url}",
-      creates => $dev_save_to,
-      path    => '/usr/bin:/bin',
-    }
-    -> package { 'nodejs':
-      ensure   => 'present',
-      provider => 'rpm',
-      source   => $pkg_save_to,
-    }
-    -> package { 'nodejs-devel':
-      ensure   => 'present',
-      provider => 'rpm',
-      source   => $dev_save_to,
-    }
+  class { 'nodejs':
+    version      => $nodejs['settings']['version'],
+    make_install => false,
   }
 
   each( $nodejs['npm_packages'] ) |$package| {
@@ -93,7 +26,7 @@ class puphpet::nodejs (
       package { $npm_array[0]:
         ensure   => $npm_ensure,
         provider => npm,
-        require  => Package['nodejs']
+        require  => Class['nodejs']
       }
     }
   }
