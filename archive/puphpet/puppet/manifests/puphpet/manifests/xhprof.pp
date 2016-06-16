@@ -1,13 +1,16 @@
-class puphpet::xhprof (
-  $xhprof = $puphpet::params::hiera['xhprof'],
-  $apache = $puphpet::params::hiera['apache'],
-  $nginx  = $puphpet::params::hiera['nginx'],
-  $php    = $puphpet::params::hiera['php'],
-) {
+# Class for installing XHProf
+#
+class puphpet::xhprof {
 
-  include puphpet::apache::params
-  include puphpet::nginx::params
-  include puphpet::php::settings
+  include ::puphpet::params
+  include ::puphpet::apache::params
+  include ::puphpet::nginx::params
+  include ::puphpet::php::settings
+
+  $xhprof = $puphpet::params::hiera['xhprof']
+  $apache = $puphpet::params::hiera['apache']
+  $nginx  = $puphpet::params::hiera['nginx']
+  $php    = $puphpet::params::hiera['php']
 
   # $::lsbdistcodename is blank in CentOS
   if $::operatingsystem == 'ubuntu'

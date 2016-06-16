@@ -1,9 +1,12 @@
-class puphpet::xdebug (
-  $xdebug = $puphpet::params::hiera['xdebug'],
-  $php    = $puphpet::params::hiera['php'],
-) {
+# Class for installing xdebug
+#
+class puphpet::xdebug {
 
-  include puphpet::php::settings
+  include ::puphpet::params
+  include ::puphpet::php::settings
+
+  $xdebug = $puphpet::params::hiera['xdebug']
+  $php    = $puphpet::params::hiera['php']
 
   Class['Puphpet::Php::Settings']
   -> Class['Puphpet::Php::Xdebug']
