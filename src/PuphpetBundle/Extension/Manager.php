@@ -101,6 +101,15 @@ class Manager
      */
     public function createArchive(array $data)
     {
+        /*
+         * Replace empty strings with nulls, so they are dumped to yaml correctly
+         */
+        array_walk_recursive($data, function (&$submittedValue) {
+            if ($submittedValue === '') {
+                $submittedValue = null;
+            }
+        });
+
         foreach ($data as $key => $values) {
             $name = $this->parseDataKeyName($values, $key);
 
