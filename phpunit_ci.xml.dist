@@ -11,10 +11,10 @@
     stopOnIncomplete="false"
     stopOnSkipped="false"
     syntaxCheck="false"
-    bootstrap="./src/Puphpet/MainBundle/Tests/bootstrap.php">
+    bootstrap="./src/PuphpetBundle/Tests/bootstrap.php">
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory>./src/Puphpet/MainBundle/Tests/Unit/</directory>
+            <directory>./src/PuphpetBundle/Tests/Unit/</directory>
         </testsuite>
     </testsuites>
     <filter>
