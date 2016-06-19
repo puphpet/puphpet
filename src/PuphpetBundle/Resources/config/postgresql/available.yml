@@ -5,6 +5,7 @@ privileges:
     - TEMPORARY
 
 versions:
+    - "9.5"
     - "9.4"
     - "9.3"
     - "9.2"
