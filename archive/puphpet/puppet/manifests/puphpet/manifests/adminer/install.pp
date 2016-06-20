@@ -35,13 +35,11 @@ class puphpet::adminer::install
     }
   }
 
-  if ! defined(Wget::Fetch['http://www.adminer.org/latest.php']) {
-    wget::fetch { 'http://www.adminer.org/latest.php':
-      cache_dir   => '/var/cache/wget',
-      destination => "${webroot}/adminer.php",
-      timeout     => 0,
-      verbose     => false,
-      require     => [
+  if ! defined(Puphpet::Server::Wget["${webroot}/adminer.php"]) {
+    puphpet::server::wget { "${webroot}/adminer.php":
+      source  => 'http://www.adminer.org/latest.php',
+      mode    => '644',
+      require => [
         File[$webroot],
         $require
       ],
