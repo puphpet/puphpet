@@ -7,9 +7,9 @@
 #
 #  class { 'puphpet::drush::install': }
 #
-class puphpet::drush::install {
-
-  include ::puphpet::params
+class puphpet::drush::install
+  inherits puphpet::params
+{
 
   $drush = $puphpet::params::hiera['drush']
   $php   = $puphpet::params::hiera['php']
