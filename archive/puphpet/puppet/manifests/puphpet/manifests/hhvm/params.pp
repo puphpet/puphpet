@@ -1,4 +1,6 @@
-class puphpet::hhvm::params {
+class puphpet::hhvm::params
+  inherits ::puphpet::params
+{
 
   $user  = 'hhvm'
   $group = 'hhvm'

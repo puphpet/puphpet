@@ -1,16 +1,9 @@
-# Class for installing HHVM
-#
-class puphpet::hhvm {
+define puphpet::hhvm::inis {
 
   include ::puphpet::params
-  include ::puphpet::hhvm::params
-
-  $hhvm = $puphpet::params::hiera['hhvm']
-
-  class { 'puphpet::hhvm::install': }
 
   # config file could contain no server_ini key
-  $server_inis = array_true($hhvm, 'server_ini') ? {
+  $server_inis = array_true($puphpet::params::hiera['hhvm'], 'server_ini') ? {
     true    => $hhvm['server_ini'],
     default => { }
   }
@@ -24,7 +17,7 @@ class puphpet::hhvm {
   }
 
   # config file could contain no php_ini key
-  $php_inis = array_true($hhvm, 'php_ini') ? {
+  $php_inis = array_true($puphpet::params::hiera['hhvm'], 'php_ini') ? {
     true    => $hhvm['php_ini'],
     default => { }
   }
@@ -34,13 +27,6 @@ class puphpet::hhvm {
       key         => $key,
       value       => $value,
       change_type => 'set',
-    }
-  }
-
-  if array_true($hhvm, 'composer') and ! defined(Class['puphpet::php::composer']) {
-    class { 'puphpet::php::composer':
-      php_package   => 'hhvm',
-      composer_home => $hhvm['composer_home'],
     }
   }
 

@@ -1,4 +1,16 @@
-# Class for setting HHVM-specific INI flags
+# == Define Resource Type: puphpet::hhvm::ini::server
+#
+# Sets HHVM-specific INI flags.
+#
+# Usage:
+#
+# puphpet::hhvm::ini::server { 'name' :
+#   key         => 'hhvm.server.host',
+#   value       => '127.0.0.1',
+#   change_type => 'set'
+# }
+#
+# Parameters:
 #
 #  [*key*]
 #    Flag name

@@ -1,11 +1,14 @@
-# Class for configuring HHVM
+# == Class: puphpet::hhvm::install
 #
-#  [*override_php_alias*]
-#    Point /usr/bin/php to HHVM for drop-in replacement
+# Installs HHVM.
 #
-class puphpet::hhvm::install (
-  $override_php_alias = true
-) inherits puphpet::hhvm::params {
+# Usage:
+#
+#  class { 'puphpet::hhvm::install': }
+#
+class puphpet::hhvm::install
+  inherits puphpet::hhvm::params
+{
 
   group { $puphpet::hhvm::params::group:
     ensure => present,
@@ -20,20 +23,21 @@ class puphpet::hhvm::install (
 
   case $::lsbdistcodename {
     'wheezy': {
-      class { 'puphpet::hhvm::repo::debian7': }
+      class { 'puphpet::hhvm::repo::debian7':
+        before => Package[$puphpet::hhvm::params::package_name],
+      }
     }
     'precise': {
-      class { 'puphpet::hhvm::repo::ubuntu1204': }
+      class { 'puphpet::hhvm::repo::ubuntu1204':
+        before => Package[$puphpet::hhvm::params::package_name],
+      }
     }
     'trusty': {
       class { 'puphpet::hhvm::repo::ubuntu1404': }
-
-      package { 'libdouble-conversion1':
+      -> package { 'libdouble-conversion1':
         ensure => present,
-        before => Package[$puphpet::hhvm::params::package_name],
       }
-
-      package { 'liblz4-1':
+      -> package { 'liblz4-1':
         ensure => present,
         before => Package[$puphpet::hhvm::params::package_name],
       }
@@ -55,11 +59,23 @@ class puphpet::hhvm::install (
     ],
   }
 
-  if $override_php_alias == true {
+  $override_php_alias = array_true($puphpet::params::hiera['hhvm']['settings'], 'override_php_alias') ? {
+    true    => $puphpet::params::hiera['hhvm']['settings']['override_php_alias'],
+    default => { }
+  }
+
+  if $override_php_alias {
     file { '/usr/bin/php':
       ensure  => 'link',
       target  => '/usr/bin/hhvm',
       require => Package[$puphpet::hhvm::params::package_name]
+    }
+  }
+
+  if array_true($hhvm, 'composer') and ! defined(Class['puphpet::php::composer']) {
+    class { 'puphpet::php::composer':
+      php_package   => 'hhvm',
+      composer_home => $hhvm['composer_home'],
     }
   }
 

@@ -10,10 +10,6 @@ class puphpet::hhvm::repo::ubuntu1404 {
       'id'     => '0x5a16e7281be7a449',
       'server' => 'hkp://keyserver.ubuntu.com:80',
     },
-    require  => [
-      Package['debian-keyring'],
-      Package['debian-archive-keyring'],
-    ],
   }
 
 }

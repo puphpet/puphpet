@@ -1,4 +1,16 @@
-# Class for setting PHP-specific INI flags
+# == Define Resource Type: puphpet::hhvm::ini::php
+#
+# Sets PHP-specific HHVM INI flags.
+#
+# Usage:
+#
+# puphpet::hhvm::ini::php { 'name' :
+#   key         => 'display_errors',
+#   value       => 'On',
+#   change_type => 'set'
+# }
+#
+# Parameters:
 #
 #  [*key*]
 #    Flag name

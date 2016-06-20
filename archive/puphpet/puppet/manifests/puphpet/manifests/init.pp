@@ -29,7 +29,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['hhvm'], 'install') {
-    class { '::puphpet::hhvm': }
+    class { '::puphpet::hhvm::install': }
   }
 
   if array_true($puphpet::params::hiera['mailhog'], 'install') {
