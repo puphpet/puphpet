@@ -21,7 +21,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['drush'], 'install') {
-    class { '::puphpet::drush': }
+    class { '::puphpet::drush::install': }
   }
 
   if array_true($puphpet::params::hiera['elasticsearch'], 'install') {
