@@ -1,8 +1,15 @@
-# Class for installing Elasticsearch engine
+# == Class: puphpet::elasticsearch::install
 #
-class puphpet::elasticsearch {
-
-  include ::puphpet::params
+# Installs Elasticsearch engine.
+# Installs Java and opens ports
+#
+# Usage:
+#
+#  class { 'puphpet::elasticsearch::install': }
+#
+class puphpet::elasticsearch::install
+  inherits puphpet::params
+{
 
   $elasticsearch = $puphpet::params::hiera['elasticsearch']
 

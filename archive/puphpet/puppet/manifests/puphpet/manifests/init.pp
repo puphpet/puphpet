@@ -25,7 +25,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['elasticsearch'], 'install') {
-    class { '::puphpet::elasticsearch': }
+    class { '::puphpet::elasticsearch::install': }
   }
 
   if array_true($puphpet::params::hiera['hhvm'], 'install') {
