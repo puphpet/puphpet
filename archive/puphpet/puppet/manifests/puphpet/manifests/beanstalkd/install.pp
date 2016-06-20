@@ -8,9 +8,10 @@
 #
 #  class { 'puphpet::beanstalkd::install': }
 #
-class puphpet::beanstalkd::install {
+class puphpet::beanstalkd::install
+  inherits puphpet::params
+{
 
-  include ::puphpet::params
   include ::puphpet::nginx::params
   include ::puphpet::apache::params
 
