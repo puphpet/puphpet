@@ -1,17 +1,30 @@
-# Class for managing firewall
+# == Class: puphpet::firewall
 #
+# Manages firewall.
 # Opens SSH port defined under "vm" hiera section
-#
 # Opens forwarded ports on local machines
 #
-class puphpet::firewall {
-
-  include ::puphpet::params
+# Usage:
+#
+#  class { 'puphpet::firewall': }
+#
+class puphpet::firewall
+  inherits puphpet::params
+{
 
   $firewall = $puphpet::params::hiera['firewall']
   $vm       = $puphpet::params::hiera['vm']
 
-  class { 'puphpet::firewall::install': }
+  Firewall {
+    before  => Class['puphpet::firewall::post'],
+    require => Class['puphpet::firewall::pre'],
+  }
+
+  class {'puphpet::firewall::pre': }
+
+  class {'puphpet::firewall::post': }
+
+  class {'firewall': }
 
   # config file could contain no rules key
   $rules = array_true($firewall, 'rules') ? {
