@@ -1,10 +1,16 @@
-# Class for installing Adminer SQL gui tool
+# == Class: puphpet::adminer::install
 #
-# Nginx or Apache must be flagged for installation.
+# Installs Adminer SQL gui tool.
+# (Nginx or Apache) and PHP must be flagged for installation.
 #
-class puphpet::adminer {
+# Usage:
+#
+#  class { 'puphpet::adminer::install': }
+#
+class puphpet::adminer::install
+  inherits puphpet::params
+{
 
-  include ::puphpet::params
   include ::puphpet::nginx::params
   include ::puphpet::apache::params
 
@@ -29,15 +35,17 @@ class puphpet::adminer {
     }
   }
 
-  wget::fetch { 'http://www.adminer.org/latest.php':
-    cache_dir   => '/var/cache/wget',
-    destination => "${webroot}/adminer.php",
-    timeout     => 0,
-    verbose     => false,
-    require     => [
-      File[$webroot],
-      $require
-    ],
+  if ! defined(Wget::Fetch['http://www.adminer.org/latest.php']) {
+    wget::fetch { 'http://www.adminer.org/latest.php':
+      cache_dir   => '/var/cache/wget',
+      destination => "${webroot}/adminer.php",
+      timeout     => 0,
+      verbose     => false,
+      require     => [
+        File[$webroot],
+        $require
+      ],
+    }
   }
 
 }

@@ -123,9 +123,9 @@ class puphpet::postgresql (
 
   if array_true($mariadb, 'adminer')
     and $php_package
-    and ! defined(Class['puphpet::adminer'])
+    and ! defined(Class['puphpet::adminer::install'])
   {
-    class { 'puphpet::adminer': }
+    class { 'puphpet::adminer::install': }
   }
 
 }
