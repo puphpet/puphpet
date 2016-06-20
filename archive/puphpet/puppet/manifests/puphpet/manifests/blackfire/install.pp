@@ -2,9 +2,9 @@
 #
 # PHP must be flagged for installation.
 #
-class puphpet::blackfire {
-
-  include ::puphpet::params
+class puphpet::blackfire::install
+  inherits puphpet::params
+{
 
   $blackfire = $puphpet::params::hiera['blackfire']
 
