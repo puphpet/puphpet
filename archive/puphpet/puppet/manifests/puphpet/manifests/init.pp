@@ -33,7 +33,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['mailhog'], 'install') {
-    class { '::puphpet::mailhog': }
+    class { '::puphpet::mailhog::install': }
   }
 
   if array_true($puphpet::params::hiera['mariadb'], 'install')

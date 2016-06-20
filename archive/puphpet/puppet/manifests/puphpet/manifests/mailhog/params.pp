@@ -1,4 +1,6 @@
-class puphpet::mailhog::params {
+class puphpet::mailhog::params
+ inherits puphpet::params
+{
 
   $user  = 'mailhog'
   $group = 'mailhog'
