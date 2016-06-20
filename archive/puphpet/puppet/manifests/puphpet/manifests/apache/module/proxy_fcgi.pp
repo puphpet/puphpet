@@ -1,10 +1,10 @@
 # Sets up Apache to use fcgi
 # Useful for things like php-fpm or hhvm
 
-class puphpet::apache::proxy_fcgi {
+class puphpet::apache::module::proxy_fcgi {
 
-  include ::puphpet::params
   include ::apache::params
+  include ::puphpet::apache::params
 
   if $::operatingsystem == 'debian' {
     include ::puphpet::debian::non_free

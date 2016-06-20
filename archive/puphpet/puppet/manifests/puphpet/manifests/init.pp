@@ -13,7 +13,7 @@ class puphpet {
   class { '::puphpet::usersgroups': }
 
   if array_true($puphpet::params::hiera['apache'], 'install') {
-    class { '::puphpet::apache': }
+    class { '::puphpet::apache::install': }
   }
 
   if array_true($puphpet::params::hiera['beanstalkd'], 'install') {

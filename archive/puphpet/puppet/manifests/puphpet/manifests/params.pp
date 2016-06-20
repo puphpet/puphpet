@@ -1,9 +1,12 @@
 class puphpet::params {
 
+  $puphpet_base_dir     = '/vagrant/puphpet'
+  $puphpet_manifest_dir = "${puphpet_base_dir}/puppet/manifests/puphpet"
+
   $yaml = merge_yaml(
-    '/vagrant/puphpet/config.yaml',
-    "/vagrant/puphpet/config-${::provisioner_type}.yaml",
-    '/vagrant/puphpet/config-custom.yaml'
+    "${puphpet_base_dir}/config.yaml",
+    "${puphpet_base_dir}/config-${::provisioner_type}.yaml",
+    "${puphpet_base_dir}/config-custom.yaml"
   )
 
   $hiera = {

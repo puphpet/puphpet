@@ -16,7 +16,7 @@ class puphpet::adminer {
     $require = Class['puphpet::nginx']
   } elsif array_true($apache, 'install') {
     $webroot = $puphpet::apache::params::default_vhost_dir
-    $require = Class['puphpet::apache']
+    $require = Class['puphpet::apache::install']
   } else {
     fail('adminer requires either Apache or Nginx installed')
   }
