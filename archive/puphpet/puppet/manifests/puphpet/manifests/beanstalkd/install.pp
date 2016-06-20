@@ -1,9 +1,14 @@
-# Class for installing beanstalkd work queue
+# == Class: puphpet::adminer::install
 #
+# Installs beanstalkd work queue.
 # If beanstalkd_console GUI chosen for install,
-# Apache or Nginx and PHP or HHVM must also be chosen
+# (Apache or Nginx) and (PHP or HHVM) must also be chosen
 #
-class puphpet::beanstalkd {
+# Usage:
+#
+#  class { 'puphpet::beanstalkd::install': }
+#
+class puphpet::beanstalkd::install {
 
   include ::puphpet::params
   include ::puphpet::nginx::params

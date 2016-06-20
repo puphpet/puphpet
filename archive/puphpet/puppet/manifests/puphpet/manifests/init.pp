@@ -17,7 +17,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['beanstalkd'], 'install') {
-    class { '::puphpet::beanstalkd': }
+    class { '::puphpet::beanstalkd::install': }
   }
 
   if array_true($puphpet::params::hiera['drush'], 'install') {
