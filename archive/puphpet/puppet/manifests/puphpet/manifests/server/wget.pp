@@ -15,7 +15,7 @@ define puphpet::server::wget (
   $source,
   $user  = 'root',
   $group = 'root',
-  $mode
+  $mode  = '0644',
 ){
 
   $destination = $name
