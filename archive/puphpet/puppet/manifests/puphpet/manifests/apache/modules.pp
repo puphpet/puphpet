@@ -32,13 +32,13 @@ define puphpet::apache::modules (
   if ('proxy_fcgi' in $modules)
     and ! defined(Class['puphpet::apache::module::proxy_fcgi'])
   {
-    class { '::puphpet::apache::module::proxy_fcgi': }
+    class { 'puphpet::apache::module::proxy_fcgi': }
   }
 
   if ('pagespeed' in $modules)
     and ! defined(Class['puphpet::apache::module::pagespeed'])
   {
-    class { '::puphpet::apache::module::pagespeed': }
+    class { 'puphpet::apache::module::pagespeed': }
   }
 
   each( $puphpet::apache::params::system_modules ) |$package| {

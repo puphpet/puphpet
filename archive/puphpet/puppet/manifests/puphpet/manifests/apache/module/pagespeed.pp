@@ -27,17 +27,17 @@ class puphpet::apache::module::pagespeed {
     notify   => Service['httpd']
   }
 
-  file { "${apache::params::mod_dir}/pagespeed.conf":
+  file { "${::apache::params::mod_dir}/pagespeed.conf":
     purge => false,
   }
 
-  if $apache::params::mod_enable_dir != undef {
-    file { "${apache::params::mod_enable_dir}/pagespeed.conf":
+  if $::apache::params::mod_enable_dir != undef {
+    file { "${::apache::params::mod_enable_dir}/pagespeed.conf":
       purge => false,
     }
   }
 
-  $pagespeed_load = "${apache::params::mod_dir}/pagespeed.load"
+  $pagespeed_load = "${::apache::params::mod_dir}/pagespeed.load"
 
   exec { 'mod_pagespeed httpd 2.4':
     command => "perl -p -i -e 's#mod_pagespeed.so#mod_pagespeed_ap24.so#gi' ${pagespeed_load}",
