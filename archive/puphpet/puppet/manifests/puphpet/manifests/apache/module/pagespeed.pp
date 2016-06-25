@@ -17,14 +17,10 @@ class puphpet::apache::module::pagespeed {
     'Redhat' => 'rpm'
   }
 
-  exec { "download apache mod-pagespeed to ${download_location}":
-    creates => $download_location,
-    command => "wget ${puphpet::apache::params::mod_pagespeed_url} -O ${download_location}",
-    timeout => 30,
-    path    => '/usr/bin'
+  puphpet::server::wget { $download_location:
+    source => $puphpet::apache::params::mod_pagespeed_url,
   }
-
-  package { $puphpet::apache::params::mod_pagespeed_package:
+  -> package { $puphpet::apache::params::mod_pagespeed_package:
     ensure   => present,
     provider => $provider,
     source   => $download_location,
