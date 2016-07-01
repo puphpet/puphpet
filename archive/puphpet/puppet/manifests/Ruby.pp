@@ -2,14 +2,23 @@ class puphpet_ruby (
   $ruby
 ) {
 
-  include '::gnupg'
+  include ::gnupg
+  include ::rvm::params
 
   Class['::rvm']
   -> Puphpet::Ruby::Dotfile <| |>
   -> Puphpet::Ruby::Install <| |>
 
-  class { '::rvm':
-    key_server => 'hkp://pgp.mit.edu:80',
+  gnupg_key { "rvm_${::rvm::params::gnupg_key_id}":
+    ensure     => present,
+    key_id     => $::rvm::params::gnupg_key_id,
+    user       => 'root',
+    key_source => 'https://rvm.io/mpapis.asc',
+    key_type   => public,
+  }
+  -> class { '::rvm':
+    key_server   => undef,
+    gnupg_key_id => false,
   }
 
   if ! defined(Group['rvm']) {
