@@ -6,6 +6,6 @@ versions:
         bundler: '1'
         version: 1.9.3
         gems:
-            - deep_merge
-            - activesupport
-            - vine
+            - deep_merge@1.0.1
+            - activesupport@4.2.6
+            - vine@0.2
