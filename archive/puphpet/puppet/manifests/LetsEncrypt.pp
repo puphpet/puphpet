@@ -61,7 +61,7 @@ class puphpet_letsencrypt (
     $domains_joined_no_flag = join($domain['hosts'], ' ')
 
     $cmd_standalone_joined = "${cmd_standalone} -d ${domains_joined}"
-    $cmd_cron_joined       = "${cmd_cron} -d ${domains_joined} && service restart ${service}"
+    $cmd_cron_joined       = "${cmd_cron} -d ${domains_joined} && service ${service} restart"
 
     # Generate initial cert before Nginx or Apache are installed
     # If this server already existed, Nginx/Apache may already be installed
