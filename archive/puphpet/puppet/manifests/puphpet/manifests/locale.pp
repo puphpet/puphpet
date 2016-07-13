@@ -1,6 +1,5 @@
 # Class for setting server locale and timezone
 #
-#
 class puphpet::locale {
 
   include ::puphpet::params
