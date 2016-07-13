@@ -93,7 +93,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['letsencrypt'], 'install') {
-    class { '::puphpet::letsencrypt': }
+    class { '::puphpet::letsencrypt::install': }
   }
 
   if array_true($puphpet::params::hiera['solr'], 'install') {
