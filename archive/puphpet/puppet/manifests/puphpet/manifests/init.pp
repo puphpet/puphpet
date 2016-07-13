@@ -97,7 +97,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['solr'], 'install') {
-    class { '::puphpet::solr': }
+    class { '::puphpet::solr::install': }
   }
 
   if array_true($puphpet::params::hiera['sqlite'], 'install') {

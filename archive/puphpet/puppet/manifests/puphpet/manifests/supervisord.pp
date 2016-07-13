@@ -5,25 +5,19 @@ class puphpet::supervisord {
 
   include ::puphpet::python::pip
 
+  Exec['easy_install pip']
+  -> Class['Supervisord::Install']
+
   if ! defined(Package['git']) {
     package { 'git':
       ensure  => present,
     }
   }
 
-  if ! defined(Class['supervisord::pip']) {
-    class { '::supervisord::pip':
-      require => Package['git']
-    }
-  }
-
-  if ! defined(Class['::supervisord']) {
+  if ! defined(Class['supervisord']) {
     class { '::supervisord':
       install_pip => false,
-      require     => [
-        Class['puphpet::firewall::post'],
-        Class['puphpet::python::pip'],
-      ],
+      require     => Class['puphpet::firewall::post'],
     }
   }
 
