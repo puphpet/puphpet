@@ -57,7 +57,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['nodejs'], 'install') {
-    class { '::puphpet::nodejs': }
+    class { '::puphpet::nodejs::install': }
   }
 
   if array_true($puphpet::params::hiera['php'], 'install') {

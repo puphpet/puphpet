@@ -1,6 +1,6 @@
 install: 0
 
 settings:
-    version: v6.2.1
+    version: 6
 
 npm_packages: []
