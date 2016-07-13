@@ -216,12 +216,12 @@ GIT
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-postgresql.git
-  ref: 4.6.0
-  sha: 43fd0e89254264329d53f7cc4da2f8f68888da48
+  ref: 4.7.1
+  sha: fea6aa8e59ad8387ce113e9350e37dba0e8edd75
   specs:
-    puppetlabs-postgresql (4.6.0)
+    puppetlabs-postgresql (4.7.1)
       puppetlabs-apt (< 3.0.0, >= 1.8.0)
-      puppetlabs-concat (< 2.0.0, >= 1.1.0)
+      puppetlabs-concat (< 3.0.0, >= 1.1.0)
       puppetlabs-stdlib (~> 4.0)
 
 GIT
@@ -306,3 +306,4 @@ DEPENDENCIES
   s12v-blackfire (>= 0)
   saz-timezone (>= 0)
   tPl0ch-composer (>= 0)
+
