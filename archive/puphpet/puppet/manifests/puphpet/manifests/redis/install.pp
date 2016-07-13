@@ -2,7 +2,7 @@
 #
 # If PHP is chosen for install , redis module is also installed
 #
-class puphpet::redis {
+class puphpet::redis::install {
 
   include ::puphpet::params
 

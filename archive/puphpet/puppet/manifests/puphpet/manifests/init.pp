@@ -89,7 +89,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['redis'], 'install') {
-    class { '::puphpet::redis': }
+    class { '::puphpet::redis::install': }
   }
 
   if array_true($puphpet::params::hiera['letsencrypt'], 'install') {
