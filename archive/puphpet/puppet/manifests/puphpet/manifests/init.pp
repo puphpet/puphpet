@@ -85,7 +85,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['rabbitmq'], 'install') {
-    class { '::puphpet::rabbitmq': }
+    class { '::puphpet::rabbitmq::install': }
   }
 
   if array_true($puphpet::params::hiera['redis'], 'install') {
