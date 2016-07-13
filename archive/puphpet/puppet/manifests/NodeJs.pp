@@ -11,7 +11,7 @@ class puphpet_nodejs (
   }
 
   if $::osfamily == 'debian' {
-    if ! defined('apt-transport-https') {
+    if ! defined(Package['apt-transport-https']) {
       package { 'apt-transport-https':
         ensure => present,
         before => Exec['add nodejs repo']
