@@ -17,9 +17,8 @@ class puphpet::python::pip {
     group  => 'root',
   }
   -> exec { 'Install ez_setup':
-    command     => "python ${puphpet::python::params::setup_tools_download}",
-    subscribe   => File[$puphpet::python::params::setup_tools_download],
-    refreshonly => true,
+    command => "python ${puphpet::python::params::setup_tools_download}",
+    creates => '/usr/local/bin/easy_install',
   }
   -> exec { 'easy_install pip':
     unless => 'which pip',
