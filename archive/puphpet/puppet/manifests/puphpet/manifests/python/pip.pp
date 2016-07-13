@@ -1,16 +1,25 @@
 class puphpet::python::pip {
 
-  Exec { path => [ '/usr/bin/', '/usr/local/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin' ] }
+  include ::puphpet::python::params
 
-  $url = 'https://bootstrap.pypa.io/ez_setup.py'
-  $download_location = '/.puphpet-stuff/ez_setup.py'
+  Exec { path => [
+    '/usr/bin/',
+    '/usr/local/bin',
+    '/bin',
+    '/usr/local/sbin',
+    '/usr/sbin',
+    '/sbin'
+  ] }
 
-  exec { "Download and install ez_setup":
-    creates => $download_location,
-    command => "wget ${url} -O ${download_location} && \
-                python ${download_location}",
-    timeout => 30,
-    path    => '/usr/bin'
+  puphpet::server::wget { $puphpet::python::params::setup_tools_download:
+    source => $puphpet::python::params::setup_tools_url,
+    user   => 'root',
+    group  => 'root',
+  }
+  -> exec { 'Install ez_setup':
+    command     => "python ${puphpet::python::params::setup_tools_download}",
+    subscribe   => File[$puphpet::python::params::setup_tools_download],
+    refreshonly => true,
   }
   -> exec { 'easy_install pip':
     unless => 'which pip',
