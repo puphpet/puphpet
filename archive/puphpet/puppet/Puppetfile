@@ -94,5 +94,9 @@ mod 'puppetlabs/vcsrepo',
 mod 'example42/yum',
     :git => 'https://github.com/puphpet/puppet-yum.git',
     :ref => '8233e01382f9989e9a7b15fc529e34069f99fb37'
+mod 'artberri-nvm',
+    :git => 'https://github.com/dsbaars/puppet-nvm',
+    :ref => '2.0.0'
+
 exclusion 'ceritsc-yum'
 exclusion 'n1tr0g/gnupg'

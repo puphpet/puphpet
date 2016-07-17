@@ -1,0 +1,3 @@
+puphpet.nvm.homepage:
+    path:  /
+    defaults: { _controller: PuphpetBundle:Nvm:index }

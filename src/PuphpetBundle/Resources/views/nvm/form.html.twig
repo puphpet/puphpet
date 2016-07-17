@@ -1,0 +1,68 @@
+<input type="hidden" name="nvm[install]" value="0" />
+
+<div class="field-container">
+    <div class="form-group">
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="nvm[install]" value="1"
+                   class="invisible toggle-on-select"
+                   {% if nvm.install %}checked{% endif %}
+                   data-vis-toggle-target="#nvm-container" />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Install nvm</span>
+                </span>
+                <span class="footer">
+                    Node Version Manager - Simple bash script to manage multiple active node.js versions - <a href="https://github.com/creationix/nvm" target="_blank">GitHub project</a>
+                </span>
+            </span>
+        </label>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div id="nvm-container" class="{% if not nvm.install %}hidden{% endif %}">
+
+      <div class="form-group col-xs-12">
+          <div class="help-text">
+              <p>nvm can be installed for some users</p>
+          </div>
+          <label for="nvm-users">Install nvm for users</label>
+          <select id="nvm-users"
+                 multiple name="nvm[users][]"
+                 class="form-control select-tags-editable">
+              {% for user in nvm.users %}
+                  <option selected value="{{ user }}">{{ user }}</option>
+              {% endfor %}
+          </select>
+      </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                <p>To install a specific version, use <code>{package}@{version}</code>.</p>
+                <p>eg: <code>express@4.10.4 </code>. For latest just use <code>{package}</code>.</p>
+            </div>
+            <label for="nvm-versions">Install node.js versions</label>
+            <select id="nvm-versions"
+                   multiple name="nvm[versions][]"
+                   class="form-control select-tags-editable">
+                {% for version in nvm.versions %}
+                    <option selected value="{{ version }}">{{ version }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#nodejs"><span aria-hidden="true">&larr;</span> Node.Js</a></li>
+            <li class="next">
+                <a href="#hhvm">HHVM <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+</div>

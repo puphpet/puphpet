@@ -20,6 +20,7 @@ $mongodb        = hiera_hash('mongodb', {})
 $mysql          = hiera_hash('mysql', {})
 $nginx          = $yaml['nginx']
 $nodejs         = hiera_hash('nodejs', {})
+$nvm            = hiera_hash('nvm', {})
 $php            = hiera_hash('php', {})
 $postgresql     = hiera_hash('postgresql', {})
 $python         = hiera_hash('python', {})
@@ -130,6 +131,12 @@ if array_true($nginx, 'install') {
 if array_true($nodejs, 'install') {
   class { '::puphpet_nodejs':
     nodejs => $nodejs
+  }
+}
+
+if array_true($nvm, 'install') {
+  class { '::puphpet_nvm':
+    nvm => $nvm
   }
 }
 

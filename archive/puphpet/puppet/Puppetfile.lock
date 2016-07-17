@@ -24,6 +24,14 @@ GIT
       stahnma-epel (< 2.0.0, >= 1.0.2)
 
 GIT
+  remote: https://github.com/dsbaars/puppet-nvm
+  ref: 2.0.0
+  sha: 3c1a0ae34a38d99399ffd9429c9649e682193383
+  specs:
+    artberri-nvm (1.1.1)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
+
+GIT
   remote: https://github.com/elastic/puppet-elasticsearch.git
   ref: 0.10.3
   sha: 36409eae08800fb2107d9ea4fef031f5348cb1ca
@@ -276,6 +284,7 @@ GIT
 DEPENDENCIES
   ajcrowe-supervisord (>= 0)
   arioch-redis (>= 0)
+  artberri-nvm (>= 0)
   attachmentgenie-locales (>= 0)
   daenney-pyenv (>= 0)
   elasticsearch-elasticsearch (>= 0)
@@ -306,3 +315,4 @@ DEPENDENCIES
   s12v-blackfire (>= 0)
   saz-timezone (>= 0)
   tPl0ch-composer (>= 0)
+
