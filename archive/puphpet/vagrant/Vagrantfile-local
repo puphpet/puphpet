@@ -305,7 +305,7 @@ machines.each do |i, machine|
           skipKeys = [
             'memsize',
             'cpus',
-            'use_linked_clone',
+            'linked_clone',
             'check_guest_tools',
             'update_guest_tools'
           ]
@@ -317,9 +317,9 @@ machines.each do |i, machine|
           v.customize ['set', :id, "--#{key}", "#{value}"]
         end
 
-        if !provider['virtualizers']['parallels']['use_linked_clone'].nil? &&
-          provider['virtualizers']['parallels']['use_linked_clone'].to_i == 1
-          v.use_linked_clone = true
+        if !provider['virtualizers']['parallels']['linked_clone'].nil? &&
+          provider['virtualizers']['parallels']['linked_clone'].to_i == 1
+          v.linked_clone = true
         end
 
         if !provider['virtualizers']['parallels']['check_guest_tools'].nil? &&
