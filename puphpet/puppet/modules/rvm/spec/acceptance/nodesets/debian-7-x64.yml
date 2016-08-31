@@ -1,0 +1,14 @@
+# This file is managed centrally by modulesync
+#   https://github.com/maestrodev/puppet-modulesync
+
+HOSTS:
+  debian-7-x64:
+    roles:
+      - master
+    platform: debian-7-amd64
+    box : debian-73-x64-virtualbox-nocm
+    box_url : http://puppet-vagrant-boxes.puppetlabs.com/debian-73-x64-virtualbox-nocm.box
+    hypervisor : vagrant
+CONFIG:
+  log_level: debug
+  type: git

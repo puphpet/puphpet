@@ -1,0 +1,27 @@
+<% if @wsgi_application_group -%>
+  WSGIApplicationGroup <%= @wsgi_application_group %>
+<% end -%>
+<% if @wsgi_daemon_process and @wsgi_daemon_process_options -%>
+  WSGIDaemonProcess <%= @wsgi_daemon_process %> <%= @wsgi_daemon_process_options.collect { |k,v| "#{k}=#{v}"}.sort.join(' ') %>
+<% elsif @wsgi_daemon_process and !@wsgi_daemon_process_options -%>
+  WSGIDaemonProcess <%= @wsgi_daemon_process %>
+<% end -%>
+<% if @wsgi_import_script and @wsgi_import_script_options -%>
+  WSGIImportScript <%= @wsgi_import_script %> <%= @wsgi_import_script_options.collect { |k,v| "#{k}=#{v}"}.sort.join(' ') %>
+<% end -%>
+<% if @wsgi_process_group -%>
+  WSGIProcessGroup <%= @wsgi_process_group %>
+<% end -%>
+<% if @wsgi_script_aliases and ! @wsgi_script_aliases.empty? -%>
+  <%- @wsgi_script_aliases.keys.sort.each do |key| -%>
+    <%- if key != '' and @wsgi_script_aliases[key] != ''-%>
+  WSGIScriptAlias <%= key %> "<%= @wsgi_script_aliases[key] %>"
+    <%- end -%>
+  <%- end -%>
+<% end -%>
+<% if @wsgi_pass_authorization -%>
+  WSGIPassAuthorization <%= @wsgi_pass_authorization %>
+<% end -%>
+<% if @wsgi_chunked_request -%>
+  WSGIChunkedRequest <%= @wsgi_chunked_request %>
+<% end -%>

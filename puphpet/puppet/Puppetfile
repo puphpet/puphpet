@@ -1,0 +1,93 @@
+forge "https://forgeapi.puppetlabs.com"
+
+mod 'puppetlabs/apache',
+    :git => 'https://github.com/puppetlabs/puppetlabs-apache.git',
+    :ref => '7dde9fc31e'
+mod 'puppetlabs/apt',
+    :git => 'https://github.com/puppetlabs/puppetlabs-apt.git',
+    :ref => '1.8.0'
+mod 'keen99/beanstalkd',
+    :git => 'https://github.com/keen99/puppet-beanstalkd.git',
+    :ref => '1.0.0'
+mod 's12v/blackfire',
+    :git => 'https://github.com/puphpet/puppet-blackfire.git',
+    :ref => 'cb938a5'
+mod 'tPl0ch/composer',
+    :git => 'https://github.com/puphpet/puppet-composer.git',
+    :ref => 'c4f9478'
+mod 'puppetlabs/concat',
+    :git => 'https://github.com/puppetlabs/puppetlabs-concat.git',
+    :ref => '1.1.1'
+mod 'elasticsearch/elasticsearch',
+    :git => 'https://github.com/puphpet/puppet-elasticsearch.git',
+    :ref => '0.2.2'
+mod 'garethr/erlang',
+    :git => 'https://github.com/garethr/garethr-erlang.git',
+    :ref => '91d8ec73c3'
+mod 'puppetlabs/firewall',
+    :git => 'https://github.com/puppetlabs/puppetlabs-firewall.git',
+    :ref => '1.1.1'
+mod 'puppetlabs/inifile',
+    :git => 'https://github.com/puppetlabs/puppetlabs-inifile.git',
+    :ref => '1.2.0'
+mod 'puppetlabs/java',
+    :git => 'https://github.com/puppetlabs/puppetlabs-java.git',
+    :ref => '1.3.0'
+mod 'attachmentgenie/locales',
+    :git => 'https://github.com/saz/puppet-locales.git',
+    :ref => 'v2.2.2'
+mod 'actionjack/mailcatcher',
+    :git => 'https://github.com/puphpet/puppet-mailcatcher.git',
+    :ref => 'dcc8c3d357'
+mod 'puppetlabs/mongodb',
+    :git => 'https://github.com/puppetlabs/puppetlabs-mongodb.git',
+    :ref => '0.8.0'
+mod 'puppetlabs/mysql',
+    :git => 'https://github.com/puppetlabs/puppetlabs-mysql.git',
+    :ref => '3.3.0'
+mod 'jfryman/nginx',
+    :git => 'https://github.com/puphpet/puppet-nginx.git',
+    :ref => 'd3ea0ee'
+mod 'puppetlabs/ntp',
+    :git => 'https://github.com/puppetlabs/puppetlabs-ntp.git',
+    :ref => '3.0.4'
+mod 'puphpet/php',
+    :git => 'https://github.com/puphpet/puppet-php.git',
+    :ref => 'eb14528'
+mod 'puppetlabs/postgresql',
+    :git => 'https://github.com/puppetlabs/puppetlabs-postgresql.git',
+    :ref => '4.2.0'
+mod 'puphpet/puphpet',
+    :git => 'https://github.com/puphpet/puppet-puphpet.git',
+    :ref => 'df72e89'
+mod 'example42/puppi',
+    :git => 'https://github.com/example42/puppi.git',
+    :ref => 'v2.1.9'
+mod 'daenney/pyenv',
+    :git => 'https://github.com/puphpet/puppet-pyenv.git',
+    :ref => '062ae72'
+mod 'puppetlabs/rabbitmq',
+    :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
+    :ref => '5.2.0'
+mod 'puphpet/redis',
+    :git => 'https://github.com/puphpet/puppet-redis.git',
+    :ref => 'd9b3b23b0c'
+mod 'maestrodev/rvm'
+mod 'example42/solr',
+    :git => 'https://github.com/example42/puppet-solr.git',
+    :ref => 'v2.0.7'
+mod 'petems/swap_file',
+    :git => 'https://github.com/petems/puppet-swap_file.git',
+    :ref => '39582afda5'
+mod 'ajcrowe/supervisord',
+    :git => 'https://github.com/puphpet/puppet-supervisord.git',
+    :ref => '17643f1'
+mod 'puppetlabs/stdlib',
+    :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
+    :ref => '4dab70b305'
+mod 'puppetlabs/vcsrepo',
+    :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git',
+    :ref => '0.2.0'
+mod 'example42/yum',
+    :git => 'https://github.com/example42/puppet-yum.git',
+    :ref => 'v2.1.17'

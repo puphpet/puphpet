@@ -1,0 +1,12 @@
+<% if @php_values and not @php_values.empty? -%>
+  <%- @php_values.sort.each do |key,value| -%>
+  php_value <%= key %> <%= value %>
+  <%- end -%>
+<% end -%>
+<% if @php_flags and not @php_flags.empty? -%>
+  <%- @php_flags.sort.each do |key,flag| -%>
+    <%-# normalize flag -%>
+    <%- if flag =~ /true|yes|on|1/i then flag = 'on' else flag = 'off' end -%>
+  php_flag <%= key %> <%= flag %>
+  <%- end -%>
+<% end -%>

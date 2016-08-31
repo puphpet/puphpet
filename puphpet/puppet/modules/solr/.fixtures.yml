@@ -1,0 +1,11 @@
+fixtures:
+  repositories:
+    "puppi": "git://github.com/example42/puppi.git"
+    "monitor": "git://github.com/example42/puppet-monitor.git"
+    "firewall": "git://github.com/example42/puppet-firewall.git"
+    "iptables": "git://github.com/example42/puppet-iptables.git"
+    "concat": "git://github.com/puppetlabs/puppet-concat.git"
+    "stdlib": "git://github.com/puppetlabs/puppetlabs-stdlib.git"
+  symlinks:
+    "solr": "#{source_dir}"
+

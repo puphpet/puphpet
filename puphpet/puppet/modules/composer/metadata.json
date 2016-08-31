@@ -1,0 +1,63 @@
+{
+  "name": "tPl0ch-composer",
+  "version": "1.3.6",
+  "author": "tPl0ch - Thomas Ploch <profiploch@gmail.com>",
+  "summary": "This module provides the 'Composer' PHP dependency manager.",
+  "license": "MIT",
+  "source": "https://github.com/tPl0ch/puppet-composer.git",
+  "project_page": "https://github.com/tPl0ch/puppet-composer",
+  "issues_url": "https://github.com/tPl0ch/puppet-composer/issues",
+  "tags": ["composer", "php"],
+  "dependencies": [
+    {"name":"puppetlabs/git","version_requirement":">= 0.0.2"},
+    {"name":"puppetlabs/stdlib","version_requirement":">=3.0.0"}
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "10.04",
+        "12.04",
+        "14.04"
+      ]
+    }
+  ]
+}

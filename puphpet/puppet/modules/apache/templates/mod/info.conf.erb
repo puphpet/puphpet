@@ -1,0 +1,19 @@
+<Location /server-info>
+    SetHandler server-info
+<%- if @restrict_access -%>
+  <%- if scope.function_versioncmp([@apache_version, '2.4']) >= 0 -%>
+    Require ip <%= Array(@allow_from).join(" ") %>
+  <%- else -%>
+    Order deny,allow
+    Deny from all
+    <%- if @allow_from and ! @allow_from.empty? -%>
+      <%- @allow_from.each do |allowed| -%>
+    Allow from <%= allowed %>
+      <%- end -%>
+    <%- else -%>
+    Allow from 127.0.0.1
+    Allow from ::1
+    <%- end -%>
+  <%- end -%>
+<%- end -%>
+</Location>

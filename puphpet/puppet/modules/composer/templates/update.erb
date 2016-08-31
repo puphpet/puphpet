@@ -1,0 +1,17 @@
+<%= @command -%>
+<% if @prefer_source %> --prefer-source<% end -%>
+<% if @prefer_dist %> --prefer-dist<% end -%>
+<% if @working_dir %> --working-dir=<%= @working_dir%><%end -%>
+<% unless @custom_installers %> --no-plugins<% end -%>
+<% unless @scripts %> --no-scripts<% end -%>
+<% unless @interaction %> --no-interaction<% end -%>
+<% unless @dev %> --no-dev<% end -%>
+<% if @verbose %> -v<% end -%>
+<% if @dry_run %> --dry-run<% end -%>
+<% if @optimize %> --optimize-autoloader<% end -%>
+<%- if @cmd == 'update' -%>
+    <%- if @lock %> --lock<% end -%>
+    <%- if @packages -%>
+        <%- @packages.each do |package| -%><%= ' ' + package -%><%- end -%>
+    <%- end -%>
+<%- end -%>

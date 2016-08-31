@@ -1,0 +1,19 @@
+{
+  "name": "example42-monitor",
+  "version": "2.0.3",
+  "author": "Alessandro Franceschi",
+  "summary": "Puppet monitoring abstraction meta module",
+  "license": "Apache2",
+  "source": "https://github.com/example42/puppet-monitor",
+  "project_page": "http://www.example42.com",
+  "issues_url": "https://github.com/example42/puppet-monitor/issues",
+  "description": "This module provides abstraction defines to monitor resources managed by Puppet modules. It is used in the Example42 modules set but can be imported and used in other setups. According to the monitor tool used it may have the relevant module as dependency",
+  "types": [
+  
+  ],
+  "checksums": {
+  },
+  "dependencies": [
+    {"name":"example42/puppi","version_requirement":">=2.0.0"}
+  ]
+}

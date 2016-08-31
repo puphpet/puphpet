@@ -1,0 +1,19 @@
+#!/bin/bash
+
+ARCH=$(uname -m)
+
+if [ "${ARCH}" == 'i386' ] || [ "${ARCH}" == 'i686' ]; then
+    FILENAME='linux-x86.tar.gz'
+else
+    FILENAME='linux-x64.tar.gz'
+fi
+
+LATEST_NODE=$(curl 'http://nodejs.org/dist/latest/SHASUMS256.txt' | grep "${FILENAME}" | awk '{ print $2 }')
+wget --quiet --tries=5 --connect-timeout=10 --no-check-certificate -O '/.puphpet-stuff/nodestable.tar.gz' "http://nodejs.org/dist/latest/${LATEST_NODE}"
+
+cd '/usr/local/'
+
+tar xzvf '/.puphpet-stuff/nodestable.tar.gz' --strip=1
+
+ln -s '/usr/local/bin/node' '/usr/bin/node'
+ln -s '/usr/local/bin/npm' '/usr/bin/npm'

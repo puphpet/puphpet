@@ -1,0 +1,24 @@
+HOSTS:
+  ubuntu1204:
+    roles:
+      - master
+      - database
+      - dashboard
+    platform: ubuntu-12.04-amd64
+    template: ubuntu-1204-x86_64
+    hypervisor: vcloud
+  win2008_x86_64:
+    roles:
+      - agent
+      - default
+    platform: windows-2008-x86_64
+    template: win-2008-x86_64
+    hypervisor: vcloud
+CONFIG:
+  nfs_server: none
+  consoleport: 443
+  datastore: instance0
+  folder: Delivery/Quality Assurance/Enterprise/Dynamic
+  resourcepool: delivery/Quality Assurance/Enterprise/Dynamic
+  pooling_api: http://vcloud.delivery.puppetlabs.net/
+  pe_dir: http://neptune.puppetlabs.lan/3.3/ci-ready/

@@ -1,0 +1,10 @@
+<% if @error_log or @log_level -%>
+
+  ## Logging
+<% end -%>
+<% if @error_log -%>
+  ErrorLog "<%= @error_log_destination %>"
+<% end -%>
+<% if @log_level -%>
+  LogLevel <%= @log_level %>
+<% end -%>

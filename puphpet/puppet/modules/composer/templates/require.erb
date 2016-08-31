@@ -1,0 +1,11 @@
+<%= @command -%>
+<% if @prefer_source %> --prefer-source<% end -%>
+<% if @prefer_dist %> --prefer-dist<% end -%>
+<% if @working_dir %> --working-dir=<%= @working_dir%><%end -%>
+<% if @dev %> --dev<% end -%>
+<% if @no_update %> --no-update<% end -%>
+<% if @no_progress %> --no-progress<% end -%>
+<% if @update_with_dependencies %> --update-with-dependencies<% end -%>
+<%- @packages.each do |package| -%>
+<%= ' ' + package -%>
+<%- end -%>

@@ -1,0 +1,201 @@
+GIT
+  remote: https://github.com/rodjek/rspec-puppet.git
+  revision: 03e94422fb9bbdd950d5a0bec6ead5d76e06616b
+  specs:
+    rspec-puppet (1.0.1)
+      rspec
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    CFPropertyList (2.2.7)
+    addressable (2.3.5)
+    backports (3.6.0)
+    beaker (1.7.0)
+      blimpy (~> 0.6)
+      fission (~> 0.4)
+      inifile (~> 2.0)
+      json (~> 1.8)
+      mime-types (~> 1.25)
+      net-scp (~> 1.1)
+      net-ssh (~> 2.6)
+      nokogiri (= 1.5.10)
+      rbvmomi (= 1.8.1)
+      unf (~> 0.1)
+    beaker-rspec (2.1.1)
+      beaker (~> 1.3)
+      rspec (~> 2.14)
+      serverspec (~> 0.14)
+      specinfra (~> 0.3)
+    blimpy (0.6.7)
+      fog
+      minitar
+      thor
+    builder (3.2.2)
+    celluloid (0.15.2)
+      timers (~> 1.1.0)
+    celluloid-io (0.15.0)
+      celluloid (>= 0.15.0)
+      nio4r (>= 0.5.0)
+    coderay (1.1.0)
+    diff-lcs (1.2.5)
+    ethon (0.6.3)
+      ffi (>= 1.3.0)
+      mime-types (~> 1.18)
+    excon (0.31.0)
+    facter (1.7.5)
+    faraday (0.8.9)
+      multipart-post (~> 1.2.0)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
+    ffi (1.9.3)
+    fission (0.5.0)
+      CFPropertyList (~> 2.2)
+    fog (1.19.0)
+      builder
+      excon (~> 0.31.0)
+      formatador (~> 0.2.0)
+      mime-types
+      multi_json (~> 1.0)
+      net-scp (~> 1.1)
+      net-ssh (>= 2.1.3)
+      nokogiri (~> 1.5)
+      ruby-hmac
+    formatador (0.2.4)
+    gh (0.13.2)
+      addressable
+      backports
+      faraday (~> 0.8)
+      multi_json (~> 1.0)
+      net-http-persistent (>= 2.7)
+      net-http-pipeline
+    guard (2.5.1)
+      formatador (>= 0.2.4)
+      listen (~> 2.6)
+      lumberjack (~> 1.0)
+      pry (>= 0.9.12)
+      thor (>= 0.18.1)
+    guard-rake (0.0.9)
+      guard
+      rake
+    hashr (0.0.22)
+    hiera (1.3.1)
+      json_pure
+    highline (1.6.20)
+    inifile (2.0.2)
+    json (1.8.1)
+    json_pure (1.8.1)
+    launchy (2.4.2)
+      addressable (~> 2.3)
+    listen (2.6.1)
+      celluloid (>= 0.15.2)
+      celluloid-io (>= 0.15.0)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+    lumberjack (1.0.4)
+    metaclass (0.0.4)
+    method_source (0.8.2)
+    mime-types (1.25.1)
+    minitar (0.5.4)
+    mocha (1.0.0)
+      metaclass (~> 0.0.1)
+    multi_json (1.8.4)
+    multipart-post (1.2.0)
+    net-http-persistent (2.9.4)
+    net-http-pipeline (1.0.1)
+    net-scp (1.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.8.0)
+    nio4r (1.0.0)
+    nokogiri (1.5.10)
+    pry (0.9.12.6)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    puppet (3.4.3)
+      facter (~> 1.6)
+      hiera (~> 1.0)
+      rgen (~> 0.6.5)
+    puppet-blacksmith (2.0.2)
+      nokogiri
+      puppet (>= 2.7.16)
+      rest-client
+    puppet-lint (0.3.2)
+    puppet-syntax (1.1.0)
+      puppet (>= 2.7.0)
+      rake
+    puppetlabs_spec_helper (0.4.1)
+      mocha (>= 0.10.5)
+      rake
+      rspec (>= 2.9.0)
+      rspec-puppet (>= 0.1.1)
+    pusher-client (0.4.0)
+      websocket (~> 1.0.0)
+    rake (10.1.1)
+    rb-fsevent (0.9.4)
+    rb-inotify (0.9.3)
+      ffi (>= 0.5.0)
+    rbvmomi (1.8.1)
+      builder
+      nokogiri (>= 1.4.1)
+      trollop
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    rgen (0.6.6)
+    rspec (2.14.1)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
+    rspec-core (2.14.7)
+    rspec-expectations (2.14.5)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.14.6)
+    ruby-hmac (0.4.0)
+    serverspec (0.15.3)
+      highline
+      net-ssh
+      rspec (>= 2.13.0)
+      specinfra (>= 0.5.8)
+    slop (3.4.7)
+    specinfra (0.7.0)
+    thor (0.18.1)
+    timers (1.1.0)
+    travis (1.6.7)
+      addressable (~> 2.3)
+      backports
+      faraday (~> 0.8.7)
+      faraday_middleware (~> 0.9)
+      gh (~> 0.13)
+      highline (~> 1.6)
+      launchy (~> 2.1)
+      pry (~> 0.9)
+      pusher-client (~> 0.4)
+      typhoeus (~> 0.6)
+    travis-lint (1.7.0)
+      hashr (~> 0.0.22)
+    trollop (2.0)
+    typhoeus (0.6.7)
+      ethon (~> 0.6.2)
+    unf (0.1.3)
+      unf_ext
+    unf_ext (0.0.6)
+    vagrant-wrapper (1.2.1.1)
+    websocket (1.0.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  beaker
+  beaker-rspec
+  guard-rake
+  puppet (~> 3.4.0)
+  puppet-blacksmith
+  puppet-lint
+  puppet-syntax
+  puppetlabs_spec_helper
+  rake
+  rspec-puppet!
+  travis
+  travis-lint
+  vagrant-wrapper

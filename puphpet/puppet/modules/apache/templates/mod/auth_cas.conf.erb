@@ -1,0 +1,40 @@
+CASCookiePath <%= @cas_cookie_path %>
+CASLoginURL <%= @cas_login_url %>
+CASValidateURL <%= @cas_validate_url %>
+
+CASVersion <%= @cas_version %>
+CASDebug <%= @cas_debug %>
+
+<% if @cas_certificate_path -%>
+CASCertificatePath <%= @cas_certificate_path %>
+<% end -%>
+<% if @cas_proxy_validate_url -%>
+CASProxyValidateURL <%= @cas_proxy_validate_url %>
+<% end -%>
+<% if @cas_validate_depth -%>
+CASValidateDepth <%= @cas_validate_depth %>
+<% end -%>
+<% if @cas_root_proxied_as -%>
+CASRootProxiedAs <%= @cas_root_proxied_as %>
+<% end -%>
+<% if @cas_cookie_entropy -%>
+CASCookieEntropy <%= @cas_cookie_entropy %>
+<% end -%>
+<% if @cas_timeout -%>
+CASTimeout <%= @cas_timeout %>
+<% end -%>
+<% if @cas_idle_timeout -%>
+CASIdleTimeout <%= @cas_idle_timeout %>
+<% end -%>
+<% if @cas_cache_clean_interval -%>
+CASCacheCleanInterval <%= @cas_cache_clean_interval %>
+<% end -%>
+<% if @cas_cookie_domain -%>
+CASCookieDomain <%= @cas_cookie_domain %>
+<% end -%>
+<% if @cas_cookie_http_only -%>
+CASCookieHttpOnly <%= @cas_cookie_http_only %>
+<% end -%>
+<% if @cas_authoritative -%>
+CASAuthoritative <%= @cas_authoritative %>
+<% end -%>
