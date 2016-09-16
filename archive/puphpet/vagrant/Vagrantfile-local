@@ -254,13 +254,6 @@ machines.each do |i, machine|
           virtualbox.gui = true
         end
 
-        if provider['virtualizers']['virtualbox']['modifyvm']['name'].nil? ||
-          provider['virtualizers']['virtualbox']['modifyvm']['name'].empty?
-          if machine_id.vm.hostname.to_s.strip.length != 0
-            virtualbox.customize ['modifyvm', :id, '--name', machine_id.vm.hostname]
-          end
-        end
-
         virtualbox.customize ['setextradata',
           :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate//vagrant", '1'
         ]
@@ -292,13 +285,6 @@ machines.each do |i, machine|
 
         v.vmx['memsize']  = "#{machine['memory']}"
         v.vmx['numvcpus'] = "#{machine['cpus']}"
-
-        if provider['virtualizers']['vmware']['displayName'].nil? ||
-          provider['virtualizers']['vmware']['displayName'].empty?
-          if machine_id.vm.hostname.to_s.strip.length != 0
-            v.vmx['displayName'] = machine_id.vm.hostname
-          end
-        end
       end
     end
 
@@ -339,13 +325,6 @@ machines.each do |i, machine|
 
         v.memory = "#{machine['memory']}"
         v.cpus   = "#{machine['cpus']}"
-
-        if provider['virtualizers']['parallels']['name'].nil? ||
-          provider['virtualizers']['parallels']['name'].empty?
-          if machine_id.vm.hostname.to_s.strip.length != 0
-            v.name = machine_id.vm.hostname
-          end
-        end
       end
     end
 
