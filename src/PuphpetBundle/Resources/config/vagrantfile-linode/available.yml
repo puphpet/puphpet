@@ -16,6 +16,14 @@ distributions:
             - 5.5
             - HHVM
 
+        distribution: Ubuntu 16.04 LTS
+        long_name: Ubuntu Xenial Xerus 16.04 LTS x64
+        php_versions:
+            - 7.0
+            - 5.6
+            - 5.5
+            - HHVM
+
 plans:
     2048: 2GB / 1 CPU / 24GB SSD DISK / 2TB TRANSFER
     4096: 4GB / 2 CPUS / 48GB SSD DISK / 3TB TRANSFER
