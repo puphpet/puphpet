@@ -43,7 +43,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['mongodb'], 'install') {
-    class { '::puphpet::mongodb': }
+    class { '::puphpet::mongodb::install': }
   }
 
   if array_true($puphpet::params::hiera['mysql'], 'install')
