@@ -49,7 +49,7 @@ class puphpet {
   if array_true($puphpet::params::hiera['mysql'], 'install')
     and ! array_true($puphpet::params::hiera['mariadb'], 'install')
   {
-    class { '::puphpet::mysql': }
+    class { '::puphpet::mysql::install': }
   }
 
   if array_true($puphpet::params::hiera['nginx'], 'install') {
