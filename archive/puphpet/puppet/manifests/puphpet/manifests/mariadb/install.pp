@@ -9,7 +9,6 @@
 class puphpet::mariadb::install
  inherits puphpet::mariadb::params {
 
-  include ::puphpet::mariadb::params
   include ::puphpet::mysql::params
   include ::mysql::params
 
