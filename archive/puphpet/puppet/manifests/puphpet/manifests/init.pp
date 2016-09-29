@@ -77,7 +77,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['postgresql'], 'install') {
-    class { '::puphpet::postgresql': }
+    class { '::puphpet::postgresql::install': }
   }
 
   if array_true($puphpet::params::hiera['python'], 'install') {
