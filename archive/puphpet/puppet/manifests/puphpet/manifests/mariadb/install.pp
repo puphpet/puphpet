@@ -1,50 +1,89 @@
-# This depends on
-#   puppetlabs/apt: https://github.com/puppetlabs/puppetlabs-apt
-#   example42/puppet-yum: https://github.com/example42/puppet-yum
+# == Class: puphpet::mariadb::install
+#
+# Installs MariaDB.
+#
+# Usage:
+#
+#  class { 'puphpet::mariadb::install': }
+#
+class puphpet::mariadb::install
+ inherits puphpet::mariadb::params {
 
-class puphpet::mariadb::install(
-  $distro  = $::operatingsystem,
-  $release = $::lsbdistcodename,
-  $arch    = $::architecture,
-  $version = '10.0',
-) {
+  include ::puphpet::mariadb::params
+  include ::puphpet::mysql::params
+  include ::mysql::params
 
-  $arch_package_name = $::architecture ? {
-    'i386'   => 'x86',
-    'amd64'  => 'amd64',
-    'x86_64' => 'amd64'
-  }
+  $mariadb = $puphpet::mariadb::params::mariadb
+
+  $settings = $mariadb['settings']
 
   case $::osfamily {
     'debian': {
-      $os = downcase($::operatingsystem)
-
-      apt::source { 'mariadb':
-        location          => "http://mirror.jmu.edu/pub/mariadb/repo/${version}/${os}",
-        release           => $release,
-        repos             => 'main',
-        required_packages => 'debian-keyring debian-archive-keyring',
-          key               => {
-            'id'      => '199369E5404BD5FC7D2FE43BCBCB082A1BB943DB',
-            'server'  => 'hkp://keyserver.ubuntu.com:80',
-          },
-        include           => { 'src' => true }
-      }
-
-      apt::pin { 'mariadb':
-        packages => '*',
-        priority => 1000,
-        origin   => 'mirror.jmu.edu',
+      class { 'puphpet::mariadb::repo::debian':
+        version => to_string($settings['version']),
       }
     }
     'redhat': {
-      yum::managed_yumrepo { 'MariaDB':
-        descr         => 'MariaDB - mariadb.org',
-        baseurl       => "http://yum.mariadb.org/${version}/centos6-${arch_package_name}",
-        enabled       => 1,
-        gpgcheck      => 0,
-        priority      => 1
+      class { 'puphpet::mariadb::repo::centos':
+        version => to_string($settings['version']),
       }
     }
   }
+
+  class { 'puphpet::mariadb::server':
+    server_settings => $settings,
+  }
+
+  class { 'mysql::client':
+    package_name => $puphpet::mariadb::params::package_client_name,
+  }
+
+  if ! defined(User[$puphpet::mariadb::params::user]) {
+    user { $puphpet::mariadb::params::user:
+      ensure => present,
+    }
+  }
+
+  if ! defined(Group[$::mysql::params::root_group]) {
+    group { $::mysql::params::root_group:
+      ensure => present,
+    }
+  }
+
+  Mysql_user <| |>
+  -> Mysql_database <| |>
+  -> Mysql_grant <| |>
+
+  # config file could contain no users key
+  $users = array_true($mariadb, 'users') ? {
+    true    => $mariadb['users'],
+    default => { }
+  }
+
+  puphpet::mariadb::users { 'from puphpet::mariadb::install':
+    users => $users,
+  }
+
+  # config file could contain no databases key
+  $databases = array_true($mariadb, 'databases') ? {
+    true    => $mariadb['databases'],
+    default => { }
+  }
+
+  puphpet::mariadb::databases { 'from puphpet::mariadb::install':
+    databases => $databases,
+  }
+
+  # config file could contain no grants key
+  $grants = array_true($mariadb, 'grants') ? {
+    true    => $mariadb['grants'],
+    default => { }
+  }
+
+  puphpet::mariadb::grants { 'from puphpet::mariadb::install':
+    grants => $grants,
+  }
+
+  include puphpet::mariadb::php
+
 }
