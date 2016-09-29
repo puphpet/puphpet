@@ -1,8 +1,9 @@
 class puphpet::mariadb::php
  inherits puphpet::mariadb::params {
 
-  $php  = $puphpet::params::hiera['php']
-  $hhvm = $puphpet::params::hiera['hhvm']
+  $mariadb = $puphpet::params::hiera['mariadb']
+  $php     = $puphpet::params::hiera['php']
+  $hhvm    = $puphpet::params::hiera['hhvm']
 
   if array_true($php, 'install') {
     $php_package = 'php'
@@ -26,7 +27,9 @@ class puphpet::mariadb::php
     }
 
     if ! defined(Puphpet::Php::Module[$php_module]) {
-      puphpet::php::module { $php_module: }
+      puphpet::php::module { $php_module:
+        service_autorestart => true,
+      }
     }
   }
 
