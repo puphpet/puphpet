@@ -6,16 +6,19 @@ class puphpet::mariadb::server (
   include ::puphpet::mysql::params
   include ::mysql::params
 
-  $true_settings = delete(deep_merge({
+  $true_settings_no_pw = delete(deep_merge({
     'package_name'     => $puphpet::mariadb::params::package_server_name,
     'restart'          => true,
     'override_options' => $puphpet::mariadb::params::override_options,
     'service_name'     => 'mysql',
-    'root_password'    => array_true($settings, 'root_password') ? {
+  }, $settings), ['version'])
+
+  $true_settings = deep_merge({
+    'root_password' => array_true($settings, 'root_password') ? {
       true    => $settings['root_password'],
       default => $::mysql::params::root_password
     }
-  }, $settings), ['version'])
+  }, $true_settings_no_pw)
 
   $pidfile = $true_settings['override_options']['mysqld']['pid-file']
   $user    = $true_settings['override_options']['mysqld']['user']
