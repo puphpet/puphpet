@@ -5,7 +5,6 @@ images:
         php_versions:
             - 5.6
             - 5.5
-            - 5.4
             - HHVM
     -
         image: ubuntu-14-04-x64
