@@ -101,7 +101,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['sqlite'], 'install') {
-    class { '::puphpet::sqlite': }
+    class { '::puphpet::sqlite::install': }
   }
 
   if array_true($puphpet::params::hiera['wpcli'], 'install') {
