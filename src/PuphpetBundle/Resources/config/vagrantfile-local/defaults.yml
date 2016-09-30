@@ -33,9 +33,7 @@ vm:
     provision:
         puppet:
             manifests_path: 'puphpet/puppet/manifests'
-            module_path:
-                - 'puphpet/puppet/modules'
-                - 'puphpet/puppet/manifests'
+            module_path: 'puphpet/puppet/modules'
             options:
                 - '--verbose'
                 - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
