@@ -26,8 +26,8 @@ class puphpet::apache::ssl::snakeoil {
     'redhat': {
       $package = 'openssl'
 
-      $exec_cmd     = "make-dummy-cert ${puphpet::params::ssl_cert_location}"
-      $exec_creates = $puphpet::params::ssl_cert_location
+      $exec_cmd     = "make-dummy-cert ${puphpet::apache::params::ssl_cert_location}"
+      $exec_creates = $puphpet::apache::params::ssl_cert_location
       $exec_path    = [ '/bin/', '/usr/bin/', '/usr/sbin/', '/etc/pki/tls/certs/' ]
     }
   }
