@@ -1,5 +1,7 @@
-class puphpet::ssl_cert
-  inherits puphpet::params {
+class puphpet::nginx::ssl_cert
+{
+
+  include puphpet::nginx::params
 
   case $::osfamily {
     'debian': {
@@ -11,8 +13,8 @@ class puphpet::ssl_cert
 
       exec { 'make-ssl-cert generate-default-snakeoil --force-overwrite':
         creates => [
-          $puphpet::params::ssl_cert_location,
-          $puphpet::params::ssl_key_location
+          $puphpet::nginx::params::ssl_cert_location,
+          $puphpet::nginx::params::ssl_key_location
         ],
         require => Package['ssl-cert'],
         path    => [ '/bin/', '/usr/bin/', '/usr/sbin/' ]
@@ -25,8 +27,8 @@ class puphpet::ssl_cert
         }
       }
 
-      exec { "make-dummy-cert ${puphpet::params::ssl_cert_location}":
-        creates => $puphpet::params::ssl_cert_location,
+      exec { "make-dummy-cert ${puphpet::nginx::params::ssl_cert_location}":
+        creates => $puphpet::nginx::params::ssl_cert_location,
         require => Package['openssl'],
         path    => [ '/bin/', '/usr/bin/', '/usr/sbin/', '/etc/pki/tls/certs/' ]
       }

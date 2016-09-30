@@ -53,7 +53,7 @@ class puphpet {
   }
 
   if array_true($puphpet::params::hiera['nginx'], 'install') {
-    class { '::puphpet::nginx': }
+    class { '::puphpet::nginx::install': }
   }
 
   if array_true($puphpet::params::hiera['nodejs'], 'install') {
