@@ -15,7 +15,7 @@ class puphpet::nginx::install
 
   $settings = $nginx['settings']
 
-  Class['puphpet::ssl_cert']
+  Class['puphpet::nginx::ssl_cert']
   -> Nginx::Resource::Vhost <| |>
 
   class { 'puphpet::nginx::ssl_cert': }

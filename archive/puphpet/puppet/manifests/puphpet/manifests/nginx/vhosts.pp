@@ -108,7 +108,8 @@ define puphpet::nginx::vhosts (
     puphpet::nginx::locations { "from puphpet::nginx::vhosts, ${vhost['www_root']} @ key ${key}":
       locations => $locations,
       ssl       => $ssl,
-      www_root  => $vhost['www_root']
+      www_root  => $vhost['www_root'],
+      vhost_key => $key
     }
 
     if ! defined(Puphpet::Firewall::Port["${vhost['listen_port']}"]) {

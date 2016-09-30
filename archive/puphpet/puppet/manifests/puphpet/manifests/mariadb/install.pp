@@ -30,7 +30,7 @@ class puphpet::mariadb::install
   }
 
   class { 'puphpet::mariadb::server':
-    server_settings => $settings,
+    settings => $settings,
   }
 
   class { 'mysql::client':
