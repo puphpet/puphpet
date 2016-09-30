@@ -36,7 +36,7 @@
             <select id="mongodb-globals-version"
                    name="mongodb[globals][version]"
                    class="form-control select-tag">
-                <optgroup label="Debian/Ubuntu">
+                <optgroup label="Ubuntu">
                     {% for version in mongodb.available.versions_deb %}
                         <option value="{{ version }}"
                             {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>

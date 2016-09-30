@@ -1,26 +1,11 @@
 images:
     -
-        image: DEBIAN_7_64
-        long_name: Debian Wheezy 7 x64
-        php_versions:
-            - 5.6
-            - 5.5
-            - 5.4
-            - HHVM
-    -
         image: UBUNTU_14_64
         long_name: Ubuntu Trusty 14.04 LTS x64
         php_versions:
             - 7.0
             - 5.6
             - 5.5
-            - HHVM
-    -
-        image: UBUNTU_12_64
-        long_name: Ubuntu Precise 12.04 x64
-        php_versions:
-            - 5.5
-            - 5.4
             - HHVM
 
 cpus:
