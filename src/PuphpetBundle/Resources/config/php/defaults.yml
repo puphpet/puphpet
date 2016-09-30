@@ -1,7 +1,7 @@
 install: 1
 
 settings:
-    version: 56
+    version: 70
 
 modules:
     php:
@@ -12,7 +12,7 @@ modules:
 ini:
     display_errors: On
     error_reporting: -1
-    session.save_path: "/var/lib/php/session"
+    session.save_path: '/var/lib/php/session'
     date.timezone: UTC
 
 fpm_ini:
