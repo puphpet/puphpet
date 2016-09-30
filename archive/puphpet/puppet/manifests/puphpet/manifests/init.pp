@@ -67,10 +67,6 @@ class puphpet {
       class { '::puphpet::blackfire::install': }
     }
 
-    if array_true($puphpet::params::hiera['xdebug'], 'install') {
-      class { '::puphpet::xdebug': }
-    }
-
     if array_true($puphpet::params::hiera['xhprof'], 'install') {
       class { '::puphpet::xhprof': }
     }

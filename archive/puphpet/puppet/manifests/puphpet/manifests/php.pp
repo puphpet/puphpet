@@ -222,4 +222,8 @@ class puphpet::php (
     }
   }
 
+  if array_true($puphpet::params::hiera['xdebug'], 'install') {
+    class { 'puphpet::php::xdebug::install': }
+  }
+
 }
