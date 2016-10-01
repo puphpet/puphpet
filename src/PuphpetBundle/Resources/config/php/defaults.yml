@@ -1,7 +1,7 @@
 install: 1
 
 settings:
-    version: 70
+    version: 7.0
 
 modules:
     php:

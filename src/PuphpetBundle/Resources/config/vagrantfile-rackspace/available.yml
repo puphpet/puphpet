@@ -3,6 +3,7 @@ images:
         image: a3ba4cf5-70b9-4805-afa2-30d1ab81a625
         long_name: Ubuntu Trusty 14.04
         php_versions:
+            - 7.1
             - 7.0
             - 5.6
             - 5.5
@@ -11,6 +12,7 @@ images:
         image: 598a4282-f14b-4e50-af4c-b3e52749d9f9
         long_name: Ubuntu Trusty 14.04 (PVHVM)
         php_versions:
+            - 7.1
             - 7.0
             - 5.6
             - 5.5

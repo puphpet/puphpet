@@ -49,6 +49,7 @@ boxes:
         short_name: puphpet/centos65-x64
         long_name: CentOS 6 x64
         php_versions:
+            - 7.1
             - 7.0
             - 5.6
             - 5.5
@@ -59,6 +60,7 @@ boxes:
         short_name: puphpet/ubuntu1404-x64
         long_name: Ubuntu Trusty 14.04 LTS x64
         php_versions:
+            - 7.1
             - 7.0
             - 5.6
             - 5.5
@@ -69,6 +71,7 @@ boxes:
         short_name: puphpet/ubuntu1404-x32
         long_name: Ubuntu Trusty 14.04 LTS x32
         php_versions:
+            - 7.1
             - 7.0
             - 5.6
             - 5.5
