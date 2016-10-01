@@ -47,7 +47,7 @@ mod 'puppetlabs/mongodb',
     :ref => '38ceb81e36bbbb844039e12fb8aebb43cb2cef0d'
 mod 'puppetlabs/mysql',
     :git => 'https://github.com/puppetlabs/puppetlabs-mysql.git',
-    :ref => 'a3d0de3e053daa14aeaaa05badaa3867dc2533f7'
+    :ref => '3.9.0'
 mod 'jfryman/nginx',
     :git => 'https://github.com/puphpet/puppet-nginx.git',
     :ref => '6245b64bdaab0c5044fab77f6ebf3ed785d050e6'
