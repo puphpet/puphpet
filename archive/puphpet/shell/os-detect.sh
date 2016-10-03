@@ -1,4 +1,7 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+set -x
 
 TYPE=$(echo "$1" | tr '[A-Z]' '[a-z]')
 OS=$(uname)
