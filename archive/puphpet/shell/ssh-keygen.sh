@@ -1,7 +1,4 @@
 #!/bin/bash
-set -euo pipefail
-IFS=$'\n\t'
-set -x
 
 VAGRANT_CORE_FOLDER=$(cat '/.puphpet-stuff/vagrant-core-folder.txt')
 

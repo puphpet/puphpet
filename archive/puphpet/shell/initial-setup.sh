@@ -1,7 +1,4 @@
 #!/bin/bash
-set -euo pipefail
-IFS=$'\n\t'
-set -x
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -11,9 +8,11 @@ OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
 CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
 RELEASE=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" RELEASE)
 
-cat "${VAGRANT_CORE_FOLDER}/shell/ascii-art/self-promotion.txt"
-printf "\n"
-echo ""
+if [[ ! -f "${VAGRANT_CORE_FOLDER}/shell/ascii-art/self-promotion.txt" ]]; then
+    cat "${VAGRANT_CORE_FOLDER}/shell/ascii-art/self-promotion.txt"
+    printf "\n"
+    echo ""
+fi
 
 if [[ ! -d '/.puphpet-stuff' ]]; then
     mkdir '/.puphpet-stuff'
