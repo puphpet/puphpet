@@ -35,10 +35,6 @@ if [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
     apt-get -y install anacron iptables-persistent software-properties-common \
         python-software-properties curl git-core build-essential
 
-    if [[ "${CODENAME}" == 'precise' ]]; then
-        apt-get -y install libcurl3 libcurl4-gnutls-dev
-    fi
-
     # Anacron configuration
     cat >/etc/cron.weekly/autoupdt << 'EOL'
 #!/bin/bash
