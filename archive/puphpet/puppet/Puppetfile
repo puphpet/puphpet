@@ -29,7 +29,7 @@ mod 'garethr/erlang',
     :ref => 'a8f29a48e8127e75d3ab747bca1c4ed4746369f7'
 mod 'puppetlabs/firewall',
     :git => 'https://github.com/puppetlabs/puppetlabs-firewall.git',
-    :ref => '1.1.1'
+    :ref => '1.8.1'
 mod 'golja-gnupg',
     :git => 'https://github.com/n1tr0g/golja-gnupg.git',
     :ref => '1.2.1'
