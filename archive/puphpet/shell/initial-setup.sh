@@ -53,10 +53,10 @@ if [[ "${OS}" == 'centos' ]]; then
 
     if [ "${RELEASE}" == 6 ]; then
         EL_REPO='http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm'
-        EPEL='https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm'
+        EPEL='http://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm'
     else
         EL_REPO='http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm'
-        EPEL='https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm'
+        EPEL='http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
     fi
 
     yum -y --nogpgcheck install "${EL_REPO}"
