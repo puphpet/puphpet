@@ -42,6 +42,13 @@ if [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
 apt-get update
 apt-get autoclean
 EOL
+
+    # Fixes https://github.com/mitchellh/vagrant/issues/1673
+    # Fixes https://github.com/mitchellh/vagrant/issues/7368
+    if [[ -d '/root' ]] && [[ -f '/root/.profile' ]]; then
+        grep -q -E '^(mesg n \|\| true)$' /root/.profile && \
+            sed -ri 's/^(mesg n \|\| true)$/tty -s \&\& mesg n/' /root/.profile
+    fi
 fi
 
 if [[ "${OS}" == 'centos' ]]; then
