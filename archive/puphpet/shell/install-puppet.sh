@@ -14,13 +14,13 @@ if [[ ! -f '/.puphpet-stuff/install-puppet' ]]; then
         wget --quiet --tries=5 --connect-timeout=10 -O /.puphpet-stuff/puppetlabs-release-pc1.deb ${URL}
         dpkg -i /.puphpet-stuff/puppetlabs-release-pc1.deb
         apt-get update
-        apt-get -y install puppet-agent=1.3.6*
+        apt-get -y install puppet-agent=1.4.2*
     fi
 
     if [[ "${OS}" == 'centos' ]]; then
         if [ "${RELEASE}" == 6 ]; then
             rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-6.noarch.rpm
-            yum -y install puppet-agent-1.3.6
+            yum -y install puppet-agent-1.4.2
         fi
     fi
 
