@@ -128,8 +128,8 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: 5bf1e5d1b36398cc1ef7b6c7f3adc024ba7cdd4b
-  sha: 5bf1e5d1b36398cc1ef7b6c7f3adc024ba7cdd4b
+  ref: 3d15fa8085499aa7cda4c4978b89f0b225b471fe
+  sha: 3d15fa8085499aa7cda4c4978b89f0b225b471fe
   specs:
     puphpet-puphpet (0.0.1)
 
