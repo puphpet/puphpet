@@ -14,3 +14,4 @@
 /archive/puphpet/puppet/.librarian
 /archive/puphpet/puppet/.tmp
 /archive/puphpet/puppet/modules
+!/archive/puphpet/puppet/modules/blank

@@ -1,16 +1,9 @@
 distributions:
     -
-        distribution: Debian 7
-        long_name: Debian Wheezy 7.x x64
-        php_versions:
-            - 5.6
-            - 5.5
-            - 5.4
-            - HHVM
-    -
         distribution: Ubuntu 14.04 LTS
         long_name: Ubuntu Trusty 14.04 LTS x64
         php_versions:
+            - 7.1
             - 7.0
             - 5.6
             - 5.5

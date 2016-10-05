@@ -130,6 +130,29 @@ class FrontController extends Controller
         return $response;
     }
 
+    public function generateConfigAction(Request $request)
+    {
+        $manager = $this->get('puphpet.extension.manager');
+        $yaml    = new Yaml();
+
+        try {
+            $config  = $manager->createConfig($request->request->all());
+        } catch (\Exception $e) {}
+
+        if (empty($config)) {
+            $response = new Response;
+            $response->setStatusCode(Response::HTTP_NOT_ACCEPTABLE);
+
+            return $response;
+        }
+
+        $response = new Response;
+        $response->headers->set('Content-type', 'text/html');
+        $response->setContent('<pre>' . $yaml->dump($config, 50, 4));
+
+        return $response;
+    }
+
     public function downloadPuppetModulesAction()
     {
         $manager = $this->get('puphpet.extension.manager');

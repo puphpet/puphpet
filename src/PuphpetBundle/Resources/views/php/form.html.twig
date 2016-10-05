@@ -34,13 +34,28 @@
 
             <div class="radio">
                 <span class="help-text">
-                    CentOS 6, Ubuntu 14.04.
+                    Available on all distros.
+                </span>
+                <input type="radio"
+                   id="php-settings-version-71"
+                   name="php[settings][version]"
+                   value="7.1"
+                   {% if php.settings.version in ['7.1', '71'] %}checked{% endif %}
+                />
+                <label for="php-settings-version-71">
+                    7.1
+                </label>
+            </div>
+
+            <div class="radio">
+                <span class="help-text">
+                    Available on all distros.
                 </span>
                 <input type="radio"
                    id="php-settings-version-70"
                    name="php[settings][version]"
-                   value="70"
-                   {% if php.settings.version == '70' %}checked{% endif %}
+                   value="7.0"
+                   {% if php.settings.version in ['7.0', '70'] %}checked{% endif %}
                 />
                 <label for="php-settings-version-70">
                     7.0
@@ -49,13 +64,13 @@
 
             <div class="radio">
                 <span class="help-text">
-                    CentOS 6, Debian 7, Ubuntu 14.04.
+                    Available on all distros.
                 </span>
                 <input type="radio"
                    id="php-settings-version-56"
                    name="php[settings][version]"
-                   value="56"
-                   {% if php.settings.version == '56' %}checked{% endif %}
+                   value="5.6"
+                   {% if php.settings.version in ['5.6', '56'] %}checked{% endif %}
                 />
                 <label for="php-settings-version-56">
                     5.6
@@ -69,26 +84,11 @@
                 <input type="radio"
                    id="php-settings-version-55"
                    name="php[settings][version]"
-                   value="55"
-                   {% if php.settings.version == '55' %}checked{% endif %}
+                   value="5.5"
+                   {% if php.settings.version in ['5.5', '55'] %}checked{% endif %}
                 />
                 <label for="php-settings-version-55">
                     5.5
-                </label>
-            </div>
-
-            <div class="radio">
-                <span class="help-text">
-                    CentOS 6, Debian 7, Ubuntu 12.04.
-                </span>
-                <input type="radio"
-                   id="php-settings-version-54"
-                   name="php[settings][version]"
-                   value="54"
-                   {% if php.settings.version == '54' %}checked{% endif %}
-                />
-                <label for="php-settings-version-54">
-                    5.4
                 </label>
             </div>
         </div>
