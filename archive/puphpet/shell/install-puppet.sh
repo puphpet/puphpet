@@ -22,6 +22,11 @@ if [[ ! -f '/.puphpet-stuff/install-puppet' ]]; then
             rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-6.noarch.rpm
             yum -y install puppet-agent-1.6*
         fi
+
+        if [ "${RELEASE}" == 7 ]; then
+            rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+            yum -y install puppet-agent-1.6*
+        fi
     fi
 
     rm -f /usr/bin/puppet
