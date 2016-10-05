@@ -189,11 +189,20 @@
 
         <div class="form-group col-xs-12">
             <div class="help-text">
-                <p>If you've chosen <strong>CentOS</strong>, Some modules come pre-installed: <code>curl</code>,
-                    <code>imagick</code>, <code>memcached</code>, <code>sqlite</code>.
-                    Don't choose these here.</p>
-                <p>If you've chosen <strong>Ubuntu 14.04 and PHP 7</strong>, some modules have been noted as
-                    coming pre-installed: <code>mcrypt</code>. Don't choose these here.</p>
+                <p><strong>Ubuntu</strong>:</p>
+
+                <p><a href="https://launchpad.net/~ondrej/+archive/ubuntu/php/" target="_blank">
+                        Click here for a list of available modules.</a></p>
+
+                <p><strong>CentOS 6</strong>:</p>
+
+                <p><a href="http://rpms.famillecollet.com/enterprise/6/" target="_blank">
+                        Click here for a list of available modules.</a></p>
+
+                <p><strong>CentOS 7</strong>:</p>
+
+                <p><a href="http://rpms.famillecollet.com/enterprise/7/" target="_blank">
+                        Click here for a list of available modules.</a></p>
             </div>
             <label for="php-modules-php">PHP Modules</label>
             <select id="php-modules-php"
@@ -202,63 +211,35 @@
                 {% for module in php.modules.php %}
                     <option value="{{ module }}" selected>{{ module }}</option>
                 {% endfor %}
-
-                {% for module in php.available.modules.php if module not in php.modules.php %}
-                    <option value="{{ module }}">{{ module }}</option>
-                {% endfor %}
             </select>
         </div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">
-                Modules to be installed via PEAR.
+                Modules to be installed via PEAR. If you want beta or alpha versions of a package,
+                append it to the name: <code>log</code> -> <code>log-beta</code>
             </div>
             <label for="php-modules-pear">PEAR Modules</label>
             <select id="php-modules-pear" multiple
                     name="php[modules][pear][]"
                     class="form-control select-tags-editable">
-                {% set flattened = [] %}
-                {% for namespace, modules in php.available.modules.pear %}
-                    <optgroup label="{{ namespace }}">
-                        {% for module in modules %}
-                            {% set flattened = flattened|merge([module]) %}
-                            <option value="{{ module }}"
-                                {% if module in php.modules.pear %}selected{% endif %}>{{ module }}</option>
-                        {% endfor %}
-                    </optgroup>
-                {% endfor %}
-
                 {% for module in php.modules.pear %}
-                    {% if module not in flattened %}
-                        <option value="{{ module }}" selected>{{ module }}</option>
-                    {% endif %}
+                    <option value="{{ module }}" selected>{{ module }}</option>
                 {% endfor %}
             </select>
         </div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">
-                Modules to be installed via PECL.
+                Modules to be installed via PECL. If you want beta or alpha versions of a package,
+                append it to the name: <code>apc</code> -> <code>apc-beta</code>
             </div>
             <label for="php-modules-pecl">PECL Modules</label>
             <select id="php-modules-pecl" multiple
                     name="php[modules][pecl][]"
                     class="form-control select-tags-editable">
-                {% set flattened = [] %}
-                {% for namespace, modules in php.available.modules.pecl %}
-                    <optgroup label="{{ namespace }}">
-                        {% for module in modules %}
-                            {% set flattened = flattened|merge([module]) %}
-                            <option value="{{ module }}"
-                                {% if module in php.modules.pecl %}selected{% endif %}>{{ module }}</option>
-                        {% endfor %}
-                    </optgroup>
-                {% endfor %}
-
                 {% for module in php.modules.pecl %}
-                    {% if module not in flattened %}
-                        <option value="{{ module }}" selected>{{ module }}</option>
-                    {% endif %}
+                    <option value="{{ module }}" selected>{{ module }}</option>
                 {% endfor %}
             </select>
         </div>

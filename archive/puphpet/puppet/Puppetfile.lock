@@ -120,8 +120,8 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-php.git
-  ref: eb110dea53a7fc28879fdfba0c824ed4a423a920
-  sha: eb110dea53a7fc28879fdfba0c824ed4a423a920
+  ref: b1f746db03fe4194ddd6254813528aac846a131d
+  sha: b1f746db03fe4194ddd6254813528aac846a131d
   specs:
     puphpet-php (2.0.25)
       example42-puppi (>= 2.0.0)
