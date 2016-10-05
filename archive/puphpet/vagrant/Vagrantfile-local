@@ -133,11 +133,6 @@ machines.each do |i, machine|
       end
     end
 
-    # https://github.com/fgrehm/vagrant-cachier
-    if Vagrant.has_plugin?('vagrant-cachier')
-      machine_id.cache.scope = :box
-    end
-
     data['vm']['synced_folder'].each do |i, folder|
       if folder['source'] != '' && folder['target'] != ''
         sync_owner = !folder['owner'].nil? ? folder['owner'] : 'www-data'
