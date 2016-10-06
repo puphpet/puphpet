@@ -24,6 +24,7 @@
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
         "symfony/phpunit-bridge": "~v3.0",
+        "phpunit/phpunit": "~5.0",
         "whatthejeff/nyancat-phpunit-resultprinter": "~1.2"
     },
 
