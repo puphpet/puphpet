@@ -10,6 +10,11 @@ vagrant_dot  = (ENV['VAGRANT_DOTFILE_PATH'].to_s.split.join.length > 0) ?
 provider = data['vm']['provider']['local']
 machines = !provider['machines'].empty? ? provider['machines'] : { }
 
+if Vagrant.has_plugin?('vagrant-hostmanager')
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+end
+
 machines.each do |i, machine|
   config.vm.define "#{machine['id']}" do |machine_id|
     machine_id.vm.box     = "#{provider['box']}"
@@ -127,7 +132,7 @@ machines.each do |i, machine|
         machine_id.hostmanager.manage_host       = true
         machine_id.hostmanager.ignore_private_ip = false
         machine_id.hostmanager.include_offline   = false
-        machine_id.hostmanager.aliases           = hosts
+        machine_id.hostmanager.aliases           = hosts.uniq
 
         machine_id.vm.provision :hostmanager
       end
