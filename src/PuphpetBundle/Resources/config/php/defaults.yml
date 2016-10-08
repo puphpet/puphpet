@@ -1,18 +1,19 @@
 install: 1
 
 settings:
-    version: 56
+    version: 7.0
 
 modules:
     php:
         - cli
         - intl
+        - xml
     pecl: []
 
 ini:
     display_errors: On
     error_reporting: -1
-    session.save_path: "/var/lib/php/session"
+    session.save_path: '/var/lib/php/session'
     date.timezone: UTC
 
 fpm_ini:

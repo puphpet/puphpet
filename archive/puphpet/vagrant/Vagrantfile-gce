@@ -43,9 +43,6 @@ machines.each do |i, machine|
       s.args = '/vagrant/puphpet'
     end
     machine_id.vm.provision 'shell' do |s|
-      s.path = 'puphpet/shell/check-puppet-modules.sh'
-    end
-    machine_id.vm.provision 'shell' do |s|
       s.path = 'puphpet/shell/install-puppet.sh'
     end
     machine_id.vm.provision :shell do |s|
@@ -61,7 +58,7 @@ machines.each do |i, machine|
       }
       puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
       puppet.manifest_file  = ""
-      puppet.module_path    = "#{data['vm']['provision']['puppet']['module_path']}"
+      puppet.module_path    = data['vm']['provision']['puppet']['module_path']
 
       if !data['vm']['provision']['puppet']['options'].empty?
         puppet.options = data['vm']['provision']['puppet']['options']

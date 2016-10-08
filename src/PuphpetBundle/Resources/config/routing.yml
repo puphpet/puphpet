@@ -10,6 +10,10 @@ puphpet.main.generate_archive:
     path:  /generate-archive
     defaults: { _controller: PuphpetBundle:Front:generateArchive }
 
+puphpet.main.generate_config:
+    path:  /generate-config
+    defaults: { _controller: PuphpetBundle:Front:generateConfig }
+
 puphpet.main.download_puppet_modules:
     path:  /download-puppet-modules
     defaults: { _controller: PuphpetBundle:Front:downloadPuppetModules }

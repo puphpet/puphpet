@@ -15,11 +15,11 @@ vm:
                     label: linode1-puphpet
     provision:
         puppet:
-            manifests_path: "puphpet/puppet/manifests"
-            module_path: "puphpet/puppet/modules"
+            manifests_path: 'puphpet/puppet/manifests'
+            module_path: 'puphpet/puppet/modules'
             options:
-                - "--verbose"
-                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
+                - '--verbose'
+                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
     synced_folder:
         -
             source: ./
@@ -30,5 +30,5 @@ vm:
 ssh:
     username: PRIVATE_KEY_USER
     forward_agent: true
-    private_key_path: "~/.ssh/id_rsa"
-    public_key_path: "~/.ssh/id_rsa.pub"
+    private_key_path: '~/.ssh/id_rsa'
+    public_key_path: '~/.ssh/id_rsa.pub'
