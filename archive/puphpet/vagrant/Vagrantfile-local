@@ -161,19 +161,19 @@ machines.each do |i, machine|
               :nfs => { :mount_options => ["dmode=777","fmode=666"] }
           end
         elsif folder['sync_type'] == 'smb'
-          smb__host     = !folder['smb']['smb_host'].nil? ?
+          smb__host     = !folder['smb']['smb_host'].to_s.empty? ?
             folder['smb']['smb_host'] :
             nil
-          smb__username = !folder['smb']['smb_username'].nil? ?
+          smb__username = !folder['smb']['smb_username'].to_s.empty? ?
             folder['smb']['smb_username'] :
             nil
-          smb__password = !folder['smb']['smb_password'].nil? ?
+          smb__password = !folder['smb']['smb_password'].to_s.empty? ?
             folder['smb']['smb_password'] :
             nil
-          smb__dir_options  = !folder['smb']['mount_options']['dir_mode'].nil? ?
+          smb__dir_options  = !folder['smb']['mount_options']['dir_mode'].to_s.empty? ?
             folder['smb']['mount_options']['dir_mode'] :
             0775
-          smb__file_options = !folder['smb']['mount_options']['file_mode'].nil? ?
+          smb__file_options = !folder['smb']['mount_options']['file_mode'].to_s.empty? ?
             folder['smb']['mount_options']['file_mode'] :
             0664
 
