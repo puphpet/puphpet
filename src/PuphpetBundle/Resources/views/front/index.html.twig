@@ -8,12 +8,13 @@
         <div class="col-xs-12">
             <div class="alert alert-danger" role="alert">
                 <ul>
-                    <li>Seeing error <code>activesupport requires Ruby version >= 2.2.2.</code>?
-                        <a href="https://github.com/puphpet/puphpet/commit/1543dacab766882b969ac49d4635ccfa7c5933ae"
-                           target="_blank">Simply apply this patch</a> and update your
-                        Ruby gems in <code>config.yaml</code> to have versions,
-                        <a href="https://github.com/puphpet/puphpet/commit/7fbf9ca47cbf99274123e674d8c32fb80e23d224"
-                           target="_blank">like in this patch</a>.</li>
+                    <li>Debian support dropped! <strong>ALL BOXES</strong> require updated! Please
+                        run the following to ensure you have the latest boxes, or else your new VMs
+                        will not work:
+
+                        <code>vagrant box remove puphpet/ubuntu1404-x64</code><br />
+                        <code>vagrant box remove puphpet/centos65-x64</code>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -46,6 +47,7 @@
 
             <h3><i class="fa fa-newspaper-o"></i> Latest news</h3>
             <ul>
+                <li><a href="https://blog.puphpet.com/blog/2016/10/05/ubuntu-1604-centos7-php71-added-debian-dropped/" target="_blank">Ubuntu 16.04, CentOS 7, PHP 7.1 support added, Debian and Ubuntu 12.04 support dropped</a></li>
                 <li><a href="http://blog.puphpet.com/blog/2016/03/04/multi-machine-support/" target="_blank">Multi-Machine Support Added</a></li>
                 <li><a href="http://blog.puphpet.com/blog/2015/06/25/windows-symlinks/" target="_blank">Symlink Support in Windows and Virtualbox</a></li>
                 <li><a href="http://blog.puphpet.com/blog/2015/05/08/better-ssl-security/" target="_blank">Better SSL Security</a></li>

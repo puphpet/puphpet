@@ -1,6 +1,6 @@
 <?php
 
-$loader = require __DIR__ . '/../../../../vendor/autoload.php';
+$loader = require __DIR__ . '/../../../vendor/autoload.php';
 $loader->add('PuphpetBundle\Tests\Unit', __DIR__ . '/Unit');
 
 error_reporting(E_ALL);

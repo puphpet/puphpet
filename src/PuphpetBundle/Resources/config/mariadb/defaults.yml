@@ -1,7 +1,7 @@
 install: 1
 
 settings:
-    version: "10.1"
+    version: '10.1'
     override_options: {}
 
 users:

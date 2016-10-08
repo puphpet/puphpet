@@ -35,16 +35,5 @@
         <div class="help-block col-xs-12">
             Make sure your domain's Server Name is defined first, followed by any aliases.
         </div>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Path to your vhost's webroot.
-            </div>
-            <label for="letsencrypt-domains-{{ uniqid }}-webroot">Webroot</label>
-            <input type="text" id="letsencrypt-domains-{{ uniqid }}-webroot"
-                   name="letsencrypt[domains][{{ uniqid }}][webroot]"
-                   placeholder="/var/www/awesome.dev" class="form-control"
-                   value="{{ domain.webroot }}" />
-        </div>
     </fieldset>
 </div>
