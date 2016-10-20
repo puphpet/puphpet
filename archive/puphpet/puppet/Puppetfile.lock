@@ -1,8 +1,6 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
-    example42-monitor (2.0.4)
-      example42-puppi (>= 2.0.0)
     fiddyspence-sysctl (1.1.0)
     maestrodev-rvm (1.13.1)
       golja-gnupg (>= 1.2.0)
@@ -40,8 +38,6 @@ GIT
   sha: 74b7c4d3bf8e6566aaf1cc4d28d97546f02179f8
   specs:
     example42-solr (2.0.7)
-      example42-monitor (>= 2.0.0)
-      example42-puppi (>= 2.0.0)
       puppetlabs-stdlib (>= 2.0.0)
 
 GIT
@@ -50,7 +46,6 @@ GIT
   sha: bc4a41936cf42a7676a2df50329c29ac9d0a16f3
   specs:
     example42-yum (2.1.26)
-      example42-puppi (>= 2.0.0)
 
 GIT
   remote: https://github.com/example42/puppi.git
@@ -120,16 +115,16 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-php.git
-  ref: bd0f613ca45449218beb5aed6e940ff6e7a7e2d3
-  sha: bd0f613ca45449218beb5aed6e940ff6e7a7e2d3
+  ref: eb110dea53a7fc28879fdfba0c824ed4a423a920
+  sha: eb110dea53a7fc28879fdfba0c824ed4a423a920
   specs:
     puphpet-php (2.0.25)
       example42-puppi (>= 2.0.0)
 
 GIT
   remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: ab42b405d1a184eecb1d9d617aace8e403c1bede
-  sha: ab42b405d1a184eecb1d9d617aace8e403c1bede
+  ref: da87cc1e61e76bdf42437bc6f81058f176de3474
+  sha: da87cc1e61e76bdf42437bc6f81058f176de3474
   specs:
     puphpet-puphpet (0.0.1)
 
@@ -208,8 +203,8 @@ GIT
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-mysql.git
-  ref: 3.9.0
-  sha: 9053cd0c25b8f7afcce1da20df17b9dd878117c8
+  ref: 81c4fed35e65e285e334b30998b4e3eba662534c
+  sha: 81c4fed35e65e285e334b30998b4e3eba662534c
   specs:
     puppetlabs-mysql (3.9.0)
       puppet-staging (< 3.0.0, >= 1.0.1)

@@ -71,7 +71,7 @@ mod 'example42/puppi',
     :ref => 'v2.1.13'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => 'ab42b405d1a184eecb1d9d617aace8e403c1bede'
+    :ref => 'da87cc1e61e76bdf42437bc6f81058f176de3474'
 mod 'daenney/pyenv',
     :git => 'https://github.com/puphpet/puppet-pyenv.git',
     :ref => '062ae728ae0ddcb76d6d60c3c268fc13b022106e'
@@ -108,3 +108,4 @@ mod 'example42/yum',
     :ref => 'v2.1.27'
 exclusion 'ceritsc-yum'
 exclusion 'n1tr0g/gnupg'
+exclusion 'example42/monitor'
