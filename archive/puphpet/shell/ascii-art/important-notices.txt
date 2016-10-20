@@ -23,9 +23,7 @@ If Puppet did not blow up (you do not see a sea of red
 above), then your VM was generated successfully!
 
 * A unique private key was generated for you! It is located
-  at "puphpet/files/dot/ssh/id_rsa". If you are on Windows,
-  a PuTTY-friendly key was also generated at same location
-  with a ".ppk" extension.
+  at "puphpet/files/dot/ssh/id_rsa".
 
 * If you want to use your own private key for future
   provisions, overwrite the generated key above with your
