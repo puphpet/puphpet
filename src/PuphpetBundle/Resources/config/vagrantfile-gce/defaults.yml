@@ -6,7 +6,7 @@ vm:
             project_id: GCE_PROJECT_ID
             client_email: GCE_CLIENT_EMAIL
             key_location: /PATH/TO/PRIVATE_KEY.PK12
-            image: ubuntu-1404-trusty-v20150909a
+            image: ubuntu-1604-xenial-v20161013
             machines:
                 -
                     id: gce1

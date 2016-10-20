@@ -10,7 +10,7 @@ distributions:
             - HHVM
 
         distribution: Ubuntu 16.04 LTS
-        long_name: Ubuntu Xenial Xerus 16.04 LTS x64
+        long_name: Ubuntu Xenial 16.04 LTS
         php_versions:
             - 7.1
             - 7.0

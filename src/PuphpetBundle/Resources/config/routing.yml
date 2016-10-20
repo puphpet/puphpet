@@ -40,9 +40,6 @@ puphpet.vagrantfile_rackspace:
 puphpet.vagrantfile_linode:
     resource: "@PuphpetBundle/Resources/config/vagrantfile-linode/routing.yml"
     prefix:   /extension/vagrantfile-linode
-puphpet.vagrantfile_softlayer:
-    resource: "@PuphpetBundle/Resources/config/vagrantfile-softlayer/routing.yml"
-    prefix:   /extension/vagrantfile-softlayer
 puphpet.vagrantfile_aws:
     resource: "@PuphpetBundle/Resources/config/vagrantfile-aws/routing.yml"
     prefix:   /extension/vagrantfile-aws

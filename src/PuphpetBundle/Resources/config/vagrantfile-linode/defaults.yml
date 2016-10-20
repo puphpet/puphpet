@@ -5,7 +5,7 @@ vm:
         linode:
             token: LINODE_API_KEY
             ssh_key_name: Vagrant
-            distribution: Ubuntu 14.04 LTS
+            distribution: Ubuntu 16.04 LTS
             machines:
                 -
                     id: linode1
