@@ -1,6 +1,5 @@
 {% set uniqid = uniqid('nxv_', true) %}
 {% set server_aliases = (vhost.server_aliases is defined) ? vhost.server_aliases : [] %}
-{% set index_files = (vhost.index_files is defined) ? vhost.index_files : [] %}
 {% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
 {% set letsencrypt_email = (vhost.letsencrypt_email is defined) ? vhost.letsencrypt_email : '' %}
 {% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
@@ -48,9 +47,14 @@
 
         <div class="form-group col-xs-12">
             <div class="help-text">
-                Location of your site's <code>index.php</code> file, or other landing page.
+                Root directory of your web project. Can be different from each vhost's
+                root directory. For example, if creating a Symfony 2 project, your vhost
+                root would be <code>/var/www/awesome</code> and your location root would
+                be <code>/var/www/awesome/web</code>. You may also point to the
+                directory of the <code>index.php</code> or other landing page for all
+                vhost locations.
             </div>
-            <label for="nginx-vhosts-{{ uniqid }}-www_root">Document Root</label>
+            <label for="nginx-vhosts-{{ uniqid }}-www_root">Project Root</label>
             <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
                    name="nginx[vhosts][{{ uniqid }}][www_root]"
                    placeholder="/var/www/awesome" class="form-control"
@@ -67,20 +71,6 @@
                    name="nginx[vhosts][{{ uniqid }}][listen_port]"
                    placeholder="/var/www/awesome" class="form-control"
                    value="{{ vhost.listen_port }}" />
-        </div>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                The last file should be the accessor to your PHP script or front controller.
-            </div>
-            <label for="nginx-vhosts-{{ uniqid }}-index_files">Index Files</label>
-            <select id="nginx-vhosts-{{ uniqid }}-index_files"
-                    name="nginx[vhosts][{{ uniqid }}][index_files][]"
-                    multiple class="form-control select-tags-editable">
-                {% for index_file in index_files %}
-                    <option selected value="{{ index_file }}">{{ index_file }}</option>
-                {% endfor %}
-            </select>
         </div>
 
         <div class="form-group col-xs-12">

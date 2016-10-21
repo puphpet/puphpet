@@ -24,14 +24,15 @@ empty_vhost:
     ssl_key: ''
     rewrite_to_https: 0
     spdy: 0
-    index_files: []
     client_max_body_size: '1m'
     locations: []
 
 empty_location:
+    www_root: ''
     location: '/'
     autoindex: 0
     internal: false
+    index_files: []
     try_files: []
     fastcgi: ~
     fastcgi_index: ~
