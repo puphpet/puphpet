@@ -71,7 +71,7 @@ mod 'example42/puppi',
     :ref => 'v2.1.13'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => 'ae5b042c1e3f4c48b0901a4af45fb5ab8939d82e'
+    :ref => '07fd05f6d7b86fda5836f5f48bc5de4be47f34c7'
 mod 'daenney/pyenv',
     :git => 'https://github.com/puphpet/puppet-pyenv.git',
     :ref => '062ae728ae0ddcb76d6d60c3c268fc13b022106e'
