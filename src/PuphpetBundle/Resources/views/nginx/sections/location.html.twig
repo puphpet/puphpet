@@ -1,6 +1,7 @@
 {% set uniqid = uniqid('nxvl_', true) %}
 {% set autoindex = (location.autoindex is defined and location.autoindex is same as('on')) ? true : false %}
 {% set internal = (location.internal is defined and location.internal is same as('on')) ? true : false %}
+{% set index_files = (location.index_files is defined) ? location.index_files : [] %}
 {% set try_files = (location.try_files is defined) ? location.try_files : [] %}
 {% set fast_cgi_params_extras = (location.fast_cgi_params_extra is defined) ? location.fast_cgi_params_extra : [] %}
 {% set sets = (location.set is defined) ? location.set : [] %}
@@ -12,6 +13,21 @@
        data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
     <fieldset>
         <legend>Location</legend>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Best practices suggest your vhost's root directory is not the same as each
+                location's root directory. In modern frameworks, this would help prevent
+                direct access to any non-bootstrap (<code>index.php</code>) file. Leave
+                blank if this is the same as the vhost's document root. Using the example
+                from the vhost Project Root, this would be <code>/var/www/awesome/web</code>.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-www_root">Location Root</label>
+            <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-www_root"
+                   name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][www_root]"
+                   placeholder="" class="form-control"
+                   value="{{ location.www_root }}"/>
+        </div>
 
         <div class="form-group col-xs-12">
             <div class="help-text">
@@ -53,6 +69,22 @@
                     Enable internal
                 </label>
             </div>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                The last file should be the accessor to your PHP script or front controller.<br /><br />
+                <a href="http://nginx.org/en/docs/http/ngx_http_index_module.html#index"
+                   target="_blank">More information</a>.
+            </div>
+            <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-index_files">Index Files</label>
+            <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-index_files"
+                    name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][index_files][]"
+                    multiple class="form-control select-tags-editable">
+                {% for index_file in index_files %}
+                    <option selected value="{{ index_file }}">{{ index_file }}</option>
+                {% endfor %}
+            </select>
         </div>
 
         <div class="form-group col-xs-12">

@@ -1,41 +1,21 @@
 images:
     -
-        image: b279d8e6-1cbd-4e7c-875a-f6dbffc4c4a0
-        long_name: Debian Wheezy 7 x64 (PVHVM)
-        php_versions:
-            - 5.6
-            - 5.5
-            - 5.4
-            - HHVM
-    -
-        image: a3ba4cf5-70b9-4805-afa2-30d1ab81a625
-        long_name: Ubuntu Trusty 14.04
-        php_versions:
-            - 7.0
-            - 5.6
-            - 5.5
-            - HHVM
-    -
         image: 598a4282-f14b-4e50-af4c-b3e52749d9f9
         long_name: Ubuntu Trusty 14.04 (PVHVM)
         php_versions:
+            - 7.1
             - 7.0
             - 5.6
             - 5.5
             - HHVM
     -
-        image: cca73d10-8953-4949-a2f2-1e5444a4130d
-        long_name: Ubuntu Precise 12.04
+        image: 03cc6a34-29fe-4b26-a20f-01178c9eff28
+        long_name: Ubuntu Xenial 16.04 (PVHVM)
         php_versions:
+            - 7.1
+            - 7.0
+            - 5.6
             - 5.5
-            - 5.4
-            - HHVM
-    -
-        image: a3da5530-71c6-4405-b64f-fd2da99d303c
-        long_name: Ubuntu Precise 12.04 (PVHVM)
-        php_versions:
-            - 5.5
-            - 5.4
             - HHVM
 
 sizes:

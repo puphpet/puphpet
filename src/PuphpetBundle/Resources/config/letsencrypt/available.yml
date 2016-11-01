@@ -1,3 +1,2 @@
 empty_domain:
     hosts: []
-    webroot: ~

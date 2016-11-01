@@ -5,7 +5,6 @@ namespace Puphpet\Tests\Unit;
 use AppKernel;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-require_once __DIR__ . '/../../../../../app/AppKernel.php';
 
 abstract class BaseTest extends \PHPUnit_Framework_TestCase
 {

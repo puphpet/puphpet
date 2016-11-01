@@ -9,7 +9,6 @@ services:
             - [ addExtension, [ 'vagrantfile-local' ] ]
             - [ addExtension, [ 'vagrantfile-rackspace' ] ]
             - [ addExtension, [ 'vagrantfile-linode' ] ]
-            - [ addExtension, [ 'vagrantfile-softlayer' ] ]
             - [ addExtension, [ 'vagrantfile-aws' ] ]
             - [ addExtension, [ 'vagrantfile-gce' ] ]
             - [ addExtension, [ 'vagrantfile-digitalocean' ] ]

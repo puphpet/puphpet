@@ -99,13 +99,24 @@ class Manager
      * @param array $data
      * @return string
      */
-    public function createArchive(array $data)
+    public function createConfig(array $data)
     {
         foreach ($data as $key => $values) {
             $name = $this->parseDataKeyName($values, $key);
 
             $data[$key] = array_replace_recursive($this->extensions[$name]['data'], $data[$key]);
         }
+
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    public function createArchive(array $data)
+    {
+        $data = $this->createConfig($data);
 
         $this->archive = new Extension\Archive;
         $this->archive->queueToFile(

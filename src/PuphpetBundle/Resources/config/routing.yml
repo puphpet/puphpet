@@ -10,6 +10,10 @@ puphpet.main.generate_archive:
     path:  /generate-archive
     defaults: { _controller: PuphpetBundle:Front:generateArchive }
 
+puphpet.main.generate_config:
+    path:  /generate-config
+    defaults: { _controller: PuphpetBundle:Front:generateConfig }
+
 puphpet.main.download_puppet_modules:
     path:  /download-puppet-modules
     defaults: { _controller: PuphpetBundle:Front:downloadPuppetModules }
@@ -36,9 +40,6 @@ puphpet.vagrantfile_rackspace:
 puphpet.vagrantfile_linode:
     resource: "@PuphpetBundle/Resources/config/vagrantfile-linode/routing.yml"
     prefix:   /extension/vagrantfile-linode
-puphpet.vagrantfile_softlayer:
-    resource: "@PuphpetBundle/Resources/config/vagrantfile-softlayer/routing.yml"
-    prefix:   /extension/vagrantfile-softlayer
 puphpet.vagrantfile_aws:
     resource: "@PuphpetBundle/Resources/config/vagrantfile-aws/routing.yml"
     prefix:   /extension/vagrantfile-aws

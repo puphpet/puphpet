@@ -905,6 +905,21 @@ PUPHPET.updateLocalIpAddress = function() {
     });
 };
 
+PUPHPET.yamlConfigDownload = function() {
+    $(document).on('click', '#yaml-config', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var url = $(this).attr('href');
+
+        $.post(url, $('#main-form').serialize(), function (response) {
+            var w = window.open('about:blank', 'windowname');
+            w.document.write(response);
+            w.document.close();
+        });
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.updateOtherInput();
     PUPHPET.updateOtherInputSelect();
@@ -925,6 +940,7 @@ $(document).ready(function() {
     PUPHPET.disableEnterSubmit();
     PUPHPET.bootstrapNotify();
     PUPHPET.updateLocalIpAddress();
+    PUPHPET.yamlConfigDownload();
 });
 
 /**

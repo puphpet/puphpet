@@ -1,6 +1,7 @@
 install: 1
 
 settings:
+    version: present
     default_vhost: 1
     proxy_buffers: 4 256k
     proxy_buffer_size: 128k
@@ -28,17 +29,18 @@ vhosts:
         ssl_ciphers: ~
         rewrite_to_https: 0
         spdy: 0
-        index_files:
-            - index.html
-            - index.htm
-            - index.php
         client_max_body_size: '1m'
         rewrites: []
         locations:
             -
+                www_root: ~
                 location: '/'
                 autoindex: 0
                 internal: false
+                index_files:
+                    - index.html
+                    - index.htm
+                    - index.php
                 try_files:
                     - '$uri'
                     - '$uri/'
@@ -53,9 +55,11 @@ vhosts:
                 proxy_set_header: []
                 rewrites: []
             -
+                www_root: ''
                 location: '~ \.php$'
                 autoindex: 0
                 internal: false
+                index_files: [ ]
                 try_files:
                     - '$uri'
                     - '$uri/'

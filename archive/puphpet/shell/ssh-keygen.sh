@@ -12,16 +12,6 @@ function create_key()
     if [[ ! -f "${VAGRANT_CORE_FOLDER}/files/dot/ssh/${BASE_KEY_NAME}" ]]; then
         ssh-keygen -f "${VAGRANT_CORE_FOLDER}/files/dot/ssh/${BASE_KEY_NAME}" -P ""
 
-        if [[ ! -f "${VAGRANT_CORE_FOLDER}/files/dot/ssh/${BASE_KEY_NAME}.ppk" ]]; then
-            if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-                apt-get install -y putty-tools >/dev/null
-            elif [ "${OS}" == 'centos' ]; then
-                yum -y install putty >/dev/null
-            fi
-
-            puttygen "${VAGRANT_CORE_FOLDER}/files/dot/ssh/${BASE_KEY_NAME}" -O private -o "${VAGRANT_CORE_FOLDER}/files/dot/ssh/${BASE_KEY_NAME}.ppk"
-        fi
-
         echo "Your private key for SSH-based authentication has been saved to 'puphpet/files/dot/ssh/${BASE_KEY_NAME}'!"
     else
         echo "Pre-existing private key found at 'puphpet/files/dot/ssh/${BASE_KEY_NAME}'"
