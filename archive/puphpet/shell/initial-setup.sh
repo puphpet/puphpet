@@ -52,6 +52,10 @@ EOL
 fi
 
 if [[ "${OS}" == 'centos' ]]; then
+    perl -p -i -e 's@enabled=1@enabled=0@gi' /etc/yum/pluginconf.d/fastestmirror.conf
+    perl -p -i -e 's@mirrorlist=http://mirrorlist.centos.org@#mirrorlist=http://mirrorlist.centos.org@gi' /etc/yum.repos.d/CentOS-*
+    perl -p -i -e 's@#baseurl=http://mirror.centos.org@baseurl=http://mirror.rackspace.org@gi' /etc/yum.repos.d/CentOS-*
+
     if [ "${RELEASE}" == 6 ]; then
         EL_REPO='http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm'
         EPEL='http://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm'
