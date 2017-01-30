@@ -4,7 +4,7 @@
     "type": "project",
     "description": "A simple GUI to set up virtual machines for PHP development.",
     "autoload": {
-        "psr-4": { "": "src/" },
+        "psr-4": { "PuphpetBundle\\": "src/PuphpetBundle" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "require": {
@@ -22,7 +22,6 @@
         "twig/extensions": "~1.3"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~3.0",
         "symfony/phpunit-bridge": "~v3.0",
         "phpunit/phpunit": "~5.0",
         "whatthejeff/nyancat-phpunit-resultprinter": "~1.2"
@@ -54,7 +53,7 @@
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
-        "symfony-assets-install": "relative",
+        "symfony-assets-install": "symlink",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
