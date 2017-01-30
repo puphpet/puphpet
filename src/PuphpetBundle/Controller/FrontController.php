@@ -30,7 +30,7 @@ class FrontController extends Controller
 
         $messages = $session->getFlashBag()->all();
 
-        return $this->render('PuphpetBundle:front:template.html.twig', [
+        return $this->render('PuphpetBundle::template.html.twig', [
             'extensions' => $manager->getExtensions(),
             'messages'   => $messages,
         ]);
@@ -105,7 +105,7 @@ class FrontController extends Controller
                 'content' => 'Your previously generated config file was successfully loaded!',
             ]);
 
-            $rendered = $this->render('PuphpetBundle:front:template.html.twig', [
+            $rendered = $this->render('PuphpetBundle::template.html.twig', [
                 'extensions' => $manager->getExtensions(),
                 'messages'   => $session->getFlashBag()->all(),
             ]);
@@ -248,6 +248,6 @@ class FrontController extends Controller
             $this->container->get('profiler')->disable();
         }
 
-        return $this->render('PuphpetBundle:front:github-btn.html.twig');
+        return $this->render('PuphpetBundle::github-btn.html.twig');
     }
 }

@@ -22,7 +22,7 @@ class RubyController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:ruby:form.html.twig', [
+        return $this->render('PuphpetBundle::ruby.html.twig', [
             'ruby' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class RubyController extends Controller
     {
         $data = $this->getExtensionData('ruby');
 
-        return $this->render('PuphpetBundle:ruby/sections:version.html.twig', [
+        return $this->render('PuphpetBundle:ruby:version.html.twig', [
             'selected_version'   => $data['empty_version'],
             'available_versions' => $data['versions'],
         ]);

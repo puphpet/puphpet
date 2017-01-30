@@ -1,0 +1,274 @@
+{% set uniqid = uniqid('nxv_', true) %}
+{% set server_aliases = (vhost.server_aliases is defined) ? vhost.server_aliases : [] %}
+{% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
+{% set letsencrypt_email = (vhost.letsencrypt_email is defined) ? vhost.letsencrypt_email : '' %}
+{% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
+{% set ssl_key = (vhost.ssl_key is defined) ? vhost.ssl_key : '' %}
+{% set ssl_port = (vhost.ssl_port is defined) ? vhost.ssl_port : '' %}
+{% set ssl_protocols = (vhost.ssl_protocols is defined) ? vhost.ssl_protocols : '' %}
+{% set ssl_ciphers = (vhost.ssl_ciphers is defined) ? vhost.ssl_ciphers : '' %}
+{% set rewrite_to_https = (vhost.rewrite_to_https is defined) ? true : false %}
+{% set spdy = (vhost.spdy is defined) ? true : false %}
+{% set rewrites = (vhost.rewrites is defined) ? vhost.rewrites : [] %}
+{% set locations = (vhost.locations is defined) ? vhost.locations : [] %}
+{% set client_max_body_type = (vhost.client_max_body_type is defined) ? vhost.client_max_body_type : '1m' %}
+
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Virtual Host</legend>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Don't forget to <a href="/#help" target="_blank">update
+                    your computer's hosts file!</a>
+            </div>
+            <label for="nginx-vhosts-{{ uniqid }}-server_name">Server Name</label>
+            <input type="text" id="nginx-vhosts-{{ uniqid }}-server_name"
+                   name="nginx[vhosts][{{ uniqid }}][server_name]"
+                   placeholder="awesome.dev" class="form-control"
+                   value="{{ vhost.server_name }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Separated by comma.
+            </div>
+            <label for="nginx-vhosts-{{ uniqid }}-server_aliases">Server Aliases</label>
+            <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
+                    name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
+                    multiple class="form-control select-tags-editable">
+                {% for alias in server_aliases %}
+                    <option selected value="{{ alias }}">{{ alias }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Root directory of your web project. Can be different from each vhost's
+                root directory. For example, if creating a Symfony 2 project, your vhost
+                root would be <code>/var/www/awesome</code> and your location root would
+                be <code>/var/www/awesome/web</code>. You may also point to the
+                directory of the <code>index.php</code> or other landing page for all
+                vhost locations.
+            </div>
+            <label for="nginx-vhosts-{{ uniqid }}-www_root">Project Root</label>
+            <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
+                   name="nginx[vhosts][{{ uniqid }}][www_root]"
+                   placeholder="/var/www/awesome" class="form-control"
+                   value="{{ vhost.www_root }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                <code>80</code> for normal browsing, if you choose another append
+                it to the URL in your browser, eg: <code>http://awesome.dev:1337</code>
+            </div>
+            <label for="nginx-vhosts-{{ uniqid }}-listen_port">Port</label>
+            <input type="number" id="nginx-vhosts-{{ uniqid }}-listen_port"
+                   name="nginx[vhosts][{{ uniqid }}][listen_port]"
+                   placeholder="/var/www/awesome" class="form-control"
+                   value="{{ vhost.listen_port }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Value in megabytes (<code>1m</code> = 1 megabyte). <code>0</code> = disabled
+            </div>
+            <label for="nginx-vhosts-{{ uniqid }}-client-max-body-size">Client Max Body Size</label>
+            <input type="text" id="nginx-vhosts-{{ uniqid }}-client-max-body-size"
+                   name="nginx[vhosts][{{ uniqid }}][client_max_body_size]"
+                   placeholder="1m" class="form-control"
+                   value="{{ client_max_body_type }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable SSL</label></div>
+
+            <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl]" value="0" />
+
+            <label class="radio-tile mini set-width">
+                <span class="help-text">
+                    Check to enable SSL options.
+                </span>
+                <input type="checkbox" name="nginx[vhosts][{{ uniqid }}][ssl]"
+                       class="invisible toggle-on-select"
+                       {% if ssl %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#nginx-vhosts-{{ uniqid }}-ssl_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable SSL</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="nested-block {% if not ssl %}hidden{% endif %}" id="nginx-vhosts-{{ uniqid }}-ssl_options">
+            <fieldset>
+                <legend>SSL Options</legend>
+
+                <div class="form-group col-xs-12">
+                    <div class="checkbox">
+                        <div class="help-text">
+                            <p>Let’s Encrypt is a new Certificate Authority:<br />
+                                It’s free, automated, and open. </p>
+
+                            <p>Generates a valid SSL certificate. Automatically
+                                renews the certificate once a month. It's awesome!</p>
+
+                            <p><a href="https://letsencrypt.org/" target="_blank">More information</a></p>
+
+                            <p><strong>This will only work on a public domain!</strong></p>
+
+                            <p>Do not choose this option for local development domains.</p>
+
+                            <p>THE DOMAIN MUST BE PUBLIC AND REACHABLE FROM THE INTERNET.</p>
+
+                            <p>If you do not know your server's IP address ahead of time,
+                                <code>$ vagrant up</code> may fail initially. You need to assign
+                                your domain to the new server via an <code>A</code> record
+                                or a floating IP address. As long as your domain resolves
+                                to the created server this will work!</p>
+
+                            <p>Simply run <code>$ vagrant provision</code> once the domain is
+                                resolving properly!</p>
+                        </div>
+                        <input class="styled toggle-on-select update-other-input-on-check update-other-input-on-uncheck"
+                               type="checkbox"
+                               {% if ssl_cert == 'LETSENCRYPT' %}checked{% endif %} value="1"
+                               id="nginx-vhosts-{{ uniqid }}-letsencrypt"
+                               data-vis-toggle-target="#nginx-vhosts-{{ uniqid }}-letsencrypt_info"
+                               data-update-on-check-nginx-vhosts-{{ uniqid }}-ssl_cert="LETSENCRYPT"
+                               data-update-on-check-nginx-vhosts-{{ uniqid }}-ssl_key="LETSENCRYPT"
+                               data-update-on-uncheck-nginx-vhosts-{{ uniqid }}-ssl_cert=""
+                               data-update-on-uncheck-nginx-vhosts-{{ uniqid }}-ssl_key=""
+                        />
+                        <label for="nginx-vhosts-{{ uniqid }}-letsencrypt">
+                            Use Let's Encrypt
+                        </label>
+                    </div>
+                </div>
+
+                <div id="nginx-vhosts-{{ uniqid }}-letsencrypt_info"
+                     class="help-block col-xs-12 {% if ssl_cert != 'LETSENCRYPT' %}hidden{% endif %}">
+                    <p>Make sure to also add this domain to the
+                        <a href="#letsencrypt">Let's Encrypt tab by clicking here</a>!</p>
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <div class="help-text">
+                        <p>Absolute path to SSL Certificate File. Usually ends in .crt.
+                            Leave blank to use a generic one.
+                            <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                            This should be the location within the VM, not the host!</p>
+
+                        <p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html"
+                           target="_blank">Learn more about this</a>.</p>
+
+                        <p>If you chose Let's Encrypt, leave this as <code>LETSENCRYPT</code>!</p>
+                    </div>
+                    <label for="nginx-vhosts-{{ uniqid }}-ssl_cert">SSL Certificate File Path</label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
+                           name="nginx[vhosts][{{ uniqid }}][ssl_cert]"
+                           placeholder="/leave/blank/for/sample" class="form-control"
+                           value="{{ ssl_cert }}" />
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <div class="help-text">
+                        <p>Absolute path to SSL Certificate Key File. Usually ends in .key.
+                                Leave blank to use a generic one
+                                <strong>DO NOT LEAVE BLANK FOR PRODUCTION</strong>.
+                                This should be the location within the VM, not the host!</p>
+
+                        <p><a href="http://nginx.org/en/docs/http/configuring_https_servers.html"
+                              target="_blank">Learn more about this</a>.</p>
+
+                        <p>If you chose Let's Encrypt, leave this as <code>LETSENCRYPT</code>!</p>
+                    </div>
+                    <label for="nginx-vhosts-{{ uniqid }}-ssl_key">SSL Certificate Key File Path</label>
+                    <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_key"
+                           name="nginx[vhosts][{{ uniqid }}][ssl_key]"
+                           placeholder="/leave/blank/for/sample" class="form-control"
+                           value="{{ ssl_key }}" />
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <div class="help-text">
+                        Should be different from the normal Port chosen above!
+                    </div>
+                    <label for="nginx-vhosts-{{ uniqid }}-ssl_port">SSL Port</label>
+                    <input type="number" id="nginx-vhosts-{{ uniqid }}-ssl_port"
+                           name="nginx[vhosts][{{ uniqid }}][ssl_port]"
+                           placeholder="443" class="form-control"
+                           value="{{ ssl_port }}" />
+                </div>
+
+                <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_protocols]" value="{{ ssl_protocols }}" />
+                <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_ciphers]" value="{{ ssl_ciphers }}" />
+
+                <div class="form-group col-xs-12">
+                    <div class="clearfix"><label>SSL-Only Options</label></div>
+
+                    <div class="checkbox">
+                        <span class="help-text">
+                            Forwards all non-SSL traffic to SSL vhost.
+                        </span>
+                        <input class="styled" type="checkbox"
+                               {% if rewrite_to_https %}checked{% endif %} value="1"
+                               id="nginx-vhosts-{{ uniqid }}-rewrite_to_https"
+                               name="nginx[vhosts][{{ uniqid }}][rewrite_to_https]" />
+                        <label for="nginx-vhosts-{{ uniqid }}-rewrite_to_https">
+                            Rewrite to SSL
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <span class="help-text">
+                            <a href="http://blog.cloudflare.com/introducing-spdy"
+                               target="_blank">Learn more about this</a>.
+                        </span>
+                        <input class="styled" type="checkbox"
+                               {% if spdy %}checked{% endif %} value="1"
+                               id="nginx-vhosts-{{ uniqid }}-spdy"
+                               name="nginx[vhosts][{{ uniqid }}][spdy]" />
+                        <label for="nginx-vhosts-{{ uniqid }}-spdy">
+                            Enable Spdy Module
+                        </label>
+                    </div>
+                </div>
+
+                <div class="help-block col-xs-12">
+                    <p>There is currently a bug where self-signed certificate will not work in CentOS for
+                        Nginx. PRs are welcome!</p>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% for rewrite in rewrites %}
+            {% include 'PuphpetBundle:nginx:vhost_rewrite.html.twig' with {'vhostId': uniqid, 'rewrite': rewrite} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.nginx.vhost_rewrite', {'vhostId': uniqid}) }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add a vhost rewrite</a>
+
+        <div class="clearfix"></div>
+
+        {% for location in locations %}
+            {% include 'PuphpetBundle:nginx:location.html.twig' with {'vhostId': uniqid, 'location': location} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.nginx.location', {'vhostId': uniqid}) }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add a vhost location</a>
+
+        <div class="clearfix"></div>
+    </fieldset>
+</div>

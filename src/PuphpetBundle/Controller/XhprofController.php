@@ -22,7 +22,7 @@ class XhprofController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:xhprof:form.html.twig', [
+        return $this->render('PuphpetBundle::xhprof.html.twig', [
             'xhprof' => $data,
         ]);
     }

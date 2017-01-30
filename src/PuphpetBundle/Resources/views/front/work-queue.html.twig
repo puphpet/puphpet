@@ -1,0 +1,6 @@
+<div class="tab-pane" id="beanstalkd">
+    {% include 'PuphpetBundle::beanstalkd.html.twig' with {'beanstalkd': add_available(extensions.beanstalkd.merged, extensions.beanstalkd.available)} %}
+</div>
+<div class="tab-pane" id="rabbitmq">
+    {% include 'PuphpetBundle::rabbitmq.html.twig' with {'rabbitmq': add_available(extensions.rabbitmq.merged, extensions.rabbitmq.available)} %}
+</div>

@@ -22,7 +22,7 @@ class MailHogController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:MailHog:form.html.twig', [
+        return $this->render('PuphpetBundle::mailhog.html.twig', [
             'mailhog' => $data,
         ]);
     }

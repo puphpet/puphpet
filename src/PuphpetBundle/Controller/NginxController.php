@@ -22,7 +22,7 @@ class NginxController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:nginx:form.html.twig', [
+        return $this->render('PuphpetBundle::nginx.html.twig', [
             'nginx' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class NginxController extends Controller
     {
         $data = $this->getExtensionData('nginx');
 
-        return $this->render('PuphpetBundle:nginx/sections:vhost.html.twig', [
+        return $this->render('PuphpetBundle:nginx:vhost.html.twig', [
             'vhost' => $data['empty_vhost'],
         ]);
     }
@@ -55,7 +55,7 @@ class NginxController extends Controller
     {
         $data = $this->getExtensionData('nginx');
 
-        return $this->render('PuphpetBundle:nginx/sections:vhost_rewrite.html.twig', [
+        return $this->render('PuphpetBundle:nginx:vhost_rewrite.html.twig', [
             'vhostId' => $vhostId,
             'rewrite' => $data['empty_vhost_rewrite'],
         ]);
@@ -73,7 +73,7 @@ class NginxController extends Controller
     {
         $data = $this->getExtensionData('nginx');
 
-        return $this->render('PuphpetBundle:nginx/sections:location.html.twig', [
+        return $this->render('PuphpetBundle:nginx:location.html.twig', [
             'vhostId'  => $vhostId,
             'location' => $data['empty_location'],
         ]);
@@ -95,7 +95,7 @@ class NginxController extends Controller
     ) {
         $data = $this->getExtensionData('nginx');
 
-        return $this->render('PuphpetBundle:nginx/sections:location_rewrite.html.twig', [
+        return $this->render('PuphpetBundle:nginx:location_rewrite.html.twig', [
             'vhostId'    => $vhostId,
             'locationId' => $locationId,
             'rewrite'    => $data['empty_location_rewrite'],
@@ -113,7 +113,7 @@ class NginxController extends Controller
     {
         $data = $this->getExtensionData('nginx');
 
-        return $this->render('PuphpetBundle:nginx/sections:upstream.html.twig', [
+        return $this->render('PuphpetBundle:nginx:upstream.html.twig', [
             'upstream' => $data['empty_upstream'],
         ]);
     }
@@ -129,7 +129,7 @@ class NginxController extends Controller
     {
         $data = $this->getExtensionData('nginx');
 
-        return $this->render('PuphpetBundle:nginx/sections:proxy.html.twig', [
+        return $this->render('PuphpetBundle:nginx:proxy.html.twig', [
             'proxy' => $data['empty_proxy'],
         ]);
     }

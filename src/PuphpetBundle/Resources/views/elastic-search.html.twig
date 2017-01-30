@@ -1,0 +1,86 @@
+{% set selectedVersion = (elastic_search.settings.version is defined and elastic_search.settings.version)
+    ? elastic_search.settings.version
+    : false %}
+{% set versions = selectedVersion
+    ? merge_unique([selectedVersion], elastic_search.available.versions)
+    : elastic_search.available.versions %}
+
+<input type="hidden" name="elastic_search[install]" value="0" />
+
+<div class="field-container">
+    <div class="form-group">
+        <div class="help-text">
+            <p>Elastic Search is a powerful open source search and analytics engine
+                that makes data easy to explore.</p>
+            <p><a href="http://www.elasticsearch.org/"
+                  target="_blank">Learn about Elastic Search</a>.</p>
+            <p><a href="https://github.com/elasticsearch/elasticsearch-php"
+                  target="_blank">The official Elastic Search PHP library</a>.</p>
+        </div>
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="elastic_search[install]" value="1"
+                   class="invisible toggle-on-select"
+                   {% if elastic_search.install %}checked{% endif %}
+                   data-vis-toggle-target="#elastic_search-container" />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Install Elastic Search</span>
+                </span>
+                <span class="footer">
+                    A search server based on Lucene.
+                </span>
+            </span>
+        </label>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div id="elastic_search-container" class="{% if not elastic_search.install %}hidden{% endif %}">
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Version</label></div>
+
+            {% for version in versions %}
+                <div class="radio">
+                    <input type="radio"
+                       id="elastic_search-settings-version-{{ version }}"
+                       name="elastic_search[settings][version]"
+                       value="{{ version }}"
+                       {% if version == selectedVersion %}checked{% endif %}
+                    />
+                    <label for="elastic_search-settings-version-{{ version }}">
+                        {{ version }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="help-block col-xs-12">
+            <p>Elastic Search will be installed and the service will start automatically.
+                Java will also be installed if not already present on the vagrant box.
+                The default port is <code>9200</code>.</p>
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% for instance in elastic_search.instances %}
+            {% include 'PuphpetBundle:elastic-search:instance.html.twig' with {'instance': instance} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.elastic_search.instance') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another instance</a>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#rabbitmq"><span aria-hidden="true">&larr;</span> RabbitMQ</a></li>
+            <li class="next">
+                <a href="#solr">Apache Solr <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+</div>

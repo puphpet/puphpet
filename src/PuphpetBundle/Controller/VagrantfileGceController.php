@@ -22,7 +22,7 @@ class VagrantfileGceController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:vagrantfile-gce:form.html.twig', [
+        return $this->render('PuphpetBundle::vagrantfile-gce.html.twig', [
             'data' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class VagrantfileGceController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-gce');
 
-        return $this->render('PuphpetBundle:vagrantfile-gce/sections:machine.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-gce:machine.html.twig', [
             'machine'       => $data['empty_machine'],
             'zones'         => $data['zones'],
             'machine_types' => $data['machine_types'],
@@ -56,7 +56,7 @@ class VagrantfileGceController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-gce');
 
-        return $this->render('PuphpetBundle:vagrantfile-gce/sections:synced-folder.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-gce:synced-folder.html.twig', [
             'synced_folder' => $data['empty_synced_folder'],
         ]);
     }

@@ -22,7 +22,7 @@ class LetsEncryptController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:letsencrypt:form.html.twig', [
+        return $this->render('PuphpetBundle::letsencrypt.html.twig', [
             'letsencrypt' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class LetsEncryptController extends Controller
     {
         $data = $this->getExtensionData('letsencrypt');
 
-        return $this->render('PuphpetBundle:letsencrypt/sections:domain.html.twig', [
+        return $this->render('PuphpetBundle:letsencrypt:domain.html.twig', [
             'domain' => $data['empty_domain'],
         ]);
     }

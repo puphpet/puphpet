@@ -22,7 +22,7 @@ class DrushController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle::drush::form.html.twig', [
+        return $this->render('PuphpetBundle::drush.html.twig', [
             'drush' => $data,
         ]);
     }

@@ -22,7 +22,7 @@ class PhpController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:php:form.html.twig', [
+        return $this->render('PuphpetBundle::php.html.twig', [
             'php' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class PhpController extends Controller
     {
         $data = $this->getExtensionData('php');
 
-        return $this->render('PuphpetBundle:php/sections:fpm-pool.html.twig', [
+        return $this->render('PuphpetBundle:php:fpm-pool.html.twig', [
             'pool'                   => $data['empty_fpm_pool'],
             'available_fpm_pool_ini' => $data['fpm_pool_ini'],
         ]);

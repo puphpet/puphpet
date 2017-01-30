@@ -22,7 +22,7 @@ class HhvmController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:hhvm:form.html.twig', [
+        return $this->render('PuphpetBundle::hhvm.html.twig', [
             'hhvm' => $data,
         ]);
     }

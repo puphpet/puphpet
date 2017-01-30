@@ -22,7 +22,7 @@ class RedisController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:redis:form.html.twig', [
+        return $this->render('PuphpetBundle::redis.html.twig', [
             'redis' => $data,
         ]);
     }

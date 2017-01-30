@@ -24,7 +24,7 @@ class MariaDbController extends Controller
     {
         $extensionData = $this->getExtensionData('mariadb');
 
-        return $this->render('PuphpetBundle:mariadb:form.html.twig', [
+        return $this->render('PuphpetBundle::mariadb.html.twig', [
             'mariadb'              => $data,
             'available_privileges' => $extensionData['privileges'],
         ]);
@@ -41,7 +41,7 @@ class MariaDbController extends Controller
     {
         $extensionData = $this->getExtensionData('mariadb');
 
-        return $this->render('PuphpetBundle:mariadb/sections:user.html.twig', [
+        return $this->render('PuphpetBundle:mariadb:user.html.twig', [
             'user' => $extensionData['empty_user'],
         ]);
     }
@@ -57,7 +57,7 @@ class MariaDbController extends Controller
     {
         $extensionData = $this->getExtensionData('mariadb');
 
-        return $this->render('PuphpetBundle:mariadb/sections:database.html.twig', [
+        return $this->render('PuphpetBundle:mariadb:database.html.twig', [
             'database' => $extensionData['empty_database'],
         ]);
     }
@@ -73,7 +73,7 @@ class MariaDbController extends Controller
     {
         $extensionData = $this->getExtensionData('mariadb');
 
-        return $this->render('PuphpetBundle:mariadb/sections:grant.html.twig', [
+        return $this->render('PuphpetBundle:mariadb:grant.html.twig', [
             'grant'                => $extensionData['empty_grant'],
             'available_privileges' => $extensionData['privileges'],
         ]);

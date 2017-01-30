@@ -22,7 +22,7 @@ class ApacheController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:apache:form.html.twig', [
+        return $this->render('PuphpetBundle::apache.html.twig', [
             'apache' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class ApacheController extends Controller
     {
         $data = $this->getExtensionData('apache');
 
-        return $this->render('PuphpetBundle:apache/sections:vhost.html.twig', [
+        return $this->render('PuphpetBundle:apache:vhost.html.twig', [
             'vhost' => $data['empty_vhost'],
         ]);
     }
@@ -47,7 +47,7 @@ class ApacheController extends Controller
      * @param Request $request
      * @param string  $vhostId
      * @return Response
-     * @Route("/extension/apache/directory",
+     * @Route("/extension/apache/directory/{vhostId}",
      *     name="puphpet.apache.directory")
      * @Method({"GET"})
      */
@@ -55,7 +55,7 @@ class ApacheController extends Controller
     {
         $data = $this->getExtensionData('apache');
 
-        return $this->render('PuphpetBundle:apache/sections:directory.html.twig', [
+        return $this->render('PuphpetBundle:apache:directory.html.twig', [
             'vhostId'   => $vhostId,
             'directory' => $data['empty_directory'],
         ]);
@@ -66,7 +66,7 @@ class ApacheController extends Controller
      * @param string  $vhostId
      * @param string  $directoryId
      * @return Response
-     * @Route("/extension/apache/files-match",
+     * @Route("/extension/apache/files-match/{vhostId}/{directoryId}",
      *     name="puphpet.apache.files_match")
      * @Method({"GET"})
      */
@@ -77,7 +77,7 @@ class ApacheController extends Controller
     ) {
         $data = $this->getExtensionData('apache');
 
-        return $this->render('PuphpetBundle:apache/sections:filesMatch.html.twig', [
+        return $this->render('PuphpetBundle:apache:filesMatch.html.twig', [
             'vhostId'     => $vhostId,
             'directoryId' => $directoryId,
             'filesMatch'  => $data['empty_files_match'],

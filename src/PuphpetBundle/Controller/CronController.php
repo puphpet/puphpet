@@ -22,7 +22,7 @@ class CronController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:cron:form.html.twig', [
+        return $this->render('PuphpetBundle::cron.html.twig', [
             'cron' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class CronController extends Controller
     {
         $data = $this->getExtensionData('cron');
 
-        return $this->render('PuphpetBundle:cron/sections:job.html.twig', [
+        return $this->render('PuphpetBundle:cron:job.html.twig', [
             'job' => $data['empty_job'],
         ]);
     }

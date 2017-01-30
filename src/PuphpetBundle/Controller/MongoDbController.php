@@ -22,7 +22,7 @@ class MongoDbController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:mongodb:form.html.twig', [
+        return $this->render('PuphpetBundle::mongodb.html.twig', [
             'mongodb' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class MongoDbController extends Controller
     {
         $data = $this->getExtensionData('mongodb');
 
-        return $this->render('PuphpetBundle:mongodb/sections:user-database.html.twig', [
+        return $this->render('PuphpetBundle:mongodb:user-database.html.twig', [
             'database' => $data['empty_database'],
         ]);
     }

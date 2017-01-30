@@ -22,7 +22,7 @@ class PythonController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:python::form.html.twig', [
+        return $this->render('PuphpetBundle::python.html.twig', [
             'python' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class PythonController extends Controller
     {
         $data = $this->getExtensionData('python');
 
-        return $this->render('PuphpetBundle:python/sections:version.html.twig', [
+        return $this->render('PuphpetBundle:python:version.html.twig', [
             'selected_version'   => $data['empty_version'],
             'available_versions' => $data['versions'],
         ]);

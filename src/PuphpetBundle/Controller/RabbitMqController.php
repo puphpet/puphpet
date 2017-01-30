@@ -22,7 +22,7 @@ class RabbitMqController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:rabbitmq:form.html.twig', [
+        return $this->render('PuphpetBundle::rabbitmq.html.twig', [
             'rabbitmq' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class RabbitMqController extends Controller
     {
         $data = $this->getExtensionData('rabbitmq');
 
-        return $this->render('PuphpetBundle:rabbitmq/sections:user.html.twig', [
+        return $this->render('PuphpetBundle:rabbitmq:user.html.twig', [
             'user' => $data['empty_user'],
         ]);
     }
@@ -55,7 +55,7 @@ class RabbitMqController extends Controller
     {
         $data = $this->getExtensionData('rabbitmq');
 
-        return $this->render('PuphpetBundle:rabbitmq/sections:permission.html.twig', [
+        return $this->render('PuphpetBundle:rabbitmq:permission.html.twig', [
             'userId'     => $userId,
             'permission' => $data['empty_permission'],
         ]);

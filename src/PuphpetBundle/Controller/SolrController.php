@@ -22,7 +22,7 @@ class SolrController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:Solr:form.html.twig', [
+        return $this->render('PuphpetBundle::solr.html.twig', [
             'solr' => $data,
         ]);
     }

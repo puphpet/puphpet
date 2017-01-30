@@ -22,7 +22,7 @@ class FirewallController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:firewall:form.html.twig', [
+        return $this->render('PuphpetBundle::firewall.html.twig', [
             'firewall' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class FirewallController extends Controller
     {
         $data = $this->getExtensionData('firewall');
 
-        return $this->render('PuphpetBundle:firewall/sections:rule.html.twig', [
+        return $this->render('PuphpetBundle:firewall:rule.html.twig', [
             'rule' => $data['empty_rule'],
         ]);
     }

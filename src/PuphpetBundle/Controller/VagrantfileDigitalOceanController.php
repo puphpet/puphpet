@@ -22,7 +22,7 @@ class VagrantfileDigitalOceanController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:vagrantfile-digitalocean:form.html.twig', [
+        return $this->render('PuphpetBundle::vagrantfile-digitalocean.html.twig', [
             'data' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class VagrantfileDigitalOceanController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-digitalocean');
 
-        return $this->render('PuphpetBundle:vagrantfile-digitalocean/sections:machine.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-digitalocean:machine.html.twig', [
             'machine' => $data['empty_machine'],
             'regions' => $data['regions'],
             'sizes'   => $data['sizes'],
@@ -56,7 +56,7 @@ class VagrantfileDigitalOceanController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-digitalocean');
 
-        return $this->render('PuphpetBundle:vagrantfile-digitalocean/sections:synced-folder.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-digitalocean:synced-folder.html.twig', [
             'synced_folder' => $data['empty_synced_folder'],
         ]);
     }

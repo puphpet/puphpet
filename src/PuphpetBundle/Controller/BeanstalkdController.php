@@ -22,7 +22,7 @@ class BeanstalkdController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:Beanstalkd:form.html.twig', [
+        return $this->render('PuphpetBundle::beanstalkd.html.twig', [
             'beanstalkd' => $data,
         ]);
     }

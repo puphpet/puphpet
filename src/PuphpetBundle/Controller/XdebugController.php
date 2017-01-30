@@ -22,7 +22,7 @@ class XdebugController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:xdebug:form.html.twig', [
+        return $this->render('PuphpetBundle::xdebug.html.twig', [
             'xdebug' => $data,
         ]);
     }

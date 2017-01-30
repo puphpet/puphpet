@@ -1,0 +1,409 @@
+<input type="hidden" name="php[install]" value="0" />
+
+<div class="field-container">
+    <div class="form-group">
+        <span class="help-text">
+            PHP is a toy language accidentally chosen to power
+            some of the largest websites in the world. You probably want Ruby?
+        </span>
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="php[install]" value="1"
+                   class="invisible toggle-on-select update-other-input-on-check"
+                   {% if php.install %}checked{% endif %}
+                   data-vis-toggle-target="#php-container"
+                   data-update-on-check-hhvm[install]="0" />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Install PHP</span>
+                </span>
+                <span class="footer">
+                    If you install PHP, you cannot install HHVM.
+                </span>
+            </span>
+        </label>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div id="php-container" class="{% if not php.install %}hidden{% endif %}">
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>PHP Version</label></div>
+
+            <div class="radio">
+                <span class="help-text">
+                    Available on all distros.
+                </span>
+                <input type="radio"
+                   id="php-settings-version-71"
+                   name="php[settings][version]"
+                   value="7.1"
+                   {% if php.settings.version in ['7.1', '71'] %}checked{% endif %}
+                />
+                <label for="php-settings-version-71">
+                    7.1
+                </label>
+            </div>
+
+            <div class="radio">
+                <span class="help-text">
+                    Available on all distros.
+                </span>
+                <input type="radio"
+                   id="php-settings-version-70"
+                   name="php[settings][version]"
+                   value="7.0"
+                   {% if php.settings.version in ['7.0', '70'] %}checked{% endif %}
+                />
+                <label for="php-settings-version-70">
+                    7.0
+                </label>
+            </div>
+
+            <div class="radio">
+                <span class="help-text">
+                    Available on all distros.
+                </span>
+                <input type="radio"
+                   id="php-settings-version-56"
+                   name="php[settings][version]"
+                   value="5.6"
+                   {% if php.settings.version in ['5.6', '56'] %}checked{% endif %}
+                />
+                <label for="php-settings-version-56">
+                    5.6
+                </label>
+            </div>
+
+            <div class="radio">
+                <span class="help-text">
+                    Available on all distros.
+                </span>
+                <input type="radio"
+                   id="php-settings-version-55"
+                   name="php[settings][version]"
+                   value="5.5"
+                   {% if php.settings.version in ['5.5', '55'] %}checked{% endif %}
+                />
+                <label for="php-settings-version-55">
+                    5.5
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>System-Wide Composer</label></div>
+
+            <div class="checkbox">
+                <span class="help-text">
+                    <a href="https://getcomposer.org">Composer</a> will be available as a
+                    system service:<br />
+                    <code>$ composer</code>
+                </span>
+                <input class="styled" type="checkbox"
+                       {% if php.composer %}checked{% endif %} value="1"
+                       id="php-composer" name="php[composer]" />
+                <label for="php-composer">
+                    Install Composer
+                </label>
+            </div>
+
+            <input type="hidden" name="php[composer_home]" value="{{ php.composer_home }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                All settings added to a single INI file.
+            </div>
+            <label for="php-ini-displayer">INI Settings</label>
+            <select id="php-ini-displayer" multiple
+                    class="form-control select-tags-user-input"
+                    data-target-container="php-ini"
+                    data-target-name="php[ini]">
+                {% set flattened = [] %}
+                {% for ini, values in php.available.ini %}
+                    {% if values is not empty %}
+                        <optgroup label="{{ ini }}">
+                            {% for value in values %}
+                                {% set flattened = flattened|merge([value]) %}
+                                <option value="{{ value }}"
+                                    {% if value in php.ini|keys %}selected{% endif %}>{{ value }}</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% else %}
+                        {% set flattened = flattened|merge([ini]) %}
+                        <option value="{{ ini }}"
+                            {% if ini in php.ini|keys %}selected{% endif %}>{{ ini }}</option>
+                    {% endif %}
+                {% endfor %}
+
+                {% for name, value in php.ini %}
+                    {% if name not in flattened %}
+                        <option value="{{ name }}" selected>{{ name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <div id="php-ini" class="hidden">
+                {% for name, value in php.ini %}
+                    <input type="hidden" name="php[ini][{{ name }}]"
+                           data-option-name="{{ name }}" value="{{ value }}" />
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Make sure to define <code>pid</code>.
+            </div>
+            <label for="php-fpm_ini-displayer">PHP-FPM INI Settings</label>
+            <select id="php-fpm_ini-displayer" multiple
+                    class="form-control select-tags-user-input"
+                    data-target-container="php-fpm_ini"
+                    data-target-name="php[fpm_ini]">
+                {% set flattened = [] %}
+                {% for ini, values in php.available.fpm_ini %}
+                    {% set flattened = flattened|merge([ini]) %}
+                    <option value="{{ ini }}"
+                        {% if ini in php.fpm_ini|keys %}selected{% endif %}>{{ ini }}</option>
+                {% endfor %}
+
+                {% for name, value in php.fpm_ini %}
+                    {% if name not in flattened %}
+                        <option value="{{ name }}" selected>{{ name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <div id="php-fpm_ini" class="hidden">
+                {% for name, value in php.fpm_ini %}
+                    <input type="hidden" name="php[fpm_ini][{{ name }}]"
+                           data-option-name="{{ name }}" value="{{ value }}" />
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                <p><strong>Ubuntu</strong>:</p>
+
+                <p><a href="https://launchpad.net/~ondrej/+archive/ubuntu/php/" target="_blank">
+                        Click here for a list of available modules.</a></p>
+
+                <p><strong>CentOS 6</strong>:</p>
+
+                <p><a href="http://rpms.famillecollet.com/enterprise/6/" target="_blank">
+                        Click here for a list of available modules.</a></p>
+
+                <p><strong>CentOS 7</strong>:</p>
+
+                <p><a href="http://rpms.famillecollet.com/enterprise/7/" target="_blank">
+                        Click here for a list of available modules.</a></p>
+            </div>
+            <label for="php-modules-php">PHP Modules</label>
+            <select id="php-modules-php"
+                    name="php[modules][php][]"
+                    multiple class="form-control select-tags-editable">
+                {% for module in php.modules.php %}
+                    <option value="{{ module }}" selected>{{ module }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Modules to be installed via PEAR. If you want beta or alpha versions of a package,
+                append it to the name: <code>log</code> -> <code>log-beta</code>
+            </div>
+            <label for="php-modules-pear">PEAR Modules</label>
+            <select id="php-modules-pear" multiple
+                    name="php[modules][pear][]"
+                    class="form-control select-tags-editable">
+                {% for module in php.modules.pear %}
+                    <option value="{{ module }}" selected>{{ module }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Modules to be installed via PECL. If you want beta or alpha versions of a package,
+                append it to the name: <code>apc</code> -> <code>apc-beta</code>
+            </div>
+            <label for="php-modules-pecl">PECL Modules</label>
+            <select id="php-modules-pecl" multiple
+                    name="php[modules][pecl][]"
+                    class="form-control select-tags-editable">
+                {% for module in php.modules.pecl %}
+                    <option value="{{ module }}" selected>{{ module }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% for pool in php.fpm_pools %}
+            {% include 'PuphpetBundle:php:fpm-pool.html.twig' with {
+                'pool': pool, 'available_fpm_pool_ini': php.available.fpm_pool_ini
+            } %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.php.add_fpm_pool') }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another FPM pool</a>
+
+        <div class="clearfix"></div>
+
+        <input type="hidden" name="xdebug[install]" value="0" />
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable XDebug</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="checkbox" name="xdebug[install]"
+                       class="invisible toggle-on-select"
+                       {% if xdebug.install %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#xdebug_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable XDebug</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="nested-block {% if not xdebug.install %}hidden{% endif %}" id="xdebug_options">
+            {% include 'PuphpetBundle::xdebug.html.twig' with { 'xdebug': xdebug } %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <input type="hidden" name="blackfire[install]" value="0" />
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable Blackfire</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="checkbox" name="blackfire[install]"
+                       class="invisible toggle-on-select"
+                       {% if blackfire.install %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#blackfire_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable Blackfire</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="nested-block {% if not blackfire.install %}hidden{% endif %}" id="blackfire_options">
+            {% include 'PuphpetBundle::blackfire.html.twig' with { 'blackfire': blackfire } %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <input type="hidden" name="xhprof[install]" value="0" />
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable XHProf</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="checkbox" name="xhprof[install]"
+                       class="invisible toggle-on-select"
+                       {% if xhprof.install %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#xhprof_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable XHProf</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="nested-block {% if not xhprof.install %}hidden{% endif %}" id="xhprof_options">
+            {% include 'PuphpetBundle::xhprof.html.twig' with { 'xhprof': xhprof } %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <input type="hidden" name="wpcli[install]" value="0" />
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable WP CLI</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="checkbox" name="wpcli[install]"
+                       class="invisible toggle-on-select"
+                       {% if wpcli.install %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#wpcli_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable WP CLI</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="nested-block {% if not wpcli.install %}hidden{% endif %}" id="wpcli_options">
+            {% include 'PuphpetBundle::wpcli.html.twig' with { 'wpcli': wpcli } %}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <input type="hidden" name="drush[install]" value="0" />
+
+        <div class="form-group col-xs-12">
+            <div class="clearfix"><label>Enable Drush</label></div>
+
+            <label class="radio-tile mini set-width">
+                <input type="checkbox" name="drush[install]"
+                       class="invisible toggle-on-select"
+                       {% if drush.install %}checked{% endif %}
+                       value="1"
+                       data-vis-toggle-target="#drush_options" />
+                <span class="content">
+                    <span class="header">
+                        <i class="icon"></i>
+                        <span class="title">Enable Drush</span>
+                    </span>
+                </span>
+            </label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="nested-block {% if not drush.install %}hidden{% endif %}" id="drush_options">
+            {% include 'PuphpetBundle::drush.html.twig' with { 'drush': drush } %}
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#letsencrypt"><span aria-hidden="true">&larr;</span> Let's Encrypt</a></li>
+            <li class="next">
+                <a href="#ruby">Ruby <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+</div>

@@ -22,7 +22,7 @@ class VagrantfileRackspaceController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:vagrantfile-rackspace:form.html.twig', [
+        return $this->render('PuphpetBundle::vagrantfile-rackspace.html.twig', [
             'data' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class VagrantfileRackspaceController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-rackspace');
 
-        return $this->render('PuphpetBundle:vagrantfile-rackspace/sections:machine.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-rackspace:machine.html.twig', [
             'machine' => $data['empty_machine'],
             'regions' => $data['regions'],
             'sizes'   => $data['sizes'],
@@ -56,7 +56,7 @@ class VagrantfileRackspaceController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-rackspace');
 
-        return $this->render('PuphpetBundle:vagrantfile-rackspace/sections:synced-folder.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-rackspace:synced-folder.html.twig', [
             'synced_folder' => $data['empty_synced_folder'],
         ]);
     }

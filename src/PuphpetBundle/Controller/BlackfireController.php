@@ -22,7 +22,7 @@ class BlackfireController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle::blackfire::form.html.twig', [
+        return $this->render('PuphpetBundle::blackfire.html.twig', [
             'blackfire' => $data,
         ]);
     }

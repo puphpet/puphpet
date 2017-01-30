@@ -22,7 +22,7 @@ class LocaleController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:locale:form.html.twig', [
+        return $this->render('PuphpetBundle::locale.html.twig', [
             'locale' => $data,
         ]);
     }

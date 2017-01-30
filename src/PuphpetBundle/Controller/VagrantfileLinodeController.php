@@ -22,7 +22,7 @@ class VagrantfileLinodeController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:vagrantfile-linode:form.html.twig', [
+        return $this->render('PuphpetBundle::vagrantfile-linode.html.twig', [
             'data' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class VagrantfileLinodeController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-linode');
 
-        return $this->render('PuphpetBundle:vagrantfile-linode/sections:machine.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-linode:machine.html.twig', [
             'machine'     => $data['empty_machine'],
             'datacenters' => $data['datacenters'],
             'plans'       => $data['plans'],
@@ -56,7 +56,7 @@ class VagrantfileLinodeController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-linode');
 
-        return $this->render('PuphpetBundle:vagrantfile-linode/sections:synced-folder.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-linode:synced-folder.html.twig', [
             'synced_folder' => $data['empty_synced_folder'],
         ]);
     }

@@ -22,7 +22,7 @@ class VagrantfileAwsController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:vagrantfile-aws:form.html.twig', [
+        return $this->render('PuphpetBundle::vagrantfile-aws.html.twig', [
             'data' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class VagrantfileAwsController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-aws');
 
-        return $this->render('PuphpetBundle:vagrantfile-aws/sections:machine.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-aws:machine.html.twig', [
             'machine'        => $data['empty_machine'],
             'instance_types' => $data['instance_types'],
             'regions'        => $data['regions'],
@@ -56,7 +56,7 @@ class VagrantfileAwsController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-aws');
 
-        return $this->render('PuphpetBundle:vagrantfile-aws/sections:synced-folder.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-aws:synced-folder.html.twig', [
             'synced_folder' => $data['empty_synced_folder'],
         ]);
     }

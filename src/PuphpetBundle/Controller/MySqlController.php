@@ -24,7 +24,7 @@ class MySqlController extends Controller
     {
         $extensionData = $this->getExtensionData('mysql');
 
-        return $this->render('PuphpetBundle:mysql:form.html.twig', [
+        return $this->render('PuphpetBundle::mysql.html.twig', [
             'mysql'                => $data,
             'available_privileges' => $extensionData['privileges'],
         ]);
@@ -41,7 +41,7 @@ class MySqlController extends Controller
     {
         $extensionData = $this->getExtensionData('mysql');
 
-        return $this->render('PuphpetBundle:mysql/sections:user.html.twig', [
+        return $this->render('PuphpetBundle:mysql:user.html.twig', [
             'user' => $extensionData['empty_user'],
         ]);
     }
@@ -57,7 +57,7 @@ class MySqlController extends Controller
     {
         $extensionData = $this->getExtensionData('mysql');
 
-        return $this->render('PuphpetBundle:mysql/sections:database.html.twig', [
+        return $this->render('PuphpetBundle:mysql:database.html.twig', [
             'database' => $extensionData['empty_database'],
         ]);
     }
@@ -73,7 +73,7 @@ class MySqlController extends Controller
     {
         $extensionData = $this->getExtensionData('mysql');
 
-        return $this->render('PuphpetBundle:mysql/sections:grant.html.twig', [
+        return $this->render('PuphpetBundle:mysql:grant.html.twig', [
             'grant'                => $extensionData['empty_grant'],
             'available_privileges' => $extensionData['privileges'],
         ]);

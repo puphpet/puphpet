@@ -22,7 +22,7 @@ class ElasticSearchController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:elastic-search:form.html.twig', [
+        return $this->render('PuphpetBundle::elastic-search.html.twig', [
             'elastic_search' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class ElasticSearchController extends Controller
     {
         $data = $this->getExtensionData('elastic-search');
 
-        return $this->render('PuphpetBundle:elastic-search/sections:instance.html.twig', [
+        return $this->render('PuphpetBundle:elastic-search:instance.html.twig', [
             'instance' => $data['empty_instance'],
         ]);
     }

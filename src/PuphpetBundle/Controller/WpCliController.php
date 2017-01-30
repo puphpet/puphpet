@@ -22,7 +22,7 @@ class WpCliController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:wpcli:form.html.twig', [
+        return $this->render('PuphpetBundle::wpcli.html.twig', [
             'wpcli' => $data,
         ]);
     }

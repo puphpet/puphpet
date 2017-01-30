@@ -22,7 +22,7 @@ class ServerController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:server:form.html.twig', [
+        return $this->render('PuphpetBundle::server.html.twig', [
             'server' => $data,
         ]);
     }

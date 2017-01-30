@@ -1,0 +1,34 @@
+<input type="hidden" name="firewall[install]" value="1" />
+
+<div class="section-header">
+    <h1>Firewall</h1>
+    <p class="lead">Open select ports.</p>
+</div>
+
+<div class="field-container">
+    <div class="help-block col-xs-12">
+        Warning: This is for fairly advanced use! Try to only open ports as
+        you need them. The SSH port (usually <code>22</code> and defined in
+        <code>vagrantfile.ssh.port</code>) is automatically opened for you.
+    </div>
+
+    <div class="clearfix"></div>
+
+    {% for rule in firewall.rules %}
+        {% include 'PuphpetBundle:firewall:rule.html.twig' with {'rule': rule} %}
+    {% endfor %}
+
+    <a href="#" data-source-url="{{ path('puphpet.firewall.rule') }}"
+       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another firewall rule</a>
+
+    <div class="clearfix"></div>
+
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#locale"><span aria-hidden="true">&larr;</span> Locale</a></li>
+            <li class="next">
+                <a href="#cron">Cron Jobs <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+</div>

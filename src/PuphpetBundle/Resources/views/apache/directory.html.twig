@@ -1,0 +1,92 @@
+{% set uniqid = uniqid('avd_', true) %}
+
+{% set options = (directory.options is defined) ? directory.options : [] %}
+{% set allow_overrides = (directory.allow_override is defined) ? directory.allow_override : [] %}
+{% set requires = (directory.require is defined) ? directory.require : [] %}
+{% set files_matches = (directory.files_match is defined) ? directory.files_match : [] %}
+
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+    <fieldset>
+        <legend>Directory Block</legend>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Should be same as vhost Document Root, or nested inside.
+            </div>
+            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-path">Path</label>
+            <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-path"
+                   name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][path]"
+                   placeholder="/absolute/path/to/webroot" class="form-control"
+                   value="{{ directory.path }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Separated by comma.
+            </div>
+            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-options">Options</label>
+            <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-options"
+                    name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][options][]"
+                    multiple class="form-control select-tags-editable">
+                {% for option in options %}
+                    <option selected value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Separated by comma.
+            </div>
+            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-allow_override">Allow Override</label>
+            <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-allow_override"
+                    name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][allow_override][]"
+                    multiple class="form-control select-tags-editable">
+                {% for allow in allow_overrides %}
+                    <option selected value="{{ allow }}">{{ allow }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Separated by comma.
+            </div>
+            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-require">Require</label>
+            <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-require"
+                    name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][require][]"
+                    multiple class="form-control select-tags-editable">
+                {% for require in requires %}
+                    <option selected value="{{ require }}">{{ require }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                File must exist inside VM on initial <code>$ vagrant up</code>!
+                <a href="http://git.io/h7Zu" target="_blank">The custom fragment would be added here.</a>
+            </div>
+            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-custom_fragment">Directory-Level Custom Directives</label>
+            <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-custom_fragment"
+                   name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][custom_fragment]"
+                   placeholder="/path/to/file" class="form-control"
+                   value="{{ directory.custom_fragment }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% for filesMatch in files_matches %}
+            {% include 'PuphpetBundle:apache:filesMatch.html.twig' with {'directoryId': uniqid, 'filesMatch': filesMatch} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.apache.files_match', {'vhostId': vhostId, 'directoryId': uniqid}) }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add a directory filesmatch</a>
+
+    </fieldset>
+
+    <input type="hidden" value="{{ directory.provider }}"
+           name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][provider]" />
+</div>

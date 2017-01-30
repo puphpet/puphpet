@@ -22,7 +22,7 @@ class UsersGroupsController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:users-groups:form.html.twig', [
+        return $this->render('PuphpetBundle::users-groups.html.twig', [
             'ug' => $data,
         ]);
     }

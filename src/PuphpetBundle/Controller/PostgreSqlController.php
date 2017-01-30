@@ -22,7 +22,7 @@ class PostgreSqlController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:postgresql:form.html.twig', [
+        return $this->render('PuphpetBundle::postgresql.html.twig', [
             'postgresql' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class PostgreSqlController extends Controller
     {
         $data = $this->getExtensionData('postgresql');
 
-        return $this->render('PuphpetBundle:postgresql/sections:user.html.twig', [
+        return $this->render('PuphpetBundle:postgresql:user.html.twig', [
             'user' => $data['empty_user'],
         ]);
     }
@@ -54,7 +54,7 @@ class PostgreSqlController extends Controller
     {
         $data = $this->getExtensionData('postgresql');
 
-        return $this->render('PuphpetBundle:postgresql/sections:database.html.twig', [
+        return $this->render('PuphpetBundle:postgresql:database.html.twig', [
             'database' => $data['empty_database'],
         ]);
     }
@@ -70,7 +70,7 @@ class PostgreSqlController extends Controller
     {
         $data = $this->getExtensionData('postgresql');
 
-        return $this->render('PuphpetBundle:postgresql/sections:grant.html.twig', [
+        return $this->render('PuphpetBundle:postgresql:grant.html.twig', [
             'grant'                => $data['empty_grant'],
             'available_privileges' => $data['privileges'],
         ]);

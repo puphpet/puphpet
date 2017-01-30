@@ -21,7 +21,7 @@ class VagrantfileLocalController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:vagrantfile-local:form.html.twig', [
+        return $this->render('PuphpetBundle::vagrantfile-local.html.twig', [
             'data' => $data,
         ]);
     }
@@ -37,7 +37,7 @@ class VagrantfileLocalController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-local');
 
-        return $this->render('PuphpetBundle:vagrantfile-local/sections:machine.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-local:machine.html.twig', [
             'machine' => $data['empty_machine'],
         ]);
     }
@@ -54,7 +54,7 @@ class VagrantfileLocalController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-local');
 
-        return $this->render('PuphpetBundle:vagrantfile-local/sections:machine-forwarded-port.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-local:machine-forwarded-port.html.twig', [
             'mId'            => $mId,
             'forwarded_port' => $data['empty_forwarded_port'],
         ]);
@@ -71,7 +71,7 @@ class VagrantfileLocalController extends Controller
     {
         $data = $this->getExtensionData('vagrantfile-local');
 
-        return $this->render('PuphpetBundle:vagrantfile-local/sections:synced-folder.html.twig', [
+        return $this->render('PuphpetBundle:vagrantfile-local:synced-folder.html.twig', [
             'synced_folder' => $data['empty_synced_folder'],
         ]);
     }

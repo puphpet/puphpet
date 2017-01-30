@@ -1,0 +1,85 @@
+{% set uniqid = uniqid('vflm_', true) %}
+
+{% set forwarded_ports = (machine.network.forwarded_port is defined)
+    ? machine.network.forwarded_port : [] %}
+
+<div class="nested-block" id="{{ uniqid }}">
+    <a href="#" class="delete-block remove"
+       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+
+    <fieldset>
+        <legend>Machines</legend>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                This is the ID used within the <code>Vagrantfile</code>. It is only used
+                for your internal identification.
+            </div>
+            <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-id">Internal Identifier</label>
+            <input type="text" id="vagrantfile-vm-provider-local-machines-{{ uniqid }}-id"
+                   name="vagrantfile[vm][provider][local][machines][{{ uniqid }}][id]"
+                   placeholder="machine1" class="form-control"
+                   value="{{ machine.id }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                The hostname the machine should have.
+                <a href="http://stackoverflow.com/a/3523068/446766"
+                   target="_blank">This answer lists all valid characters.</a>
+            </div>
+            <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-hostname">Hostname</label>
+            <input type="text" id="vagrantfile-vm-provider-local-machines-{{ uniqid }}-hostname"
+                   name="vagrantfile[vm][provider][local][machines][{{ uniqid }}][hostname]"
+                   placeholder="machine1.puphpet" class="form-control"
+                   value="{{ machine.hostname }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                IP address to use for accessing the VM. This is the IP address you will
+                need to enter into your <code>hosts</code> file for every virtual hosts
+                you create later on.
+            </div>
+            <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-network-private_network">IP Address</label>
+            <input type="text" id="vagrantfile-vm-provider-local-machines-{{ uniqid }}-network-private_network"
+                   name="vagrantfile[vm][provider][local][machines][{{ uniqid }}][network][private_network]"
+                   placeholder="192.168.56.101" class="form-control local-ip-address"
+                   value="{{ machine.network.private_network }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Memory to assign to VM in megabytes (only integers)
+            </div>
+            <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-memory">Memory</label>
+            <input type="number" id="vagrantfile-vm-provider-local-machines-{{ uniqid }}-memory"
+                   name="vagrantfile[vm][provider][local][machines][{{ uniqid }}][memory]"
+                   placeholder="512" min="64" class="form-control"
+                   value="{{ machine.memory }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Number of CPUs to assign to VM (only integers)
+            </div>
+            <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-cpus">CPUs</label>
+            <input type="number" id="vagrantfile-vm-provider-local-machines-{{ uniqid }}-cpus"
+                   name="vagrantfile[vm][provider][local][machines][{{ uniqid }}][cpus]"
+                   placeholder="1" min="1" class="form-control"
+                   value="{{ machine.cpus }}" />
+        </div>
+
+        <div class="clearfix"></div>
+
+        {% for forwarded_port in forwarded_ports %}
+            {% include 'PuphpetBundle:vagrantfile-local:machine-forwarded-port.html.twig' with {
+                'forwarded_port': forwarded_port,
+                'mId': uniqid
+            } %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_local.machine_forwarded_port', {'mId': uniqid}) }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another port pair</a>
+    </fieldset>
+</div>

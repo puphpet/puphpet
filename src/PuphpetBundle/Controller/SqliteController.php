@@ -22,7 +22,7 @@ class SqliteController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:sqlite:form.html.twig', [
+        return $this->render('PuphpetBundle::sqlite.html.twig', [
             'sqlite' => $data,
         ]);
     }
@@ -38,7 +38,7 @@ class SqliteController extends Controller
     {
         $data = $this->getExtensionData('sqlite');
 
-        return $this->render('PuphpetBundle:sqlite/sections:user-database.html.twig', [
+        return $this->render('PuphpetBundle:sqlite:user-database.html.twig', [
             'database' => $data['empty_database'],
         ]);
     }

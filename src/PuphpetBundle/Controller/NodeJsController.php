@@ -22,7 +22,7 @@ class NodeJsController extends Controller
      */
     public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:nodejs:form.html.twig', [
+        return $this->render('PuphpetBundle::nodejs.html.twig', [
             'nodejs' => $data,
         ]);
     }
