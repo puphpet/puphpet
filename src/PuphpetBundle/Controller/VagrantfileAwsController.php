@@ -2,39 +2,62 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class VagrantfileAwsController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/vagrantfile-aws",
+     *     name="puphpet.vagrantfile_aws.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
         return $this->render('PuphpetBundle:vagrantfile-aws:form.html.twig', [
             'data' => $data,
         ]);
     }
 
-    public function machineAction()
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/vagrantfile-aws/machine",
+     *     name="puphpet.vagrantfile_aws.machine")
+     * @Method({"GET"})
+     */
+    public function machineAction(Request $request)
     {
-        return $this->render('PuphpetBundle:vagrantfile-aws/sections:machine.html.twig', [
-            'machine'        => $this->getData()['empty_machine'],
-            'instance_types' => $this->getData()['instance_types'],
-            'regions'        => $this->getData()['regions'],
-        ]);
-    }
+        $data = $this->getExtensionData('vagrantfile-aws');
 
-    public function syncedFolderAction()
-    {
-        return $this->render('PuphpetBundle:vagrantfile-aws/sections:synced-folder.html.twig', [
-            'synced_folder' => $this->getData()['empty_synced_folder'],
+        return $this->render('PuphpetBundle:vagrantfile-aws/sections:machine.html.twig', [
+            'machine'        => $data['empty_machine'],
+            'instance_types' => $data['instance_types'],
+            'regions'        => $data['regions'],
         ]);
     }
 
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/vagrantfile-aws/synced-folder",
+     *     name="puphpet.vagrantfile_aws.synced_folder")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function syncedFolderAction(Request $request)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('vagrantfile-aws');
+        $data = $this->getExtensionData('vagrantfile-aws');
+
+        return $this->render('PuphpetBundle:vagrantfile-aws/sections:synced-folder.html.twig', [
+            'synced_folder' => $data['empty_synced_folder'],
+        ]);
     }
 }

@@ -2,31 +2,45 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class RubyController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/ruby",
+     *     name="puphpet.ruby.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
         return $this->render('PuphpetBundle:ruby:form.html.twig', [
             'ruby' => $data,
         ]);
     }
 
-    public function addVersionAction()
-    {
-        return $this->render('PuphpetBundle:ruby/sections:version.html.twig', [
-            'selected_version'   => $this->getData()['empty_version'],
-            'available_versions' => $this->getData()['versions'],
-        ]);
-    }
-
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/ruby/add-version",
+     *     name="puphpet.ruby.add_version")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function addVersionAction(Request $request)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('ruby');
+        $data = $this->getExtensionData('ruby');
+
+        return $this->render('PuphpetBundle:ruby/sections:version.html.twig', [
+            'selected_version'   => $data['empty_version'],
+            'available_versions' => $data['versions'],
+        ]);
     }
 }

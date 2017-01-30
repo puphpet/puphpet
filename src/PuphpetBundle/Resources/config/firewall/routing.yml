@@ -1,7 +1,0 @@
-puphpet.firewall.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:Firewall:index }
-
-puphpet.firewall.rule:
-    path: /forwarded-port
-    defaults: { _controller: PuphpetBundle:Firewall:rule }

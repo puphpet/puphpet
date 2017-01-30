@@ -2,31 +2,44 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ElasticSearchController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/elastic-search",
+     *     name="puphpet.elastic_search.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
         return $this->render('PuphpetBundle:elastic-search:form.html.twig', [
             'elastic_search' => $data,
         ]);
     }
 
-    public function instanceAction()
-    {
-        return $this->render('PuphpetBundle:elastic-search/sections:instance.html.twig', [
-            'instance' => $this->getData()['empty_instance'],
-        ]);
-    }
-
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/elastic-search/instance",
+     *     name="puphpet.elastic_search.instance")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function instanceAction(Request $request)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('elastic-search');
+        $data = $this->getExtensionData('elastic-search');
+
+        return $this->render('PuphpetBundle:elastic-search/sections:instance.html.twig', [
+            'instance' => $data['empty_instance'],
+        ]);
     }
 }

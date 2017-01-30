@@ -1,7 +1,0 @@
-puphpet.mongodb.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:MongoDb:index }
-
-puphpet.mongodb.add_database:
-    path:  /add-database
-    defaults: { _controller: PuphpetBundle:MongoDb:addDatabase }

@@ -1,3 +1,0 @@
-puphpet.wpcli.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:WpCli:index }

@@ -1,7 +1,0 @@
-puphpet.sqlite.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:Sqlite:index }
-
-puphpet.sqlite.add_database:
-    path:  /add-database
-    defaults: { _controller: PuphpetBundle:Sqlite:addDatabase }

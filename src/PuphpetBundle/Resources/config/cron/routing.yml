@@ -1,7 +1,0 @@
-puphpet.cron.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:Cron:index }
-
-puphpet.cron.job:
-    path:  /job
-    defaults: { _controller: PuphpetBundle:Cron:job }

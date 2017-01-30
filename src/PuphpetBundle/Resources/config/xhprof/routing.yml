@@ -1,3 +1,0 @@
-puphpet.xhprof.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:Xhprof:index }

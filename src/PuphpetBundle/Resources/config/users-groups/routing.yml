@@ -1,3 +1,0 @@
-puphpet.users_groups.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:UsersGroups:index }

@@ -1,3 +1,0 @@
-puphpet.locale.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:Locale:index }
