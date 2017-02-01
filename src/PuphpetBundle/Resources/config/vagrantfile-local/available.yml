@@ -52,7 +52,6 @@ boxes:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
     -
         url: puphpet/centos7-x64
@@ -63,7 +62,6 @@ boxes:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
     -
         url: puphpet/ubuntu1404-x64
@@ -74,7 +72,6 @@ boxes:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
     -
         url: puphpet/ubuntu1604-x64
@@ -85,7 +82,6 @@ boxes:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
     -
         url: puphpet/ubuntu1604-i386
@@ -96,7 +92,6 @@ boxes:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
 
 empty_machine:

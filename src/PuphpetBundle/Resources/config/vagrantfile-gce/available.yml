@@ -6,7 +6,6 @@ images:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
     -
         image: ubuntu-1604-xenial-v20161013
@@ -15,7 +14,6 @@ images:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
 
 machine_types:

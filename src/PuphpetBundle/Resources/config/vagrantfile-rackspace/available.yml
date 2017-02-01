@@ -6,7 +6,6 @@ images:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
     -
         image: 03cc6a34-29fe-4b26-a20f-01178c9eff28
@@ -15,7 +14,6 @@ images:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
 
 sizes:

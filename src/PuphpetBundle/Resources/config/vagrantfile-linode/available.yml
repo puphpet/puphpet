@@ -6,7 +6,6 @@ distributions:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
 
         distribution: Ubuntu 16.04 LTS
@@ -15,7 +14,6 @@ distributions:
             - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
 
 plans:
