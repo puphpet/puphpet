@@ -64,23 +64,20 @@ class ApacheController extends Controller
     /**
      * @param Request $request
      * @param string  $vhostId
-     * @param string  $directoryId
      * @return Response
-     * @Route("/extension/apache/files-match/{vhostId}/{directoryId}",
+     * @Route("/extension/apache/files-match/{vhostId}",
      *     name="puphpet.apache.files_match")
      * @Method({"GET"})
      */
     public function filesMatchAction(
         Request $request,
-        string $vhostId,
-        string $directoryId
+        string $vhostId
     ) {
         $data = $this->getExtensionData('apache');
 
         return $this->render('PuphpetBundle:apache:filesMatch.html.twig', [
-            'vhostId'     => $vhostId,
-            'directoryId' => $directoryId,
-            'filesMatch'  => $data['empty_files_match'],
+            'vhostId'    => $vhostId,
+            'filesMatch' => $data['empty_files_match'],
         ]);
     }
 }

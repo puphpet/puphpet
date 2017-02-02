@@ -3,7 +3,6 @@
 {% set options = (directory.options is defined) ? directory.options : [] %}
 {% set allow_overrides = (directory.allow_override is defined) ? directory.allow_override : [] %}
 {% set requires = (directory.require is defined) ? directory.require : [] %}
-{% set files_matches = (directory.files_match is defined) ? directory.files_match : [] %}
 
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
@@ -20,6 +19,17 @@
                    name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][path]"
                    placeholder="/absolute/path/to/webroot" class="form-control"
                    value="{{ directory.path }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                Default index file: index.php, index.html, app.php, etc
+            </div>
+            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-directoryindex">Directory Index</label>
+            <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-directoryindex"
+                   name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][directoryindex]"
+                   placeholder="app.php" class="form-control"
+                   value="{{ directory.directoryindex }}" />
         </div>
 
         <div class="form-group col-xs-12">
@@ -67,7 +77,8 @@
         <div class="form-group col-xs-12">
             <div class="help-text">
                 File must exist inside VM on initial <code>$ vagrant up</code>!
-                <a href="http://git.io/h7Zu" target="_blank">The custom fragment would be added here.</a>
+                <a href="https://gist.github.com/jtreminio/bcb78ccb97978a2cbd9e#file-gistfile1-apacheconf-L20"
+                   target="_blank">The custom fragment would be added here.</a>
             </div>
             <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-custom_fragment">Directory-Level Custom Directives</label>
             <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-custom_fragment"
@@ -77,13 +88,6 @@
         </div>
 
         <div class="clearfix"></div>
-
-        {% for filesMatch in files_matches %}
-            {% include 'PuphpetBundle:apache:filesMatch.html.twig' with {'directoryId': uniqid, 'filesMatch': filesMatch} %}
-        {% endfor %}
-
-        <a href="#" data-source-url="{{ path('puphpet.apache.files_match', {'vhostId': vhostId, 'directoryId': uniqid}) }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add a directory filesmatch</a>
 
     </fieldset>
 

@@ -5,7 +5,7 @@ mod 'puppetlabs/stdlib',
     :ref => '4.12.0'
 mod 'puppetlabs/apache',
     :git => 'https://github.com/puppetlabs/puppetlabs-apache.git',
-    :ref => '1.10.0'
+    :ref => '1.11.0'
 mod 'puppetlabs/apt',
     :git => 'https://github.com/puppetlabs/puppetlabs-apt.git',
     :ref => '2.3.0'
@@ -71,7 +71,7 @@ mod 'example42/puppi',
     :ref => 'v2.1.13'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '41673b8258517bdb920bcf992eefce99d2a3544a'
+    :ref => '00ff14dc76b29ac6bdca083ddaf2f23f0f119338'
 mod 'daenney/pyenv',
     :git => 'https://github.com/puphpet/puppet-pyenv.git',
     :ref => '062ae728ae0ddcb76d6d60c3c268fc13b022106e'

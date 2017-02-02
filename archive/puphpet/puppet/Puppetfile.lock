@@ -123,8 +123,8 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: 41673b8258517bdb920bcf992eefce99d2a3544a
-  sha: 41673b8258517bdb920bcf992eefce99d2a3544a
+  ref: 00ff14dc76b29ac6bdca083ddaf2f23f0f119338
+  sha: 00ff14dc76b29ac6bdca083ddaf2f23f0f119338
   specs:
     puphpet-puphpet (0.0.1)
 
@@ -147,10 +147,10 @@ GIT
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-apache.git
-  ref: 1.10.0
-  sha: 410309f5facd0df7d836ea66c27ca9514031b6e3
+  ref: 1.11.0
+  sha: 91bed86590382beb85707025fb7570284a5965a1
   specs:
-    puppetlabs-apache (1.10.0)
+    puppetlabs-apache (1.11.0)
       puppetlabs-concat (< 3.0.0, >= 1.1.1)
       puppetlabs-stdlib (< 5.0.0, >= 2.4.0)
 

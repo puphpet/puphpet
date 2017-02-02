@@ -1,15 +1,15 @@
 {% set uniqid = uniqid('av_', true) %}
 
 {% set serveraliases = (vhost.serveraliases is defined) ? vhost.serveraliases : [] %}
-{% set setenvs = (vhost.setenv is defined) ? vhost.setenv : [] %}
-{% set setenvifs = (vhost.setenvif is defined) ? vhost.setenvif : [] %}
 {% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
 {% set ssl_cert = (vhost.ssl_cert is defined) ? vhost.ssl_cert : '' %}
 {% set ssl_key = (vhost.ssl_key is defined) ? vhost.ssl_key : '' %}
 {% set ssl_certs_dir = (vhost.ssl_certs_dir is defined) ? vhost.ssl_certs_dir : '' %}
 {% set ssl_protocol = (vhost.ssl_protocol is defined) ? vhost.ssl_protocol : '' %}
 {% set ssl_cipher = (vhost.ssl_cipher is defined) ? vhost.ssl_cipher : '' %}
+{% set setenvifs = (vhost.setenvif is defined) ? vhost.setenvif : [] %}
 {% set directories = (vhost.directories is defined) ? vhost.directories : [] %}
+{% set files_matches = (vhost.files_match is defined) ? vhost.files_match : [] %}
 
 <div class="nested-block" id="{{ uniqid }}">
     <a href="#" class="delete-block remove"
@@ -71,20 +71,6 @@
             <div class="help-text">
                 <code>name value</code>, separated by comma.
             </div>
-            <label for="apache-vhosts-{{ uniqid }}-setenv">Environment Variables</label>
-            <select id="apache-vhosts-{{ uniqid }}-setenv"
-                    name="apache[vhosts][{{ uniqid }}][setenv][]"
-                    multiple class="form-control select-tags-editable">
-                {% for setenv in setenvs %}
-                    <option selected value="{{ setenv }}">{{ setenv }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <code>name value</code>, separated by comma.
-            </div>
             <label for="apache-vhosts-{{ uniqid }}-setenvif">SetEnvIf</label>
             <select id="apache-vhosts-{{ uniqid }}-setenvif"
                     name="apache[vhosts][{{ uniqid }}][setenvif][]"
@@ -98,7 +84,7 @@
         <div class="form-group col-xs-12">
             <div class="help-text">
                 File must exist inside VM on initial <code>$ vagrant up</code>!
-                <a href="http://git.io/h7tY"
+                <a href="https://gist.github.com/jtreminio/bcb78ccb97978a2cbd9e#file-gistfile1-apacheconf-L48"
                    target="_blank">The custom fragment would be added here.</a>
             </div>
             <label for="apache-vhosts-{{ uniqid }}-custom_fragment">Virtual Host-Level Custom Directives</label>
@@ -133,8 +119,6 @@
                 </span>
             </label>
         </div>
-
-        <div class="clearfix"></div>
 
         <div class="nested-block {% if not ssl %}hidden{% endif %}" id="apache-vhosts-{{ uniqid }}-ssl_options">
             <fieldset>
@@ -290,6 +274,13 @@
 
         <a href="#" data-source-url="{{ path('puphpet.apache.directory', {'vhostId': uniqid}) }}"
            class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add a vhost directory</a>
+
+        {% for filesMatch in files_matches %}
+            {% include 'PuphpetBundle:apache:filesMatch.html.twig' with {'vhostId': uniqid, 'filesMatch': filesMatch} %}
+        {% endfor %}
+
+        <a href="#" data-source-url="{{ path('puphpet.apache.files_match', {'vhostId': uniqid}) }}"
+           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add a vhost filesmatch</a>
 
         <div class="clearfix"></div>
     </fieldset>
