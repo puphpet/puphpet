@@ -33,43 +33,71 @@ vhosts:
         rewrites: []
         locations:
             -
-                www_root: ~
+                www_root: /var/www/awesome/web
                 location: '/'
                 autoindex: 0
                 internal: false
                 index_files:
                     - index.html
-                    - index.htm
+                    - app.php
                     - index.php
                 try_files:
                     - '$uri'
                     - '$uri/'
+                    - '/app.php$is_args$args'
                     - '/index.php$is_args$args'
                 fastcgi: ~
                 fastcgi_index: ~
                 fastcgi_split_path: ~
                 fast_cgi_params_extra: []
-                set: []
+                set:
+                    - '$path_info $fastcgi_path_info'
                 proxy: ~
                 proxy_redirect: ~
                 proxy_set_header: []
                 rewrites: []
             -
-                www_root: ''
-                location: '~ \.php$'
+                www_root: /var/www/awesome/web
+                location: '~ ^/(app_dev|config)\.php(/|$)'
                 autoindex: 0
                 internal: false
-                index_files: [ ]
+                index_files:
+                    - app_dev.php
                 try_files:
                     - '$uri'
                     - '$uri/'
-                    - '/index.php$is_args$args'
+                    - '/app_dev.php$is_args$args'
                 fastcgi: 127.0.0.1:9000
-                fastcgi_index: index.php
+                fastcgi_index: app_dev.php
                 fastcgi_split_path: '^(.+\.php)(/.*)$'
                 fast_cgi_params_extra:
-                    - 'SCRIPT_FILENAME $request_filename'
+                    - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
                     - 'APP_ENV dev'
+                set:
+                    - '$path_info $fastcgi_path_info'
+                proxy: ~
+                proxy_redirect: ~
+                proxy_set_header: []
+                rewrites: []
+            -
+                www_root: /var/www/awesome/web
+                location: '~ ^/(app)\.php(/|$)'
+                autoindex: 0
+                internal: false
+                index_files:
+                    - app.php
+                    - index.php
+                try_files:
+                    - '$uri'
+                    - '$uri/'
+                    - '/app.php$is_args$args'
+                    - '/index.php$is_args$args'
+                fastcgi: 127.0.0.1:9000
+                fastcgi_index: app.php
+                fastcgi_split_path: '^(.+\.php)(/.*)$'
+                fast_cgi_params_extra:
+                    - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
+                    - 'APP_ENV prod'
                 set:
                     - '$path_info $fastcgi_path_info'
                 proxy: ~
