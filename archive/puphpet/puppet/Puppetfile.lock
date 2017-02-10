@@ -123,8 +123,8 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: 8d4eb19f82fb88b417aa4e41a1424f8121e57c68
-  sha: 8d4eb19f82fb88b417aa4e41a1424f8121e57c68
+  ref: 62a084216c07514f980501f0e7c79dc7f028f6c0
+  sha: 62a084216c07514f980501f0e7c79dc7f028f6c0
   specs:
     puphpet-puphpet (0.0.1)
 
@@ -203,8 +203,8 @@ GIT
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-mysql.git
-  ref: 81c4fed35e65e285e334b30998b4e3eba662534c
-  sha: 81c4fed35e65e285e334b30998b4e3eba662534c
+  ref: 3.10.0
+  sha: 11afc2b7965d491abcc8e8aad31d70fbc82e0b3d
   specs:
     puppetlabs-mysql (3.9.0)
       puppet-staging (< 3.0.0, >= 1.0.1)
