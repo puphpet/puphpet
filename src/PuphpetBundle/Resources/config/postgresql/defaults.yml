@@ -12,5 +12,3 @@ databases: []
 users: []
 
 grants: []
-
-adminer: 0
