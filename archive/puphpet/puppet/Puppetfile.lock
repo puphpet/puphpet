@@ -15,7 +15,7 @@ FORGE
 GIT
   remote: https://github.com/arioch/puppet-redis.git
   ref: 1.2.3
-  sha: 6abc4f4ffbe718ed964a9672b3e75f3a88fc916d
+  sha: 05c9d2d8893682f7355f82faa2faf8d08783fab5
   specs:
     arioch-redis (1.2.3)
       puppetlabs-apt (< 3.0.0, >= 2.0.1)
@@ -123,8 +123,8 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: 27761db32cb375e07756df5451b2ffdbda6f2841
-  sha: 27761db32cb375e07756df5451b2ffdbda6f2841
+  ref: 8d4eb19f82fb88b417aa4e41a1424f8121e57c68
+  sha: 8d4eb19f82fb88b417aa4e41a1424f8121e57c68
   specs:
     puphpet-puphpet (0.0.1)
 
