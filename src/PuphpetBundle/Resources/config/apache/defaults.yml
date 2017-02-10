@@ -22,7 +22,7 @@ vhosts:
             -
                 provider: directory
                 path: /var/www/awesome/web
-                directoryindex: app.dev
+                directoryindex: index.php app.dev
                 options:
                     - Indexes
                     - FollowSymlinks
@@ -42,10 +42,16 @@ vhosts:
                 custom_fragment: ''
             -
                 provider: filesmatch
-                path: '(app)\.php$'
+                path: 'app\.php$'
                 sethandler: 'proxy:fcgi://127.0.0.1:9000'
                 setenv:
                     - APP_ENV prod
+                custom_fragment: ''
+            -
+                provider: filesmatch
+                path: '\.php$'
+                sethandler: 'proxy:fcgi://127.0.0.1:9000'
+                setenv: []
                 custom_fragment: ''
         ssl: 0
         ssl_cert: ~

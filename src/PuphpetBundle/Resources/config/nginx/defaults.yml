@@ -34,22 +34,21 @@ vhosts:
         locations:
             -
                 www_root: /var/www/awesome/web
-                location: '/'
+                location: /
                 autoindex: 0
                 internal: false
                 index_files:
-                    - index.html
-                    - app.php
                     - index.php
                 try_files:
                     - '$uri'
                     - '$uri/'
-                    - '/app.php$is_args$args'
                     - '/index.php$is_args$args'
-                fastcgi: ~
-                fastcgi_index: ~
-                fastcgi_split_path: ~
-                fast_cgi_params_extra: []
+                    - '/app.php$is_args$args'
+                fastcgi: 127.0.0.1:9000
+                fastcgi_index: index.php
+                fastcgi_split_path: '^(.+\.php)(/.*)$'
+                fast_cgi_params_extra:
+                    - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
                 set:
                     - '$path_info $fastcgi_path_info'
                 proxy: ~
@@ -81,17 +80,15 @@ vhosts:
                 rewrites: []
             -
                 www_root: /var/www/awesome/web
-                location: '~ ^/(app)\.php(/|$)'
+                location: '~ ^/app\.php(/|$)'
                 autoindex: 0
                 internal: false
                 index_files:
                     - app.php
-                    - index.php
                 try_files:
                     - '$uri'
                     - '$uri/'
                     - '/app.php$is_args$args'
-                    - '/index.php$is_args$args'
                 fastcgi: 127.0.0.1:9000
                 fastcgi_index: app.php
                 fastcgi_split_path: '^(.+\.php)(/.*)$'
@@ -106,7 +103,7 @@ vhosts:
                 rewrites: []
             -
                 www_root: /var/www/awesome/web
-                location: '~ \.php(/|$)'
+                location: '~ ^/index\.php(/|$)'
                 autoindex: 0
                 internal: false
                 index_files:
