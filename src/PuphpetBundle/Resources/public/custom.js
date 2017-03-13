@@ -318,7 +318,6 @@ PUPHPET.uploadConfig = function() {
             return true;
         }
 
-
         submitForm(e.originalEvent.clipboardData.getData('text/plain'));
     });
 
@@ -564,6 +563,16 @@ PUPHPET.menuActive = function() {
     });
 };
 
+PUPHPET.disableOnUncheck = function() {
+    $('[data-disable-on-uncheck]').each(function() {
+        if ($(this).is(':checked')) {
+            return true;
+        }
+
+        PUPHPET.disableFormElements($(this.getAttribute('data-target')));
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.runSelectize(null);
     PUPHPET.selectizeAddClickedToElement();
@@ -579,4 +588,5 @@ $(document).ready(function() {
     PUPHPET.uploadConfig();
     PUPHPET.disableEnterSubmit();
     PUPHPET.yamlConfigDownload();
+    PUPHPET.disableOnUncheck();
 });
