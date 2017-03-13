@@ -1,0 +1,55 @@
+.cm-navbar
+{
+
+    & *::-webkit-scrollbar{
+        display: none!important;
+    }
+
+
+    .nav-tabs{
+	table-layout:fixed;
+	border:0!important;
+	overflow-x:scroll;
+	 -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-tabs > li{
+	float:none;
+	display:table-cell;
+    }
+
+    .nav-tabs > li{
+	float:none;
+	display:table-cell;
+    }
+
+    .nav-tabs > li > a{
+	border-radius:0;
+	margin:0;
+	border:0!important;
+	padding:0 @grid-gutter-width;
+	line-height:@navbar-height;
+	font-size:13px;
+	white-space:nowrap;
+	text-transform:uppercase;
+	font-weight:bold;
+	background:#fff!important;
+	color:@gray-light;
+	&:hover{
+            color:@gray-dark;
+	}
+    }
+
+    .nav-tabs > li.active > a{
+	.box-shadow(inset 0 -@cm-underliner-height 0 @brand-primary);
+	color:@gray-dark;
+	background:#fff;
+    }
+
+}
+
+.nav-tabs-container{
+    display:block;
+    height:@navbar-height;
+    overflow:hidden;
+}

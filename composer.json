@@ -19,7 +19,9 @@
         "symfony/assetic-bundle": "~v2.8",
         "symfony/monolog-bundle": "~v2.10",
         "symfony/symfony": "~v2.8",
-        "twig/extensions": "~1.3"
+        "twig/extensions": "~1.3",
+        "leafo/scssphp": "v0.6.6",
+        "oyejorge/less.php": "~1.7.0.9"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "~v3.0",

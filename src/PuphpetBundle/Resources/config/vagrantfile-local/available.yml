@@ -2,18 +2,20 @@ virtualizers:
     -
         name: virtualbox
         long_name: VirtualBox
-        description: >
-            Free! Not as performant as VMWare. Free!
+        description: |
+            Free! Not as performant as VMWare or Parallels, but it is free!
             <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download Virtualbox here</a>.
+        description_extra: ~
         os_support: Windows, OS X &amp; Linux
         performance: 1
         base_ip: 192.168.56
     -
         name: vmware_fusion
         long_name: VMWare Fusion
-        description: >
+        description: |
             More performant than VirtualBox.
             <a href="http://send.onenetworkdirect.net/z/33484/CD207605/" target="_blank">Requires purchase of VMWare Fusion</a>
+        description_extra: |
             (affiliate link - help support this free service)
             and purchase of <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Fusion Plugin</a>.
         os_support: OS X only
@@ -22,9 +24,10 @@ virtualizers:
     -
         name: vmware_workstation
         long_name: VMWare Workstation
-        description: >
+        description: |
             More performant than VirtualBox.
             <a href="http://send.onenetworkdirect.net/z/33485/CD207605/" target="_blank">Requires purchase of VMWare Workstation</a>
+        description_extra: |
             (affiliate link - help support this free service)
             and purchase of <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Workstation Plugin</a>.
         os_support: Windows &amp; Linux
@@ -33,9 +36,10 @@ virtualizers:
     -
         name: parallels
         long_name: Parallels Desktop
-        description: >
+        description: |
             More performant than VirtualBox.
             <a href="http://www.tkqlhce.com/click-7569625-11516363" target="_blank">Requires purchase of Parallels Desktop 9</a>
+        description_extra: |
             (affiliate link - help support this free service)
             and installing the free <a href="https://github.com/Parallels/vagrant-parallels" target="_blank">Vagrant Parallels Plugin</a>.
         os_support: OS X only
@@ -44,55 +48,20 @@ virtualizers:
 
 boxes:
     -
-        url: puphpet/centos65-x64
-        os: centos
-        short_name: puphpet/centos65-x64
-        long_name: CentOS 6 x64
-        php_versions:
-            - 7.1
-            - 7.0
-            - 5.6
-            - HHVM
+        box: puphpet/centos65-x64
+        name: CentOS 6 x64
     -
-        url: puphpet/centos7-x64
-        os: centos
-        short_name: puphpet/centos7-x64
-        long_name: CentOS 7 x64
-        php_versions:
-            - 7.1
-            - 7.0
-            - 5.6
-            - HHVM
+        box: puphpet/centos7-x64
+        name: CentOS 7 x64
     -
-        url: puphpet/ubuntu1404-x64
-        os: ubuntu
-        short_name: puphpet/ubuntu1404-x64
-        long_name: Ubuntu Trusty 14.04 LTS x64
-        php_versions:
-            - 7.1
-            - 7.0
-            - 5.6
-            - HHVM
+        box: puphpet/ubuntu1404-x64
+        name: Ubuntu Trusty 14.04 LTS x64
     -
-        url: puphpet/ubuntu1604-x64
-        os: ubuntu
-        short_name: puphpet/ubuntu1604-x64
-        long_name: Ubuntu Xenial 16.04 LTS x64
-        php_versions:
-            - 7.1
-            - 7.0
-            - 5.6
-            - HHVM
+        box: puphpet/ubuntu1604-x64
+        name: Ubuntu Xenial 16.04 LTS x64
     -
-        url: puphpet/ubuntu1604-i386
-        os: ubuntu
-        short_name: puphpet/ubuntu1604-i386
-        long_name: Ubuntu Xenial 16.04 LTS i386
-        php_versions:
-            - 7.1
-            - 7.0
-            - 5.6
-            - HHVM
+        box: puphpet/ubuntu1604-i386
+        name: Ubuntu Xenial 16.04 LTS i386
 
 empty_machine:
     id: ~

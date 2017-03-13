@@ -1,114 +1,84 @@
-<aside>
-    <div id="sidebar" role="tabpanel">
-        <ul class="sidebar-menu" role="tablist">
-            <li class="sub-menu">
-                <a href="#">
-                    <span>Deploy Target</span>
-                    <span class="menu-arrow fa fa-angle-down"></span>
-                </a>
-                <ul class="sub open">
-                    <li><a href="#vagrantfile-local" data-toggle="tab"> Locally </a></li>
-                    <li><a href="#vagrantfile-rackspace" data-toggle="tab"> Rackspace </a></li>
-                    <li><a href="#vagrantfile-digitalocean" data-toggle="tab"> Digital Ocean </a></li>
-                    <li><a href="#vagrantfile-linode" data-toggle="tab"> Linode </a></li>
-                    <li><a href="#vagrantfile-aws" data-toggle="tab"> Amazon </a></li>
-                    <li><a href="#vagrantfile-gce" data-toggle="tab"> Google </a></li>
+<div id="cm-menu">
+    <nav class="cm-navbar cm-navbar-primary">
+        <div class="cm-flex"><a href="#frontpage" data-toggle="tab" data-group="menu-link" class="cm-logo">PuPHPet</a></div>
+    </nav>
+    <div id="cm-menu-content">
+        <div id="cm-menu-items-wrapper">
+            <div id="cm-menu-scroller">
+                <ul class="cm-menu-items">
+                    <li class="cm-submenu pre-open">
+                        <a>Deploy Target <span class="caret"></span></a>
+                        <ul>
+                            <li><a href="#vagrantfile-local" data-toggle="tab" data-group="menu-link">Locally</a></li>
+                            <li><a href="#vagrantfile-rackspace" data-toggle="tab" data-group="menu-link">Rackspace</a></li>
+                            <li><a href="#vagrantfile-digitalocean" data-toggle="tab" data-group="menu-link">Digital Ocean</a></li>
+                            <li><a href="#vagrantfile-linode" data-toggle="tab" data-group="menu-link">Linode</a></li>
+                            <li><a href="#vagrantfile-aws" data-toggle="tab" data-group="menu-link">Amazon</a></li>
+                            <li><a href="#vagrantfile-gce" data-toggle="tab" data-group="menu-link">Google</a></li>
+                        </ul>
+                    </li>
+                    <li class="cm-submenu">
+                        <a>System <span class="caret"></span></a>
+                        <ul>
+                            <li><a href="#system-packages" data-toggle="tab" data-group="menu-link">Packages</a></li>
+                            <li><a href="#users-groups" data-toggle="tab" data-group="menu-link">Users &amp; Groups</a></li>
+                            <li><a href="#locale" data-toggle="tab" data-group="menu-link">Locale/Timezone</a></li>
+                            <li><a href="#firewall" data-toggle="tab" data-group="menu-link">Firewall Rules</a></li>
+                            <li><a href="#cron" data-toggle="tab" data-group="menu-link">Cron Jobs</a></li>
+                            <li><a href="#custom-files" data-toggle="tab" data-group="menu-link">Custom Files</a></li>
+                        </ul>
+                    </li>
+                    <li class="cm-submenu">
+                        <a>Web Servers <span class="caret"></span></a>
+                        <ul>
+                            <li><a href="#nginx" data-toggle="tab" data-group="menu-link">Nginx</a></li>
+                            <li><a href="#apache" data-toggle="tab" data-group="menu-link">Apache</a></li>
+                            <li><a href="#letsencrypt" data-toggle="tab" data-group="menu-link">Let's Encrypt</a></li>
+                        </ul>
+                    </li>
+                    <li class="cm-submenu">
+                        <a>Languages <span class="caret"></span></a>
+                        <ul>
+                            <li><a href="#php" data-toggle="tab" data-group="menu-link">PHP</a></li>
+                            <li><a href="#ruby" data-toggle="tab" data-group="menu-link">Ruby</a></li>
+                            <li><a href="#python" data-toggle="tab" data-group="menu-link">Python</a></li>
+                            <li><a href="#nodejs" data-toggle="tab" data-group="menu-link">Node.js</a></li>
+                        </ul>
+                    </li>
+                    <li class="cm-submenu">
+                        <a>Databases <span class="caret"></span></a>
+                        <ul>
+                            <li><a href="#mariadb" data-toggle="tab" data-group="menu-link">MariaDB</a></li>
+                            <li><a href="#mysql" data-toggle="tab" data-group="menu-link">MySQL</a></li>
+                            <li><a href="#postgresql" data-toggle="tab" data-group="menu-link">PostgreSQL</a></li>
+                            <li><a href="#mongodb" data-toggle="tab" data-group="menu-link">MongoDB</a></li>
+                            <li><a href="#redis" data-toggle="tab" data-group="menu-link">Redis</a></li>
+                            <li><a href="#sqlite" data-toggle="tab" data-group="menu-link">SQLite</a></li>
+                        </ul>
+                    </li>
+                    <li class="cm-submenu">
+                        <a>Mail Tools <span class="caret"></span></a>
+                        <ul>
+                            <li><a href="#mailhog" data-toggle="tab" data-group="menu-link">MailHog</a></li>
+                        </ul>
+                    </li>
+                    <li class="cm-submenu">
+                        <a>Work Queues <span class="caret"></span></a>
+                        <ul>
+                            <li><a href="#beanstalkd" data-toggle="tab" data-group="menu-link">Beanstalkd</a></li>
+                            <li><a href="#rabbitmq" data-toggle="tab" data-group="menu-link">RabbitMQ</a></li>
+                        </ul>
+                    </li>
+                    <li class="cm-submenu">
+                        <a>Search Servers <span class="caret"></span></a>
+                        <ul>
+                            <li><a href="#elastic-search" data-toggle="tab" data-group="menu-link">Elastic Search</a></li>
+                            <li><a href="#solr" data-toggle="tab" data-group="menu-link">Apache Solr</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#create" data-toggle="tab" data-group="menu-link">Create Archive</a></li>
                 </ul>
-            </li>
-
-            <li class="sub-menu">
-                <a href="#">
-                    <span>System</span>
-                    <span class="menu-arrow fa fa-angle-right"></span>
-                </a>
-                <ul class="sub">
-                    <li><a href="#system-packages" data-toggle="tab"> Packages </a></li>
-                    <li><a href="#users-groups" data-toggle="tab"> User &amp; Groups </a></li>
-                    <li><a href="#locale" data-toggle="tab"> Locale/Timezone </a></li>
-                    <li><a href="#firewall" data-toggle="tab"> Firewall Rules </a></li>
-                    <li><a href="#cron" data-toggle="tab"> Cron Jobs </a></li>
-                    <li><a href="#custom-files" data-toggle="tab"> Custom Files </a></li>
-                </ul>
-            </li>
-
-            <li class="sub-menu">
-                <a href="#">
-                    <span>Web Servers</span>
-                    <span class="menu-arrow fa fa-angle-right"></span>
-                </a>
-                <ul class="sub">
-                    <li><a href="#nginx" data-toggle="tab"> Nginx </a></li>
-                    <li><a href="#apache" data-toggle="tab"> Apache </a></li>
-                    <li><a href="#letsencrypt" data-toggle="tab"> Let's Encrypt </a></li>
-                </ul>
-            </li>
-
-            <li class="sub-menu">
-                <a href="#">
-                    <span>Languages</span>
-                    <span class="menu-arrow fa fa-angle-right"></span>
-                </a>
-                <ul class="sub">
-                    <li><a href="#php" data-toggle="tab"> PHP </a></li>
-                    <li><a href="#ruby" data-toggle="tab"> Ruby </a></li>
-                    <li><a href="#python" data-toggle="tab"> Python </a></li>
-                    <li><a href="#nodejs" data-toggle="tab"> Node.js </a></li>
-                    <li><a href="#hhvm" data-toggle="tab"> HHVM </a></li>
-                </ul>
-            </li>
-
-            <li class="sub-menu">
-                <a href="#">
-                    <span>Databases</span>
-                    <span class="menu-arrow fa fa-angle-right"></span>
-                </a>
-                <ul class="sub">
-                    <li><a href="#mariadb" data-toggle="tab"> MariaDB </a></li>
-                    <li><a href="#mysql" data-toggle="tab"> MySQL </a></li>
-                    <li><a href="#postgresql" data-toggle="tab"> PostgreSQL </a></li>
-                    <li><a href="#mongodb" data-toggle="tab"> MongoDB </a></li>
-                    <li><a href="#redis" data-toggle="tab"> Redis </a></li>
-                    <li><a href="#sqlite" data-toggle="tab"> SQLite </a></li>
-                </ul>
-            </li>
-
-            <li class="sub-menu">
-                <a href="#">
-                    <span>Mail Tools</span>
-                    <span class="menu-arrow fa fa-angle-right"></span>
-                </a>
-                <ul class="sub">
-                    <li><a href="#mailhog" data-toggle="tab"> MailHog </a></li>
-                </ul>
-            </li>
-
-            <li class="sub-menu">
-                <a href="#">
-                    <span>Work Queues</span>
-                    <span class="menu-arrow fa fa-angle-right"></span>
-                </a>
-                <ul class="sub">
-                    <li><a href="#beanstalkd" data-toggle="tab"> Beanstalkd </a></li>
-                    <li><a href="#rabbitmq" data-toggle="tab"> RabbitMQ </a></li>
-                </ul>
-            </li>
-
-            <li class="sub-menu">
-                <a href="#">
-                    <span>Search Servers</span>
-                    <span class="menu-arrow fa fa-angle-right"></span>
-                </a>
-                <ul class="sub">
-                    <li><a href="#elastic-search" data-toggle="tab"> Elastic Search </a></li>
-                    <li><a href="#solr" data-toggle="tab"> Apache Solr </a></li>
-                </ul>
-            </li>
-
-            <li class="sub-menu">
-                <a href="#create" data-toggle="tab">
-                    <span>Create Archive</span>
-                </a>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
-</aside>
+</div>

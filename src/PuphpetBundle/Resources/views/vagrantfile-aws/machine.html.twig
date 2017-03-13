@@ -1,161 +1,198 @@
-{% set uniqid = uniqid('vfawsm_', true) %}
+{% set uniqid = uniqid ?? uniqid('vfawsm_', true) %}
 
-<div class="nested-block" id="{{ uniqid }}">
-    <a href="#" class="delete-block remove"
-       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
-    <fieldset>
-        <legend>Machines</legend>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                This is the ID used within the <code>Vagrantfile</code>. It is only used
-                for your internal identification.
-            </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-id">Internal Identifier</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-id"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][id]"
-                   placeholder="aws1" class="form-control"
-                   value="{{ machine.id }}" />
+<div id="aws-machine-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-id">
+            Internal Identifier
+        </label>
+        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-id"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][id]"
+               placeholder="aws1" class="form-control"
+               value="{{ machine.id }}" />
+        <div class="help-block">
+            This is the ID used within the <code>Vagrantfile</code>. It is only used
+            for your internal identification.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                The hostname the machine should have.
-                <a href="http://stackoverflow.com/a/3523068/446766"
-                   target="_blank">This answer lists all valid characters.</a>
-            </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-hostname">Hostname</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-hostname"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][hostname]"
-                   placeholder="aws1.puphpet" class="form-control"
-                   value="{{ machine.hostname }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-hostname">
+            Hostname
+        </label>
+        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-hostname"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][hostname]"
+               placeholder="aws1.puphpet" class="form-control"
+               value="{{ machine.hostname }}" />
+        <div class="help-block">
+            The hostname the machine should have.
+            <a href="http://stackoverflow.com/a/3523068/446766"
+               target="_blank">This answer lists all valid characters.</a>
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                The Key Pair name from
-                <a href="https://console.aws.amazon.com/ec2/v2/home?#KeyPairs:" target="_blank">here</a>.
-            </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-keypair_name">EC2 Key Pair Name</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-keypair_name"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][keypair_name]"
-                   class="form-control" placeholder="EC2 KEY PAIR NAME"
-                   value="{{ machine.keypair_name }}" />
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-keypair_name">
+            EC2 Key Pair Name
+        </label>
+        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-keypair_name"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][keypair_name]"
+               placeholder="EC2 KEY PAIR NAME" class="form-control"
+               value="{{ machine.keypair_name }}" />
+        <div class="help-block">
+            The Key Pair name from
+            <a href="https://console.aws.amazon.com/ec2/v2/home?#KeyPairs:" target="_blank">here</a>.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <p>The EC2 server will not be accessible without your private key.</p>
-
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-private_key_path">
+            Local Private Key Path
+        </label>
+        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-private_key_path"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][private_key_path]"
+               placeholder="~/.ssh/id_rsa" class="form-control"
+               value="{{ machine.private_key_path }}" />
+        <div class="help-block">
+            <p>The EC2 server will not be accessible without your
+                <span class="label label-info" data-toggle="help-text">
+                    <i class="fa fa-ellipsis-h"></i></span>
+                <span class="hidden">private/public key.</span>
+            </p>
+            <div class="hidden">
                 <p>This corresponds to the "EC2 Key Pair Name".</p>
 
                 <p><strong>It will not be accessible using username/password,
                         only private key!</strong></p>
             </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-private_key_path">Local Private Key Path</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-private_key_path"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][private_key_path]"
-                   class="form-control" placeholder="~/.ssh/id_rsa"
-                   value="{{ machine.private_key_path }}" />
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Choose the one closest to you, or your target audience!
-            </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-region">Datacenter Location</label>
-            <select id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-region"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][region]"
-                   class="form-control select-tag">
-                {% for key, region in regions %}
-                    <option value="{{ key }}"
-                        {% if key == machine.region %}selected{% endif %}>{{ key }} - {{ region }}</option>
-                {% endfor %}
-            </select>
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-region">
+            Datacenter Location
+        </label>
+        <select id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-region"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][region]"
+               class="form-control select-tag">
+            {% for key, region in regions %}
+                <option value="{{ key }}"
+                    {% if key == machine.region %}selected{% endif %}>{{ key }} - {{ region }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Choose the one closest to you, or your target audience!
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <a href="http://aws.amazon.com/ec2/pricing/"
-                   target="_blank">Pricing information</a>.
-                EC2 pricing is infamously difficult to calculate. Good luck!
-            </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-instance_type">Instance Size</label>
-            <select id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-instance_type"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][instance_type]"
-                   class="form-control select-tag">
-                {% for type, description in instance_types %}
-                    <option value="{{ type }}"
-                        {% if type == machine.instance_type %}selected{% endif %}>{{ type }} - {{ description }}</option>
-                {% endfor %}
-            </select>
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-instance_type">
+            Instance Size
+        </label>
+        <select id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-instance_type"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][instance_type]"
+               class="form-control select-tag">
+            {% for type, description in instance_types %}
+                <option value="{{ type }}"
+                    {% if type == machine.instance_type %}selected{% endif %}>{{ type }} - {{ description }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <a href="http://aws.amazon.com/ec2/pricing/"
+               target="_blank">Pricing information</a>.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <p>The AMI must be available to the region and size selected above.</p>
+    <div class="clearfix"></div>
 
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ami">
+            AMI
+        </label>
+        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ami"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][ami]"
+               placeholder="AMI" class="form-control"
+               value="{{ machine.ami }}" />
+        <div class="help-block">
+            <p>The AMI must be available to the region and size
+                <span class="label label-info" data-toggle="help-text">
+                    <i class="fa fa-ellipsis-h"></i></span>
+                <span class="hidden">selected above.</span>
+            </p>
+            <div class="hidden">
                 <p><strong>You</strong> are responsible for ensuring the AMI you select
                     is compatible with PuPHPet configs. Currently
-                    Ubuntu 14.04 and CentOS 6.x are supported.
-                    <a href="#vagrantfile-local">Please reference the available PHP versions
-                        for each distro here.</a></p>
+                    Ubuntu 14.04, 16.04 and CentOS 6.x, 7.x are supported.
+                </p>
             </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ami">AMI</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ami"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][ami]"
-                   class="form-control" placeholder="AMI"
-                   value="{{ machine.ami }}" />
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                You must know what username your chosen AMI requires for initial boot up!
-            </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ssh_username">SSH Username</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ssh_username"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][ssh_username]"
-                   class="form-control" placeholder="root"
-                   value="{{ machine.ssh_username }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ssh_username">
+            SSH Username
+        </label>
+        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ssh_username"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][ssh_username]"
+               placeholder="AMI" class="form-control"
+               value="{{ machine.ssh_username }}" />
+        <div class="help-block">
+            You must know what username your chosen AMI requires for initial boot up!
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Assign security groups to this instance.
-                <a href="https://console.aws.amazon.com/ec2/home?#s=SecurityGroups" target="_blank">Get them here</a>.
-            </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-security_groups">EC2 Security Groups</label>
-            <select id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-security_groups"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][security_groups][]"
-                   multiple class="form-control select-tags-editable">
-                {% for group in machine.security_groups %}
-                    <option value="{{ group }}" selected>{{ group }}</option>
-                {% endfor %}
-            </select>
-        </div>
+    <div class="clearfix"></div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                The subnet to boot the instance into, for VPC.
-                <a href="https://console.aws.amazon.com/vpc/home?#subnets:" target="_blank">Get them here</a>.
-            </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-subnet_id">VPC Subnet ID</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-subnet_id"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][subnet_id]"
-                   class="form-control" placeholder="VPC Subnet ID"
-                   value="{{ machine.subnet_id }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-security_groups">
+            EC2 Security Groups
+        </label>
+        <select id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-security_groups"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][security_groups][]"
+               multiple class="form-control select-tags-editable">
+            {% for group in machine.security_groups %}
+                <option value="{{ group }}" selected>{{ group }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Assign security groups to this instance.
+            <a href="https://console.aws.amazon.com/ec2/home?#s=SecurityGroups" target="_blank">Get them here</a>.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Assign an elastic IP address to this instance.
-                <a href="https://console.aws.amazon.com/ec2/v2/home?Addresses#Addresses:sort=publicIp" target="_blank">Get them here</a>.
-            </div>
-            <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-elastic_ip">Elastic IP Address</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-elastic_ip"
-                   name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][elastic_ip]"
-                   class="form-control" placeholder="Elastic IP"
-                   value="{{ machine.elastic_ip }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-subnet_id">
+            VPC Subnet ID
+        </label>
+        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-subnet_id"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][subnet_id]"
+               placeholder="VPC Subnet ID" class="form-control"
+               value="{{ machine.subnet_id }}" />
+        <div class="help-block">
+            The subnet to boot the instance into, for VPC.
+            <a href="https://console.aws.amazon.com/vpc/home?#subnets:" target="_blank">Get them here</a>.
         </div>
-    </fieldset>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-elastic_ip">
+            Elastic IP Address
+        </label>
+        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-elastic_ip"
+               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][elastic_ip]"
+               placeholder="Elastic IP" class="form-control"
+               value="{{ machine.elastic_ip }}" />
+        <div class="help-block">
+            Assign an elastic IP address to this instance.
+            <a href="https://console.aws.amazon.com/ec2/v2/home?Addresses#Addresses:sort=publicIp" target="_blank">Get them here</a>.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
 </div>

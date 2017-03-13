@@ -1,21 +1,19 @@
-{% set uniqid = uniqid('esi_', true)|lower %}
+{% set uniqid = uniqid ?? uniqid('esi_', true)|lower %}
 
-<div class="nested-block" id="{{ uniqid }}">
-    <a href="#" class="delete-block remove"
-       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
-
-    <fieldset>
-        <legend>Instance</legend>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                At least one instance must be defined
-            </div>
-            <label for="elastic_search-instances-{{ uniqid }}-name">Name</label>
-            <input type="text" id="elastic_search-instances-{{ uniqid }}-name"
-                   name="elastic_search[instances][{{ uniqid }}][name]"
-                   placeholder="es-01" class="form-control"
-                   value="{{ instance.name }}" />
+<div id="rackspace-machine-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="elastic_search-instances-{{ uniqid }}-name">
+            Name
+        </label>
+        <input type="text" id="elastic_search-instances-{{ uniqid }}-name"
+               name="elastic_search[instances][{{ uniqid }}][name]"
+               placeholder="es-01" class="form-control"
+               value="{{ instance.name }}" />
+        <div class="help-block">
+            At least one instance must be defined
         </div>
-    </fieldset>
+    </div>
+
+    <div class="clearfix"></div>
 </div>

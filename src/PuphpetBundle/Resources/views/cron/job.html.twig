@@ -1,107 +1,131 @@
-{% set uniqid = uniqid('cj_', true) %}
+{% set uniqid = uniqid ?? uniqid('cj_', true) %}
 {% set environments = (job.environment is defined and job.environment is not empty)
     ? job.environment : [] %}
 
-<div class="nested-block" id="{{ uniqid }}">
-    <a href="#" class="delete-block remove"
-       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
-
-    <fieldset>
-        <legend>Cron Job</legend>
-
-        <div class="form-group col-xs-12">
-            <label for="cron-jobs-{{ uniqid }}-name">Name</label>
-            <input type="text" id="cron-jobs-{{ uniqid }}-name"
-                   name="cron[jobs][{{ uniqid }}][name]"
-                   placeholder="your-awesome-job-name" class="form-control"
-                   value="{{ job.name }}" />
+<div id="cron-job-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="cron-jobs-{{ uniqid }}-name">
+            Name
+        </label>
+        <input type="text" id="cron-jobs-{{ uniqid }}-name"
+               name="cron[jobs][{{ uniqid }}][name]"
+               placeholder="your-awesome-job-name" class="form-control"
+               value="{{ job.name }}" />
+        <div class="help-block">
+            Optional, for reference purposes
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Run the job as this user.
-            </div>
-            <label for="cron-jobs-{{ uniqid }}-user">User</label>
-            <input type="text" id="cron-jobs-{{ uniqid }}-user"
-                   name="cron[jobs][{{ uniqid }}][user]"
-                   placeholder="root" class="form-control"
-                   value="{{ job.user }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="cron-jobs-{{ uniqid }}-user">
+            User
+        </label>
+        <input type="text" id="cron-jobs-{{ uniqid }}-user"
+               name="cron[jobs][{{ uniqid }}][user]"
+               placeholder="root" class="form-control"
+               value="{{ job.user }}" />
+        <div class="help-block">
+            Run the job as this user
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Command to have cron run.
-            </div>
-            <label for="cron-jobs-{{ uniqid }}-command">Command</label>
-            <input type="text" id="cron-jobs-{{ uniqid }}-command"
-                   name="cron[jobs][{{ uniqid }}][command]"
-                   placeholder="echo &quot;you are beautiful&quot;" class="form-control"
-                   value="{{ job.command }}" />
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12">
+        <label for="cron-jobs-{{ uniqid }}-command">
+            Command
+        </label>
+        <input type="text" id="cron-jobs-{{ uniqid }}-command"
+               name="cron[jobs][{{ uniqid }}][command]"
+               placeholder="echo &quot;you are beautiful&quot;" class="form-control"
+               value="{{ job.command }}" />
+        <div class="help-block">
+            Command to have cron run
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Should be specified exactly as they should appear in the crontab,
-                e.g., <code>PATH=/bin:/usr/bin:/usr/sbin</code>.
-            </div>
-            <label for="cron-jobs-{{ uniqid }}-environment">Environment Variables</label>
-            <select id="cron-jobs-{{ uniqid }}-environment"
-                   name="cron[jobs][{{ uniqid }}][environment][]"
-                   multiple class="form-control select-tags-editable">
-                {% for environment in environments %}
-                    <option selected value="{{ environment }}">{{ environment }}</option>
-                {% endfor %}
-            </select>
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12">
+        <label for="cron-jobs-{{ uniqid }}-environment">
+            Environment Variables
+        </label>
+        <select id="cron-jobs-{{ uniqid }}-environment"
+               name="cron[jobs][{{ uniqid }}][environment][]"
+               multiple class="form-control select-tags-editable">
+            {% for environment in environments %}
+                <option selected value="{{ environment }}">{{ environment }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Should be specified exactly as they should appear in the crontab,
+            e.g., <code>PATH=/bin:/usr/bin:/usr/sbin</code>.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <code>0-59</code> for a specific minute of the hour,
-                or use steps, e.g., <code>*/10</code>, for every X minutes.
-            </div>
-            <label for="cron-jobs-{{ uniqid }}-minute">Minute</label>
-            <input type="text" id="cron-jobs-{{ uniqid }}-minute"
-                   name="cron[jobs][{{ uniqid }}][minute]"
-                   placeholder="" class="form-control"
-                   value="{{ job.minute }}" />
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="cron-jobs-{{ uniqid }}-minute">
+            Minute
+        </label>
+        <input type="text" id="cron-jobs-{{ uniqid }}-minute"
+               name="cron[jobs][{{ uniqid }}][minute]"
+               placeholder="echo &quot;you are beautiful&quot;" class="form-control"
+               value="{{ job.minute }}" />
+        <div class="help-block">
+            <code>0-59</code> for a specific minute of the hour,
+            or use steps, e.g., <code>*/10</code>, for every X minutes.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <code>0-23</code> for a specific hour of the day,
-                or use steps, e.g., <code>*/10</code>, for every X hours.
-            </div>
-            <label for="cron-jobs-{{ uniqid }}-hour">Hour</label>
-            <input type="text" id="cron-jobs-{{ uniqid }}-hour"
-                   name="cron[jobs][{{ uniqid }}][hour]"
-                   placeholder="" class="form-control"
-                   value="{{ job.hour }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="cron-jobs-{{ uniqid }}-hour">
+            Hour
+        </label>
+        <input type="text" id="cron-jobs-{{ uniqid }}-hour"
+               name="cron[jobs][{{ uniqid }}][hour]"
+               placeholder="" class="form-control"
+               value="{{ job.hour }}" />
+        <div class="help-block">
+            <code>0-23</code> for a specific hour of the day,
+            or use steps, e.g., <code>*/10</code>, for every X hours.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <code>0-6</code> for a specific day of the week (Sunday is 0),
-                or use steps, e.g., <code>*/10</code>, for every X days
-            </div>
-            <label for="cron-jobs-{{ uniqid }}-weekday">Day</label>
-            <input type="text" id="cron-jobs-{{ uniqid }}-weekday"
-                   name="cron[jobs][{{ uniqid }}][weekday]"
-                   placeholder="" class="form-control"
-                   value="{{ job.weekday }}" />
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="cron-jobs-{{ uniqid }}-weekday">
+            Day
+        </label>
+        <input type="text" id="cron-jobs-{{ uniqid }}-weekday"
+               name="cron[jobs][{{ uniqid }}][weekday]"
+               placeholder="" class="form-control"
+               value="{{ job.weekday }}" />
+        <div class="help-block">
+            <code>0-6</code> for a specific day of the week (Sunday is 0),
+            or use steps, e.g., <code>*/10</code>, for every X days
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <code>1-12</code> for a specific month of the year,
-                or use steps, e.g., <code>*/10</code>, for every X months.
-            </div>
-            <label for="cron-jobs-{{ uniqid }}-month">Month</label>
-            <input type="text" id="cron-jobs-{{ uniqid }}-month"
-                   name="cron[jobs][{{ uniqid }}][month]"
-                   placeholder="" class="form-control"
-                   value="{{ job.month }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="cron-jobs-{{ uniqid }}-month">
+            Month
+        </label>
+        <input type="text" id="cron-jobs-{{ uniqid }}-month"
+               name="cron[jobs][{{ uniqid }}][month]"
+               placeholder="" class="form-control"
+               value="{{ job.month }}" />
+        <div class="help-block">
+            <code>1-12</code> for a specific month of the year,
+            or use steps, e.g., <code>*/10</code>, for every X months.
         </div>
-    </fieldset>
+    </div>
 
-    <input type="hidden" name="cron[jobs][{{ uniqid }}][monthday]" value="{{ job.monthday }}" />
+    <div class="clearfix"></div>
+
+    <input type="hidden" name="cron[jobs][{{ uniqid }}][monthday]"
+           value="{{ job.monthday }}" />
 </div>

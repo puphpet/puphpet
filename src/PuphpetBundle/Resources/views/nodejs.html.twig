@@ -7,69 +7,73 @@
 
 <input type="hidden" name="nodejs[install]" value="0" />
 
-<div class="field-container">
-    <div class="form-group">
-        <label class="col-xs-12 radio-tile">
-            <input type="checkbox" name="nodejs[install]" value="1"
-                   class="invisible toggle-on-select"
-                   {% if nodejs.install %}checked{% endif %}
-                   data-vis-toggle-target="#nodejs-container" />
-            <span class="content">
-                <span class="header large">
-                    <i class="icon"></i>
-                    <span class="title">Install Node.js</span>
-                </span>
-                <span class="footer">
-                    A platform for easily building fast, scalable network applications.
-                </span>
-            </span>
-        </label>
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="nodejs-install"
+               name="nodejs[install]" value="1"
+               {% if nodejs.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#nodejs-container" />
+        <label for="nodejs-install">Install Node.js</label>
 
-        <div class="clearfix"></div>
+        <p>
+            A platform for easily building fast, scalable network applications.
+        </p>
     </div>
+</div>
 
-    <div class="clearfix"></div>
-
-    <div id="nodejs-container" class="{% if not nodejs.install %}hidden{% endif %}">
-        <div class="form-group col-xs-12">
-            <span class="help-text">
-                CentOS 6 support has been dropped.
-            </span>
-            <label for="nodejs-settings-version">Version</label>
-            <select id="nodejs-settings-version"
-                   name="nodejs[settings][version]"
-                   class="form-control select-tag">
-                {% for version in versions %}
-                    <option value="{{ version }}"
-                        {% if version == selectedVersion %}selected{% endif %}>{{ version }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <p>To install a specific version, use <code>{package}@{version}</code>.</p>
-                <p>eg: <code>express@4.10.4 </code>. For latest just use <code>{package}</code>.</p>
+<div id="nodejs-container"
+     class="container-fluid collapse {% if nodejs.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="nodejs-settings-version">
+                    Node.js Version
+                </label>
+                <select id="nodejs-settings-version"
+                        name="nodejs[settings][version]"
+                        class="form-control select-tag">
+                    {% for version in versions %}
+                        <option value="{{ version }}"
+                            {% if version == selectedVersion %}selected{% endif %}>{{ version }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    CentOS 6 support has been dropped.
+                </div>
             </div>
-            <label for="nodejs-npm_packages">Install Npm Packages</label>
-            <select id="nodejs-npm_packages"
-                   multiple name="nodejs[npm_packages][]"
-                   class="form-control select-tags-editable">
-                {% for package in nodejs.npm_packages %}
-                    <option selected value="{{ package }}">{{ package }}</option>
-                {% endfor %}
-            </select>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="nodejs-npm_packages">
+                    Install Npm Packages
+                </label>
+                <select id="nodejs-npm_packages"
+                        name="nodejs[npm_packages][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for package in nodejs.npm_packages %}
+                        <option selected value="{{ package }}">{{ package }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    <p>To install a specific version, use <code>{package}@{version}</code>.</p>
+                    <p>eg: <code>express@4.10.4</code>. For latest just use <code>{package}</code>.</p>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
         </div>
     </div>
 
     <div class="clearfix"></div>
+</div>
 
-    <nav>
-        <ul class="pager">
-            <li class="previous">
-                <a href="#python"><span aria-hidden="true">&larr;</span> Python</a></li>
-            <li class="next">
-                <a href="#hhvm">HHVM <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#python" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Python
+    </a>
+
+    <a href="#mariadb" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        MariaDB
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
 </div>

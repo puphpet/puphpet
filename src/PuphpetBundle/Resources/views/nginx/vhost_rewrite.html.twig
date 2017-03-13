@@ -1,49 +1,53 @@
-{% set uniqid = uniqid('nxvrw_', true) %}
+{% set uniqid = uniqid ?? uniqid('nxvrw_', true) %}
 
-<div class="nested-block" id="{{ uniqid }}">
-    <a href="#" class="delete-block remove"
-       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
-
-    <fieldset>
-        <legend>Virtual Host Rewrites</legend>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Wraps <code>rewrite</code> statement inside <code>if</code> block.
-                <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#if"
-                   target="_blank">More information</a>.
-            </div>
-            <label for="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-when">When (Optional)</label>
-            <input type="text" id="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-when"
-                   name="nginx[vhosts][{{ vhostId }}][rewrites][{{ uniqid }}][when]"
-                   placeholder="$http_user_agent ~ MSIE" class="form-control"
-                   value="{{ rewrite.when }}" />
+<div id="nginx-vhost-{{ vhostId }}-rewrite-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-when">
+            When (Optional)
+        </label>
+        <input type="text" id="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-when"
+               name="nginx[vhosts][{{ vhostId }}][rewrites][{{ uniqid }}][when]"
+               placeholder="$http_user_agent ~ MSIE" class="form-control"
+               value="{{ rewrite.when }}" />
+        <div class="help-block">
+            Wraps <code>rewrite</code> statement inside <code>if</code> block.
+            <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#if"
+               target="_blank">More information</a>.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Regex to match against.
-                <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite"
-                   target="_blank">More information</a>.
-            </div>
-            <label for="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-regex">Regex</label>
-            <input type="text" id="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-regex"
-                   name="nginx[vhosts][{{ vhostId }}][rewrites][{{ uniqid }}][regex]"
-                   placeholder="^(.*)$" class="form-control"
-                   value="{{ rewrite.regex }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-regex">
+            Regex
+        </label>
+        <input type="text" id="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-regex"
+               name="nginx[vhosts][{{ vhostId }}][rewrites][{{ uniqid }}][regex]"
+               placeholder="^(.*)$" class="form-control"
+               value="{{ rewrite.regex }}" />
+        <div class="help-block">
+            Regex to match against.
+            <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite"
+               target="_blank">More information</a>.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Action to take. Do not append with <code>;</code>!
-                <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite"
-                   target="_blank">More information</a>.
-            </div>
-            <label for="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-target">Target</label>
-            <input type="text" id="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-target"
-                   name="nginx[vhosts][{{ vhostId }}][rewrites][{{ uniqid }}][target]"
-                   placeholder="/msie/$1 break" class="form-control"
-                   value="{{ rewrite.target }}" />
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-target">
+            Target
+        </label>
+        <input type="text" id="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-target"
+               name="nginx[vhosts][{{ vhostId }}][rewrites][{{ uniqid }}][target]"
+               placeholder="/msie/$1 break" class="form-control"
+               value="{{ rewrite.target }}" />
+        <div class="help-block">
+            Action to take. Do not append with <code>;</code>!
+            <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite"
+               target="_blank">More information</a>.
         </div>
-    </fieldset>
+    </div>
+
+    <div class="clearfix"></div>
 </div>

@@ -30,3 +30,19 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+
+assetic:
+    read_from: "%kernel.root_dir%/../web"
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    bundles:
+        - PuphpetBundle
+    filters:
+        cssrewrite: ~
+        jsqueeze: ~
+        lessphp:
+            apply_to: '\.less$'
+            # Formatter options: compressed, lessjs, classic
+            formatter: compressed
+            preserve_comments: false
+            formatter: 'Less_Parser'

@@ -1,35 +1,36 @@
-{% set uniqid = uniqid('mysqlnu_', true) %}
+{% set uniqid = uniqid ?? uniqid('mysqlnu_', true) %}
 
-<div class="nested-block" id="{{ uniqid }}">
-    <a href="#" class="delete-block remove"
-       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
-    <fieldset>
-        <legend>Create User</legend>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Enter <code>{username}@{host}</code>
-                for a specific host. If no host is defined, eg:
-                <code>{username}</code>", it will
-                automagically be converted to
-                <code>{username}@localhost</code>
-            </div>
-            <label for="mysql-users-{{ uniqid }}-name">Username</label>
-            <input type="text" id="mysql-users-{{ uniqid }}-name"
-                   name="mysql[users][{{ uniqid }}][name]"
-                   placeholder="name" class="form-control"
-                   value="{{ user.name }}" />
+<div id="mysql-user-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="mysql-users-{{ uniqid }}-name">
+            Username
+        </label>
+        <input type="text" id="mysql-users-{{ uniqid }}-name"
+               name="mysql[users][{{ uniqid }}][name]"
+               placeholder="username" class="form-control"
+               value="{{ user.name }}" />
+        <div class="help-block">
+            Enter <code>{username}@{host}</code>
+            for a specific host. If no host is defined, eg:
+            <code>{username}</code>", it will
+            automagically be converted to
+            <code>{username}@localhost</code>
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Password is required for each user.
-            </div>
-            <label for="mysql-users-{{ uniqid }}-password">Password</label>
-            <input type="text" id="mysql-users-{{ uniqid }}-password"
-                   name="mysql[users][{{ uniqid }}][password]"
-                   placeholder="123" class="form-control"
-                   value="{{ user.password }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="mysql-users-{{ uniqid }}-password">
+            Password
+        </label>
+        <input type="text" id="mysql-users-{{ uniqid }}-password"
+               name="mysql[users][{{ uniqid }}][password]"
+               placeholder="123" class="form-control"
+               value="{{ user.password }}" />
+        <div class="help-block">
+            Password is required for each user.
         </div>
-    </fieldset>
+    </div>
+
+    <div class="clearfix"></div>
 </div>

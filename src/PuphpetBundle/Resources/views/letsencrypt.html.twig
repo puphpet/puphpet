@@ -1,48 +1,99 @@
+{% set domain_uniqids = [] %}
+{% for domain in letsencrypt.domains %}
+    {% set domain_uniqids = domain_uniqids|merge([uniqid('led_', true)]) %}
+{% endfor %}
+
 <input type="hidden" name="letsencrypt[install]" value="1" />
 
-<div class="section-header">
+<div class="container-fluid cm-container-white section-title">
     <h1>Let's Encrypt</h1>
-    <p class="lead">Let’s Encrypt is a new Certificate Authority.</p>
+
+    <p>Let’s Encrypt is a new Certificate Authority</p>
 </div>
 
-<div class="field-container">
-    <div class="help-text col-xs-12">
-        <p>The domains chosen below must match up with the domains you
-            have selected to use Let's Encrypt SSL certificates in either
-            the Nginx or Apache tabs!</p>
+<div id="letsencrypt-container"
+     class="container-fluid collapse in">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="letsencrypt-settings-email">
+                    Admin Email Address
+                </label>
+                <input type="email" id="letsencrypt-settings-email"
+                       name="letsencrypt[settings][email]"
+                       placeholder="you@awesome" class="form-control"
+                       value="{{ letsencrypt.settings.email }}" />
+                <div class="help-block">
+                    <p>This email address will be displayed as the admin for your
+                        generated certificates</p>
+                </div>
+            </div>
 
-        <p>A cron job is made to automatically renew your certificate(s).</p>
-    </div>
+            <div class="clearfix"></div>
 
-    <div class="form-group col-xs-12">
-        <div class="help-text">
-            <p>This email address will be displayed as the admin for your
-                generated certificates</p>
+            <div class="help-block col-xs-12">
+                <p>The domains chosen below must match up with the domains you
+                    have selected to use Let's Encrypt SSL certificates in either
+                    the Nginx or Apache tabs!</p>
+
+                <p>A cron job is made to automatically renew your certificate(s).</p>
+            </div>
         </div>
-        <label for="letsencrypt-settings-email">Admin Email Address</label>
-        <input type="email" id="letsencrypt-settings-email"
-               name="letsencrypt[settings][email]"
-               placeholder="you@awesome" class="form-control"
-               value="{{ letsencrypt.settings.email }}" />
+
+        <div class="clearfix"></div>
     </div>
 
     <div class="clearfix"></div>
 
-    {% for domain in letsencrypt.domains %}
-        {% include 'PuphpetBundle:letsencrypt:domain.html.twig' %}
-    {% endfor %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Domains</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.letsencrypt.add_domain') }}"
+                       data-toggle="add-block" data-link-title="Host">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for domain in letsencrypt.domains %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#letsencrypt-domain-{{ attribute(domain_uniqids, loop.index0) }}"
+                           data-toggle="tab">Host {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#letsencrypt-domain-{{ attribute(domain_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
 
-    <a href="#" data-source-url="{{ path('puphpet.letsencrypt.add_domain') }}"
-       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another domain</a>
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a host
+                </div>
+                {% for domain in letsencrypt.domains %}
+                    {% include 'PuphpetBundle:letsencrypt:domain.html.twig' with {
+                        'uniqid': attribute(domain_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
     <div class="clearfix"></div>
+</div>
 
-    <nav>
-        <ul class="pager">
-            <li class="previous">
-                <a href="#apache"><span aria-hidden="true">&larr;</span> Apache</a></li>
-            <li class="next">
-                <a href="#php">PHP <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#apache" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Apache
+    </a>
+
+    <a href="#php" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        PHP
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
 </div>

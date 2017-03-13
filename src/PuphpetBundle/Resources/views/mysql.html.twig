@@ -5,106 +5,223 @@
     ? merge_unique([selectedVersion], mysql.available.versions)
     : mysql.available.versions %}
 
+{% set user_uniqids = [] %}
+{% for user in mysql.users %}
+    {% set user_uniqids = user_uniqids|merge([uniqid('mysqlnu_', true)]) %}
+{% endfor %}
+
+{% set database_uniqids = [] %}
+{% for database in mysql.databases %}
+    {% set database_uniqids = database_uniqids|merge([uniqid('mysqlnd_', true)]) %}
+{% endfor %}
+
+{% set grant_uniqids = [] %}
+{% for grant in mysql.grants %}
+    {% set grant_uniqids = grant_uniqids|merge([uniqid('mysqlng_', true)]) %}
+{% endfor %}
+
 <input type="hidden" name="mysql[install]" value="0" />
 
-<div class="field-container">
-    <div class="form-group">
-        <div class="help-text">
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="mysql-install"
+               name="mysql[install]" value="1"
+               {% if mysql.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#mysql-container"
+               data-enforce-group-single="mysql"
+               data-enable-on-check data-disable-on-uncheck />
+        <label for="mysql-install">Install MySQL</label>
+
+        <p>
             MariaDB is a drop-in replacement for MySQL. It is highly recommended you use MariaDB instead.
-        </div>
-        <label class="col-xs-12 radio-tile">
-            <input type="checkbox" name="mysql[install]" value="1"
-                   class="invisible toggle-on-select update-other-input-on-check"
-                   {% if mysql.install %}checked{% endif %}
-                   data-vis-toggle-target="#mysql-container"
-                   data-update-on-check-mariadb[install]="0" />
-            <span class="content">
-                <span class="header large">
-                    <i class="icon"></i>
-                    <span class="title">Install MySQL</span>
-                </span>
-                <span class="footer">
-                    If you install MySQL, you cannot install MariaDB.
-                </span>
-            </span>
-        </label>
-
-        <div class="clearfix"></div>
+        </p>
     </div>
+</div>
 
-    <div class="clearfix"></div>
-
-    <div id="mysql-container" class="{% if not mysql.install %}hidden{% endif %}">
-        <div class="form-group col-xs-12">
-            <label for="mysql-settings-version">Version</label>
-            <select id="mysql-settings-version"
-                   name="mysql[settings][version]"
-                   class="form-control select-tag">
-                {% for version in versions %}
-                    <option value="{{ version }}"
-                        {% if version == selectedVersion %}selected{% endif %}>{{ version }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Assign a password to the root user.
-                <strong>Database will only be installed
-                when a password is entered here.</strong>
+<div id="mysql-container"
+     class="container-fluid collapse {% if mysql.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="mysql-settings-version">
+                    Version
+                </label>
+                <select id="mysql-settings-version"
+                        name="mysql[settings][version]"
+                        class="form-control select-tag">
+                    {% for version in versions %}
+                        <option value="{{ version }}"
+                            {% if version == selectedVersion %}selected{% endif %}>{{ version }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            <label for="mysql-settings-root_password">Root Password</label>
-            <input type="text" id="mysql-settings-root_password"
-                   name="mysql[settings][root_password]"
-                   placeholder="123" class="form-control"
-                   value="{{ mysql.settings.root_password }}" />
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="mysql-settings-root_password">
+                    Root Password
+                </label>
+                <input type="text" id="mysql-settings-root_password"
+                       name="mysql[settings][root_password]"
+                       placeholder="123" class="form-control"
+                       value="{{ mysql.settings.root_password }}" />
+                <div class="help-block">
+                    Assign a password to the root user.
+                    <strong>Database will only be installed
+                    when a password is entered here.</strong>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="help-block col-xs-12">
+                <p>The preferred way to connect to your database is using a dedicated
+                    application like
+                    <a href="http://www.sequelpro.com/" target="_blank">Sequel Pro (OS X)</a>,
+                    <a href="http://www.heidisql.com/" target="_blank">HeidiSQL (Windows)</a>, and
+                    <a href="http://dev.mysql.com/downloads/tools/workbench/"
+                       target="_blank">MySQL Workbench (Cross Platform)</a>.</p>
+                <p>Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
+                    <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
+                    your initial <code>$ vagrant up</code>!</p>
+            </div>
         </div>
-
-        <div class="help-block col-xs-12">
-            <p>The preferred way to connect to your database is using a dedicated
-                application like
-                <a href="http://www.sequelpro.com/" target="_blank">Sequel Pro (OS X)</a>,
-                <a href="http://www.heidisql.com/" target="_blank">HeidiSQL (Windows)</a>, and
-                <a href="http://dev.mysql.com/downloads/tools/workbench/"
-                   target="_blank">MySQL Workbench (Cross Platform)</a>.</p>
-            <p>Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
-                <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
-                your initial <code>$ vagrant up</code>!</p>
-        </div>
-
-        <div class="clearfix"></div>
-
-        {% for user in mysql.users %}
-            {% include 'PuphpetBundle:mysql:user.html.twig' with {'user': user} %}
-        {% endfor %}
-
-        <a href="#" data-source-url="{{ path('puphpet.mysql.add_user') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another user</a>
-
-        {% for database in mysql.databases %}
-            {% include 'PuphpetBundle:mysql:database.html.twig' with {'database': database} %}
-        {% endfor %}
-
-        <a href="#" data-source-url="{{ path('puphpet.mysql.add_database') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another database</a>
-
-        {% for grant in mysql.grants %}
-            {% include 'PuphpetBundle:mysql:grant.html.twig' with {
-                'available_privileges': mysql.available.privileges, 'grant': grant} %}
-        {% endfor %}
-
-        <a href="#" data-source-url="{{ path('puphpet.mysql.add_grant') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another grant</a>
     </div>
 
     <div class="clearfix"></div>
 
-    <nav>
-        <ul class="pager">
-            <li class="previous">
-                <a href="#mariadb"><span aria-hidden="true">&larr;</span> MariaDB</a></li>
-            <li class="next">
-                <a href="#postgresql">PostgreSQL <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Users</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.mysql.add_user') }}"
+                       data-toggle="add-block" data-link-title="User">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for user in mysql.users %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#mysql-user-{{ attribute(user_uniqids, loop.index0) }}"
+                           data-toggle="tab">User {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#mysql-user-{{ attribute(user_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a user
+                </div>
+                {% for user in mysql.users %}
+                    {% include 'PuphpetBundle:mysql:user.html.twig' with {
+                        'user': user,
+                        'uniqid': attribute(user_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Databases</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.mysql.add_database') }}"
+                       data-toggle="add-block" data-link-title="Database">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for database in mysql.databases %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#mysql-database-{{ attribute(database_uniqids, loop.index0) }}"
+                           data-toggle="tab">Database {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#mysql-database-{{ attribute(database_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a database
+                </div>
+                {% for database in mysql.databases %}
+                    {% include 'PuphpetBundle:mysql:database.html.twig' with {
+                        'database': database,
+                        'uniqid': attribute(database_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Grants</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.mysql.add_grant') }}"
+                       data-toggle="add-block" data-link-title="Grant">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for grant in mysql.grants %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#mysql-grant-{{ attribute(grant_uniqids, loop.index0) }}"
+                           data-toggle="tab">Grant {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#mysql-grant-{{ attribute(grant_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a grant
+                </div>
+                {% for grant in mysql.grants %}
+                    {% include 'PuphpetBundle:mysql:grant.html.twig' with {
+                        'available_privileges': mysql.available.privileges,
+                        'grant': grant,
+                        'uniqid': attribute(grant_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#mariadb" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        MariaDB
+    </a>
+
+    <a href="#postgresql" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        PostgreSQL
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
 </div>

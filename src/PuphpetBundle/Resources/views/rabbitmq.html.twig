@@ -1,84 +1,134 @@
+{% set user_uniqids = [] %}
+{% for user in rabbitmq.users %}
+    {% set user_uniqids = user_uniqids|merge([uniqid('rmqu_', true)]) %}
+{% endfor %}
+
 <input type="hidden" name="rabbitmq[install]" value="0" />
 
-<div class="field-container">
-    <div class="form-group">
-        <label class="col-xs-12 radio-tile">
-            <input type="checkbox" name="rabbitmq[install]" value="1"
-                   class="invisible toggle-on-select"
-                   {% if rabbitmq.install %}checked{% endif %}
-                   data-vis-toggle-target="#rabbitmq-container" />
-            <span class="content">
-                <span class="header large">
-                    <i class="icon"></i>
-                    <span class="title">Install RabbitMQ</span>
-                </span>
-                <span class="footer">
-                    Open source message broker software that implements AMQP.
-                </span>
-            </span>
-        </label>
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="rabbitmq-install"
+               name="rabbitmq[install]" value="1"
+               {% if rabbitmq.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#rabbitmq-container" />
+        <label for="rabbitmq-install">Install RabbitMQ</label>
 
-        <div class="clearfix"></div>
+        <p>
+            Open source message broker software that implements AMQP.
+        </p>
     </div>
+</div>
 
-    <div class="clearfix"></div>
-
-    <div id="rabbitmq-container" class="{% if not rabbitmq.install %}hidden{% endif %}">
-        <div class="form-group col-xs-12">
-            <label for="rabbitmq-settings-port">Listen Port</label>
-            <input type="number" id="rabbitmq-settings-port"
-                   name="rabbitmq[settings][port]"
-                   placeholder="5672" class="form-control"
-                   value="{{ rabbitmq.settings.port }}" />
-        </div>
-
-        <div class="form-group col-xs-12">
-            <label for="rabbitmq-plugins">Plugins</label>
-            <select id="rabbitmq-plugins"
-                   multiple name="rabbitmq[plugins][]"
-                   class="form-control select-tags-editable">
-                {% if rabbitmq.plugins is defined %}
-                    {% for plugin in rabbitmq.plugins %}
-                        <option selected value="{{ plugin }}">{{ plugin }}</option>
-                    {% endfor %}
-                {% endif %}
-            </select>
-        </div>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Separated by comma.
+<div id="rabbitmq-container"
+     class="container-fluid collapse {% if rabbitmq.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="rabbitmq-settings-port">
+                    Listen Port
+                </label>
+                <input type="number" id="rabbitmq-settings-port"
+                       name="rabbitmq[settings][port]"
+                       placeholder="5672" class="form-control"
+                       value="{{ rabbitmq.settings.port }}" />
+                <div class="help-block">
+                    Assign a password to the root user.
+                    <strong>Database will only be installed
+                    when a password is entered here.</strong>
+                </div>
             </div>
-            <label for="rabbitmq-vhosts">Virtual Hosts</label>
-            <select id="rabbitmq-vhosts"
-                   multiple name="rabbitmq[vhosts][]"
-                   class="form-control select-tags-editable">
-                {% if rabbitmq.vhosts is defined %}
-                    {% for vhost in rabbitmq.vhosts %}
-                        <option selected value="{{ vhost }}">{{ vhost }}</option>
-                    {% endfor %}
-                {% endif %}
-            </select>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="rabbitmq-plugins">
+                    Plugins
+                </label>
+                <select id="rabbitmq-plugins"
+                        name="rabbitmq[plugins][]"
+                        multiple class="form-control select-tags-editable">
+                    {% if rabbitmq.plugins is defined %}
+                        {% for plugin in rabbitmq.plugins %}
+                            <option selected value="{{ plugin }}">{{ plugin }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="rabbitmq-vhosts">
+                    Virtual Hosts
+                </label>
+                <select id="rabbitmq-vhosts"
+                        name="rabbitmq[vhosts][]"
+                        multiple class="form-control select-tags-editable">
+                    {% if rabbitmq.vhosts is defined %}
+                        {% for vhost in rabbitmq.vhosts %}
+                            <option selected value="{{ vhost }}">{{ vhost }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <div class="help-block">
+                    Separated by comma.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
         </div>
-
-        <div class="clearfix"></div>
-
-        {% for user in rabbitmq.users %}
-            {% include 'PuphpetBundle:rabbitmq:user.html.twig' with {'user': user} %}
-        {% endfor %}
-
-        <a href="#" data-source-url="{{ path('puphpet.rabbitmq.user') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another user</a>
     </div>
 
     <div class="clearfix"></div>
 
-    <nav>
-        <ul class="pager">
-            <li class="previous">
-                <a href="#beanstalkd"><span aria-hidden="true">&larr;</span> Beanstalkd</a></li>
-            <li class="next">
-                <a href="#elastic-search">Elastic Search <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Users</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.rabbitmq.user') }}"
+                       data-toggle="add-block" data-link-title="User">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for user in rabbitmq.users %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#rabbitmq-user-{{ attribute(user_uniqids, loop.index0) }}"
+                           data-toggle="tab">User {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#rabbitmq-user-{{ attribute(user_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a user
+                </div>
+                {% for user in rabbitmq.users %}
+                    {% include 'PuphpetBundle:rabbitmq:user.html.twig' with {
+                        'user': user,
+                        'uniqid': attribute(user_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#beanstalkd" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Beanstalkd
+    </a>
+
+    <a href="#elastic-search" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Elastic Search
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
 </div>

@@ -1,65 +1,73 @@
-{% set uniqid = uniqid('vfdom_', true) %}
+{% set uniqid = uniqid ?? uniqid('vfdom_', true) %}
 
-<div class="nested-block" id="{{ uniqid }}">
-    <a href="#" class="delete-block remove"
-       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
-    <fieldset>
-        <legend>Machines</legend>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                This is the ID used within the <code>Vagrantfile</code>. It is only used
-                for your internal identification.
-            </div>
-            <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-id">Internal Identifier</label>
-            <input type="text" id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-id"
-                   name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][id]"
-                   placeholder="digitalocean1" class="form-control"
-                   value="{{ machine.id }}" />
+<div id="digitalocean-machine-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-id">
+            Internal Identifier
+        </label>
+        <input type="text" id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-id"
+               name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][id]"
+               placeholder="digitalocean1" class="form-control"
+               value="{{ machine.id }}" />
+        <div class="help-block">
+            This is the ID used within the <code>Vagrantfile</code>. It is only used
+            for your internal identification.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                The hostname the machine should have.
-                <a href="http://stackoverflow.com/a/3523068/446766"
-                   target="_blank">This answer lists all valid characters.</a>
-            </div>
-            <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-hostname">Hostname</label>
-            <input type="text" id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-hostname"
-                   name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][hostname]"
-                   placeholder="digitalocean1.puphpet" class="form-control"
-                   value="{{ machine.hostname }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-hostname">
+            Hostname
+        </label>
+        <input type="text" id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-hostname"
+               name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][hostname]"
+               placeholder="digitalocean1.puphpet" class="form-control"
+               value="{{ machine.hostname }}" />
+        <div class="help-block">
+            The hostname the machine should have.
+            <a href="http://stackoverflow.com/a/3523068/446766"
+               target="_blank">This answer lists all valid characters.</a>
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Choose the one closest to you, or your target audience!
-            </div>
-            <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-region">Datacenter Location</label>
-            <select id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-region"
-                   name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][region]"
-                   class="form-control select-tag">
-                {% for key, region in regions %}
-                    <option value="{{ key }}"
-                        {% if key == machine.region %}selected{% endif %}>{{ region }}</option>
-                {% endfor %}
-            </select>
-        </div>
+    <div class="clearfix"></div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <a href="https://www.digitalocean.com/pricing" target="_blank">Pricing information</a>.
-                Digital Ocean charges by the hour, but also shows what a full month would cost.
-            </div>
-            <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-size">Server Size</label>
-            <select id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-size"
-                   name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][size]"
-                   class="form-control select-tag">
-                {% for size, name in sizes %}
-                    <option value="{{ size }}"
-                        {% if size == machine.size %}selected{% endif %}>{{ name }}</option>
-                {% endfor %}
-            </select>
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-region">
+            Datacenter Location
+        </label>
+        <select id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-region"
+               name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][region]"
+               class="form-control select-tag">
+            {% for key, region in regions %}
+                <option value="{{ key }}"
+                    {% if key == machine.region %}selected{% endif %}>{{ region }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Choose the one closest to you, or your target audience!
         </div>
-    </fieldset>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-size">
+            Server Size
+        </label>
+        <select id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-size"
+               name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][size]"
+               class="form-control select-tag">
+            {% for size, name in sizes %}
+                <option value="{{ size }}"
+                    {% if size == machine.size %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <a href="https://www.digitalocean.com/pricing" target="_blank">Pricing information</a>.
+            Digital Ocean charges by the hour, but also shows what a full month would cost.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
 </div>

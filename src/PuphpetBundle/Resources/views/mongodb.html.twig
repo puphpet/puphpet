@@ -2,40 +2,38 @@
     ? mongodb.global.version
     : false %}
 
+{% set database_uniqids = [] %}
+{% for database in mongodb.databases %}
+    {% set database_uniqids = database_uniqids|merge([uniqid('mongodbnuad_', true)]) %}
+{% endfor %}
+
 <input type="hidden" name="mongodb[install]" value="0" />
 
-<div class="field-container">
-    <div class="form-group">
-        <label class="col-xs-12 radio-tile">
-            <input type="checkbox" name="mongodb[install]" value="1"
-                   class="invisible toggle-on-select"
-                   {% if mongodb.install %}checked{% endif %}
-                   data-vis-toggle-target="#mongodb-container" />
-            <span class="content">
-                <span class="header large">
-                    <i class="icon"></i>
-                    <span class="title">Install MongoDB</span>
-                </span>
-                <span class="footer">
-                    An open-source document database, and the leading NoSQL database.
-                </span>
-            </span>
-        </label>
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="mongodb-install"
+               name="mongodb[install]" value="1"
+               {% if mongodb.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#mongodb-container"  />
+        <label for="mongodb-install">Install MongoDB</label>
 
-        <div class="clearfix"></div>
+        <p>
+            An open-source document database, and the leading NoSQL database
+        </p>
     </div>
+</div>
 
-    <div class="clearfix"></div>
-
-    <div id="mongodb-container" class="{% if not mongodb.install %}hidden{% endif %}">
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Select the proper version for your chosen distro.
-            </div>
-            <label for="mongodb-globals-version">Version</label>
-            <select id="mongodb-globals-version"
-                   name="mongodb[globals][version]"
-                   class="form-control select-tag">
+<div id="mongodb-container"
+     class="container-fluid collapse {% if mongodb.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="mongodb-globals-version">
+                    Version
+                </label>
+                <select id="mongodb-globals-version"
+                        name="mongodb[globals][version]"
+                        class="form-control select-tag">
                 <optgroup label="Ubuntu">
                     {% for version in mongodb.available.versions_deb %}
                         <option value="{{ version }}"
@@ -49,50 +47,93 @@
                             {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
                     {% endfor %}
                 </optgroup>
-            </select>
-        </div>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                IP Address Mongo will listen on. Will usually be local.
+                </select>
             </div>
-            <label for="mongodb-settings-bind_ip">Bind IP</label>
-            <input type="text" id="mongodb-settings-bind_ip"
-                   name="mongodb[settings][bind_ip]"
-                   placeholder="127.0.0.1" class="form-control"
-                   value="{{ mongodb.settings.bind_ip }}" />
-        </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Port will automatically be added to <code>iptables</code>.
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="mongodb-settings-bind_ip">
+                    Bind IP
+                </label>
+                <input type="text" id="mongodb-settings-bind_ip"
+                       name="mongodb[settings][bind_ip]"
+                       placeholder="127.0.0.1" class="form-control"
+                       value="{{ mongodb.settings.bind_ip }}" />
+                <div class="help-block">
+                    IP Address Mongo will listen on. Will usually be local.
+                </div>
             </div>
-            <label for="mongodb-settings-port">Listen Port</label>
-            <input type="text" id="mongodb-settings-port"
-                   name="mongodb[settings][port]"
-                   placeholder="27017" class="form-control"
-                   value="{{ mongodb.settings.port }}" />
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="mongodb-settings-port">
+                    Listen Port
+                </label>
+                <input type="number" id="mongodb-settings-port"
+                       name="mongodb[settings][port]"
+                       placeholder="27017" class="form-control"
+                       value="{{ mongodb.settings.port }}" />
+                <div class="help-block">
+                    Port will automatically be added to <code>iptables</code>.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
         </div>
-
-        <div class="clearfix"></div>
-
-        {% for database in mongodb.databases %}
-            {% include 'PuphpetBundle:mongodb:user-database.html.twig'
-                with {'database': database} %}
-        {% endfor %}
-
-        <a href="#" data-source-url="{{ path('puphpet.mongodb.add_database') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another database</a>
     </div>
 
     <div class="clearfix"></div>
 
-    <nav>
-        <ul class="pager">
-            <li class="previous">
-                <a href="#postgresql"><span aria-hidden="true">&larr;</span> PostgreSQL</a></li>
-            <li class="next">
-                <a href="#redis">Redis <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Databases</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.mongodb.add_database') }}"
+                       data-toggle="add-block" data-link-title="Database">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for database in mongodb.databases %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#mongodb-database-{{ attribute(database_uniqids, loop.index0) }}"
+                           data-toggle="tab">Database {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#mongodb-database-{{ attribute(database_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a database
+                </div>
+                {% for database in mongodb.databases %}
+                    {% include 'PuphpetBundle:mongodb:user-database.html.twig' with {
+                        'database': database,
+                        'uniqid': attribute(database_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#postgresql" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        PostgreSQL
+    </a>
+
+    <a href="#redis" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Redis
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
 </div>

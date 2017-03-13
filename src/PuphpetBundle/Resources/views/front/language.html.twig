@@ -9,14 +9,17 @@
     } %}
 </div>
 <div class="tab-pane" id="ruby">
-    {% include 'PuphpetBundle::ruby.html.twig' with {'ruby': add_available(extensions.ruby.merged, extensions.ruby.available)} %}
+    {% include 'PuphpetBundle::ruby.html.twig' with {
+        'ruby': add_available(extensions.ruby.merged, extensions.ruby.available)
+    } %}
 </div>
 <div class="tab-pane" id="python">
-    {% include 'PuphpetBundle::python.html.twig' with {'python': add_available(extensions.python.merged, extensions.python.available)} %}
+    {% include 'PuphpetBundle::python.html.twig' with {
+        'python': add_available(extensions.python.merged, extensions.python.available)
+    } %}
 </div>
 <div class="tab-pane" id="nodejs">
-    {% include 'PuphpetBundle::nodejs.html.twig' with {'nodejs': add_available(extensions.nodejs.merged, extensions.nodejs.available)} %}
-</div>
-<div class="tab-pane" id="hhvm">
-    {% include 'PuphpetBundle::hhvm.html.twig' with {'hhvm': add_available(extensions.hhvm.merged, extensions.hhvm.available)} %}
+    {% include 'PuphpetBundle::nodejs.html.twig' with {
+        'nodejs': add_available(extensions.nodejs.merged, extensions.nodejs.available)
+    } %}
 </div>

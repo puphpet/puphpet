@@ -5,137 +5,207 @@
 {% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
     ? data.vm.synced_folder : [] %}
 
-<div class="field-container">
-    <div class="form-group">
-        <div class="help-text">
-            Spin up your virtual machine on Digital Ocean.
-        </div>
-        <label class="col-xs-12 radio-tile">
-            <input type="radio" name="vagrantfile[target]" value="digitalocean" class="invisible"
-                   {% if providerChosen %}checked{% endif %} />
-            <span class="content">
-                <span class="header large">
-                    <i class="icon"></i>
-                    <span class="title">Deploy to Digital Ocean</span>
-                </span>
-                <span class="footer">
-                    A new server will be spun up at Digital Ocean.
-                    <a href="#" data-toggle="modal"
-                       data-target="#vagrantfile-digitalocean-modal">Click here for instructions</a>.
-                </span>
-            </span>
-        </label>
+{% set machine_uniqids = [] %}
+{% for machine in machines %}
+    {% set machine_uniqids = machine_uniqids|merge([uniqid('vfdom_', true)]) %}
+{% endfor %}
 
-        <div class="clearfix"></div>
+{% set folder_uniqids = [] %}
+{% for synced_folder in data.vm.synced_folder %}
+    {% set folder_uniqids = folder_uniqids|merge([uniqid('vfdosf_', true)]) %}
+{% endfor %}
+
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="vagrantfile-vm-provider-digitalocean-install"
+               name="vagrantfile[target]" value="digitalocean"
+               {% if providerChosen %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#vagrantfile-digitalocean-container"
+               data-enforce-group-single="vagrantfile"
+               data-enable-on-check data-disable-on-uncheck />
+        <label for="vagrantfile-vm-provider-digitalocean-install">Deploy to Digital Ocean</label>
+
+        <p>
+            A new server will be spun up at Digital Ocean.
+            <a href="#" data-toggle="modal"
+               data-target="#vagrantfile-digitalocean-modal">Click here for instructions</a>.
+        </p>
     </div>
+</div>
 
-    <div class="clearfix"></div>
+<div id="vagrantfile-digitalocean-container"
+     class="container-fluid collapse {% if providerChosen %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12">
+                <div class="clearfix"><label>Distro</label></div>
 
-    <div id="vagrantfile-digitalocean-container" class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-        <div class="form-group">
-            <div class="clearfix"><label>Distro</label></div>
-
-            <div class="help-text">
-                <p>Choose the operating system for your server. Digital Ocean has pre-defined systems you can
-                    choose from. The ones listed are the ones PuPHPet has been tested with so far.</p>
-                <p>Note: Listed are the PHP installs that we have confirmed as working for their respective
-                    operating system. You are welcome to attempt to install higher if you'd like, but
-                    we cannot guarantee it will work. In fact in most cases it won't.</p>
+                {% for image in data.available.images %}
+                    <div class="radio">
+                        <input type="radio" id="vagrantfile-vm-provider-digitalocean-image-{{ image.image }}"
+                               name="vagrantfile[vm][provider][digitalocean][image]"
+                               value="{{ image.image }}"
+                               {% if image.image == data.vm.provider.digitalocean.image %}checked{% endif %} />
+                        <label for="vagrantfile-vm-provider-digitalocean-image-{{ image.image }}">
+                            {{ image.long_name }}
+                        </label>
+                    </div>
+                {% endfor %}
             </div>
 
-            {% for image in data.available.images %}
-                <div class="radio">
-                    <input type="radio"
-                       id="vagrantfile-vm-provider-digitalocean-image-{{ image.image }}"
-                       name="vagrantfile[vm][provider][digitalocean][image]"
-                       value="{{ image.image }}"
-                       {% if image.image == data.vm.provider.digitalocean.image %}checked{% endif %} />
-                    <label for="vagrantfile-vm-provider-digitalocean-image-{{ image.image }}">
-                        {{ image.long_name }}
-                        (PHP <strong>{{ image.php_versions|join('</strong>, <strong>')|raw }}</strong>)
-                    </label>
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="vagrantfile-vm-provider-digitalocean-token">
+                    Digital Ocean Token
+                </label>
+                <input type="text" id="vagrantfile-vm-provider-digitalocean-token"
+                       name="vagrantfile[vm][provider][digitalocean][token]"
+                       placeholder="DIGITAL OCEAN TOKEN" class="form-control"
+                       value="{{ data.vm.provider.digitalocean.token }}" />
+                <div class="help-block">
+                    <a href="https://cloud.digitalocean.com/settings/applications"
+                       target="_blank">Get it here</a>.
                 </div>
-            {% endfor %}
-        </div>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <a href="https://cloud.digitalocean.com/settings/applications"
-                   target="_blank">Get it here</a>.
             </div>
-            <label for="vagrantfile-vm-provider-digitalocean-token">Digital Ocean Token</label>
-            <input type="text" id="vagrantfile-vm-provider-digitalocean-token"
-                   name="vagrantfile[vm][provider][digitalocean][token]"
-                   class="form-control" placeholder="DIGITAL OCEAN TOKEN"
-                   value="{{ data.vm.provider.digitalocean.token }}" />
-        </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Change if you already have an SSH key you would like to use.
-                Leave as default otherwise.
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="vagrantfile-vm-provider-digitalocean-ssh_key_name">
+                    SSH Key Name
+                </label>
+                <input type="text" id="vagrantfile-vm-provider-digitalocean-ssh_key_name"
+                       name="vagrantfile[vm][provider][digitalocean][ssh_key_name]"
+                       placeholder="Vagrant" class="form-control"
+                       value="{{ data.vm.provider.digitalocean.ssh_key_name }}" />
+                <div class="help-block">
+                    Change if you already have an SSH key you would like to use.
+                    Leave as default otherwise.
+                </div>
             </div>
-            <label for="vagrantfile-vm-provider-digitalocean-ssh_key_name">SSH Key Name</label>
-            <input type="text" id="vagrantfile-vm-provider-digitalocean-ssh_key_name"
-                   name="vagrantfile[vm][provider][digitalocean][ssh_key_name]"
-                   class="form-control" placeholder="Vagrant"
-                   value="{{ data.vm.provider.digitalocean.ssh_key_name }}" />
-        </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <p>The Digital Ocean server will not be accessible without your private/public key.</p>
-                <p><strong>It will not be accessible using username/password,
-                        only private key!</strong></p>
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="vagrantfile-ssh-private_key_path">
+                    Local Private Key Path
+                </label>
+                <input type="text" id="vagrantfile-ssh-private_key_path"
+                       name="vagrantfile[ssh][private_key_path]"
+                       placeholder="~/.ssh/id_rsa" class="form-control"
+                       value="{{ data.ssh.private_key_path }}" />
+                <div class="help-block">
+                    <p>The Digital Ocean server will not be accessible without your
+                        <span class="label label-info" data-toggle="help-text">
+                            <i class="fa fa-ellipsis-h"></i></span>
+                        <span class="hidden">private/public key.</span>
+                    </p>
+                    <div class="hidden">
+                        <p><strong>It will not be accessible using username/password,
+                                only private key!</strong></p>
+                    </div>
+                </div>
             </div>
-            <label for="vagrantfile-ssh-private_key_path">Local Private Key Path</label>
-            <input type="text" id="vagrantfile-ssh-private_key_path"
-                   name="vagrantfile[ssh][private_key_path]"
-                   class="form-control" placeholder="~/.ssh/id_rsa"
-                   value="{{ data.ssh.private_key_path }}" />
-        </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                The username associated with the private key entered.
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="vagrantfile-ssh-username">
+                    Local Private Key Username
+                </label>
+                <input type="text" id="vagrantfile-ssh-username"
+                       name="vagrantfile[ssh][username]"
+                       placeholder="~/.ssh/id_rsa" class="form-control"
+                       value="{{ data.ssh.username }}" />
+                <div class="help-block">
+                    The username associated with the private key entered.
+                </div>
             </div>
-            <label for="vagrantfile-ssh-username">Local Private Key Username</label>
-            <input type="text" id="vagrantfile-ssh-username"
-                   name="vagrantfile[ssh][username]"
-                   class="form-control"
-                   value="{{ data.ssh.username }}" />
+
+            <div class="clearfix"></div>
         </div>
-
-        <div class="clearfix"></div>
-
-        {% for machine in machines %}
-            {% include 'PuphpetBundle:vagrantfile-digitalocean:machine.html.twig' with {
-                'machine': machine,
-                'regions': data.available.regions,
-                'sizes': data.available.sizes
-            } %}
-        {% endfor %}
-
-        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_digitalocean.machine') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another machine</a>
-
-        <div class="clearfix"></div>
-
-        {% for synced_folder in data.vm.synced_folder %}
-            {% include 'PuphpetBundle:vagrantfile-digitalocean:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-        {% endfor %}
-
-        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_digitalocean.synced_folder') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
     </div>
 
     <div class="clearfix"></div>
 
-    <nav>
-        <ul class="pager">
-            <li class="next"><a href="#system-packages">System Packages <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Machines</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.vagrantfile_digitalocean.machine') }}"
+                       data-toggle="add-block" data-link-title="Machine">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for machine in machines %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#digitalocean-machine-{{ attribute(machine_uniqids, loop.index0) }}"
+                           data-toggle="tab">Machine {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#digitalocean-machine-{{ attribute(machine_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a Digital Ocean machine
+                </div>
+                {% for machine in machines %}
+                    {% include 'PuphpetBundle:vagrantfile-digitalocean:machine.html.twig' with {
+                        'machine': machine,
+                        'regions': data.available.regions,
+                        'sizes': data.available.sizes,
+                        'uniqid': attribute(machine_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Shared Folders</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.vagrantfile_digitalocean.synced_folder') }}"
+                       data-toggle="add-block" data-link-title="Folder">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for synced_folder in data.vm.synced_folder %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#digitalocean-folder-{{ attribute(folder_uniqids, loop.index0) }}"
+                           data-toggle="tab">Folder {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#digitalocean-folder-{{ attribute(folder_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a shared folder
+                </div>
+                {% for synced_folder in data.vm.synced_folder %}
+                    {% include 'PuphpetBundle:vagrantfile-digitalocean:synced-folder.html.twig' with {
+                        'synced_folder': synced_folder,
+                        'uniqid': attribute(folder_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="vagrantfile-digitalocean-modal" tabindex="-1" role="dialog"

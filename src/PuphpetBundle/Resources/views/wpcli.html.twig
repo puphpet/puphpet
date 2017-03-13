@@ -1,25 +1,23 @@
-<fieldset>
-    <legend>WP CLI Options</legend>
+<div class="form-group col-xs-12 col-sm-6">
+    <label for="wpcli-version">
+        Choose Version
+    </label>
+    <select id="wpcli-version"
+            name="wpcli[version]"
+            class="form-control select-tag-editable">
+        {% if wpcli.version is defined %}
+            <option value="{{ wpcli.version }}" selected>{{ wpcli.version }}</option>
+        {% endif %}
 
-    <div class="form-group col-xs-12">
-        <div class="help-text">
-            <p><a href="http://wp-cli.org/" target="_blank">WP-CLI</a> will be available
-                as a system service:</p>
-            <p><code>$ wp</code></p>
-        </div>
-        <label for="wpcli-version">Choose Version</label>
-        <select id="wpcli-version"
-               name="wpcli[version]"
-               class="form-control select-tag-editable">
-            {% if wpcli.version is defined %}
-                <option value="{{ wpcli.version }}" selected>{{ wpcli.version }}</option>
+        {% for version in wpcli.available.versions %}
+            {% if version != wpcli.version %}
+                <option value="{{ version }}">{{ version }}</option>
             {% endif %}
-
-            {% for version in wpcli.available.versions %}
-                {% if version != wpcli.version %}
-                    <option value="{{ version }}">{{ version }}</option>
-                {% endif %}
-            {% endfor %}
-        </select>
+        {% endfor %}
+    </select>
+    <div class="help-block">
+        <p><a href="http://wp-cli.org/" target="_blank">WP-CLI</a> will be available
+            as a system service:</p>
+        <p><code>$ wp</code></p>
     </div>
-</fieldset>
+</div>

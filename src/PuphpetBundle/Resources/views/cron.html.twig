@@ -1,43 +1,87 @@
+{% set job_uniqids = [] %}
+{% for job in cron.jobs %}
+    {% set job_uniqids = job_uniqids|merge([uniqid('cj_', true)]) %}
+{% endfor %}
+
 <input type="hidden" name="cron[install]" value="1" />
 
-<div class="section-header">
+<div class="container-fluid cm-container-white section-title">
     <h1>Cron Jobs</h1>
-    <p class="lead">Add cron jobs.</p>
+
+    <p>Add cron jobs</p>
 </div>
 
-<div class="field-container">
-    <div class="help-block">
-        <p>The user must exist. <code>root</code> is a valid option.
-            If you're deploying locally, <code>vagrant</code> is also valid, if deploying
-            remotely then enter the ssh username you chose in the Deploy Target area.
-            If you'd like a different user
-            <a href="#users-groups">make sure to add them here.</a></p>
+<div id="cron-container"
+     class="container-fluid collapse in">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="help-block col-xs-12">
+                <p>The user must exist. <code>root</code> is a valid option.
+                    If you're deploying locally, <code>vagrant</code> is also valid, if deploying
+                    remotely then enter the ssh username you chose in the Deploy Target area.
+                    If you'd like a different user
+                    <a href="#users-groups">make sure to add them here.</a></p>
 
-        <p>If you don't define a user, the user that runs Puppet will be used by default.
-            This user has root access, and most likely <em>is</em> root.</p>
+                <p>If you don't define a user, the user that runs Puppet will be used by default.
+                    This user has root access, and most likely <em>is</em> root.</p>
 
-        <p>Minute, hour, day and month values can all be left blank, as long as
-            one of them is not blank. e.g. hour, day and month can be blank if
-            minute has a value.</p>
+                <p>Minute, hour, day and month values can all be left blank, as long as
+                    one of them is not blank. e.g. hour, day and month can be blank if
+                    minute has a value.</p>
+            </div>
+        </div>
     </div>
 
     <div class="clearfix"></div>
 
-    {% for job in cron.jobs %}
-        {% include 'PuphpetBundle:cron:job.html.twig' with {'job': job} %}
-    {% endfor %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Cron Jobs</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.cron.job') }}"
+                       data-toggle="add-block" data-link-title="Job">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for job in cron.jobs %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#cron-job-{{ attribute(job_uniqids, loop.index0) }}"
+                           data-toggle="tab">Job {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#cron-job-{{ attribute(job_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
 
-    <a href="#" data-source-url="{{ path('puphpet.cron.job') }}"
-       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another cron job</a>
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a cron job
+                </div>
+                {% for job in cron.jobs %}
+                    {% include 'PuphpetBundle:cron:job.html.twig' with {
+                        'job': job,
+                        'uniqid': attribute(job_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div class="clearfix"></div>
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#firewall" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Firewall Rules
+    </a>
 
-    <nav>
-        <ul class="pager">
-            <li class="previous">
-                <a href="#firewall"><span aria-hidden="true">&larr;</span> Firewall Rules</a></li>
-            <li class="next">
-                <a href="#custom-files">Custom Files <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+    <a href="#custom-files" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Custom Files
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
 </div>

@@ -1,0 +1,45 @@
+.cm-navbar .breadcrumb{
+    display:table-cell;
+    height:@navbar-height;
+    background:transparent;
+    font-weight:normal;
+
+    &.lonely li:before{
+	display:none;
+    }
+
+    &.lonely li{
+	display:block;
+	.text-overflow();
+    }
+}
+
+.cm-navbar-primary .breadcrumb{
+    a{
+	color:rgba(255,255,255,.6);
+	text-decoration:none;
+    }
+
+    a:hover{
+	color:#fff;
+    }
+
+    li:before{
+	color:rgba(255,255,255,.3);
+    }
+
+    li.active{
+	color:#fff;
+	font-weight:bold;
+    }
+
+    li.active.ellipsis{
+	color:rgba(255,255,255,.6);
+    }
+}
+
+.cm-navbar-default .breadcrumb{
+    font-size:13px;
+    text-transform:uppercase;
+    font-weight:bold;
+}

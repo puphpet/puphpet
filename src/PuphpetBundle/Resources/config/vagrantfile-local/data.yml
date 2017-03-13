@@ -4,7 +4,7 @@ vm:
     provider:
         local:
             box: puphpet/ubuntu1604-x64
-            box_url: puphpet/ubuntu1604-x64
+            box_url: ~
             box_version: ~
             chosen_virtualizer: virtualbox
             virtualizers:

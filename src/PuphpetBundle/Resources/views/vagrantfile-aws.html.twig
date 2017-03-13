@@ -5,85 +5,153 @@
 {% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
     ? data.vm.synced_folder : [] %}
 
-<div class="field-container">
-    <div class="form-group">
-        <div class="help-text">
-            Spin up your virtual machine on Amazon EC2.
-        </div>
-        <label class="col-xs-12 radio-tile">
-            <input type="radio" name="vagrantfile[target]" value="aws" class="invisible"
-                   {% if providerChosen %}checked{% endif %} />
-            <span class="content">
-                <span class="header large">
-                    <i class="icon"></i>
-                    <span class="title">Deploy to Amazon</span>
-                </span>
-                <span class="footer">
-                    A new server will be spun up at Amazon.
-                    <a href="#" data-toggle="modal"
-                       data-target="#vagrantfile-aws-modal">Click here for instructions</a>.
-                </span>
-            </span>
-        </label>
+{% set machine_uniqids = [] %}
+{% for machine in machines %}
+    {% set machine_uniqids = machine_uniqids|merge([uniqid('vfawsm_', true)]) %}
+{% endfor %}
 
-        <div class="clearfix"></div>
+{% set folder_uniqids = [] %}
+{% for synced_folder in data.vm.synced_folder %}
+    {% set folder_uniqids = folder_uniqids|merge([uniqid('vfawssf_', true)]) %}
+{% endfor %}
+
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="vagrantfile-vm-provider-aws-install"
+               name="vagrantfile[target]" value="aws"
+               {% if providerChosen %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#vagrantfile-aws-container"
+               data-enforce-group-single="vagrantfile"
+               data-enable-on-check data-disable-on-uncheck />
+        <label for="vagrantfile-vm-provider-aws-install">Deploy to Amazon</label>
+
+        <p>
+            A new server will be spun up at Amazon.
+            <a href="#" data-toggle="modal"
+               data-target="#vagrantfile-aws-modal">Click here for instructions</a>.
+        </p>
+    </div>
+</div>
+
+<div id="vagrantfile-aws-container"
+     class="container-fluid collapse {% if providerChosen %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="vagrantfile-vm-provider-aws-access_key_id">
+                    EC2 Access Key ID
+                </label>
+                <input type="text" id="vagrantfile-vm-provider-aws-access_key_id"
+                       name="vagrantfile[vm][provider][aws][access_key_id]"
+                       placeholder="EC2 ACCESS KEY ID" class="form-control"
+                       value="{{ data.vm.provider.aws.access_key_id }}" />
+                <div class="help-block">
+                    <a href="https://console.aws.amazon.com/iam/home?#security_credential" target="_blank">Get it here</a>.
+                    You can leave this blank and fill it in manually in your <code>config.yaml</code> if you want.
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="vagrantfile-vm-provider-aws-secret_access_key">
+                    EC2 Secret Access Key
+                </label>
+                <input type="text" id="vagrantfile-vm-provider-aws-secret_access_key"
+                       name="vagrantfile[vm][provider][aws][secret_access_key]"
+                       placeholder="EC2 SECRET ACCESS KEY" class="form-control"
+                       value="{{ data.vm.provider.aws.secret_access_key }}" />
+                <div class="help-block">
+                    <a href="https://portal.aws.amazon.com/gp/aws/securityCredentials?" target="_blank">Get it here</a>.
+                    You can leave this blank and fill it in manually in your <code>config.yaml</code> if you want.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
     </div>
 
     <div class="clearfix"></div>
 
-    <div id="vagrantfile-aws-container" class="hideable vagrantfile {% if not providerChosen %}hidden{% endif %}">
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <a href="https://console.aws.amazon.com/iam/home?#security_credential" target="_blank">Get it here</a>.
-                You can leave this blank and fill it in manually in your <code>config.yaml</code> if you want.
+    <div class="panel panel-primary">
+        <div class="panel-heading">Machines</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.vagrantfile_aws.machine') }}"
+                       data-toggle="add-block" data-link-title="Machine">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for machine in machines %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#aws-machine-{{ attribute(machine_uniqids, loop.index0) }}"
+                           data-toggle="tab">Machine {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#aws-machine-{{ attribute(machine_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add an AWS machine
+                </div>
+                {% for machine in machines %}
+                    {% include 'PuphpetBundle:vagrantfile-aws:machine.html.twig' with {
+                        'machine': machine,
+                        'instance_types': data.available.instance_types,
+                        'regions': data.available.regions,
+                        'uniqid': attribute(machine_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
             </div>
-            <label for="vagrantfile-vm-provider-aws-access_key_id">EC2 Access Key ID</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-access_key_id"
-                   name="vagrantfile[vm][provider][aws][access_key_id]"
-                   class="form-control" placeholder="EC2 ACCESS KEY ID"
-                   value="{{ data.vm.provider.aws.access_key_id }}" />
         </div>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <a href="https://portal.aws.amazon.com/gp/aws/securityCredentials?" target="_blank">Get it here</a>.
-                You can leave this blank and fill it in manually in your <code>config.yaml</code> if you want.
-            </div>
-            <label for="vagrantfile-vm-provider-aws-secret_access_key">EC2 Secret Access Key</label>
-            <input type="text" id="vagrantfile-vm-provider-aws-secret_access_key"
-                   name="vagrantfile[vm][provider][aws][secret_access_key]"
-                   class="form-control" placeholder="EC2 SECRET ACCESS KEY"
-                   value="{{ data.vm.provider.aws.secret_access_key }}" />
-        </div>
-
-        <div class="clearfix"></div>
-
-        {% for machine in machines %}
-            {% include 'PuphpetBundle:vagrantfile-aws:machine.html.twig' with {
-                'machine': machine,
-                'instance_types': data.available.instance_types,
-                'regions': data.available.regions
-            } %}
-        {% endfor %}
-
-        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_aws.machine') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another machine</a>
-
-        {% for synced_folder in data.vm.synced_folder %}
-            {% include 'PuphpetBundle:vagrantfile-aws:synced-folder.html.twig' with {'synced_folder': synced_folder} %}
-        {% endfor %}
-
-        <a href="#" data-source-url="{{ path('puphpet.vagrantfile_aws.synced_folder') }}"
-           class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another shared folder pair</a>
     </div>
 
     <div class="clearfix"></div>
 
-    <nav>
-        <ul class="pager">
-            <li class="next"><a href="#system-packages">System Packages <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+    <div class="panel panel-primary">
+        <div class="panel-heading">Shared Folders</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.vagrantfile_aws.synced_folder') }}"
+                       data-toggle="add-block" data-link-title="Folder">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for synced_folder in data.vm.synced_folder %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#aws-folder-{{ attribute(folder_uniqids, loop.index0) }}"
+                           data-toggle="tab">Folder {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#aws-folder-{{ attribute(folder_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a shared folder
+                </div>
+                {% for synced_folder in data.vm.synced_folder %}
+                    {% include 'PuphpetBundle:vagrantfile-aws:synced-folder.html.twig' with {
+                        'synced_folder': synced_folder,
+                        'uniqid': attribute(folder_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="vagrantfile-aws-modal" tabindex="-1" role="dialog"

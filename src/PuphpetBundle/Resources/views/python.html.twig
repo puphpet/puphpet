@@ -1,61 +1,111 @@
 {% set packages = (python.packages is defined) ? python.packages : [] %}
 
+{% set version_uniqids = [] %}
+{% for selected_version in python.versions %}
+    {% set version_uniqids = version_uniqids|merge([uniqid('pyenv_', true)]) %}
+{% endfor %}
+
 <input type="hidden" name="python[install]" value="1" />
 
-<div class="section-header">
+<div class="container-fluid cm-container-white section-title">
     <h1>Python</h1>
-    <p class="lead">Configure Python versions and packages.</p>
+
+    <p>Configure Python versions and packages</p>
 </div>
 
-<div class="field-container">
-    <div class="help-block col-xs-12">
-        <p>Ubuntu comes with <code>Python 2.7</code>,
-            and CentOS comes with <code>Python 2.6</code> out of the box.</p>
-        <p>Any extra Python versions you choose will be installed using
-            <a href="https://github.com/yyuu/pyenv" target="_blank">pyenv</a>
-            as system installations, <em>not user installations</em>.</p>
-        <p>All extra Python versions require compiling. Choose sparingly - each
-            additional version will add extra time to the initial
-            <code>$ vagrant up</code>!</p>
-        <p>At least one Python version must be installed to install packages via
-            <code>pip</code>!</p>
-    </div>
+<div id="python-container"
+     class="container-fluid collapse in">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="help-block col-xs-12">
+                <p>Ubuntu comes with <code>Python 2.7</code>,
+                    and CentOS comes with <code>Python 2.6</code> out of the box.</p>
+                <p>Any extra Python versions you choose will be installed using
+                    <a href="https://github.com/yyuu/pyenv" target="_blank">pyenv</a>
+                    as system installations, <em>not user installations</em>.</p>
+                <p>All extra Python versions require compiling. Choose sparingly - each
+                    additional version will add extra time to the initial
+                    <code>$ vagrant up</code>!</p>
+                <p>At least one Python version must be installed to install packages via
+                    <code>pip</code>!</p>
+            </div>
 
-    <div class="form-group col-xs-12">
-        <div class="help-text">
-            <p>To install a specific package version, use <code>{package}@{version}</code>.</p>
-            <p>eg: <code>Django@1.6.5</code>. For latest just use <code>{package}</code>.</p>
-            <p><a href="https://pypi.python.org/pypi"
-                  target="_blank">All valid Packages list</a>.</p>
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="python-packages">
+                    Install Packages
+                </label>
+                <select id="python-packages"
+                        name="python[packages][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for package in packages %}
+                        <option selected value="{{ package }}">{{ package }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    <p>To install a specific package version, use <code>{package}@{version}</code>.</p>
+                    <p>eg: <code>Django@1.6.5</code>. For latest just use <code>{package}</code>.</p>
+                    <p><a href="https://pypi.python.org/pypi"
+                          target="_blank">All valid Packages list</a>.</p>
+                </div>
+            </div>
         </div>
-        <label for="python-packages">Install Packages</label>
-        <select id="python-packages"
-               multiple name="python[packages][]"
-               class="form-control select-tags-editable">
-            {% for package in packages %}
-                <option selected value="{{ package }}">{{ package }}</option>
-            {% endfor %}
-        </select>
     </div>
 
     <div class="clearfix"></div>
 
-    {% for selected_version in python.versions %}
-        {% include 'PuphpetBundle:python:version.html.twig'
-            with {'available_versions': python.available.versions, 'selected_version': selected_version} %}
-    {% endfor %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Versions</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.python.add_version') }}"
+                       data-toggle="add-block" data-link-title="Version">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for selected_version in python.versions %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#python-version-{{ attribute(machine_uniqids, loop.index0) }}"
+                           data-toggle="tab">Version {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#python-version-{{ attribute(machine_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
 
-    <a href="#" data-source-url="{{ path('puphpet.python.add_version') }}"
-       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another Python version</a>
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a Python version
+                </div>
+                {% for selected_version in python.versions %}
+                    {% include 'PuphpetBundle:python:version.html.twig' with {
+                        'available_versions': python.available.versions,
+                        'selected_version': selected_version,
+                        'uniqid': attribute(machine_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
     <div class="clearfix"></div>
+</div>
 
-    <nav>
-        <ul class="pager">
-            <li class="previous">
-                <a href="#ruby"><span aria-hidden="true">&larr;</span> Ruby</a></li>
-            <li class="next">
-                <a href="#nodejs">Node.js <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#ruby" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Ruby
+    </a>
+
+    <a href="#nodejs" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Node.js
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
 </div>

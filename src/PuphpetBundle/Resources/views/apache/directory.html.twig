@@ -1,96 +1,106 @@
-{% set uniqid = uniqid('avd_', true) %}
+{% set uniqid = uniqid ?? uniqid('avd_', true) %}
 
 {% set options = (directory.options is defined) ? directory.options : [] %}
 {% set allow_overrides = (directory.allow_override is defined) ? directory.allow_override : [] %}
 {% set requires = (directory.require is defined) ? directory.require : [] %}
 
-<div class="nested-block" id="{{ uniqid }}">
-    <a href="#" class="delete-block remove"
-       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
-    <fieldset>
-        <legend>Directory Block</legend>
-
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Should be same as vhost Document Root, or nested inside.
-            </div>
-            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-path">Path</label>
-            <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-path"
-                   name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][path]"
-                   placeholder="/absolute/path/to/webroot" class="form-control"
-                   value="{{ directory.path }}" />
+<div id="apache-vhost-{{ vhostId }}-rewrite-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-path">
+            Path
+        </label>
+        <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-path"
+               name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][path]"
+               placeholder="/absolute/path/to/webroot" class="form-control"
+               value="{{ directory.path }}" />
+        <div class="help-block">
+            Should be same as vhost Document Root, or nested inside.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Default index file: index.php, index.html, app.php, etc
-            </div>
-            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-directoryindex">Directory Index</label>
-            <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-directoryindex"
-                   name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][directoryindex]"
-                   placeholder="app.php" class="form-control"
-                   value="{{ directory.directoryindex }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-directoryindex">
+            Directory Index
+        </label>
+        <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-directoryindex"
+               name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][directoryindex]"
+               placeholder="app.php" class="form-control"
+               value="{{ directory.directoryindex }}" />
+        <div class="help-block">
+            Default index file: index.php, index.html, app.php, etc
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Separated by comma.
-            </div>
-            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-options">Options</label>
-            <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-options"
-                    name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][options][]"
-                    multiple class="form-control select-tags-editable">
-                {% for option in options %}
-                    <option selected value="{{ option }}">{{ option }}</option>
-                {% endfor %}
-            </select>
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-options">
+            Options
+        </label>
+        <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-options"
+                name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][options][]"
+                multiple class="form-control select-tags-editable">
+            {% for option in options %}
+                <option selected value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Separated by comma.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Separated by comma.
-            </div>
-            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-allow_override">Allow Override</label>
-            <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-allow_override"
-                    name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][allow_override][]"
-                    multiple class="form-control select-tags-editable">
-                {% for allow in allow_overrides %}
-                    <option selected value="{{ allow }}">{{ allow }}</option>
-                {% endfor %}
-            </select>
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-allow_override">
+            Allow Override
+        </label>
+        <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-allow_override"
+                name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][allow_override][]"
+                multiple class="form-control select-tags-editable">
+            {% for allow in allow_overrides %}
+                <option selected value="{{ allow }}">{{ allow }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Separated by comma.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                Separated by comma.
-            </div>
-            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-require">Require</label>
-            <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-require"
-                    name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][require][]"
-                    multiple class="form-control select-tags-editable">
-                {% for require in requires %}
-                    <option selected value="{{ require }}">{{ require }}</option>
-                {% endfor %}
-            </select>
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-require">
+            Require
+        </label>
+        <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-require"
+                name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][require][]"
+                multiple class="form-control select-tags-editable">
+            {% for require in requires %}
+                <option selected value="{{ require }}">{{ require }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Separated by comma.
         </div>
+    </div>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                File must exist inside VM on initial <code>$ vagrant up</code>!
-                <a href="https://gist.github.com/jtreminio/bcb78ccb97978a2cbd9e#file-gistfile1-apacheconf-L20"
-                   target="_blank">The custom fragment would be added here.</a>
-            </div>
-            <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-custom_fragment">Directory-Level Custom Directives</label>
-            <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-custom_fragment"
-                   name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][custom_fragment]"
-                   placeholder="/path/to/file" class="form-control"
-                   value="{{ directory.custom_fragment }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-custom_fragment">
+            Directory-Level Custom Directives
+        </label>
+        <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-custom_fragment"
+               name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][custom_fragment]"
+               placeholder="/path/to/file" class="form-control"
+               value="{{ directory.custom_fragment }}" />
+        <div class="help-block">
+            File must exist inside VM on initial <code>$ vagrant up</code>!
+            <a href="https://gist.github.com/jtreminio/bcb78ccb97978a2cbd9e#file-gistfile1-apacheconf-L20"
+               target="_blank">The custom fragment would be added here.</a>
         </div>
+    </div>
 
-        <div class="clearfix"></div>
+    <input type="hidden" name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][provider]"
+           value="{{ directory.provider }}" />
 
-    </fieldset>
-
-    <input type="hidden" value="{{ directory.provider }}"
-           name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][provider]" />
+    <div class="clearfix"></div>
 </div>

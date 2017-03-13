@@ -1,0 +1,340 @@
+#global {
+    padding-bottom: 100px;
+}
+
+.inline {
+    display: inline !important;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+.mb-20 {
+    margin-bottom: 20px !important;
+}
+.mb-30 {
+    margin-bottom: 30px !important;
+}
+.mb-40 {
+    margin-bottom: 40px !important;
+}
+.mb-50 {
+    margin-bottom: 50px !important;
+}
+
+.form-horizontal .form-group {
+    margin-right: 10px;
+}
+
+.section-footer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#cm-menu .cm-logo {
+    background: url(./img/logo.png) no-repeat 15px center transparent;
+}
+
+#cm-menu .cm-navbar {
+    border-right-width: 0;
+}
+
+.breadcrumb > li + li:before {
+    content: "";
+}
+
+.cm-navbar-primary .breadcrumb a {
+    margin: 0 15px;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+}
+
+.cm-menu-items li a {
+    padding-left: 15px;
+}
+
+.help-block {
+    margin-bottom: 0;
+}
+
+.radio .help-block,
+.checkbox .help-block {
+    margin-left: 25px;
+}
+
+.help-block [data-toggle="help-text"] {
+    cursor: pointer;
+}
+
+.popover {
+    max-width: 500px;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.panel-heading {
+    text-align: left;
+}
+
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+    position: relative;
+    margin-left: 5px;
+}
+
+.radio label, .checkbox label {
+    padding-left: 5px;
+}
+
+.nested-tabs {
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+
+.nested-tabs > li {
+    padding: 0 5px;
+}
+
+.nested-tabs > li.active {
+    background-color: #fff;
+    cursor: default;
+    color: #333;
+}
+
+#nested-tabs-template {
+    display: none;
+    visibility: hidden;
+}
+
+.nav-tabs > li:hover {
+    background-color: #eee;
+    border-color: #eee #eee #ddd;
+}
+
+.panel-primary .nested-tabs > li.active {
+    -webkit-box-shadow: inset 0 -3px 0 #3498db;
+    box-shadow: inset 0 -3px 0 #3498db;
+}
+
+.panel-info .nested-tabs > li.active {
+    -webkit-box-shadow: inset 0 -3px 0 #31708f;
+    box-shadow: inset 0 -3px 0 #31708f;
+}
+
+.panel-success .nested-tabs > li.active {
+    -webkit-box-shadow: inset 0 -3px 0 #3c763d;
+    box-shadow: inset 0 -3px 0 #3c763d;
+}
+
+.panel-danger .nested-tabs > li.active {
+    -webkit-box-shadow: inset 0 -3px 0 #a94442;
+    box-shadow: inset 0 -3px 0 #a94442;
+}
+
+.nested-tabs > li > a {
+    display: inline-block;
+    border-radius: 0;
+    margin: 0;
+    border: 0 !important;
+    padding: 0 20px;
+    line-height: 50px;
+    font-size: 13px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #777;
+}
+
+.nested-tabs > li.active > a,
+.nested-tabs > li.active > a:hover,
+.nested-tabs > li.active > a:focus {
+    border: none;
+    background-color: transparent;
+}
+
+.nested-tabs > li.active > a {
+    color: #000;
+}
+
+.nested-tabs > li.add a {
+    color: #000;
+}
+
+.nested-tabs > li > .btn-group button {
+    border: none;
+}
+
+.checkbox.checkbox-sm label::before {
+    width: 30px;
+    height: 30px;
+    top: -13px;
+}
+
+.checkbox.checkbox-sm label::after {
+    width: 30px;
+    height: 30px;
+    padding-left: 4px;
+    font-size: 20px;
+    left: 1px;
+    top: -13px;
+}
+
+.checkbox.checkbox-sm label {
+    padding-left: 18px;
+    top: 13px;
+}
+
+.checkbox.checkbox-md {
+    margin-bottom: 5px;
+}
+
+.checkbox.checkbox-md label::before {
+    width: 30px;
+    height: 30px;
+    top: 0;
+}
+
+.checkbox.checkbox-md label::after {
+    width: 30px;
+    height: 30px;
+    padding-left: 2px;
+    font-size: 24px;
+    left: 1px;
+    top: -2px;
+}
+
+.checkbox.checkbox-md label {
+    padding-left: 20px;
+    font-size: 22px;
+    top: 1px;
+}
+
+.checkbox.checkbox-md p {
+    margin-top: 5px;
+    text-indent: 43px;
+}
+
+.checkbox.checkbox-lg {
+    margin-bottom: 5px;
+}
+
+.checkbox.checkbox-lg label::before {
+    width: 46px;
+    height: 46px;
+    top: -3px;
+}
+
+.checkbox.checkbox-lg label::after {
+    width: 46px;
+    height: 46px;
+    padding-left: 4px;
+    font-size: 36px;
+    left: 1px;
+    top: -6px;
+}
+
+.checkbox.checkbox-lg label {
+    padding-left: 34px;
+    top: 5px;
+    font-size: 30px;
+}
+
+.checkbox.checkbox-lg p {
+    margin-top: 10px;
+    text-indent: 55px;
+}
+
+.radio.radio-sm label::before {
+    width: 30px;
+    height: 30px;
+    top: -13px;
+}
+
+.radio.radio-sm label::after {
+    width: 22px;
+    height: 22px;
+    padding-left: 4px;
+    font-size: 20px;
+    left: 4px;
+    top: -9px;
+}
+
+.radio.radio-sm label {
+    padding-left: 18px;
+    top: 13px;
+}
+
+.radio.radio-md label::before {
+    width: 34px;
+    height: 34px;
+    top: -17px;
+}
+
+.radio.radio-md label::after {
+    width: 26px;
+    height: 26px;
+    padding-left: 4px;
+    font-size: 24px;
+    left: 4px;
+    top: -13px;
+}
+
+.radio.radio-md label {
+    padding-left: 22px;
+    top: 17px;
+}
+
+.radio.radio-lg label::before {
+    width: 46px;
+    height: 46px;
+    top: -28px;
+}
+
+.radio.radio-lg label::after {
+    width: 36px;
+    height: 36px;
+    padding-left: 4px;
+    font-size: 36px;
+    left: 5px;
+    top: -23px;
+}
+
+.radio.radio-lg label {
+    padding-left: 34px;
+    top: 32px;
+}
+
+.tab-content > div.empty-tabs {
+    display: none;
+    margin-left: 30px;
+}
+
+.tab-content > div.empty-tabs:only-child {
+   display: block;
+}
+
+.next-section {
+    font-size: 2em;
+    padding: 1em;
+    margin: 20px 0;
+}
+
+.cm-logo {
+    padding-top: 8px;
+    padding-left: 100px;
+    font-size: 2em;
+    color: #fff;
+}
+
+.cm-logo:hover {
+    color: #fff;
+    text-decoration: none;
+}

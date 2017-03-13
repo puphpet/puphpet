@@ -1,39 +1,33 @@
-{% set uniqid = uniqid('led_', true) %}
+{% set uniqid = uniqid ?? uniqid('led_', true) %}
 
-<div id="{{ uniqid }}" class="nested-block">
-    <a href="#" class="delete-block remove"
-       data-block-id="{{ uniqid }}"><i class="fa fa-times"></i></a>
+<div id="rackspace-machine-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12">
+        <label for="letsencrypt-domains-{{ uniqid }}-hosts">
+            Hosts
+        </label>
+        <select id="letsencrypt-domains-{{ uniqid }}-hosts"
+                name="letsencrypt[domains][{{ uniqid }}][hosts][]"
+                multiple class="form-control select-tags-editable">
+            {% for host in domain.hosts %}
+                <option selected value="{{ host }}">{{ host }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <p>The domain must be public and reachable from the internet.</p>
 
-    <fieldset>
-        <legend>Let's Encrypt Domain</legend>
+            <p>If you do not know your server's IP address ahead of time,
+                <code>$ vagrant up</code> may fail initially. You need to assign
+                your domain to the new server via an <code>A</code> record
+                or a floating IP address. As long as your domain resolves
+                to the created server this will work!</p>
 
-        <div class="clearfix"></div>
+            <p>Simply run <code>$ vagrant provision</code> once the domain is
+                resolving properly!</p>
 
-        <div class="form-group col-xs-12">
-            <div class="help-text">
-                <p>The domain must be public and reachable from the internet.</p>
-
-                <p>If you do not know your server's IP address ahead of time,
-                    <code>$ vagrant up</code> may fail initially. You need to assign
-                    your domain to the new server via an <code>A</code> record
-                    or a floating IP address. As long as your domain resolves
-                    to the created server this will work!</p>
-
-                <p>Simply run <code>$ vagrant provision</code> once the domain is
-                    resolving properly!</p>
-            </div>
-            <label for="letsencrypt-domains-{{ uniqid }}-hosts">Hosts</label>
-            <select id="letsencrypt-domains-{{ uniqid }}-hosts"
-                   name="letsencrypt[domains][{{ uniqid }}][hosts][]"
-                   multiple class="form-control select-tags-editable">
-                {% for host in domain.hosts %}
-                    <option selected value="{{ host }}">{{ host }}</option>
-                {% endfor %}
-            </select>
+            <p>Make sure your domain's Server Name is defined first, followed by any aliases.</p>
         </div>
+    </div>
 
-        <div class="help-block col-xs-12">
-            Make sure your domain's Server Name is defined first, followed by any aliases.
-        </div>
-    </fieldset>
+    <div class="clearfix"></div>
 </div>

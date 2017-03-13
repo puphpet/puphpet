@@ -1,27 +1,69 @@
+{% set version_uniqids = [] %}
+{% for selected_version in ruby.versions %}
+    {% set version_uniqids = version_uniqids|merge([uniqid('rv_', true)]) %}
+{% endfor %}
+
 <input type="hidden" name="ruby[install]" value="1" />
 
-<div class="section-header">
+<div class="container-fluid cm-container-white section-title">
     <h1>Ruby</h1>
-    <p class="lead">Configure Ruby versions and gems.</p>
+
+    <p>Configure Ruby versions and gems</p>
 </div>
 
-<div class="field-container">
-    {% for selected_version in ruby.versions %}
-        {% include 'PuphpetBundle:ruby:version.html.twig' with {
-            'available_versions': ruby.available.versions, 'selected_version': selected_version} %}
-    {% endfor %}
+<div id="firewall-container"
+     class="container-fluid collapse in">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Ruby Versions</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.ruby.add_version') }}"
+                       data-toggle="add-block" data-link-title="Ruby">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for selected_version in ruby.versions %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#ruby-version-{{ attribute(version_uniqids, loop.index0) }}"
+                           data-toggle="tab">Ruby {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#ruby-version-{{ attribute(version_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
 
-    <a href="#" data-source-url="{{ path('puphpet.ruby.add_version') }}"
-       class="add-block"><i class="fa fa-level-up fa-rotate-90"></i> Add another Ruby version</a>
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a Ruby version
+                </div>
+                {% for selected_version in ruby.versions %}
+                    {% include 'PuphpetBundle:ruby:version.html.twig' with {
+                        'available_versions': ruby.available.versions,
+                        'selected_version': selected_version,
+                        'uniqid': attribute(version_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
     <div class="clearfix"></div>
+</div>
 
-    <nav>
-        <ul class="pager">
-            <li class="previous">
-                <a href="#php"><span aria-hidden="true">&larr;</span> PHP</a></li>
-            <li class="next">
-                <a href="#python">Python <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#php" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        PHP
+    </a>
+
+    <a href="#python" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Python
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
 </div>

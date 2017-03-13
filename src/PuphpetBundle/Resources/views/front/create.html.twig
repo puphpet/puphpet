@@ -1,76 +1,80 @@
 <div class="tab-pane" id="create">
-    <div class="section-header">
+    <div class="container-fluid cm-container-white section-title">
         <h1>Download Your Customized Archive</h1>
-        <p class="lead">Your server is ready to be spun up!</p>
+
+        <p>Your server is ready to be spun up!</p>
     </div>
 
-    <div class="field-container">
-        <button type="submit" class="btn btn-lg btn-success btn-block next-section">
-            <i class="fa fa-hand-o-right"></i>
-                Download your custom server config!
-            <i class="fa fa-hand-o-left"></i>
-        </button>
+    <div id="about-container"
+         class="container-fluid collapse in">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-xs-12">
+                </div>
 
-        <div class="clearfix"></div>
+                <button type="submit"
+                        class="btn btn-lg btn-success btn-block next-section">
+                    Download your custom server config!
+                </button>
 
-        <p><a href="{{ path('puphpet.main.generate_config') }}"
-              id="yaml-config">Or see your custom YAML config file here</a></p>
+                <p><a href="{{ path('puphpet.main.generate_config') }}"
+                      id="yaml-config">Or see your custom YAML config file here</a></p>
 
-        <div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-        <div class="col-xs-6">
-            <h3>Great! Now what?</h3>
+                <div class="col-xs-6">
+                    <h3>Great! Now what?</h3>
 
-            <ol>
-                <li>Extract the downloaded zip file</li>
-                <li>Open a terminal window and go to the extracted folder</li>
-                <li>Run <code>$ vagrant up</code> and go grab a coffee</li>
-            </ol>
+                    <ol>
+                        <li>Extract the downloaded zip file</li>
+                        <li>Open a terminal window and go to the extracted folder</li>
+                        <li>Run <code>$ vagrant up</code> and go grab a coffee</li>
+                    </ol>
 
-            <h3>Read the instructions!</h3>
+                    <h3>Read the instructions!</h3>
 
-            <p>
-                After you run <code>$ vagrant up</code> you'll get a list of instructions. Please read them
-                if you have any questions or problems! They will answer most of the frequently asked questions.
-                If you open an
-                <a href="https://github.com/puphpet/puphpet/issues" target="_blank">issue on the github page</a>,
-                <strong>MAKE SURE TO PASTE YOUR <code>config.yaml</code> CONTENTS</strong>! I cannot help
-                if I do not have this information! In fact, I will ignore your ticket until you add it!
-            </p>
+                    <p>
+                        After you run <code>$ vagrant up</code> you'll get a list of instructions. Please read them
+                        if you have any questions or problems! They will answer most of the frequently asked questions.
+                        If you open an
+                        <a href="https://github.com/puphpet/puphpet/issues" target="_blank">issue on the github page</a>,
+                        <strong>MAKE SURE TO PASTE YOUR <code>config.yaml</code> CONTENTS</strong>! I cannot help
+                        if I do not have this information! In fact, I will ignore your ticket until you add it!
+                    </p>
 
-            <h3>Follow on Twitter</h3>
+                    <h3>Follow on Twitter</h3>
 
-            <p>
-                New features are added <strong>all the time</strong>. The best way to keep up to date
-                is to <a href="https://twitter.com/puphpet" target="">follow @puphpet</a>!
-            </p>
+                    <p>
+                        New features are added <strong>all the time</strong>. The best way to keep up to date
+                        is to <a href="https://twitter.com/puphpet" target="">follow @puphpet</a>!
+                    </p>
+                </div>
+
+                <div class="col-xs-6">
+                    <h3>The config file</h3>
+
+                    <p>
+                        Everything in your VM is controlled via the <code>puphpet/config.yaml</code> file. Here,
+                        you can choose which packages you want installed and change the settings for many things.
+                    </p>
+
+                    <p>
+                        If you change anything, you can have it take effect within your virtual machine by running
+                        <code>$ vagrant provision</code>. If you make changes before you actually spin up your vm,
+                        the changes will be applied on your first <code>$ vagrant up</code>.
+                    </p>
+
+                    <h3>Custom config file</h3>
+
+                    <p>
+                        You can create a custom config file at <code>puphpet/config-custom.yaml</code> to override
+                        anything that you have defined in <code>puphpet/config.yaml</code>. This file is ignored by
+                        Git by default. Simply copy the structure from <code>config.yaml</code> and replace the
+                        values you want. You can also create completely new keys to define functionality not present
+                        in PuPHPet by default!
+                    </p>
+                </div>
+            </div>
         </div>
-
-        <div class="col-xs-6">
-            <h3>The config file</h3>
-
-            <p>
-                Everything in your VM is controlled via the <code>puphpet/config.yaml</code> file. Here,
-                you can choose which packages you want installed and change the settings for many things.
-            </p>
-
-            <p>
-                If you change anything, you can have it take effect within your virtual machine by running
-                <code>$ vagrant provision</code>. If you make changes before you actually spin up your vm,
-                the changes will be applied on your first <code>$ vagrant up</code>.
-            </p>
-
-            <h3>Custom config file</h3>
-
-            <p>
-                You can create a custom config file at <code>puphpet/config-custom.yaml</code> to override
-                anything that you have defined in <code>puphpet/config.yaml</code>. This file is ignored by
-                Git by default. Simply copy the structure from <code>config.yaml</code> and replace the
-                values you want. You can also create completely new keys to define functionality not present
-                in PuPHPet by default!
-            </p>
-        </div>
-
-        <div class="clearfix"></div>
     </div>
 </div>

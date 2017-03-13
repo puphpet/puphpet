@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="24" width="24" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <g transform="translate(0 -1028.4)">
+  <rect height="20" width="14" y="1031.4" x="5" fill="#bdc3c7"/>
+  <g transform="translate(0 2)">
+   <g fill="#3498db">
+    <rect transform="translate(0 1028.4)" height="3" width="2" y="3" x="7"/>
+    <rect height="3" width="2" y="1031.4" x="11"/>
+    <rect height="3" width="2" y="1031.4" x="15"/>
+   </g>
+   <g fill="#2980b9">
+    <rect transform="translate(0 1028.4)" height="1" width="2" y="3" x="7"/>
+    <rect transform="translate(0 1028.4)" height="1" width="2" y="3" x="11"/>
+    <rect transform="translate(0 1028.4)" height="1" width="2" y="3" x="15"/>
+   </g>
+  </g>
+  <g transform="translate(0 7)">
+   <g fill="#3498db">
+    <rect transform="translate(0 1028.4)" height="3" width="2" y="3" x="7"/>
+    <rect height="3" width="2" y="1031.4" x="11"/>
+    <rect height="3" width="2" y="1031.4" x="15"/>
+   </g>
+   <g fill="#2980b9">
+    <rect transform="translate(0 1028.4)" height="1" width="2" y="3" x="7"/>
+    <rect transform="translate(0 1028.4)" height="1" width="2" y="3" x="11"/>
+    <rect transform="translate(0 1028.4)" height="1" width="2" y="3" x="15"/>
+   </g>
+  </g>
+  <g transform="translate(0 12)">
+   <g fill="#3498db">
+    <rect transform="translate(0 1028.4)" height="3" width="2" y="3" x="7"/>
+    <rect height="3" width="2" y="1031.4" x="11"/>
+    <rect height="3" width="2" y="1031.4" x="15"/>
+   </g>
+   <g fill="#2980b9">
+    <rect transform="translate(0 1028.4)" height="1" width="2" y="3" x="7"/>
+    <rect transform="translate(0 1028.4)" height="1" width="2" y="3" x="11"/>
+    <rect transform="translate(0 1028.4)" height="1" width="2" y="3" x="15"/>
+   </g>
+  </g>
+  <g>
+   <rect height="3" width="6" y="1048.4" x="7" fill="#e67e22"/>
+   <rect height="1" width="6" y="1048.4" x="7" fill="#d35400"/>
+   <rect height="3" width="1" y="1048.4" x="9" fill="#d35400"/>
+   <rect height="2" width="2" y="1048.4" x="15" fill="#3498db"/>
+   <rect height="1" width="2" y="1048.4" x="15" fill="#2980b9"/>
+  </g>
+  <path d="m4 1030.4h16l-2.667-2h-10.666l-2.667 2" fill="#bdc3c7"/>
+  <rect height="1" width="16" y="1030.4" x="4" fill="#7f8c8d"/>
+  <rect transform="translate(0 1028.4)" height="1" width="14" y="3" x="5" fill="#95a5a6"/>
+ </g>
+</svg>
