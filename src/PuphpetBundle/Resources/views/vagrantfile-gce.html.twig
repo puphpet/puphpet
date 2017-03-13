@@ -17,10 +17,10 @@
 
 <div class="container-fluid cm-container-white section-title">
     <div class="checkbox checkbox-lg no-padding">
-        <input type="checkbox" id="vagrantfile-vm-provider-gce-install"
+        <input type="radio" id="vagrantfile-vm-provider-gce-install"
                name="vagrantfile[target]" value="gce"
                {% if providerChosen %}checked{% endif %}
-               data-toggle="checkbox-collapse" data-target="#vagrantfile-gce-container"
+               data-toggle="radio-collapse" data-target="#vagrantfile-gce-container"
                data-enforce-group-single="vagrantfile"
                data-enable-on-check data-disable-on-uncheck />
         <label for="vagrantfile-vm-provider-gce-install">Deploy to Google</label>
