@@ -301,18 +301,6 @@ PUPHPET.selectizeAddClickedToElement = function() {
     });
 };
 
-PUPHPET.submitUncheckedCheckboxes = function () {
-    $(document).on('click', 'input:checkbox', function(e) {
-        if (!$(this).is(':checked')) {
-            $(this).after('<input type="hidden" name="' + $(this).attr('name') + '" value="0">');
-
-            return;
-        }
-
-        $('input[type="hidden"][name="' + $(this).attr('name') + '"]').remove();
-    });
-};
-
 /**
  * Allows user to drag and drop a pre-generated yaml file containing
  * their VMs configuration.
@@ -588,7 +576,6 @@ $(document).ready(function() {
     PUPHPET.enforceGroupSingleChoice();
     PUPHPET.menuActive();
     PUPHPET.displayTabFromUrl();
-    PUPHPET.submitUncheckedCheckboxes();
     PUPHPET.uploadConfig();
     PUPHPET.disableEnterSubmit();
     PUPHPET.yamlConfigDownload();
