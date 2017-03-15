@@ -185,7 +185,7 @@ machines.each do |i, machine|
             smb_host: smb__host,
             smb_username: smb__username,
             smb_password: smb__password,
-            mount_options: ["dir_mode=#{smb__dir_options},file_mode=#{smb__file_options}"]
+            mount_options: ["mfsymlinks,dir_mode=#{smb__dir_options},file_mode=#{smb__file_options}"]
         elsif folder['sync_type'] == 'rsync'
           rsync_args    = !folder['rsync']['args'].nil? ?
             folder['rsync']['args'] :
