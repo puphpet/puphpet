@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "949b2a13c97e12ae6654891929e42bf6",
+    "content-hash": "630d763c9f1a204e90f71d56e7741e04",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -662,6 +662,71 @@
             "description": "A Base Security Library",
             "homepage": "https://github.com/ircmaxell/SecurityLib",
             "time": "2015-03-20T14:31:23+00:00"
+        },
+        {
+            "name": "kachkaev/assets-version-bundle",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kachkaev/KachkaevAssetsVersionBundle.git",
+                "reference": "2688ecad32d3a685ee3aee7a59644e6a3b933285"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kachkaev/KachkaevAssetsVersionBundle/zipball/2688ecad32d3a685ee3aee7a59644e6a3b933285",
+                "reference": "2688ecad32d3a685ee3aee7a59644e6a3b933285",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "satooshi/php-coveralls": "~1.0",
+                "symfony/filesystem": "~2.3|~3.0",
+                "symfony/finder": "~2.3|~3.0"
+            },
+            "suggest": {
+                "symfony/assetic-bundle": "For combining and compressing assets"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kachkaev\\AssetsVersionBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kachkaev",
+                    "email": "alexander@kachkaev.ru",
+                    "homepage": "http://en.kachkaev.ru/"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/kachkaev/KachkaevAssetsVersionBundle/contributors"
+                }
+            ],
+            "description": "Automates the process of updating assets version in Symfony2 & Symfony3 projects",
+            "homepage": "http://github.com/kachkaev/KachkaevAssetsVersionBundle",
+            "keywords": [
+                "assetic",
+                "assets",
+                "autoincrement",
+                "config",
+                "console",
+                "deploy",
+                "version"
+            ],
+            "time": "2016-06-13T09:33:51+00:00"
         },
         {
             "name": "kriswallsmith/assetic",
