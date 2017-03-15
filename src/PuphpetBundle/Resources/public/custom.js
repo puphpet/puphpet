@@ -573,6 +573,16 @@ PUPHPET.disableOnUncheck = function() {
     });
 };
 
+PUPHPET.bootstrapNotify = function() {
+    $('.growl-alert').each(function() {
+        new PNotify({
+            title: this.getAttribute('data-title'),
+            text: $(this).html(),
+            type: this.getAttribute('data-type')
+        });
+    });
+};
+
 $(document).ready(function() {
     PUPHPET.runSelectize(null);
     PUPHPET.selectizeAddClickedToElement();
@@ -589,4 +599,5 @@ $(document).ready(function() {
     PUPHPET.disableEnterSubmit();
     PUPHPET.yamlConfigDownload();
     PUPHPET.disableOnUncheck();
+    PUPHPET.bootstrapNotify();
 });

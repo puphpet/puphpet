@@ -338,3 +338,11 @@
     color: #fff;
     text-decoration: none;
 }
+
+.growl-alert {
+    display: none;
+}
+
+.ui-pnotify {
+    width: 500px !important;
+}

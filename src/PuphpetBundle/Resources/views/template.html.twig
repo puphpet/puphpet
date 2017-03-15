@@ -18,6 +18,7 @@
                 "bundles/puphpet/vendor/font-awesome-4.7.0/css/font-awesome.min.css"
                 "bundles/puphpet/vendor/awesome-bootstrap-checkbox-v0.3.7.css"
                 "bundles/puphpet/vendor/selectize.js-0.7.2/selectize.bootstrap3.css"
+                "bundles/puphpet/vendor/pnotify-2.0.1/pnotify.custom.min.css"
             %}
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
@@ -90,7 +91,7 @@
 {% endblock %}
 
 <div id="global">
-    <form id="main-form" class="form-horizontal" method="post">
+    <form id="main-form" class="form-horizontal" method="post" action="/">
         <div class="tab-content">
             {% block main %}
                 {% include 'PuphpetBundle::index.html.twig' %}
@@ -162,6 +163,7 @@
         "bundles/puphpet/vendor/jquery.cookie-1.4.1.min.js"
         "bundles/puphpet/vendor/fastclick-v1.0.6-2/lib/fastclick.js"
         "bundles/puphpet/vendor/selectize.js-0.7.2/selectize.min.js"
+        "bundles/puphpet/vendor/pnotify-2.0.1/pnotify.custom.min.js"
         "bundles/puphpet/vendor/clearmin/clearmin.js"
     %}
         <script src="{{ asset_url }}"></script>

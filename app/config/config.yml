@@ -29,7 +29,7 @@ framework:
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
+    strict_variables: false
 
 assetic:
     read_from: "%kernel.root_dir%/../web"
