@@ -17,8 +17,11 @@ end
 
 machines.each do |i, machine|
   config.vm.define "#{machine['id']}" do |machine_id|
-    machine_id.vm.box     = "#{provider['box']}"
-    machine_id.vm.box_url = "#{provider['box_url']}"
+    machine_id.vm.box = "#{provider['box']}"
+
+    if provider['box_url'].to_s != '' && provider['box_url'].to_s != 'false'
+      machine_id.vm.box_url = "#{provider['box_url']}"
+    end
 
     if provider['box_version'].to_bool
       machine_id.vm.box_version = "#{provider['box_version']}"
