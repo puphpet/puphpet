@@ -1,7 +1,7 @@
 ---
 :backends: yaml
 :yaml:
-    :datadir: '/vagrant/puphpet'
+    :datadir: /opt/puphpet
 :hierarchy:
     - config-%{::provisioner_type}
     - config-custom

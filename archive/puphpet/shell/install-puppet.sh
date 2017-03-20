@@ -2,17 +2,20 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-VAGRANT_CORE_FOLDER=$(cat '/.puphpet-stuff/vagrant-core-folder.txt')
+PUPHPET_CORE_DIR=/opt/puphpet
+PUPHPET_STATE_DIR=/opt/puphpet-state
 
-OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
-RELEASE=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" RELEASE)
-CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
+OS=$(/bin/bash "${PUPHPET_CORE_DIR}/shell/os-detect.sh" ID)
+RELEASE=$(/bin/bash "${PUPHPET_CORE_DIR}/shell/os-detect.sh" RELEASE)
+CODENAME=$(/bin/bash "${PUPHPET_CORE_DIR}/shell/os-detect.sh" CODENAME)
 
-if [[ ! -f '/.puphpet-stuff/install-puppet' ]]; then
+if [[ ! -f "${PUPHPET_STATE_DIR}/install-puppet" ]]; then
     if [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
         URL="https://apt.puppetlabs.com/puppetlabs-release-pc1-${CODENAME}.deb"
-        wget --quiet --tries=5 --connect-timeout=10 -O /.puphpet-stuff/puppetlabs-release-pc1.deb ${URL}
-        dpkg -i /.puphpet-stuff/puppetlabs-release-pc1.deb
+        wget --quiet --tries=5 --connect-timeout=10 \
+            -O "${PUPHPET_STATE_DIR}/puppetlabs-release-pc1.deb" \
+            ${URL}
+        dpkg -i "${PUPHPET_STATE_DIR}/puppetlabs-release-pc1.deb"
         apt-get update
         apt-get -y install puppet-agent=1.6*
     fi
@@ -31,7 +34,7 @@ if [[ ! -f '/.puphpet-stuff/install-puppet' ]]; then
 
     rm -f /usr/bin/puppet
     ln -s /opt/puppetlabs/bin/puppet /usr/bin/puppet
-    touch /.puphpet-stuff/install-puppet
+    touch "${PUPHPET_STATE_DIR}/install-puppet"
 fi
 
 GEM=/opt/puppetlabs/puppet/bin/gem

@@ -358,13 +358,14 @@ machines.each do |i, machine|
 
     machine_id.vm.provision :shell,
       :inline => "sed -i -e 's/\r$//' /vagrant/puphpet/shell/*.sh"
+    machine_id.vm.provision :shell,
+      :inline => 'chmod +x /opt/puphpet/standalone-puppet.sh'
     machine_id.vm.provision 'shell' do |s|
       s.path = 'puphpet/shell/initial-setup.sh'
-      s.args = '/vagrant/puphpet'
     end
     machine_id.vm.provision 'shell' do |s|
       s.path = 'puphpet/shell/ssh-keygen.sh'
-      s.args = "#{ssh_username}"
+      s.args = ["#{ssh_username}"]
     end
     machine_id.vm.provision 'shell' do |s|
       s.path = 'puphpet/shell/install-puppet.sh'
@@ -407,7 +408,9 @@ machines.each do |i, machine|
       s.args = ['startup-once-unprivileged', 'startup-always-unprivileged']
     end
 
-    machine_id.vm.provision :shell, :path => 'puphpet/shell/important-notices.sh'
+    machine_id.vm.provision :shell, privileged: true do |s|
+      s.path = 'puphpet/shell/important-notices.sh'
+    end
 
     customKey  = "#{dir}/puphpet/files/dot/ssh/id_rsa"
     vagrantKey = "#{vagrant_dot}/machines/#{machine['id']}/#{ENV['VAGRANT_DEFAULT_PROVIDER']}/private_key"

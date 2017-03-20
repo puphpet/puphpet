@@ -2,33 +2,50 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-VAGRANT_CORE_FOLDER=$(echo "$1")
+PUPHPET_CORE_DIR=/opt/puphpet
+PUPHPET_STATE_DIR=/opt/puphpet-state
 
-OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
-CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
-RELEASE=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" RELEASE)
+# Run from Vagrant CLI
+if [[ -d /vagrant ]]; then
+    if [[ ! -L ${PUPHPET_CORE_DIR} ]]; then
+        ln -s /vagrant ${PUPHPET_CORE_DIR}
+    fi
 
-if [[ -f "${VAGRANT_CORE_FOLDER}/shell/ascii-art/self-promotion.txt" ]]; then
-    cat "${VAGRANT_CORE_FOLDER}/shell/ascii-art/self-promotion.txt"
+    # Run on local VM
+    if [[ -d /.puphpet-stuff ]] && [[ ! -L ${PUPHPET_STATE_DIR} ]]; then
+        ln -s /.puphpet-stuff ${PUPHPET_STATE_DIR}
+    elif [[ ! -d ${PUPHPET_STATE_DIR} ]]; then
+        mkdir ${PUPHPET_STATE_DIR}
+    fi
+else
+    if [[ ! -d ${PUPHPET_CORE_DIR} ]]; then
+        mkdir ${PUPHPET_CORE_DIR}
+    fi
+
+    if [[ ! -d ${PUPHPET_STATE_DIR} ]]; then
+        mkdir ${PUPHPET_STATE_DIR}
+    fi
+fi
+
+OS=$(/bin/bash ${PUPHPET_CORE_DIR}/shell/os-detect.sh ID)
+CODENAME=$(/bin/bash ${PUPHPET_CORE_DIR}/shell/os-detect.sh CODENAME)
+RELEASE=$(/bin/bash ${PUPHPET_CORE_DIR}/shell/os-detect.sh RELEASE)
+
+if [[ -f ${PUPHPET_CORE_DIR}/shell/ascii-art/self-promotion.txt ]]; then
+    cat ${PUPHPET_CORE_DIR}/shell/ascii-art/self-promotion.txt
     printf "\n"
     echo ""
 fi
 
-if [[ ! -d '/.puphpet-stuff' ]]; then
-    mkdir '/.puphpet-stuff'
-fi
-
-touch '/.puphpet-stuff/vagrant-core-folder.txt'
-echo "${VAGRANT_CORE_FOLDER}" > '/.puphpet-stuff/vagrant-core-folder.txt'
-
-if [[ -f '/.puphpet-stuff/initial-setup' ]]; then
+if [[ -f ${PUPHPET_STATE_DIR}/initial-setup ]]; then
     exit 0
 fi
 
 if [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
-    wget --quiet --tries=5 --connect-timeout=10 -O /.puphpet-stuff/puppetlabs.gpg \
+    wget --quiet --tries=5 --connect-timeout=10 \
+        -O ${PUPHPET_STATE_DIR}/puppetlabs.gpg \
         https://apt.puppetlabs.com/pubkey.gpg
-    apt-key add /.puphpet-stuff/puppetlabs.gpg
+    apt-key add ${PUPHPET_STATE_DIR}/puppetlabs.gpg
 
     apt-get update
 
@@ -74,10 +91,10 @@ fi
 
 # CentOS comes with tty enabled. RHEL has realized this is stupid, so we can
 # also safely disable it in PuPHPet boxes.
-if [[ ! -f '/.puphpet-stuff/disable-tty' ]]; then
+if [[ ! -f ${PUPHPET_STATE_DIR}/disable-tty ]]; then
     perl -pi'~' -e 's@Defaults(\s+)requiretty@Defaults !requiretty@g' /etc/sudoers
 
-    touch '/.puphpet-stuff/disable-tty'
+    touch ${PUPHPET_STATE_DIR}/disable-tty
 fi
 
-touch '/.puphpet-stuff/initial-setup'
+touch ${PUPHPET_STATE_DIR}/initial-setup
