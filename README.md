@@ -56,4 +56,4 @@ PuPHPet is licensed under the [MIT license](http://opensource.org/licenses/mit-l
 Modules are licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
 Clearmin Design licensed under GPLv3 with
-[an exemption provided for PuPHPet](https://github.com/puphpet/puphpet/blob/master/LICENSE-DESIGN).
+[an exemption provided for PuPHPet](https://github.com/puphpet/puphpet/blob/master/LICENSE-DESIGN.md).
