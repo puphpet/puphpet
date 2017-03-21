@@ -12,5 +12,4 @@ find ${PUPHPET_CORE_DIR}/shell -type f -exec chmod +x {} \;
 puppet apply --verbose \
     --hiera_config ${PUPHPET_CORE_DIR}/puppet/hiera.yaml \
     --modulepath "${PUPHPET_CORE_DIR}/puppet/modules/:${PUPHPET_CORE_DIR}/puppet/manifests/:/etc/puppet/modules" \
-    --detailed-exitcodes \
     ${PUPHPET_CORE_DIR}/puppet/manifests/
