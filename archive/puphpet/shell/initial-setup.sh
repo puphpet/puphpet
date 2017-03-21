@@ -8,7 +8,7 @@ PUPHPET_STATE_DIR=/opt/puphpet-state
 # Run from Vagrant CLI
 if [[ -d /vagrant ]]; then
     if [[ ! -L ${PUPHPET_CORE_DIR} ]]; then
-        ln -s /vagrant ${PUPHPET_CORE_DIR}
+        ln -s /vagrant/puphpet ${PUPHPET_CORE_DIR}
     fi
 
     # Run on local VM

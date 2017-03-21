@@ -361,11 +361,11 @@ machines.each do |i, machine|
 
     machine_id.vm.provision :shell,
       :inline => "sed -i -e 's/\r$//' /vagrant/puphpet/shell/*.sh"
-    machine_id.vm.provision :shell,
-      :inline => 'chmod +x /opt/puphpet/standalone-puppet.sh'
     machine_id.vm.provision 'shell' do |s|
       s.path = 'puphpet/shell/initial-setup.sh'
     end
+    machine_id.vm.provision :shell,
+      :inline => 'chmod +x /opt/puphpet/standalone-puppet.sh'
     machine_id.vm.provision 'shell' do |s|
       s.path = 'puphpet/shell/ssh-keygen.sh'
       s.args = ["#{ssh_username}"]
