@@ -24,6 +24,31 @@ machines.each do |i, machine|
       li.distribution = "#{provider['distribution']}"
       li.plan         = "#{machine['plan']}"
       li.label        = "#{machine['label']}"
+
+      if machine.include? 'planid'
+        provider.planid = machine['planid']
+      end
+      if machine.include? 'datacenterid'
+        provider.datacenterid = machine['datacenterid']
+      end
+      if machine.include? 'image'
+        provider.image = "#{machine['image']}"
+      end
+      if machine.include? 'imageid'
+        provider.imageid = machine['imageid']
+      end
+      if machine.include? 'kernel'
+        provider.kernel = "#{machine['kernel']}"
+      end
+      if machine.include? 'kernelid'
+        provider.kernelid = machine['kernelid']
+      end
+      if machine.include? 'private_networking'
+        provider.private_networking = machine['private_networking']
+      end
+      if machine.include? 'distributionid'
+        provider.distributionid = machine['distributionid']
+      end
     end
 
     data['vm']['synced_folder'].each do |i, folder|
