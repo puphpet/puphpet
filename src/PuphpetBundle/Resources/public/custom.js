@@ -528,13 +528,7 @@ PUPHPET.enforceGroupSingleChoice = function() {
         }
 
         $('input[data-enforce-group-single="' + group + '"]').not(this).each(function (index, item) {
-            if (!$(this).is(':checked')) {
-                return true;
-            }
-
             PUPHPET.disableFormElements($(this.getAttribute('data-target')));
-
-            $(this).click();
         });
     });
 };
