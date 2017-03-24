@@ -104,7 +104,9 @@ class Manager
         foreach ($data as $key => $values) {
             $name = $this->parseDataKeyName($values, $key);
 
-            $data[$key] = array_replace_recursive($this->extensions[$name]['data'], $data[$key]);
+            if (!empty($this->extensions[$name])) {
+                $data[$key] = array_replace_recursive($this->extensions[$name]['data'], $data[$key]);
+            }
         }
 
         return $data;
