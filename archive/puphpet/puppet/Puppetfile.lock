@@ -14,11 +14,11 @@ FORGE
 
 GIT
   remote: https://github.com/arioch/puppet-redis.git
-  ref: 1.2.3
+  ref: 1.2.4
   sha: 05c9d2d8893682f7355f82faa2faf8d08783fab5
   specs:
-    arioch-redis (1.2.3)
-      puppetlabs-apt (< 3.0.0, >= 2.0.1)
+    arioch-redis (1.2.4)
+      puppetlabs-apt (< 3.0.0, >= 2.3.0)
       puppetlabs-stdlib (< 5.0.0, >= 1.0.2)
       stahnma-epel (< 2.0.0, >= 1.0.2)
 
@@ -123,8 +123,8 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: 70e3f6379323edbc9054b185833d6c171b7174aa
-  sha: 70e3f6379323edbc9054b185833d6c171b7174aa
+  ref: 76c72993f17be9292acb5ef8e98289000bf8dd68
+  sha: 76c72993f17be9292acb5ef8e98289000bf8dd68
   specs:
     puphpet-puphpet (0.0.1)
 
@@ -270,6 +270,14 @@ GIT
     attachmentgenie-locales (2.2.2)
 
 GIT
+  remote: https://github.com/saz/puppet-resolv_conf.git
+  ref: v3.1.0
+  sha: 211c2b5a98e2b339cc9631c999177f2784aef690
+  specs:
+    saz-resolv_conf (3.1.0)
+      puppetlabs-stdlib (>= 3.2.0)
+
+GIT
   remote: https://github.com/saz/puppet-timezone.git
   ref: v3.3.0
   sha: 734918982a512f51a3f1855396d2d7da3f37f53c
@@ -333,6 +341,7 @@ DEPENDENCIES
   puppetlabs-stdlib (>= 0)
   puppetlabs-vcsrepo (>= 0)
   s12v-blackfire (>= 0)
+  saz-resolv_conf (>= 0)
   saz-timezone (>= 0)
   tPl0ch-composer (>= 0)
   voxpupuli-archive (>= 0)

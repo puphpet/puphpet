@@ -71,7 +71,7 @@ mod 'example42/puppi',
     :ref => 'v2.1.13'
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '70e3f6379323edbc9054b185833d6c171b7174aa'
+    :ref => '76c72993f17be9292acb5ef8e98289000bf8dd68'
 mod 'daenney/pyenv',
     :git => 'https://github.com/puphpet/puppet-pyenv.git',
     :ref => '062ae728ae0ddcb76d6d60c3c268fc13b022106e'
@@ -81,6 +81,9 @@ mod 'puppetlabs/rabbitmq',
 mod 'arioch/redis',
     :git => 'https://github.com/arioch/puppet-redis.git',
     :ref => '1.2.4'
+mod 'saz/resolv_conf',
+    :git => 'https://github.com/saz/puppet-resolv_conf.git',
+    :ref => 'v3.1.0'
 mod 'maestrodev/rvm'
 mod 'example42/solr',
     :git => 'https://github.com/example42/puppet-solr.git',

@@ -17,6 +17,7 @@ services:
             - [ addExtension, [ 'users-groups' ] ]
             - [ addExtension, [ 'locale' ] ]
             - [ addExtension, [ 'firewall' ] ]
+            - [ addExtension, [ 'resolv' ] ]
             - [ addExtension, [ 'cron' ] ]
         # web server
             - [ addExtension, [ 'nginx' ] ]

@@ -18,6 +18,11 @@
         'firewall': add_available(extensions.firewall.merged, extensions.firewall.available)
     } %}
 </div>
+<div class="tab-pane" id="resolv">
+    {% include 'PuphpetBundle::resolv.html.twig' with {
+        'resolv': add_available(extensions.resolv.merged, extensions.resolv.available)
+    } %}
+</div>
 <div class="tab-pane" id="cron">
     {% include 'PuphpetBundle::cron.html.twig' with {
         'cron': add_available(extensions.cron.merged, extensions.cron.available)
