@@ -306,6 +306,28 @@ machines.each do |i, machine|
           end
         end
       end
+      machine_id.vm.provider :vmware_workstation do |v, override|
+        provider['virtualizers']['vmware'].each do |key, value|
+          if key == 'memsize'
+            next
+          end
+          if key == 'cpus'
+            next
+          end
+
+          v.vmx["#{key}"] = "#{value}"
+        end
+
+        v.vmx['memsize']  = "#{machine['memory']}"
+        v.vmx['numvcpus'] = "#{machine['cpus']}"
+
+        if provider['virtualizers']['vmware']['displayName'].nil? ||
+          provider['virtualizers']['vmware']['displayName'].empty?
+          if machine_id.vm.hostname.to_s.strip.length != 0
+            v.vmx['displayName'] = machine_id.vm.hostname
+          end
+        end
+      end
     end
 
     if chosen_virtualizer == 'parallels'
