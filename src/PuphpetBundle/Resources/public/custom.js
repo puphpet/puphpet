@@ -528,6 +528,10 @@ PUPHPET.enforceGroupSingleChoice = function() {
         }
 
         $('input[data-enforce-group-single="' + group + '"]').not(this).each(function (index, item) {
+            if ($(this).is(':checkbox')) {
+                $(this).click();
+            }
+
             PUPHPET.disableFormElements($(this.getAttribute('data-target')));
         });
     });
