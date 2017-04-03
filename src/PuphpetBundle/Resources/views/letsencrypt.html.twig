@@ -1,3 +1,6 @@
+{% set webserver_service = (letsencrypt.settings.webserver_service is defined and letsencrypt.settings.webserver_service)
+    ? letsencrypt.settings.webserver_service
+    : '' %}
 {% set domain_uniqids = [] %}
 {% for domain in letsencrypt.domains %}
     {% set domain_uniqids = domain_uniqids|merge([uniqid('led_', true)]) %}
@@ -15,6 +18,8 @@
      class="container-fluid collapse in">
     <div class="panel panel-default">
         <div class="panel-body">
+            <input type="hidden" name="letsencrypt[settings][webserver_service]" value="{{ webserver_service }}" />
+
             <div class="form-group col-xs-12 col-sm-6">
                 <label for="letsencrypt-settings-email">
                     Admin Email Address
