@@ -152,7 +152,7 @@ machines.each do |i, machine|
               id: "#{i}",
               type: 'nfs'
             machine_id.bindfs.bind_folder "/mnt/vagrant-#{i}", "#{folder['target']}",
-              after: :provision,
+              after: :synced_folders,
               force_user: sync_owner,
               force_group: sync_group,
               perms: "u=rwX:g=rwX:o=rD",
