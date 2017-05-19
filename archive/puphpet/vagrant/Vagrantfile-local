@@ -90,8 +90,7 @@ machines.each do |i, machine|
       end
     end
 
-    # https://github.com/smdahlen/vagrant-hostmanager
-    if Vagrant.has_plugin?('vagrant-hostmanager')
+    if Vagrant.has_plugin?('vagrant-hostmanager') || Vagrant.has_plugin?('vagrant-hostsupdater')
       hosts = Array.new()
 
       if !configValues['hosts'].nil?
@@ -130,7 +129,12 @@ machines.each do |i, machine|
         if machine_id.vm.hostname.to_s.strip.length == 0
           machine_id.vm.hostname = "#{machine['id']}-dev-machine"
         end
+      end
+    end
 
+    # https://github.com/smdahlen/vagrant-hostmanager
+    if Vagrant.has_plugin?('vagrant-hostmanager')
+      if hosts.any?
         machine_id.hostmanager.enabled           = true
         machine_id.hostmanager.manage_host       = true
         machine_id.hostmanager.ignore_private_ip = false
@@ -138,6 +142,13 @@ machines.each do |i, machine|
         machine_id.hostmanager.aliases           = hosts.uniq
 
         machine_id.vm.provision :hostmanager
+      end
+    end
+
+    # https://github.com/cogitatio/vagrant-hostsupdater
+    if Vagrant.has_plugin?('vagrant-hostsupdater')
+      if hosts.any?
+        machine_id.hostsupdater.aliases = hosts.uniq
       end
     end
 
