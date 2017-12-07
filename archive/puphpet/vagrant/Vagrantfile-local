@@ -90,6 +90,18 @@ machines.each do |i, machine|
       end
     end
 
+    # https://github.com/fgrehm/vagrant-cachier
+    if Vagrant.has_plugin?("vagrant-cachier")
+      config.cache.scope = :box
+      if "#{provider['box']}".include?('ubuntu-16.04') || "#{provider['box']}".include?('ubuntu1604')
+        config.cache.synced_folder_opts = {
+          mount_options: ['rw', 'dmode="777"', 'fmode="666"'],
+          owner: "_apt",
+          group: "_apt"
+        }
+      end
+    end
+
     # https://github.com/smdahlen/vagrant-hostmanager
     if Vagrant.has_plugin?('vagrant-hostmanager')
       hosts = Array.new()
