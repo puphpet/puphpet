@@ -18,6 +18,8 @@ if [[ ! -f "${PUPHPET_STATE_DIR}/install-puppet" ]]; then
         dpkg -i "${PUPHPET_STATE_DIR}/puppetlabs-release-pc1.deb"
         apt-get update
         apt-get -y install puppet-agent=1.6*
+
+        apt-mark hold puppet-agent puppetlabs-release-pc1
     fi
 
     if [[ "${OS}" == 'centos' ]]; then
