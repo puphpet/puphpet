@@ -16,7 +16,8 @@ function create_key()
         ssh-keygen -f "${PUPHPET_CORE_DIR}/files/dot/ssh/${BASE_KEY_NAME}" -P ""
 
         if [[ ! -f "${PUPHPET_CORE_DIR}/files/dot/ssh/${BASE_KEY_NAME}.ppk" ]]; then
-            puttygen "${PUPHPET_CORE_DIR}/files/dot/ssh/${BASE_KEY_NAME}" -O private -o "${PUPHPET_CORE_DIR}/files/dot/ssh/${BASE_KEY_NAME}.ppk"
+            puttygen "${PUPHPET_CORE_DIR}/files/dot/ssh/${BASE_KEY_NAME}" \
+                -O private -o "${PUPHPET_CORE_DIR}/files/dot/ssh/${BASE_KEY_NAME}.ppk"
         fi
 
         echo "Your private key for SSH-based authentication has been saved to 'puphpet/files/dot/ssh/${BASE_KEY_NAME}'!"
@@ -24,6 +25,14 @@ function create_key()
         echo "Pre-existing private key found at 'puphpet/files/dot/ssh/${BASE_KEY_NAME}'"
     fi
 }
+
+if [[ ! -f "${PUPHPET_STATE_DIR}/install-putty-tools" ]]; then
+    if [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
+        apt-get update
+        apt-get -y install putty-tools
+        touch "${PUPHPET_STATE_DIR}/install-putty-tools"
+    fi
+fi
 
 create_key 'root_id_rsa'
 create_key 'id_rsa'
