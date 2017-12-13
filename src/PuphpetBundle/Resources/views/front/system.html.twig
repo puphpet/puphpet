@@ -1,0 +1,33 @@
+<div class="tab-pane" id="system-packages">
+    {% include 'PuphpetBundle::server.html.twig' with {
+        'server': add_available(extensions.server.merged, extensions.server.available)
+    } %}
+</div>
+<div class="tab-pane" id="users-groups">
+    {% include 'PuphpetBundle::users-groups.html.twig' with {
+        'ug': add_available(extensions.users_groups.merged, extensions.users_groups.available)
+    } %}
+</div>
+<div class="tab-pane" id="locale">
+    {% include 'PuphpetBundle::locale.html.twig' with {
+        'locale': add_available(extensions.locale.merged, extensions.locale.available),
+    } %}
+</div>
+<div class="tab-pane" id="firewall">
+    {% include 'PuphpetBundle::firewall.html.twig' with {
+        'firewall': add_available(extensions.firewall.merged, extensions.firewall.available)
+    } %}
+</div>
+<div class="tab-pane" id="resolv">
+    {% include 'PuphpetBundle::resolv.html.twig' with {
+        'resolv': add_available(extensions.resolv.merged, extensions.resolv.available)
+    } %}
+</div>
+<div class="tab-pane" id="cron">
+    {% include 'PuphpetBundle::cron.html.twig' with {
+        'cron': add_available(extensions.cron.merged, extensions.cron.available)
+    } %}
+</div>
+<div class="tab-pane" id="custom-files">
+    {% include 'PuphpetBundle::custom-files.html.twig' %}
+</div>

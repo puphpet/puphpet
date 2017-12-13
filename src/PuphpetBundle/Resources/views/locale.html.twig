@@ -1,0 +1,85 @@
+{% set selected_tz = (locale.settings.timezone is defined and locale.settings.timezone) ? locale.settings.timezone : 'UTC' %}
+
+<input type="hidden" name="locale[install]" value="1" />
+
+<div class="container-fluid cm-container-white section-title">
+    <h1>Locale</h1>
+
+    <p>Set system locale</p>
+</div>
+
+<div id="locale-container"
+     class="container-fluid collapse in">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12">
+                <label for="locale-settings-default_locale">
+                    Default Locale
+                </label>
+                <select id="locale-settings-default_locale"
+                       name="locale[settings][default_locale]"
+                       class="form-control select-tags-editable">
+                    <option value="" {% if locale.settings.default_locale == '' %}selected{% endif %}>&lt;NONE&gt;</option>
+
+                    {% for available in locale.available.locales %}
+                        <option value="{{ available }}"
+                            {% if available == locale.settings.default_locale %}selected{% endif %}>{{ available }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    Per the <a href="https://wiki.debian.org/Locale#Standard" target="_blank">Debian Locale wiki</a>
+                    it is highly recommended to leave your default locale empty.
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12">
+                <label for="locale-settings-locales">
+                    Supported Locales
+                </label>
+                <select id="locale-settings-locales"
+                       name="locale[settings][locales][]"
+                       multiple class="form-control select-tags-editable">
+                    {% for available in locale.available.locales %}
+                        <option value="{{ available }}"
+                            {% if available in locale.settings.locales %}selected{% endif %}>{{ available }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    Add as many as you want to support here.
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12">
+                <label for="locale-settings-timezone">
+                    Timezone
+                </label>
+                <select id="locale-settings-timezone"
+                       name="locale[settings][timezone]"
+                       class="form-control select-tags-editable">
+                    {% for timezone in locale.available.timezones %}
+                        <option value="{{ timezone }}"
+                            {% if timezone == selected_tz %}selected{% endif %}>{{ timezone }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    Per the <a href="https://wiki.debian.org/Locale#Standard" target="_blank">Debian Locale wiki</a>
+                    it is highly recommended to leave your default locale empty.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#users-groups" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Users &amp; Groups
+    </a>
+
+    <a href="#firewall" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Firewall Rules
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

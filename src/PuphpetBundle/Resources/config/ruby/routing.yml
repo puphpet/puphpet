@@ -1,7 +1,0 @@
-puphpet.ruby.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:Ruby:index }
-
-puphpet.ruby.add_version:
-    path:  /add-version
-    defaults: { _controller: PuphpetBundle:Ruby:addVersion }

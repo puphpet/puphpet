@@ -10,3 +10,5 @@ parameters:
 
     # Default log directory override
     log_dir: ~
+
+    assets_version: v000

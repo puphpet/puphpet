@@ -24,6 +24,31 @@ machines.each do |i, machine|
       li.distribution = "#{provider['distribution']}"
       li.plan         = "#{machine['plan']}"
       li.label        = "#{machine['label']}"
+
+      if machine.include? 'planid'
+        provider.planid = machine['planid']
+      end
+      if machine.include? 'datacenterid'
+        provider.datacenterid = machine['datacenterid']
+      end
+      if machine.include? 'image'
+        provider.image = "#{machine['image']}"
+      end
+      if machine.include? 'imageid'
+        provider.imageid = machine['imageid']
+      end
+      if machine.include? 'kernel'
+        provider.kernel = "#{machine['kernel']}"
+      end
+      if machine.include? 'kernelid'
+        provider.kernelid = machine['kernelid']
+      end
+      if machine.include? 'private_networking'
+        provider.private_networking = machine['private_networking']
+      end
+      if machine.include? 'distributionid'
+        provider.distributionid = machine['distributionid']
+      end
     end
 
     data['vm']['synced_folder'].each do |i, folder|
@@ -35,11 +60,9 @@ machines.each do |i, machine|
 
     machine_id.vm.provision 'shell' do |s|
       s.path = 'puphpet/shell/initial-setup.sh'
-      s.args = '/vagrant/puphpet'
     end
-    machine_id.vm.provision 'shell' do |s|
-      s.path = 'puphpet/shell/check-puppet-modules.sh'
-    end
+    machine_id.vm.provision :shell,
+      :inline => 'chmod +x /opt/puphpet/standalone-puppet.sh'
     machine_id.vm.provision 'shell' do |s|
       s.path = 'puphpet/shell/install-puppet.sh'
     end
@@ -56,7 +79,7 @@ machines.each do |i, machine|
       }
       puppet.manifests_path = "#{data['vm']['provision']['puppet']['manifests_path']}"
       puppet.manifest_file  = ""
-      puppet.module_path    = "#{data['vm']['provision']['puppet']['module_path']}"
+      puppet.module_path    = data['vm']['provision']['puppet']['module_path']
 
       if !data['vm']['provision']['puppet']['options'].empty?
         puppet.options = data['vm']['provision']['puppet']['options']
@@ -81,7 +104,9 @@ machines.each do |i, machine|
       s.args = ['startup-once-unprivileged', 'startup-always-unprivileged']
     end
 
-    machine_id.vm.provision :shell, :path => 'puphpet/shell/important-notices.sh'
+    machine_id.vm.provision :shell, privileged: false do |s|
+      s.path = 'puphpet/shell/important-notices.sh'
+    end
 
     if !data['ssh']['port'].nil? && data['ssh']['port'].to_bool
       machine_id.ssh.port = "#{data['ssh']['port']}"

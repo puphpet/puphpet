@@ -1,0 +1,373 @@
+{% set pool_uniqids = [] %}
+{% for pool in php.fpm_pools %}
+    {% set pool_uniqids = pool_uniqids|merge([uniqid('phpfp_', true)]) %}
+{% endfor %}
+
+<input type="hidden" name="php[install]" value="0" />
+
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="php-install"
+               name="php[install]" value="1"
+               {% if php.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#php-container" />
+        <label for="php-install">Install PHP</label>
+
+        <p>
+            PHP is a toy language accidentally chosen to power
+            some of the largest websites in the world. You probably want Ruby?
+        </p>
+    </div>
+</div>
+
+<div id="php-container"
+     class="container-fluid collapse {% if php.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="php-settings-version">
+                    PHP Version
+                </label>
+                <select id="php-settings-version"
+                        name="php[settings][version]"
+                        class="form-control select-tag">
+                    <option value="7.1"
+                        {% if php.settings.version in ['7.1', '71'] %}selected{% endif %}>7.1</option>
+                    <option value="7.0"
+                        {% if php.settings.version in ['7.0', '70'] %}selected{% endif %}>7.0</option>
+                    <option value="5.6"
+                        {% if php.settings.version in ['5.6', '56'] %}selected{% endif %}>5.6</option>
+                </select>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12">
+                <label for="php-ini-displayer">
+                    INI Settings
+                </label>
+                <select id="php-ini-displayer"
+                        multiple class="form-control select-tags-user-input"
+                        data-target-container="php-ini"
+                        data-target-name="php[ini]">
+                    {% set flattened = [] %}
+                    {% for ini, values in php.available.ini %}
+                        {% if values is not empty %}
+                            <optgroup label="{{ ini }}">
+                                {% for value in values %}
+                                    {% set flattened = flattened|merge([value]) %}
+                                    <option value="{{ value }}"
+                                        {% if value in php.ini|keys %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% else %}
+                            {% set flattened = flattened|merge([ini]) %}
+                            <option value="{{ ini }}"
+                                {% if ini in php.ini|keys %}selected{% endif %}>{{ ini }}</option>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for name, value in php.ini %}
+                        {% if name not in flattened %}
+                            <option value="{{ name }}" selected>{{ name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <div id="php-ini" class="hidden">
+                    {% for name, value in php.ini %}
+                        <input type="hidden" name="php[ini][{{ name }}]"
+                               data-option-name="{{ name }}" value="{{ value }}" />
+                    {% endfor %}
+                </div>
+
+                <div class="help-block">
+                    All settings added to a single INI file.
+                    <a href="http://php.net/manual/en/ini.list.php" target="_blank">All settings</a>.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="php-fpm_ini-displayer">
+                    PHP-FPM INI Settings
+                </label>
+                <select id="php-fpm_ini-displayer"
+                        multiple class="form-control select-tags-user-input"
+                        data-target-container="php-fpm_ini"
+                        data-target-name="php[fpm_ini]">
+                    {% set flattened = [] %}
+                    {% for ini, values in php.available.fpm_ini %}
+                        {% set flattened = flattened|merge([ini]) %}
+                        <option value="{{ ini }}"
+                            {% if ini in php.fpm_ini|keys %}selected{% endif %}>{{ ini }}</option>
+                    {% endfor %}
+
+                    {% for name, value in php.fpm_ini %}
+                        {% if name not in flattened %}
+                            <option value="{{ name }}" selected>{{ name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <div id="php-fpm_ini" class="hidden">
+                    {% for name, value in php.fpm_ini %}
+                        <input type="hidden" name="php[fpm_ini][{{ name }}]"
+                               data-option-name="{{ name }}" value="{{ value }}" />
+                    {% endfor %}
+                </div>
+
+                <div class="help-block">
+                    Make sure to define <code>pid</code>.
+                    <a href="http://php.net/manual/en/install.fpm.configuration.php"
+                       target="_blank">All settings</a>.
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="php-modules-php">
+                    PHP Modules
+                </label>
+                <select id="php-modules-php"
+                        name="php[modules][php][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for module in php.modules.php %}
+                        <option value="{{ module }}" selected>{{ module }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    <a href="https://launchpad.net/~ondrej/+archive/ubuntu/php/" target="_blank">
+                        Ubuntu Modules</a>,
+                    <a href="http://rpms.famillecollet.com/enterprise/6/" target="_blank">
+                        CentOS Modules</a>,
+                    <a href="http://rpms.famillecollet.com/enterprise/7/" target="_blank">
+                        CentOS 7 modules</a>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="php-modules-pear">
+                    PEAR Modules
+                </label>
+                <select id="php-modules-pear"
+                        name="php[modules][pear][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for module in php.modules.pear %}
+                        <option value="{{ module }}" selected>{{ module }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    Modules to be installed via PEAR. If you want beta or alpha versions of a package,
+                    append it to the name: <code>log</code> -> <code>log-beta</code>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="php-modules-pecl">
+                    PECL Modules
+                </label>
+                <select id="php-modules-pecl"
+                        name="php[modules][pecl][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for module in php.modules.pecl %}
+                        <option value="{{ module }}" selected>{{ module }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    Modules to be installed via PECL. If you want beta or alpha versions of a package,
+                    append it to the name: <code>apc</code> -> <code>apc-beta</code>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">PHP-FPM Pools</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.php.add_fpm_pool') }}"
+                       data-toggle="add-block" data-link-title="Pool">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for pool in php.fpm_pools %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#php-fpm_pool-{{ attribute(pool_uniqids, loop.index0) }}"
+                           data-toggle="tab">Pool {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#php-fpm_pool-{{ attribute(pool_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a PHP-FPM pool
+                </div>
+                {% for pool in php.fpm_pools %}
+                    {% include 'PuphpetBundle:php:fpm-pool.html.twig' with {
+                        'pool': pool,
+                        'available_fpm_pool_ini': php.available.fpm_pool_ini,
+                        'uniqid': attribute(pool_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Addons</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="active"><a href="#composer-tab" data-toggle="tab">Composer</a></li>
+                <li><a href="#xdebug-tab" data-toggle="tab">Xdebug</a></li>
+                <li><a href="#blackfire-tab" data-toggle="tab">Blackfire</a></li>
+                <li><a href="#xhprof-tab" data-toggle="tab">Xhprof</a></li>
+                <li><a href="#wpcli-tab" data-toggle="tab">WP CLI</a></li>
+                <li><a href="#drush-tab" data-toggle="tab">Drush</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="composer-tab">
+                    <div class="checkbox checkbox-md no-padding mb-20">
+                        <input type="hidden" name="php[composer]" value="0" />
+
+                        <input type="checkbox" id="composer-install"
+                               name="php[composer]"
+                               value="1"
+                               {% if php.composer %}checked{% endif %}
+                               data-toggle="checkbox-collapse"
+                               data-target="#composer-container" />
+                        <label for="composer-install">Install Composer</label>
+                    </div>
+
+                    <div id="composer-container"
+                         class="collapse {% if php.composer %}in{% endif %}">
+                        {% include 'PuphpetBundle::composer.html.twig' with { 'php': php } %}
+                    </div>
+                </div>
+                <div class="tab-pane" id="xdebug-tab">
+                    <div class="checkbox checkbox-md no-padding mb-20">
+                        <input type="hidden" name="xdebug[install]" value="0" />
+
+                        <input type="checkbox" id="xdebug-install"
+                               name="xdebug[install]"
+                               value="1"
+                               {% if xdebug.install %}checked{% endif %}
+                               data-toggle="checkbox-collapse"
+                               data-target="#xdebug-container" />
+                        <label for="xdebug-install">Install Xdebug</label>
+                    </div>
+
+                    <div id="xdebug-container"
+                         class="collapse {% if xdebug.install %}in{% endif %}">
+                        {% include 'PuphpetBundle::xdebug.html.twig' with { 'xdebug': xdebug } %}
+                    </div>
+                </div>
+                <div class="tab-pane" id="blackfire-tab">
+                    <div class="checkbox checkbox-md no-padding mb-20">
+                        <input type="hidden" name="blackfire[install]" value="0" />
+
+                        <input type="checkbox" id="blackfire-install"
+                               name="blackfire[install]"
+                               value="1"
+                               {% if blackfire.install %}checked{% endif %}
+                               data-toggle="checkbox-collapse"
+                               data-target="#blackfire-container" />
+                        <label for="blackfire-install">Install Blackfire</label>
+                    </div>
+
+                    <div id="blackfire-container"
+                         class="collapse {% if blackfire.install %}in{% endif %}">
+                        {% include 'PuphpetBundle::blackfire.html.twig' with { 'blackfire': blackfire } %}
+                    </div>
+                </div>
+                <div class="tab-pane" id="xhprof-tab">
+                    <div class="checkbox checkbox-md no-padding mb-20">
+                        <input type="hidden" name="xhprof[install]" value="0" />
+
+                        <input type="checkbox" id="xhprof-install"
+                               name="xhprof[install]"
+                               value="1"
+                               {% if xhprof.install %}checked{% endif %}
+                               data-toggle="checkbox-collapse"
+                               data-target="#xhprof-container" />
+                        <label for="xhprof-install">Install XHProf</label>
+                    </div>
+
+                    <div id="xhprof-container"
+                         class="collapse {% if xhprof.install %}in{% endif %}">
+                        {% include 'PuphpetBundle::xhprof.html.twig' with { 'xhprof': xhprof } %}
+                    </div>
+                </div>
+                <div class="tab-pane" id="wpcli-tab">
+                    <div class="checkbox checkbox-md no-padding mb-20">
+                        <input type="hidden" name="wpcli[install]" value="0" />
+
+                        <input type="checkbox" id="wpcli-install"
+                               name="wpcli[install]"
+                               value="1"
+                               {% if wpcli.install %}checked{% endif %}
+                               data-toggle="checkbox-collapse"
+                               data-target="#wpcli-container" />
+                        <label for="wpcli-install">Install WP-CLI</label>
+                    </div>
+
+                    <div id="wpcli-container"
+                         class="collapse {% if wpcli.install %}in{% endif %}">
+                        {% include 'PuphpetBundle::wpcli.html.twig' with { 'wpcli': wpcli } %}
+                    </div>
+                </div>
+                <div class="tab-pane" id="drush-tab">
+                    <div class="checkbox checkbox-md no-padding mb-20">
+                        <input type="hidden" name="drush[install]" value="0" />
+
+                        <input type="checkbox" id="drush-install"
+                               name="drush[install]"
+                               value="1"
+                               {% if drush.install %}checked{% endif %}
+                               data-toggle="checkbox-collapse"
+                               data-target="#drush-container" />
+                        <label for="drush-install">Install Drush</label>
+                    </div>
+
+                    <div id="drush-container"
+                         class="collapse {% if drush.install %}in{% endif %}">
+                        {% include 'PuphpetBundle::drush.html.twig' with { 'drush': drush } %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#letsencrypt" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Let's Encrypt
+    </a>
+
+    <a href="#ruby" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Ruby
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

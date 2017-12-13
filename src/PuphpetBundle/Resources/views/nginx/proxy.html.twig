@@ -1,0 +1,21 @@
+{% set uniqid = uniqid ?? uniqid('nxvp_', true) %}
+{% set proxy = (vhost.proxy is defined and vhost.proxy is not empty) ? vhost.proxy : '' %}
+
+<div id="nginx-proxy-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ uniqid }}-proxy">
+            Proxy URL
+        </label>
+        <input type="text" id="nginx-vhosts-{{ uniqid }}-proxy"
+               name="nginx[vhosts][{{ uniqid }}][proxy]"
+               placeholder="rackspace1" class="form-control"
+               value="{{ proxy }}" />
+        <div class="help-block">
+            This should match an upstream name configured above. e.g.
+            <code>http://backend</code>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

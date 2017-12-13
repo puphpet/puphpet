@@ -1,0 +1,130 @@
+<input type="hidden" name="hhvm[install]" value="0" />
+
+<div class="field-container">
+    <div class="form-group">
+        <span class="help-text">
+            HHVM is a new open-source virtual machine designed for executing programs
+            written in PHP.
+            <a href="https://github.com/facebook/hhvm/" target="_blank">Learn about HHVM</a>.
+        </span>
+        <label class="col-xs-12 radio-tile">
+            <input type="checkbox" name="hhvm[install]" value="1"
+                   class="invisible toggle-on-select update-other-input-on-check"
+                   {% if hhvm.install %}checked{% endif %}
+                   data-vis-toggle-target="#hhvm-container"
+                   data-update-on-check-php[install]="0" />
+            <span class="content">
+                <span class="header large">
+                    <i class="icon"></i>
+                    <span class="title">Install HHVM</span>
+                </span>
+                <span class="footer">
+                    If you install HHVM, you cannot install PHP.
+                </span>
+            </span>
+        </label>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div id="hhvm-container" class="{% if not hhvm.install %}hidden{% endif %}">
+        <div class="form-group col-xs-12">
+            <div class="checkbox">
+                <span class="help-text">
+                    <a href="https://getcomposer.org">Composer</a> will be available as a
+                    system service:<br />
+                    <code>$ composer</code>
+                </span>
+                <input class="styled" type="checkbox"
+                       {% if hhvm.composer %}checked{% endif %} value="1"
+                       id="hhvm-composer"
+                       name="hhvm[composer]" />
+                <label for="hhvm-composer">
+                    Install Composer
+                </label>
+            </div>
+
+            <input type="hidden" name="hhvm[composer_home]" value="{{ hhvm.composer_home }}" />
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                All settings added to a single INI file.
+            </div>
+            <label for="hhvm-server_ini-displayer">Server INI Settings</label>
+            <select id="hhvm-server_ini-displayer" multiple
+                    class="form-control select-tags-user-input"
+                    data-target-container="hhvm-server_ini"
+                    data-target-name="hhvm[server_ini]">
+                {% set flattened = [] %}
+                {% for ini, value in hhvm.available.server_ini %}
+                    {% set flattened = flattened|merge([ini]) %}
+                    <option value="{{ ini }}"
+                        {% if ini in hhvm.server_ini|keys %}selected{% endif %}>{{ ini }}</option>
+                {% endfor %}
+
+                {% for name, value in hhvm.server_ini %}
+                    {% if name not in flattened %}
+                        <option value="{{ name }}" selected>{{ name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <div id="hhvm-server_ini" class="hidden">
+                {% for name, value in hhvm.server_ini %}
+                    <input type="hidden" name="hhvm[server_ini][{{ name }}]"
+                           data-option-name="{{ name }}" value="{{ value }}" />
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="form-group col-xs-12">
+            <div class="help-text">
+                All settings added to a single INI file.
+            </div>
+            <label for="hhvm-php_ini-displayer">PHP INI Settings</label>
+            <select id="hhvm-php_ini-displayer" multiple
+                    class="form-control select-tags-user-input"
+                    data-target-container="hhvm-php_ini"
+                    data-target-name="hhvm[php_ini]">
+                {% set flattened = [] %}
+                {% for ini, value in hhvm.available.php_ini %}
+                    {% set flattened = flattened|merge([ini]) %}
+                    <option value="{{ ini }}"
+                        {% if ini in hhvm.php_ini|keys %}selected{% endif %}>{{ ini }}</option>
+                {% endfor %}
+
+                {% for name, value in hhvm.php_ini %}
+                    {% if name not in flattened %}
+                        <option value="{{ name }}" selected>{{ name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <div id="hhvm-php_ini" class="hidden">
+                {% for name, value in hhvm.php_ini %}
+                    <input type="hidden" name="hhvm[php_ini][{{ name }}]"
+                           data-option-name="{{ name }}" value="{{ value }}" />
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="help-block col-xs-12">
+            <p>ATTENTION: <strong>HHVM is currently not officially supported on CentOS</strong>.</p>
+            <p>It is highly recommended you install HHVM on an Ubuntu 14.04 box.</p>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="#nodejs"><span aria-hidden="true">&larr;</span> Node.js</a></li>
+            <li class="next">
+                <a href="#mariadb">MariaDB <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav>
+</div>

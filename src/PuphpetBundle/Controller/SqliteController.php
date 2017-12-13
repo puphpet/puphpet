@@ -2,31 +2,44 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SqliteController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/sqlite",
+     *     name="puphpet.sqlite.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:sqlite:form.html.twig', [
+        return $this->render('PuphpetBundle::sqlite.html.twig', [
             'sqlite' => $data,
         ]);
     }
 
-    public function addDatabaseAction()
-    {
-        return $this->render('PuphpetBundle:sqlite/sections:user-database.html.twig', [
-            'database' => $this->getData()['empty_database'],
-        ]);
-    }
-
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/sqlite/add-database",
+     *     name="puphpet.sqlite.add_database")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function addDatabaseAction(Request $request)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('sqlite');
+        $data = $this->getExtensionData('sqlite');
+
+        return $this->render('PuphpetBundle:sqlite:user-database.html.twig', [
+            'database' => $data['empty_database'],
+        ]);
     }
 }

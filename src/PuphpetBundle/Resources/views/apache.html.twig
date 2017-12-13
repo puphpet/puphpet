@@ -1,0 +1,104 @@
+{% set vhost_uniqids = [] %}
+{% for vhost in apache.vhosts %}
+    {% set vhost_uniqids = vhost_uniqids|merge([uniqid('av_', true)]) %}
+{% endfor %}
+
+<input type="hidden" name="apache[install]" value="0" />
+
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="apache-install"
+               name="apache[install]" value="1"
+               {% if apache.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#apache-container"
+               data-enforce-group-single="webserver" />
+        <label for="apache-install">Install Apache</label>
+
+        <p>
+            You cannot install Apache with Nginx. Apache will be deselected.
+        </p>
+    </div>
+</div>
+
+<div id="apache-container"
+     class="container-fluid collapse {% if apache.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12">
+                <label for="apache-modules">
+                    Apache Modules
+                </label>
+                <select id="apache-modules"
+                        name="apache[modules][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for module in apache.available.modules %}
+                        <option value="{{ module }}"
+                        {% if module in apache.modules %}selected{% endif %}>{{ module }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    <p><code>proxy_fcgi</code> is required for PHP.</p>
+                    <p><code>ssl</code> is automatically added when you create an SSL vhost below.
+                        Do not add it here.</p>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Shared Folders</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.apache.vhost') }}"
+                       data-toggle="add-block" data-link-title="Host">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for vhost in apache.vhosts %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#apache-vhost-{{ attribute(vhost_uniqids, loop.index0) }}"
+                           data-toggle="tab">Host {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#apache-vhost-{{ attribute(vhost_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add an Apache virtual host
+                </div>
+                {% for vhost in apache.vhosts %}
+                    {% include 'PuphpetBundle:apache:vhost.html.twig' with {
+                        'vhost': vhost,
+                        'uniqid': attribute(vhost_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#nginx" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Nginx
+    </a>
+
+    <a href="#letsencrypt" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Let's Encrypt
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

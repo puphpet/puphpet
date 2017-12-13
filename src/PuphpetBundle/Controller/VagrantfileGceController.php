@@ -2,39 +2,62 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class VagrantfileGceController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/vagrantfile-gce",
+     *     name="puphpet.vagrantfile_gce.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:vagrantfile-gce:form.html.twig', [
+        return $this->render('PuphpetBundle::vagrantfile-gce.html.twig', [
             'data' => $data,
         ]);
     }
 
-    public function machineAction()
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/vagrantfile-gce/machine",
+     *     name="puphpet.vagrantfile_gce.machine")
+     * @Method({"GET"})
+     */
+    public function machineAction(Request $request)
     {
-        return $this->render('PuphpetBundle:vagrantfile-gce/sections:machine.html.twig', [
-            'machine'       => $this->getData()['empty_machine'],
-            'zones'         => $this->getData()['zones'],
-            'machine_types' => $this->getData()['machine_types'],
-        ]);
-    }
+        $data = $this->getExtensionData('vagrantfile-gce');
 
-    public function syncedFolderAction()
-    {
-        return $this->render('PuphpetBundle:vagrantfile-gce/sections:synced-folder.html.twig', [
-            'synced_folder' => $this->getData()['empty_synced_folder'],
+        return $this->render('PuphpetBundle:vagrantfile-gce:machine.html.twig', [
+            'machine'       => $data['empty_machine'],
+            'zones'         => $data['zones'],
+            'machine_types' => $data['machine_types'],
         ]);
     }
 
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/vagrantfile-gce/synced-folder",
+     *     name="puphpet.vagrantfile_gce.synced_folder")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function syncedFolderAction(Request $request)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('vagrantfile-gce');
+        $data = $this->getExtensionData('vagrantfile-gce');
+
+        return $this->render('PuphpetBundle:vagrantfile-gce:synced-folder.html.twig', [
+            'synced_folder' => $data['empty_synced_folder'],
+        ]);
     }
 }

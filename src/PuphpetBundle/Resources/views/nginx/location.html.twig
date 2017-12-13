@@ -1,0 +1,306 @@
+{% set uniqid = uniqid ?? uniqid('nxvl_', true) %}
+{% set autoindex = (location.autoindex is defined and location.autoindex is same as('on')) ? true : false %}
+{% set internal = (location.internal is defined and location.internal is same as('on')) ? true : false %}
+{% set index_files = (location.index_files is defined) ? location.index_files : [] %}
+{% set try_files = (location.try_files is defined) ? location.try_files : [] %}
+{% set fast_cgi_params_extras = (location.fast_cgi_params_extra is defined) ? location.fast_cgi_params_extra : [] %}
+{% set sets = (location.set is defined) ? location.set : [] %}
+{% set proxy_set_headers = (location.proxy_set_header is defined) ? location.proxy_set_header : [] %}
+{% set rewrites = (location.rewrites is defined) ? location.rewrites : [] %}
+
+{% set rewrite_uniqids = [] %}
+{% for rewrite in rewrites %}
+    {% set rewrite_uniqids = rewrite_uniqids|merge([uniqid('nxvlrw_', true)]) %}
+{% endfor %}
+
+<div id="nginx-vhost-{{ vhostId }}-location-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-www_root">
+            Location Root
+        </label>
+        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-www_root"
+               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][www_root]"
+               placeholder="" class="form-control"
+               value="{{ location.www_root }}" />
+        <div class="help-block">
+            <p>Best practices suggest your vhost's root directory is not the same as each
+                location's root directory.
+                <span class="label label-info" data-toggle="help-text">
+                    <i class="fa fa-ellipsis-h"></i></span>
+            </p>
+
+            <div class="hidden">
+                <p>In modern frameworks, this would help prevent direct
+                    access to any non-bootstrap (<code>index.php</code>) file.
+                    Leave blank if this is the same as the vhost's document root.</p>
+                <p>Using the example
+                    from the vhost Project Root, this would be
+                    <code>/var/www/awesome/web</code>.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-location">
+            Location Match
+        </label>
+        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-location"
+               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][location]"
+               placeholder="/" class="form-control"
+               value="{{ location.location }}" />
+        <div class="help-block">
+            <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#location"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-autoindex">
+            Autoindex
+        </label>
+        <select id="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-autoindex"
+                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][autoindex]"
+                class="form-control select-tag">
+            <option value="off" {% if not autoindex %}selected{% endif %}>Off</option>
+            <option value="on" {% if autoindex %}selected{% endif %}>On</option>
+        </select>
+        <div class="help-block">
+            Enables directory listings.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-internal">
+            Enable internal
+        </label>
+        <select id="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-internal"
+                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]"
+                class="form-control select-tag">
+            <option value="false" {% if not internal %}selected{% endif %}>Off</option>
+            <option value="true" {% if internal %}selected{% endif %}>On</option>
+        </select>
+        <div class="help-block">
+            Designates location as internal-only.
+            See <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#internal"
+                   title="nginx internal location docs">nginx documentation</a>
+            for more details.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-index_files">
+            Index Files
+        </label>
+        <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-index_files"
+                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][index_files][]"
+                multiple class="form-control select-tags-editable">
+            {% for index_file in index_files %}
+                <option selected value="{{ index_file }}">{{ index_file }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            The last file should be the accessor to your PHP script or front
+            controller.
+            <a href="http://nginx.org/en/docs/http/ngx_http_index_module.html#index"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-try_files">
+            Try Files
+        </label>
+        <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-try_files"
+                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][try_files][]"
+                multiple class="form-control select-tags-editable">
+            {% for try_file in try_files %}
+                <option selected value="{{ try_file }}">{{ try_file }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#try_files"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi">
+            FastCGI Pass
+        </label>
+        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi"
+               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fastcgi]"
+               placeholder="127.0.0.1:9000" class="form-control"
+               value="{{ location.fastcgi }}" />
+        <div class="help-block">
+            <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_pass"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_index">
+            FastCGI Index
+        </label>
+        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_index"
+               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fastcgi_index]"
+               placeholder="index.php" class="form-control"
+               value="{{ location.fastcgi_index }}" />
+        <div class="help-block">
+            <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_index"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_split_path">
+            FastCGI Split Path Info
+        </label>
+        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_split_path"
+               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fastcgi_split_path]"
+               placeholder="^(.+\.php)(/.*)$" class="form-control"
+               value="{{ location.fastcgi_split_path }}" />
+        <div class="help-block">
+            <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_split_path_info"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fast_cgi_params_extra">
+            FastCGI Environment Variables
+        </label>
+        <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fast_cgi_params_extra"
+                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fast_cgi_params_extra][]"
+                multiple class="form-control select-tags-editable">
+            {% for param in fast_cgi_params_extras %}
+                <option selected value="{{ param }}">{{ param }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <code>name value</code>, separated by comma.
+            Unlike Apache, each variable must have a value.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-set">
+            Set Variables
+        </label>
+        <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-set"
+                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][set][]"
+                multiple class="form-control select-tags-editable">
+            {% for param in sets %}
+                <option selected value="{{ param }}">{{ param }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <code>name value</code>, separated by comma.
+            <a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#set"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy">
+            Proxy
+        </label>
+        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy"
+               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][proxy]"
+               placeholder="http://127.0.0.1:8080/" class="form-control"
+               value="{{ location.proxy }}" />
+        <div class="help-block">
+            <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_split_path_info"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_redirect">
+            Proxy Redirect
+        </label>
+        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_redirect"
+               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][proxy_redirect]"
+               placeholder="off" class="form-control"
+               value="{{ location.proxy }}" />
+        <div class="help-block">
+            <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_redirect"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_set_header">
+            Proxy Set Header
+        </label>
+        <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_set_header"
+                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][proxy_set_header][]"
+                multiple class="form-control select-tags-editable">
+            {% for param in proxy_set_headers %}
+                <option selected value="{{ param }}">{{ param }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <code>name value</code>, separated by comma.
+            <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading">Location Rewrites</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.nginx.location_rewrite', {'vhostId': vhostId, 'locationId': uniqid}) }}"
+                       data-toggle="add-block" data-link-title="Rewrite">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for rewrite in rewrites %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#nginx-vhost-{{ vhostId }}-location-{{ uniqid }}-rewrite-{{ attribute(rewrite_uniqids, loop.index0) }}"
+                           data-toggle="tab">Rewrite {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#nginx-vhost-{{ vhostId }}-location-{{ uniqid }}-rewrite-{{ attribute(rewrite_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a location rewrite rule
+                </div>
+                {% for rewrite in rewrites %}
+                    {% include 'PuphpetBundle:nginx:location_rewrite.html.twig' with {
+                        'vhostId': vhostId,
+                        'locationId': uniqid,
+                        'rewrite': rewrite,
+                        'uniqid': attribute(rewrite_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

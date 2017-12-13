@@ -4,8 +4,6 @@ settings:
     root_password: 123
     override_options: {}
 
-adminer: 0
-
 users: []
 
 databases: []

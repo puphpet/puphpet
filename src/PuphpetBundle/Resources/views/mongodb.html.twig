@@ -1,0 +1,139 @@
+{% set selectedVersion = (mongodb.global.version is defined and mongodb.global.version)
+    ? mongodb.global.version
+    : false %}
+
+{% set database_uniqids = [] %}
+{% for database in mongodb.databases %}
+    {% set database_uniqids = database_uniqids|merge([uniqid('mongodbnuad_', true)]) %}
+{% endfor %}
+
+<input type="hidden" name="mongodb[install]" value="0" />
+
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="mongodb-install"
+               name="mongodb[install]" value="1"
+               {% if mongodb.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#mongodb-container"  />
+        <label for="mongodb-install">Install MongoDB</label>
+
+        <p>
+            An open-source document database, and the leading NoSQL database
+        </p>
+    </div>
+</div>
+
+<div id="mongodb-container"
+     class="container-fluid collapse {% if mongodb.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="mongodb-globals-version">
+                    Version
+                </label>
+                <select id="mongodb-globals-version"
+                        name="mongodb[globals][version]"
+                        class="form-control select-tag">
+                <optgroup label="Ubuntu">
+                    {% for version in mongodb.available.versions_deb %}
+                        <option value="{{ version }}"
+                            {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
+                    {% endfor %}
+                </optgroup>
+
+                <optgroup label="CentOS">
+                    {% for version in mongodb.available.versions_rhel %}
+                        <option value="{{ version }}"
+                            {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
+                    {% endfor %}
+                </optgroup>
+                </select>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="mongodb-settings-bind_ip">
+                    Bind IP
+                </label>
+                <input type="text" id="mongodb-settings-bind_ip"
+                       name="mongodb[settings][bind_ip]"
+                       placeholder="127.0.0.1" class="form-control"
+                       value="{{ mongodb.settings.bind_ip }}" />
+                <div class="help-block">
+                    IP Address Mongo will listen on. Will usually be local.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="mongodb-settings-port">
+                    Listen Port
+                </label>
+                <input type="number" id="mongodb-settings-port"
+                       name="mongodb[settings][port]"
+                       placeholder="27017" class="form-control"
+                       value="{{ mongodb.settings.port }}" />
+                <div class="help-block">
+                    Port will automatically be added to <code>iptables</code>.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Databases</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.mongodb.add_database') }}"
+                       data-toggle="add-block" data-link-title="Database">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for database in mongodb.databases %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#mongodb-database-{{ attribute(database_uniqids, loop.index0) }}"
+                           data-toggle="tab">Database {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#mongodb-database-{{ attribute(database_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a database
+                </div>
+                {% for database in mongodb.databases %}
+                    {% include 'PuphpetBundle:mongodb:user-database.html.twig' with {
+                        'database': database,
+                        'uniqid': attribute(database_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#postgresql" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        PostgreSQL
+    </a>
+
+    <a href="#redis" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Redis
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

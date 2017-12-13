@@ -1,0 +1,35 @@
+{% set uniqid = uniqid ?? uniqid('vflmnfp_', true) %}
+
+<div id="local-port-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-local-machines-{{ mId }}-network-forwarded_port-{{ uniqid }}-host">
+            Host Port
+        </label>
+        <input type="number" id="vagrantfile-vm-provider-local-machines-{{ mId }}-network-forwarded_port-{{ uniqid }}-host"
+               name="vagrantfile[vm][provider][local][machines][{{ mId }}][network][forwarded_port][{{ uniqid }}][host]"
+               placeholder="8080" min="1" max="65535" class="form-control"
+               value="{{ forwarded_port.host ? forwarded_port.host : mt_rand(5000, 9999) }}" />
+        <div class="help-block">
+            Port on Host to forward to VM.
+            <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="vagrantfile-vm-provider-local-machines-{{ mId }}-network-forwarded_port-{{ uniqid }}-guest">
+            VM Port
+        </label>
+        <input type="number" id="vagrantfile-vm-provider-local-machines-{{ mId }}-network-forwarded_port-{{ uniqid }}-guest"
+               name="vagrantfile[vm][provider][local][machines][{{ mId }}][network][forwarded_port][{{ uniqid }}][guest]"
+               placeholder="80" min="1" max="65535" class="form-control"
+               value="{{ forwarded_port.guest ? forwarded_port.guest : '22' }}" />
+        <div class="help-block">
+            <p>Port on VM to accept from Host.
+                This port is automatically added to <code>iptables</code>.
+                <a href="http://docs.vagrantup.com/v2/networking/forwarded_ports.html"
+                   target="_blank">More information</a>.</p>
+        </div>
+    </div>
+</div>

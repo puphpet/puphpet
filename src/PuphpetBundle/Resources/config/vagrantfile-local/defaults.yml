@@ -3,8 +3,8 @@ target: local
 vm:
     provider:
         local:
-            box: puphpet/ubuntu1404-x64
-            box_url: puphpet/ubuntu1404-x64
+            box: puphpet/ubuntu1604-x64
+            box_url: ~
             box_version: 0
             chosen_virtualizer: virtualbox
             virtualizers:
@@ -15,7 +15,7 @@ vm:
                 vmware:
                     numvcpus: 1
                 parallels:
-                    use_linked_clone: 0
+                    linked_clone: 0
                     check_guest_tools: 0
                     update_guest_tools: 0
             machines:

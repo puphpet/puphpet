@@ -1,0 +1,50 @@
+{% set uniqid = uniqid ?? uniqid('postsqlnu_', true) %}
+{% set superUser = (user.superuser is defined and user.superuser) ? true : false %}
+
+<div id="postgresql-user-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="postgresql-users-{{ uniqid }}-username">
+            Username
+        </label>
+        <input type="text" id="postgresql-users-{{ uniqid }}-username"
+               name="postgresql[users][{{ uniqid }}][username]"
+               placeholder="username" class="form-control"
+               value="{{ user.username }}" />
+        <div class="help-block">
+            This is the ID used within the <code>Vagrantfile</code>. It is only used
+            for your internal identification.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="postgresql-users-{{ uniqid }}-password">
+            Password
+        </label>
+        <input type="text" id="postgresql-users-{{ uniqid }}-password"
+               name="postgresql[users][{{ uniqid }}][password]"
+               placeholder="123" class="form-control"
+               value="{{ user.password }}" />
+        <div class="help-block">
+            Password is required for each user.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12">
+        <div class="clearfix"><label>Superuser</label></div>
+
+        <div class="checkbox">
+            <input type="checkbox" id="postgresql-users-{{ uniqid }}-superuser"
+                   name="postgresql[users][{{ uniqid }}][superuser]"
+                   value="1"
+                   {% if superUser %}checked{% endif %} />
+            <label for="postgresql-users-{{ uniqid }}-superuser">
+                Grant this user superuser role
+            </label>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

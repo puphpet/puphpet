@@ -2,48 +2,82 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApacheController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/apache",
+     *     name="puphpet.apache.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:apache:form.html.twig', [
+        return $this->render('PuphpetBundle::apache.html.twig', [
             'apache' => $data,
         ]);
     }
 
-    public function vhostAction()
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/apache/vhost",
+     *     name="puphpet.apache.vhost")
+     * @Method({"GET"})
+     */
+    public function vhostAction(Request $request)
     {
-        return $this->render('PuphpetBundle:apache/sections:vhost.html.twig', [
-            'vhost' => $this->getData()['empty_vhost'],
-        ]);
-    }
+        $data = $this->getExtensionData('apache');
 
-    public function directoryAction(Request $request)
-    {
-        return $this->render('PuphpetBundle:apache/sections:directory.html.twig', [
-            'vhostId'   => $request->get('vhostId'),
-            'directory' => $this->getData()['empty_directory'],
-        ]);
-    }
-
-    public function filesMatchAction(Request $request)
-    {
-        return $this->render('PuphpetBundle:apache/sections:filesMatch.html.twig', [
-            'vhostId'     => $request->get('vhostId'),
-            'directoryId' => $request->get('directoryId'),
-            'filesMatch'  => $this->getData()['empty_files_match'],
+        return $this->render('PuphpetBundle:apache:vhost.html.twig', [
+            'vhost' => $data['empty_vhost'],
         ]);
     }
 
     /**
-     * @return array
+     * @param Request $request
+     * @param string  $vhostId
+     * @return Response
+     * @Route("/extension/apache/directory/{vhostId}",
+     *     name="puphpet.apache.directory")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function directoryAction(Request $request, string $vhostId)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('apache');
+        $data = $this->getExtensionData('apache');
+
+        return $this->render('PuphpetBundle:apache:directory.html.twig', [
+            'vhostId'   => $vhostId,
+            'directory' => $data['empty_directory'],
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $vhostId
+     * @return Response
+     * @Route("/extension/apache/files-match/{vhostId}",
+     *     name="puphpet.apache.files_match")
+     * @Method({"GET"})
+     */
+    public function filesMatchAction(
+        Request $request,
+        string $vhostId
+    ) {
+        $data = $this->getExtensionData('apache');
+
+        return $this->render('PuphpetBundle:apache:filesMatch.html.twig', [
+            'vhostId'    => $vhostId,
+            'filesMatch' => $data['empty_files_match'],
+        ]);
     }
 }

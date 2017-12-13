@@ -1,0 +1,51 @@
+{% set uniqid = uniqid ?? uniqid('rmqup_', true)|lower %}
+
+<div id="rabbitmq-user-{{ userId }}-grant-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-host">
+            Virtual Host Name
+        </label>
+        <input type="text" id="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-host"
+               name="rabbitmq[users][{{ userId }}][permissions][{{ uniqid }}][host]"
+               placeholder="myhost" class="form-control"
+               value="{{ permission.host }}" />
+        <div class="help-block">
+            Virtual host must be added in the section above!
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-configure_permission">
+            Configure Permission
+        </label>
+        <input type="text" id="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-configure_permission"
+               name="rabbitmq[users][{{ userId }}][permissions][{{ uniqid }}][configure_permission]"
+               placeholder=".*" class="form-control"
+               value="{{ permission.configure_permission }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-read_permission">
+            Read Permission
+        </label>
+        <input type="text" id="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-read_permission"
+               name="rabbitmq[users][{{ userId }}][permissions][{{ uniqid }}][read_permission]"
+               placeholder=".*" class="form-control"
+               value="{{ permission.read_permission }}" />
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-write_permission">
+            Write Permission
+        </label>
+        <input type="text" id="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-write_permission"
+               name="rabbitmq[users][{{ userId }}][permissions][{{ uniqid }}][write_permission]"
+               placeholder=".*" class="form-control"
+               value="{{ permission.write_permission }}" />
+    </div>
+
+    <div class="clearfix"></div>
+</div>

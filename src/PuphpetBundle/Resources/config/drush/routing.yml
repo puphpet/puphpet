@@ -1,3 +1,0 @@
-puphpet.extension.drush.homepage:
-    path:  /
-    defaults: { _controller: PuphpetExtensionDrushBundle:Front:index }

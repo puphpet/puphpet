@@ -1,0 +1,60 @@
+<input type="hidden" name="mailhog[install]" value="0" />
+
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="mailhog-install"
+               name="mailhog[install]" value="1"
+               {% if mailhog.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#mailhog-container" />
+        <label for="mailhog-install">Install MailHog</label>
+
+        <p>
+            Web and API based SMTP testing
+        </p>
+    </div>
+</div>
+
+<div id="mailhog-container"
+     class="container-fluid collapse {% if mailhog.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="mailhog-settings-http_port">
+                    HTTP Port
+                </label>
+                <input type="number" id="mailhog-settings-http_port"
+                       name="mailhog[settings][http_port]"
+                       placeholder="1080" class="form-control"
+                       value="{{ mailhog.settings.http_port }}" />
+                <div class="help-block">
+                    <p>Minimum port number is <code>1000</code>.</p>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="help-block col-xs-12">
+                <p>MailHog will be available at
+                    <code>http://{SERVER_IP_ADDRESS}:{HTTP_PORT}</code></p>
+                <p>It is highly recommended <strong>not</strong> installing
+                    MailHog on production servers.</p>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#sqlite" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        SQLite
+    </a>
+
+    <a href="#beanstalkd" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Beanstalkd
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

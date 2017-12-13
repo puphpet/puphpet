@@ -6,7 +6,7 @@ class String
   end
 end
 
-class Fixnum
+class Integer
   def to_bool
     return true if self == 1
     return false if self == 0

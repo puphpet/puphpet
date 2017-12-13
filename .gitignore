@@ -1,4 +1,6 @@
 /web/bundles/
+/web/css
+/web/js
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
@@ -14,3 +16,4 @@
 /archive/puphpet/puppet/.librarian
 /archive/puphpet/puppet/.tmp
 /archive/puphpet/puppet/modules
+!/archive/puphpet/puppet/modules/blank

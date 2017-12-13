@@ -2,39 +2,62 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class RabbitMqController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/rabbitmq",
+     *     name="puphpet.rabbitmq.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:rabbitmq:form.html.twig', [
+        return $this->render('PuphpetBundle::rabbitmq.html.twig', [
             'rabbitmq' => $data,
         ]);
     }
 
-    public function userAction()
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/rabbitmq/user",
+     *     name="puphpet.rabbitmq.user")
+     * @Method({"GET"})
+     */
+    public function userAction(Request $request)
     {
-        return $this->render('PuphpetBundle:rabbitmq/sections:user.html.twig', [
-            'user' => $this->getData()['empty_user'],
-        ]);
-    }
+        $data = $this->getExtensionData('rabbitmq');
 
-    public function permissionAction(Request $request)
-    {
-        return $this->render('PuphpetBundle:rabbitmq/sections:permission.html.twig', [
-            'userId'     => $request->get('userId'),
-            'permission' => $this->getData()['empty_permission'],
+        return $this->render('PuphpetBundle:rabbitmq:user.html.twig', [
+            'user' => $data['empty_user'],
         ]);
     }
 
     /**
-     * @return array
+     * @param Request $request
+     * @param string  $userId
+     * @return Response
+     * @Route("/extension/rabbitmq/permission/{userId}",
+     *     name="puphpet.rabbitmq.permission")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function permissionAction(Request $request, string $userId)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('rabbitmq');
+        $data = $this->getExtensionData('rabbitmq');
+
+        return $this->render('PuphpetBundle:rabbitmq:permission.html.twig', [
+            'userId'     => $userId,
+            'permission' => $data['empty_permission'],
+        ]);
     }
 }

@@ -3,7 +3,8 @@ empty_vhost:
     serveraliases: []
     docroot: ~
     port: 80
-    setenv: []
+    setenvif:
+        - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
     custom_fragment: ~
     directories: []
     ssl: 0
@@ -11,10 +12,10 @@ empty_vhost:
     ssl_key: ~
     ssl_chain: ~
     ssl_certs_dir: ~
-    engine: ~
 
 empty_directory:
     provider: directory
+    directoryindex: ~
     path: ''
     options:
         - Indexes
@@ -24,13 +25,13 @@ empty_directory:
         - All
     require:
         - all granted
-    files_match: []
     custom_fragment: ~
 
 empty_files_match:
     provider: filesmatch
     path: '\.php$'
     sethandler: 'proxy:fcgi://127.0.0.1:9000'
+    setenv: []
     custom_fragment: ''
 
 modules:

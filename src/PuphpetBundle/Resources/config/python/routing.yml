@@ -1,7 +1,0 @@
-puphpet.python.homepage:
-    path:     /
-    defaults: { _controller: PuphpetBundle:Python:index }
-
-puphpet.python.add_version:
-    path:  /add-version
-    defaults: { _controller: PuphpetBundle:Python:addVersion }

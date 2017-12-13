@@ -1,0 +1,23 @@
+<div class="form-group col-xs-12 col-sm-6">
+    <label for="drush-version">
+        Drush Options
+    </label>
+    <select id="drush-version"
+            name="drush[version]"
+            class="form-control select-tag-editable">
+        {% if drush.version is defined %}
+            <option value="{{ drush.version }}" selected>{{ drush.version }}</option>
+        {% endif %}
+
+        {% for version in drush.available.versions %}
+            {% if version != drush.version %}
+                <option value="{{ version }}">{{ version }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <div class="help-block">
+        <p><a href="http://drush.ws/" target="_blank">Drush</a>
+            will be available as a system service:</p>
+        <p><code>$ drush</code></p>
+    </div>
+</div>

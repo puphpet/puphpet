@@ -2,31 +2,45 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PythonController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/python",
+     *     name="puphpet.python.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:python::form.html.twig', [
+        return $this->render('PuphpetBundle::python.html.twig', [
             'python' => $data,
         ]);
     }
 
-    public function addVersionAction()
-    {
-        return $this->render('PuphpetBundle:python/sections:version.html.twig', [
-            'selected_version'   => $this->getData()['empty_version'],
-            'available_versions' => $this->getData()['versions'],
-        ]);
-    }
-
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/python/add-version",
+     *     name="puphpet.python.add_version")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function addVersionAction(Request $request)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('python');
+        $data = $this->getExtensionData('python');
+
+        return $this->render('PuphpetBundle:python:version.html.twig', [
+            'selected_version'   => $data['empty_version'],
+            'available_versions' => $data['versions'],
+        ]);
     }
 }

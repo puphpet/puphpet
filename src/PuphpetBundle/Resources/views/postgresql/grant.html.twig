@@ -1,0 +1,58 @@
+{% set uniqid = uniqid ?? uniqid('postsqlng_', true) %}
+
+<div id="postgresql-grant-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="postgresql-grants-{{ uniqid }}-role">
+            User
+        </label>
+        <input type="text" id="postgresql-grants-{{ uniqid }}-role"
+               name="postgresql[grants][{{ uniqid }}][role]"
+               placeholder="username" class="form-control"
+               value="{{ grant.role }}" />
+        <div class="help-block">
+            User must be defined in section above!
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="postgresql-grants-{{ uniqid }}-db">
+            Database
+        </label>
+        <input type="text" id="postgresql-grants-{{ uniqid }}-db"
+               name="postgresql[grants][{{ uniqid }}][db]"
+               placeholder="database_name" class="form-control"
+               value="{{ grant.db }}" />
+        <div class="help-block">
+            Database must be defined in section above!
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="postgresql-grants-{{ uniqid }}-privilege">
+            Privileges
+        </label>
+        <select id="postgresql-grants-{{ uniqid }}-privilege"
+                name="postgresql[grants][{{ uniqid }}][privilege][]"
+                multiple class="form-control select-tags-editable">
+            {% if grant.privilege is defined %}
+                {% for privilege in grant.privilege %}
+                    <option selected value="{{ privilege }}">{{ privilege }}</option>
+                {% endfor %}
+            {% endif %}
+
+            {% for privilege in available_privileges %}
+                {% if privilege not in grant.privilege %}
+                    <option value="{{ privilege }}">{{ privilege }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Choose "All" or a mix of the others.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

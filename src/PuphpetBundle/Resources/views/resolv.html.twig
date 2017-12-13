@@ -1,0 +1,91 @@
+{% set nameservers = (resolv.nameservers is defined and resolv.nameservers)
+    ? resolv.nameservers : [] %}
+{% set searchpaths = (resolv.searchpaths is defined and resolv.searchpaths)
+    ? resolv.searchpaths : [] %}
+
+<input type="hidden" name="resolv[install]" value="1" />
+
+<div class="container-fluid cm-container-white section-title">
+    <h1>Resolv</h1>
+
+    <p>Configure resolv.conf</p>
+</div>
+
+<div id="resolv-container"
+     class="container-fluid collapse in">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="help-block col-xs-12">
+                <p>Manage your <code>/etc/resolv.conf</code> file.</p>
+
+                <p><a href="http://man7.org/linux/man-pages/man5/resolv.conf.5.html"
+                      target="_blank">Full details can be seen here</a>.</p>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="resolv-nameservers">
+                    Name Server IP Address
+                </label>
+                <select id="resolv-nameservers"
+                       name="resolv[nameservers][]"
+                       multiple class="form-control select-tags-editable">
+                    {% for nameserver in nameservers %}
+                        <option selected value="{{ nameserver }}">{{ nameserver }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    List of nameservers, up to 3. Queried in order listed.
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="resolv-domainname">
+                    Local Domain Name
+                </label>
+                <input type="text" id="resolv-domainname"
+                       name="resolv[domainname]"
+                       placeholder="" class="form-control"
+                       value="{{ nameserver.domainname }}" />
+                <div class="help-block">
+                    <p>If blank defaults to <code>$::domain</code> in Puppet.</p>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="resolv-searchpath">
+                    Search List for Host-Name Lookup
+                </label>
+                <select id="resolv-searchpath"
+                       name="resolv[searchpath][]"
+                       multiple class="form-control select-tags-editable">
+                    {% for searchpath in searchpaths %}
+                        <option selected value="{{ searchpath }}">{{ searchpath }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    List of search domains, up to six domains with a total of 256 characters.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#firewall" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Firewall Rules
+    </a>
+
+    <a href="#cron" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Cron Jobs
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

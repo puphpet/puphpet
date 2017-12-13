@@ -2,124 +2,99 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
-VAGRANT_CORE_FOLDER=$(echo "$1")
+PUPHPET_CORE_DIR=/opt/puphpet
+PUPHPET_STATE_DIR=/opt/puphpet-state
 
-OS=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" ID)
-CODENAME=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" CODENAME)
-RELEASE=$(/bin/bash "${VAGRANT_CORE_FOLDER}/shell/os-detect.sh" RELEASE)
+# Run from Vagrant CLI
+if [[ -d /vagrant ]]; then
+    if [[ ! -L ${PUPHPET_CORE_DIR} ]]; then
+        ln -s /vagrant/puphpet ${PUPHPET_CORE_DIR}
+    fi
 
-cat "${VAGRANT_CORE_FOLDER}/shell/ascii-art/self-promotion.txt"
-printf "\n"
-echo ""
+    # Run on local VM
+    if [[ -d /.puphpet-stuff ]] && [[ ! -L ${PUPHPET_STATE_DIR} ]]; then
+        ln -s /.puphpet-stuff ${PUPHPET_STATE_DIR}
+    elif [[ ! -d ${PUPHPET_STATE_DIR} ]]; then
+        mkdir ${PUPHPET_STATE_DIR}
+    fi
+else
+    if [[ ! -d ${PUPHPET_CORE_DIR} ]]; then
+        mkdir ${PUPHPET_CORE_DIR}
+    fi
 
-if [[ ! -d '/.puphpet-stuff' ]]; then
-    mkdir '/.puphpet-stuff'
-    echo 'Created directory /.puphpet-stuff'
+    if [[ ! -d ${PUPHPET_STATE_DIR} ]]; then
+        mkdir ${PUPHPET_STATE_DIR}
+    fi
 fi
 
-touch '/.puphpet-stuff/vagrant-core-folder.txt'
-echo "${VAGRANT_CORE_FOLDER}" > '/.puphpet-stuff/vagrant-core-folder.txt'
+OS=$(/bin/bash ${PUPHPET_CORE_DIR}/shell/os-detect.sh ID)
+CODENAME=$(/bin/bash ${PUPHPET_CORE_DIR}/shell/os-detect.sh CODENAME)
+RELEASE=$(/bin/bash ${PUPHPET_CORE_DIR}/shell/os-detect.sh RELEASE)
 
-if [[ ! -f '/.puphpet-stuff/init-apt-get-update' ]] && [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
+if [[ -f ${PUPHPET_CORE_DIR}/shell/ascii-art/self-promotion.txt ]]; then
+    cat ${PUPHPET_CORE_DIR}/shell/ascii-art/self-promotion.txt
+    printf "\n"
+    echo ""
+fi
+
+if [[ -f ${PUPHPET_STATE_DIR}/initial-setup ]]; then
+    exit 0
+fi
+
+if [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
+    wget --quiet --tries=5 --connect-timeout=10 \
+        -O ${PUPHPET_STATE_DIR}/puppetlabs.gpg \
+        https://apt.puppetlabs.com/pubkey.gpg
+    apt-key add ${PUPHPET_STATE_DIR}/puppetlabs.gpg
+
     apt-get update
 
-    touch '/.puphpet-stuff/init-apt-get-update'
-fi
+    apt-get -y install anacron iptables-persistent software-properties-common \
+        python-software-properties curl git-core build-essential
 
-# Use Anacron to run `apt-get update` once a week to keep repos fresh
-if [[ ! -f '/.puphpet-stuff/anacron-installed' ]]; then
-    if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-        echo 'Installing Anacron'
-        apt-get update
-        apt-get -y install anacron
-
-        cat >/etc/cron.weekly/autoupdt << 'EOL'
+    # Anacron configuration
+    cat >/etc/cron.weekly/autoupdt << 'EOL'
 #!/bin/bash
 
 apt-get update
 apt-get autoclean
 EOL
 
-        echo 'Finished installing Anacron'
+    # Fixes https://github.com/mitchellh/vagrant/issues/1673
+    # Fixes https://github.com/mitchellh/vagrant/issues/7368
+    if [[ -d '/root' ]] && [[ -f '/root/.profile' ]]; then
+        grep -q -E '^(mesg n \|\| true)$' /root/.profile && \
+            sed -ri 's/^(mesg n \|\| true)$/tty -s \&\& mesg n/' /root/.profile
     fi
-
-    touch '/.puphpet-stuff/anacron-installed'
 fi
 
-# CentOS comes with tty enabled. RHEL has realized this is stupid, so we can
-# also safely disable it in PuPHPet boxes.
-if [[ ! -f '/.puphpet-stuff/disable-tty' ]]; then
-    perl -pi'~' -e 's@Defaults(\s+)requiretty@Defaults !requiretty@g' /etc/sudoers
-
-    touch '/.puphpet-stuff/disable-tty'
-fi
-
-# Digital Ocean seems to be missing iptables-persistent!
-# See https://github.com/puphpet/puphpet/issues/1575
-if [[ ! -f '/.puphpet-stuff/iptables-persistent-installed' ]] && [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
-    apt-get -y install iptables-persistent
-
-    touch '/.puphpet-stuff/iptables-persistent-installed'
-fi
-
-if [[ ! -f '/.puphpet-stuff/software-properties-common' ]] && [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
-    apt-get -y install software-properties-common python-software-properties
-
-    touch '/.puphpet-stuff/software-properties-common'
-fi
-
-if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
-    exit 0
-fi
-
-if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-    echo 'Installing curl'
-    apt-get -y install curl
-    echo 'Finished installing curl'
-
-    echo 'Installing git'
-    apt-get -y install git-core
-    echo 'Finished installing git'
-
-    if [[ "${CODENAME}" == 'lucid' || "${CODENAME}" == 'precise' ]]; then
-        echo 'Installing basic curl packages'
-        apt-get -y install libcurl3 libcurl4-gnutls-dev
-        echo 'Finished installing basic curl packages'
-    fi
-
-    echo 'Installing build-essential packages'
-    apt-get -y install build-essential
-    echo 'Finished installing build-essential packages'
-elif [[ "${OS}" == 'centos' ]]; then
-    echo 'Adding repos: elrepo, epel, scl'
+if [[ "${OS}" == 'centos' ]]; then
     perl -p -i -e 's@enabled=1@enabled=0@gi' /etc/yum/pluginconf.d/fastestmirror.conf
 
     if [ "${RELEASE}" == 6 ]; then
         EL_REPO='http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm'
-        EPEL='https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm'
+        EPEL='http://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm'
     else
         EL_REPO='http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm'
-        EPEL='https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm'
+        EPEL='http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
     fi
 
     yum -y --nogpgcheck install "${EL_REPO}"
     yum -y --nogpgcheck install "${EPEL}"
-    yum -y install centos-release-SCL
+    yum -y install centos-release-scl
     yum clean all
     yum -y check-update
-    echo 'Finished adding repos: elrep, epel, scl'
 
-    echo 'Installing curl'
-    yum -y install curl
-    echo 'Finished installing curl'
-
-    echo 'Installing git'
-    yum -y install git
-    echo 'Finished installing git'
-
-    echo 'Installing Development Tools'
+    yum -y install curl git
     yum -y groupinstall 'Development Tools'
-    echo 'Finished installing Development Tools'
 fi
 
-touch '/.puphpet-stuff/initial-setup-base-packages'
+# CentOS comes with tty enabled. RHEL has realized this is stupid, so we can
+# also safely disable it in PuPHPet boxes.
+if [[ ! -f ${PUPHPET_STATE_DIR}/disable-tty ]]; then
+    perl -pi'~' -e 's@Defaults(\s+)requiretty@Defaults !requiretty@g' /etc/sudoers
+
+    touch ${PUPHPET_STATE_DIR}/disable-tty
+fi
+
+touch ${PUPHPET_STATE_DIR}/initial-setup

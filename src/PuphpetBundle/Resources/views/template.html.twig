@@ -1,0 +1,190 @@
+{% block head %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>PuPHPet - Online GUI configurator for Puppet & Vagrant</title>
+        <meta name="description" content="Vagrant/Puppet GUI Configuration" />
+        <meta name="author" content="Juan Treminio @ https://jtreminio.com" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+        {% block vendorCss %}
+            {% stylesheets filter="cssrewrite,lessphp" output="css/vendor.css"
+                "bundles/puphpet/vendor/clearmin/less/bootstrap.less"
+                "bundles/puphpet/vendor/bootstrap-vertical-tabs-1.2.2.css"
+                "bundles/puphpet/vendor/roboto/roboto.css"
+                "bundles/puphpet/vendor/material-design/material-design.css"
+                "bundles/puphpet/vendor/small-n-flat/small-n-flat.css"
+                "bundles/puphpet/vendor/font-awesome-4.7.0/css/font-awesome.min.css"
+                "bundles/puphpet/vendor/awesome-bootstrap-checkbox-v0.3.7.css"
+                "bundles/puphpet/vendor/selectize.js-0.7.2/selectize.bootstrap3.css"
+                "bundles/puphpet/vendor/pnotify-2.0.1/pnotify.custom.min.css"
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+
+        {% block css %}
+            {% stylesheets filter="cssrewrite,lessphp" output="css/custom.css"
+                "bundles/puphpet/custom.css"
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+
+        {% block topJs %}
+            <!--[if lt IE 9]>
+            {% javascripts filter="jsqueeze" output="js/html5shiv.js"
+                "bundles/puphpet/vendor/html5shiv.js"
+            %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            <![endif]-->
+            <script>var uploadConfigUrl = '{{ path('puphpet.main.upload_config') }}';</script>
+        {% endblock %}
+    </head>
+{% endblock head %}
+
+<body class="cm-no-transition cm-1-navbar">
+
+{% for messageType, innerMessages in messages %}
+    {% for messageIndex, message in innerMessages %}
+        <div class="growl-alert" data-title="{{ message.title }}" data-type="{{ messageType }}">
+            {{ message.content|raw }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+{% include 'PuphpetBundle::side-menu.html.twig' %}
+
+<li id="nested-tabs-template"><a href="#" data-target="" data-toggle="tab"></a>
+    <div class="btn-group">
+        <button type="button" class="btn btn-default"
+                data-toggle="delete-block" data-target="">
+            <i class="fa fa-close"></i></button>
+    </div>
+</li>
+
+{% block topMenu %}
+<header id="cm-header">
+    <nav class="cm-navbar cm-navbar-primary">
+        <div class="btn btn-primary md-menu-white hidden-md hidden-lg" data-toggle="cm-menu"></div>
+        <div class="cm-flex">
+            <div class="cm-breadcrumb-container">
+                <ol class="breadcrumb pull-left">
+                    <li><a href="#frontpage" data-toggle="tab" data-group="menu-link">Home</a></li>
+                    <li><a href="#about" data-toggle="tab" data-group="menu-link">About</a></li>
+                    <li><a href="#help" data-toggle="tab" data-group="menu-link">Help</a></li>
+                    <li><a href="https://blog.puphpet.com" target="_blank">Blog</a></li>
+                </ol>
+                <ol class="breadcrumb pull-right">
+                    <li class="hidden-xs hidden-sm hidden-md"><a href="https://kiwiirc.com/client/chat.freenode.net/#puphpet"
+                                                                 target="_blank">#puphpet on Freenode</a></li>
+                    <li><a href="https://github.com/puphpet/puphpet/issues" target="_blank">Issues?</a></li>
+                    <li><a href="https://github.com/puphpet/puphpet" target="_blank">Fork Me</a></li>
+                    <li><a href="https://jtreminio.com/hire-me/" target="_blank"><strong>Hire Me!</strong></a></li>
+                </ol>
+            </div>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+
+<div id="global">
+    <form id="main-form" class="form-horizontal" method="post" action="/">
+        <div class="tab-content">
+            {% block main %}
+                {% include 'PuphpetBundle::index.html.twig' %}
+                {% include 'PuphpetBundle:front:about.html.twig' %}
+                {% include 'PuphpetBundle:front:help.html.twig' %}
+                {% include 'PuphpetBundle:front:create.html.twig' %}
+
+                {% include 'PuphpetBundle:front:deploy-target.html.twig' %}
+                {% include 'PuphpetBundle:front:system.html.twig' %}
+                {% include 'PuphpetBundle:front:webserver.html.twig' %}
+                {% include 'PuphpetBundle:front:language.html.twig' %}
+                {% include 'PuphpetBundle:front:database.html.twig' %}
+                {% include 'PuphpetBundle:front:mail.html.twig' %}
+                {% include 'PuphpetBundle:front:work-queue.html.twig' %}
+                {% include 'PuphpetBundle:front:search-server.html.twig' %}
+            {% endblock %}
+        </div>
+    </form>
+
+
+    {% block footer %}
+        <footer class="cm-footer">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="list-unstyled list-inline pull-left">
+                        <li><i class="fa fa-pencil"></i> <a href="https://jtreminio.com" target="_blank">Blog</a></li>
+                        <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/puphpet" target="_blank">Twitter</a></li>
+                        <li><i class="fa fa-github"></i> <a href="https://github.com/puphpet/puphpet" target="_blank">GitHub</a></li>
+                        <li><i class="fa fa-comments"></i> <a href="https://kiwiirc.com/client/chat.freenode.net/#puphpet" target="_blank">IRC</a></li>
+                    </ul>
+
+                    <ul class="list-unstyled list-inline pull-right">
+                        <li>
+                            <iframe class="github-btn" allowtransparency="true" frameborder="0" scrolling="0"
+                                    width="100px" height="20px"
+                                    src="/github-btn?user=puphpet&amp;repo=puphpet&amp;type=watch&amp;count=true"></iframe>
+                        </li>
+                        <li>
+                            <iframe class="github-btn" allowtransparency="true" frameborder="0" scrolling="0"
+                                    width="102px" height="20px"
+                                    src="/github-btn?user=puphpet&amp;repo=puphpet&amp;type=fork&amp;count=true"></iframe>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <span class="pull-left">
+                        Made with <span class="glyphicon glyphicon-heart"></span>
+                        by <a href="https://jtreminio.com">Juan Treminio</a>
+                    </span>
+
+                    <span class="pull-right">
+                        Bandwidth donated by
+                        <a href="https://rackspace.com" target="_blank">Rackspace.com</a>
+                    </span>
+                </div>
+            </div>
+        </footer>
+    {% endblock footer %}
+</div>
+
+{% block footerJs %}
+    {% javascripts filter="jsqueeze" output="js/vendor.js"
+        "bundles/puphpet/vendor/jquery-2.2.4.min.js"
+        "bundles/puphpet/vendor/clearmin/js/bootstrap.min.js"
+        "bundles/puphpet/vendor/jquery.mousewheel-3.1.12.min.js"
+        "bundles/puphpet/vendor/jquery.cookie-1.4.1.min.js"
+        "bundles/puphpet/vendor/fastclick-v1.0.6-2/lib/fastclick.js"
+        "bundles/puphpet/vendor/selectize.js-0.7.2/selectize.min.js"
+        "bundles/puphpet/vendor/pnotify-2.0.1/pnotify.custom.min.js"
+        "bundles/puphpet/vendor/clearmin/clearmin.js"
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts filter="jsqueeze" output="js/custom.js"
+        "bundles/puphpet/custom.js"
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock footerJs %}
+
+{% if not app.debug %}
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-29873536-2', 'puphpet.com');
+        ga('send', 'pageview');
+    </script>
+{% endif %}
+</body>
+</html>

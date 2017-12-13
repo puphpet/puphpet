@@ -1,3 +1,0 @@
-puphpet.solr.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:Solr:index }

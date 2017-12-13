@@ -1,0 +1,109 @@
+{% set selectedVersion = (elastic_search.settings.version is defined and elastic_search.settings.version)
+    ? elastic_search.settings.version
+    : false %}
+{% set versions = selectedVersion
+    ? merge_unique([selectedVersion], elastic_search.available.versions)
+    : elastic_search.available.versions %}
+
+{% set instance_uniqids = [] %}
+{% for instance in elastic_search.instances %}
+    {% set instance_uniqids = instance_uniqids|merge([uniqid('esi_', true)]) %}
+{% endfor %}
+
+<input type="hidden" name="elastic_search[install]" value="0" />
+
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="elastic_search-install"
+               name="elastic_search[install]" value="1"
+               {% if elastic_search.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#elastic_search-container" />
+        <label for="elastic_search-install">Install Elastic Search</label>
+
+        <p>
+            A search server based on Lucene.
+        </p>
+    </div>
+</div>
+
+<div id="elastic_search-container"
+     class="container-fluid collapse {% if elastic_search.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="elastic_search-settings-version">
+                    Version
+                </label>
+                <select id="elastic_search-settings-version"
+                        name="elastic_search[settings][version]"
+                        class="form-control select-tag">
+                {% for version in versions %}
+                    <option value="{{ version }}"
+                        {% if version == selectedVersion %}selected{% endif %}>{{ version }}</option>
+                {% endfor %}
+                </select>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="help-block col-xs-12">
+                Elastic Search will be installed and the service will start automatically.
+                Java will also be installed if not already present on the vagrant box.
+                The default port is <code>9200</code>.
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Instances</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.elastic_search.instance') }}"
+                       data-toggle="add-block" data-link-title="Instance">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for instance in elastic_search.instances %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#elastic_search-instance-{{ attribute(instance_uniqids, loop.index0) }}"
+                           data-toggle="tab">Instance {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#elastic_search-instance-{{ attribute(instance_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add an instance
+                </div>
+                {% for instance in elastic_search.instances %}
+                    {% include 'PuphpetBundle:elastic-search:instance.html.twig' with {
+                        'instance': instance,
+                        'uniqid': attribute(instance_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#rabbitmq" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        RabbitMQ
+    </a>
+
+    <a href="#solr" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Apache Solr
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

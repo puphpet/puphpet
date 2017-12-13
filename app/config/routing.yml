@@ -1,3 +1,4 @@
 puphpet.main:
-    resource: "@PuphpetBundle/Resources/config/routing.yml"
+    resource: "@PuphpetBundle/Controller"
     prefix:   /
+    type:     annotation

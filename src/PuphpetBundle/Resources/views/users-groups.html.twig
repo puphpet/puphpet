@@ -1,0 +1,78 @@
+<input type="hidden" name="users_groups[install]" value="1" />
+
+<div class="container-fluid cm-container-white section-title">
+    <h1>Users &amp; Groups</h1>
+
+    <p>Add users &amp; groups to server</p>
+</div>
+
+<div id="users_groups-container"
+     class="container-fluid collapse in">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12">
+                <label for="users_groups-groups">
+                    Groups
+                </label>
+                <select id="users_groups-groups"
+                       name="users_groups[groups][]"
+                       multiple class="form-control select-tags-editable">
+                    {% for group in ug.groups %}
+                        <option selected value="{{ group }}">{{ group }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    Add groups here. Not all groups require users.
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12">
+                <label for="users_groups-users">
+                    Users
+                </label>
+                <select id="users_groups-users"
+                       name="users_groups[users][]"
+                       multiple class="form-control select-tags-editable">
+                    {% for user in ug.users %}
+                        <option selected value="{{ user }}">{{ user }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    <p>
+                        Add users here. Not all users require groups, but if you want to
+                        add a user to a group, the group must be listed above in the Groups
+                        section.
+                    </p>
+
+                    <p>
+                        The required format for users to be added to groups is
+                        <code>{USER}:{GROUP}</code>. If you want to create a user
+                        without assigning to a group, simply use <code>{USER}</code>.
+                        You can also assign a user to multiple groups using
+                        <code>{USER}:{GROUP}:{GROUP}</code> - a user can belong
+                        to as many groups as you want.
+                    </p>
+
+                    <p>
+                        User home directories will be placed at
+                        <code>/home/{USER}</code>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#system-packages" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        System Packages
+    </a>
+
+    <a href="#locale" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Locale/Timezone
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

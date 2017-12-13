@@ -2,39 +2,62 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class VagrantfileLinodeController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/vagrantfile-linode",
+     *     name="puphpet.vagrantfile_linode.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:vagrantfile-linode:form.html.twig', [
+        return $this->render('PuphpetBundle::vagrantfile-linode.html.twig', [
             'data' => $data,
         ]);
     }
 
-    public function machineAction()
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/vagrantfile-linode/machine",
+     *     name="puphpet.vagrantfile_linode.machine")
+     * @Method({"GET"})
+     */
+    public function machineAction(Request $request)
     {
-        return $this->render('PuphpetBundle:vagrantfile-linode/sections:machine.html.twig', [
-            'machine'     => $this->getData()['empty_machine'],
-            'datacenters' => $this->getData()['datacenters'],
-            'plans'       => $this->getData()['plans'],
-        ]);
-    }
+        $data = $this->getExtensionData('vagrantfile-linode');
 
-    public function syncedFolderAction()
-    {
-        return $this->render('PuphpetBundle:vagrantfile-linode/sections:synced-folder.html.twig', [
-            'synced_folder' => $this->getData()['empty_synced_folder'],
+        return $this->render('PuphpetBundle:vagrantfile-linode:machine.html.twig', [
+            'machine'     => $data['empty_machine'],
+            'datacenters' => $data['datacenters'],
+            'plans'       => $data['plans'],
         ]);
     }
 
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/vagrantfile-linode/synced-folder",
+     *     name="puphpet.vagrantfile_linode.synced_folder")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function syncedFolderAction(Request $request)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('vagrantfile-linode');
+        $data = $this->getExtensionData('vagrantfile-linode');
+
+        return $this->render('PuphpetBundle:vagrantfile-linode:synced-folder.html.twig', [
+            'synced_folder' => $data['empty_synced_folder'],
+        ]);
     }
 }

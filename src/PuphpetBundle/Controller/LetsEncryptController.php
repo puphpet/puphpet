@@ -2,30 +2,44 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class LetsEncryptController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/letsencrypt",
+     *     name="puphpet.letsencrypt.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:letsencrypt:form.html.twig', [
+        return $this->render('PuphpetBundle::letsencrypt.html.twig', [
             'letsencrypt' => $data,
         ]);
     }
 
-    public function addDomainAction()
-    {
-        return $this->render('PuphpetBundle:letsencrypt/sections:domain.html.twig', [
-            'domain' => $this->getData()['empty_domain'],
-        ]);
-    }
-
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/letsencrypt/add-domain",
+     *     name="puphpet.letsencrypt.add_domain")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function addDomainAction(Request $request)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('letsencrypt');
+        $data = $this->getExtensionData('letsencrypt');
+
+        return $this->render('PuphpetBundle:letsencrypt:domain.html.twig', [
+            'domain' => $data['empty_domain'],
+        ]);
     }
 }

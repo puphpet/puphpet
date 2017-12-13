@@ -42,7 +42,7 @@ Eventually PuPHPet will be good enough to help create production-ready servers!
 
 ## Requirements ##
 
-To run PuPHPet-generated manifests, you'll need to install [Vagrant](http://downloads.vagrantup.com/) version 1.8.1 or
+To run PuPHPet-generated manifests, you'll need to install [Vagrant](http://downloads.vagrantup.com/) version 1.8.6 or
 greater. Vagrant will run on Windows, OS X and Linux.
 
 ## Contribution ##
@@ -52,4 +52,8 @@ If you have a patch, or stumbled upon an issue with PuPHPet core, you can contri
 ## License ##
 
 PuPHPet is licensed under the [MIT license](http://opensource.org/licenses/mit-license.php) all third-party Puppet
+
 Modules are licensed under [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+Clearmin Design licensed under GPLv3 with
+[an exemption provided for PuPHPet](https://github.com/puphpet/puphpet/blob/master/LICENSE-DESIGN.md).

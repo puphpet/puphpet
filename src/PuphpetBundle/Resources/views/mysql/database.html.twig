@@ -1,0 +1,28 @@
+{% set uniqid = uniqid ?? uniqid('mysqlnd_', true) %}
+
+<div id="mysql-database-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="mysql-databases-{{ uniqid }}-name">
+            DB Name
+        </label>
+        <input type="text" id="mysql-databases-{{ uniqid }}-name"
+               name="mysql[databases][{{ uniqid }}][name]"
+               placeholder="database_name" class="form-control"
+               value="{{ database.name }}" />
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="mysql-databases-{{ uniqid }}-sql">
+            Import Database From File
+        </label>
+        <input type="text" id="mysql-databases-{{ uniqid }}-sql"
+               name="mysql[databases][{{ uniqid }}][sql]"
+               placeholder="/path/to/your/db/file" class="form-control"
+               value="{{ database.sql }}" />
+        <div class="help-block">
+            Optional. Make sure this file is inside the VM,
+            or is inside a shared folder before running <code>$ vagrant up</code>
+        </div>
+    </div>
+</div>

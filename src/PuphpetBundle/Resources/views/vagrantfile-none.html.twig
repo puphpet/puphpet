@@ -1,0 +1,59 @@
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="radio" id="vagrantfile-vm-provider-none-install"
+               name="vagrantfile[target]" value="none"
+               data-toggle="radio-collapse" data-target="#vagrantfile-none-container"
+               data-enforce-group-single="vagrantfile"
+               data-enable-on-check data-disable-on-uncheck />
+        <label for="vagrantfile-vm-provider-none-install">Deploy Without Vagrant</label>
+
+        <p>
+            Do not create a server with Vagrant, simply run Puppet.
+        </p>
+    </div>
+</div>
+
+<div id="vagrantfile-none-container"
+     class="container-fluid collapse">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Included in your generated archive is <code>standalone-puppet.sh</code>.</p>
+
+            <p>Upload this file and all files inside the <code>puphpet</code>
+                directory to your remote server under <code>opt</code>.</p>
+
+            <p>You can use the following <code>rsync</code> command:</p>
+
+            <pre><code>LOCAL_PUPHPET_DIR='/path/to/puphpet/directory'
+SSH_KEY='/path/to/id_rsa
+SSH_USERNAME='ssh_username'
+IP_ADDRESS=123.123.123.123
+
+rsync -azO --no-perms -e "ssh -i ${SSH_KEY}" \
+    ${LOCAL_PUPHPET_DIR} ${SSH_USERNAME}@${IP_ADDRESS}:/opt</code></pre>
+
+            <p>Your directory tree should end up looking like:</p>
+
+            <pre><code>opt
+├── puphpet
+│   ├── config.yaml
+│   ├── files
+│   ├── puppet
+│   ├── shell
+│   └── standalone-puppet.sh
+                </code></pre>
+
+            <p>Make <code>standalone-puppet.sh</code> executable with:
+                <code>chmod +x /opt/puphpet/standalone-puppet.sh</code></p>
+
+            <p>Finally, you may kick PuPHPet off by running
+                <code>/opt/puphpet/standalone-puppet.sh</code></p>
+
+            <p>You must run this as either <code>root</code> or a sudo-enabled user.</p>
+
+            <p><strong>No exec-* files are run via this method!</strong></p>
+
+            <p>You are responsible for running any shell scripts before and after.</p>
+        </div>
+    </div>
+</div>

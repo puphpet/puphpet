@@ -2,39 +2,62 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class VagrantfileRackspaceController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/vagrantfile-rackspace",
+     *     name="puphpet.vagrantfile_rackspace.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:vagrantfile-rackspace:form.html.twig', [
+        return $this->render('PuphpetBundle::vagrantfile-rackspace.html.twig', [
             'data' => $data,
         ]);
     }
 
-    public function machineAction()
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/vagrantfile-rackspace/machine",
+     *     name="puphpet.vagrantfile_rackspace.machine")
+     * @Method({"GET"})
+     */
+    public function machineAction(Request $request)
     {
-        return $this->render('PuphpetBundle:vagrantfile-rackspace/sections:machine.html.twig', [
-            'machine' => $this->getData()['empty_machine'],
-            'regions' => $this->getData()['regions'],
-            'sizes'   => $this->getData()['sizes'],
-        ]);
-    }
+        $data = $this->getExtensionData('vagrantfile-rackspace');
 
-    public function syncedFolderAction()
-    {
-        return $this->render('PuphpetBundle:vagrantfile-rackspace/sections:synced-folder.html.twig', [
-            'synced_folder' => $this->getData()['empty_synced_folder'],
+        return $this->render('PuphpetBundle:vagrantfile-rackspace:machine.html.twig', [
+            'machine' => $data['empty_machine'],
+            'regions' => $data['regions'],
+            'sizes'   => $data['sizes'],
         ]);
     }
 
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/vagrantfile-rackspace/synced-folder",
+     *     name="puphpet.vagrantfile_rackspace.synced_folder")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function syncedFolderAction(Request $request)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('vagrantfile-rackspace');
+        $data = $this->getExtensionData('vagrantfile-rackspace');
+
+        return $this->render('PuphpetBundle:vagrantfile-rackspace:synced-folder.html.twig', [
+            'synced_folder' => $data['empty_synced_folder'],
+        ]);
     }
 }

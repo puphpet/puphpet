@@ -1,3 +1,0 @@
-puphpet.xdebug.homepage:
-    path:  /
-    defaults: { _controller: PuphpetBundle:Xdebug:index }

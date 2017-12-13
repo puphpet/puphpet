@@ -3,7 +3,7 @@ target: ~
 vm:
     provider:
         digitalocean:
-            image: ubuntu-14-04-x64
+            image: ubuntu-16-04-x64
             token: DIGITAL_OCEAN_TOKEN
             ssh_key_name: Vagrant
             setup: true
@@ -18,11 +18,11 @@ vm:
                     size: 1GB
     provision:
         puppet:
-            manifests_path: "puphpet/puppet/manifests"
-            module_path: "puphpet/puppet/modules"
+            manifests_path: 'puphpet/puppet/manifests'
+            module_path: 'puphpet/puppet/modules'
             options:
-                - "--verbose"
-                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
+                - '--verbose'
+                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
     synced_folder:
         -
             source: ./
@@ -32,5 +32,5 @@ vm:
     post_up_message: ''
 ssh:
     username: PRIVATE_KEY_USER
-    private_key_path: "~/.ssh/id_rsa"
-    public_key_path: "~/.ssh/id_rsa.pub"
+    private_key_path: '~/.ssh/id_rsa'
+    public_key_path: '~/.ssh/id_rsa.pub'

@@ -2,30 +2,44 @@
 
 namespace PuphpetBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use PuphpetBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CronController extends Controller
 {
-    public function indexAction(array $data)
+    /**
+     * @param Request $request
+     * @param array   $data
+     * @return Response
+     * @Route("/extension/cron",
+     *     name="puphpet.cron.homepage")
+     * @Method({"GET"})
+     */
+    public function indexAction(Request $request, array $data)
     {
-        return $this->render('PuphpetBundle:cron:form.html.twig', [
+        return $this->render('PuphpetBundle::cron.html.twig', [
             'cron' => $data,
         ]);
     }
 
-    public function jobAction()
-    {
-        return $this->render('PuphpetBundle:cron/sections:job.html.twig', [
-            'job' => $this->getData()['empty_job'],
-        ]);
-    }
-
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
+     * @Route("/extension/cron/job",
+     *     name="puphpet.cron.job")
+     * @Method({"GET"})
      */
-    private function getData()
+    public function jobAction(Request $request)
     {
-        $manager = $this->get('puphpet.extension.manager');
-        return $manager->getExtensionAvailableData('cron');
+        $data = $this->getExtensionData('cron');
+
+        return $this->render('PuphpetBundle:cron:job.html.twig', [
+            'job' => $data['empty_job'],
+        ]);
     }
 }

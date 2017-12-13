@@ -1,0 +1,54 @@
+{% set uniqid = uniqid ?? uniqid('pyenv_', true) %}
+
+{% set virtualenv = (selected_version.virtualenv is defined and selected_version.virtualenv) ? true : false %}
+
+<div id="python-version-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="python-versions-{{ uniqid }}-version">
+            Choose Version
+        </label>
+        <select id="python-versions-{{ uniqid }}-version"
+                name="python[versions][{{ uniqid }}][version]"
+                class="form-control select-tag">
+            {% for available in available_versions %}
+                <option value="{{ available }}"
+                    {% if available == selected_version.version %}selected{% endif %}>{{ available }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <p>Each Python will be installed system-wide and can be accessed as<br />
+                <code>$ python{version}</code>. eg: <code>$ python3.4.0</code>.</p>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12">
+        <div class="clearfix"><label>Virtualenv</label></div>
+
+        <div class="checkbox">
+            <input type="checkbox" id="python-versions-{{ uniqid }}-virtualenv"
+                   name="python[versions][{{ uniqid }}][virtualenv]"
+                   value="1"
+                   {% if virtualenv %}checked{% endif %} />
+            <label for="python-versions-{{ uniqid }}-virtualenv">
+                Install virtualenv
+            </label>
+            <div class="help-block">
+                <p>Each virtualenv will be installed system-wide and can be accessed
+                as <code>$ virtualenv-{version}</code>.</p>
+
+                <p>eg: <code>$ virtualenv-3.4.0</code>.</p>
+
+                <p>There is currently a small bug where <code>virtualenv</code> is
+                    not being installed on initial <code>$ vagrant up</code>. The
+                    solution is simple: just run <code>$ vagrant provision</code>
+                    and <code>virtualenv</code> will be installed for your chosen
+                    Python version. Fix coming soon!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

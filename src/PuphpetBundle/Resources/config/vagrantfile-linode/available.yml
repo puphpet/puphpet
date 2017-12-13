@@ -1,41 +1,40 @@
 distributions:
     -
-        distribution: Debian 7
-        long_name: Debian Wheezy 7.x x64
-        php_versions:
-            - 5.6
-            - 5.5
-            - 5.4
-            - HHVM
+        distribution: CentOS 7
+        long_name: CentOS 7
     -
         distribution: Ubuntu 14.04 LTS
         long_name: Ubuntu Trusty 14.04 LTS x64
-        php_versions:
-            - 7.0
-            - 5.6
-            - 5.5
-            - HHVM
+    -
+        distribution: Ubuntu 16.04 LTS
+        long_name: Ubuntu Xenial 16.04 LTS
 
 plans:
-    1024: 1GB / 1 CPU / 24GB SSD DISK / 2TB TRANSFER
-    2048: 2GB / 2 CPU / 48GB SSD DISK / 3TB TRANSFER
-    4096: 4GB / 4 CPUS / 96GB SSD DISK / 4TB TRANSFER
-    8192: 8GB / 6 CPUS / 192GB SSD DISK / 8TB TRANSFER
-    16384: 16GB / 8 CPUS / 384GB SSD DISK / 16TB TRANSFER
-    32768: 32GB / 12 CPUS / 768GB SSD DISK / 20TB TRANSFER
-    49152: 48GB / 16 CPUS / 1152GB SSD DISK / 20TB TRANSFER
-    65536: 64GB / 20 CPUS / 1536GB SSD DISK / 20TB TRANSFER
-    98304: 96GB / 20 CPUS / 1920GB SSD DISK / 20TB TRANSFER
+    1024: 1GB / 1 CPU / 20GB SSD DISK / 1TB TRANSFER
+    2048: 2GB / 1 CPU / 30GB SSD DISK / 2TB TRANSFER
+    4096: 4GB / 2 CPUS / 48GB SSD DISK / 3TB TRANSFER
+    8192: 8GB / 4 CPUS / 96GB SSD DISK / 4TB TRANSFER
+    12288: 12GB / 6 CPUS / 192GB SSD DISK / 8TB TRANSFER
+    16384: 16GB / 1 CPUS / 20GB SSD DISK / 5TB TRANSFER
+    24576: 24GB / 8 CPUS / 384GB SSD DISK / 16TB TRANSFER
+    32768: 32GB / 2 CPUS / 40GB SSD DISK / 6TB TRANSFER
+    49152: 48GB / 12 CPUS / 768GB SSD DISK / 20TB TRANSFER
+    61440: 60GB / 4 CPUS / 90GB SSD DISK / 7TB TRANSFER
+    65536: 64GB / 16 CPUS / 1152GB SSD DISK / 20TB TRANSFER
+    81920: 80GB / 20 CPUS / 1536GB SSD DISK / 20TB TRANSFER
+    102400: 100GB / 8 CPUS / 200GB SSD DISK / 8TB TRANSFER
+    204800: 200GB / 1 CPUS6 / 340GB SSD DISK / 9TB TRANSFER
 
 datacenters:
-    newark: Newark
-    atlanta: Atlanta
-    fremont: Fremont
-    dallas: Dallas
-    london: London
-    tokyo: Tokyo
-    singapore: Singapore
-    frankfurt: Frankfurt
+    atlanta: Atlanta, GA, USA
+    dallas: Dallas, TX, USA
+    fremont: Fremont, CA, USA
+    london: London, England, UK
+    newark: Newark, NJ, USA
+    tokyo: Tokyo, JP
+    singapore: Singapore, SGP
+    frankfurt: Frankfurt, DE
+    shinagawa1: Tokyo 2, JP
 
 empty_synced_folder:
     source: ~

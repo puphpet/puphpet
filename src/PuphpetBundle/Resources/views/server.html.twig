@@ -1,0 +1,45 @@
+<input type="hidden" name="server[install]" value="1" />
+
+<div class="container-fluid cm-container-white section-title">
+    <h1>System Packages</h1>
+
+    <p>Install system packages</p>
+</div>
+
+<div id="server-container"
+     class="container-fluid collapse in">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12">
+                <label for="server-packages">
+                    System Packages
+                </label>
+                <select id="server-packages"
+                       name="server[packages][]"
+                       multiple class="form-control select-tags-editable">
+                    {% for package in server.packages %}
+                        <option selected value="{{ package }}">{{ package }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    Packages to install via the OS package manager, separated by comma.
+                    Do not add Apache/Nginx or PHP here - you will choose those later.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#vagrantfile-local" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Local Deployment Target
+    </a>
+
+    <a href="#users-groups" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        Users &amp; Groups
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

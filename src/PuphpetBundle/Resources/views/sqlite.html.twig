@@ -1,0 +1,98 @@
+{% set database_uniqids = [] %}
+{% for database in sqlite.databases %}
+    {% set database_uniqids = database_uniqids|merge([uniqid('sqlitenuad_', true)]) %}
+{% endfor %}
+
+<input type="hidden" name="sqlite[install]" value="0" />
+
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="sqlite-install"
+               name="sqlite[install]" value="1"
+               {% if sqlite.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#sqlite-container" />
+        <label for="sqlite-install">Install SQLite</label>
+
+        <p>
+            The most widely deployed SQL database engine in the world.
+        </p>
+    </div>
+</div>
+
+<div id="sqlite-container"
+     class="container-fluid collapse {% if sqlite.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="help-block col-xs-12">
+                <p>The preferred way to connect to your database is using a dedicated
+                    application like
+                    <a href="http://www.valentina-db.com/valentina-studio-overview" target="_blank">Valentina Studio (OS X)</a>,
+                    <a href="http://sqliteman.com/">Sqliteman (Windows/Linux)</a>,
+                    <a href="http://sqliteadmin.orbmu2k.de/">SQLite Administrator (Windows)</a>,
+                    and
+                    <a href="https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/">SQLite Manager (FireFox)</a>.</p>
+                <p>Connect using SSH tunnel, username <code>vagrant</code> and SSH key generated at
+                    <code>puphpet/files/dot/ssh/id_rsa</code>. This key is generated <strong>after</strong>
+                    your initial <code>$ vagrant up</code>!</p>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Databases</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.sqlite.add_database') }}"
+                       data-toggle="add-block" data-link-title="Database">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for database in sqlite.databases %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#sqlite-database-{{ attribute(database_uniqids, loop.index0) }}"
+                           data-toggle="tab">Database {{ rand_string(3) }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#sqlite-database-{{ attribute(database_uniqids, loop.index0) }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a database
+                </div>
+                {% for database in sqlite.databases %}
+                    {% include 'PuphpetBundle:sqlite:user-database.html.twig' with {
+                        'available_privileges': sqlite.available.privileges,
+                        'database': database,
+                        'uniqid': attribute(database_uniqids, loop.index0),
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#redis" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        Redis
+    </a>
+
+    <a href="#mailhog" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        MailHog
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

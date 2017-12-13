@@ -1,0 +1,34 @@
+{% set uniqid = uniqid ?? uniqid('mariadbnu_', true) %}
+
+<div id="mariadb-user-{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="mariadb-users-{{ uniqid }}-name">
+            Username
+        </label>
+        <input type="text" id="mariadb-users-{{ uniqid }}-name"
+               name="mariadb[users][{{ uniqid }}][name]"
+               placeholder="username" class="form-control"
+               value="{{ user.name }}" />
+        <div class="help-block">
+            Enter <code>{username}@{host}</code>
+            for a specific host. If no host is defined, eg:
+            <code>{username}</code>", it will
+            automagically be converted to
+            <code>{username}@localhost</code>
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="mariadb-users-{{ uniqid }}-password">
+            Password
+        </label>
+        <input type="text" id="mariadb-users-{{ uniqid }}-password"
+               name="mariadb[users][{{ uniqid }}][password]"
+               placeholder="123" class="form-control"
+               value="{{ user.password }}" />
+        <div class="help-block">
+            Password is required for each user.
+        </div>
+    </div>
+</div>

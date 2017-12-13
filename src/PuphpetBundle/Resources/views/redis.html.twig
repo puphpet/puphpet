@@ -1,0 +1,48 @@
+<input type="hidden" name="redis[install]" value="0" />
+
+<div class="container-fluid cm-container-white section-title">
+    <div class="checkbox checkbox-lg no-padding">
+        <input type="checkbox" id="redis-install"
+               name="redis[install]" value="1"
+               {% if redis.install %}checked{% endif %}
+               data-toggle="checkbox-collapse" data-target="#redis-container" />
+        <label for="redis-install">Install Redis</label>
+
+        <p>
+            An open source, advanced key-value store.
+        </p>
+    </div>
+</div>
+
+<div id="redis-container"
+     class="container-fluid collapse {% if redis.install %}in{% endif %}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="redis-settings-port">
+                    Listen Port
+                </label>
+                <input type="number" id="redis-settings-port"
+                       name="redis[settings][port]"
+                       placeholder="5673" class="form-control"
+                       value="{{ redis.settings.port }}" />
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="container-fluid cm-container-white section-footer">
+    <a href="#mongodb" data-toggle="tab" class="btn btn-primary btn-lg pull-left">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        MongoDB
+    </a>
+
+    <a href="#sqlite" data-toggle="tab" class="btn btn-primary btn-lg pull-right">
+        SQLite
+        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</div>

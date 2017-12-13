@@ -19,6 +19,7 @@ class BaseExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction('mt_rand', [$this, 'mt_rand']),
             new \Twig_SimpleFunction('uniqid', [$this, 'uniqid']),
+            new \Twig_SimpleFunction('rand_string', [$this, 'randString']),
             new \Twig_SimpleFunction('merge_unique', [$this, 'mergeUnique']),
             new \Twig_SimpleFunction('add_available', [$this, 'addAvailable']),
             new \Twig_SimpleFunction('formValue', [$this, 'formValue']),
@@ -39,6 +40,20 @@ class BaseExtension extends \Twig_Extension
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
 
         return $prefix . $random->generateString(12, $characters);
+    }
+
+    public function randString($length)
+    {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        $charactersLength = strlen($characters);
+        $randomString = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
     }
 
     public function mt_rand($min, $max)

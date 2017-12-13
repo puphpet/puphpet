@@ -9,7 +9,6 @@ services:
             - [ addExtension, [ 'vagrantfile-local' ] ]
             - [ addExtension, [ 'vagrantfile-rackspace' ] ]
             - [ addExtension, [ 'vagrantfile-linode' ] ]
-            - [ addExtension, [ 'vagrantfile-softlayer' ] ]
             - [ addExtension, [ 'vagrantfile-aws' ] ]
             - [ addExtension, [ 'vagrantfile-gce' ] ]
             - [ addExtension, [ 'vagrantfile-digitalocean' ] ]
@@ -18,6 +17,7 @@ services:
             - [ addExtension, [ 'users-groups' ] ]
             - [ addExtension, [ 'locale' ] ]
             - [ addExtension, [ 'firewall' ] ]
+            - [ addExtension, [ 'resolv' ] ]
             - [ addExtension, [ 'cron' ] ]
         # web server
             - [ addExtension, [ 'nginx' ] ]

@@ -1,34 +1,27 @@
 images:
     -
         image: centos-7-0-x64
-        long_name: CentOS 7 x64
+        long_name: CentOS 7
         php_versions:
+            - 7.1
+            - 7.0
             - 5.6
-            - 5.5
-            - 5.4
-            - HHVM
-    -
-        image: debian-7-0-x64
-        long_name: Debian Wheezy 7.0 x64
-        php_versions:
-            - 5.6
-            - 5.5
-            - 5.4
             - HHVM
     -
         image: ubuntu-14-04-x64
-        long_name: Ubuntu Trusty 14.04 LTS x64
+        long_name: Ubuntu Trusty 14.04 LTS
         php_versions:
+            - 7.1
             - 7.0
             - 5.6
-            - 5.5
             - HHVM
     -
-        image: ubuntu-12-04-x64
-        long_name: Ubuntu Precise 12.04.5 LTS x64
+        image: ubuntu-16-04-x64
+        long_name: Ubuntu Xenial 16.04 LTS
         php_versions:
-            - 5.5
-            - 5.4
+            - 7.1
+            - 7.0
+            - 5.6
             - HHVM
 
 sizes:

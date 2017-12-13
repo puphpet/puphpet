@@ -1,7 +1,7 @@
 install: 0
 
 settings:
-    version: 5.6
+    version: 5.7
     override_options: {}
 
 users:

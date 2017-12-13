@@ -1,0 +1,15 @@
+<div class="tab-pane" id="nginx">
+    {% include 'PuphpetBundle::nginx.html.twig' with {
+        'nginx': add_available(extensions.nginx.merged, extensions.nginx.available)
+    } %}
+</div>
+<div class="tab-pane" id="apache">
+    {% include 'PuphpetBundle::apache.html.twig' with {
+        'apache': add_available(extensions.apache.merged, extensions.apache.available)
+    } %}
+</div>
+<div class="tab-pane" id="letsencrypt">
+    {% include 'PuphpetBundle::letsencrypt.html.twig' with {
+        'letsencrypt': add_available(extensions.letsencrypt.merged, extensions.letsencrypt.available)
+    } %}
+</div>

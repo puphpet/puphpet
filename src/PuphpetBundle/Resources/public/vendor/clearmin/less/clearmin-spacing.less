@@ -1,0 +1,31 @@
+.cm-navbar .cm-flex h1,
+.cm-navbar .cm-breadcrumb-container{ margin: 0 15px;}
+.panel{margin-bottom:20px;}
+.container-fluid > .row:first-child, .container-fluid > .panel:first-child{
+    margin-top:20px;
+}
+
+.cm-container-white{padding:20px 25px;}
+
+@media (max-width: (@screen-sm - 1)){
+    .container-fluid{
+	padding-left:15px;
+	padding-right:15px;
+    }
+
+    .cm-container-white{padding:15px 20px;}
+
+    //.cm-container-white{padding:25px 31px;}
+}
+
+@media (min-width: (@screen-md)){
+    .cm-navbar .cm-flex h1,
+    .cm-navbar .cm-breadcrumb-container{ margin: 0 20px;}
+
+}
+
+#cm-menu .cm-logo{
+    display:block;
+    height:@navbar-height;
+    background:url(../img/logo.svg) no-repeat 15px center transparent;
+}
