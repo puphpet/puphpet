@@ -1,10 +1,12 @@
 ---
-:backends: yaml
-:yaml:
-    :datadir: /opt/puphpet
-:hierarchy:
-    - config-%{::provisioner_type}
-    - config-custom
-    - config
-:merge_behavior: deeper
-:logger: console
+version: 5
+defaults:
+  datadir: /opt/puphpet
+  data_hash: yaml_data
+
+hierarchy:
+  - name: YAML data
+    paths:
+      - "config-%{::provisioner_type}.yaml"
+      - config-custom.yaml
+      - config.yaml

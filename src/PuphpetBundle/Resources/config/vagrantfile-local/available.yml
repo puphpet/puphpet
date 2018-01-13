@@ -48,19 +48,19 @@ virtualizers:
 
 boxes:
     -
-        box: puphpet/centos65-x64
+        box: bento/centos-6
         name: CentOS 6 x64
     -
-        box: puphpet/centos7-x64
+        box: bento/centos-7
         name: CentOS 7 x64
     -
-        box: puphpet/ubuntu1404-x64
+        box: bento/ubuntu-14.04
         name: Ubuntu Trusty 14.04 LTS x64
     -
-        box: puphpet/ubuntu1604-x64
+        box: bento/ubuntu-16.04
         name: Ubuntu Xenial 16.04 LTS x64
     -
-        box: puphpet/ubuntu1604-i386
+        box: bento/ubuntu-16.04-i386
         name: Ubuntu Xenial 16.04 LTS i386
 
 empty_machine:

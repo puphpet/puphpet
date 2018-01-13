@@ -10,21 +10,15 @@ if [[ -d /vagrant ]]; then
     if [[ ! -L ${PUPHPET_CORE_DIR} ]]; then
         ln -s /vagrant/puphpet ${PUPHPET_CORE_DIR}
     fi
-
-    # Run on local VM
-    if [[ -d /.puphpet-stuff ]] && [[ ! -L ${PUPHPET_STATE_DIR} ]]; then
-        ln -s /.puphpet-stuff ${PUPHPET_STATE_DIR}
-    elif [[ ! -d ${PUPHPET_STATE_DIR} ]]; then
-        mkdir ${PUPHPET_STATE_DIR}
-    fi
+# Run as stand-alone Puppet
 else
     if [[ ! -d ${PUPHPET_CORE_DIR} ]]; then
         mkdir ${PUPHPET_CORE_DIR}
     fi
+fi
 
-    if [[ ! -d ${PUPHPET_STATE_DIR} ]]; then
-        mkdir ${PUPHPET_STATE_DIR}
-    fi
+if [[ ! -d ${PUPHPET_STATE_DIR} ]]; then
+    mkdir ${PUPHPET_STATE_DIR}
 fi
 
 OS=$(/bin/bash ${PUPHPET_CORE_DIR}/shell/os-detect.sh ID)
@@ -42,23 +36,10 @@ if [[ -f ${PUPHPET_STATE_DIR}/initial-setup ]]; then
 fi
 
 if [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
-    wget --quiet --tries=5 --connect-timeout=10 \
-        -O ${PUPHPET_STATE_DIR}/puppetlabs.gpg \
-        https://apt.puppetlabs.com/pubkey.gpg
-    apt-key add ${PUPHPET_STATE_DIR}/puppetlabs.gpg
-
     apt-get update
 
-    apt-get -y install anacron iptables-persistent software-properties-common \
+    apt-get -y install iptables-persistent software-properties-common \
         python-software-properties curl git-core build-essential
-
-    # Anacron configuration
-    cat >/etc/cron.weekly/autoupdt << 'EOL'
-#!/bin/bash
-
-apt-get update
-apt-get autoclean
-EOL
 
     # Fixes https://github.com/mitchellh/vagrant/issues/1673
     # Fixes https://github.com/mitchellh/vagrant/issues/7368

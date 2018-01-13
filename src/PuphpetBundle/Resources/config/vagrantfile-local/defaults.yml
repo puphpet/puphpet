@@ -3,7 +3,7 @@ target: local
 vm:
     provider:
         local:
-            box: puphpet/ubuntu1604-x64
+            box: bento/ubuntu-16.04
             box_url: ~
             box_version: 0
             chosen_virtualizer: virtualbox
