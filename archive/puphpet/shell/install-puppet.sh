@@ -32,15 +32,9 @@ EOL
     fi
 
     if [[ "${OS}" == 'centos' ]]; then
-        if [ "${RELEASE}" == 6 ]; then
-            rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-6.noarch.rpm
-            yum -y install puppet-agent-1.6*
-        fi
-
-        if [ "${RELEASE}" == 7 ]; then
-            rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
-            yum -y install puppet-agent-1.6*
-        fi
+        rpm -Uvh "https://yum.puppetlabs.com/puppet5/puppet5-release-el-${RELEASE}.noarch.rpm"
+        yum -y install yum-plugin-versionlock puppet-agent-5.3*
+        yum versionlock add puppet-agent
     fi
 
     rm -f /usr/bin/puppet
