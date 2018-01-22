@@ -50,17 +50,12 @@ if [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
 fi
 
 if [[ "${OS}" == 'centos' ]]; then
-    perl -p -i -e 's@enabled=1@enabled=0@gi' /etc/yum/pluginconf.d/fastestmirror.conf
-
     if [ "${RELEASE}" == 6 ]; then
-        EL_REPO='http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm'
         EPEL='http://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm'
     else
-        EL_REPO='http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm'
         EPEL='http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
     fi
 
-    yum -y --nogpgcheck install "${EL_REPO}"
     yum -y --nogpgcheck install "${EPEL}"
     yum -y install centos-release-scl
     yum clean all
