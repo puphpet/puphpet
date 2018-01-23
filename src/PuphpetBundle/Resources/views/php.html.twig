@@ -31,6 +31,8 @@
                 <select id="php-settings-version"
                         name="php[settings][version]"
                         class="form-control select-tag">
+                    <option value="7.2"
+                        {% if php.settings.version in ['7.2', '72'] %}selected{% endif %}>7.2</option>
                     <option value="7.1"
                         {% if php.settings.version in ['7.1', '71'] %}selected{% endif %}>7.1</option>
                     <option value="7.0"
