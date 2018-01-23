@@ -1,5 +1,6 @@
 install: 1
 
 packages:
-    - vim
+    - bash-completion
     - htop
+    - vim
