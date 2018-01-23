@@ -10,7 +10,10 @@
         </label>
         <select id="python-versions-{{ uniqid }}-version"
                 name="python[versions][{{ uniqid }}][version]"
-                class="form-control select-tag">
+                class="form-control select-tag-editable">
+            {% if selected_version.version and selected_version.version not in available_versions %}
+                <option value="{{ selected_version.version }}" selected>{{ selected_version.version }}</option>
+            {% endif %}
             {% for available in available_versions %}
                 <option value="{{ available }}"
                     {% if available == selected_version.version %}selected{% endif %}>{{ available }}</option>

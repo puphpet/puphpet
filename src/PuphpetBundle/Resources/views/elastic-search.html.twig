@@ -36,7 +36,10 @@
                 </label>
                 <select id="elastic_search-settings-version"
                         name="elastic_search[settings][version]"
-                        class="form-control select-tag">
+                        class="form-control select-tag-editable">
+                {% if selectedVersion and selectedVersion not in versions %}
+                    <option value="{{ selectedVersion }}" selected>{{ selectedVersion }}</option>
+                {% endif %}
                 {% for version in versions %}
                     <option value="{{ version }}"
                         {% if version == selectedVersion %}selected{% endif %}>{{ version }}</option>

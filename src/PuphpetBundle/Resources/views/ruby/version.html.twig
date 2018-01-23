@@ -45,15 +45,13 @@
         </label>
         <select id="ruby-versions-{{ uniqid }}-version"
                 name="ruby[versions][{{ uniqid }}][version]"
-                class="form-control select-tag">
-            {% if selected_version.version is defined %}
+                class="form-control select-tag-editable">
+            {% if selected_version.version and selected_version.version not in available_versions %}
                 <option value="{{ selected_version.version }}" selected>{{ selected_version.version }}</option>
             {% endif %}
-
             {% for available in available_versions %}
-                {% if available != selected_version.version %}
-                    <option value="{{ available }}">{{ available }}</option>
-                {% endif %}
+                <option value="{{ available }}"
+                    {% if available == selected_version.version %}selected{% endif %}>{{ available }}</option>
             {% endfor %}
         </select>
         <div class="help-block">

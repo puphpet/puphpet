@@ -1,11 +1,11 @@
 install: 1
 
 versions:
-    ruby-193:
+    ruby-24:
         default: '1'
         bundler: '1'
-        version: 2.3.1
+        version: 2.4
         gems:
-            - deep_merge@1.0.1
-            - activesupport@4.2.6
-            - vine@0.2
+            - deep_merge@1.2.1
+            - activesupport@5.1.4
+            - vine@0.4

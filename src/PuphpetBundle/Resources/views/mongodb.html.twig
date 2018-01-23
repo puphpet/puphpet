@@ -33,20 +33,14 @@
                 </label>
                 <select id="mongodb-globals-version"
                         name="mongodb[globals][version]"
-                        class="form-control select-tag">
-                <optgroup label="Ubuntu">
-                    {% for version in mongodb.available.versions_deb %}
-                        <option value="{{ version }}"
-                            {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
+                        class="form-control select-tag-editable">
+                    {% if selectedVersion and selectedVersion not in mongodb.available.versions %}
+                        <option value="{{ selectedVersion }}" selected>{{ selectedVersion }}</option>
+                    {% endif %}
+                    {% for available in mongodb.available.versions %}
+                        <option value="{{ available }}"
+                            {% if available == selectedVersion %}selected{% endif %}>{{ available }}</option>
                     {% endfor %}
-                </optgroup>
-
-                <optgroup label="CentOS">
-                    {% for version in mongodb.available.versions_rhel %}
-                        <option value="{{ version }}"
-                            {% if version == selectedVersion %}selected{% endif %}>&nbsp;&nbsp;{{ version }}</option>
-                    {% endfor %}
-                </optgroup>
                 </select>
             </div>
 
