@@ -1,9 +1,12 @@
 install: 0
 
 settings:
-    version: 2.3.1
+    version: 6.1.2
     java_install: true
 
 instances:
     -
         name: es-01
+        jvm_options:
+            - '-Xms2G'
+            - '-Xmx2G'

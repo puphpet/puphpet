@@ -2,7 +2,7 @@
 
 <div id="rackspace-machine-{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
-    <div class="form-group col-xs-12 col-sm-6">
+    <div class="form-group col-xs-12">
         <label for="elastic_search-instances-{{ uniqid }}-name">
             Name
         </label>
@@ -12,6 +12,25 @@
                value="{{ instance.name }}" />
         <div class="help-block">
             At least one instance must be defined
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12">
+        <label for="elastic_search-instances-{{ uniqid }}-jvm_options">
+            JVM Options
+        </label>
+        <select id="elastic_search-instances-{{ uniqid }}-jvm_options"
+               name="elastic_search[instances][{{ uniqid }}][jvm_options][]"
+               multiple class="form-control select-tags-editable">
+            {% for option in instance.jvm_options %}
+                <option selected value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            <code>Xms</code> and <code>Xmx</code> refer to the memory assigned
+            to the instance. Examples are <code>-Xms2G</code>, <code>-Xms512M</code>
         </div>
     </div>
 
