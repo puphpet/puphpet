@@ -16,5 +16,5 @@ GEM_PATH=$(cat "${PUPHPET_STATE_DIR}/gem_path") \
 FACTER_provisioner_type='remote' \
 puppet apply --verbose \
     --hiera_config ${PUPHPET_CORE_DIR}/puppet/hiera.yaml \
-    --modulepath "${PUPHPET_CORE_DIR}/puppet/modules/:${PUPHPET_CORE_DIR}/puppet/manifests/:/etc/puppet/modules" \
+    --modulepath "${PUPHPET_CORE_DIR}/puppet/modules/:${PUPHPET_CORE_DIR}/puppet/manifests/:/opt/puppetlabs/puppet/modules/" \
     ${PUPHPET_CORE_DIR}/puppet/manifests/
