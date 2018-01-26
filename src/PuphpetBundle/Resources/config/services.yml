@@ -33,7 +33,6 @@ services:
             - [ addExtension, [ 'ruby' ] ]
             - [ addExtension, [ 'python' ] ]
             - [ addExtension, [ 'nodejs' ] ]
-            - [ addExtension, [ 'hhvm' ] ]
         # database
             - [ addExtension, [ 'mysql' ] ]
             - [ addExtension, [ 'mariadb' ] ]
