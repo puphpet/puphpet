@@ -2,19 +2,9 @@ images:
     -
         image: 598a4282-f14b-4e50-af4c-b3e52749d9f9
         long_name: Ubuntu Trusty 14.04 (PVHVM)
-        php_versions:
-            - 7.1
-            - 7.0
-            - 5.6
-            - HHVM
     -
         image: 03cc6a34-29fe-4b26-a20f-01178c9eff28
         long_name: Ubuntu Xenial 16.04 (PVHVM)
-        php_versions:
-            - 7.1
-            - 7.0
-            - 5.6
-            - HHVM
 
 sizes:
     - 512MB Standard Instance
