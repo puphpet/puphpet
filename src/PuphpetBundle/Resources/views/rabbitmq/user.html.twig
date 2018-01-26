@@ -1,11 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('rmqu_', true)|lower %}
+{% set uniqid = uniqid ?? uniqid('user_') %}
 
-{% set permission_uniqids = [] %}
-{% for permission in user.permissions %}
-    {% set permission_uniqids = permission_uniqids|merge([uniqid('rmqup_', true)]) %}
-{% endfor %}
-
-<div id="rabbitmq-user-{{ uniqid }}"
+<div id="rabbitmq-user-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12">
         <div class="clearfix"><label>Admin</label></div>
@@ -71,17 +66,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.rabbitmq.permission', {'userId': uniqid}) }}"
-                       data-toggle="add-block" data-link-title="Permission">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for permission in user.permissions %}
+                {% for index, permission in user.permissions %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#rabbitmq-user-{{ uniqid }}-grant-{{ attribute(permission_uniqids, loop.index0) }}"
-                           data-toggle="tab">Permission {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#rabbitmq-user-{{ uniqid }}-grant-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#rabbitmq-user-{{ uniqid }}-grant-{{ attribute(permission_uniqids, loop.index0) }}">
+                                    data-target="#rabbitmq-user-{{ uniqid }}-grant-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -93,11 +88,11 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a permission
                 </div>
-                {% for permission in user.permissions %}
+                {% for index, permission in user.permissions %}
                     {% include 'PuphpetBundle:rabbitmq:permission.html.twig' with {
                         'userId': uniqid,
                         'permission': permission,
-                        'uniqid': attribute(permission_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

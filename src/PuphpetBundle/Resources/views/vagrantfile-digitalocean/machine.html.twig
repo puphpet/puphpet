@@ -1,7 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('vfdom_', true) %}
+{% set uniqid = uniqid ?? uniqid('machine_') %}
 
-
-<div id="digitalocean-machine-{{ uniqid }}"
+<div id="digitalocean-machine-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-id">

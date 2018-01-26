@@ -49,17 +49,19 @@ PUPHPET.addBlock = function() {
         var $template = $('#nested-tabs-template').clone(true);
         var $link     = $template.find('[data-toggle="tab"]');
 
-        $link.text(this.getAttribute('data-link-title') + ' ' + makeid(3));
         $template.removeAttr('id');
 
         $.ajax({
             url: sourceUrl,
             cache: false
         }).done(function(response) {
-            var $row  = $(response);
-            var rowId = $row[0].getAttribute('id');
+            var $row   = $(response);
+            var rowId  = $row[0].getAttribute('id');
+            var uniqid = $row[0].getAttribute('data-uniqid');
 
             var targetString = '#' + $link[0].getAttribute('data-target') + rowId;
+
+            $link.text(uniqid);
 
             $link[0].setAttribute(
                 'data-target',
@@ -76,20 +78,14 @@ PUPHPET.addBlock = function() {
 
             PUPHPET.runSelectize($row);
             PUPHPET.helpTextDisplay();
+            PUPHPET.checkboxCollapse();
+            PUPHPET.radioCollapse();
+            PUPHPET.disableOnUncheck();
+            PUPHPET.enforceGroupSingleChoice();
 
             $link[0].click();
         });
     });
-
-    function makeid(length) {
-        var text = '';
-        var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        for( var i=0; i < length; i++ )
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-        return text;
-    }
 };
 
 /**

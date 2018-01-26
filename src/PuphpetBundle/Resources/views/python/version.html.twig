@@ -1,8 +1,8 @@
-{% set uniqid = uniqid ?? uniqid('pyenv_', true) %}
+{% set uniqid = uniqid ?? uniqid('version_') %}
 
 {% set virtualenv = (selected_version.virtualenv is defined and selected_version.virtualenv) ? true : false %}
 
-<div id="python-version-{{ uniqid }}"
+<div id="python-version-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="python-versions-{{ uniqid }}-version">

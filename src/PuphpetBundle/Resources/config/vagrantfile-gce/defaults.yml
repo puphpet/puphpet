@@ -8,7 +8,7 @@ vm:
             key_location: /PATH/TO/PRIVATE_KEY.PK12
             image: ubuntu-1604-xenial-v20161013
             machines:
-                -
+                machine1:
                     id: gce1
                     hostname: gce1.puphpet
                     name: gce1-puphpet
@@ -18,17 +18,20 @@ vm:
                         - http-server
     provision:
         puppet:
-            manifests_path: 'puphpet/puppet/manifests'
-            module_path: 'puphpet/puppet/modules'
+            manifests_path: puphpet/puppet/manifests
+            module_path:
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
             options:
                 - '--verbose'
-                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+                - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
     synced_folder:
-        -
+        folder1:
+            id: webroot
             source: ./
             target: /var/www
-            id: webroot
             nfs: false
+    post_up_message: ''
 ssh:
     username: PRIVATE_KEY_USER
     forward_agent: true

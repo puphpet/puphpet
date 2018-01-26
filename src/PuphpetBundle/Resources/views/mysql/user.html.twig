@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('mysqlnu_', true) %}
+{% set uniqid = uniqid ?? uniqid('user_') %}
 
-<div id="mysql-user-{{ uniqid }}"
+<div id="mysql-user-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="mysql-users-{{ uniqid }}-name">

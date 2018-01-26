@@ -1,4 +1,4 @@
-{% set uniqid = uniqid ?? uniqid('av_', true) %}
+{% set uniqid = uniqid ?? uniqid('vhost_') %}
 
 {% set serveraliases = (vhost.serveraliases is defined) ? vhost.serveraliases : [] %}
 {% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
@@ -14,17 +14,7 @@
 {% set directories = (vhost.directories is defined) ? vhost.directories : [] %}
 {% set files_matches = (vhost.files_match is defined) ? vhost.files_match : [] %}
 
-{% set directory_uniqids = [] %}
-{% for directory in directories %}
-    {% set directory_uniqids = directory_uniqids|merge([uniqid('avd_', true)]) %}
-{% endfor %}
-
-{% set filesmatch_uniqids = [] %}
-{% for filesMatch in files_matches %}
-    {% set filesmatch_uniqids = filesmatch_uniqids|merge([uniqid('avfm_', true)]) %}
-{% endfor %}
-
-<div id="apache-vhost-{{ uniqid }}"
+<div id="apache-vhost-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="apache-vhosts-{{ uniqid }}-servername">
@@ -345,17 +335,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.apache.directory', {'vhostId': uniqid}) }}"
-                       data-toggle="add-block" data-link-title="Directory">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for directory in directories %}
+                {% for index, directory in directories %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#apache-vhost-{{ uniqid }}-rewrite-{{ attribute(directory_uniqids, loop.index0) }}"
-                           data-toggle="tab">Directory {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#apache-vhost-{{ uniqid }}-rewrite-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#apache-vhost-{{ uniqid }}-rewrite-{{ attribute(directory_uniqids, loop.index0) }}">
+                                    data-target="#apache-vhost-{{ uniqid }}-rewrite-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -367,11 +357,11 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a virtual host directory
                 </div>
-                {% for directory in directories %}
+                {% for index, directory in directories %}
                     {% include 'PuphpetBundle:apache:directory.html.twig' with {
                         'vhostId': uniqid,
                         'directory': directory,
-                        'uniqid': attribute(directory_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -387,17 +377,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.apache.files_match', {'vhostId': uniqid}) }}"
-                       data-toggle="add-block" data-link-title="FilesMatch">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for filesMatch in files_matches %}
+                {% for index, filesMatch in files_matches %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#apache-vhost-{{ uniqid }}-filesmatch-{{ attribute(filesmatch_uniqids, loop.index0) }}"
-                           data-toggle="tab">FilesMatch {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#apache-vhost-{{ uniqid }}-filesmatch-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#apache-vhost-{{ uniqid }}-filesmatch-{{ attribute(filesmatch_uniqids, loop.index0) }}">
+                                    data-target="#apache-vhost-{{ uniqid }}-filesmatch-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -409,11 +399,11 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a filesmatch
                 </div>
-                {% for filesMatch in files_matches %}
+                {% for index, filesMatch in files_matches %}
                     {% include 'PuphpetBundle:apache:filesMatch.html.twig' with {
                         'vhostId': uniqid,
                         'filesMatch': filesMatch,
-                        'uniqid': attribute(filesmatch_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

@@ -1,18 +1,3 @@
-{% set vhost_uniqids = [] %}
-{% for vhost in nginx.vhosts %}
-    {% set vhost_uniqids = vhost_uniqids|merge([uniqid('nxv_', true)]) %}
-{% endfor %}
-
-{% set upstream_uniqids = [] %}
-{% for upstream in nginx.upstreams %}
-    {% set upstream_uniqids = upstream_uniqids|merge([uniqid('nxv_', true)]) %}
-{% endfor %}
-
-{% set proxy_uniqids = [] %}
-{% for proxy in nginx.proxies %}
-    {% set proxy_uniqids = proxy_uniqids|merge([uniqid('nxvp_', true)]) %}
-{% endfor %}
-
 <input type="hidden" name="nginx[install]" value="0" />
 <input type="hidden" name="nginx[settings][version]" value="{{ nginx.settings.version }}" />
 
@@ -75,17 +60,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.nginx.vhost') }}"
-                       data-toggle="add-block" data-link-title="Host">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for vhost in nginx.vhosts %}
+                {% for index, vhost in nginx.vhosts %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-vhost-{{ attribute(vhost_uniqids, loop.index0) }}"
-                           data-toggle="tab">Host {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#nginx-vhost-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-vhost-{{ attribute(vhost_uniqids, loop.index0) }}">
+                                    data-target="#nginx-vhost-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -97,10 +82,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add an Nginx virtual host
                 </div>
-                {% for vhost in nginx.vhosts %}
+                {% for index, vhost in nginx.vhosts %}
                     {% include 'PuphpetBundle:nginx:vhost.html.twig' with {
                         'vhost': vhost,
-                        'uniqid': attribute(vhost_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -116,17 +101,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.nginx.upstream') }}"
-                       data-toggle="add-block" data-link-title="Upstream">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for upstream in nginx.upstreams %}
+                {% for index, upstream in nginx.upstreams %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-upstream-{{ attribute(upstream_uniqids, loop.index0) }}"
-                           data-toggle="tab">Upstream {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#nginx-upstream-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-upstream-{{ attribute(upstream_uniqids, loop.index0) }}">
+                                    data-target="#nginx-upstream-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -138,10 +123,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add an Nginx proxy upstream
                 </div>
-                {% for upstream in nginx.upstreams %}
+                {% for index, upstream in nginx.upstreams %}
                     {% include 'PuphpetBundle:nginx:upstream.html.twig' with {
                         'upstream': upstream,
-                        'uniqid': attribute(upstream_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -157,17 +142,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.nginx.proxy') }}"
-                       data-toggle="add-block" data-link-title="Proxy">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for proxy in nginx.proxies %}
+                {% for index, proxy in nginx.proxies %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-proxy-{{ attribute(proxy_uniqids, loop.index0) }}"
-                           data-toggle="tab">Proxy {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#nginx-proxy-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-proxy-{{ attribute(proxy_uniqids, loop.index0) }}">
+                                    data-target="#nginx-proxy-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -179,10 +164,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add an Nginx proxy
                 </div>
-                {% for proxy in nginx.proxies %}
+                {% for index, proxy in nginx.proxies %}
                     {% include 'PuphpetBundle:nginx:proxy.html.twig' with {
                         'proxy': proxy,
-                        'uniqid': attribute(upstream_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

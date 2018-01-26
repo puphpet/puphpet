@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('vfawssf_', true) %}
+{% set uniqid = uniqid ?? uniqid('folder_') %}
 
-<div id="aws-folder-{{ uniqid }}"
+<div id="aws-folder-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="vagrantfile-vm-provider-aws-synced_folder-{{ uniqid }}-source">

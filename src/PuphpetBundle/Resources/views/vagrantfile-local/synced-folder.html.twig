@@ -1,4 +1,4 @@
-{% set uniqid = uniqid ?? uniqid('vflsf_', true) %}
+{% set uniqid = uniqid ?? uniqid('folder_') %}
 
 {% if synced_folder.sync_type is not defined or synced_folder.sync_type == 'default' %}
     {% set sync_type = 'default' %}
@@ -23,7 +23,7 @@
 {% set owner = (synced_folder.owner is defined and synced_folder.owner) ? synced_folder.owner : '' %}
 {% set group = (synced_folder.group is defined and synced_folder.group) ? synced_folder.group : '' %}
 
-<div id="local-folder-{{ uniqid }}"
+<div id="local-folder-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-owner"
            name="vagrantfile[vm][synced_folder][{{ uniqid }}][owner]"

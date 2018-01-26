@@ -1,9 +1,10 @@
-{% set uniqid = uniqid ?? uniqid('phpfp_', true) %}
+{% set uniqid = uniqid ?? uniqid('pool_') %}
+
 {% set selectedIni = (pool.ini is defined and pool.ini is not empty)
     ? pool.ini
     : [] %}
 
-<div id="php-fpm_pool-{{ uniqid }}"
+<div id="php-fpm_pool-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12">
         <label for="php-fpm_pools-{{ uniqid }}-ini-displayer">

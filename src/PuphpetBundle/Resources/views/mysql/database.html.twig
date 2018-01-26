@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('mysqlnd_', true) %}
+{% set uniqid = uniqid ?? uniqid('database_') %}
 
-<div id="mysql-database-{{ uniqid }}"
+<div id="mysql-database-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="mysql-databases-{{ uniqid }}-name">

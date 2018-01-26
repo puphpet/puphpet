@@ -5,16 +5,6 @@
 {% set syncedFolders = (data.vm.synced_folder is defined and data.vm.synced_folder)
     ? data.vm.synced_folder : [] %}
 
-{% set machine_uniqids = [] %}
-{% for machine in machines %}
-    {% set machine_uniqids = machine_uniqids|merge([uniqid('vfdom_', true)]) %}
-{% endfor %}
-
-{% set folder_uniqids = [] %}
-{% for synced_folder in data.vm.synced_folder %}
-    {% set folder_uniqids = folder_uniqids|merge([uniqid('vfdosf_', true)]) %}
-{% endfor %}
-
 <div class="container-fluid cm-container-white section-title">
     <div class="checkbox checkbox-lg no-padding">
         <input type="radio" id="vagrantfile-vm-provider-digitalocean-install"
@@ -131,17 +121,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.vagrantfile_digitalocean.machine') }}"
-                       data-toggle="add-block" data-link-title="Machine">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for machine in machines %}
+                {% for index, machine in machines %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#digitalocean-machine-{{ attribute(machine_uniqids, loop.index0) }}"
-                           data-toggle="tab">Machine {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#digitalocean-machine-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#digitalocean-machine-{{ attribute(machine_uniqids, loop.index0) }}">
+                                    data-target="#digitalocean-machine-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -153,12 +143,12 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a Digital Ocean machine
                 </div>
-                {% for machine in machines %}
+                {% for index, machine in machines %}
                     {% include 'PuphpetBundle:vagrantfile-digitalocean:machine.html.twig' with {
                         'machine': machine,
                         'regions': data.available.regions,
                         'sizes': data.available.sizes,
-                        'uniqid': attribute(machine_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -174,17 +164,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.vagrantfile_digitalocean.synced_folder') }}"
-                       data-toggle="add-block" data-link-title="Folder">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for synced_folder in data.vm.synced_folder %}
+                {% for index, synced_folder in data.vm.synced_folder %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#digitalocean-folder-{{ attribute(folder_uniqids, loop.index0) }}"
-                           data-toggle="tab">Folder {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#digitalocean-folder-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#digitalocean-folder-{{ attribute(folder_uniqids, loop.index0) }}">
+                                    data-target="#digitalocean-folder-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -196,10 +186,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a shared folder
                 </div>
-                {% for synced_folder in data.vm.synced_folder %}
+                {% for index, synced_folder in data.vm.synced_folder %}
                     {% include 'PuphpetBundle:vagrantfile-digitalocean:synced-folder.html.twig' with {
                         'synced_folder': synced_folder,
-                        'uniqid': attribute(folder_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

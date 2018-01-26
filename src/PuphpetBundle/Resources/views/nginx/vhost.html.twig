@@ -1,4 +1,5 @@
-{% set uniqid = uniqid ?? uniqid('nxv_', true) %}
+{% set uniqid = uniqid ?? uniqid('vhost_') %}
+
 {% set server_aliases = (vhost.server_aliases is defined) ? vhost.server_aliases : [] %}
 {% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
 {% set letsencrypt_email = (vhost.letsencrypt_email is defined) ? vhost.letsencrypt_email : '' %}
@@ -15,17 +16,7 @@
 {% set locations = (vhost.locations is defined) ? vhost.locations : [] %}
 {% set client_max_body_type = (vhost.client_max_body_type is defined) ? vhost.client_max_body_type : '1m' %}
 
-{% set rewrite_uniqids = [] %}
-{% for rewrite in rewrites %}
-    {% set rewrite_uniqids = rewrite_uniqids|merge([uniqid('nxvrw_', true)]) %}
-{% endfor %}
-
-{% set location_uniqids = [] %}
-{% for location in locations %}
-    {% set location_uniqids = location_uniqids|merge([uniqid('nxvl_', true)]) %}
-{% endfor %}
-
-<div id="nginx-vhost-{{ uniqid }}"
+<div id="nginx-vhost-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="nginx-vhosts-{{ uniqid }}-server_name">
@@ -349,17 +340,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.nginx.vhost_rewrite', {'vhostId': uniqid}) }}"
-                       data-toggle="add-block" data-link-title="Rewrite">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for rewrite in rewrites %}
+                {% for index, rewrite in rewrites %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-vhost-{{ uniqid }}-rewrite-{{ attribute(rewrite_uniqids, loop.index0) }}"
-                           data-toggle="tab">Rewrite {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#nginx-vhost-{{ uniqid }}-rewrite-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-vhost-{{ uniqid }}-rewrite-{{ attribute(rewrite_uniqids, loop.index0) }}">
+                                    data-target="#nginx-vhost-{{ uniqid }}-rewrite-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -371,11 +362,11 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a virtual host rewrite
                 </div>
-                {% for rewrite in rewrites %}
+                {% for index, rewrite in rewrites %}
                     {% include 'PuphpetBundle:nginx:vhost_rewrite.html.twig' with {
                         'vhostId': uniqid,
                         'rewrite': rewrite,
-                        'uniqid': attribute(rewrite_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -391,17 +382,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.nginx.location', {'vhostId': uniqid}) }}"
-                       data-toggle="add-block" data-link-title="Location">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for location in locations %}
+                {% for index, location in locations %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-vhost-{{ uniqid }}-location-{{ attribute(location_uniqids, loop.index0) }}"
-                           data-toggle="tab">Location {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#nginx-vhost-{{ uniqid }}-location-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-vhost-{{ uniqid }}-location-{{ attribute(location_uniqids, loop.index0) }}">
+                                    data-target="#nginx-vhost-{{ uniqid }}-location-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -413,11 +404,11 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a virtual host location
                 </div>
-                {% for location in locations %}
+                {% for index, location in locations %}
                     {% include 'PuphpetBundle:nginx:location.html.twig' with {
                         'vhostId': uniqid,
                         'location': location,
-                        'uniqid': attribute(location_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

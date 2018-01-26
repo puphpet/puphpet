@@ -9,7 +9,7 @@ modules:
     - rewrite
 
 vhosts:
-    -
+    vhost1:
         servername: awesome.dev
         serveraliases:
             - www.awesome.dev
@@ -19,7 +19,7 @@ vhosts:
             - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
         custom_fragment: ~
         directories:
-            -
+            directory1:
                 provider: directory
                 path: /var/www/awesome/web
                 directoryindex: index.php app.dev
@@ -33,21 +33,21 @@ vhosts:
                     - all granted
                 custom_fragment: ''
         files_match:
-            -
+            filesmatch1:
                 provider: filesmatch
                 path: '(app_dev|config)\.php$'
                 sethandler: 'proxy:fcgi://127.0.0.1:9000'
                 setenv:
                     - APP_ENV dev
                 custom_fragment: ''
-            -
+            filesmatch2:
                 provider: filesmatch
                 path: 'app\.php$'
                 sethandler: 'proxy:fcgi://127.0.0.1:9000'
                 setenv:
                     - APP_ENV prod
                 custom_fragment: ''
-            -
+            filesmatch3:
                 provider: filesmatch
                 path: '\.php$'
                 sethandler: 'proxy:fcgi://127.0.0.1:9000'

@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('vfrsm_', true) %}
+{% set uniqid = uniqid ?? uniqid('machine_') %}
 
-<div id="rackspace-machine-{{ uniqid }}"
+<div id="rackspace-machine-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="vagrantfile-vm-provider-rackspace-machines-{{ uniqid }}-id">

@@ -5,21 +5,6 @@
     ? merge_unique([selectedVersion], mysql.available.versions)
     : mysql.available.versions %}
 
-{% set user_uniqids = [] %}
-{% for user in mysql.users %}
-    {% set user_uniqids = user_uniqids|merge([uniqid('mysqlnu_', true)]) %}
-{% endfor %}
-
-{% set database_uniqids = [] %}
-{% for database in mysql.databases %}
-    {% set database_uniqids = database_uniqids|merge([uniqid('mysqlnd_', true)]) %}
-{% endfor %}
-
-{% set grant_uniqids = [] %}
-{% for grant in mysql.grants %}
-    {% set grant_uniqids = grant_uniqids|merge([uniqid('mysqlng_', true)]) %}
-{% endfor %}
-
 <input type="hidden" name="mysql[install]" value="0" />
 
 <div class="container-fluid cm-container-white section-title">
@@ -94,17 +79,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.mysql.add_user') }}"
-                       data-toggle="add-block" data-link-title="User">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for user in mysql.users %}
+                {% for index, user in mysql.users %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mysql-user-{{ attribute(user_uniqids, loop.index0) }}"
-                           data-toggle="tab">User {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#mysql-user-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mysql-user-{{ attribute(user_uniqids, loop.index0) }}">
+                                    data-target="#mysql-user-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -116,10 +101,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a user
                 </div>
-                {% for user in mysql.users %}
+                {% for index, user in mysql.users %}
                     {% include 'PuphpetBundle:mysql:user.html.twig' with {
                         'user': user,
-                        'uniqid': attribute(user_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -135,17 +120,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.mysql.add_database') }}"
-                       data-toggle="add-block" data-link-title="Database">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for database in mysql.databases %}
+                {% for index, database in mysql.databases %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mysql-database-{{ attribute(database_uniqids, loop.index0) }}"
-                           data-toggle="tab">Database {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#mysql-database-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mysql-database-{{ attribute(database_uniqids, loop.index0) }}">
+                                    data-target="#mysql-database-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -157,10 +142,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a database
                 </div>
-                {% for database in mysql.databases %}
+                {% for index, database in mysql.databases %}
                     {% include 'PuphpetBundle:mysql:database.html.twig' with {
                         'database': database,
-                        'uniqid': attribute(database_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -176,17 +161,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.mysql.add_grant') }}"
-                       data-toggle="add-block" data-link-title="Grant">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for grant in mysql.grants %}
+                {% for index, grant in mysql.grants %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mysql-grant-{{ attribute(grant_uniqids, loop.index0) }}"
-                           data-toggle="tab">Grant {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#mysql-grant-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mysql-grant-{{ attribute(grant_uniqids, loop.index0) }}">
+                                    data-target="#mysql-grant-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -198,11 +183,11 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a grant
                 </div>
-                {% for grant in mysql.grants %}
+                {% for index, grant in mysql.grants %}
                     {% include 'PuphpetBundle:mysql:grant.html.twig' with {
                         'available_privileges': mysql.available.privileges,
                         'grant': grant,
-                        'uniqid': attribute(grant_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

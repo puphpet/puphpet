@@ -1,8 +1,3 @@
-{% set version_uniqids = [] %}
-{% for selected_version in ruby.versions %}
-    {% set version_uniqids = version_uniqids|merge([uniqid('rv_', true)]) %}
-{% endfor %}
-
 <input type="hidden" name="ruby[install]" value="1" />
 
 <div class="container-fluid cm-container-white section-title">
@@ -19,17 +14,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.ruby.add_version') }}"
-                       data-toggle="add-block" data-link-title="Ruby">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for selected_version in ruby.versions %}
+                {% for index, selected_version in ruby.versions %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#ruby-version-{{ attribute(version_uniqids, loop.index0) }}"
-                           data-toggle="tab">Ruby {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#ruby-version-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#ruby-version-{{ attribute(version_uniqids, loop.index0) }}">
+                                    data-target="#ruby-version-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -41,11 +36,11 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a Ruby version
                 </div>
-                {% for selected_version in ruby.versions %}
+                {% for index, selected_version in ruby.versions %}
                     {% include 'PuphpetBundle:ruby:version.html.twig' with {
                         'available_versions': ruby.available.versions,
                         'selected_version': selected_version,
-                        'uniqid': attribute(version_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

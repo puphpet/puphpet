@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('mongodbnuad_', true) %}
+{% set uniqid = uniqid ?? uniqid('database_') %}
 
-<div id="mongodb-database-{{ uniqid }}"
+<div id="mongodb-database-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="help-block col-xs-12">
         If you want to assign a user to multiple databases, simply create more databases and type in

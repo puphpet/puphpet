@@ -1,10 +1,10 @@
-{% set uniqid = uniqid ?? uniqid('avd_', true) %}
+{% set uniqid = uniqid ?? uniqid('directory_') %}
 
 {% set options = (directory.options is defined) ? directory.options : [] %}
 {% set allow_overrides = (directory.allow_override is defined) ? directory.allow_override : [] %}
 {% set requires = (directory.require is defined) ? directory.require : [] %}
 
-<div id="apache-vhost-{{ vhostId }}-rewrite-{{ uniqid }}"
+<div id="apache-vhost-{{ vhostId }}-rewrite-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-path">

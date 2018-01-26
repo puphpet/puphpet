@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('postsqlng_', true) %}
+{% set uniqid = uniqid ?? uniqid('grant_') %}
 
-<div id="postgresql-grant-{{ uniqid }}"
+<div id="postgresql-grant-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="postgresql-grants-{{ uniqid }}-role">

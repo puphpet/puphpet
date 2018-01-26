@@ -1,21 +1,21 @@
 install: 1
 
 settings:
-    version: '10.1'
+    version: 10.1
     override_options: {}
 
 users:
-    -
+    user1:
         name: dbuser
         password: 123
 
 databases:
-    -
+    database1:
         name: dbname
         sql: ~
 
 grants:
-    -
+    grant1:
         user: dbuser
         table: '*.*'
         privileges:

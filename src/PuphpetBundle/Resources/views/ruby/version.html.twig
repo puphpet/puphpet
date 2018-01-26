@@ -1,9 +1,9 @@
-{% set uniqid = uniqid ?? uniqid('rv_', true) %}
+{% set uniqid = uniqid ?? uniqid('version_') %}
 
 {% set default = (selected_version.default is defined and selected_version.default) ? true : false %}
 {% set bundler = (selected_version.bundler is defined and selected_version.bundler) ? true : false %}
 
-<div id="ruby-version-{{ uniqid }}"
+<div id="ruby-version-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12">
         <div class="clearfix"><label>Options</label></div>

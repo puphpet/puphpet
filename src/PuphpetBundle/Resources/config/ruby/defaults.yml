@@ -1,9 +1,9 @@
 install: 1
 
 versions:
-    ruby-24:
-        default: '1'
-        bundler: '1'
+    ruby1:
+        default: 1
+        bundler: 1
         version: 2.4
         gems:
             - deep_merge@1.2.1

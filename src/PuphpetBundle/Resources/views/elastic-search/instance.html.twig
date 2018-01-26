@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('esi_', true)|lower %}
+{% set uniqid = uniqid ?? uniqid('instance_') %}
 
-<div id="rackspace-machine-{{ uniqid }}"
+<div id="elastic_search-instances-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12">
         <label for="elastic_search-instances-{{ uniqid }}-name">

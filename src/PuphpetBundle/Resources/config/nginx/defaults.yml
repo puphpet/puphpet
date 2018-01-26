@@ -15,7 +15,7 @@ upstreams: []
 proxies: []
 
 vhosts:
-    -
+    vhost1:
         server_name: awesome.dev
         server_aliases:
             - www.awesome.dev
@@ -32,7 +32,7 @@ vhosts:
         client_max_body_size: '1m'
         rewrites: []
         locations:
-            -
+            location1:
                 www_root: /var/www/awesome/web
                 location: /
                 autoindex: 0
@@ -55,7 +55,7 @@ vhosts:
                 proxy_redirect: ~
                 proxy_set_header: []
                 rewrites: []
-            -
+            location2:
                 www_root: /var/www/awesome/web
                 location: '~ ^/(app_dev|config)\.php(/|$)'
                 autoindex: 0
@@ -77,7 +77,7 @@ vhosts:
                 proxy_redirect: ~
                 proxy_set_header: []
                 rewrites: []
-            -
+            location3:
                 www_root: /var/www/awesome/web
                 location: '~ ^/index\.php(/|$)'
                 autoindex: 0
@@ -98,7 +98,7 @@ vhosts:
                 proxy_redirect: ~
                 proxy_set_header: []
                 rewrites: []
-            -
+            location4:
                 www_root: /var/www/awesome/web
                 location: '~ ^/app\.php(/|$)'
                 autoindex: 0

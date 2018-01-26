@@ -6,21 +6,6 @@
     ? merge_unique([selectedVersion], postgresql.available.versions)
     : postgresql.available.versions %}
 
-{% set user_uniqids = [] %}
-{% for user in postgresql.users %}
-    {% set user_uniqids = user_uniqids|merge([uniqid('postsqlnu_', true)]) %}
-{% endfor %}
-
-{% set database_uniqids = [] %}
-{% for database in postgresql.databases %}
-    {% set database_uniqids = database_uniqids|merge([uniqid('postsqlnd_', true)]) %}
-{% endfor %}
-
-{% set grant_uniqids = [] %}
-{% for grant in postgresql.grants %}
-    {% set grant_uniqids = grant_uniqids|merge([uniqid('postsqlng_', true)]) %}
-{% endfor %}
-
 <input type="hidden" name="postgresql[install]" value="0" />
 
 <div class="container-fluid cm-container-white section-title">
@@ -97,17 +82,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.postgresql.add_user') }}"
-                       data-toggle="add-block" data-link-title="User">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for user in postgresql.users %}
+                {% for index, user in postgresql.users %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#postgresql-user-{{ attribute(user_uniqids, loop.index0) }}"
-                           data-toggle="tab">User {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#postgresql-user-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#postgresql-user-{{ attribute(user_uniqids, loop.index0) }}">
+                                    data-target="#postgresql-user-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -119,10 +104,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a user
                 </div>
-                {% for user in postgresql.users %}
+                {% for index, user in postgresql.users %}
                     {% include 'PuphpetBundle:postgresql:user.html.twig' with {
                         'user': user,
-                        'uniqid': attribute(user_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -138,17 +123,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.postgresql.add_database') }}"
-                       data-toggle="add-block" data-link-title="Database">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for database in postgresql.databases %}
+                {% for index, database in postgresql.databases %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#postgresql-database-{{ attribute(database_uniqids, loop.index0) }}"
-                           data-toggle="tab">Database {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#postgresql-database-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#postgresql-database-{{ attribute(database_uniqids, loop.index0) }}">
+                                    data-target="#postgresql-database-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -160,10 +145,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a database
                 </div>
-                {% for database in postgresql.databases %}
+                {% for index, database in postgresql.databases %}
                     {% include 'PuphpetBundle:postgresql:database.html.twig' with {
                         'database': database,
-                        'uniqid': attribute(database_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -179,17 +164,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.postgresql.add_grant') }}"
-                       data-toggle="add-block" data-link-title="Grant">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for grant in postgresql.grants %}
+                {% for index, grant in postgresql.grants %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#postgresql-grant-{{ attribute(grant_uniqids, loop.index0) }}"
-                           data-toggle="tab">Grant {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#postgresql-grant-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#postgresql-grant-{{ attribute(grant_uniqids, loop.index0) }}">
+                                    data-target="#postgresql-grant-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -201,10 +186,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a grant
                 </div>
-                {% for grant in postgresql.grants %}
+                {% for index, grant in postgresql.grants %}
                     {% include 'PuphpetBundle:postgresql:grant.html.twig' with {
                         'grant': grant,
-                        'uniqid': attribute(grant_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

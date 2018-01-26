@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('vflsf_', true) %}
+{% set uniqid = uniqid ?? uniqid('folder_') %}
 
-<div id="linode-folder-{{ uniqid }}"
+<div id="linode-folder-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="vagrantfile-vm-provider-linode-synced_folder-{{ uniqid }}-source">

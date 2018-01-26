@@ -3,12 +3,21 @@ install: 0
 settings:
     global:
         encoding: UTF8
-        version: '9.6'
+        version: 9.6
     server:
         postgres_password: 123
-
-databases: []
-
-users: []
-
-grants: []
+databases:
+    database1:
+        dbname: dbname
+        owner: dbuser
+users:
+    user1:
+        username: dbuser
+        password: 123
+        superuser: 1
+grants:
+    grant1:
+        role: dbuser
+        db: dbname
+        privilege:
+            - ALL

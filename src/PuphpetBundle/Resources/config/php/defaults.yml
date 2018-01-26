@@ -20,7 +20,7 @@ fpm_ini:
     error_log: /var/log/php-fpm.log
 
 fpm_pools:
-    -
+    pool1:
         ini:
             prefix: www
             listen: '127.0.0.1:9000'

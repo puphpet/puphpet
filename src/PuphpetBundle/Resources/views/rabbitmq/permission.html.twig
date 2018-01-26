@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('rmqup_', true)|lower %}
+{% set uniqid = uniqid ?? uniqid('permission_') %}
 
-<div id="rabbitmq-user-{{ userId }}-grant-{{ uniqid }}"
+<div id="rabbitmq-user-{{ userId }}-grant-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="rabbitmq-users-{{ userId }}-permissions-{{ uniqid }}-host">

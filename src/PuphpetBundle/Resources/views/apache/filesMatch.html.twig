@@ -1,8 +1,8 @@
-{% set uniqid = uniqid ?? uniqid('avfm_', true) %}
+{% set uniqid = uniqid ?? uniqid('filesmatch_') %}
 
 {% set setenvs = (filesMatch.setenv is defined) ? filesMatch.setenv : [] %}
 
-<div id="apache-vhost-{{ vhostId }}-filesmatch-{{ uniqid }}"
+<div id="apache-vhost-{{ vhostId }}-filesmatch-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="apache-vhosts-{{ vhostId }}-files_match-{{ uniqid }}-path">

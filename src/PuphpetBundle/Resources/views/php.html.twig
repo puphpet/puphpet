@@ -1,8 +1,3 @@
-{% set pool_uniqids = [] %}
-{% for pool in php.fpm_pools %}
-    {% set pool_uniqids = pool_uniqids|merge([uniqid('phpfp_', true)]) %}
-{% endfor %}
-
 <input type="hidden" name="php[install]" value="0" />
 
 <div class="container-fluid cm-container-white section-title">
@@ -196,17 +191,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.php.add_fpm_pool') }}"
-                       data-toggle="add-block" data-link-title="Pool">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for pool in php.fpm_pools %}
+                {% for index, pool in php.fpm_pools %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#php-fpm_pool-{{ attribute(pool_uniqids, loop.index0) }}"
-                           data-toggle="tab">Pool {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#php-fpm_pool-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#php-fpm_pool-{{ attribute(pool_uniqids, loop.index0) }}">
+                                    data-target="#php-fpm_pool-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -218,11 +213,11 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a PHP-FPM pool
                 </div>
-                {% for pool in php.fpm_pools %}
+                {% for index, pool in php.fpm_pools %}
                     {% include 'PuphpetBundle:php:fpm-pool.html.twig' with {
                         'pool': pool,
                         'available_fpm_pool_ini': php.available.fpm_pool_ini,
-                        'uniqid': attribute(pool_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

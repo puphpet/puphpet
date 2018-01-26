@@ -1,7 +1,8 @@
-{% set uniqid = uniqid ?? uniqid('nxv_', true) %}
+{% set uniqid = uniqid ?? uniqid('upstream_') %}
+
 {% set members = (upstream.members is defined) ? upstream.members : [] %}
 
-<div id="nginx-upstream-{{ uniqid }}"
+<div id="nginx-upstream-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="nginx-upstreams-{{ uniqid }}-name">

@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('led_', true) %}
+{% set uniqid = uniqid ?? uniqid('domain_') %}
 
-<div id="rackspace-machine-{{ uniqid }}"
+<div id="rackspace-machine-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12">
         <label for="letsencrypt-domains-{{ uniqid }}-hosts">

@@ -1,14 +1,9 @@
-{% set uniqid = uniqid ?? uniqid('vflm_', true) %}
+{% set uniqid = uniqid ?? uniqid('machine_') %}
 
 {% set forwarded_ports = (machine.network.forwarded_port is defined)
     ? machine.network.forwarded_port : [] %}
 
-{% set port_uniqids = [] %}
-{% for forwarded_port in forwarded_ports %}
-    {% set port_uniqids = port_uniqids|merge([uniqid('vflmnfp_', true)]) %}
-{% endfor %}
-
-<div id="local-machine-{{ uniqid }}"
+<div id="local-machine-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-id">
@@ -98,17 +93,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.vagrantfile_local.machine_forwarded_port', {'mId': uniqid}) }}"
-                       data-toggle="add-block" data-link-title="Port">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for forwarded_port in forwarded_ports %}
+                {% for index, forwarded_port in forwarded_ports %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#local-port-{{ attribute(port_uniqids, loop.index0) }}"
-                           data-toggle="tab">Port {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#local-port-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#local-port-{{ attribute(port_uniqids, loop.index0) }}">
+                                    data-target="#local-port-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -120,11 +115,11 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a machine forwarded port pair
                 </div>
-                {% for forwarded_port in forwarded_ports %}
+                {% for index, forwarded_port in forwarded_ports %}
                     {% include 'PuphpetBundle:vagrantfile-local:machine-forwarded-port.html.twig' with {
                         'forwarded_port': forwarded_port,
                         'mId': uniqid,
-                        'uniqid': attribute(port_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

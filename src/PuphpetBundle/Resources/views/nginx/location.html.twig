@@ -1,4 +1,5 @@
-{% set uniqid = uniqid ?? uniqid('nxvl_', true) %}
+{% set uniqid = uniqid ?? uniqid('location_') %}
+
 {% set autoindex = (location.autoindex is defined and location.autoindex is same as('on')) ? true : false %}
 {% set internal = (location.internal is defined and location.internal is same as('on')) ? true : false %}
 {% set index_files = (location.index_files is defined) ? location.index_files : [] %}
@@ -8,12 +9,7 @@
 {% set proxy_set_headers = (location.proxy_set_header is defined) ? location.proxy_set_header : [] %}
 {% set rewrites = (location.rewrites is defined) ? location.rewrites : [] %}
 
-{% set rewrite_uniqids = [] %}
-{% for rewrite in rewrites %}
-    {% set rewrite_uniqids = rewrite_uniqids|merge([uniqid('nxvlrw_', true)]) %}
-{% endfor %}
-
-<div id="nginx-vhost-{{ vhostId }}-location-{{ uniqid }}"
+<div id="nginx-vhost-{{ vhostId }}-location-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-www_root">
@@ -220,7 +216,8 @@
                placeholder="http://127.0.0.1:8080/" class="form-control"
                value="{{ location.proxy }}" />
         <div class="help-block">
-            <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_split_path_info"
+            Proxy server(s) for the root location to connect to.
+            <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass"
                target="_blank">More information</a>.
         </div>
     </div>
@@ -266,18 +263,21 @@
         <div class="panel-body">
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
-                    <a href="{{ path('puphpet.nginx.location_rewrite', {'vhostId': vhostId, 'locationId': uniqid}) }}"
-                       data-toggle="add-block" data-link-title="Rewrite">
+                    <a href="{{ path('puphpet.nginx.location_rewrite', {
+                            'vhostId': vhostId,
+                            'locationId': uniqid
+                        }) }}"
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for rewrite in rewrites %}
+                {% for index, rewrite in rewrites %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-vhost-{{ vhostId }}-location-{{ uniqid }}-rewrite-{{ attribute(rewrite_uniqids, loop.index0) }}"
-                           data-toggle="tab">Rewrite {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#nginx-vhost-{{ vhostId }}-location-{{ uniqid }}-rewrite-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-vhost-{{ vhostId }}-location-{{ uniqid }}-rewrite-{{ attribute(rewrite_uniqids, loop.index0) }}">
+                                    data-target="#nginx-vhost-{{ vhostId }}-location-{{ uniqid }}-rewrite-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -289,12 +289,12 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a location rewrite rule
                 </div>
-                {% for rewrite in rewrites %}
+                {% for index, rewrite in rewrites %}
                     {% include 'PuphpetBundle:nginx:location_rewrite.html.twig' with {
                         'vhostId': vhostId,
                         'locationId': uniqid,
                         'rewrite': rewrite,
-                        'uniqid': attribute(rewrite_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

@@ -2,11 +2,6 @@
     ? mongodb.global.version
     : false %}
 
-{% set database_uniqids = [] %}
-{% for database in mongodb.databases %}
-    {% set database_uniqids = database_uniqids|merge([uniqid('mongodbnuad_', true)]) %}
-{% endfor %}
-
 <input type="hidden" name="mongodb[install]" value="0" />
 
 <div class="container-fluid cm-container-white section-title">
@@ -84,17 +79,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.mongodb.add_database') }}"
-                       data-toggle="add-block" data-link-title="Database">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for database in mongodb.databases %}
+                {% for index, database in mongodb.databases %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mongodb-database-{{ attribute(database_uniqids, loop.index0) }}"
-                           data-toggle="tab">Database {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#mongodb-database-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mongodb-database-{{ attribute(database_uniqids, loop.index0) }}">
+                                    data-target="#mongodb-database-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -106,10 +101,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a database
                 </div>
-                {% for database in mongodb.databases %}
+                {% for index, database in mongodb.databases %}
                     {% include 'PuphpetBundle:mongodb:user-database.html.twig' with {
                         'database': database,
-                        'uniqid': attribute(database_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

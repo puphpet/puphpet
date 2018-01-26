@@ -5,21 +5,6 @@
     ? merge_unique([selectedVersion], mariadb.available.versions)
     : mariadb.available.versions %}
 
-{% set user_uniqids = [] %}
-{% for user in mariadb.users %}
-    {% set user_uniqids = user_uniqids|merge([uniqid('mariadbnu_', true)]) %}
-{% endfor %}
-
-{% set database_uniqids = [] %}
-{% for database in mariadb.databases %}
-    {% set database_uniqids = database_uniqids|merge([uniqid('mariadbnd_', true)]) %}
-{% endfor %}
-
-{% set grant_uniqids = [] %}
-{% for grant in mariadb.grants %}
-    {% set grant_uniqids = grant_uniqids|merge([uniqid('mariadbng_', true)]) %}
-{% endfor %}
-
 <input type="hidden" name="mariadb[install]" value="0" />
 
 <div class="container-fluid cm-container-white section-title">
@@ -96,17 +81,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.mariadb.add_user') }}"
-                       data-toggle="add-block" data-link-title="User">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for user in mariadb.users %}
+                {% for index, user in mariadb.users %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mariadb-user-{{ attribute(user_uniqids, loop.index0) }}"
-                           data-toggle="tab">User {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#mariadb-user-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mariadb-user-{{ attribute(user_uniqids, loop.index0) }}">
+                                    data-target="#mariadb-user-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -118,10 +103,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a user
                 </div>
-                {% for user in mariadb.users %}
+                {% for index, user in mariadb.users %}
                     {% include 'PuphpetBundle:mariadb:user.html.twig' with {
                         'user': user,
-                        'uniqid': attribute(user_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -137,17 +122,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.mariadb.add_database') }}"
-                       data-toggle="add-block" data-link-title="Database">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for database in mariadb.databases %}
+                {% for index, database in mariadb.databases %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mariadb-database-{{ attribute(database_uniqids, loop.index0) }}"
-                           data-toggle="tab">Database {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#mariadb-database-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mariadb-database-{{ attribute(database_uniqids, loop.index0) }}">
+                                    data-target="#mariadb-database-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -159,10 +144,10 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a database
                 </div>
-                {% for database in mariadb.databases %}
+                {% for index, database in mariadb.databases %}
                     {% include 'PuphpetBundle:mariadb:database.html.twig' with {
                         'database': database,
-                        'uniqid': attribute(database_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}
@@ -178,17 +163,17 @@
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
                     <a href="{{ path('puphpet.mariadb.add_grant') }}"
-                       data-toggle="add-block" data-link-title="Grant">
+                       data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
-                {% for grant in mariadb.grants %}
+                {% for index, grant in mariadb.grants %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mariadb-grant-{{ attribute(grant_uniqids, loop.index0) }}"
-                           data-toggle="tab">Grant {{ rand_string(3) }}</a>
+                        <a href="#" data-target="#mariadb-grant-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mariadb-grant-{{ attribute(grant_uniqids, loop.index0) }}">
+                                    data-target="#mariadb-grant-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -200,11 +185,11 @@
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
                     Click to add a grant
                 </div>
-                {% for grant in mariadb.grants %}
+                {% for index, grant in mariadb.grants %}
                     {% include 'PuphpetBundle:mariadb:grant.html.twig' with {
                         'available_privileges': mariadb.available.privileges,
                         'grant': grant,
-                        'uniqid': attribute(grant_uniqids, loop.index0),
+                        'uniqid': index,
                         'active': loop.first ? true : false,
                     } %}
                 {% endfor %}

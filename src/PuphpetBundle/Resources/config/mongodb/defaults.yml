@@ -1,8 +1,12 @@
-databases: []
-
 settings:
     bind_ip: 127.0.0.1
     port: 27017
 
 globals:
     version: 3.6.2
+
+databases:
+    database1:
+        name: dbname
+        user: dbuser
+        password: 123

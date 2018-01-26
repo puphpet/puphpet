@@ -5,7 +5,7 @@ settings:
     java_install: true
 
 instances:
-    -
+    instance1:
         name: es-01
         jvm_options:
             - '-Xms2G'

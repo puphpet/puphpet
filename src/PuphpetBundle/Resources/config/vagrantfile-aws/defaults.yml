@@ -6,7 +6,7 @@ vm:
             access_key_id: ACCESS KEY ID
             secret_access_key: SECRET ACCESS KEY
             machines:
-                -
+                machine1:
                     id: aws1
                     hostname: aws1.puphpet
                     ssh_username: ubuntu
@@ -23,16 +23,18 @@ vm:
                         Source: Puphpet
     provision:
         puppet:
-            manifests_path: 'puphpet/puppet/manifests'
-            module_path: 'puphpet/puppet/modules'
+            manifests_path: puphpet/puppet/manifests
+            module_path:
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
             options:
                 - '--verbose'
-                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+                - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
     synced_folder:
-        -
+        folder1:
+            id: webroot
             source: ./
             target: /var/www
-            id: webroot
             nfs: false
     post_up_message: ''
 ssh:

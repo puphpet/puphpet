@@ -1,7 +1,8 @@
-{% set uniqid = uniqid ?? uniqid('postsqlnu_', true) %}
+{% set uniqid = uniqid ?? uniqid('user_') %}
+
 {% set superUser = (user.superuser is defined and user.superuser) ? true : false %}
 
-<div id="postgresql-user-{{ uniqid }}"
+<div id="postgresql-user-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="postgresql-users-{{ uniqid }}-username">

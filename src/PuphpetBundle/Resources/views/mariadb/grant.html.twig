@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('mariadbng_', true) %}
+{% set uniqid = uniqid ?? uniqid('grant_') %}
 
-<div id="mariadb-grant-{{ uniqid }}"
+<div id="mariadb-grant-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="mariadb-grants-{{ uniqid }}-user">

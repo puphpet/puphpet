@@ -10,14 +10,15 @@ vm:
             machines: []
     provision:
         puppet:
-            manifests_path: "puphpet/puppet/manifests"
+            manifests_path: puphpet/puppet/manifests
             module_path:
-                - "puphpet/puppet/modules"
-                - "puphpet/puppet/manifests"
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
             options:
-                - "--verbose"
-                - "--hiera_config /vagrant/puphpet/puppet/hiera.yaml"
+                - '--verbose'
+                - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
     synced_folder: []
+    post_up_message: ''
 ssh:
     username: ~
     private_key_path: ~

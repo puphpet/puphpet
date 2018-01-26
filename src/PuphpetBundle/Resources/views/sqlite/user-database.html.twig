@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('sqlitenuad_', true) %}
+{% set uniqid = uniqid ?? uniqid('database_') %}
 
-<div id="sqlite-database-{{ uniqid }}"
+<div id="sqlite-database-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="sqlite-databases-{{ uniqid }}-name">

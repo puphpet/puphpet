@@ -7,7 +7,7 @@ vm:
             ssh_key_name: Vagrant
             distribution: Ubuntu 16.04 LTS
             machines:
-                -
+                machine1:
                     id: linode1
                     hostname: linode1.puphpet
                     datacenter: dfw
@@ -15,16 +15,18 @@ vm:
                     label: linode1-puphpet
     provision:
         puppet:
-            manifests_path: 'puphpet/puppet/manifests'
-            module_path: 'puphpet/puppet/modules'
+            manifests_path: puphpet/puppet/manifests
+            module_path:
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
             options:
                 - '--verbose'
-                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+                - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
     synced_folder:
-        -
+        folder1:
+            id: webroot
             source: ./
             target: /var/www
-            id: webroot
             nfs: false
     post_up_message: ''
 ssh:

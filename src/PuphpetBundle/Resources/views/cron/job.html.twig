@@ -1,8 +1,9 @@
-{% set uniqid = uniqid ?? uniqid('cj_', true) %}
+{% set uniqid = uniqid ?? uniqid('job_') %}
+
 {% set environments = (job.environment is defined and job.environment is not empty)
     ? job.environment : [] %}
 
-<div id="cron-job-{{ uniqid }}"
+<div id="cron-job-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="cron-jobs-{{ uniqid }}-name">

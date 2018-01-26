@@ -7,7 +7,7 @@ vm:
             api_key: RACKSPACE_API_KEY
             image: 598a4282-f14b-4e50-af4c-b3e52749d9f9
             machines:
-                -
+                machine1:
                     id: rackspace1
                     hostname: rackspace1.puphpet
                     server_name: rackspace1-puphpet
@@ -15,16 +15,18 @@ vm:
                     size: 1GB
     provision:
         puppet:
-            manifests_path: 'puphpet/puppet/manifests'
-            module_path: 'puphpet/puppet/modules'
+            manifests_path: puphpet/puppet/manifests
+            module_path:
+                - puphpet/puppet/modules
+                - puphpet/puppet/manifests
             options:
                 - '--verbose'
-                - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+                - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
     synced_folder:
-        -
+        folder1:
+            id: webroot
             source: ./
             target: /var/www
-            id: webroot
             nfs: false
     post_up_message: ''
 ssh:

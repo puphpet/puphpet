@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('postsqlnd_', true) %}
+{% set uniqid = uniqid ?? uniqid('database_') %}
 
-<div id="postgresql-database-{{ uniqid }}"
+<div id="postgresql-database-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="postgresql-databases-{{ uniqid }}-dbname">

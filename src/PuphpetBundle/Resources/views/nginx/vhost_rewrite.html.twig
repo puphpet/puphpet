@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('nxvrw_', true) %}
+{% set uniqid = uniqid ?? uniqid('rewrite_') %}
 
-<div id="nginx-vhost-{{ vhostId }}-rewrite-{{ uniqid }}"
+<div id="nginx-vhost-{{ vhostId }}-rewrite-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-when">

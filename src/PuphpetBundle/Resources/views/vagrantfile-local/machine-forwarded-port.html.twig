@@ -1,6 +1,6 @@
-{% set uniqid = uniqid ?? uniqid('vflmnfp_', true) %}
+{% set uniqid = uniqid ?? uniqid('port_') %}
 
-<div id="local-port-{{ uniqid }}"
+<div id="local-port-{{ uniqid }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="vagrantfile-vm-provider-local-machines-{{ mId }}-network-forwarded_port-{{ uniqid }}-host">
