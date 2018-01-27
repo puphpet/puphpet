@@ -381,11 +381,34 @@
     <div class="panel panel-info">
         <div class="panel-heading">Virtual Host Location</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs dropdown">
                 <li class="add">
-                    <a href="{{ path('puphpet.nginx.location', {'vhostId': uniqid}) }}"
-                       data-toggle="add-block">
-                        <i class="fa fa-plus"></i> Add</a>
+                    <a href="#" data-toggle="dropdown" id="{{ idBase }}-downDownMenu">
+                        Add <span class="caret"></span></a>
+
+                    <ul class="dropdown-menu" aria-labelledby="{{ idBase }}-downDownMenu">
+                        <li><a href="{{ path('puphpet.nginx.location', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'html',
+                                }) }}"
+                               data-toggle="add-block">Basic HTML</a></li>
+                        <li><a href="{{ path('puphpet.nginx.location', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'php',
+                                }) }}"
+                               data-toggle="add-block">Basic PHP</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ path('puphpet.nginx.location', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'symfony2_3',
+                                }) }}"
+                               data-toggle="add-block">Symfony 2 & 3</a></li>
+                        <li><a href="{{ path('puphpet.nginx.location', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'symfony4',
+                                }) }}"
+                               data-toggle="add-block">Symfony 4</a></li>
+                    </ul>
                 </li>
                 {% for index, location in locations %}
                     <li class="{{ loop.first ? 'active' }}">

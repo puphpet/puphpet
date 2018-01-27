@@ -2,6 +2,8 @@
 
 namespace PuphpetBundle\Twig;
 
+use PuphpetBundle\Helper;
+
 use RandomLib;
 
 class BaseExtension extends \Twig_Extension
@@ -44,16 +46,7 @@ class BaseExtension extends \Twig_Extension
 
     public function randString($length)
     {
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-        $charactersLength = strlen($characters);
-        $randomString = '';
-
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-
-        return $randomString;
+        return Helper\Strings::randString($length);
     }
 
     public function mt_rand($min, $max)

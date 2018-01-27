@@ -22,101 +22,30 @@ vhosts:
         www_root: /var/www/awesome
         listen_port: 80
         ssl: false
-        ssl_port: 443
-        ssl_cert: ''
-        ssl_key: ''
-        ssl_protocols: ~
-        ssl_ciphers: ~
-        rewrite_to_https: 0
-        spdy: 0
-        client_max_body_size: '1m'
         rewrites: []
         locations:
             location1:
-                www_root: /var/www/awesome/web
+                www_root: /var/www/awesome
                 location: /
-                autoindex: 0
-                internal: false
                 index_files:
                     - index.html
                     - index.php
-                    - app.php
                 try_files:
-                    - '$uri'
-                    - '$uri/'
-                    - '/index.php$is_args$args'
-                    - '/app.php$is_args$args'
-                fastcgi: ''
-                fastcgi_index: ''
-                fastcgi_split_path: ''
-                fast_cgi_params_extra: []
-                set: []
-                proxy: ~
-                proxy_redirect: ~
-                proxy_set_header: []
-                rewrites: []
+                    - $uri
+                    - $uri/
+                    - /index.php$is_args$args
             location2:
-                www_root: /var/www/awesome/web
-                location: '~ ^/(app_dev|config)\.php(/|$)'
-                autoindex: 0
-                internal: false
-                index_files: []
+                www_root: /var/www/awesome
+                location: '~ \.php$'
+                index_files:
+                    - index.php
                 try_files:
-                    - '$uri'
-                    - '$uri/'
-                    - '/app_dev.php$is_args$args'
-                fastcgi: 127.0.0.1:9000
-                fastcgi_index: app_dev.php
-                fastcgi_split_path: '^(.+\.php)(/.*)$'
-                fast_cgi_params_extra:
-                    - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
-                    - 'APP_ENV dev'
-                set:
-                    - '$path_info $fastcgi_path_info'
-                proxy: ~
-                proxy_redirect: ~
-                proxy_set_header: []
-                rewrites: []
-            location3:
-                www_root: /var/www/awesome/web
-                location: '~ ^/index\.php(/|$)'
-                autoindex: 0
-                internal: false
-                index_files: []
-                try_files:
-                    - '$uri'
-                    - '$uri/'
-                    - '/index.php$is_args$args'
-                fastcgi: 127.0.0.1:9000
+                    - $uri
+                    - $uri/
+                fastcgi: '127.0.0.1:9000'
                 fastcgi_index: index.php
-                fastcgi_split_path: '^(.+\.php)(/.*)$'
+                fastcgi_split_path: '^(.+?\.php)(/.*)$'
                 fast_cgi_params_extra:
-                    - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
+                    - SCRIPT_FILENAME $document_root$fastcgi_script_name
                 set:
-                    - '$path_info $fastcgi_path_info'
-                proxy: ~
-                proxy_redirect: ~
-                proxy_set_header: []
-                rewrites: []
-            location4:
-                www_root: /var/www/awesome/web
-                location: '~ ^/app\.php(/|$)'
-                autoindex: 0
-                internal: false
-                index_files: []
-                try_files:
-                    - '$uri'
-                    - '$uri/'
-                    - '/app.php$is_args$args'
-                fastcgi: 127.0.0.1:9000
-                fastcgi_index: app.php
-                fastcgi_split_path: '^(.+\.php)(/.*)$'
-                fast_cgi_params_extra:
-                    - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
-                    - 'APP_ENV prod'
-                set:
-                    - '$path_info $fastcgi_path_info'
-                proxy: ~
-                proxy_redirect: ~
-                proxy_set_header: []
-                rewrites: []
+                    - $path_info $fastcgi_path_info

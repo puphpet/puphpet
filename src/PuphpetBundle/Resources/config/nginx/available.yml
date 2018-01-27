@@ -24,29 +24,8 @@ empty_vhost:
     ssl_key: ''
     rewrite_to_https: 0
     spdy: 0
-    client_max_body_size: '1m'
+    client_max_body_size: 1m
     locations: []
-
-empty_location:
-    www_root: /var/www/REPLACE_ME
-    location: '~ \.php$'
-    autoindex: 0
-    internal: false
-    index_files:
-        - index.php
-    try_files:
-        - $uri
-        - $uri/
-    fastcgi: '127.0.0.1:9000'
-    fastcgi_index: index.php
-    fastcgi_split_path: '^(.+?\.php)(/.*)$'
-    fast_cgi_params_extra:
-        - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
-    set:
-        - '$path_info $fastcgi_path_info'
-    proxy: ~
-    proxy_redirect: ~
-    proxy_set_header: []
 
 empty_vhost_rewrite:
     when: ~
@@ -57,3 +36,108 @@ empty_location_rewrite:
     when: ~
     regex: ~
     target: ~
+
+pregenerated_locations:
+    html:
+        html:
+            www_root: /var/www/REPLACE_ME
+            location: /
+            index_files:
+                - index.html
+            try_files:
+                - $uri
+                - $uri/
+    php:
+        php_html:
+            www_root: /var/www/REPLACE_ME
+            location: /
+            index_files:
+                - index.html
+                - index.php
+            try_files:
+                - $uri
+                - $uri/
+                - /index.php$is_args$args
+        php_php:
+            www_root: /var/www/REPLACE_ME
+            location: '~ \.php$'
+            index_files:
+                - index.php
+            try_files:
+                - $uri
+                - $uri/
+            fastcgi: '127.0.0.1:9000'
+            fastcgi_index: index.php
+            fastcgi_split_path: '^(.+?\.php)(/.*)$'
+            fast_cgi_params_extra:
+                - SCRIPT_FILENAME $document_root$fastcgi_script_name
+            set:
+                - $path_info $fastcgi_path_info
+    symfony2_3:
+        sf2_3_base:
+            www_root: /var/www/REPLACE_ME/web
+            location: /
+            index_files:
+                - app.php
+            try_files:
+                - $uri
+                - $uri/
+                - /app.php$is_args$args
+        sf2_3_dev:
+            www_root: /var/www/REPLACE_ME/web
+            location: '~ ^/(app_dev|config)\.php(/|$)'
+            try_files:
+                - $uri
+                - $uri/
+                - /app_dev.php$is_args$args
+            fastcgi: 127.0.0.1:9000
+            fastcgi_index: app_dev.php
+            fastcgi_split_path: '^(.+\.php)(/.*)$'
+            fast_cgi_params_extra:
+                - SCRIPT_FILENAME $document_root$fastcgi_script_name
+                - DOCUMENT_ROOT $realpath_root
+                - APP_ENV dev
+            set:
+                - $path_info $fastcgi_path_info
+        sf2_3_prod:
+            www_root: /var/www/REPLACE_ME/web
+            location: '~ ^/app\.php(/|$)'
+            try_files:
+                - $uri
+                - $uri/
+                - /app.php$is_args$args
+            fastcgi: 127.0.0.1:9000
+            fastcgi_index: app.php
+            fastcgi_split_path: '^(.+\.php)(/.*)$'
+            fast_cgi_params_extra:
+                - SCRIPT_FILENAME $document_root$fastcgi_script_name
+                - DOCUMENT_ROOT $realpath_root
+                - APP_ENV prod
+            set:
+                - $path_info $fastcgi_path_info
+    symfony4:
+        sf4_base:
+            www_root: /var/www/REPLACE_ME/public
+            location: /
+            index_files:
+                - index.php
+            try_files:
+                - $uri
+                - $uri/
+                - /index.php$is_args$args
+        sf4_index:
+            www_root: /var/www/REPLACE_ME/public
+            location: '~ ^/index\.php(/|$)'
+            try_files:
+                - $uri
+                - $uri/
+                - /index.php$is_args$args
+            fastcgi: 127.0.0.1:9000
+            fastcgi_index: app_dev.php
+            fastcgi_split_path: '^(.+\.php)(/.*)$'
+            fast_cgi_params_extra:
+                - SCRIPT_FILENAME $document_root$fastcgi_script_name
+                - DOCUMENT_ROOT $realpath_root
+                - APP_ENV dev
+            set:
+                - $path_info $fastcgi_path_info

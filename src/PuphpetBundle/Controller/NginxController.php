@@ -3,10 +3,12 @@
 namespace PuphpetBundle\Controller;
 
 use PuphpetBundle\Controller;
+use PuphpetBundle\Helper;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -64,19 +66,36 @@ class NginxController extends Controller
     /**
      * @param Request $request
      * @param string  $vhostId
+     * @param string  $pregenerated
      * @return Response
-     * @Route("/extension/nginx/location/{vhostId}",
+     * @Route("/extension/nginx/location/{vhostId}/{pregenerated}",
      *     name="puphpet.nginx.location")
      * @Method({"GET"})
      */
-    public function locationAction(Request $request, string $vhostId)
+    public function locationAction(Request $request, string $vhostId, string $pregenerated = null)
     {
         $data = $this->getExtensionData('nginx');
 
-        return $this->render('PuphpetBundle:nginx:location.html.twig', [
-            'vhostId'  => $vhostId,
-            'location' => $data['empty_location'],
-        ]);
+        $pregenerated = empty($pregenerated) ? 'html' : $pregenerated;
+        $locations    = empty($data['pregenerated_locations'][$pregenerated])
+            ? $data['pregenerated_locations']['html']
+            : $data['pregenerated_locations'][$pregenerated];
+
+        $randString = Helper\Strings::randString(3);
+        $rendered   = [];
+
+        foreach ($locations as $uniqid => $location) {
+            $rendered []= $this->renderView('PuphpetBundle:nginx:location.html.twig', [
+                'uniqid'   => "{$uniqid}_{$randString}",
+                'vhostId'  => $vhostId,
+                'location' => $location,
+            ]);
+        }
+
+        $response = new JsonResponse();
+        $response->setContent(json_encode($rendered));
+
+        return $response;
     }
 
     /**

@@ -46,46 +46,58 @@ PUPHPET.addBlock = function() {
         var $nestedTabsContainer = $(this).closest('.nested-tabs');
         var $panelBodyContainer  = $(this).closest('.panel-body');
 
-        var $template = $('#nested-tabs-template').clone(true);
-        var $link     = $template.find('[data-toggle="tab"]');
-
-        $template.removeAttr('id');
-
         $.ajax({
             url: sourceUrl,
             cache: false
         }).done(function(response) {
-            var $row   = $(response);
-            var rowId  = $row[0].getAttribute('id');
-            var uniqid = $row[0].getAttribute('data-uniqid');
+            response = Array.isArray(response) ? response : [response];
 
-            var targetString = '#' + $link[0].getAttribute('data-target') + rowId;
+            var tabLinkClicked = false
+            for (var i = 0; i < response.length; i++) {
+                $tabLink = parseResponse($nestedTabsContainer, $panelBodyContainer, $(response[i]));
 
-            $link.text(uniqid);
-
-            $link[0].setAttribute(
-                'data-target',
-                targetString
-            );
-            $template.find('[data-toggle="delete-block"]')[0].setAttribute(
-                'data-target',
-                targetString
-            );
-
-            $panelBodyContainer.find('.tab-content')[0].append($row[0]);
-
-            $nestedTabsContainer.append($template);
-
-            PUPHPET.runSelectize($row);
-            PUPHPET.helpTextDisplay();
-            PUPHPET.checkboxCollapse();
-            PUPHPET.radioCollapse();
-            PUPHPET.disableOnUncheck();
-            PUPHPET.enforceGroupSingleChoice();
-
-            $link[0].click();
+                if (!tabLinkClicked) {
+                    tabLinkClicked = true;
+                    $tabLink[0].click();
+                }
+            }
         });
     });
+
+    function parseResponse($nestedTabsContainer, $panelBodyContainer, $row) {
+        var $template = $('#nested-tabs-template').clone(true);
+        var $tabLink  = $template.find('[data-toggle="tab"]');
+        var rowId     = $row[0].getAttribute('id');
+        var uniqid    = $row[0].getAttribute('data-uniqid');
+
+        $template.removeAttr('id');
+
+        var targetString = '#' + $tabLink[0].getAttribute('data-target') + rowId;
+
+        $tabLink.text(uniqid);
+
+        $tabLink[0].setAttribute(
+            'data-target',
+            targetString
+        );
+        $template.find('[data-toggle="delete-block"]')[0].setAttribute(
+            'data-target',
+            targetString
+        );
+
+        $panelBodyContainer.find('.tab-content')[0].append($row[0]);
+
+        $nestedTabsContainer.append($template);
+
+        PUPHPET.runSelectize($row);
+        PUPHPET.helpTextDisplay();
+        PUPHPET.checkboxCollapse();
+        PUPHPET.radioCollapse();
+        PUPHPET.disableOnUncheck();
+        PUPHPET.enforceGroupSingleChoice();
+
+        return $tabLink;
+    }
 };
 
 /**
