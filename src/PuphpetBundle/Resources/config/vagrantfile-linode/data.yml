@@ -5,7 +5,7 @@ vm:
         linode:
             token: ~
             ssh_key_name: Vagrant
-            distribution: ~
+            distribution: Ubuntu 16.04 LTS
             machines: []
     provision:
         puppet:

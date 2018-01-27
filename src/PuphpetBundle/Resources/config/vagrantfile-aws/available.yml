@@ -60,12 +60,12 @@ empty_synced_folder:
 empty_machine:
     id: ~
     hostname: ~
-    ssh_username:
-    keypair_name:
+    ssh_username: ubuntu
+    keypair_name: ~
     private_key_path: ~
-    region: ~
-    instance_type: ~
-    ami: ~
+    region: us-east-1
+    instance_type: t2.small
+    ami: ami-7b386c11
     subnet_id: ~
     elastic_ip: ~
     security_groups: []

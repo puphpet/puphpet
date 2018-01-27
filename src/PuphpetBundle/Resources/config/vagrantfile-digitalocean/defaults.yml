@@ -15,7 +15,7 @@ vm:
                     id: digitalocean1
                     hostname: digitalocean1.puphpet
                     region: New York 1
-                    size: 1GB
+                    size: 1gb
     provision:
         puppet:
             manifests_path: puphpet/puppet/manifests

@@ -42,9 +42,9 @@
         <select id="{{ idBase }}-region"
                name="{{ nameBase }}[region]"
                class="form-control select-tag">
-            {% for key, region in regions %}
-                <option value="{{ key }}"
-                    {% if key == machine.region %}selected{% endif %}>{{ region }}</option>
+            {% for region in regions %}
+                <option value="{{ region }}"
+                    {% if region == machine.region %}selected{% endif %}>{{ region }}</option>
             {% endfor %}
         </select>
         <div class="help-block">

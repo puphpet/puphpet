@@ -21,25 +21,25 @@ sizes:
     64gb: 64GB / 20 CPUS / 640GB SSD DISK / 9TB TRANSFER
 
 regions:
-    nyc1: New York 1
-    nyc2: New York 2
-    nyc3: New York 3
-    sfo1: San Francisco 1
-    ams1: Amsterdam 1
-    ams2: Amsterdam 2
-    ams3: Amsterdam 3
-    sgp1: Singapore 1
-    lon1: London 1
-    fra1: Frankfurt 1
-    
+    - Amsterdam 3
+    - Bangalore 1
+    - Frankfurt 1
+    - London 1
+    - New York 1
+    - New York 3
+    - San Francisco 1
+    - San Francisco 2
+    - Singapore 1
+    - Toronto 1
+
 empty_synced_folder:
+    id: ~
     source: ~
     target: ~
-    id: ~
     nfs: false
 
 empty_machine:
     id: ~
     hostname: ~
-    region: ~
-    size: ~
+    region: New York 1
+    size: 1gb

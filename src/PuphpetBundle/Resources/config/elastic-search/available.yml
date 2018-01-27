@@ -22,4 +22,6 @@ versions:
 
 empty_instance:
     name: ~
-    jvm_options: [ ]
+    jvm_options:
+        - '-Xms2G'
+        - '-Xmx2G'

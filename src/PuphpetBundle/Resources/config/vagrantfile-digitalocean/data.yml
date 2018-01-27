@@ -3,7 +3,7 @@ target: ~
 vm:
     provider:
         digitalocean:
-            image: ~
+            image: ubuntu-14-04-x64
             token: ~
             ssh_key_name: ~
             setup: true

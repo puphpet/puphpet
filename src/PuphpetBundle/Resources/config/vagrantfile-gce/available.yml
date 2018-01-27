@@ -42,15 +42,15 @@ zones:
     us-central1-f: us-central1-f
 
 empty_synced_folder:
+    id: ~
     source: ~
     target: ~
-    id: ~
     nfs: false
 
 empty_machine:
     id: ~
     hostname: ~
     name: ~
-    machine_type: ~
-    zone: ~
+    machine_type: n1-standard-1
+    zone: us-central1-a
     tags: []

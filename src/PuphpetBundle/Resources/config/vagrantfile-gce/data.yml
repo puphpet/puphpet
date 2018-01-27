@@ -6,7 +6,7 @@ vm:
             project_id: ~
             client_email: ~
             key_location: ~
-            image: ~
+            image: ubuntu-1604-xenial-v20161013
             machines: []
     provision:
         puppet:

@@ -16,7 +16,7 @@ empty_proxy:
 empty_vhost:
     server_name: ~
     server_aliases: []
-    www_root: ~
+    www_root: /var/www/REPLACE_ME
     listen_port: 80
     ssl: false
     ssl_port: 443
@@ -28,16 +28,22 @@ empty_vhost:
     locations: []
 
 empty_location:
-    www_root: ''
-    location: '/'
+    www_root: /var/www/REPLACE_ME
+    location: '~ \.php$'
     autoindex: 0
     internal: false
-    index_files: []
-    try_files: []
-    fastcgi: ~
-    fastcgi_index: ~
-    fastcgi_split_path: ~
-    fast_cgi_params_extra: []
+    index_files:
+        - index.php
+    try_files:
+        - $uri
+        - $uri/
+    fastcgi: '127.0.0.1:9000'
+    fastcgi_index: index.php
+    fastcgi_split_path: '^(.+?\.php)(/.*)$'
+    fast_cgi_params_extra:
+        - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
+    set:
+        - '$path_info $fastcgi_path_info'
     proxy: ~
     proxy_redirect: ~
     proxy_set_header: []

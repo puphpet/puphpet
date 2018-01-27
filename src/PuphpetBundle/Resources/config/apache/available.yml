@@ -1,7 +1,7 @@
 empty_vhost:
     servername: ~
     serveraliases: []
-    docroot: ~
+    docroot: /var/www/REPLACE_ME
     port: 80
     setenvif:
         - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
@@ -15,8 +15,8 @@ empty_vhost:
 
 empty_directory:
     provider: directory
-    directoryindex: ~
-    path: ''
+    directoryindex: index.php
+    path: /var/www/REPLACE_ME
     options:
         - Indexes
         - FollowSymlinks

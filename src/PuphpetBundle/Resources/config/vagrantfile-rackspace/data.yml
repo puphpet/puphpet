@@ -5,7 +5,7 @@ vm:
         rackspace:
             username: ~
             api_key: ~
-            image: ~
+            image: d97ba69f-b733-45be-8d60-4e415f4b0992
             machines: []
     provision:
         puppet:

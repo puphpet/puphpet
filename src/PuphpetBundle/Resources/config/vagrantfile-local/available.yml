@@ -4,9 +4,8 @@ virtualizers:
         long_name: VirtualBox
         description: |
             Free! Not as performant as VMWare or Parallels, but it is free!
-            <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download Virtualbox here</a>.
+            <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download VirtualBox here</a>.
         description_extra: ~
-        os_support: Windows, OS X &amp; Linux
         performance: 1
         base_ip: 192.168.56
     -
@@ -18,7 +17,6 @@ virtualizers:
         description_extra: |
             (affiliate link - help support this free service)
             and purchase of <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Fusion Plugin</a>.
-        os_support: OS X only
         performance: 3
         base_ip: 192.168.57
     -
@@ -30,7 +28,6 @@ virtualizers:
         description_extra: |
             (affiliate link - help support this free service)
             and purchase of <a href="http://www.vagrantup.com/vmware" target="_blank">Vagrant VMWare Workstation Plugin</a>.
-        os_support: Windows &amp; Linux
         performance: 3
         base_ip: 192.168.57
     -
@@ -42,7 +39,6 @@ virtualizers:
         description_extra: |
             (affiliate link - help support this free service)
             and installing the free <a href="https://github.com/Parallels/vagrant-parallels" target="_blank">Vagrant Parallels Plugin</a>.
-        os_support: OS X only
         performance: 3
         base_ip: 192.168.58
 
@@ -66,8 +62,8 @@ boxes:
 empty_machine:
     id: ~
     hostname: ~
-    memory: ~
-    cpus: ~
+    memory: 512
+    cpus: 1
     network:
         private_network: 192.168.56.101
         forwarded_port: [ ]
@@ -77,7 +73,7 @@ empty_forwarded_port:
     guest: ~
 
 empty_synced_folder:
-    id: vagrant-root
+    id: ~
     source: ~
     target: ~
     sync_type: default

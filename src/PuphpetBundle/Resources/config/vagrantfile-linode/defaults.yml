@@ -10,7 +10,7 @@ vm:
                 machine1:
                     id: linode1
                     hostname: linode1.puphpet
-                    datacenter: dfw
+                    datacenter: dallas
                     plan: 1024
                     label: linode1-puphpet
     provision:

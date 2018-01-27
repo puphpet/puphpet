@@ -23,6 +23,7 @@ empty_database:
     owner: ~
 
 empty_grant:
-    privilege: ~
-    db: ~
     role: ~
+    db: ~
+    privilege:
+        - ALL

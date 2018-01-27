@@ -45,6 +45,6 @@ empty_synced_folder:
 empty_machine:
     id: ~
     hostname: ~
-    datacenter: ~
-    plan: ~
+    datacenter: dallas
+    plan: 1024
     label: ~
