@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('user_') %}
+{% set idBase = "mariadb-users-#{uniqid}" %}
+{% set nameBase = "mariadb[users][#{uniqid}]" %}
 
-<div id="mariadb-user-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="mariadb-users-{{ uniqid }}-name">
+        <label for="{{ idBase }}-name">
             Username
         </label>
-        <input type="text" id="mariadb-users-{{ uniqid }}-name"
-               name="mariadb[users][{{ uniqid }}][name]"
+        <input type="text" id="{{ idBase }}-name"
+               name="{{ nameBase }}[name]"
                placeholder="username" class="form-control"
                value="{{ user.name }}" />
         <div class="help-block">
@@ -20,11 +22,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="mariadb-users-{{ uniqid }}-password">
+        <label for="{{ idBase }}-password">
             Password
         </label>
-        <input type="text" id="mariadb-users-{{ uniqid }}-password"
-               name="mariadb[users][{{ uniqid }}][password]"
+        <input type="text" id="{{ idBase }}-password"
+               name="{{ nameBase }}[password]"
                placeholder="123" class="form-control"
                value="{{ user.password }}" />
         <div class="help-block">

@@ -1,6 +1,8 @@
 {% set uniqid = uniqid ?? uniqid('database_') %}
+{% set idBase = "mongodb-databases-#{uniqid}" %}
+{% set nameBase = "mongodb[databases][#{uniqid}]" %}
 
-<div id="mongodb-database-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="help-block col-xs-12">
         If you want to assign a user to multiple databases, simply create more databases and type in
@@ -11,21 +13,21 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="mongodb-databases-{{ uniqid }}-name">
+        <label for="{{ idBase }}-name">
             Database
         </label>
-        <input type="text" id="mongodb-databases-{{ uniqid }}-name"
-               name="mongodb[databases][{{ uniqid }}][name]"
+        <input type="text" id="{{ idBase }}-name"
+               name="{{ nameBase }}[name]"
                placeholder="database_name" class="form-control"
                value="{{ database.name }}" />
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="mongodb-databases-{{ uniqid }}-user">
+        <label for="{{ idBase }}-user">
             Username
         </label>
-        <input type="text" id="mongodb-databases-{{ uniqid }}-user"
-               name="mongodb[databases][{{ uniqid }}][user]"
+        <input type="text" id="{{ idBase }}-user"
+               name="{{ nameBase }}[user]"
                placeholder="username" class="form-control"
                value="{{ database.user }}" />
     </div>
@@ -33,11 +35,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="mongodb-databases-{{ uniqid }}-password">
+        <label for="{{ idBase }}-password">
             Password
         </label>
-        <input type="text" id="mongodb-databases-{{ uniqid }}-password"
-               name="mongodb[databases][{{ uniqid }}][password]"
+        <input type="text" id="{{ idBase }}-password"
+               name="{{ nameBase }}[password]"
                placeholder="123" class="form-control"
                value="{{ database.password }}" />
         <div class="help-block">

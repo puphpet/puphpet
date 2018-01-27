@@ -84,12 +84,12 @@
                 </li>
                 {% for index, database in mongodb.databases %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mongodb-database-{{ index }}"
+                        <a href="#" data-target="#mongodb-databases-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mongodb-database-{{ index }}">
+                                    data-target="#mongodb-databases-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

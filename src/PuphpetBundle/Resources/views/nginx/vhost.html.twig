@@ -1,4 +1,6 @@
 {% set uniqid = uniqid ?? uniqid('vhost_') %}
+{% set idBase = "nginx-vhosts-#{uniqid}" %}
+{% set nameBase = "nginx[vhosts][#{uniqid}]" %}
 
 {% set server_aliases = (vhost.server_aliases is defined) ? vhost.server_aliases : [] %}
 {% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
@@ -16,14 +18,14 @@
 {% set locations = (vhost.locations is defined) ? vhost.locations : [] %}
 {% set client_max_body_type = (vhost.client_max_body_type is defined) ? vhost.client_max_body_type : '1m' %}
 
-<div id="nginx-vhost-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ uniqid }}-server_name">
+        <label for="{{ idBase }}-server_name">
             Server Name
         </label>
-        <input type="text" id="nginx-vhosts-{{ uniqid }}-server_name"
-               name="nginx[vhosts][{{ uniqid }}][server_name]"
+        <input type="text" id="{{ idBase }}-server_name"
+               name="{{ nameBase }}[server_name]"
                placeholder="awesome.dev" class="form-control"
                value="{{ vhost.server_name }}" />
         <div class="help-block">
@@ -32,11 +34,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ uniqid }}-server_aliases">
+        <label for="{{ idBase }}-server_aliases">
             Server Aliases
         </label>
-        <select id="nginx-vhosts-{{ uniqid }}-server_aliases"
-               name="nginx[vhosts][{{ uniqid }}][server_aliases][]"
+        <select id="{{ idBase }}-server_aliases"
+               name="{{ nameBase }}[server_aliases][]"
                multiple class="form-control select-tags-editable">
             {% for alias in server_aliases %}
                 <option selected value="{{ alias }}">{{ alias }}</option>
@@ -50,11 +52,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ uniqid }}-www_root">
+        <label for="{{ idBase }}-www_root">
             Project Root
         </label>
-        <input type="text" id="nginx-vhosts-{{ uniqid }}-www_root"
-               name="nginx[vhosts][{{ uniqid }}][www_root]"
+        <input type="text" id="{{ idBase }}-www_root"
+               name="{{ nameBase }}[www_root]"
                placeholder="/var/www/awesome" class="form-control"
                value="{{ vhost.www_root }}" />
         <div class="help-block">
@@ -74,11 +76,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ uniqid }}-listen_port">
+        <label for="{{ idBase }}-listen_port">
             Port
         </label>
-        <input type="number" id="nginx-vhosts-{{ uniqid }}-listen_port"
-               name="nginx[vhosts][{{ uniqid }}][listen_port]"
+        <input type="number" id="{{ idBase }}-listen_port"
+               name="{{ nameBase }}[listen_port]"
                placeholder="80" class="form-control"
                value="{{ vhost.listen_port }}" />
         <div class="help-block">
@@ -90,11 +92,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ uniqid }}-client-max-body-size">
+        <label for="{{ idBase }}-client-max-body-size">
             Client Max Body Size
         </label>
-        <input type="text" id="nginx-vhosts-{{ uniqid }}-client-max-body-size"
-               name="nginx[vhosts][{{ uniqid }}][client_max_body_size]"
+        <input type="text" id="{{ idBase }}-client-max-body-size"
+               name="{{ nameBase }}[client_max_body_size]"
                placeholder="1m" class="form-control"
                value="{{ client_max_body_type }}" />
         <div class="help-block">
@@ -104,39 +106,39 @@
 
     <div class="clearfix"></div>
 
-    <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl]" value="0" />
+    <input type="hidden" name="{{ nameBase }}[ssl]" value="0" />
 
     <div class="panel panel-info">
         <div class="panel-heading">SSL Options</div>
         <div class="panel-body">
             <ul class="nav nav-tabs nested-tabs">
                 <li class="{% if ssl_letsencrypt_enabled or not ssl %}active{% endif %}">
-                    <a href="#" data-target="#nginx-vhosts-{{ uniqid }}-ssl-letsencrypt-container"
+                    <a href="#" data-target="#{{ idBase }}-ssl-letsencrypt-container"
                        data-toggle="tab">Let's Encrypt SSL</a>
                 </li>
                 <li class="{% if ssl_custom_enabled %}active{% endif %}">
-                    <a href="#" data-target="#nginx-vhosts-{{ uniqid }}-ssl-custom-container"
+                    <a href="#" data-target="#{{ idBase }}-ssl-custom-container"
                        data-toggle="tab">Custom SSL</a>
                 </li>
             </ul>
 
             <div class="tab-content">
-                <div id="nginx-vhosts-{{ uniqid }}-ssl-letsencrypt-container"
+                <div id="{{ idBase }}-ssl-letsencrypt-container"
                     class="tab-pane {% if ssl_letsencrypt_enabled or not ssl %}active{% endif %}">
                     <div class="checkbox checkbox-md no-padding mb-20">
-                        <input type="checkbox" id="nginx-vhosts-{{ uniqid }}-ssl-letsencrypt-enabled"
-                               name="nginx[vhosts][{{ uniqid }}][ssl]" value="1"
+                        <input type="checkbox" id="{{ idBase }}-ssl-letsencrypt-enabled"
+                               name="{{ nameBase }}[ssl]" value="1"
                                {% if ssl_letsencrypt_enabled %}checked{% endif %}
                                data-toggle="checkbox-collapse"
-                               data-target="#nginx-vhosts-{{ uniqid }}-ssl-letsencrypt-enabled-container"
-                               data-enforce-group-single="nginx-vhosts-{{ uniqid }}-ssl"
+                               data-target="#{{ idBase }}-ssl-letsencrypt-enabled-container"
+                               data-enforce-group-single="{{ idBase }}-ssl"
                                data-enable-on-check data-disable-on-uncheck />
-                        <label for="nginx-vhosts-{{ uniqid }}-ssl-letsencrypt-enabled">Use Let's Encrypt SSL</label>
+                        <label for="{{ idBase }}-ssl-letsencrypt-enabled">Use Let's Encrypt SSL</label>
                     </div>
 
                     <div class="clearfix"></div>
 
-                    <div id="nginx-vhosts-{{ uniqid }}-ssl-letsencrypt-enabled-container"
+                    <div id="{{ idBase }}-ssl-letsencrypt-enabled-container"
                         class="collapse {% if ssl_letsencrypt_enabled %}in{% endif %}">
                         <div class="help-block">
                             <p>Let’s Encrypt is a new Certificate Authority:
@@ -171,11 +173,11 @@
                             <div class="clearfix"><label>SSL-Only Options</label></div>
 
                             <div class="checkbox">
-                                <input type="checkbox" id="nginx-vhosts-{{ uniqid }}-letsencrypt-rewrite_to_https"
-                                       name="nginx[vhosts][{{ uniqid }}][rewrite_to_https]"
+                                <input type="checkbox" id="{{ idBase }}-letsencrypt-rewrite_to_https"
+                                       name="{{ nameBase }}[rewrite_to_https]"
                                        value="1"
                                        {% if rewrite_to_https %}checked{% endif %} />
-                                <label for="nginx-vhosts-{{ uniqid }}-letsencrypt-rewrite_to_https">
+                                <label for="{{ idBase }}-letsencrypt-rewrite_to_https">
                                     Rewrite to SSL
                                 </label>
                                 <div class="help-block">
@@ -184,11 +186,11 @@
                             </div>
 
                             <div class="checkbox">
-                                <input type="checkbox" id="nginx-vhosts-{{ uniqid }}-letsencrypt-spdy"
-                                       name="nginx[vhosts][{{ uniqid }}][spdy]"
+                                <input type="checkbox" id="{{ idBase }}-letsencrypt-spdy"
+                                       name="{{ nameBase }}[spdy]"
                                        value="1"
                                        {% if spdy %}checked{% endif %} />
-                                <label for="nginx-vhosts-{{ uniqid }}-letsencrypt-spdy">
+                                <label for="{{ idBase }}-letsencrypt-spdy">
                                     Enable Spdy Module
                                 </label>
                                 <div class="help-block">
@@ -198,41 +200,41 @@
                             </div>
                         </div>
 
-                        <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_cert]"
+                        <input type="hidden" name="{{ nameBase }}[ssl_cert]"
                                value="LETSENCRYPT" />
-                        <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_key]"
+                        <input type="hidden" name="{{ nameBase }}[ssl_key]"
                                value="LETSENCRYPT" />
-                        <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_port]"
+                        <input type="hidden" name="{{ nameBase }}[ssl_port]"
                                value="443" />
-                        <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_protocols]"
+                        <input type="hidden" name="{{ nameBase }}[ssl_protocols]"
                                value="{{ ssl_protocols }}" />
-                        <input type="hidden" name="nginx[vhosts][{{ uniqid }}][ssl_ciphers]"
+                        <input type="hidden" name="{{ nameBase }}[ssl_ciphers]"
                                value="{{ ssl_ciphers }}" />
                     </div>
                 </div>
-                <div id="nginx-vhosts-{{ uniqid }}-ssl-custom-container"
+                <div id="{{ idBase }}-ssl-custom-container"
                     class="tab-pane {% if ssl_custom_enabled %}active{% endif %}">
                     <div class="checkbox checkbox-md no-padding mb-20">
-                        <input type="checkbox" id="nginx-vhosts-{{ uniqid }}-ssl-custom-enabled"
-                               name="nginx[vhosts][{{ uniqid }}][ssl]" value="1"
+                        <input type="checkbox" id="{{ idBase }}-ssl-custom-enabled"
+                               name="{{ nameBase }}[ssl]" value="1"
                                {% if ssl_custom_enabled %}checked{% endif %}
                                data-toggle="checkbox-collapse"
-                               data-target="#nginx-vhosts-{{ uniqid }}-ssl-custom-enabled-container"
-                               data-enforce-group-single="nginx-vhosts-{{ uniqid }}-ssl"
+                               data-target="#{{ idBase }}-ssl-custom-enabled-container"
+                               data-enforce-group-single="{{ idBase }}-ssl"
                                data-enable-on-check data-disable-on-uncheck />
-                        <label for="nginx-vhosts-{{ uniqid }}-ssl-custom-enabled">Use Custom SSL</label>
+                        <label for="{{ idBase }}-ssl-custom-enabled">Use Custom SSL</label>
                     </div>
 
                     <div class="clearfix"></div>
 
-                    <div id="nginx-vhosts-{{ uniqid }}-ssl-custom-enabled-container"
+                    <div id="{{ idBase }}-ssl-custom-enabled-container"
                         class="collapse {% if ssl_custom_enabled %}in{% endif %}">
                         <div class="form-group col-xs-12 col-sm-6">
-                            <label for="nginx-vhosts-{{ uniqid }}-ssl_cert">
+                            <label for="{{ idBase }}-ssl_cert">
                                 SSL Certificate File Path
                             </label>
-                            <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_cert"
-                                   name="nginx[vhosts][{{ uniqid }}][ssl_cert]"
+                            <input type="text" id="{{ idBase }}-ssl_cert"
+                                   name="{{ nameBase }}[ssl_cert]"
                                    placeholder="/leave/blank/for/sample" class="form-control"
                                    value="{{ ssl_cert }}" />
                             <div class="help-block">
@@ -252,11 +254,11 @@
                         </div>
 
                         <div class="form-group col-xs-12 col-sm-6">
-                            <label for="nginx-vhosts-{{ uniqid }}-ssl_key">
+                            <label for="{{ idBase }}-ssl_key">
                                 SSL Certificate Key File Path
                             </label>
-                            <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_key"
-                                   name="nginx[vhosts][{{ uniqid }}][ssl_key]"
+                            <input type="text" id="{{ idBase }}-ssl_key"
+                                   name="{{ nameBase }}[ssl_key]"
                                    placeholder="/leave/blank/for/sample" class="form-control"
                                    value="{{ ssl_key }}" />
                             <div class="help-block">
@@ -278,11 +280,11 @@
                         <div class="clearfix"></div>
 
                         <div class="form-group col-xs-12 col-sm-6">
-                            <label for="nginx-vhosts-{{ uniqid }}-ssl_port">
+                            <label for="{{ idBase }}-ssl_port">
                                 SSL Port
                             </label>
-                            <input type="text" id="nginx-vhosts-{{ uniqid }}-ssl_port"
-                                   name="nginx[vhosts][{{ uniqid }}][ssl_port]"
+                            <input type="text" id="{{ idBase }}-ssl_port"
+                                   name="{{ nameBase }}[ssl_port]"
                                    placeholder="443" class="form-control"
                                    value="{{ ssl_port }}" />
                             <div class="help-block">
@@ -296,11 +298,11 @@
                             <div class="clearfix"><label>SSL-Only Options</label></div>
 
                             <div class="checkbox">
-                                <input type="checkbox" id="nginx-vhosts-{{ uniqid }}-custom-rewrite_to_https"
-                                       name="nginx[vhosts][{{ uniqid }}][rewrite_to_https]"
+                                <input type="checkbox" id="{{ idBase }}-custom-rewrite_to_https"
+                                       name="{{ nameBase }}[rewrite_to_https]"
                                        value="1"
                                        {% if rewrite_to_https %}checked{% endif %} />
-                                <label for="nginx-vhosts-{{ uniqid }}-custom-rewrite_to_https">
+                                <label for="{{ idBase }}-custom-rewrite_to_https">
                                     Rewrite to SSL
                                 </label>
                                 <div class="help-block">
@@ -309,11 +311,11 @@
                             </div>
 
                             <div class="checkbox">
-                                <input type="checkbox" id="nginx-vhosts-{{ uniqid }}-custom-spdy"
-                                       name="nginx[vhosts][{{ uniqid }}][spdy]"
+                                <input type="checkbox" id="{{ idBase }}-custom-spdy"
+                                       name="{{ nameBase }}[spdy]"
                                        value="1"
                                        {% if spdy %}checked{% endif %} />
-                                <label for="nginx-vhosts-{{ uniqid }}-custom-spdy">
+                                <label for="{{ idBase }}-custom-spdy">
                                     Enable Spdy Module
                                 </label>
                                 <div class="help-block">
@@ -345,12 +347,12 @@
                 </li>
                 {% for index, rewrite in rewrites %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-vhost-{{ uniqid }}-rewrite-{{ index }}"
+                        <a href="#" data-target="#{{ idBase }}-rewrites-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-vhost-{{ uniqid }}-rewrite-{{ index }}">
+                                    data-target="#{{ idBase }}-rewrites-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -387,12 +389,12 @@
                 </li>
                 {% for index, location in locations %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-vhost-{{ uniqid }}-location-{{ index }}"
+                        <a href="#" data-target="#{{ idBase }}-locations-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-vhost-{{ uniqid }}-location-{{ index }}">
+                                    data-target="#{{ idBase }}-locations-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

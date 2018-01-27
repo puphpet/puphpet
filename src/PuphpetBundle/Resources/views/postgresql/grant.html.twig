@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('grant_') %}
+{% set idBase = "postgresql-grants-#{uniqid}" %}
+{% set nameBase = "postgresql[grants][#{uniqid}]" %}
 
-<div id="postgresql-grant-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="postgresql-grants-{{ uniqid }}-role">
+        <label for="{{ idBase }}-role">
             User
         </label>
-        <input type="text" id="postgresql-grants-{{ uniqid }}-role"
-               name="postgresql[grants][{{ uniqid }}][role]"
+        <input type="text" id="{{ idBase }}-role"
+               name="{{ nameBase }}[role]"
                placeholder="username" class="form-control"
                value="{{ grant.role }}" />
         <div class="help-block">
@@ -16,11 +18,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="postgresql-grants-{{ uniqid }}-db">
+        <label for="{{ idBase }}-db">
             Database
         </label>
-        <input type="text" id="postgresql-grants-{{ uniqid }}-db"
-               name="postgresql[grants][{{ uniqid }}][db]"
+        <input type="text" id="{{ idBase }}-db"
+               name="{{ nameBase }}[db]"
                placeholder="database_name" class="form-control"
                value="{{ grant.db }}" />
         <div class="help-block">
@@ -31,11 +33,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="postgresql-grants-{{ uniqid }}-privilege">
+        <label for="{{ idBase }}-privilege">
             Privileges
         </label>
-        <select id="postgresql-grants-{{ uniqid }}-privilege"
-                name="postgresql[grants][{{ uniqid }}][privilege][]"
+        <select id="{{ idBase }}-privilege"
+                name="{{ nameBase }}[privilege][]"
                 multiple class="form-control select-tags-editable">
             {% if grant.privilege is defined %}
                 {% for privilege in grant.privilege %}

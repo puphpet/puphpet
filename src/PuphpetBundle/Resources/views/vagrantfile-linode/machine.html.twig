@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('machine_') %}
+{% set idBase = "vagrantfile-vm-provider-linode-machines-#{uniqid}" %}
+{% set nameBase = "vagrantfile[vm][provider][linode][machines][#{uniqid}]" %}
 
-<div id="linode-machine-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-linode-machines-{{ uniqid }}-id">
+        <label for="{{ idBase }}-id">
             Internal Identifier
         </label>
-        <input type="text" id="vagrantfile-vm-provider-linode-machines-{{ uniqid }}-id"
-               name="vagrantfile[vm][provider][linode][machines][{{ uniqid }}][id]"
+        <input type="text" id="{{ idBase }}-id"
+               name="{{ nameBase }}[id]"
                placeholder="linode1" class="form-control"
                value="{{ machine.id }}" />
         <div class="help-block">
@@ -17,11 +19,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-linode-machines-{{ uniqid }}-hostname">
+        <label for="{{ idBase }}-hostname">
             Hostname
         </label>
-        <input type="text" id="vagrantfile-vm-provider-linode-machines-{{ uniqid }}-hostname"
-               name="vagrantfile[vm][provider][linode][machines][{{ uniqid }}][hostname]"
+        <input type="text" id="{{ idBase }}-hostname"
+               name="{{ nameBase }}[hostname]"
                placeholder="linode1.puphpet" class="form-control"
                value="{{ machine.hostname }}" />
         <div class="help-block">
@@ -34,11 +36,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-linode-machines-{{ uniqid }}-label">
+        <label for="{{ idBase }}-label">
             Server Label
         </label>
-        <input type="text" id="vagrantfile-vm-provider-linode-machines-{{ uniqid }}-label"
-               name="vagrantfile[vm][provider][linode][machines][{{ uniqid }}][label]"
+        <input type="text" id="{{ idBase }}-label"
+               name="{{ nameBase }}[label]"
                placeholder="linode1-puphpet" class="form-control"
                value="{{ machine.label }}" />
         <div class="help-block">
@@ -47,11 +49,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-linode-machines-{{ uniqid }}-datacenter">
+        <label for="{{ idBase }}-datacenter">
             Datacenter Location
         </label>
-        <select id="vagrantfile-vm-provider-linode-machines-{{ uniqid }}-datacenter"
-               name="vagrantfile[vm][provider][linode][machines][{{ uniqid }}][datacenter]"
+        <select id="{{ idBase }}-datacenter"
+               name="{{ nameBase }}[datacenter]"
                class="form-control select-tag">
             {% for key, datacenter in datacenters %}
                 <option value="{{ key }}"
@@ -66,11 +68,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-linode-machines-{{ uniqid }}-plan">
+        <label for="{{ idBase }}-plan">
             Server Size
         </label>
-        <select id="vagrantfile-vm-provider-linode-machines-{{ uniqid }}-plan"
-               name="vagrantfile[vm][provider][linode][machines][{{ uniqid }}][plan]"
+        <select id="{{ idBase }}-plan"
+               name="{{ nameBase }}[plan]"
                class="form-control select-tag">
             {% for plan, name in plans %}
                 <option value="{{ plan }}"

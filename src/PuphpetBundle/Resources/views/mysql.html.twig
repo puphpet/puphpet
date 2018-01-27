@@ -84,12 +84,12 @@
                 </li>
                 {% for index, user in mysql.users %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mysql-user-{{ index }}"
+                        <a href="#" data-target="#mysql-users-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mysql-user-{{ index }}">
+                                    data-target="#mysql-users-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -125,12 +125,12 @@
                 </li>
                 {% for index, database in mysql.databases %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mysql-database-{{ index }}"
+                        <a href="#" data-target="#mysql-databases-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mysql-database-{{ index }}">
+                                    data-target="#mysql-databases-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -166,12 +166,12 @@
                 </li>
                 {% for index, grant in mysql.grants %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mysql-grant-{{ index }}"
+                        <a href="#" data-target="#mysql-grants-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mysql-grant-{{ index }}">
+                                    data-target="#mysql-grants-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

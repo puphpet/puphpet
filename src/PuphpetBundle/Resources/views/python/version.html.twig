@@ -1,15 +1,17 @@
 {% set uniqid = uniqid ?? uniqid('version_') %}
+{% set idBase = "python-versions-#{uniqid}" %}
+{% set nameBase = "python[versions][#{uniqid}]" %}
 
 {% set virtualenv = (selected_version.virtualenv is defined and selected_version.virtualenv) ? true : false %}
 
-<div id="python-version-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="python-versions-{{ uniqid }}-version">
+        <label for="{{ idBase }}-version">
             Choose Version
         </label>
-        <select id="python-versions-{{ uniqid }}-version"
-                name="python[versions][{{ uniqid }}][version]"
+        <select id="{{ idBase }}-version"
+                name="{{ nameBase }}[version]"
                 class="form-control select-tag-editable">
             {% if selected_version.version and selected_version.version not in available_versions %}
                 <option value="{{ selected_version.version }}" selected>{{ selected_version.version }}</option>
@@ -31,11 +33,11 @@
         <div class="clearfix"><label>Virtualenv</label></div>
 
         <div class="checkbox">
-            <input type="checkbox" id="python-versions-{{ uniqid }}-virtualenv"
-                   name="python[versions][{{ uniqid }}][virtualenv]"
+            <input type="checkbox" id="{{ idBase }}-virtualenv"
+                   name="{{ nameBase }}[virtualenv]"
                    value="1"
                    {% if virtualenv %}checked{% endif %} />
-            <label for="python-versions-{{ uniqid }}-virtualenv">
+            <label for="{{ idBase }}-virtualenv">
                 Install virtualenv
             </label>
             <div class="help-block">

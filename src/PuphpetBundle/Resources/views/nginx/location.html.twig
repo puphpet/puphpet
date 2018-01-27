@@ -1,4 +1,6 @@
 {% set uniqid = uniqid ?? uniqid('location_') %}
+{% set idBase = "nginx-vhosts-#{vhostId}-locations-#{uniqid}" %}
+{% set nameBase = "nginx[vhosts][#{vhostId}][locations][#{uniqid}]" %}
 
 {% set autoindex = (location.autoindex is defined and location.autoindex is same as('on')) ? true : false %}
 {% set internal = (location.internal is defined and location.internal is same as('on')) ? true : false %}
@@ -9,14 +11,14 @@
 {% set proxy_set_headers = (location.proxy_set_header is defined) ? location.proxy_set_header : [] %}
 {% set rewrites = (location.rewrites is defined) ? location.rewrites : [] %}
 
-<div id="nginx-vhost-{{ vhostId }}-location-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-www_root">
+        <label for="{{ idBase }}-www_root">
             Location Root
         </label>
-        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-www_root"
-               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][www_root]"
+        <input type="text" id="{{ idBase }}-www_root"
+               name="{{ nameBase }}[www_root]"
                placeholder="" class="form-control"
                value="{{ location.www_root }}" />
         <div class="help-block">
@@ -38,11 +40,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-location">
+        <label for="{{ idBase }}-location">
             Location Match
         </label>
-        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-location"
-               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][location]"
+        <input type="text" id="{{ idBase }}-location"
+               name="{{ nameBase }}[location]"
                placeholder="/" class="form-control"
                value="{{ location.location }}" />
         <div class="help-block">
@@ -54,11 +56,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-autoindex">
+        <label for="{{ idBase }}-autoindex">
             Autoindex
         </label>
-        <select id="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-autoindex"
-                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][autoindex]"
+        <select id="{{ idBase }}-autoindex"
+                name="{{ nameBase }}[autoindex]"
                 class="form-control select-tag">
             <option value="off" {% if not autoindex %}selected{% endif %}>Off</option>
             <option value="on" {% if autoindex %}selected{% endif %}>On</option>
@@ -69,11 +71,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-internal">
+        <label for="{{ idBase }}-internal">
             Enable internal
         </label>
-        <select id="nginx-vhosts-{{ uniqid }}-locations-{{ uniqid }}-internal"
-                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][internal]"
+        <select id="{{ idBase }}-internal"
+                name="{{ nameBase }}[internal]"
                 class="form-control select-tag">
             <option value="false" {% if not internal %}selected{% endif %}>Off</option>
             <option value="true" {% if internal %}selected{% endif %}>On</option>
@@ -89,11 +91,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-index_files">
+        <label for="{{ idBase }}-index_files">
             Index Files
         </label>
-        <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-index_files"
-                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][index_files][]"
+        <select id="{{ idBase }}-index_files"
+                name="{{ nameBase }}[index_files][]"
                 multiple class="form-control select-tags-editable">
             {% for index_file in index_files %}
                 <option selected value="{{ index_file }}">{{ index_file }}</option>
@@ -108,11 +110,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-try_files">
+        <label for="{{ idBase }}-try_files">
             Try Files
         </label>
-        <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-try_files"
-                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][try_files][]"
+        <select id="{{ idBase }}-try_files"
+                name="{{ nameBase }}[try_files][]"
                 multiple class="form-control select-tags-editable">
             {% for try_file in try_files %}
                 <option selected value="{{ try_file }}">{{ try_file }}</option>
@@ -127,11 +129,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi">
+        <label for="{{ idBase }}-fastcgi">
             FastCGI Pass
         </label>
-        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi"
-               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fastcgi]"
+        <input type="text" id="{{ idBase }}-fastcgi"
+               name="{{ nameBase }}[fastcgi]"
                placeholder="127.0.0.1:9000" class="form-control"
                value="{{ location.fastcgi }}" />
         <div class="help-block">
@@ -141,11 +143,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_index">
+        <label for="{{ idBase }}-fastcgi_index">
             FastCGI Index
         </label>
-        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_index"
-               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fastcgi_index]"
+        <input type="text" id="{{ idBase }}-fastcgi_index"
+               name="{{ nameBase }}[fastcgi_index]"
                placeholder="index.php" class="form-control"
                value="{{ location.fastcgi_index }}" />
         <div class="help-block">
@@ -157,11 +159,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_split_path">
+        <label for="{{ idBase }}-fastcgi_split_path">
             FastCGI Split Path Info
         </label>
-        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fastcgi_split_path"
-               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fastcgi_split_path]"
+        <input type="text" id="{{ idBase }}-fastcgi_split_path"
+               name="{{ nameBase }}[fastcgi_split_path]"
                placeholder="^(.+\.php)(/.*)$" class="form-control"
                value="{{ location.fastcgi_split_path }}" />
         <div class="help-block">
@@ -171,11 +173,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fast_cgi_params_extra">
+        <label for="{{ idBase }}-fast_cgi_params_extra">
             FastCGI Environment Variables
         </label>
-        <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-fast_cgi_params_extra"
-                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][fast_cgi_params_extra][]"
+        <select id="{{ idBase }}-fast_cgi_params_extra"
+                name="{{ nameBase }}[fast_cgi_params_extra][]"
                 multiple class="form-control select-tags-editable">
             {% for param in fast_cgi_params_extras %}
                 <option selected value="{{ param }}">{{ param }}</option>
@@ -190,11 +192,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-set">
+        <label for="{{ idBase }}-set">
             Set Variables
         </label>
-        <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-set"
-                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][set][]"
+        <select id="{{ idBase }}-set"
+                name="{{ nameBase }}[set][]"
                 multiple class="form-control select-tags-editable">
             {% for param in sets %}
                 <option selected value="{{ param }}">{{ param }}</option>
@@ -208,11 +210,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy">
+        <label for="{{ idBase }}-proxy">
             Proxy
         </label>
-        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy"
-               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][proxy]"
+        <input type="text" id="{{ idBase }}-proxy"
+               name="{{ nameBase }}[proxy]"
                placeholder="http://127.0.0.1:8080/" class="form-control"
                value="{{ location.proxy }}" />
         <div class="help-block">
@@ -225,11 +227,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_redirect">
+        <label for="{{ idBase }}-proxy_redirect">
             Proxy Redirect
         </label>
-        <input type="text" id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_redirect"
-               name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][proxy_redirect]"
+        <input type="text" id="{{ idBase }}-proxy_redirect"
+               name="{{ nameBase }}[proxy_redirect]"
                placeholder="off" class="form-control"
                value="{{ location.proxy }}" />
         <div class="help-block">
@@ -239,11 +241,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_set_header">
+        <label for="{{ idBase }}-proxy_set_header">
             Proxy Set Header
         </label>
-        <select id="nginx-vhosts-{{ vhostId }}-locations-{{ uniqid }}-proxy_set_header"
-                name="nginx[vhosts][{{ vhostId }}][locations][{{ uniqid }}][proxy_set_header][]"
+        <select id="{{ idBase }}-proxy_set_header"
+                name="{{ nameBase }}[proxy_set_header][]"
                 multiple class="form-control select-tags-editable">
             {% for param in proxy_set_headers %}
                 <option selected value="{{ param }}">{{ param }}</option>
@@ -272,12 +274,12 @@
                 </li>
                 {% for index, rewrite in rewrites %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-vhost-{{ vhostId }}-location-{{ uniqid }}-rewrite-{{ index }}"
+                        <a href="#" data-target="#{{ idBase }}-rewrites-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-vhost-{{ vhostId }}-location-{{ uniqid }}-rewrite-{{ index }}">
+                                    data-target="#{{ idBase }}-rewrites-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

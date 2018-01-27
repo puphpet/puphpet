@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('rewrite_') %}
+{% set idBase = "nginx-vhosts-#{vhostId}-rewrites-#{uniqid}" %}
+{% set nameBase = "nginx[vhosts][#{vhostId}][rewrites][#{uniqid}]" %}
 
-<div id="nginx-vhost-{{ vhostId }}-rewrite-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-when">
+        <label for="{{ idBase }}-when">
             When (Optional)
         </label>
-        <input type="text" id="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-when"
-               name="nginx[vhosts][{{ vhostId }}][rewrites][{{ uniqid }}][when]"
+        <input type="text" id="{{ idBase }}-when"
+               name="{{ nameBase }}[when]"
                placeholder="$http_user_agent ~ MSIE" class="form-control"
                value="{{ rewrite.when }}" />
         <div class="help-block">
@@ -18,11 +20,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-regex">
+        <label for="{{ idBase }}-regex">
             Regex
         </label>
-        <input type="text" id="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-regex"
-               name="nginx[vhosts][{{ vhostId }}][rewrites][{{ uniqid }}][regex]"
+        <input type="text" id="{{ idBase }}-regex"
+               name="{{ nameBase }}[regex]"
                placeholder="^(.*)$" class="form-control"
                value="{{ rewrite.regex }}" />
         <div class="help-block">
@@ -35,11 +37,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-target">
+        <label for="{{ idBase }}-target">
             Target
         </label>
-        <input type="text" id="nginx-vhosts-{{ vhostId }}-rewrites-{{ uniqid }}-target"
-               name="nginx[vhosts][{{ vhostId }}][rewrites][{{ uniqid }}][target]"
+        <input type="text" id="{{ idBase }}-target"
+               name="{{ nameBase }}[target]"
                placeholder="/msie/$1 break" class="form-control"
                value="{{ rewrite.target }}" />
         <div class="help-block">

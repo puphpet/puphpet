@@ -40,12 +40,12 @@
                 </li>
                 {% for index, job in cron.jobs %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#cron-job-{{ index }}"
+                        <a href="#" data-target="#cron-jobs-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#cron-job-{{ index }}">
+                                    data-target="#cron-jobs-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

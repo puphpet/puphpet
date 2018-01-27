@@ -85,12 +85,12 @@
                 </li>
                 {% for index, user in rabbitmq.users %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#rabbitmq-user-{{ index }}"
+                        <a href="#" data-target="#rabbitmq-users-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#rabbitmq-user-{{ index }}">
+                                    data-target="#rabbitmq-users-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

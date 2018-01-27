@@ -1,16 +1,18 @@
 {% set uniqid = uniqid ?? uniqid('machine_') %}
+{% set idBase = "vagrantfile-vm-provider-local-machines-#{uniqid}" %}
+{% set nameBase = "vagrantfile[vm][provider][local][machines][#{uniqid}]" %}
 
 {% set forwarded_ports = (machine.network.forwarded_port is defined)
     ? machine.network.forwarded_port : [] %}
 
-<div id="local-machine-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-id">
+        <label for="{{ idBase }}-id">
             Internal Identifier
         </label>
-        <input type="text" id="vagrantfile-vm-provider-local-machines-{{ uniqid }}-id"
-               name="vagrantfile[vm][provider][local][machines][{{ uniqid }}][id]"
+        <input type="text" id="{{ idBase }}-id"
+               name="{{ nameBase }}[id]"
                placeholder="machine1" class="form-control"
                value="{{ machine.id }}" />
         <div class="help-block">
@@ -20,11 +22,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-hostname">
+        <label for="{{ idBase }}-hostname">
             Hostname
         </label>
-        <input type="text" id="vagrantfile-vm-provider-local-machines-{{ uniqid }}-hostname"
-               name="vagrantfile[vm][provider][local][machines][{{ uniqid }}][hostname]"
+        <input type="text" id="{{ idBase }}-hostname"
+               name="{{ nameBase }}[hostname]"
                placeholder="machine1.puphpet" class="form-control"
                value="{{ machine.hostname }}" />
         <div class="help-block">
@@ -37,11 +39,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-network-private_network">
+        <label for="{{ idBase }}-network-private_network">
             IP Address
         </label>
-        <input type="text" id="vagrantfile-vm-provider-local-machines-{{ uniqid }}-network-private_network"
-               name="vagrantfile[vm][provider][local][machines][{{ uniqid }}][network][private_network]"
+        <input type="text" id="{{ idBase }}-network-private_network"
+               name="{{ nameBase }}[network][private_network]"
                placeholder="192.168.56.101" class="form-control"
                value="{{ machine.network.private_network }}"
                data-target="update-local-ip-address" />
@@ -58,11 +60,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-memory">
+        <label for="{{ idBase }}-memory">
             Memory
         </label>
-        <input type="number" id="vagrantfile-vm-provider-local-machines-{{ uniqid }}-memory"
-               name="vagrantfile[vm][provider][local][machines][{{ uniqid }}][memory]"
+        <input type="number" id="{{ idBase }}-memory"
+               name="{{ nameBase }}[memory]"
                placeholder="512" min="64" class="form-control"
                value="{{ machine.memory }}" />
         <div class="help-block">
@@ -73,11 +75,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-local-machines-{{ uniqid }}-cpus">
+        <label for="{{ idBase }}-cpus">
             CPUs
         </label>
-        <input type="number" id="vagrantfile-vm-provider-local-machines-{{ uniqid }}-cpus"
-               name="vagrantfile[vm][provider][local][machines][{{ uniqid }}][cpus]"
+        <input type="number" id="{{ idBase }}-cpus"
+               name="{{ nameBase }}[cpus]"
                placeholder="1" min="1" class="form-control"
                value="{{ machine.cpus }}" />
         <div class="help-block">
@@ -98,12 +100,12 @@
                 </li>
                 {% for index, forwarded_port in forwarded_ports %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#local-port-{{ index }}"
+                        <a href="#" data-target="#{{ idBase }}-network-forwarded_port-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#local-port-{{ index }}">
+                                    data-target="#{{ idBase }}-network-forwarded_port-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

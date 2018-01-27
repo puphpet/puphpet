@@ -65,12 +65,12 @@
                 </li>
                 {% for index, vhost in nginx.vhosts %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-vhost-{{ index }}"
+                        <a href="#" data-target="#nginx-vhosts-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-vhost-{{ index }}">
+                                    data-target="#nginx-vhosts-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -106,12 +106,12 @@
                 </li>
                 {% for index, upstream in nginx.upstreams %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-upstream-{{ index }}"
+                        <a href="#" data-target="#nginx-upstreams-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-upstream-{{ index }}">
+                                    data-target="#nginx-upstreams-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -147,12 +147,12 @@
                 </li>
                 {% for index, proxy in nginx.proxies %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#nginx-proxy-{{ index }}"
+                        <a href="#" data-target="#nginx-proxies-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#nginx-proxy-{{ index }}">
+                                    data-target="#nginx-proxies-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

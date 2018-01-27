@@ -55,12 +55,12 @@
                 </li>
                 {% for index, vhost in apache.vhosts %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#apache-vhost-{{ index }}"
+                        <a href="#" data-target="#apache-vhosts-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#apache-vhost-{{ index }}">
+                                    data-target="#apache-vhosts-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

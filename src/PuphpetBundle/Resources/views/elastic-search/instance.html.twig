@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('instance_') %}
+{% set idBase = "elastic_search-instances-#{uniqid}" %}
+{% set nameBase = "elastic_search[instances][#{uniqid}]" %}
 
-<div id="elastic_search-instances-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12">
-        <label for="elastic_search-instances-{{ uniqid }}-name">
+        <label for="{{ idBase }}-name">
             Name
         </label>
-        <input type="text" id="elastic_search-instances-{{ uniqid }}-name"
-               name="elastic_search[instances][{{ uniqid }}][name]"
+        <input type="text" id="{{ idBase }}-name"
+               name="{{ nameBase }}[name]"
                placeholder="es-01" class="form-control"
                value="{{ instance.name }}" />
         <div class="help-block">
@@ -18,11 +20,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12">
-        <label for="elastic_search-instances-{{ uniqid }}-jvm_options">
+        <label for="{{ idBase }}-jvm_options">
             JVM Options
         </label>
-        <select id="elastic_search-instances-{{ uniqid }}-jvm_options"
-               name="elastic_search[instances][{{ uniqid }}][jvm_options][]"
+        <select id="{{ idBase }}-jvm_options"
+               name="{{ nameBase }}[jvm_options][]"
                multiple class="form-control select-tags-editable">
             {% for option in instance.jvm_options %}
                 <option selected value="{{ option }}">{{ option }}</option>

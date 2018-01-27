@@ -87,12 +87,12 @@
                 </li>
                 {% for index, user in postgresql.users %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#postgresql-user-{{ index }}"
+                        <a href="#" data-target="#postgresql-users-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#postgresql-user-{{ index }}">
+                                    data-target="#postgresql-users-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -128,12 +128,12 @@
                 </li>
                 {% for index, database in postgresql.databases %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#postgresql-database-{{ index }}"
+                        <a href="#" data-target="#postgresql-databases-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#postgresql-database-{{ index }}">
+                                    data-target="#postgresql-databases-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -169,12 +169,12 @@
                 </li>
                 {% for index, grant in postgresql.grants %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#postgresql-grant-{{ index }}"
+                        <a href="#" data-target="#postgresql-grants-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#postgresql-grant-{{ index }}">
+                                    data-target="#postgresql-grants-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

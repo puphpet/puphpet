@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('machine_') %}
+{% set idBase = "vagrantfile-vm-provider-aws-machines-#{uniqid}" %}
+{% set nameBase = "vagrantfile[vm][provider][aws][machines][#{uniqid}]" %}
 
-<div id="aws-machine-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBasee }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-id">
+        <label for="{{ idBase }}-id">
             Internal Identifier
         </label>
-        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-id"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][id]"
+        <input type="text" id="{{ idBase }}-id"
+               name="{{ nameBase }}[id]"
                placeholder="aws1" class="form-control"
                value="{{ machine.id }}" />
         <div class="help-block">
@@ -17,11 +19,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-hostname">
+        <label for="{{ idBase }}-hostname">
             Hostname
         </label>
-        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-hostname"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][hostname]"
+        <input type="text" id="{{ idBase }}-hostname"
+               name="{{ nameBase }}[hostname]"
                placeholder="aws1.puphpet" class="form-control"
                value="{{ machine.hostname }}" />
         <div class="help-block">
@@ -34,11 +36,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-keypair_name">
+        <label for="{{ idBase }}-keypair_name">
             EC2 Key Pair Name
         </label>
-        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-keypair_name"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][keypair_name]"
+        <input type="text" id="{{ idBase }}-keypair_name"
+               name="{{ nameBase }}[keypair_name]"
                placeholder="EC2 KEY PAIR NAME" class="form-control"
                value="{{ machine.keypair_name }}" />
         <div class="help-block">
@@ -48,11 +50,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-private_key_path">
+        <label for="{{ idBase }}-private_key_path">
             Local Private Key Path
         </label>
-        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-private_key_path"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][private_key_path]"
+        <input type="text" id="{{ idBase }}-private_key_path"
+               name="{{ nameBase }}[private_key_path]"
                placeholder="~/.ssh/id_rsa" class="form-control"
                value="{{ machine.private_key_path }}" />
         <div class="help-block">
@@ -73,11 +75,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-region">
+        <label for="{{ idBase }}-region">
             Datacenter Location
         </label>
-        <select id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-region"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][region]"
+        <select id="{{ idBase }}-region"
+               name="{{ nameBase }}[region]"
                class="form-control select-tag">
             {% for key, region in regions %}
                 <option value="{{ key }}"
@@ -90,11 +92,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-instance_type">
+        <label for="{{ idBase }}-instance_type">
             Instance Size
         </label>
-        <select id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-instance_type"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][instance_type]"
+        <select id="{{ idBase }}-instance_type"
+               name="{{ nameBase }}[instance_type]"
                class="form-control select-tag">
             {% for type, description in instance_types %}
                 <option value="{{ type }}"
@@ -110,11 +112,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ami">
+        <label for="{{ idBase }}-ami">
             AMI
         </label>
-        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ami"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][ami]"
+        <input type="text" id="{{ idBase }}-ami"
+               name="{{ nameBase }}[ami]"
                placeholder="AMI" class="form-control"
                value="{{ machine.ami }}" />
         <div class="help-block">
@@ -133,11 +135,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ssh_username">
+        <label for="{{ idBase }}-ssh_username">
             SSH Username
         </label>
-        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-ssh_username"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][ssh_username]"
+        <input type="text" id="{{ idBase }}-ssh_username"
+               name="{{ nameBase }}[ssh_username]"
                placeholder="AMI" class="form-control"
                value="{{ machine.ssh_username }}" />
         <div class="help-block">
@@ -148,11 +150,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-security_groups">
+        <label for="{{ idBase }}-security_groups">
             EC2 Security Groups
         </label>
-        <select id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-security_groups"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][security_groups][]"
+        <select id="{{ idBase }}-security_groups"
+               name="{{ nameBase }}[security_groups][]"
                multiple class="form-control select-tags-editable">
             {% for group in machine.security_groups %}
                 <option value="{{ group }}" selected>{{ group }}</option>
@@ -165,11 +167,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-subnet_id">
+        <label for="{{ idBase }}-subnet_id">
             VPC Subnet ID
         </label>
-        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-subnet_id"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][subnet_id]"
+        <input type="text" id="{{ idBase }}-subnet_id"
+               name="{{ nameBase }}[subnet_id]"
                placeholder="VPC Subnet ID" class="form-control"
                value="{{ machine.subnet_id }}" />
         <div class="help-block">
@@ -181,11 +183,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-elastic_ip">
+        <label for="{{ idBase }}-elastic_ip">
             Elastic IP Address
         </label>
-        <input type="text" id="vagrantfile-vm-provider-aws-machines-{{ uniqid }}-elastic_ip"
-               name="vagrantfile[vm][provider][aws][machines][{{ uniqid }}][elastic_ip]"
+        <input type="text" id="{{ idBase }}-elastic_ip"
+               name="{{ nameBase }}[elastic_ip]"
                placeholder="Elastic IP" class="form-control"
                value="{{ machine.elastic_ip }}" />
         <div class="help-block">

@@ -1,19 +1,21 @@
 {% set uniqid = uniqid ?? uniqid('version_') %}
+{% set idBase = "ruby-versions-#{uniqid}" %}
+{% set nameBase = "ruby[versions][#{uniqid}]" %}
 
 {% set default = (selected_version.default is defined and selected_version.default) ? true : false %}
 {% set bundler = (selected_version.bundler is defined and selected_version.bundler) ? true : false %}
 
-<div id="ruby-version-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12">
         <div class="clearfix"><label>Options</label></div>
 
         <div class="checkbox">
-            <input type="checkbox" id="ruby-versions-{{ uniqid }}-default"
-                   name="ruby[versions][{{ uniqid }}][default]"
+            <input type="checkbox" id="{{ idBase }}-default"
+                   name="{{ nameBase }}[default]"
                    value="1"
                    {% if default %}checked{% endif %} />
-            <label for="ruby-versions-{{ uniqid }}-default">
+            <label for="{{ idBase }}-default">
                 Set as default
             </label>
             <div class="help-block">
@@ -23,11 +25,11 @@
         </div>
 
         <div class="checkbox">
-            <input type="checkbox" id="ruby-versions-{{ uniqid }}-bundler"
-                   name="ruby[versions][{{ uniqid }}][bundler]"
+            <input type="checkbox" id="{{ idBase }}-bundler"
+                   name="{{ nameBase }}[bundler]"
                    value="1"
                    {% if bundler %}checked{% endif %} />
-            <label for="ruby-versions-{{ uniqid }}-bundler">
+            <label for="{{ idBase }}-bundler">
                 Install Bundler
             </label>
             <div class="help-block">
@@ -40,11 +42,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="ruby-versions-{{ uniqid }}-version">
+        <label for="{{ idBase }}-version">
             Choose Version
         </label>
-        <select id="ruby-versions-{{ uniqid }}-version"
-                name="ruby[versions][{{ uniqid }}][version]"
+        <select id="{{ idBase }}-version"
+                name="{{ nameBase }}[version]"
                 class="form-control select-tag-editable">
             {% if selected_version.version and selected_version.version not in available_versions %}
                 <option value="{{ selected_version.version }}" selected>{{ selected_version.version }}</option>
@@ -61,11 +63,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="ruby-versions-{{ uniqid }}-gems">
+        <label for="{{ idBase }}-gems">
             Installed Gems
         </label>
-        <select id="ruby-versions-{{ uniqid }}-gems"
-                multiple name="ruby[versions][{{ uniqid }}][gems][]"
+        <select id="{{ idBase }}-gems"
+                multiple name="{{ nameBase }}[gems][]"
                 class="form-control select-tags-editable">
             {% if selected_version.gems is defined %}
                 {% for gem in selected_version.gems %}

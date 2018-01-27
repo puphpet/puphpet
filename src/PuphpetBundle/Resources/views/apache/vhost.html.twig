@@ -1,4 +1,6 @@
 {% set uniqid = uniqid ?? uniqid('vhost_') %}
+{% set idBase = "apache-vhosts-#{uniqid}" %}
+{% set nameBase = "apache[vhosts][#{uniqid}]" %}
 
 {% set serveraliases = (vhost.serveraliases is defined) ? vhost.serveraliases : [] %}
 {% set ssl = (vhost.ssl is defined and vhost.ssl) ? true : false %}
@@ -14,14 +16,14 @@
 {% set directories = (vhost.directories is defined) ? vhost.directories : [] %}
 {% set files_matches = (vhost.files_match is defined) ? vhost.files_match : [] %}
 
-<div id="apache-vhost-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ uniqid }}-servername">
+        <label for="{{ idBase }}-servername">
             Server Name
         </label>
-        <input type="text" id="apache-vhosts-{{ uniqid }}-servername"
-               name="apache[vhosts][{{ uniqid }}][servername]"
+        <input type="text" id="{{ idBase }}-servername"
+               name="{{ nameBase }}[servername]"
                placeholder="awesome.dev" class="form-control"
                value="{{ vhost.servername }}" />
         <div class="help-block">
@@ -30,11 +32,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ uniqid }}-serveraliases">
+        <label for="{{ idBase }}-serveraliases">
             Server Aliases
         </label>
-        <select id="apache-vhosts-{{ uniqid }}-serveraliases"
-                name="apache[vhosts][{{ uniqid }}][serveraliases][]"
+        <select id="{{ idBase }}-serveraliases"
+                name="{{ nameBase }}[serveraliases][]"
                 multiple class="form-control select-tags-editable">
             {% for alias in serveraliases %}
                 <option selected value="{{ alias }}">{{ alias }}</option>
@@ -48,11 +50,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ uniqid }}-docroot">
+        <label for="{{ idBase }}-docroot">
             Document Root
         </label>
-        <input type="text" id="apache-vhosts-{{ uniqid }}-docroot"
-               name="apache[vhosts][{{ uniqid }}][docroot]"
+        <input type="text" id="{{ idBase }}-docroot"
+               name="{{ nameBase }}[docroot]"
                placeholder="/var/www" class="form-control"
                value="{{ vhost.docroot }}" />
         <div class="help-block">
@@ -61,11 +63,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ uniqid }}-port">
+        <label for="{{ idBase }}-port">
             Port
         </label>
-        <input type="number" id="apache-vhosts-{{ uniqid }}-port"
-               name="apache[vhosts][{{ uniqid }}][port]"
+        <input type="number" id="{{ idBase }}-port"
+               name="{{ nameBase }}[port]"
                placeholder="80" class="form-control"
                value="{{ vhost.port }}" />
         <div class="help-block">
@@ -77,11 +79,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ uniqid }}-setenvif">
+        <label for="{{ idBase }}-setenvif">
             SetEnvIf
         </label>
-        <select id="apache-vhosts-{{ uniqid }}-setenvif"
-                name="apache[vhosts][{{ uniqid }}][setenvif][]"
+        <select id="{{ idBase }}-setenvif"
+                name="{{ nameBase }}[setenvif][]"
                 multiple class="form-control select-tags-editable">
             {% for setenvif in setenvifs %}
                 <option selected value="{{ setenvif }}">{{ setenvif }}</option>
@@ -93,11 +95,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ uniqid }}-custom_fragment">
+        <label for="{{ idBase }}-custom_fragment">
             Virtual Host-Level Custom Directives
         </label>
-        <input type="text" id="apache-vhosts-{{ uniqid }}-custom_fragment"
-               name="apache[vhosts][{{ uniqid }}][custom_fragment]"
+        <input type="text" id="{{ idBase }}-custom_fragment"
+               name="{{ nameBase }}[custom_fragment]"
                placeholder="/path/to/file" class="form-control"
                value="{{ vhost.custom_fragment }}" />
         <div class="help-block">
@@ -109,39 +111,39 @@
 
     <div class="clearfix"></div>
 
-    <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl]" value="0" />
+    <input type="hidden" name="{{ nameBase }}[ssl]" value="0" />
 
     <div class="panel panel-info">
         <div class="panel-heading">SSL Options</div>
         <div class="panel-body">
             <ul class="nav nav-tabs nested-tabs">
                 <li class="{% if ssl_letsencrypt_enabled or not ssl %}active{% endif %}">
-                    <a href="#" data-target="#apache-vhosts-{{ uniqid }}-ssl-letsencrypt-container"
+                    <a href="#" data-target="#{{ idBase }}-ssl-letsencrypt-container"
                        data-toggle="tab">Let's Encrypt SSL</a>
                 </li>
                 <li class="{% if ssl_custom_enabled %}active{% endif %}">
-                    <a href="#" data-target="#apache-vhosts-{{ uniqid }}-ssl-custom-container"
+                    <a href="#" data-target="#{{ idBase }}-ssl-custom-container"
                        data-toggle="tab">Custom SSL</a>
                 </li>
             </ul>
 
             <div class="tab-content">
-                <div id="apache-vhosts-{{ uniqid }}-ssl-letsencrypt-container"
+                <div id="{{ idBase }}-ssl-letsencrypt-container"
                     class="tab-pane {% if ssl_letsencrypt_enabled or not ssl %}active{% endif %}">
                     <div class="checkbox checkbox-md no-padding mb-20">
-                        <input type="checkbox" id="apache-vhosts-{{ uniqid }}-ssl-letsencrypt-enabled"
-                               name="apache[vhosts][{{ uniqid }}][ssl]" value="1"
+                        <input type="checkbox" id="{{ idBase }}-ssl-letsencrypt-enabled"
+                               name="{{ nameBase }}[ssl]" value="1"
                                {% if ssl_letsencrypt_enabled %}checked{% endif %}
                                data-toggle="checkbox-collapse"
-                               data-target="#apache-vhosts-{{ uniqid }}-ssl-letsencrypt-enabled-container"
-                               data-enforce-group-single="apache-vhosts-{{ uniqid }}-ssl"
+                               data-target="#{{ idBase }}-ssl-letsencrypt-enabled-container"
+                               data-enforce-group-single="{{ idBase }}-ssl"
                                data-enable-on-check data-disable-on-uncheck />
-                        <label for="apache-vhosts-{{ uniqid }}-ssl-letsencrypt-enabled">Use Let's Encrypt SSL</label>
+                        <label for="{{ idBase }}-ssl-letsencrypt-enabled">Use Let's Encrypt SSL</label>
                     </div>
 
                     <div class="clearfix"></div>
 
-                    <div id="apache-vhosts-{{ uniqid }}-ssl-letsencrypt-enabled-container"
+                    <div id="{{ idBase }}-ssl-letsencrypt-enabled-container"
                         class="collapse {% if ssl_letsencrypt_enabled %}in{% endif %}">
                         <div class="help-block">
                             <p>Let’s Encrypt is a new Certificate Authority:
@@ -178,42 +180,42 @@
                         </div>
                     </div>
 
-                    <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_cert]"
+                    <input type="hidden" name="{{ nameBase }}[ssl_cert]"
                            value="LETSENCRYPT" />
-                    <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_key]"
+                    <input type="hidden" name="{{ nameBase }}[ssl_key]"
                            value="LETSENCRYPT" />
-                    <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_chain]"
+                    <input type="hidden" name="{{ nameBase }}[ssl_chain]"
                            value="LETSENCRYPT" />
-                    <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_certs_dir]"
+                    <input type="hidden" name="{{ nameBase }}[ssl_certs_dir]"
                            value="LETSENCRYPT" />
-                    <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_protocol]"
+                    <input type="hidden" name="{{ nameBase }}[ssl_protocol]"
                            value="{{ ssl_protocol }}" />
-                    <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_cipher]"
+                    <input type="hidden" name="{{ nameBase }}[ssl_cipher]"
                            value="{{ ssl_cipher }}" />
                 </div>
-                <div id="apache-vhosts-{{ uniqid }}-ssl-custom-container"
+                <div id="{{ idBase }}-ssl-custom-container"
                     class="tab-pane {% if ssl_custom_enabled %}active{% endif %}">
                     <div class="checkbox checkbox-md no-padding mb-20">
-                        <input type="checkbox" id="apache-vhosts-{{ uniqid }}-ssl-custom-enabled"
-                               name="apache[vhosts][{{ uniqid }}][ssl]" value="1"
+                        <input type="checkbox" id="{{ idBase }}-ssl-custom-enabled"
+                               name="{{ nameBase }}[ssl]" value="1"
                                {% if ssl_custom_enabled %}checked{% endif %}
                                data-toggle="checkbox-collapse"
-                               data-target="#apache-vhosts-{{ uniqid }}-ssl-custom-enabled-container"
-                               data-enforce-group-single="apache-vhosts-{{ uniqid }}-ssl"
+                               data-target="#{{ idBase }}-ssl-custom-enabled-container"
+                               data-enforce-group-single="{{ idBase }}-ssl"
                                data-enable-on-check data-disable-on-uncheck />
-                        <label for="apache-vhosts-{{ uniqid }}-ssl-custom-enabled">Use Custom SSL</label>
+                        <label for="{{ idBase }}-ssl-custom-enabled">Use Custom SSL</label>
                     </div>
 
                     <div class="clearfix"></div>
 
-                    <div id="apache-vhosts-{{ uniqid }}-ssl-custom-enabled-container"
+                    <div id="{{ idBase }}-ssl-custom-enabled-container"
                         class="collapse {% if ssl_custom_enabled %}in{% endif %}">
                         <div class="form-group col-xs-12 col-sm-6">
-                            <label for="apache-vhosts-{{ uniqid }}-ssl_cert">
+                            <label for="{{ idBase }}-ssl_cert">
                                 SSL Certificate File Path
                             </label>
-                            <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_cert"
-                                   name="apache[vhosts][{{ uniqid }}][ssl_cert]"
+                            <input type="text" id="{{ idBase }}-ssl_cert"
+                                   name="{{ nameBase }}[ssl_cert]"
                                    placeholder="/leave/blank/for/sample" class="form-control"
                                    value="{{ ssl_cert }}" />
                             <div class="help-block">
@@ -233,11 +235,11 @@
                         </div>
 
                         <div class="form-group col-xs-12 col-sm-6">
-                            <label for="apache-vhosts-{{ uniqid }}-ssl_key">
+                            <label for="{{ idBase }}-ssl_key">
                                 SSL Certificate Key File
                             </label>
-                            <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_key"
-                                   name="apache[vhosts][{{ uniqid }}][ssl_key]"
+                            <input type="text" id="{{ idBase }}-ssl_key"
+                                   name="{{ nameBase }}[ssl_key]"
                                    placeholder="/leave/blank/for/sample" class="form-control"
                                    value="{{ ssl_key }}" />
                             <div class="help-block">
@@ -259,11 +261,11 @@
                         <div class="clearfix"></div>
 
                         <div class="form-group col-xs-12 col-sm-6">
-                            <label for="apache-vhosts-{{ uniqid }}-ssl_chain">
+                            <label for="{{ idBase }}-ssl_chain">
                                 SSL Certificate Chain File Path
                             </label>
-                            <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_chain"
-                                   name="apache[vhosts][{{ uniqid }}][ssl_chain]"
+                            <input type="text" id="{{ idBase }}-ssl_chain"
+                                   name="{{ nameBase }}[ssl_chain]"
                                    placeholder="/leave/blank/for/sample" class="form-control"
                                    value="{{ ssl_chain }}" />
                             <div class="help-block">
@@ -284,11 +286,11 @@
                         </div>
 
                         <div class="form-group col-xs-12 col-sm-6">
-                            <label for="apache-vhosts-{{ uniqid }}-ssl_certs_dir">
+                            <label for="{{ idBase }}-ssl_certs_dir">
                                 SSL CA Certificate Path
                             </label>
-                            <input type="text" id="apache-vhosts-{{ uniqid }}-ssl_certs_dir"
-                                   name="apache[vhosts][{{ uniqid }}][ssl_certs_dir]"
+                            <input type="text" id="{{ idBase }}-ssl_certs_dir"
+                                   name="{{ nameBase }}[ssl_certs_dir]"
                                    placeholder="/leave/blank/for/sample" class="form-control"
                                    value="{{ ssl_certs_dir }}" />
                             <div class="help-block">
@@ -307,9 +309,9 @@
                             </div>
                         </div>
 
-                        <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_protocol]"
+                        <input type="hidden" name="{{ nameBase }}[ssl_protocol]"
                                value="{{ ssl_protocol }}" />
-                        <input type="hidden" name="apache[vhosts][{{ uniqid }}][ssl_cipher]"
+                        <input type="hidden" name="{{ nameBase }}[ssl_cipher]"
                                value="{{ ssl_cipher }}" />
 
                         <div class="clearfix"></div>
@@ -340,12 +342,12 @@
                 </li>
                 {% for index, directory in directories %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#apache-vhost-{{ uniqid }}-rewrite-{{ index }}"
+                        <a href="#" data-target="#{{ idBase }}-directories-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#apache-vhost-{{ uniqid }}-rewrite-{{ index }}">
+                                    data-target="#{{ idBase }}-directories-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -382,12 +384,12 @@
                 </li>
                 {% for index, filesMatch in files_matches %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#apache-vhost-{{ uniqid }}-filesmatch-{{ index }}"
+                        <a href="#" data-target="#{{ idBase }}-filesmatch-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#apache-vhost-{{ uniqid }}-filesmatch-{{ index }}">
+                                    data-target="#{{ idBase }}-filesmatch-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

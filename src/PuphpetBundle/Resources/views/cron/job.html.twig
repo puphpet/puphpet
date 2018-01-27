@@ -1,16 +1,18 @@
 {% set uniqid = uniqid ?? uniqid('job_') %}
+{% set idBase = "cron-jobs-#{uniqid}" %}
+{% set nameBase = "cron[jobs][#{uniqid}]" %}
 
 {% set environments = (job.environment is defined and job.environment is not empty)
     ? job.environment : [] %}
 
-<div id="cron-job-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="cron-jobs-{{ uniqid }}-name">
+        <label for="{{ idBase }}-name">
             Name
         </label>
-        <input type="text" id="cron-jobs-{{ uniqid }}-name"
-               name="cron[jobs][{{ uniqid }}][name]"
+        <input type="text" id="{{ idBase }}-name"
+               name="{{ nameBase }}[name]"
                placeholder="your-awesome-job-name" class="form-control"
                value="{{ job.name }}" />
         <div class="help-block">
@@ -19,11 +21,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="cron-jobs-{{ uniqid }}-user">
+        <label for="{{ idBase }}-user">
             User
         </label>
-        <input type="text" id="cron-jobs-{{ uniqid }}-user"
-               name="cron[jobs][{{ uniqid }}][user]"
+        <input type="text" id="{{ idBase }}-user"
+               name="{{ nameBase }}[user]"
                placeholder="root" class="form-control"
                value="{{ job.user }}" />
         <div class="help-block">
@@ -34,11 +36,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12">
-        <label for="cron-jobs-{{ uniqid }}-command">
+        <label for="{{ idBase }}-command">
             Command
         </label>
-        <input type="text" id="cron-jobs-{{ uniqid }}-command"
-               name="cron[jobs][{{ uniqid }}][command]"
+        <input type="text" id="{{ idBase }}-command"
+               name="{{ nameBase }}[command]"
                placeholder="echo &quot;you are beautiful&quot;" class="form-control"
                value="{{ job.command }}" />
         <div class="help-block">
@@ -49,11 +51,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12">
-        <label for="cron-jobs-{{ uniqid }}-environment">
+        <label for="{{ idBase }}-environment">
             Environment Variables
         </label>
-        <select id="cron-jobs-{{ uniqid }}-environment"
-               name="cron[jobs][{{ uniqid }}][environment][]"
+        <select id="{{ idBase }}-environment"
+               name="{{ nameBase }}[environment][]"
                multiple class="form-control select-tags-editable">
             {% for environment in environments %}
                 <option selected value="{{ environment }}">{{ environment }}</option>
@@ -68,11 +70,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="cron-jobs-{{ uniqid }}-minute">
+        <label for="{{ idBase }}-minute">
             Minute
         </label>
-        <input type="text" id="cron-jobs-{{ uniqid }}-minute"
-               name="cron[jobs][{{ uniqid }}][minute]"
+        <input type="text" id="{{ idBase }}-minute"
+               name="{{ nameBase }}[minute]"
                placeholder="" class="form-control"
                value="{{ job.minute }}" />
         <div class="help-block">
@@ -82,11 +84,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="cron-jobs-{{ uniqid }}-hour">
+        <label for="{{ idBase }}-hour">
             Hour
         </label>
-        <input type="text" id="cron-jobs-{{ uniqid }}-hour"
-               name="cron[jobs][{{ uniqid }}][hour]"
+        <input type="text" id="{{ idBase }}-hour"
+               name="{{ nameBase }}[hour]"
                placeholder="" class="form-control"
                value="{{ job.hour }}" />
         <div class="help-block">
@@ -98,11 +100,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="cron-jobs-{{ uniqid }}-weekday">
+        <label for="{{ idBase }}-weekday">
             Day
         </label>
-        <input type="text" id="cron-jobs-{{ uniqid }}-weekday"
-               name="cron[jobs][{{ uniqid }}][weekday]"
+        <input type="text" id="{{ idBase }}-weekday"
+               name="{{ nameBase }}[weekday]"
                placeholder="" class="form-control"
                value="{{ job.weekday }}" />
         <div class="help-block">
@@ -112,11 +114,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="cron-jobs-{{ uniqid }}-month">
+        <label for="{{ idBase }}-month">
             Month
         </label>
-        <input type="text" id="cron-jobs-{{ uniqid }}-month"
-               name="cron[jobs][{{ uniqid }}][month]"
+        <input type="text" id="{{ idBase }}-month"
+               name="{{ nameBase }}[month]"
                placeholder="" class="form-control"
                value="{{ job.month }}" />
         <div class="help-block">
@@ -127,6 +129,6 @@
 
     <div class="clearfix"></div>
 
-    <input type="hidden" name="cron[jobs][{{ uniqid }}][monthday]"
+    <input type="hidden" name="{{ nameBase }}[monthday]"
            value="{{ job.monthday }}" />
 </div>

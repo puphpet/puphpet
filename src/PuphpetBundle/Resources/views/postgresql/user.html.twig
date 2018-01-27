@@ -1,15 +1,17 @@
 {% set uniqid = uniqid ?? uniqid('user_') %}
+{% set idBase = "postgresql-users-#{uniqid}" %}
+{% set nameBase = "postgresql[users][#{uniqid}]" %}
 
 {% set superUser = (user.superuser is defined and user.superuser) ? true : false %}
 
-<div id="postgresql-user-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="postgresql-users-{{ uniqid }}-username">
+        <label for="{{ idBase }}-username">
             Username
         </label>
-        <input type="text" id="postgresql-users-{{ uniqid }}-username"
-               name="postgresql[users][{{ uniqid }}][username]"
+        <input type="text" id="{{ idBase }}-username"
+               name="{{ nameBase }}[username]"
                placeholder="username" class="form-control"
                value="{{ user.username }}" />
         <div class="help-block">
@@ -19,11 +21,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="postgresql-users-{{ uniqid }}-password">
+        <label for="{{ idBase }}-password">
             Password
         </label>
-        <input type="text" id="postgresql-users-{{ uniqid }}-password"
-               name="postgresql[users][{{ uniqid }}][password]"
+        <input type="text" id="{{ idBase }}-password"
+               name="{{ nameBase }}[password]"
                placeholder="123" class="form-control"
                value="{{ user.password }}" />
         <div class="help-block">
@@ -37,11 +39,11 @@
         <div class="clearfix"><label>Superuser</label></div>
 
         <div class="checkbox">
-            <input type="checkbox" id="postgresql-users-{{ uniqid }}-superuser"
-                   name="postgresql[users][{{ uniqid }}][superuser]"
+            <input type="checkbox" id="{{ idBase }}-superuser"
+                   name="{{ nameBase }}[superuser]"
                    value="1"
                    {% if superUser %}checked{% endif %} />
-            <label for="postgresql-users-{{ uniqid }}-superuser">
+            <label for="{{ idBase }}-superuser">
                 Grant this user superuser role
             </label>
         </div>

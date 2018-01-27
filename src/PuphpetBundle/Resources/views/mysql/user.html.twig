@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('user_') %}
+{% set idBase = "mysql-users-#{uniqid}" %}
+{% set nameBase = "mysql[users][#{uniqid}]" %}
 
-<div id="mysql-user-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="mysql-users-{{ uniqid }}-name">
+        <label for="{{ idBase }}-name">
             Username
         </label>
-        <input type="text" id="mysql-users-{{ uniqid }}-name"
-               name="mysql[users][{{ uniqid }}][name]"
+        <input type="text" id="{{ idBase }}-name"
+               name="{{ nameBase }}[name]"
                placeholder="username" class="form-control"
                value="{{ user.name }}" />
         <div class="help-block">
@@ -20,11 +22,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="mysql-users-{{ uniqid }}-password">
+        <label for="{{ idBase }}-password">
             Password
         </label>
-        <input type="text" id="mysql-users-{{ uniqid }}-password"
-               name="mysql[users][{{ uniqid }}][password]"
+        <input type="text" id="{{ idBase }}-password"
+               name="{{ nameBase }}[password]"
                placeholder="123" class="form-control"
                value="{{ user.password }}" />
         <div class="help-block">

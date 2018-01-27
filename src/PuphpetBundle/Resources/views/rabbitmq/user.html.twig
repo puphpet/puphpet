@@ -1,16 +1,18 @@
 {% set uniqid = uniqid ?? uniqid('user_') %}
+{% set idBase = "rabbitmq-users-#{uniqid}" %}
+{% set nameBase = "rabbitmq[users][#{uniqid}]" %}
 
-<div id="rabbitmq-user-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12">
         <div class="clearfix"><label>Admin</label></div>
 
         <div class="checkbox">
-            <input type="checkbox" id="rabbitmq-users-{{ uniqid }}-admin"
-                   name="rabbitmq[users][{{ uniqid }}][admin]"
+            <input type="checkbox" id="{{ idBase }}-admin"
+                   name="{{ nameBase }}[admin]"
                    value="1"
                    {% if user.admin is defined and user.admin %}checked{% endif %} />
-            <label for="rabbitmq-users-{{ uniqid }}-admin">
+            <label for="{{ idBase }}-admin">
                 Make user admin
             </label>
         </div>
@@ -19,21 +21,21 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="rabbitmq-users-{{ uniqid }}-name">
+        <label for="{{ idBase }}-name">
             Username
         </label>
-        <input type="text" id="rabbitmq-users-{{ uniqid }}-name"
-               name="rabbitmq[users][{{ uniqid }}][name]"
+        <input type="text" id="{{ idBase }}-name"
+               name="{{ nameBase }}[name]"
                placeholder="admin" class="form-control"
                value="{{ user.name }}" />
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="rabbitmq-users-{{ uniqid }}-password">
+        <label for="{{ idBase }}-password">
             Password
         </label>
-        <input type="text" id="rabbitmq-users-{{ uniqid }}-password"
-               name="rabbitmq[users][{{ uniqid }}][password]"
+        <input type="text" id="{{ idBase }}-password"
+               name="{{ nameBase }}[password]"
                placeholder="123" class="form-control"
                value="{{ user.password }}" />
     </div>
@@ -41,11 +43,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="rabbitmq-users-{{ uniqid }}-tags">
+        <label for="{{ idBase }}-tags">
             Tags
         </label>
-        <select id="rabbitmq-users-{{ uniqid }}-tags"
-                name="rabbitmq[users][{{ uniqid }}][tags][]"
+        <select id="{{ idBase }}-tags"
+                name="{{ nameBase }}[tags][]"
                 multiple class="form-control select-tags-editable">
         {% if user.tags is defined %}
             {% for tag in user.tags %}
@@ -71,12 +73,12 @@
                 </li>
                 {% for index, permission in user.permissions %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#rabbitmq-user-{{ uniqid }}-grant-{{ index }}"
+                        <a href="#" data-target="#{{ idBase }}-permissions-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#rabbitmq-user-{{ uniqid }}-grant-{{ index }}">
+                                    data-target="#{{ idBase }}-permissions-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

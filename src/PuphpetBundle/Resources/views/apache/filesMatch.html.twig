@@ -1,15 +1,17 @@
 {% set uniqid = uniqid ?? uniqid('filesmatch_') %}
+{% set idBase = "apache-vhosts-#{vhostId}-filesmatch-#{uniqid}" %}
+{% set nameBase = "apache[vhosts][#{vhostId}][filesmatch][#{uniqid}]" %}
 
 {% set setenvs = (filesMatch.setenv is defined) ? filesMatch.setenv : [] %}
 
-<div id="apache-vhost-{{ vhostId }}-filesmatch-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ vhostId }}-files_match-{{ uniqid }}-path">
+        <label for="{{ idBase }}-path">
             Path
         </label>
-        <input type="text" id="apache-vhosts-{{ vhostId }}-files_match-{{ uniqid }}-path"
-               name="apache[vhosts][{{ vhostId }}][files_match][{{ uniqid }}][path]"
+        <input type="text" id="{{ idBase }}-path"
+               name="{{ nameBase }}[path]"
                placeholder="\.php$" class="form-control"
                value="{{ filesMatch.path }}" />
         <div class="help-block">
@@ -18,11 +20,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ vhostId }}-files_match-{{ uniqid }}-sethandler">
+        <label for="{{ idBase }}-sethandler">
             Set Handler
         </label>
-        <input type="text" id="apache-vhosts-{{ vhostId }}-files_match-{{ uniqid }}-sethandler"
-               name="apache[vhosts][{{ vhostId }}][files_match][{{ uniqid }}][sethandler]"
+        <input type="text" id="{{ idBase }}-sethandler"
+               name="{{ nameBase }}[sethandler]"
                placeholder="proxy:fcgi://127.0.0.1:9000" class="form-control"
                value="{{ filesMatch.sethandler }}" />
         <div class="help-block">
@@ -33,11 +35,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ vhostId }}-files_match-{{ uniqid }}-setenv">
+        <label for="{{ idBase }}-setenv">
             Environment Variables
         </label>
-        <select id="apache-vhosts-{{ vhostId }}-files_match-{{ uniqid }}-setenv"
-                name="apache[vhosts][{{ vhostId }}][files_match][{{ uniqid }}][setenv][]"
+        <select id="{{ idBase }}-setenv"
+                name="{{ nameBase }}[setenv][]"
                 multiple class="form-control select-tags-editable">
             {% for setenv in setenvs %}
                 <option selected value="{{ setenv }}">{{ setenv }}</option>
@@ -49,11 +51,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ vhostId }}-files_match-{{ uniqid }}-custom_fragment">
+        <label for="{{ idBase }}-custom_fragment">
             FilesMatch-Level Custom Directives
         </label>
-        <input type="text" id="apache-vhosts-{{ vhostId }}-files_match-{{ uniqid }}-custom_fragment"
-               name="apache[vhosts][{{ vhostId }}][files_match][{{ uniqid }}][custom_fragment]"
+        <input type="text" id="{{ idBase }}-custom_fragment"
+               name="{{ nameBase }}[custom_fragment]"
                placeholder="/path/to/file" class="form-control"
                value="{{ filesMatch.custom_fragment }}" />
         <div class="help-block">
@@ -63,7 +65,7 @@
         </div>
     </div>
 
-    <input type="hidden" name="apache[vhosts][{{ vhostId }}][files_match][{{ uniqid }}][provider]"
+    <input type="hidden" name="{{ nameBase }}[provider]"
            value="{{ filesMatch.provider }}" />
 
     <div class="clearfix"></div>

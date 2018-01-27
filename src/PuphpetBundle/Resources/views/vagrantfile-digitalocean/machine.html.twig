@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('machine_') %}
+{% set idBase = "vagrantfile-vm-provider-digitalocean-machines-#{uniqid}" %}
+{% set nameBase = "vagrantfile[vm][provider][digitalocean][machines][#{uniqid}]" %}
 
-<div id="digitalocean-machine-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-id">
+        <label for="{{ idBase }}-id">
             Internal Identifier
         </label>
-        <input type="text" id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-id"
-               name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][id]"
+        <input type="text" id="{{ idBase }}-id"
+               name="{{ nameBase }}[id]"
                placeholder="digitalocean1" class="form-control"
                value="{{ machine.id }}" />
         <div class="help-block">
@@ -17,11 +19,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-hostname">
+        <label for="{{ idBase }}-hostname">
             Hostname
         </label>
-        <input type="text" id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-hostname"
-               name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][hostname]"
+        <input type="text" id="{{ idBase }}-hostname"
+               name="{{ nameBase }}[hostname]"
                placeholder="digitalocean1.puphpet" class="form-control"
                value="{{ machine.hostname }}" />
         <div class="help-block">
@@ -34,11 +36,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-region">
+        <label for="{{ idBase }}-region">
             Datacenter Location
         </label>
-        <select id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-region"
-               name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][region]"
+        <select id="{{ idBase }}-region"
+               name="{{ nameBase }}[region]"
                class="form-control select-tag">
             {% for key, region in regions %}
                 <option value="{{ key }}"
@@ -51,11 +53,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-size">
+        <label for="{{ idBase }}-size">
             Server Size
         </label>
-        <select id="vagrantfile-vm-provider-digitalocean-machines-{{ uniqid }}-size"
-               name="vagrantfile[vm][provider][digitalocean][machines][{{ uniqid }}][size]"
+        <select id="{{ idBase }}-size"
+               name="{{ nameBase }}[size]"
                class="form-control select-tag">
             {% for size, name in sizes %}
                 <option value="{{ size }}"

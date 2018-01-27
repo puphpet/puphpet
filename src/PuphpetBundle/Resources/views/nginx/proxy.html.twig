@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('proxy_') %}
+{% set idBase = "nginx-proxies-#{uniqid}" %}
+{% set nameBase = "nginx[proxies][#{uniqid}]" %}
 
-<div id="nginx-proxies-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="nginx-proxies-{{ uniqid }}-proxy">
+        <label for="{{ idBase }}-proxy">
             Proxy URL
         </label>
-        <input type="text" id="nginx-proxies-{{ uniqid }}-proxy"
-               name="nginx[proxies][{{ uniqid }}][proxy]"
+        <input type="text" id="{{ idBase }}-proxy"
+               name="{{ nameBase }}[proxy]"
                placeholder="http://backend" class="form-control"
                value="{{ proxy.proxy }}" />
         <div class="help-block">

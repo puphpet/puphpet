@@ -1,23 +1,25 @@
 {% set uniqid = uniqid ?? uniqid('database_') %}
+{% set idBase = "sqlite-databases-#{uniqid}" %}
+{% set nameBase = "sqlite[databases][#{uniqid}]" %}
 
-<div id="sqlite-database-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="sqlite-databases-{{ uniqid }}-name">
+        <label for="{{ idBase }}-name">
             DB Name
         </label>
-        <input type="text" id="sqlite-databases-{{ uniqid }}-name"
-               name="sqlite[databases][{{ uniqid }}][name]"
+        <input type="text" id="{{ idBase }}-name"
+               name="{{ nameBase }}[name]"
                placeholder="database_name" class="form-control"
                value="{{ database.name }}" />
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="sqlite-databases-{{ uniqid }}-owner">
+        <label for="{{ idBase }}-owner">
             Owner
         </label>
-        <input type="text" id="sqlite-databases-{{ uniqid }}-owner"
-               name="sqlite[databases][{{ uniqid }}][owner]"
+        <input type="text" id="{{ idBase }}-owner"
+               name="{{ nameBase }}[owner]"
                placeholder="owner" class="form-control"
                value="{{ database.owner }}" />
         <div class="help-block">
@@ -29,11 +31,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="sqlite-databases-{{ uniqid }}-group">
+        <label for="{{ idBase }}-group">
             Group
         </label>
-        <input type="text" id="sqlite-databases-{{ uniqid }}-group"
-               name="sqlite[databases][{{ uniqid }}][group]"
+        <input type="text" id="{{ idBase }}-group"
+               name="{{ nameBase }}[group]"
                placeholder="group" class="form-control"
                value="{{ database.group }}" />
         <div class="help-block">
@@ -42,11 +44,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="sqlite-databases-{{ uniqid }}-sql_file">
+        <label for="{{ idBase }}-sql_file">
             Import Database From File
         </label>
-        <input type="text" id="sqlite-databases-{{ uniqid }}-sql_file"
-               name="sqlite[databases][{{ uniqid }}][sql_file]"
+        <input type="text" id="{{ idBase }}-sql_file"
+               name="{{ nameBase }}[sql_file]"
                placeholder="/var/www/sql/database_name.sql" class="form-control"
                value="{{ database.sql_file }}" />
         <div class="help-block">

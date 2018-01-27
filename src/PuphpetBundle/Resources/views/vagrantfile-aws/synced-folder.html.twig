@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('folder_') %}
+{% set idBase = "vagrantfile-vm-provider-aws-synced_folder-#{uniqid}" %}
+{% set nameBase = "vagrantfile[vm][synced_folder][#{uniqid}]" %}
 
-<div id="aws-folder-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-synced_folder-{{ uniqid }}-source">
+        <label for="{{ idBase }}-source">
             Folder Source
         </label>
-        <input type="text" id="vagrantfile-vm-provider-aws-synced_folder-{{ uniqid }}-source"
-               name="vagrantfile[vm][synced_folder][{{ uniqid }}][source]"
+        <input type="text" id="{{ idBase }}-source"
+               name="{{ nameBase }}[source]"
                placeholder="/path/to/your/web/files" class="form-control"
                value="{{ synced_folder.source }}" />
         <div class="help-block">
@@ -33,11 +35,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-provider-aws-{{ uniqid }}-target">
+        <label for="{{ idBase }}-target">
             Folder Target
         </label>
-        <input type="text" id="vagrantfile-vm-provider-aws-{{ uniqid }}-target"
-               name="vagrantfile[vm][synced_folder][{{ uniqid }}][target]"
+        <input type="text" id="{{ idBase }}-target"
+               name="{{ nameBase }}[target]"
                placeholder="/var/www" class="form-control"
                value="{{ synced_folder.target }}" />
         <div class="help-block">

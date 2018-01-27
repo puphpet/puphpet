@@ -86,12 +86,12 @@
                 </li>
                 {% for index, user in mariadb.users %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mariadb-user-{{ index }}"
+                        <a href="#" data-target="#mariadb-users-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mariadb-user-{{ index }}">
+                                    data-target="#mariadb-users-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -127,12 +127,12 @@
                 </li>
                 {% for index, database in mariadb.databases %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mariadb-database-{{ index }}"
+                        <a href="#" data-target="#mariadb-databases-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mariadb-database-{{ index }}">
+                                    data-target="#mariadb-databases-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -168,12 +168,12 @@
                 </li>
                 {% for index, grant in mariadb.grants %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mariadb-grant-{{ index }}"
+                        <a href="#" data-target="#mariadb-grants-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mariadb-grant-{{ index }}">
+                                    data-target="#mariadb-grants-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

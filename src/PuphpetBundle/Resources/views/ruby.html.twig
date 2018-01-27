@@ -19,12 +19,12 @@
                 </li>
                 {% for index, selected_version in ruby.versions %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#ruby-version-{{ index }}"
+                        <a href="#" data-target="#ruby-versions-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#ruby-version-{{ index }}">
+                                    data-target="#ruby-versions-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

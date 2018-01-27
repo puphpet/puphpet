@@ -1,19 +1,21 @@
 {% set uniqid = uniqid ?? uniqid('pool_') %}
+{% set idBase = "php-fpm_pools-#{uniqid}" %}
+{% set nameBase = "php[fpm_pools][#{uniqid}]" %}
 
 {% set selectedIni = (pool.ini is defined and pool.ini is not empty)
     ? pool.ini
     : [] %}
 
-<div id="php-fpm_pool-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12">
-        <label for="php-fpm_pools-{{ uniqid }}-ini-displayer">
+        <label for="{{ idBase }}-ini-displayer">
             Conf Settings
         </label>
-        <select id="php-fpm_pools-{{ uniqid }}-ini-displayer"
+        <select id="{{ idBase }}-ini-displayer"
                 multiple class="form-control select-tags-user-input"
-                data-target-container="php-fpm_pools-{{ uniqid }}-ini"
-                data-target-name="php[fpm_pools][{{ uniqid }}][ini]">
+                data-target-container="{{ idBase }}-ini"
+                data-target-name="{{ nameBase }}[ini]">
             {% set flattened = [] %}
             {% for ini, values in available_fpm_pool_ini %}
                 {% set flattened = flattened|merge([ini]) %}
@@ -28,10 +30,10 @@
             {% endfor %}
         </select>
 
-        <div id="php-fpm_pools-{{ uniqid }}-ini" class="hidden">
+        <div id="{{ idBase }}-ini" class="hidden">
             {% for name, value in selectedIni %}
                 {% set value = (name == 'prefix' and value == 'CHANGE_ME') ? uniqid : value %}
-                <input type="hidden" name="php[fpm_pools][{{ uniqid }}][ini][{{ name }}]"
+                <input type="hidden" name="{{ nameBase }}[ini][{{ name }}]"
                        data-option-name="{{ name }}" value="{{ value }}" />
             {% endfor %}
         </div>

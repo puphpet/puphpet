@@ -72,12 +72,12 @@
                 </li>
                 {% for index, machine in machines %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#aws-machine-{{ index }}"
+                        <a href="#" data-target="#vagrantfile-vm-provider-aws-machines-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#aws-machine-{{ index }}">
+                                    data-target="#vagrantfile-vm-provider-aws-machines-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
@@ -115,12 +115,12 @@
                 </li>
                 {% for index, synced_folder in data.vm.synced_folder %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#aws-folder-{{ index }}"
+                        <a href="#" data-target="#vagrantfile-vm-provider-aws-synced_folder-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#aws-folder-{{ index }}">
+                                    data-target="#vagrantfile-vm-provider-aws-synced_folder-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

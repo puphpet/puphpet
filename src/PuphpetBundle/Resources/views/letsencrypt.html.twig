@@ -57,12 +57,12 @@
                 </li>
                 {% for index, domain in letsencrypt.domains %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#letsencrypt-domain-{{ index }}"
+                        <a href="#" data-target="#letsencrypt-domains-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#letsencrypt-domain-{{ index }}">
+                                    data-target="#letsencrypt-domains-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>

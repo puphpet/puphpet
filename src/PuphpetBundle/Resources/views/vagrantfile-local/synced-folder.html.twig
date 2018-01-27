@@ -1,4 +1,6 @@
 {% set uniqid = uniqid ?? uniqid('folder_') %}
+{% set idBase = "vagrantfile-vm-synced_folder-#{uniqid}" %}
+{% set nameBase = "vagrantfile[vm][synced_folder][#{uniqid}]" %}
 
 {% if synced_folder.sync_type is not defined or synced_folder.sync_type == 'default' %}
     {% set sync_type = 'default' %}
@@ -23,21 +25,21 @@
 {% set owner = (synced_folder.owner is defined and synced_folder.owner) ? synced_folder.owner : '' %}
 {% set group = (synced_folder.group is defined and synced_folder.group) ? synced_folder.group : '' %}
 
-<div id="local-folder-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
-    <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-owner"
-           name="vagrantfile[vm][synced_folder][{{ uniqid }}][owner]"
+    <input type="hidden" id="{{ idBase }}-owner"
+           name="{{ nameBase }}[owner]"
            value="{{ owner }}" />
-    <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-group"
-           name="vagrantfile[vm][synced_folder][{{ uniqid }}][group]"
+    <input type="hidden" id="{{ idBase }}-group"
+           name="{{ nameBase }}[group]"
            value="{{ group }}" />
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-source">
+        <label for="{{ idBase }}-source">
             Folder Source
         </label>
-        <input type="text" id="vagrantfile-vm-synced_folder-{{ uniqid }}-source"
-               name="vagrantfile[vm][synced_folder][{{ uniqid }}][source]"
+        <input type="text" id="{{ idBase }}-source"
+               name="{{ nameBase }}[source]"
                placeholder="/path/to/your/web/files" class="form-control"
                value="{{ synced_folder.source }}" />
         <div class="help-block">
@@ -51,11 +53,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-target">
+        <label for="{{ idBase }}-target">
             Folder Target
         </label>
-        <input type="text" id="vagrantfile-vm-synced_folder-{{ uniqid }}-target"
-               name="vagrantfile[vm][synced_folder][{{ uniqid }}][target]"
+        <input type="text" id="{{ idBase }}-target"
+               name="{{ nameBase }}[target]"
                placeholder="/var/www" class="form-control"
                value="{{ synced_folder.target }}" />
         <div class="help-block">
@@ -71,11 +73,11 @@
         <div class="clearfix"><label>Shared Folder Type</label></div>
 
         <div class="radio">
-            <input type="radio" id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-default"
-                   name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
+            <input type="radio" id="{{ idBase }}-sync_type-default"
+                   name="{{ nameBase }}[sync_type]"
                    value="default" {% if sync_type == 'default' %}checked{% endif %}
-                   data-toggle="radio-collapse" data-target="#default-folder-options-{{ uniqid }}" />
-            <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-default">
+                   data-toggle="radio-collapse" data-target="#{{ idBase }}-folder_options-default" />
+            <label for="{{ idBase }}-sync_type-default">
                 Default
             </label>
             <div class="help-block">
@@ -86,11 +88,11 @@
         </div>
 
         <div class="radio">
-            <input type="radio" id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-nfs"
-                   name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
+            <input type="radio" id="{{ idBase }}-sync_type-nfs"
+                   name="{{ nameBase }}[sync_type]"
                    value="nfs" {% if sync_type == 'nfs' %}checked{% endif %}
-                   data-toggle="radio-collapse" data-target="#nfs-folder-options-{{ uniqid }}" />
-            <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-nfs">
+                   data-toggle="radio-collapse" data-target="#{{ idBase }}-folder_options-nfs" />
+            <label for="{{ idBase }}-sync_type-nfs">
                 NFS
             </label>
             <div class="help-block">
@@ -110,11 +112,11 @@
         </div>
 
         <div class="radio">
-            <input type="radio" id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-smb"
-                   name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
+            <input type="radio" id="{{ idBase }}-sync_type-smb"
+                   name="{{ nameBase }}[sync_type]"
                    value="smb" {% if sync_type == 'smb' %}checked{% endif %}
-                   data-toggle="radio-collapse" data-target="#smb-folder-options-{{ uniqid }}" />
-            <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-smb">
+                   data-toggle="radio-collapse" data-target="#{{ idBase }}-folder_options-smb" />
+            <label for="{{ idBase }}-sync_type-smb">
                 SMB
             </label>
             <div class="help-block">
@@ -125,11 +127,11 @@
         </div>
 
         <div class="radio">
-            <input type="radio" id="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-rsync"
-                   name="vagrantfile[vm][synced_folder][{{ uniqid }}][sync_type]"
+            <input type="radio" id="{{ idBase }}-sync_type-rsync"
+                   name="{{ nameBase }}[sync_type]"
                    value="rsync" {% if sync_type == 'rsync' %}checked{% endif %}
-                   data-toggle="radio-collapse" data-target="#rsync-folder-options-{{ uniqid }}" />
-            <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-sync_type-rsync">
+                   data-toggle="radio-collapse" data-target="#{{ idBase }}-folder_options-rsync" />
+            <label for="{{ idBase }}-sync_type-rsync">
                 RSync
             </label>
             <div class="help-block">
@@ -153,27 +155,27 @@
 
     <div class="clearfix"></div>
 
-    <div id="folder-options-{{ uniqid }}" class="col-xs-12">
-        <div id="default-folder-options-{{ uniqid }}"
+    <div id="{{ idBase }}-folder_options" class="col-xs-12">
+        <div id="{{ idBase }}-folder_options-default"
              class="collapse {% if sync_type == 'default' %}in{% endif %}">
         </div>
 
         <div class="clearfix"></div>
 
-        <div id="nfs-folder-options-{{ uniqid }}"
+        <div id="{{ idBase }}-folder_options-nfs"
              class="collapse {% if sync_type == 'nfs' %}in{% endif %}">
         </div>
 
         <div class="clearfix"></div>
 
-        <div id="smb-folder-options-{{ uniqid }}"
+        <div id="{{ idBase }}-folder_options-smb"
              class="collapse {% if sync_type == 'smb' %}in{% endif %}">
             <div class="form-group col-xs-12">
-                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_host">
+                <label for="{{ idBase }}-smb-smb_host">
                     SMB Host
                 </label>
-                <input type="text" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_host"
-                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][smb_host]"
+                <input type="text" id="{{ idBase }}-smb-smb_host"
+                       name="{{ nameBase }}[smb][smb_host]"
                        placeholder="" class="form-control"
                        value="{{ smb_host }}" />
                 <div class="help-block">
@@ -183,11 +185,11 @@
             </div>
 
             <div class="form-group col-xs-12">
-                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_username">
+                <label for="{{ idBase }}-smb-smb_username">
                     SMB Username
                 </label>
-                <input type="text" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_username"
-                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][smb_username]"
+                <input type="text" id="{{ idBase }}-smb-smb_username"
+                       name="{{ nameBase }}[smb][smb_username]"
                        placeholder="" class="form-control"
                        value="{{ smb_username }}" />
                 <div class="help-block">
@@ -198,11 +200,11 @@
             </div>
 
             <div class="form-group col-xs-12">
-                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_password">
+                <label for="{{ idBase }}-smb-smb_password">
                     SMB Password
                 </label>
-                <input type="text" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-smb_password"
-                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][smb_password]"
+                <input type="text" id="{{ idBase }}-smb-smb_password"
+                       name="{{ nameBase }}[smb][smb_password]"
                        placeholder="" class="form-control"
                        value="{{ smb_password }}" />
                 <div class="help-block">
@@ -213,24 +215,24 @@
                 </div>
             </div>
 
-            <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-mount_options-dir_mode"
-                   name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][mount_options][dir_mode]"
+            <input type="hidden" id="{{ idBase }}-smb-mount_options-dir_mode"
+                   name="{{ nameBase }}[smb][mount_options][dir_mode]"
                    value="{{ smb_mount_dir_mode }}" />
-            <input type="hidden" id="vagrantfile-vm-synced_folder-{{ uniqid }}-smb-mount_options-file_mode"
-                   name="vagrantfile[vm][synced_folder][{{ uniqid }}][smb][mount_options][file_mode]"
+            <input type="hidden" id="{{ idBase }}-smb-mount_options-file_mode"
+                   name="{{ nameBase }}[smb][mount_options][file_mode]"
                    value="{{ smb_mount_file_mode }}" />
         </div>
 
         <div class="clearfix"></div>
 
-        <div id="rsync-folder-options-{{ uniqid }}"
+        <div id="{{ idBase }}-folder_options-rsync"
          class="collapse {% if sync_type == 'rsync' %}in{% endif %}">
             <div class="form-group col-xs-12">
-                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-args">
+                <label for="{{ idBase }}-rsync-args">
                     Rsync Args
                 </label>
-                <select id="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-args"
-                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][rsync][args][]"
+                <select id="{{ idBase }}-rsync-args"
+                       name="{{ nameBase }}[rsync][args][]"
                        multiple class="form-control select-tags-editable">
                     {% for arg in rsync_args %}
                         <option selected value="{{ arg }}">{{ arg }}</option>
@@ -242,11 +244,11 @@
             </div>
 
             <div class="form-group col-xs-12">
-                <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-exclude">
+                <label for="{{ idBase }}-rsync-exclude">
                     Exclude Directories
                 </label>
-                <select id="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-exclude"
-                       name="vagrantfile[vm][synced_folder][{{ uniqid }}][rsync][exclude][]"
+                <select id="{{ idBase }}-rsync-exclude"
+                       name="{{ nameBase }}[rsync][exclude][]"
                        multiple class="form-control select-tags-editable">
                     {% for dir in rsync_exclude %}
                         <option selected value="{{ dir }}">{{ dir }}</option>
@@ -261,11 +263,11 @@
                 <div class="clearfix"><label>Auto Sync</label></div>
 
                 <div class="radio">
-                    <input type="radio" id="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-auto-on"
-                           name="vagrantfile[vm][synced_folder][{{ uniqid }}][rsync][auto]"
+                    <input type="radio" id="{{ idBase }}-rsync-auto-on"
+                           name="{{ nameBase }}[rsync][auto]"
                            value="{{ rsync_auto }}"
                            {% if rsync_auto == 'true' %}checked{% endif %} />
-                    <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-auto-on">
+                    <label for="{{ idBase }}-rsync-auto-on">
                         On
                     </label>
                     <div class="help-block">
@@ -275,11 +277,11 @@
                 </div>
 
                 <div class="radio">
-                    <input type="radio" id="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-auto-off"
-                           name="vagrantfile[vm][synced_folder][{{ uniqid }}][rsync][auto]"
+                    <input type="radio" id="{{ idBase }}-rsync-auto-off"
+                           name="{{ nameBase }}[rsync][auto]"
                            value="{{ rsync_auto }}"
                            {% if rsync_auto == 'false' %}checked{% endif %} />
-                    <label for="vagrantfile-vm-synced_folder-{{ uniqid }}-rsync-auto-off">
+                    <label for="{{ idBase }}-rsync-auto-off">
                         Off
                     </label>
                     <div class="help-block">

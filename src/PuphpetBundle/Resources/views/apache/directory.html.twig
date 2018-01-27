@@ -1,17 +1,19 @@
 {% set uniqid = uniqid ?? uniqid('directory_') %}
+{% set idBase = "apache-vhosts-#{vhostId}-directories-#{uniqid}" %}
+{% set nameBase = "apache[vhosts][#{vhostId}][directories][#{uniqid}]" %}
 
 {% set options = (directory.options is defined) ? directory.options : [] %}
 {% set allow_overrides = (directory.allow_override is defined) ? directory.allow_override : [] %}
 {% set requires = (directory.require is defined) ? directory.require : [] %}
 
-<div id="apache-vhost-{{ vhostId }}-rewrite-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-path">
+        <label for="{{ idBase }}-path">
             Path
         </label>
-        <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-path"
-               name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][path]"
+        <input type="text" id="{{ idBase }}-path"
+               name="{{ nameBase }}[path]"
                placeholder="/absolute/path/to/webroot" class="form-control"
                value="{{ directory.path }}" />
         <div class="help-block">
@@ -20,11 +22,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-directoryindex">
+        <label for="{{ idBase }}-directoryindex">
             Directory Index
         </label>
-        <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-directoryindex"
-               name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][directoryindex]"
+        <input type="text" id="{{ idBase }}-directoryindex"
+               name="{{ nameBase }}[directoryindex]"
                placeholder="app.php" class="form-control"
                value="{{ directory.directoryindex }}" />
         <div class="help-block">
@@ -35,11 +37,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-options">
+        <label for="{{ idBase }}-options">
             Options
         </label>
-        <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-options"
-                name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][options][]"
+        <select id="{{ idBase }}-options"
+                name="{{ nameBase }}[options][]"
                 multiple class="form-control select-tags-editable">
             {% for option in options %}
                 <option selected value="{{ option }}">{{ option }}</option>
@@ -51,11 +53,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-allow_override">
+        <label for="{{ idBase }}-allow_override">
             Allow Override
         </label>
-        <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-allow_override"
-                name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][allow_override][]"
+        <select id="{{ idBase }}-allow_override"
+                name="{{ nameBase }}[allow_override][]"
                 multiple class="form-control select-tags-editable">
             {% for allow in allow_overrides %}
                 <option selected value="{{ allow }}">{{ allow }}</option>
@@ -69,11 +71,11 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-require">
+        <label for="{{ idBase }}-require">
             Require
         </label>
-        <select id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-require"
-                name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][require][]"
+        <select id="{{ idBase }}-require"
+                name="{{ nameBase }}[require][]"
                 multiple class="form-control select-tags-editable">
             {% for require in requires %}
                 <option selected value="{{ require }}">{{ require }}</option>
@@ -85,11 +87,11 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-custom_fragment">
+        <label for="{{ idBase }}-custom_fragment">
             Directory-Level Custom Directives
         </label>
-        <input type="text" id="apache-vhosts-{{ vhostId }}-directories-{{ uniqid }}-custom_fragment"
-               name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][custom_fragment]"
+        <input type="text" id="{{ idBase }}-custom_fragment"
+               name="{{ nameBase }}[custom_fragment]"
                placeholder="/path/to/file" class="form-control"
                value="{{ directory.custom_fragment }}" />
         <div class="help-block">
@@ -99,7 +101,7 @@
         </div>
     </div>
 
-    <input type="hidden" name="apache[vhosts][{{ vhostId }}][directories][{{ uniqid }}][provider]"
+    <input type="hidden" name="{{ nameBase }}[provider]"
            value="{{ directory.provider }}" />
 
     <div class="clearfix"></div>

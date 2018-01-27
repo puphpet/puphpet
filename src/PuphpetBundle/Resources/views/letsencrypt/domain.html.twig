@@ -1,13 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('domain_') %}
+{% set idBase = "letsencrypt-domains-#{uniqid}" %}
+{% set nameBase = "letsencrypt[domains][#{uniqid}]" %}
 
-<div id="rackspace-machine-{{ uniqid }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12">
-        <label for="letsencrypt-domains-{{ uniqid }}-hosts">
+        <label for="{{ idBase }}-hosts">
             Hosts
         </label>
-        <select id="letsencrypt-domains-{{ uniqid }}-hosts"
-                name="letsencrypt[domains][{{ uniqid }}][hosts][]"
+        <select id="{{ idBase }}-hosts"
+                name="{{ nameBase }}[hosts][]"
                 multiple class="form-control select-tags-editable">
             {% for host in domain.hosts %}
                 <option selected value="{{ host }}">{{ host }}</option>

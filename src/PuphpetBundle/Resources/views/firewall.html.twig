@@ -31,12 +31,12 @@
                 </li>
                 {% for index, rule in firewall.rules %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#firewall-rule-{{ index }}"
+                        <a href="#" data-target="#firewall-rules-{{ index }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#firewall-rule-{{ index }}">
+                                    data-target="#firewall-rules-{{ index }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
                     </li>
