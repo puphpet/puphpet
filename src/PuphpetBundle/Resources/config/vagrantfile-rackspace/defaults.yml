@@ -5,14 +5,14 @@ vm:
         rackspace:
             username: RACKSPACE_USERNAME
             api_key: RACKSPACE_API_KEY
-            image: 598a4282-f14b-4e50-af4c-b3e52749d9f9
+            image: d97ba69f-b733-45be-8d60-4e415f4b0992
             machines:
                 machine1:
                     id: rackspace1
                     hostname: rackspace1.puphpet
                     server_name: rackspace1-puphpet
                     region: dfw
-                    size: 1GB
+                    size: 1GB Standard Instance
     provision:
         puppet:
             manifests_path: puphpet/puppet/manifests

@@ -26,6 +26,7 @@ machines.each do |i, machine|
       rs.rackspace_region   = "#{machine['region'].downcase}"
       rs.public_key_path    = "#{data['ssh']['public_key_path']}"
       rs.server_name        = "#{machine['server_name']}"
+      rs.init_script        = 'sed -i\'.bk\' -e \'s/^\(Defaults\s\+requiretty\)/# \1/\' /etc/sudoers'
       override.ssh.username = 'root'
     end
 
