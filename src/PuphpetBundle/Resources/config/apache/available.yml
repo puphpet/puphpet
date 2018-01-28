@@ -34,6 +34,12 @@ empty_files_match:
     setenv: []
     custom_fragment: ''
 
+empty_rewrite:
+    comment: ~
+    rewrite_base: ~
+    rewrite_cond: []
+    rewrite_rule: []
+
 modules:
     - cache
     - cgid

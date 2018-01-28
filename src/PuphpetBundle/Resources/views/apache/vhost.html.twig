@@ -332,7 +332,7 @@
     <div class="clearfix"></div>
 
     <div class="panel panel-info">
-        <div class="panel-heading">Virtual Host Directories</div>
+        <div class="panel-heading">Virtual Host Directory/Location/Files Directives</div>
         <div class="panel-body">
             <ul class="nav nav-tabs nested-tabs">
                 <li class="add">
@@ -357,10 +357,15 @@
             <div class="tab-content">
                 <div class="empty-tabs">
                     <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
-                    Click to add a virtual host directory
+                    Click to add a virtual host Directory/Location/Files or DirectoryMatch/LocationMatch/FilesMatch
                 </div>
                 {% for index, directory in directories %}
-                    {% include 'PuphpetBundle:apache:directory.html.twig' with {
+                    {% if directory.provider is not defined
+                        or directory.provider|lower not in [
+                            'directory', 'directorymatch', 'location', 'locationmatch', 'files', 'filesmatch'
+                    ] %}{% set provider = 'directory' %}{% endif %}
+
+                    {% include "PuphpetBundle:apache:#{directory.provider|lower}.html.twig" with {
                         'vhostId': uniqid,
                         'directory': directory,
                         'uniqid': index,
@@ -372,44 +377,4 @@
     </div>
 
     <div class="clearfix"></div>
-
-    <div class="panel panel-info">
-        <div class="panel-heading">Virtual Host Files Matches</div>
-        <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
-                <li class="add">
-                    <a href="{{ path('puphpet.apache.files_match', {'vhostId': uniqid}) }}"
-                       data-toggle="add-block">
-                        <i class="fa fa-plus"></i> Add</a>
-                </li>
-                {% for index, filesMatch in files_matches %}
-                    <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#{{ idBase }}-filesmatch-{{ index }}"
-                           data-toggle="tab">{{ index }}</a>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default"
-                                    data-toggle="delete-block"
-                                    data-target="#{{ idBase }}-filesmatch-{{ index }}">
-                                <i class="fa fa-close"></i></button>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-
-            <div class="tab-content">
-                <div class="empty-tabs">
-                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
-                    Click to add a filesmatch
-                </div>
-                {% for index, filesMatch in files_matches %}
-                    {% include 'PuphpetBundle:apache:filesMatch.html.twig' with {
-                        'vhostId': uniqid,
-                        'filesMatch': filesMatch,
-                        'uniqid': index,
-                        'active': loop.first ? true : false,
-                    } %}
-                {% endfor %}
-            </div>
-        </div>
-    </div>
 </div>

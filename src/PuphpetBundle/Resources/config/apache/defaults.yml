@@ -32,7 +32,6 @@ vhosts:
                 require:
                     - all granted
                 custom_fragment: ''
-        files_match:
             filesmatch1:
                 provider: filesmatch
                 path: '(app_dev|config)\.php$'

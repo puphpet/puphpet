@@ -75,9 +75,32 @@ class ApacheController extends Controller
     ) {
         $data = $this->getExtensionData('apache');
 
-        return $this->render('PuphpetBundle:apache:filesMatch.html.twig', [
+        return $this->render('PuphpetBundle:apache:filesmatch.html.twig', [
             'vhostId'    => $vhostId,
             'filesMatch' => $data['empty_files_match'],
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $vhostId
+     * @param string  $directiveId
+     * @return Response
+     * @Route("/extension/apache/rewrite/{vhostId}/{directiveId}",
+     *     name="puphpet.apache.rewrite")
+     * @Method({"GET"})
+     */
+    public function rewriteAction(
+        Request $request,
+        string $vhostId,
+        string $directiveId
+    ) {
+        $data = $this->getExtensionData('apache');
+
+        return $this->render('PuphpetBundle:apache:rewrite.html.twig', [
+            'vhostId'     => $vhostId,
+            'directiveId' => $directiveId,
+            'rewrite'     => $data['empty_rewrite'],
         ]);
     }
 }

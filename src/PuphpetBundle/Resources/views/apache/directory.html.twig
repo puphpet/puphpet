@@ -5,6 +5,7 @@
 {% set options = (directory.options is defined) ? directory.options : [] %}
 {% set allow_overrides = (directory.allow_override is defined) ? directory.allow_override : [] %}
 {% set requires = (directory.require is defined) ? directory.require : [] %}
+{% set rewrites = (directory.rewrites is defined) ? directory.rewrites : [] %}
 
 <div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
@@ -103,6 +104,48 @@
 
     <input type="hidden" name="{{ nameBase }}[provider]"
            value="{{ directory.provider }}" />
+
+    <div class="clearfix"></div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading">Rewrites</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.apache.rewrite', {'vhostId': vhostId, 'directiveId': uniqid}) }}"
+                       data-toggle="add-block">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for index, rewrite in rewrites %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#{{ idBase }}-rewrites-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#{{ idBase }}-rewrites-{{ index }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a rewrite rule
+                </div>
+                {% for index, rewrite in rewrites %}
+                    {% include "PuphpetBundle:apache:rewrite.html.twig" with {
+                        'vhostId': vhostId,
+                        'directiveId': uniqid,
+                        'uniqid': index,
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
     <div class="clearfix"></div>
 </div>

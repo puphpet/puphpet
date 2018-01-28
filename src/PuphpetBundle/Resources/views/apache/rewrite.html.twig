@@ -1,0 +1,79 @@
+{% set uniqid = uniqid ?? uniqid('rewrite_') %}
+{% set idBase = "apache-vhosts-#{vhostId}-directories-#{directiveId}-rewrites-#{uniqid}" %}
+{% set nameBase = "apache[vhosts][#{vhostId}][directories][#{directiveId}][rewrites][#{uniqid}]" %}
+
+{% set rewrite_conds = (rewrite.rewrite_cond is defined) ? rewrite.rewrite_cond : [] %}
+{% set rewrite_rules = (rewrite.rewrite_rule is defined) ? rewrite.rewrite_rule : [] %}
+
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
+     class="tab-pane {{ active is defined and active ? 'active' }}">
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-rewrite_base">
+            RewriteBase
+        </label>
+        <input type="text" id="{{ idBase }}-rewrite_base"
+               name="{{ nameBase }}[rewrite_base]"
+               class="form-control"
+               value="{{ rewrite.rewrite_base }}" />
+        <div class="help-block">
+            Sets the base URL for per-directory rewrites. Optional.
+            <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-comment">
+            Comment
+        </label>
+        <input type="text" id="{{ idBase }}-comment"
+               name="{{ nameBase }}[comment]"
+               class="form-control"
+               value="{{ rewrite.comment }}" />
+        <div class="help-block">
+            Optional.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-rewrite_cond">
+            RewriteCond
+        </label>
+        <select id="{{ idBase }}-rewrite_cond"
+                name="{{ nameBase }}[rewrite_cond][]"
+                multiple class="form-control select-tags-editable">
+            {% for cond in rewrite_conds %}
+                <option selected value="{{ cond }}">{{ cond }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Defines a condition under which rewriting will take place.
+            Separated by comma.
+            <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritecond"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-rewrite_rule">
+            RewriteRule
+        </label>
+        <select id="{{ idBase }}-rewrite_rule"
+                name="{{ nameBase }}[rewrite_rule][]"
+                multiple class="form-control select-tags-editable">
+            {% for rule in rewrite_rules %}
+                <option selected value="{{ rule }}">{{ rule }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Defines rules for the rewriting engine.
+            Separated by comma.
+            <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewriterule"
+               target="_blank">More information</a>.
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>

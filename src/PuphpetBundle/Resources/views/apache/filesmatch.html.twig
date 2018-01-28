@@ -1,8 +1,8 @@
 {% set uniqid = uniqid ?? uniqid('filesmatch_') %}
-{% set idBase = "apache-vhosts-#{vhostId}-filesmatch-#{uniqid}" %}
-{% set nameBase = "apache[vhosts][#{vhostId}][filesmatch][#{uniqid}]" %}
+{% set idBase = "apache-vhosts-#{vhostId}-directories-#{uniqid}" %}
+{% set nameBase = "apache[vhosts][#{vhostId}][directories][#{uniqid}]" %}
 
-{% set setenvs = (filesMatch.setenv is defined) ? filesMatch.setenv : [] %}
+{% set setenvs = (directory.setenv is defined) ? directory.setenv : [] %}
 
 <div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
@@ -13,7 +13,7 @@
         <input type="text" id="{{ idBase }}-path"
                name="{{ nameBase }}[path]"
                placeholder="\.php$" class="form-control"
-               value="{{ filesMatch.path }}" />
+               value="{{ directory.path }}" />
         <div class="help-block">
             Regex allowed.
         </div>
@@ -26,7 +26,7 @@
         <input type="text" id="{{ idBase }}-sethandler"
                name="{{ nameBase }}[sethandler]"
                placeholder="proxy:fcgi://127.0.0.1:9000" class="form-control"
-               value="{{ filesMatch.sethandler }}" />
+               value="{{ directory.sethandler }}" />
         <div class="help-block">
             Regex allowed.
         </div>
@@ -57,7 +57,7 @@
         <input type="text" id="{{ idBase }}-custom_fragment"
                name="{{ nameBase }}[custom_fragment]"
                placeholder="/path/to/file" class="form-control"
-               value="{{ filesMatch.custom_fragment }}" />
+               value="{{ directory.custom_fragment }}" />
         <div class="help-block">
             File must exist inside VM on initial <code>$ vagrant up</code>!
             <a href="https://gist.github.com/jtreminio/bcb78ccb97978a2cbd9e#file-gistfile1-apacheconf-L28"
@@ -66,7 +66,47 @@
     </div>
 
     <input type="hidden" name="{{ nameBase }}[provider]"
-           value="{{ filesMatch.provider }}" />
+           value="{{ directory.provider }}" />
+
+    <div class="panel panel-success">
+        <div class="panel-heading">Rewrites</div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs nested-tabs">
+                <li class="add">
+                    <a href="{{ path('puphpet.apache.rewrite', {'vhostId': vhostId, 'directiveId': uniqid}) }}"
+                       data-toggle="add-block">
+                        <i class="fa fa-plus"></i> Add</a>
+                </li>
+                {% for index, rewrite in rewrites %}
+                    <li class="{{ loop.first ? 'active' }}">
+                        <a href="#" data-target="#{{ idBase }}-rewrites-{{ index }}"
+                           data-toggle="tab">{{ index }}</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    data-toggle="delete-block"
+                                    data-target="#{{ idBase }}-rewrites-{{ index }}">
+                                <i class="fa fa-close"></i></button>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+                <div class="empty-tabs">
+                    <i class="fa fa-share fa-rotate-270" aria-hidden="true"></i>
+                    Click to add a rewrite rule
+                </div>
+                {% for index, rewrite in rewrites %}
+                    {% include "PuphpetBundle:apache:rewrite.html.twig" with {
+                        'vhostId': vhostId,
+                        'directiveId': uniqid,
+                        'uniqid': index,
+                        'active': loop.first ? true : false,
+                    } %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 
     <div class="clearfix"></div>
 </div>
