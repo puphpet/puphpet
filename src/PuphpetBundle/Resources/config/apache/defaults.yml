@@ -10,17 +10,17 @@ modules:
 
 vhosts:
     vhost1:
-        servername: awesome.dev
+        servername: awesome.test
         serveraliases:
-            - www.awesome.dev
-        docroot: /var/www/REPLACE_ME
+            - www.awesome.test
+        docroot: /var/www/awesome
         port: 80
         setenvif:
             - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
         custom_fragment: ~
         directories:
             php_html:
-                path: /var/www/REPLACE_ME
+                path: /var/www/awesome
                 directoryindex: index.php index.html
                 options:
                     - Indexes

@@ -16,9 +16,9 @@ proxies: []
 
 vhosts:
     vhost1:
-        server_name: awesome.dev
+        server_name: awesome.test
         server_aliases:
-            - www.awesome.dev
+            - www.awesome.test
         www_root: /var/www/awesome
         listen_port: 80
         ssl: false
