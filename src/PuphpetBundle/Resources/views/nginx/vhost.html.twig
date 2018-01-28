@@ -408,6 +408,11 @@
                                     'pregenerated': 'symfony4',
                                 }) }}"
                                data-toggle="add-block">Symfony 4</a></li>
+                        <li><a href="{{ path('puphpet.nginx.location', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'laravel',
+                                }) }}"
+                               data-toggle="add-block">Laravel</a></li>
                     </ul>
                 </li>
                 {% for index, location in locations %}
