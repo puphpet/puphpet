@@ -76,8 +76,8 @@ class ApacheController extends Controller
         $data = $this->getExtensionData('apache');
 
         return $this->render('PuphpetBundle:apache:filesmatch.html.twig', [
-            'vhostId'    => $vhostId,
-            'filesMatch' => $data['empty_files_match'],
+            'vhostId'   => $vhostId,
+            'directory' => $data['empty_files_match'],
         ]);
     }
 
