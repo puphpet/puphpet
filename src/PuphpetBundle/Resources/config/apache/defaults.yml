@@ -13,16 +13,15 @@ vhosts:
         servername: awesome.dev
         serveraliases:
             - www.awesome.dev
-        docroot: /var/www/awesome/web
+        docroot: /var/www/REPLACE_ME
         port: 80
         setenvif:
             - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
         custom_fragment: ~
         directories:
-            directory1:
-                provider: directory
-                path: /var/www/awesome/web
-                directoryindex: index.php app.dev
+            php_html:
+                path: /var/www/REPLACE_ME
+                directoryindex: index.php index.html
                 options:
                     - Indexes
                     - FollowSymlinks
@@ -31,27 +30,11 @@ vhosts:
                     - All
                 require:
                     - all granted
-                custom_fragment: ''
-            filesmatch1:
-                provider: filesmatch
-                path: '(app_dev|config)\.php$'
+                provider: directory
+            php_php:
+                path: \.php$
                 sethandler: 'proxy:fcgi://127.0.0.1:9000'
-                setenv:
-                    - APP_ENV dev
-                custom_fragment: ''
-            filesmatch2:
                 provider: filesmatch
-                path: 'app\.php$'
-                sethandler: 'proxy:fcgi://127.0.0.1:9000'
-                setenv:
-                    - APP_ENV prod
-                custom_fragment: ''
-            filesmatch3:
-                provider: filesmatch
-                path: '\.php$'
-                sethandler: 'proxy:fcgi://127.0.0.1:9000'
-                setenv: []
-                custom_fragment: ''
         ssl: 0
         ssl_cert: ~
         ssl_key: ~

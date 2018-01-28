@@ -3,10 +3,11 @@
 namespace PuphpetBundle\Controller;
 
 use PuphpetBundle\Controller;
+use PuphpetBundle\Helper;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -79,6 +80,43 @@ class ApacheController extends Controller
             'vhostId'   => $vhostId,
             'directory' => $data['empty_files_match'],
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $vhostId
+     * @param string  $pregenerated
+     * @return Response
+     * @Route("/extension/apache/pregenerated-directory/{vhostId}/{pregenerated}",
+     *     name="puphpet.apache.pregenerated_directory")
+     * @Method({"GET"})
+     */
+    public function pregeneratedDirectoryAction(Request $request, string $vhostId, string $pregenerated = null)
+    {
+        $data = $this->getExtensionData('apache');
+
+        $pregenerated = empty($pregenerated) ? 'html' : $pregenerated;
+        $directories  = empty($data['pregenerated_directories'][$pregenerated])
+            ? $data['pregenerated_directories']['html']
+            : $data['pregenerated_directories'][$pregenerated];
+
+        $randString = Helper\Strings::randString(3);
+        $rendered   = [];
+
+        foreach ($directories as $uniqid => $directory) {
+            $template = "PuphpetBundle:apache:{$directory['provider']}.html.twig";
+
+            $rendered []= $this->renderView($template, [
+                'uniqid'    => "{$uniqid}_{$randString}",
+                'vhostId'   => $vhostId,
+                'directory' => $directory,
+            ]);
+        }
+
+        $response = new JsonResponse();
+        $response->setContent(json_encode($rendered));
+
+        return $response;
     }
 
     /**

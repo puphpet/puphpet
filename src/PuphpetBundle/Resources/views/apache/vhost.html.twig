@@ -334,11 +334,52 @@
     <div class="panel panel-info">
         <div class="panel-heading">Virtual Host Directory/Location/Files Directives</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs dropdown">
                 <li class="add">
-                    <a href="{{ path('puphpet.apache.directory', {'vhostId': uniqid}) }}"
-                       data-toggle="add-block">
-                        <i class="fa fa-plus"></i> Add</a>
+                    <a href="#" data-toggle="dropdown" id="{{ idBase }}-downDownMenu">
+                        Add <span class="caret"></span></a>
+
+                    <ul class="dropdown-menu" aria-labelledby="{{ idBase }}-downDownMenu">
+                        <li><a href="{{ path('puphpet.apache.directory', {
+                                    'vhostId': uniqid,
+                                }) }}"
+                               data-toggle="add-block">Empty Directory</a></li>
+                        <li><a href="{{ path('puphpet.apache.files_match', {
+                                    'vhostId': uniqid,
+                                }) }}"
+                               data-toggle="add-block">Empty FilesMatch</a></li>
+
+                        <li role="separator" class="divider"></li>
+
+                        <li><a href="{{ path('puphpet.apache.pregenerated_directory', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'html',
+                                }) }}"
+                               data-toggle="add-block">Basic HTML</a></li>
+                        <li><a href="{{ path('puphpet.apache.pregenerated_directory', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'php',
+                                }) }}"
+                               data-toggle="add-block">Basic PHP</a></li>
+
+                        <li role="separator" class="divider"></li>
+
+                        <li><a href="{{ path('puphpet.apache.pregenerated_directory', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'symfony2_3',
+                                }) }}"
+                               data-toggle="add-block">Symfony 2 & 3</a></li>
+                        <li><a href="{{ path('puphpet.apache.pregenerated_directory', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'symfony4',
+                                }) }}"
+                               data-toggle="add-block">Symfony 4</a></li>
+                        <li><a href="{{ path('puphpet.apache.pregenerated_directory', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'laravel',
+                                }) }}"
+                               data-toggle="add-block">Laravel</a></li>
+                    </ul>
                 </li>
                 {% for index, directory in directories %}
                     <li class="{{ loop.first ? 'active' }}">
@@ -363,9 +404,9 @@
                     {% if directory.provider is not defined
                         or directory.provider|lower not in [
                             'directory', 'directorymatch', 'location', 'locationmatch', 'files', 'filesmatch'
-                    ] %}{% set provider = 'directory' %}{% endif %}
+                    ] %}{% set provider = 'directory' %}{% else %}{% set provider = directory.provider %}{% endif %}
 
-                    {% include "PuphpetBundle:apache:#{directory.provider|lower}.html.twig" with {
+                    {% include "PuphpetBundle:apache:#{provider}.html.twig" with {
                         'vhostId': uniqid,
                         'directory': directory,
                         'uniqid': index,

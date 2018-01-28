@@ -15,7 +15,7 @@ empty_vhost:
 
 empty_directory:
     provider: directory
-    directoryindex: index.php
+    directoryindex: index.html
     path: /var/www/REPLACE_ME
     options:
         - Indexes
@@ -39,6 +39,139 @@ empty_rewrite:
     rewrite_base: ~
     rewrite_cond: []
     rewrite_rule: []
+
+pregenerated_directories:
+    html:
+        html:
+            path: /var/www/REPLACE_ME
+            directoryindex: index.html
+            options:
+                - Indexes
+                - FollowSymlinks
+                - MultiViews
+            allow_override:
+                - All
+            require:
+                - all granted
+            provider: directory
+    php:
+        php_html:
+            path: /var/www/REPLACE_ME
+            directoryindex: index.php index.html
+            options:
+                - Indexes
+                - FollowSymlinks
+                - MultiViews
+            allow_override:
+                - All
+            require:
+                - all granted
+            provider: directory
+        php_php:
+            path: \.php$
+            sethandler: 'proxy:fcgi://127.0.0.1:9000'
+            provider: filesmatch
+    symfony2_3:
+        sf2_3_fm:
+            path: \.php$
+            sethandler: 'proxy:fcgi://127.0.0.1:9000'
+            setenv:
+                - APP_ENV dev
+            provider: filesmatch
+        sf2_3_dir:
+            path: /var/www/REPLACE_ME/web
+            directoryindex: app.php
+            setenv:
+                - APP_ENV dev
+            options:
+                - Indexes
+                - FollowSymlinks
+                - MultiViews
+            allow_override:
+                - All
+            require:
+                - all granted
+            provider: directory
+            rewrites:
+                rewrite_1:
+                    rewrite_cond:
+                        - '%{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$'
+                    rewrite_rule:
+                        - '^(.*) - [E=BASE:%1]'
+                rewrite_2:
+                    rewrite_cond:
+                        - '%{ENV:REDIRECT_STATUS} ^$'
+                    rewrite_rule:
+                        - '^app\.php(/(.*)|$) %{ENV:BASE}/$2 [R=301,L]'
+                rewrite_3:
+                    rewrite_cond:
+                        - '%{REQUEST_FILENAME} -f'
+                    rewrite_rule:
+                        - '.? - [L]'
+                rewrite_4:
+                    rewrite_rule:
+                        - '.? %{ENV:BASE}/app.php [L]'
+    symfony4:
+        sf4_fm:
+            path: \.php$
+            sethandler: 'proxy:fcgi://127.0.0.1:9000'
+            setenv:
+                - APP_ENV dev
+            provider: filesmatch
+        sf4_dir:
+            path: /var/www/REPLACE_ME/public
+            directoryindex: index.php
+            setenv:
+                - APP_ENV dev
+            options:
+                - Indexes
+                - FollowSymlinks
+                - MultiViews
+            allow_override:
+                - All
+            require:
+                - all granted
+            provider: directory
+            rewrites:
+                rewrite_1:
+                    rewrite_cond:
+                        - '%{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$'
+                    rewrite_rule:
+                        - '^(.*) - [E=BASE:%1]'
+                rewrite_2:
+                    rewrite_cond:
+                        - '%{ENV:REDIRECT_STATUS} ^$'
+                    rewrite_rule:
+                        - '^index\.php(/(.*)|$) %{ENV:BASE}/$2 [R=301,L]'
+                rewrite_3:
+                    rewrite_cond:
+                        - '%{REQUEST_FILENAME} -f'
+                    rewrite_rule:
+                        - '.? - [L]'
+                rewrite_4:
+                    rewrite_rule:
+                        - '.? %{ENV:BASE}/index.php [L]'
+    laravel:
+        laravel_fm:
+            path: \.php$
+            sethandler: 'proxy:fcgi://127.0.0.1:9000'
+            setenv:
+                - APP_ENV dev
+            provider: filesmatch
+        laravel_dir:
+            path: /var/www/REPLACE_ME/public
+            directoryindex: index.php
+            setenv:
+                - APP_ENV dev
+            options:
+                - Indexes
+                - FollowSymlinks
+                - MultiViews
+            allow_override:
+                - All
+            require:
+                - all granted
+            provider: directory
 
 modules:
     - cache
