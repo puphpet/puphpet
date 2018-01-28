@@ -24,7 +24,7 @@ vhosts:
         ssl: false
         rewrites: []
         locations:
-            location1:
+            php_html:
                 www_root: /var/www/awesome
                 location: /
                 index_files:
@@ -34,7 +34,7 @@ vhosts:
                     - $uri
                     - $uri/
                     - /index.php$is_args$args
-            location2:
+            php_php:
                 www_root: /var/www/awesome
                 location: '~ \.php$'
                 index_files:
