@@ -16,7 +16,7 @@
 {% set spdy = (vhost.spdy is defined) ? true : false %}
 {% set rewrites = (vhost.rewrites is defined) ? vhost.rewrites : [] %}
 {% set locations = (vhost.locations is defined) ? vhost.locations : [] %}
-{% set client_max_body_type = (vhost.client_max_body_type is defined) ? vhost.client_max_body_type : '1m' %}
+{% set client_max_body_size = (vhost.client_max_body_size is defined) ? vhost.client_max_body_size : '1m' %}
 
 <div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
@@ -98,7 +98,7 @@
         <input type="text" id="{{ idBase }}-client-max-body-size"
                name="{{ nameBase }}[client_max_body_size]"
                placeholder="1m" class="form-control"
-               value="{{ client_max_body_type }}" />
+               value="{{ client_max_body_size }}" />
         <div class="help-block">
             Value in megabytes (<code>1m</code> = 1 megabyte). <code>0</code> = disabled
         </div>
