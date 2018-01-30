@@ -166,3 +166,53 @@ pregenerated_locations:
                 - DOCUMENT_ROOT $realpath_root
             set:
                 - $path_info $fastcgi_path_info
+    wordpress:
+        wp_favicon:
+            www_root: ~
+            location: /favicon.ico
+            index_files: []
+            try_files: []
+            location_cfg_append:
+                - log_not_found off
+                - access_log off
+        wp_robots:
+            www_root: ~
+            location: /robots.txt
+            index_files: []
+            try_files: []
+            location_cfg_append:
+                - allow all
+                - log_not_found off
+                - access_log off
+        wp_base:
+            www_root: /var/www/REPLACE_ME
+            location: /
+            index_files:
+                - index.php
+            try_files:
+                - $uri
+                - $uri/
+                - /index.php$is_args$args
+        wp_php:
+            www_root: /var/www/REPLACE_ME
+            location: '~ \.php$'
+            try_files:
+                - $uri
+                - $uri/
+                - /index.php$is_args$args
+            fastcgi: 127.0.0.1:9000
+            fastcgi_index: index.php
+            fastcgi_split_path: '^(.+\.php)(/.*)$'
+            fast_cgi_params_extra:
+                - SCRIPT_FILENAME $document_root$fastcgi_script_name
+                - DOCUMENT_ROOT $realpath_root
+            set:
+                - $path_info $fastcgi_path_info
+        wp_media:
+            www_root: ~
+            location: '~* \.(js|css|png|jpg|jpeg|gif|ico)$'
+            index_files: []
+            try_files: []
+            location_cfg_append:
+                - expires max
+                - log_not_found off

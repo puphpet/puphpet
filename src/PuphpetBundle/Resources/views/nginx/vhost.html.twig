@@ -413,6 +413,11 @@
                                     'pregenerated': 'laravel',
                                 }) }}"
                                data-toggle="add-block">Laravel</a></li>
+                        <li><a href="{{ path('puphpet.nginx.location', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'wordpress',
+                                }) }}"
+                               data-toggle="add-block">Wordpress</a></li>
                     </ul>
                 </li>
                 {% for index, location in locations %}
