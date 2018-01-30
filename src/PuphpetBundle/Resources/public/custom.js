@@ -456,17 +456,29 @@ PUPHPET.yamlConfigDownload = function() {
 
 PUPHPET.checkboxCollapse = function() {
     $('input[type=checkbox][data-toggle=checkbox-collapse]').each(function (index, item) {
-        var $item = $(item);
+        var $item   = $(item);
         var $target = $($item.data('target'));
 
-        $('input[type=checkbox][name="' + item.name + '"]').on('change', function () {
+        var identifier = item.name
+            ? 'input[type=checkbox][name="' + item.name + '"]'
+            : 'input[type=checkbox][id="' + item.id + '"]';
+
+        $(identifier).on('change', function () {
             if ($item.is(':checked')) {
                 $target.collapse('show');
+
+                if (this.hasAttribute('data-enable-on-check')) {
+                    PUPHPET.enableFormElements($(this.getAttribute('data-target')));
+                }
 
                 return true;
             }
 
             $target.collapse('hide');
+
+            if (this.hasAttribute('data-disable-on-uncheck')) {
+                PUPHPET.disableFormElements($(this.getAttribute('data-target')));
+            }
         });
     });
 };

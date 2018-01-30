@@ -10,6 +10,7 @@
 {% set sets = (location.set is defined) ? location.set : [] %}
 {% set proxy_set_headers = (location.proxy_set_header is defined) ? location.proxy_set_header : [] %}
 {% set rewrites = (location.rewrites is defined) ? location.rewrites : [] %}
+{% set location_cfg_append = (location.location_cfg_append is defined) ? location.location_cfg_append : [] %}
 
 <div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
@@ -129,69 +130,6 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="{{ idBase }}-fastcgi">
-            FastCGI Pass
-        </label>
-        <input type="text" id="{{ idBase }}-fastcgi"
-               name="{{ nameBase }}[fastcgi]"
-               placeholder="127.0.0.1:9000" class="form-control"
-               value="{{ location.fastcgi }}" />
-        <div class="help-block">
-            <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_pass"
-               target="_blank">More information</a>.
-        </div>
-    </div>
-
-    <div class="form-group col-xs-12 col-sm-6">
-        <label for="{{ idBase }}-fastcgi_index">
-            FastCGI Index
-        </label>
-        <input type="text" id="{{ idBase }}-fastcgi_index"
-               name="{{ nameBase }}[fastcgi_index]"
-               placeholder="index.php" class="form-control"
-               value="{{ location.fastcgi_index }}" />
-        <div class="help-block">
-            <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_index"
-               target="_blank">More information</a>.
-        </div>
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div class="form-group col-xs-12 col-sm-6">
-        <label for="{{ idBase }}-fastcgi_split_path">
-            FastCGI Split Path Info
-        </label>
-        <input type="text" id="{{ idBase }}-fastcgi_split_path"
-               name="{{ nameBase }}[fastcgi_split_path]"
-               placeholder="^(.+\.php)(/.*)$" class="form-control"
-               value="{{ location.fastcgi_split_path }}" />
-        <div class="help-block">
-            <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_split_path_info"
-               target="_blank">More information</a>.
-        </div>
-    </div>
-
-    <div class="form-group col-xs-12 col-sm-6">
-        <label for="{{ idBase }}-fast_cgi_params_extra">
-            FastCGI Environment Variables
-        </label>
-        <select id="{{ idBase }}-fast_cgi_params_extra"
-                name="{{ nameBase }}[fast_cgi_params_extra][]"
-                multiple class="form-control select-tags-editable">
-            {% for param in fast_cgi_params_extras %}
-                <option selected value="{{ param }}">{{ param }}</option>
-            {% endfor %}
-        </select>
-        <div class="help-block">
-            <code>name value</code>, separated by comma.
-            Unlike Apache, each variable must have a value.
-        </div>
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-set">
             Set Variables
         </label>
@@ -209,52 +147,157 @@
         </div>
     </div>
 
-    <div class="form-group col-xs-12 col-sm-6">
-        <label for="{{ idBase }}-proxy">
-            Proxy
-        </label>
-        <input type="text" id="{{ idBase }}-proxy"
-               name="{{ nameBase }}[proxy]"
-               placeholder="http://127.0.0.1:8080/" class="form-control"
-               value="{{ location.proxy }}" />
-        <div class="help-block">
-            Proxy server(s) for the root location to connect to.
-            <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass"
-               target="_blank">More information</a>.
+    <div class="clearfix"></div>
+
+    <div id="{{ idBase }}-fastcgi-container"
+        class="tab-pane {% if location.fastcgi %}active{% endif %}">
+        <div class="checkbox checkbox-md no-padding mb-20">
+            <input type="checkbox" id="{{ idBase }}-fastcgi-enabled"
+                   value="1"
+                   {% if location.fastcgi %}checked{% endif %}
+                   data-toggle="checkbox-collapse"
+                   data-target="#{{ idBase }}-fastcgi-enabled-container"
+                   data-enable-on-check data-disable-on-uncheck />
+            <label for="{{ idBase }}-fastcgi-enabled">Use FastCGI</label>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div id="{{ idBase }}-fastcgi-enabled-container"
+            class="collapse {% if location.fastcgi %}in{% endif %}">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="{{ idBase }}-fastcgi">
+                    FastCGI Pass
+                </label>
+                <input type="text" id="{{ idBase }}-fastcgi"
+                       name="{{ nameBase }}[fastcgi]"
+                       placeholder="127.0.0.1:9000" class="form-control"
+                       value="{{ location.fastcgi }}" />
+                <div class="help-block">
+                    <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_pass"
+                       target="_blank">More information</a>.
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="{{ idBase }}-fastcgi_index">
+                    FastCGI Index
+                </label>
+                <input type="text" id="{{ idBase }}-fastcgi_index"
+                       name="{{ nameBase }}[fastcgi_index]"
+                       placeholder="index.php" class="form-control"
+                       value="{{ location.fastcgi_index }}" />
+                <div class="help-block">
+                    <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_index"
+                       target="_blank">More information</a>.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="{{ idBase }}-fastcgi_split_path">
+                    FastCGI Split Path Info
+                </label>
+                <input type="text" id="{{ idBase }}-fastcgi_split_path"
+                       name="{{ nameBase }}[fastcgi_split_path]"
+                       placeholder="^(.+\.php)(/.*)$" class="form-control"
+                       value="{{ location.fastcgi_split_path }}" />
+                <div class="help-block">
+                    <a href="http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_split_path_info"
+                       target="_blank">More information</a>.
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="{{ idBase }}-fast_cgi_params_extra">
+                    FastCGI Environment Variables
+                </label>
+                <select id="{{ idBase }}-fast_cgi_params_extra"
+                        name="{{ nameBase }}[fast_cgi_params_extra][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for param in fast_cgi_params_extras %}
+                        <option selected value="{{ param }}">{{ param }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    <code>name value</code>, separated by comma.
+                    Unlike Apache, each variable must have a value.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
         </div>
     </div>
 
     <div class="clearfix"></div>
 
-    <div class="form-group col-xs-12 col-sm-6">
-        <label for="{{ idBase }}-proxy_redirect">
-            Proxy Redirect
-        </label>
-        <input type="text" id="{{ idBase }}-proxy_redirect"
-               name="{{ nameBase }}[proxy_redirect]"
-               placeholder="off" class="form-control"
-               value="{{ location.proxy_redirect }}" />
-        <div class="help-block">
-            <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_redirect"
-               target="_blank">More information</a>.
+    <div id="{{ idBase }}-proxy-container"
+        class="tab-pane {% if location.proxy %}active{% endif %}">
+        <div class="checkbox checkbox-md no-padding mb-20">
+            <input type="checkbox" id="{{ idBase }}-proxy-enabled"
+                   value="1"
+                   {% if location.proxy %}checked{% endif %}
+                   data-toggle="checkbox-collapse"
+                   data-target="#{{ idBase }}-proxy-enabled-container"
+                   data-enable-on-check data-disable-on-uncheck />
+            <label for="{{ idBase }}-proxy-enabled">Use Proxy</label>
         </div>
-    </div>
 
-    <div class="form-group col-xs-12 col-sm-6">
-        <label for="{{ idBase }}-proxy_set_header">
-            Proxy Set Header
-        </label>
-        <select id="{{ idBase }}-proxy_set_header"
-                name="{{ nameBase }}[proxy_set_header][]"
-                multiple class="form-control select-tags-editable">
-            {% for param in proxy_set_headers %}
-                <option selected value="{{ param }}">{{ param }}</option>
-            {% endfor %}
-        </select>
-        <div class="help-block">
-            <code>name value</code>, separated by comma.
-            <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header"
-               target="_blank">More information</a>.
+        <div class="clearfix"></div>
+
+        <div id="{{ idBase }}-proxy-enabled-container"
+            class="collapse {% if location.proxy %}in{% endif %}">
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="{{ idBase }}-proxy">
+                    Proxy
+                </label>
+                <input type="text" id="{{ idBase }}-proxy"
+                       name="{{ nameBase }}[proxy]"
+                       placeholder="http://127.0.0.1:8080/" class="form-control"
+                       value="{{ location.proxy }}" />
+                <div class="help-block">
+                    Proxy server(s) for the root location to connect to.
+                    <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass"
+                       target="_blank">More information</a>.
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="{{ idBase }}-proxy_redirect">
+                    Proxy Redirect
+                </label>
+                <input type="text" id="{{ idBase }}-proxy_redirect"
+                       name="{{ nameBase }}[proxy_redirect]"
+                       placeholder="off" class="form-control"
+                       value="{{ location.proxy_redirect }}" />
+                <div class="help-block">
+                    <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_redirect"
+                       target="_blank">More information</a>.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+                <label for="{{ idBase }}-proxy_set_header">
+                    Proxy Set Header
+                </label>
+                <select id="{{ idBase }}-proxy_set_header"
+                        name="{{ nameBase }}[proxy_set_header][]"
+                        multiple class="form-control select-tags-editable">
+                    {% for param in proxy_set_headers %}
+                        <option selected value="{{ param }}">{{ param }}</option>
+                    {% endfor %}
+                </select>
+                <div class="help-block">
+                    <code>name value</code>, separated by comma.
+                    <a href="http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header"
+                       target="_blank">More information</a>.
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
         </div>
     </div>
 
