@@ -34,6 +34,7 @@ vhosts:
                     - $uri
                     - $uri/
                     - /index.php$is_args$args
+                location_cfg_append: []
             php_php:
                 www_root: /var/www/awesome
                 location: '~ \.php$'
@@ -49,3 +50,4 @@ vhosts:
                     - SCRIPT_FILENAME $document_root$fastcgi_script_name
                 set:
                     - $path_info $fastcgi_path_info
+                location_cfg_append: []
