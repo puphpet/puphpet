@@ -5,7 +5,7 @@ empty_vhost:
     port: 80
     setenvif:
         - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
-    custom_fragment: ~
+    custom_fragment: []
     directories: []
     ssl: 0
     ssl_cert: ~
@@ -25,14 +25,14 @@ empty_directory:
         - All
     require:
         - all granted
-    custom_fragment: ~
+    custom_fragment: []
 
 empty_files_match:
     provider: filesmatch
     path: '\.php$'
     sethandler: 'proxy:fcgi://127.0.0.1:9000'
     setenv: []
-    custom_fragment: ''
+    custom_fragment: []
 
 empty_rewrite:
     comment: ~

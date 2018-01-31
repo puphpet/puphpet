@@ -17,7 +17,6 @@ vhosts:
         port: 80
         setenvif:
             - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
-        custom_fragment: ~
         directories:
             php_html:
                 path: /var/www/awesome

@@ -2,13 +2,19 @@
 {% set idBase = "apache-vhosts-#{vhostId}-directories-#{uniqid}" %}
 {% set nameBase = "apache[vhosts][#{vhostId}][directories][#{uniqid}]" %}
 
+{% set headers = (directory.headers is defined) ? directory.headers : [] %}
 {% set options = (directory.options is defined) ? directory.options : [] %}
 {% set allow_overrides = (directory.allow_override is defined) ? directory.allow_override : [] %}
 {% set requires = (directory.require is defined) ? directory.require : [] %}
+{% set index_options = (directory.index_options is defined) ? directory.index_options : [] %}
+{% set custom_fragment = (directory.custom_fragment is defined) ? directory.custom_fragment : [] %}
 {% set rewrites = (directory.rewrites is defined) ? directory.rewrites : [] %}
 
 <div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
+    <input type="hidden" name="{{ nameBase }}[provider]"
+           value="{{ directory.provider }}" />
+
     <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-path">
             Path
@@ -38,6 +44,22 @@
     <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-headers">
+            Headers
+        </label>
+        <select id="{{ idBase }}-headers"
+                name="{{ nameBase }}[headers][]"
+                multiple class="form-control select-tags-editable">
+            {% for header in headers %}
+                <option selected value="{{ header }}">{{ header }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Separated by comma.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-options">
             Options
         </label>
@@ -52,6 +74,8 @@
             Separated by comma.
         </div>
     </div>
+
+    <div class="clearfix"></div>
 
     <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-allow_override">
@@ -69,8 +93,6 @@
         </div>
     </div>
 
-    <div class="clearfix"></div>
-
     <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-require">
             Require
@@ -87,23 +109,55 @@
         </div>
     </div>
 
+    <div class="clearfix"></div>
+
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="{{ idBase }}-custom_fragment">
-            Directory-Level Custom Directives
+        <label for="{{ idBase }}-index_options">
+            Index Options
         </label>
-        <input type="text" id="{{ idBase }}-custom_fragment"
-               name="{{ nameBase }}[custom_fragment]"
-               placeholder="/path/to/file" class="form-control"
-               value="{{ directory.custom_fragment }}" />
+        <select id="{{ idBase }}-index_options"
+                name="{{ nameBase }}[index_options][]"
+                multiple class="form-control select-tags-editable">
+            {% for option in index_options %}
+                <option selected value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
         <div class="help-block">
-            File must exist inside VM on initial <code>$ vagrant up</code>!
-            <a href="https://gist.github.com/jtreminio/bcb78ccb97978a2cbd9e#file-gistfile1-apacheconf-L20"
-               target="_blank">The custom fragment would be added here.</a>
+            Separated by comma.
         </div>
     </div>
 
-    <input type="hidden" name="{{ nameBase }}[provider]"
-           value="{{ directory.provider }}" />
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-index_options">
+            Index Options
+        </label>
+        <select id="{{ idBase }}-index_options"
+                name="{{ nameBase }}[index_options][]"
+                multiple class="form-control select-tags-editable">
+            {% for option in index_options %}
+                <option selected value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Separated by comma.
+        </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-custom_fragment">
+            Additional Settings
+        </label>
+        <select id="{{ idBase }}-custom_fragment"
+                name="{{ nameBase }}[custom_fragment][]"
+                multiple class="form-control select-tags-editable">
+            {% for option in custom_fragment %}
+                <option selected value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+        <div class="help-block">
+            Additional rules to append to Directory block. Separated by comma.
+        </div>
+    </div>
 
     <div class="clearfix"></div>
 

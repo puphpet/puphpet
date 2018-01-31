@@ -1,11 +1,15 @@
 {% set uniqid = uniqid ?? uniqid('filesmatch_') %}
 {% set idBase = "apache-vhosts-#{vhostId}-directories-#{uniqid}" %}
 {% set nameBase = "apache[vhosts][#{vhostId}][directories][#{uniqid}]" %}
+{% set custom_fragment = (directory.custom_fragment is defined) ? directory.custom_fragment : [] %}
 
 {% set setenvs = (directory.setenv is defined) ? directory.setenv : [] %}
 
 <div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
+    <input type="hidden" name="{{ nameBase }}[provider]"
+           value="{{ directory.provider }}" />
+
     <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-path">
             Path
@@ -52,21 +56,19 @@
 
     <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-custom_fragment">
-            FilesMatch-Level Custom Directives
+            Additional Settings
         </label>
-        <input type="text" id="{{ idBase }}-custom_fragment"
-               name="{{ nameBase }}[custom_fragment]"
-               placeholder="/path/to/file" class="form-control"
-               value="{{ directory.custom_fragment }}" />
+        <select id="{{ idBase }}-custom_fragment"
+                name="{{ nameBase }}[custom_fragment][]"
+                multiple class="form-control select-tags-editable">
+            {% for option in custom_fragment %}
+                <option selected value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
         <div class="help-block">
-            File must exist inside VM on initial <code>$ vagrant up</code>!
-            <a href="https://gist.github.com/jtreminio/bcb78ccb97978a2cbd9e#file-gistfile1-apacheconf-L28"
-               target="_blank">The custom fragment will be added here</a>.
+            Additional rules to append to FilesMatch block. Separated by comma.
         </div>
     </div>
-
-    <input type="hidden" name="{{ nameBase }}[provider]"
-           value="{{ directory.provider }}" />
 
     <div class="clearfix"></div>
 
