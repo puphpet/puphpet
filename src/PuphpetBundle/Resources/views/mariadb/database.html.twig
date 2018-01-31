@@ -15,6 +15,18 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-collate">
+            DB Encoding
+        </label>
+        <input type="text" id="{{ idBase }}-collate"
+               name="{{ nameBase }}[collate]"
+               placeholder="utf8_general_ci" class="form-control"
+               value="{{ database.collate }}" />
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-sql">
             Import Database From File
         </label>

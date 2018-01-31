@@ -44,6 +44,7 @@ empty_user:
 
 empty_database:
     name: ~
+    collate: utf8_general_ci
     sql: ~
 
 empty_grant:

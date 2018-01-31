@@ -12,6 +12,7 @@ users:
 databases:
     database1:
         name: dbname
+        collate: utf8_general_ci
         sql: ~
 
 grants:
