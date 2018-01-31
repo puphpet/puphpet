@@ -379,6 +379,11 @@
                                     'pregenerated': 'laravel',
                                 }) }}"
                                data-toggle="add-block">Laravel</a></li>
+                        <li><a href="{{ path('puphpet.apache.pregenerated_directory', {
+                                    'vhostId': uniqid,
+                                    'pregenerated': 'wordpress',
+                                }) }}"
+                               data-toggle="add-block">Wordpress</a></li>
                     </ul>
                 </li>
                 {% for index, directory in directories %}

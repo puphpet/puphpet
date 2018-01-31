@@ -172,6 +172,27 @@ pregenerated_directories:
             require:
                 - all granted
             provider: directory
+    wordpress:
+        wordpress_fm:
+            path: \.php$
+            sethandler: 'proxy:fcgi://127.0.0.1:9000'
+            setenv:
+                - APP_ENV dev
+            provider: filesmatch
+        wordpress_dir:
+            path: /var/www/REPLACE_ME
+            directoryindex: index.php
+            setenv:
+                - APP_ENV dev
+            options:
+                - Indexes
+                - FollowSymlinks
+                - MultiViews
+            allow_override:
+                - All
+            require:
+                - all granted
+            provider: directory
 
 modules:
     - cache
