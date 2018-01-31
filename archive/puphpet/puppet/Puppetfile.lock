@@ -8,8 +8,6 @@ FORGE
     puppet-archive (2.2.0)
       puppetlabs-stdlib (< 5.0.0, >= 4.13.1)
     puppet-staging (2.2.0)
-    puppetlabs-gcc (0.3.0)
-      puppetlabs-stdlib (< 5.0.0, >= 2.0.0)
     puppetlabs-git (0.5.0)
       puppetlabs-stdlib (>= 3.2.0)
     puppetlabs-translate (1.1.0)
@@ -298,15 +296,6 @@ GIT
     voxpupuli-archive (2.2.0)
       puppetlabs-stdlib (< 5.0.0, >= 4.13.1)
 
-GIT
-  remote: https://github.com/willdurand/puppet-nodejs.git
-  ref: 2.0.0
-  sha: 30bde5bc6a0026f549177b4b9a52fb4a3b7a8f0e
-  specs:
-    willdurand-nodejs (2.0.0)
-      puppetlabs-gcc (>= 0.3.0)
-      puppetlabs-stdlib (>= 3.2.1)
-
 DEPENDENCIES
   ajcrowe-supervisord (>= 0)
   arioch-redis (>= 0)
@@ -341,5 +330,4 @@ DEPENDENCIES
   saz-resolv_conf (>= 0)
   saz-timezone (>= 0)
   voxpupuli-archive (>= 0)
-  willdurand-nodejs (>= 0)
 
