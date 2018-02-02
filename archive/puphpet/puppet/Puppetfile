@@ -18,7 +18,7 @@ mod 'voxpupuli/archive',
     :ref => 'v2.2.0'
 mod 'keen99/beanstalkd',
     :git => 'https://github.com/keen99/puppet-beanstalkd.git',
-    :ref => '1.0.4'
+    :ref => '1.0.5'
 mod 'puphpet/composer',
     :git => 'https://github.com/puphpet/puppet-composer.git',
     :ref => '1.5.0'

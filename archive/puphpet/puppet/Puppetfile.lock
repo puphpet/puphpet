@@ -66,10 +66,10 @@ GIT
 
 GIT
   remote: https://github.com/keen99/puppet-beanstalkd.git
-  ref: 1.0.4
-  sha: 5e51a7ba3d4f06f1b6cc773c915c59003f04d770
+  ref: 1.0.5
+  sha: 4d22c825b94cb4c58ca60261eb6018d3ab13e4ae
   specs:
-    keen99-beanstalkd (1.0.4)
+    keen99-beanstalkd (1.0.5)
 
 GIT
   remote: https://github.com/maestrodev/puppet-rvm.git
