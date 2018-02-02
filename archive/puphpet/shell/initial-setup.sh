@@ -51,6 +51,16 @@ fi
 
 if [[ "${OS}" == 'centos' ]]; then
     if [ "${RELEASE}" == 6 ]; then
+        if [[ ! -f /etc/sysconfig/iptables ]]; then
+            cat >/etc/sysconfig/iptables << 'EOL'
+*filter
+:INPUT ACCEPT [0:0]
+COMMIT
+EOL
+            chmod 600 /etc/sysconfig/iptables
+            cp /etc/sysconfig/iptables /etc/sysconfig/ip6tables
+        fi
+
         EPEL='http://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm'
     else
         EPEL='http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
