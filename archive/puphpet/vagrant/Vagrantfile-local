@@ -164,8 +164,8 @@ machines.each do |i, machine|
 
     data['vm']['synced_folder'].each do |i, folder|
       if folder['source'] != '' && folder['target'] != ''
-        sync_owner = !folder['owner'].nil? ? folder['owner'] : 'www-data'
-        sync_group = !folder['group'].nil? ? folder['group'] : 'www-data'
+        sync_owner = !folder['owner'].nil? ? folder['owner'] : 'vagrant'
+        sync_group = !folder['group'].nil? ? folder['group'] : 'vagrant'
 
         if folder['sync_type'] == 'nfs'
           if Vagrant.has_plugin?('vagrant-bindfs')

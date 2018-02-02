@@ -77,8 +77,8 @@ empty_synced_folder:
     source: ~
     target: ~
     sync_type: default
-    owner: 'www-data'
-    group: 'www-data'
+    owner: 'vagrant'
+    group: 'vagrant'
     rsync:
         args:
             - '--verbose'

@@ -45,8 +45,8 @@ vm:
             source: ./
             target: /var/www
             sync_type: default
-            owner: 'www-data'
-            group: 'www-data'
+            owner: 'vagrant'
+            group: 'vagrant'
             smb:
                 smb_host: ~
                 smb_username: ~
