@@ -25,7 +25,7 @@
 {% set owner = (synced_folder.owner is defined and synced_folder.owner) ? synced_folder.owner : '' %}
 {% set group = (synced_folder.group is defined and synced_folder.group) ? synced_folder.group : '' %}
 
-<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <input type="hidden" id="{{ idBase }}-owner"
            name="{{ nameBase }}[owner]"

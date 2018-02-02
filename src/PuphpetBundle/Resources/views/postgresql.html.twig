@@ -79,22 +79,25 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Users</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.postgresql.add_user') }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, user in postgresql.users %}
+                    {% set blockId = "postgresql-users-#{index}" %}
+                    {% set blockName = "postgresql[users][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#postgresql-users-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#postgresql-users-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>
@@ -120,22 +123,25 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Databases</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.postgresql.add_database') }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, database in postgresql.databases %}
+                    {% set blockId = "postgresql-databases-#{index}" %}
+                    {% set blockName = "postgresql[databases][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#postgresql-databases-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#postgresql-databases-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>
@@ -161,22 +167,25 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Grants</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.postgresql.add_grant') }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, grant in postgresql.grants %}
+                    {% set blockId = "postgresql-grants-#{index}" %}
+                    {% set blockName = "postgresql[grants][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#postgresql-grants-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#postgresql-grants-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>

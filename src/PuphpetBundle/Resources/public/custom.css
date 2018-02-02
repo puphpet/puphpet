@@ -346,3 +346,10 @@
 .ui-pnotify {
     width: 500px !important;
 }
+
+.sortable-placeholder {
+    height: 50px;
+    width: 100px;
+    border-left: 100px solid #3498db;
+    float: left;
+}

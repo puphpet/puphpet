@@ -78,22 +78,25 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Users</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.mariadb.add_user') }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, user in mariadb.users %}
+                    {% set blockId = "mariadb-users-#{index}" %}
+                    {% set blockName = "mariadb[users][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mariadb-users-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mariadb-users-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>
@@ -119,22 +122,25 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Databases</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.mariadb.add_database') }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, database in mariadb.databases %}
+                    {% set blockId = "mariadb-databases-#{index}" %}
+                    {% set blockName = "mariadb[databases][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mariadb-databases-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mariadb-databases-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>
@@ -160,22 +166,25 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Grants</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.mariadb.add_grant') }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, grant in mariadb.grants %}
+                    {% set blockId = "mariadb-grants-#{index}" %}
+                    {% set blockName = "mariadb[grants][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#mariadb-grants-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#mariadb-grants-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>

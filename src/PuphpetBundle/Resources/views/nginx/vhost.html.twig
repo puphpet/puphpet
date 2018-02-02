@@ -18,7 +18,7 @@
 {% set locations = (vhost.locations is defined) ? vhost.locations : [] %}
 {% set client_max_body_size = (vhost.client_max_body_size is defined) ? vhost.client_max_body_size : '1m' %}
 
-<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-server_name">
@@ -111,7 +111,7 @@
     <div class="panel panel-info">
         <div class="panel-heading">SSL Options</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="{% if ssl_letsencrypt_enabled or not ssl %}active{% endif %}">
                     <a href="#" data-target="#{{ idBase }}-ssl-letsencrypt-container"
                        data-toggle="tab">Let's Encrypt SSL</a>
@@ -339,22 +339,25 @@
     <div class="panel panel-info">
         <div class="panel-heading">Virtual Host Rewrites</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.nginx.vhost_rewrite', {'vhostId': uniqid}) }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, rewrite in rewrites %}
+                    {% set blockId = "#{idBase}-rewrites-#{index}" %}
+                    {% set blockName = "#{nameBase}[rewrites][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#{{ idBase }}-rewrites-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#{{ idBase }}-rewrites-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>
@@ -381,12 +384,12 @@
     <div class="panel panel-info">
         <div class="panel-heading">Virtual Host Location</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs dropdown">
+            <ul class="nav nav-tabs nested-tabs sortable dropdown">
                 <li class="add">
-                    <a href="#" data-toggle="dropdown" id="{{ idBase }}-downDownMenu">
+                    <a href="#" data-toggle="dropdown" id="{{ idBase }}-dropDownMenu">
                         Add <span class="caret"></span></a>
 
-                    <ul class="dropdown-menu" aria-labelledby="{{ idBase }}-downDownMenu">
+                    <ul class="dropdown-menu" aria-labelledby="{{ idBase }}-dropDownMenu">
                         <li><a href="{{ path('puphpet.nginx.location', {
                                     'vhostId': uniqid,
                                     'pregenerated': 'html',
@@ -421,15 +424,18 @@
                     </ul>
                 </li>
                 {% for index, location in locations %}
+                    {% set blockId = "#{idBase}-locations-#{index}" %}
+                    {% set blockName = "#{nameBase}[locations][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#{{ idBase }}-locations-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#{{ idBase }}-locations-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>

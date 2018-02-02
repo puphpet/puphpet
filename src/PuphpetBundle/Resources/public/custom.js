@@ -43,6 +43,7 @@ PUPHPET.addBlock = function() {
         var sourceUrl      = this.getAttribute('href');
         var clickedElement = $(this);
 
+        var $liContainer         = $(this).closest('li');
         var $nestedTabsContainer = $(this).closest('.nested-tabs');
         var $panelBodyContainer  = $(this).closest('.panel-body');
 
@@ -52,9 +53,10 @@ PUPHPET.addBlock = function() {
         }).done(function(response) {
             response = Array.isArray(response) ? response : [response];
 
-            var tabLinkClicked = false
+            var tabLinkClicked = false;
+
             for (var i = 0; i < response.length; i++) {
-                $tabLink = parseResponse($nestedTabsContainer, $panelBodyContainer, $(response[i]));
+                $tabLink = parseResponse($liContainer, $nestedTabsContainer, $panelBodyContainer, $(response[i]));
 
                 if (!tabLinkClicked) {
                     tabLinkClicked = true;
@@ -64,11 +66,12 @@ PUPHPET.addBlock = function() {
         });
     });
 
-    function parseResponse($nestedTabsContainer, $panelBodyContainer, $row) {
+    function parseResponse($liContainer, $nestedTabsContainer, $panelBodyContainer, $row) {
         var $template = $('#nested-tabs-template').clone(true);
         var $tabLink  = $template.find('[data-toggle="tab"]');
         var rowId     = $row[0].getAttribute('id');
         var uniqid    = $row[0].getAttribute('data-uniqid');
+        var name      = $row[0].getAttribute('data-name');
 
         $template.removeAttr('id');
 
@@ -84,6 +87,10 @@ PUPHPET.addBlock = function() {
             'data-target',
             targetString
         );
+        $template.find('[data-type="name"]')[0].setAttribute(
+            'name',
+            name
+        );
 
         $panelBodyContainer.find('.tab-content')[0].append($row[0]);
 
@@ -95,6 +102,7 @@ PUPHPET.addBlock = function() {
         PUPHPET.radioCollapse();
         PUPHPET.disableOnUncheck();
         PUPHPET.enforceGroupSingleChoice();
+        PUPHPET.sortableTabs($nestedTabsContainer);
 
         return $tabLink;
     }
@@ -603,6 +611,18 @@ PUPHPET.bootstrapNotify = function() {
     });
 };
 
+PUPHPET.sortableTabs = function(container) {
+    if (container == undefined) {
+        container = '.sortable';
+    }
+
+    sortable(container, {
+        items: ':not(.add)',
+        forcePlaceholderSize: true,
+        draggingWidth: '50px'
+    });
+}
+
 $(document).ready(function() {
     PUPHPET.runSelectize(null);
     PUPHPET.selectizeAddClickedToElement();
@@ -620,4 +640,5 @@ $(document).ready(function() {
     PUPHPET.yamlConfigDownload();
     PUPHPET.disableOnUncheck();
     PUPHPET.bootstrapNotify();
+    PUPHPET.sortableTabs();
 });

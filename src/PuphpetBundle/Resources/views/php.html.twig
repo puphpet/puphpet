@@ -188,22 +188,25 @@
     <div class="panel panel-primary">
         <div class="panel-heading">PHP-FPM Pools</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.php.add_fpm_pool') }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, pool in php.fpm_pools %}
+                    {% set blockId = "php-fpm_pools-#{index}" %}
+                    {% set blockName = "php[fpm_pools][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#php-fpm_pools-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#php-fpm_pools-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>

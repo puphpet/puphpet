@@ -5,7 +5,7 @@
 {% set forwarded_ports = (machine.network.forwarded_port is defined)
     ? machine.network.forwarded_port : [] %}
 
-<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-id">
@@ -92,22 +92,25 @@
     <div class="panel panel-info">
         <div class="panel-heading">Forwarded Ports</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.vagrantfile_local.machine_forwarded_port', {'mId': uniqid}) }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, forwarded_port in forwarded_ports %}
+                    {% set blockId = "#{idBase}-network-forwarded_port-#{index}" %}
+                    {% set blockName = "#{nameBase}[network][forwarded_port][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#{{ idBase }}-network-forwarded_port-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#{{ idBase }}-network-forwarded_port-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>

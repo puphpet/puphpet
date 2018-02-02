@@ -12,7 +12,7 @@
 {% set rewrites = (location.rewrites is defined) ? location.rewrites : [] %}
 {% set location_cfg_append = (location.location_cfg_append is defined) ? location.location_cfg_append : [] %}
 
-<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-www_root">
@@ -323,7 +323,7 @@
     <div class="panel panel-success">
         <div class="panel-heading">Location Rewrites</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.nginx.location_rewrite', {
                             'vhostId': vhostId,
@@ -333,15 +333,18 @@
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, rewrite in rewrites %}
+                    {% set blockId = "#{idBase}-rewrites-#{index}" %}
+                    {% set blockName = "#{nameBase}[rewrites][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#{{ idBase }}-rewrites-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#{{ idBase }}-rewrites-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>

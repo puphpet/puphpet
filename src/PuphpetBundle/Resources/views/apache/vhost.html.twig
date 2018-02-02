@@ -16,7 +16,7 @@
 {% set directories = (vhost.directories is defined) ? vhost.directories : [] %}
 {% set files_matches = (vhost.files_match is defined) ? vhost.files_match : [] %}
 
-<div id="{{ idBase }}" data-uniqid="{{ uniqid }}"
+<div id="{{ idBase }}" data-uniqid="{{ uniqid }}" data-name="{{ nameBase }}"
      class="tab-pane {{ active is defined and active ? 'active' }}">
     <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-servername">
@@ -96,16 +96,17 @@
 
     <div class="form-group col-xs-12 col-sm-6">
         <label for="{{ idBase }}-custom_fragment">
-            Virtual Host-Level Custom Directives
+            Additional Settings
         </label>
-        <input type="text" id="{{ idBase }}-custom_fragment"
-               name="{{ nameBase }}[custom_fragment]"
-               placeholder="/path/to/file" class="form-control"
-               value="{{ vhost.custom_fragment }}" />
+        <select id="{{ idBase }}-custom_fragment"
+                name="{{ nameBase }}[custom_fragment][]"
+                multiple class="form-control select-tags-editable">
+            {% for rule in custom_fragment %}
+                <option selected value="{{ rule }}">{{ rule }}</option>
+            {% endfor %}
+        </select>
         <div class="help-block">
-            File must exist inside VM on initial <code>$ vagrant up</code>!
-            <a href="https://gist.github.com/jtreminio/bcb78ccb97978a2cbd9e#file-gistfile1-apacheconf-L48"
-               target="_blank">The custom fragment would be added here.</a>
+            Additional rules, separated by comma.
         </div>
     </div>
 
@@ -116,7 +117,7 @@
     <div class="panel panel-info">
         <div class="panel-heading">SSL Options</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="{% if ssl_letsencrypt_enabled or not ssl %}active{% endif %}">
                     <a href="#" data-target="#{{ idBase }}-ssl-letsencrypt-container"
                        data-toggle="tab">Let's Encrypt SSL</a>
@@ -334,12 +335,12 @@
     <div class="panel panel-info">
         <div class="panel-heading">Virtual Host Directory/Location/Files Directives</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs dropdown">
+            <ul class="nav nav-tabs nested-tabs sortable dropdown">
                 <li class="add">
-                    <a href="#" data-toggle="dropdown" id="{{ idBase }}-downDownMenu">
+                    <a href="#" data-toggle="dropdown" id="{{ idBase }}-dropDownMenu">
                         Add <span class="caret"></span></a>
 
-                    <ul class="dropdown-menu" aria-labelledby="{{ idBase }}-downDownMenu">
+                    <ul class="dropdown-menu" aria-labelledby="{{ idBase }}-dropDownMenu">
                         <li><a href="{{ path('puphpet.apache.directory', {
                                     'vhostId': uniqid,
                                 }) }}"
@@ -387,15 +388,18 @@
                     </ul>
                 </li>
                 {% for index, directory in directories %}
+                    {% set blockId = "#{idBase}-directories-#{index}" %}
+                    {% set blockName = "#{nameBase}[directories][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#{{ idBase }}-directories-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#{{ idBase }}-directories-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>

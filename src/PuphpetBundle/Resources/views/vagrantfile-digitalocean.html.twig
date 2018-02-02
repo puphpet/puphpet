@@ -118,22 +118,25 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Machines</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.vagrantfile_digitalocean.machine') }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, machine in machines %}
+                    {% set blockId = "vagrantfile-vm-provider-digitalocean-machines-#{index}" %}
+                    {% set blockName = "vagrantfile[vm][provider][digitalocean][machines][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#vagrantfile-vm-provider-digitalocean-machines-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#vagrantfile-vm-provider-digitalocean-machines-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>
@@ -161,22 +164,25 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Shared Folders</div>
         <div class="panel-body">
-            <ul class="nav nav-tabs nested-tabs">
+            <ul class="nav nav-tabs nested-tabs sortable">
                 <li class="add">
                     <a href="{{ path('puphpet.vagrantfile_digitalocean.synced_folder') }}"
                        data-toggle="add-block">
                         <i class="fa fa-plus"></i> Add</a>
                 </li>
                 {% for index, synced_folder in data.vm.synced_folder %}
+                    {% set blockId = "vagrantfile-vm-provider-digitalocean-synced_folder-#{index}" %}
+                    {% set blockName = "vagrantfile[vm][provider][digitalocean][synced_folder][#{index}]" %}
                     <li class="{{ loop.first ? 'active' }}">
-                        <a href="#" data-target="#vagrantfile-vm-provider-digitalocean-synced_folder-{{ index }}"
+                        <a href="#" data-target="#{{ blockId }}"
                            data-toggle="tab">{{ index }}</a>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default"
                                     data-toggle="delete-block"
-                                    data-target="#vagrantfile-vm-provider-digitalocean-synced_folder-{{ index }}">
+                                    data-target="#{{ blockId }}">
                                 <i class="fa fa-close"></i></button>
                         </div>
+                        <input type="hidden" name="{{ blockName }}" value="1" />
                     </li>
                 {% endfor %}
             </ul>
