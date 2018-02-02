@@ -234,7 +234,6 @@
                 <li class="active"><a href="#composer-tab" data-toggle="tab">Composer</a></li>
                 <li><a href="#xdebug-tab" data-toggle="tab">Xdebug</a></li>
                 <li><a href="#blackfire-tab" data-toggle="tab">Blackfire</a></li>
-                <li><a href="#xhprof-tab" data-toggle="tab">Xhprof</a></li>
                 <li><a href="#wpcli-tab" data-toggle="tab">WP CLI</a></li>
                 <li><a href="#drush-tab" data-toggle="tab">Drush</a></li>
             </ul>
@@ -292,24 +291,6 @@
                     <div id="blackfire-container"
                          class="collapse {% if blackfire.install %}in{% endif %}">
                         {% include 'PuphpetBundle::blackfire.html.twig' with { 'blackfire': blackfire } %}
-                    </div>
-                </div>
-                <div class="tab-pane" id="xhprof-tab">
-                    <div class="checkbox checkbox-md no-padding mb-20">
-                        <input type="hidden" name="xhprof[install]" value="0" />
-
-                        <input type="checkbox" id="xhprof-install"
-                               name="xhprof[install]"
-                               value="1"
-                               {% if xhprof.install %}checked{% endif %}
-                               data-toggle="checkbox-collapse"
-                               data-target="#xhprof-container" />
-                        <label for="xhprof-install">Install XHProf</label>
-                    </div>
-
-                    <div id="xhprof-container"
-                         class="collapse {% if xhprof.install %}in{% endif %}">
-                        {% include 'PuphpetBundle::xhprof.html.twig' with { 'xhprof': xhprof } %}
                     </div>
                 </div>
                 <div class="tab-pane" id="wpcli-tab">

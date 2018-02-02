@@ -27,7 +27,6 @@ services:
             - [ addExtension, [ 'php' ] ]
             - [ addExtension, [ 'xdebug' ] ]
             - [ addExtension, [ 'blackfire' ] ]
-            - [ addExtension, [ 'xhprof' ] ]
             - [ addExtension, [ 'wpcli' ] ]
             - [ addExtension, [ 'drush' ] ]
             - [ addExtension, [ 'ruby' ] ]
