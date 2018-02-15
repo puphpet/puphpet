@@ -42,8 +42,8 @@ Eventually PuPHPet will be good enough to help create production-ready servers!
 
 ## Requirements ##
 
-To run PuPHPet-generated manifests, you'll need to install [Vagrant](http://downloads.vagrantup.com/) version 1.8.6 or
-greater. Vagrant will run on Windows, OS X and Linux.
+To run PuPHPet-generated manifests, you'll need to install [Vagrant](https://www.vagrantup.com/downloads.html)
+version 2.0.0 or greater. Vagrant will run on Windows, OS X and Linux.
 
 ## Contribution ##
 
