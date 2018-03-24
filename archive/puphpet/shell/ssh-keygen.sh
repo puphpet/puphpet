@@ -30,8 +30,13 @@ if [[ ! -f "${PUPHPET_STATE_DIR}/install-putty-tools" ]]; then
     if [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
         apt-get update
         apt-get -y install putty-tools
-        touch "${PUPHPET_STATE_DIR}/install-putty-tools"
     fi
+
+    if [[ "${OS}" == 'centos' ]]; then
+        yum -y install putty
+    fi
+
+    touch "${PUPHPET_STATE_DIR}/install-putty-tools"
 fi
 
 create_key 'root_id_rsa'
