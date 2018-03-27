@@ -15,13 +15,13 @@
     </div>
 
     <div class="form-group col-xs-12 col-sm-6">
-        <label for="{{ idBase }}-collate">
-            DB Encoding
+        <label for="{{ idBase }}-charset">
+            DB Charset
         </label>
-        <input type="text" id="{{ idBase }}-collate"
-               name="{{ nameBase }}[collate]"
-               placeholder="utf8_general_ci" class="form-control"
-               value="{{ database.collate }}" />
+        <input type="text" id="{{ idBase }}-charset"
+               name="{{ nameBase }}[charset]"
+               placeholder="utf8" class="form-control"
+               value="{{ database.charset }}" />
     </div>
 
     <div class="clearfix"></div>
@@ -38,5 +38,15 @@
             Optional. Make sure this file is inside the VM,
             or is inside a shared folder before running <code>$ vagrant up</code>
         </div>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-6">
+        <label for="{{ idBase }}-collate">
+            DB Collation
+        </label>
+        <input type="text" id="{{ idBase }}-collate"
+               name="{{ nameBase }}[collate]"
+               placeholder="utf8_general_ci" class="form-control"
+               value="{{ database.collate }}"/>
     </div>
 </div>
