@@ -14,9 +14,15 @@ class ArchiveTest extends Unit\BaseTest
 
     public function setUp()
     {
-        $this->archive = $this->getMockBuilder(Archive::class)
+        $this->mock_archive = $this->getMockBuilder(Archive::class)
             ->setMethods(['exec', 'unlink', 'file_put_contents'])
             ->getMock();
+        $this->archive = new Archive;
+    }
+
+    public function testgetSourceDir()
+    {
+        $this->assertFileExists($this->archive->getSourceDir());
     }
 
     public function testQueueToFileReturnsFalseOnNoEmptyFilename()
@@ -61,6 +67,16 @@ class ArchiveTest extends Unit\BaseTest
         $this->assertEquals($expectedArrayCount, count($this->archive->getFilesToWrite()));
     }
 
+    public function testQueueToFileDoesntStoreEmptyFileData()
+    {
+        $emptyfile = [
+            'name'    => '',
+            'content' => NULL
+        ];
+
+        $this->assertFalse($this->archive->queueToFile($emptyfile['name'], $emptyfile['content']));
+    }
+
     public function testWriteCalledFilePutContentsCorrectNumberOfTimes()
     {
         $file1 = [
@@ -76,14 +92,14 @@ class ArchiveTest extends Unit\BaseTest
             'content' => 'file3 content'
         ];
 
-        $this->archive->expects($this->exactly(3))
+        $this->mock_archive->expects($this->exactly(3))
             ->method('file_put_contents');
 
-        $this->archive->queueToFile($file1['name'], $file1['content']);
-        $this->archive->queueToFile($file2['name'], $file2['content']);
-        $this->archive->queueToFile($file3['name'], $file3['content']);
+        $this->mock_archive->queueToFile($file1['name'], $file1['content']);
+        $this->mock_archive->queueToFile($file2['name'], $file2['content']);
+        $this->mock_archive->queueToFile($file3['name'], $file3['content']);
 
-        $this->archive->write();
+        $this->mock_archive->write();
     }
 
     public function testZipReturnsAZipFileLocation()
@@ -101,16 +117,16 @@ class ArchiveTest extends Unit\BaseTest
             'content' => 'file3 content'
         ];
 
-        $this->archive->expects($this->exactly(3))
+        $this->mock_archive->expects($this->exactly(3))
             ->method('file_put_contents');
 
-        $this->archive->expects($this->once())
+        $this->mock_archive->expects($this->once())
             ->method('exec');
 
         $targetDir = '/tmp/foobar';
         $baseDir = 'foobar';
 
-        $this->setAttribute($this->archive, 'targetDir', $targetDir);
+        $this->setAttribute($this->mock_archive, 'targetDir', $targetDir);
 
         $exec = sprintf(
             Archive::ZIP_COMMAND,
@@ -119,17 +135,17 @@ class ArchiveTest extends Unit\BaseTest
             $baseDir
         );
 
-        $this->archive->expects($this->once())
+        $this->mock_archive->expects($this->once())
             ->method('exec')
             ->with($exec);
 
-        $this->archive->queueToFile($file1['name'], $file1['content']);
-        $this->archive->queueToFile($file2['name'], $file2['content']);
-        $this->archive->queueToFile($file3['name'], $file3['content']);
+        $this->mock_archive->queueToFile($file1['name'], $file1['content']);
+        $this->mock_archive->queueToFile($file2['name'], $file2['content']);
+        $this->mock_archive->queueToFile($file3['name'], $file3['content']);
 
-        $this->archive->write();
+        $this->mock_archive->write();
 
-        $returned = $this->archive->zip();
+        $returned = $this->mock_archive->zip();
 
         $this->assertEquals($targetDir . '.zip', $returned);
     }

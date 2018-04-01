@@ -135,6 +135,8 @@ class ManagerTest extends Unit\BaseTest
 
         $this->assertEquals($extOneData['defaults'], $extensionValues['defaults']);
         $this->assertEquals($extOneData['data'], $extensionValues['data']);
+        $this->assertEquals($extOneData['data'], $manager->getExtensionData('vagrantfile-local'));
+        $this->assertEquals($extOneData['available'], $manager->getExtensionAvailableData('vagrantfile-local'));
     }
 
     public function testAddExtensionMergesDataDefaultsAndAvailableData()
