@@ -10,6 +10,7 @@ machines.each do |i, machine|
     machine_id.vm.box         = 'dummy'
     machine_id.vm.hostname    = "#{machine['hostname']}"
     machine_id.nfs.functional = false
+    machine_id.vm.allowed_synced_folder_types = :rsync
 
     machine_id.vm.provider :aws do |aws, override|
       aws.access_key_id             = "#{provider['access_key_id']}"
